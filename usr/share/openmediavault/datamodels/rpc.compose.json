@@ -23,6 +23,10 @@
                     "type": "string",
                     "required": true
                 },
+                "description": {
+                    "type": "string",
+                    "required": true
+                },
                 "body": {
                     "type": "string",
                     "required": true

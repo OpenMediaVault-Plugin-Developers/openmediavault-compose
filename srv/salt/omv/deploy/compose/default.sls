@@ -23,11 +23,12 @@
 configure_compose_{{ file.name }}_file:
   file.managed:
     - name: '{{ composeFile }}'
-    - contents: |
-        {{ pillar['headers']['auto_generated'] }}
-        {{ pillar['headers']['warning'] }}
-        {{ file.body }}
-        {{ file.name }}
+    - source:
+      - salt://{{ tpldir }}/files/compose_yml.j2
+    - context:
+        file: {{ file | json }}
+        sfpath: {{ sfpath }}
+    - template: jinja
     - user: root
     - group: root
     - mode: 750

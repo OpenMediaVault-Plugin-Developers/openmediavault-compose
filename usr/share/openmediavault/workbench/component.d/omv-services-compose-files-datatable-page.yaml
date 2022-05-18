@@ -5,6 +5,7 @@ data:
   type: datatablePage
   config:
     autoReload: false
+    hasSearchField: true
     stateId: 2342fc64-d6d3-11ec-aa87-3bd4b4655482
     sorters:
       - dir: asc
@@ -17,6 +18,10 @@ data:
     columns:
       - name: _("Name")
         prop: name
+        flexGrow: 1
+        sortable: true
+      - name: _("Description")
+        prop: description
         flexGrow: 1
         sortable: true
     actions:
@@ -36,3 +41,75 @@ data:
             method: deleteFile
             params:
               uuid: "{{ _selected[0].uuid }}"
+      - type: iconButton
+        icon: mdi:check-network-outline
+        tooltip: _("check")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Check compose file for errors ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doCommand
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                  command: "config"
+      - type: iconButton
+        icon: mdi:arrow-up-circle-outline
+        tooltip: _("Up")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker-compose up -d ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doCommand
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                  command: "up -d"
+      - type: iconButton
+        icon: mdi:arrow-down-circle-outline
+        tooltip: _("down")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker-compose down ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doCommand
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                  command: "down"
+      - type: iconButton
+        icon: mdi:download-network-outline
+        tooltip: _("pull")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker-compose pull ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doCommand
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                  command: "pull"

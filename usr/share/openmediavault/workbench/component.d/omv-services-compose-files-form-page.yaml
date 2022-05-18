@@ -18,6 +18,10 @@ data:
         name: name
         label: _("Name")
         value: ""
+      - type: textInput
+        name: description
+        label: _("Description")
+        value: ""
       - type: textarea
         name: body
         label: _("File")

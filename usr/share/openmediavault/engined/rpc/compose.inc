@@ -129,6 +129,25 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->get("conf.service.compose");
+        $object = $db->get("conf.service.compose.file", $params['uuid']);
+        $sfobject = $db->get("conf.service.compose");
+        $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
+          ["uuid" => $sfobject->get("sharedfolderref")], $context);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($object, $params, $sfpath) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker-compose';
+                $cmdArgs[] = sprintf("-f '%s/%s.yml'", $sfpath, $object->get('name'));
+                $cmdArgs[] = $params['command'];
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+file_put_contents("/tmp/compose_cmd", $cmdLine . PHP_EOL, FILE_APPEND);
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
     }
 }
