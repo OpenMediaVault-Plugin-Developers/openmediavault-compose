@@ -29,7 +29,7 @@ configure_compose_{{ file.name }}_file:
         file: {{ file | json }}
     - template: jinja
     - user: root
-    - group: root
-    - mode: 750
+    - group: users
+    - mode: 644
 
 {% endfor %}

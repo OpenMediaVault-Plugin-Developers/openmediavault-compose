@@ -118,6 +118,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Delete the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
+        $sfobject = $db->get("conf.service.compose");
+        $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
+          ["uuid" => $sfobject->get("sharedfolderref")], $context);
+        $composeFile = sprintf("%s/%s.yml", $sfpath, $object->get('name'));
+        if (file_exists($composeFile)) {
+            unlink($composeFile);
+        }
         $db->delete($object);
         // Return the deleted configuration object.
         return $object->getAssoc();
@@ -142,7 +149,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-file_put_contents("/tmp/compose_cmd", $cmdLine . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
