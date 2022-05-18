@@ -27,7 +27,6 @@ configure_compose_{{ file.name }}_file:
       - salt://{{ tpldir }}/files/compose_yml.j2
     - context:
         file: {{ file | json }}
-        sfpath: {{ sfpath }}
     - template: jinja
     - user: root
     - group: root
