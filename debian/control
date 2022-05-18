@@ -1,0 +1,17 @@
+Source: openmediavault-compose
+Section: net
+XB-Plugin-Section: utilities
+Priority: optional
+Maintainer: OpenMediaVault Plugin Developers <plugins@omv-extras.org>
+Build-Depends: debhelper (>= 12 )
+Standards-Version: 3.9.6
+Homepage: http://omv-extras.org/
+
+Package: openmediavault-compose
+Architecture: all
+Depends: docker-ce | docker.io,
+         docker-ce | docker-compose,
+         openmediavault (>= 6.0),
+         ${misc:Depends}
+Description: OpenMediaVault compose plugin
+ lightweight plugin to maintain and execute docker-compose files.

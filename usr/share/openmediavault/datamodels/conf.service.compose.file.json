@@ -1,0 +1,22 @@
+{
+    "type": "config",
+    "id": "conf.service.compose.file",
+    "title": "compose file",
+    "queryinfo": {
+        "xpath": "//services/compose/files/file",
+        "iterable": true,
+        "idproperty": "uuid"
+    },
+    "properties": {
+        "uuid": {
+            "type": "string",
+            "format": "uuidv4"
+        },
+        "name": {
+            "type": "string"
+        },
+        "body": {
+            "type": "string"
+        }
+    }
+}

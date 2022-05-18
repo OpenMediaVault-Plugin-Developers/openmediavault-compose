@@ -1,0 +1,7 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose"
+  text: _("Compose")
+  icon: "mdi:playlist-music-outline"
+  url: "/services/compose"

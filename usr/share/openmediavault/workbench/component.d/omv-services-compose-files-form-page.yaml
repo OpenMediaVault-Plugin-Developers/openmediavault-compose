@@ -1,0 +1,34 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-file-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      get:
+        method: getFile
+        params:
+          uuid: "{{ _routeParams.uuid }}"
+      post:
+        method: setFile
+    fields:
+      - type: confObjUuid
+      - type: textInput
+        name: name
+        label: _("Name")
+        value: ""
+      - type: textarea
+        name: body
+        label: _("File")
+        value: ""
+        rows: 20
+    buttons:
+      - template: submit
+        execute:
+          type: url
+          url: "/services/compose/files"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/compose/files"

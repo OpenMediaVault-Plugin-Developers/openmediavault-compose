@@ -1,0 +1,38 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-files-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    stateId: 2342fc64-d6d3-11ec-aa87-3bd4b4655482
+    sorters:
+      - dir: asc
+        prop: name
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getFileList
+    columns:
+      - name: _("Name")
+        prop: name
+        flexGrow: 1
+        sortable: true
+    actions:
+      - template: create
+        execute:
+          type: url
+          url: "/services/compose/files/create"
+      - template: edit
+        execute:
+          type: url
+          url: "/services/compose/files/edit/{{ _selected[0].uuid }}"
+      - template: delete
+        execute:
+          type: request
+          request:
+            service: Compose
+            method: deleteFile
+            params:
+              uuid: "{{ _selected[0].uuid }}"

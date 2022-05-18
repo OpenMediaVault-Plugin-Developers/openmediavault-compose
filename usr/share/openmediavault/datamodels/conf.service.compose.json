@@ -1,0 +1,38 @@
+{
+    "type": "config",
+    "id": "conf.service.compose",
+    "title": "compose",
+    "queryinfo": {
+        "xpath": "//services/compose",
+        "iterable": false
+    },
+    "properties": {
+        "sharedfolderref": {
+            "type": "string",
+            "format": "uuidv4"
+        },
+        "files": {
+            "type": "object",
+            "properties": {
+                "file": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "uuid": {
+                                "type": "string",
+                                "format": "uuidv4"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "body": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

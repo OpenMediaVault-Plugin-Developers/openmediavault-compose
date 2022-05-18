@@ -1,0 +1,8 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/compose/files/edit/:uuid"
+  title: _("Edit")
+  editing: true
+  notificationTitle: _("Edit file.")
+  component: omv-services-compose-file-form-page

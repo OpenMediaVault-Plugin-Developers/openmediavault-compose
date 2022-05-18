@@ -1,0 +1,23 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-settings-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      get:
+        method: get
+      post:
+        method: set
+    fields:
+      - type: sharedFolderSelect
+        name: sharedfolderref
+        label: _("Shared folder")
+        hint: _("The location of compose files.")
+    buttons:
+      - template: submit
+      - template: cancel
+        execute:
+          type: url
+          url: "/services"

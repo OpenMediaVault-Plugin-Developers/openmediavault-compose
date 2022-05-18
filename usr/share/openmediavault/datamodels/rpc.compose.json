@@ -1,0 +1,33 @@
+[
+    {
+        "type": "rpc",
+        "id": "rpc.compose.set",
+        "params": {
+            "type": "object",
+            "properties": {
+                "sharedfolderref": {
+                    "type": "string",
+                    "format": "uuidv4",
+                    "required": true
+                }
+            }
+        }
+    },
+    {
+        "type": "rpc",
+        "id": "rpc.compose.setfile",
+        "params": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "required": true
+                },
+                "body": {
+                    "type": "string",
+                    "required": true
+                }
+            }
+        }
+    }
+]

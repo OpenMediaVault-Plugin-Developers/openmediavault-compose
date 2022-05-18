@@ -1,0 +1,5 @@
+openmediavault-compose (6.0) stable; urgency=low
+
+  * Initial release
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 23 Nov 2021 07:11:29 -0600

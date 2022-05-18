@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.files"
+  text: _("Files")
+  position: 20
+  icon: mdi:file-document-outline
+  url: "/services/compose/files"
