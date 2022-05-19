@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
+{% if config.sharedfolderref | length > 0 %}
 {% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref) %}
 {% for file in config.files.file %}
 {% set composeFile = sfpath ~ '/' ~ file.name ~ '.yml' %}
@@ -33,3 +34,9 @@ configure_compose_{{ file.name }}_file:
     - mode: 644
 
 {% endfor %}
+{% endif %}
+
+remove_compose_dummy:
+  file.absent:
+    - name: "/etc/openmediavault-compose.dummy"
+

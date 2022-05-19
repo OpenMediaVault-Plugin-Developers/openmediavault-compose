@@ -61,7 +61,7 @@ data:
                   command: "config"
       - type: iconButton
         icon: mdi:arrow-up-circle-outline
-        tooltip: _("Up")
+        tooltip: _("up")
         enabledConstraints:
           minSelected: 1
           maxSelected: 1

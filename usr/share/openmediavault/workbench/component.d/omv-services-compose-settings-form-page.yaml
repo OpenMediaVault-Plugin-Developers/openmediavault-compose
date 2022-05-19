@@ -14,6 +14,7 @@ data:
       - type: sharedFolderSelect
         name: sharedfolderref
         label: _("Shared folder")
+        hasEmptyOption: true
         hint: _("The location of compose files.")
     buttons:
       - template: submit
