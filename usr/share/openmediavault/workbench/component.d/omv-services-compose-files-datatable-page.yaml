@@ -113,3 +113,21 @@ data:
                 params:
                   uuid: "{{ _selected[0].uuid }}"
                   command: "pull"
+      - type: iconButton
+        icon: mdi:list-status
+        tooltip: _("ps")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker-compose ps ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doCommand
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                  command: "ps"
