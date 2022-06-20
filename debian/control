@@ -11,7 +11,7 @@ Package: openmediavault-compose
 Architecture: all
 Depends: docker-ce | docker.io,
          docker-ce | docker-compose,
-         openmediavault (>= 6.0),
+         openmediavault (>= 6.0.30),
          ${misc:Depends}
 Description: OpenMediaVault compose plugin
  lightweight plugin to maintain and execute docker-compose files.
