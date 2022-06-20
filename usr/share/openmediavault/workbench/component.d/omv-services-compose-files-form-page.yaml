@@ -22,11 +22,11 @@ data:
         name: description
         label: _("Description")
         value: ""
-      - type: textarea
+      - type: codeEditor
         name: body
         label: _("File")
         value: ""
-        rows: 20
+        language: "yaml"
     buttons:
       - template: submit
         execute:
