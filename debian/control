@@ -10,7 +10,7 @@ Homepage: http://omv-extras.org/
 Package: openmediavault-compose
 Architecture: all
 Depends: docker-ce | docker.io,
-         docker-ce | docker-compose,
+         docker-compose-plugin | docker-compose,
          openmediavault (>= 6.0.30),
          ${misc:Depends}
 Description: OpenMediaVault compose plugin
