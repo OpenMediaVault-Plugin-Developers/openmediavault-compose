@@ -94,12 +94,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.setfile");
+        // Verify that shared folder is set
+        $db = \OMV\Config\Database::getInstance();
+        $sfobject = $db->get("conf.service.compose");
+        if (!is_uuid($sfobject->get("sharedfolderref"))) {
+            throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $object->setAssoc($params);
         // Set the configuration object.
         $isNew = $object->isNew();
-        $db = \OMV\Config\Database::getInstance();
         if (TRUE === $isNew) {
             // Check uniqueness - name
             $db->assertIsUnique($object, "name");
@@ -115,12 +120,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.common.objectuuid");
-        // Delete the configuration object.
+        // Verify that shared folder is set
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->get("conf.service.compose.file", $params['uuid']);
         $sfobject = $db->get("conf.service.compose");
+        $sfref = $sfobject->get("sharedfolderref");
+        if (!is_uuid($sfref)) {
+            throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
+        // Delete the configuration object.
+        $object = $db->get("conf.service.compose.file", $params['uuid']);
         $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
-          ["uuid" => $sfobject->get("sharedfolderref")], $context);
+          ["uuid" => $sfref], $context);
         $composeFile = sprintf("%s/%s.yml", $sfpath, $object->get('name'));
         if (file_exists($composeFile)) {
             unlink($composeFile);
@@ -138,8 +148,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
         $sfobject = $db->get("conf.service.compose");
+        $sfref = $sfobject->get("sharedfolderref");
+        if (!is_uuid($sfref)) {
+            throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
         $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
-          ["uuid" => $sfobject->get("sharedfolderref")], $context);
+          ["uuid" => $sfref], $context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($object, $params, $sfpath) {
                 $cmdArgs = [];

@@ -1,3 +1,9 @@
+openmediavault-compose (6.0.3) stable; urgency=low
+
+  * Verify that shared folder is set
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 12 Jul 2022 17:39:52 -0500
+
 openmediavault-compose (6.0.2) stable; urgency=low
 
   * Change dependency to use docker-compose-plugin
