@@ -19,13 +19,35 @@
 {% if config.sharedfolderref | length > 0 %}
 {% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref) %}
 {% for file in config.files.file %}
-{% set composeFile = sfpath ~ '/' ~ file.name ~ '.yml' %}
+{% set composeDir = sfpath ~ file.name %}
+{% set composeFile = composeDir ~ '/' ~ file.name ~ '.yml' %}
+{% set envFile = composeDir ~ '/' ~ file.name ~ '.env' %}
+
+configure_compose_dir_{{ file.name }}:
+  file.directory:
+    - name: "{{ composeDir }}"
+    - user: root
+    - group: root
+    - mode: 755
+    - makedirs: True
 
 configure_compose_{{ file.name }}_file:
   file.managed:
     - name: '{{ composeFile }}'
     - source:
       - salt://{{ tpldir }}/files/compose_yml.j2
+    - context:
+        file: {{ file | json }}
+    - template: jinja
+    - user: root
+    - group: users
+    - mode: 644
+
+configure_compose_env_{{ file.name }}_file:
+  file.managed:
+    - name: '{{ envFile }}'
+    - source:
+      - salt://{{ tpldir }}/files/compose_env_yml.j2
     - context:
         file: {{ file | json }}
     - template: jinja

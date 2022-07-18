@@ -131,9 +131,19 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object = $db->get("conf.service.compose.file", $params['uuid']);
         $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
           ["uuid" => $sfref], $context);
-        $composeFile = sprintf("%s/%s.yml", $sfpath, $object->get('name'));
+        $cname = $object->get('name');
+        $composeDir = sprintf("%s/%s", $sfpath, $cname);
+        $composeName = sprintf("%s/%s", $composeDir, $cname);
+        $composeFile = sprintf("%s.yml", $composeName);
+        $envFile = sprintf("%s.env", $composeName);
         if (file_exists($composeFile)) {
             unlink($composeFile);
+        }
+        if (file_exists($envFile)) {
+            unlink($envFile);
+        }
+        if (file_exists($composeDir)) {
+            rmdir($composeDir);
         }
         $db->delete($object);
         // Return the deleted configuration object.
@@ -156,9 +166,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
           ["uuid" => $sfref], $context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($object, $params, $sfpath) {
+                $cname = $object->get('name');
+                $composeName = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker-compose';
-                $cmdArgs[] = sprintf("-f '%s/%s.yml'", $sfpath, $object->get('name'));
+                $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
+                $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
                 $cmdArgs[] = $params['command'];
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();

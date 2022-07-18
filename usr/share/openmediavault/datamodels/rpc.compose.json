@@ -39,6 +39,10 @@
                 "body": {
                     "type": "string",
                     "required": true
+                },
+                "env": {
+                    "type": "string",
+                    "required": true
                 }
             }
         }

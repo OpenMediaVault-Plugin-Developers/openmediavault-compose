@@ -40,6 +40,9 @@
                             },
                             "body": {
                                 "type": "string"
+                            },
+                            "env": {
+                                "type": "string"
                             }
                         }
                     }
