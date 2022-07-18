@@ -1,0 +1,38 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-file-example-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      post:
+        method: setExample
+    fields:
+      - type: select
+        name: example
+        label: _("Example")
+        valueField: name
+        textField: description
+        store:
+          proxy:
+            service: Compose
+            get:
+              method: getExampleList
+      - type: textInput
+        name: name
+        label: _("Name")
+        value: ""
+      - type: textInput
+        name: description
+        label: _("Description")
+        value: ""
+    buttons:
+      - template: submit
+        execute:
+          type: url
+          url: "/services/compose/files"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/compose/files"

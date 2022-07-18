@@ -29,6 +29,12 @@ data:
         execute:
           type: url
           url: "/services/compose/files/create"
+      - type: iconButton
+        icon: mdi:plus-outline
+        tooltip: _("Add from Example")
+        execute:
+          type: url
+          url: "/services/compose/files/example"
       - template: edit
         execute:
           type: url

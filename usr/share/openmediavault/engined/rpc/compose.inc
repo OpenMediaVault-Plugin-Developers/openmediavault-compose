@@ -32,6 +32,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
         $this->registerMethod("doCommand");
+
+        $this->registerMethod("getExampleList");
+        $this->registerMethod("setExample");
     }
 
     public function get($params, $context)
@@ -182,5 +185,53 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 return $output;
             }
         );
+    }
+
+    public function getExampleList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Download example list
+        $list = file_get_contents("https://omv-extras.org/testing/test.json");
+        $listJson = json_decode($list, true);
+        // create list
+        $objects = [];
+        foreach ($listJson as $image) {
+            $objects[] = [
+                "name" => $image['name'],
+                "description" => sprintf("%s - %s", $image['name'], $image['description'])
+            ];
+        }
+        // Filter the result.
+        return ($objects);
+    }
+
+    public function setExample($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+//        $this->validateMethodParams($params, "rpc.compose.setfile");
+        // Verify that shared folder is set
+        $db = \OMV\Config\Database::getInstance();
+        $sfobject = $db->get("conf.service.compose");
+        if (!is_uuid($sfobject->get("sharedfolderref"))) {
+            throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
+        // Prepare the configuration object.
+        $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+        $url = "https://omv-extras.org/testing";
+        $body = file_get_contents(sprintf("%s/%s.yml", $url, $params['example']));
+        $env = file_get_contents(sprintf("%s/%s.env", $url, $params['example']));
+        // set object values
+        $object->set('name',$params['name']);
+        $object->set('description',$params['description']);
+        $object->set('body',$body);
+        $object->set('env',$env);
+        // Set the configuration object.
+        $db->assertIsUnique($object, "name");
+        $db->set($object);
+        // Return the configuration object.
+        return $object->getAssoc();
     }
 }

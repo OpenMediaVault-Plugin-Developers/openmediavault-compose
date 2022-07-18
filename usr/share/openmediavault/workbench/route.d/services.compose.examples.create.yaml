@@ -1,0 +1,7 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/compose/files/example"
+  title: _("Create from example")
+  notificationTitle: _("Created file.")
+  component: omv-services-compose-file-example-form-page
