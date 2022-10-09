@@ -18,6 +18,8 @@
 
 class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 {
+    private $url = "https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/compose-files";
+
     public function getName()
     {
         return "Compose";
@@ -192,7 +194,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Download example list
-        $list = file_get_contents("https://omv-extras.org/testing/test.json");
+        $listUrl = sprintf("%s/list.json", $this->url);
+        $list = file_get_contents($listUrl);
         $listJson = json_decode($list, true);
         // create list
         $objects = [];
@@ -220,14 +223,15 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
-        $url = "https://omv-extras.org/testing";
-        $body = file_get_contents(sprintf("%s/%s.yml", $url, $params['example']));
-        $env = file_get_contents(sprintf("%s/%s.env", $url, $params['example']));
+        $name = $params['example'];
+        $url = sprintf("%s/%s/%s", $this->url, $name, $name);
+        $body = file_get_contents(sprintf("%s.yml", $url));
+        $env = file_get_contents(sprintf("%s.env", $url));
         // set object values
-        $object->set('name',$params['name']);
-        $object->set('description',$params['description']);
-        $object->set('body',$body);
-        $object->set('env',$env);
+        $object->set('name', $params['name']);
+        $object->set('description', $params['description']);
+        $object->set('body', $body);
+        $object->set('env', $env);
         // Set the configuration object.
         $db->assertIsUnique($object, "name");
         $db->set($object);

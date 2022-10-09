@@ -1,8 +1,8 @@
-openmediavault-compose (6.1) UNRELEASED; urgency=medium
+openmediavault-compose (6.1) stable; urgency=low
 
   * Add Create from Example button
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 18 Jul 2022 17:24:36 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 09 Oct 2022 13:00:58 -0500
 
 openmediavault-compose (6.0.4) stable; urgency=low
 
