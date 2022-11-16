@@ -34,6 +34,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
         $this->registerMethod("doCommand");
+        $this->registerMethod("doPrune");
 
         $this->registerMethod("getExampleList");
         $this->registerMethod("setExample");
@@ -178,6 +179,29 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
                 $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
                 $cmdArgs[] = $params['command'];
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function doPrune($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.doprune");
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = $params['command'];
+                $cmdArgs[] = '-f';
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();

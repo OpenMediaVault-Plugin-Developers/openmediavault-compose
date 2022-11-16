@@ -137,3 +137,72 @@ data:
                 params:
                   uuid: "{{ _selected[0].uuid }}"
                   command: "ps"
+      - type: menu
+        icon: mdi:content-cut
+        tooltip: _("Prune")
+        actions:
+          - text: _("System")
+            icon: mdi:scissors-cutting
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker system prune ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doPrune
+                    params:
+                      command: "system prune"
+          - text: _("Image")
+            icon: mdi:image-minus-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker image prune ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doPrune
+                    params:
+                      command: "image prune"
+          - text: _("Container")
+            icon: mdi:card-minus-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker container prune ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doPrune
+                    params:
+                      command: "container prune"
+          - text: _("Volume")
+            icon: mdi:database-minus-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker volume prune ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doPrune
+                    params:
+                      command: "volume prune"
+          - text: _("Network")
+            icon: mdi:minus-network-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker network prune ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doPrune
+                    params:
+                      command: "network prune"

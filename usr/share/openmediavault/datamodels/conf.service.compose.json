@@ -1,53 +1,53 @@
 {
-    "type": "config",
-    "id": "conf.service.compose",
-    "title": "compose",
-    "queryinfo": {
-        "xpath": "//services/compose",
-        "iterable": false
-    },
-    "properties": {
-        "sharedfolderref": {
-            "type": "string",
-            "oneOf": [
-                {
-                    "type": "string",
-                    "format": "uuidv4"
-                },
-                {
-                    "type": "string",
-                    "maxLength": 0
-                }
-            ]
+  "type": "config",
+  "id": "conf.service.compose",
+  "title": "compose",
+  "queryinfo": {
+    "xpath": "//services/compose",
+    "iterable": false
+  },
+  "properties": {
+    "sharedfolderref": {
+      "type": "string",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uuidv4"
         },
-        "files": {
+        {
+          "type": "string",
+          "maxLength": 0
+        }
+      ]
+    },
+    "files": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "array",
+          "items": {
             "type": "object",
             "properties": {
-                "file": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "uuid": {
-                                "type": "string",
-                                "format": "uuidv4"
-                            },
-                            "name": {
-                                "type": "string"
-                            },
-                            "description": {
-                                "type": "string"
-                            },
-                            "body": {
-                                "type": "string"
-                            },
-                            "env": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
+              "uuid": {
+                "type": "string",
+                "format": "uuidv4"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "env": {
+                "type": "string"
+              }
             }
+          }
         }
+      }
     }
+  }
 }

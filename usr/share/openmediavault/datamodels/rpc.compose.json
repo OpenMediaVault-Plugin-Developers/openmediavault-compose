@@ -1,50 +1,70 @@
 [
-    {
-        "type": "rpc",
-        "id": "rpc.compose.set",
-        "params": {
-            "type": "object",
-            "properties": {
-                "sharedfolderref": {
-                    "type": "string",
-                    "oneOf": [
-                        {
-                            "type": "string",
-                            "format": "uuidv4"
-                        },
-                        {
-                            "type": "string",
-                            "maxLength": 0
-                        }
-                    ],
-                    "required": true
-                }
+  {
+    "type": "rpc",
+    "id": "rpc.compose.set",
+    "params": {
+      "type": "object",
+      "properties": {
+        "sharedfolderref": {
+          "type": "string",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uuidv4"
+            },
+            {
+              "type": "string",
+              "maxLength": 0
             }
+          ],
+          "required": true
         }
-    },
-    {
-        "type": "rpc",
-        "id": "rpc.compose.setfile",
-        "params": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "required": true
-                },
-                "description": {
-                    "type": "string",
-                    "required": true
-                },
-                "body": {
-                    "type": "string",
-                    "required": true
-                },
-                "env": {
-                    "type": "string",
-                    "required": true
-                }
-            }
-        }
+      }
     }
+  },
+  {
+    "type": "rpc",
+    "id": "rpc.compose.setfile",
+    "params": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "string",
+          "required": true
+        },
+        "body": {
+          "type": "string",
+          "required": true
+        },
+        "env": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  {
+    "type": "rpc",
+    "id": "rpc.compose.doprune",
+    "params": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "enum": [
+            "system prune",
+            "image prune",
+            "container prune",
+            "volume prune",
+            "network prune"
+          ],
+          "required": true
+        }
+      }
+    }
+  }
 ]
