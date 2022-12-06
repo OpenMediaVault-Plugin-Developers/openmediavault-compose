@@ -1,3 +1,9 @@
+openmediavault-compose (6.2) stable; urgency=low
+
+  * Add autocompose to create compose files from running containers
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 05 Dec 2022 18:59:35 -0600
+
 openmediavault-compose (6.1.1) stable; urgency=low
 
   * Add prune menu
