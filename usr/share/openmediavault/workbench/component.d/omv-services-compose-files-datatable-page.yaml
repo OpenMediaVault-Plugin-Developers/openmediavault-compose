@@ -35,6 +35,49 @@ data:
         execute:
           type: url
           url: "/services/compose/files/example"
+      - type: iconButton
+        icon: mdi:file-document-plus-outline
+        tooltip: _("Autocompose")
+        execute:
+          type: formDialog
+          formDialog:
+            title: _('Create new compose file from running container ...')
+            fields:
+              - type: select
+                name: container
+                label: _('Container')
+                textField: desc
+                valueField: name
+                value: 'Create new disk'
+                store:
+                  proxy:
+                    service: Compose
+                    get:
+                      method: enumerateContainers
+              - type: textInput
+                name: name
+                label: _("Name")
+              - type: textInput
+                name: description
+                label: _("Description")
+              - type: select
+                name: version
+                label: _("Version")
+                value: "3"
+                store:
+                  data:
+                    - ["1", "1"]
+                    - ["2", "2"]
+                    - ["3", "3"]
+                hint: _("docker-compose file version")
+            buttons:
+              submit:
+                text: _('Create')
+                execute:
+                  type: request
+                  request:
+                    service: Compose
+                    method: doAutocompose
       - template: edit
         execute:
           type: url

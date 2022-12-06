@@ -38,6 +38,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
         $this->registerMethod("getExampleList");
         $this->registerMethod("setExample");
+
+        $this->registerMethod("enumerateContainers");
+        $this->registerMethod("doAutocompose");
     }
 
     public function get($params, $context)
@@ -258,6 +261,65 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object->set('env', $env);
         // Set the configuration object.
         $db->assertIsUnique($object, "name");
+        $db->set($object);
+        // Return the configuration object.
+        return $object->getAssoc();
+    }
+
+    public function enumerateContainers($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Get running containers
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'container';
+        $cmdArgs[] = 'ls';
+        $cmdArgs[] = '--format "{{.Names}},{{.Image}}"';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        $objects = [];
+        foreach ($output as $line) {
+            $cntr = explode(',', $line);
+            $objects[] = [
+                'desc' => sprintf('%s (%s)', trim($cntr[0]), trim($cntr[1])),
+                'name' => trim($cntr[0])
+            ];
+        }
+        return ($objects);
+    }
+
+    public function doAutocompose($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+//        $this->validateMethodParams($params, "rpc.compose.setfile");
+        // Verify that shared folder is set
+        $db = \OMV\Config\Database::getInstance();
+        $sfobject = $db->get("conf.service.compose");
+        if (!is_uuid($sfobject->get("sharedfolderref"))) {
+            throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
+        // Get running containers
+        $cmdArgs = [];
+        $cmdArgs[] = 'python3';
+        $cmdArgs[] = '/usr/bin/autocompose.py';
+        $cmdArgs[] = sprintf('-v %s', $params['version']);
+        $cmdArgs[] = $params['container'];
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        // Prepare the configuration object.
+        $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+        // set object values
+        $object->set('name', $params['name']);
+        $object->set('description', $params['description']);
+        $object->set('body', trim(implode(PHP_EOL, $output)));
+        $object->set('env', '');
+        // Set the configuration object.
+        $db->assertIsUnique($object, 'name');
         $db->set($object);
         // Return the configuration object.
         return $object->getAssoc();
