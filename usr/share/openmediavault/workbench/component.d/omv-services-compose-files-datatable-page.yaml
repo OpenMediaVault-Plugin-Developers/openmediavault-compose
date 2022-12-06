@@ -249,3 +249,12 @@ data:
                     method: doPrune
                     params:
                       command: "network prune"
+      - type: menu
+        icon: mdi:link
+        tooltip: _("Docs")
+        actions:
+          - text: _("omv-extras wiki")
+            icon: mdi:link-box
+            execute:
+              type: url
+              url: '/externalRedirect/https%3A%2F%2Fwiki.omv-extras.org%2Fdoku.php%3Fid%3Domv6%3Aomv6_plugins%3Acompose%0A'
