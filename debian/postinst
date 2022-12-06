@@ -16,6 +16,17 @@ case "$1" in
         if [ -n "$2" ]; then
             omv-confdbadm migrate "conf.service.compose" "${2}"
         fi
+
+        # download autocompose
+        acdir="/usr/bin"
+        ac="autocompose.py"
+        acpath="${acdir}/${ac}"
+        url="https://github.com/Red5d/docker-autocompose/raw/master/${ac}"
+        find ${acdir} -type f -mtime +31 -name ${ac} -ls -delete
+        if [ ! -f "${acpath}" ]; then
+            wget "${url}" -O "${acpath}"
+        fi
+        chmod +x "${acpath}"
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
