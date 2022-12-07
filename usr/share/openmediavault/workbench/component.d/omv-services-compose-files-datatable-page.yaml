@@ -78,6 +78,32 @@ data:
                   request:
                     service: Compose
                     method: doAutocompose
+      - type: iconButton
+        icon: mdi:file-import-outline
+        tooltip: _("Import")
+        execute:
+          type: formDialog
+          formDialog:
+            title: _('Import existing compose folders ...')
+            fields:
+              - type: hidden
+                name: rootfsref
+                value: "79684322-3eac-11ea-a974-63a080abab18"
+                submitValue: false
+              - type: folderBrowser
+                name: path
+                label: _("Path")
+                value: ''
+                dirType: mntent
+                dirRefIdField: rootfsref
+            buttons:
+              submit:
+                text: _('Create')
+                execute:
+                  type: request
+                  request:
+                    service: Compose
+                    method: importExistingFolder
       - template: edit
         execute:
           type: url

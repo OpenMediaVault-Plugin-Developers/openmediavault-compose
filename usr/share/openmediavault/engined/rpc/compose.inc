@@ -41,6 +41,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
         $this->registerMethod("enumerateContainers");
         $this->registerMethod("doAutocompose");
+
+        $this->registerMethod("importExistingFolder");
     }
 
     public function get($params, $context)
@@ -323,5 +325,44 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db->set($object);
         // Return the configuration object.
         return $object->getAssoc();
+    }
+
+    public function importExistingFolder($params, $context)
+    {
+        // Verify that shared folder is set
+        $db = \OMV\Config\Database::getInstance();
+        $path = $params['path'];
+        $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
+        $dirs = array_diff(scandir($path), ["..", "."]);
+        foreach ($dirs as $dir) {
+            $full = sprintf('%s/%s', $path, $dir);
+            if (!is_dir($full)) {
+                continue;
+            }
+            $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+            $bodyFile = sprintf('%s/%s.yml', $full, $dir);
+            if (!file_exists($bodyFile)) {
+                continue;
+            }
+            $body = file_get_contents(sprintf("%s/%s.yml", $full, $dir));
+            $envFile = sprintf('%s/%s.env', $full, $dir);
+            if (file_exists($bodyFile)) {
+                $env = file_get_contents(sprintf("%s/%s.env", $full, $dir));
+            } else {
+                $env = '';
+            }
+            // set object values
+            $object->set('name', $dir);
+            $object->set('description', 'imported ' . date("Y.m.d H:i"));
+            $object->set('body', $body);
+            $object->set('env', $env);
+            // Set the configuration object.
+            try {
+                $db->assertIsUnique($object, 'name');
+            } catch (Exception $e) {
+                continue;
+            }
+            $db->set($object);
+        }
     }
 }
