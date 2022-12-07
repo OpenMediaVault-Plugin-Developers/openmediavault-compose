@@ -12,6 +12,7 @@ Architecture: all
 Depends: docker-ce | docker.io,
          docker-compose-plugin | docker-compose,
          openmediavault (>= 6.1),
+         openmediavault-sharerootfs,
          python3-pretty-yaml,
          ${misc:Depends}
 Description: OpenMediaVault compose plugin
