@@ -38,7 +38,7 @@ data:
           type: request
           request:
             service: Compose
-            method: deleteFile
+            method: deleteDockerfile
             params:
               uuid: "{{ _selected[0].uuid }}"
       - type: iconButton
