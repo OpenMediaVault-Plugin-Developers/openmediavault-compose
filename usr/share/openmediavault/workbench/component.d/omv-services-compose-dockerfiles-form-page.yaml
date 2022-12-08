@@ -18,6 +18,8 @@ data:
         name: name
         label: _("Name")
         value: ""
+        validators:
+          required: true
       - type: textInput
         name: description
         label: _("Description")

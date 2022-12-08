@@ -19,10 +19,14 @@ data:
             service: Compose
             get:
               method: getExampleList
+        validators:
+          required: true
       - type: textInput
         name: name
         label: _("Name")
         value: ""
+        validators:
+          required: true
       - type: textInput
         name: description
         label: _("Description")
