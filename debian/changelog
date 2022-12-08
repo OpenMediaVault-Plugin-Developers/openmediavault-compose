@@ -1,4 +1,10 @@
-openmediavault-compose (6.4.1) UNRELEASED; urgency=medium
+openmediavault-compose (6.4.2) stable; urgency=low
+
+  * Fix dockerfile delete
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 08 Dec 2022 17:45:58 -0600
+
+openmediavault-compose (6.4.1) stable; urgency=low
 
   * Make name required
 
