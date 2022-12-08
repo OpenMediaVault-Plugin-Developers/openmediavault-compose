@@ -29,12 +29,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         $this->registerMethod("get");
         $this->registerMethod("set");
+
         $this->registerMethod("getFileList");
         $this->registerMethod("getFile");
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
         $this->registerMethod("doCommand");
         $this->registerMethod("doPrune");
+
+        $this->registerMethod("getDockerfileList");
+        $this->registerMethod("getDockerfile");
+        $this->registerMethod("setDockerfile");
+        $this->registerMethod("deleteDockerfile");
 
         $this->registerMethod("getExampleList");
         $this->registerMethod("setExample");
@@ -151,6 +157,96 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             unlink($composeFile);
         }
         if (file_exists($envFile)) {
+            unlink($envFile);
+        }
+        if (file_exists($composeDir)) {
+            rmdir($composeDir);
+        }
+        $db->delete($object);
+        // Return the deleted configuration object.
+        return $object->getAssoc();
+    }
+
+    public function getDockerfileList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.getlist");
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->getAssoc("conf.service.compose.dockerfile");
+        // Filter the result.
+        return $this->applyFilter($objects, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir']);
+    }
+
+    public function getDockerfile($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        return $db->getAssoc("conf.service.compose.dockerfile", $params['uuid']);
+    }
+
+    public function setDockerfile($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.setdockerfile");
+        // Verify that shared folder is set
+        $db = \OMV\Config\Database::getInstance();
+        $sfobject = $db->get("conf.service.compose");
+        if (!is_uuid($sfobject->get("sharedfolderref"))) {
+            throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
+        // Prepare the configuration object.
+        $object = new \OMV\Config\ConfigObject("conf.service.compose.dockerfile");
+        $object->setAssoc($params);
+        // Set the configuration object.
+        $isNew = $object->isNew();
+        if (TRUE === $isNew) {
+            // Check uniqueness - name
+            $db->assertIsUnique($object, "name");
+        }
+        $db->set($object);
+        // Return the configuration object.
+        return $object->getAssoc();
+    }
+
+    public function deleteDockerfile($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        // Verify that shared folder is set
+        $db = \OMV\Config\Database::getInstance();
+        $sfobject = $db->get("conf.service.compose");
+        $sfref = $sfobject->get("sharedfolderref");
+        if (!is_uuid($sfref)) {
+            throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
+        // Delete the configuration object.
+        $object = $db->get("conf.service.compose.dockerfile", $params['uuid']);
+        $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
+          ["uuid" => $sfref], $context);
+        $dname = $object->get('name');
+        $dockerDir = sprintf("%s/%s", $sfpath, $dname);
+        $dockerFile = sprintf("%s/Dockerfile", $dockerDir);
+        $scriptFile = sprintf("%s/%s", $object->get('script'));
+        $confFile = sprintf("%s/%s", $object->get('conf'));
+        if (file_exists($dockerFile)) {
+            unlink($composeFile);
+        }
+        if (file_exists($scriptFile)) {
+            unlink($envFile);
+        }
+        if (file_exists($confFile)) {
             unlink($envFile);
         }
         if (file_exists($composeDir)) {

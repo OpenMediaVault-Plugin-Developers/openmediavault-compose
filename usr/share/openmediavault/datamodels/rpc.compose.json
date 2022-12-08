@@ -49,6 +49,43 @@
   },
   {
     "type": "rpc",
+    "id": "rpc.compose.setdockerfile",
+    "params": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "string",
+          "required": true
+        },
+        "body": {
+          "type": "string",
+          "required": true
+        },
+        "script": {
+          "type": "string",
+          "required": true
+        },
+        "scriptfile": {
+          "type": "string",
+          "required": true
+        },
+        "conf": {
+          "type": "string",
+          "required": true
+        },
+        "conffile": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  {
+    "type": "rpc",
     "id": "rpc.compose.doprune",
     "params": {
       "type": "object",

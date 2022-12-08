@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.dockerfiles"
+  text: _("Dockerfiles")
+  position: 30
+  icon: mdi:docker
+  url: "/services/compose/dockerfiles"

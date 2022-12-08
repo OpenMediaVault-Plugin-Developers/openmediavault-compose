@@ -50,6 +50,11 @@ class OMVModuleCompose extends \OMV\Engine\Module\ServiceAbstract
             [ $this, "setDirty" ]
         );
         $dispatcher->addListener(
+            OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
+            "org.openmediavault.conf.service.compose.dockerfile",
+            [ $this, "setDirty" ]
+        );
+        $dispatcher->addListener(
             OMV_NOTIFY_MODIFY,
             "org.openmediavault.conf.system.sharedfolder",
             [ $this, "onSharedFolder" ]

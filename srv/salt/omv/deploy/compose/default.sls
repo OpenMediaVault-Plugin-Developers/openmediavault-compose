@@ -18,6 +18,7 @@
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
 {% if config.sharedfolderref | length > 0 %}
 {% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref) %}
+
 {% for file in config.files.file %}
 {% set composeDir = sfpath ~ file.name %}
 {% set composeFile = composeDir ~ '/' ~ file.name ~ '.yml' %}
@@ -56,9 +57,69 @@ configure_compose_env_{{ file.name }}_file:
     - mode: 644
 
 {% endfor %}
+
+{% for file in config.dockerfiles.dockerfile %}
+{% set dockerfileDir = sfpath ~ file.name %}
+{% set dockerFile = dockerfileDir ~ '/Dockerfile' %}
+
+configure_compose_dir_{{ file.name }}:
+  file.directory:
+    - name: "{{ dockerfileDir }}"
+    - user: root
+    - group: root
+    - mode: 755
+    - makedirs: True
+
+
+configure_dockerfile_{{ dockerFile }}:
+  file.managed:
+    - name: '{{ dockerFile }}'
+    - source:
+      - salt://{{ tpldir }}/files/dockerfile.j2
+    - context:
+        file: {{ file | json }}
+    - template: jinja
+    - user: root
+    - group: users
+    - mode: 644
+
+{% if file.script | length > 0 %}
+{% set scriptFile = dockerfileDir ~ '/' ~ file.script %}
+
+configure_dockerfile_script_{{ scriptFile }}:
+  file.managed:
+    - name: '{{ scriptFile }}'
+    - source:
+      - salt://{{ tpldir }}/files/dockerfile_script.j2
+    - context:
+        file: {{ file | json }}
+    - template: jinja
+    - user: root
+    - group: users
+    - mode: 644
+
+{% endif %}
+
+{% if file.conf | length > 0 %}
+{% set confFile = dockerfileDir ~ '/' ~ file.conf %}
+
+configure_dockerfile_conf_{{ confFile }}:
+  file.managed:
+    - name: '{{ confFile }}'
+    - source:
+      - salt://{{ tpldir }}/files/dockerfile_conf.j2
+    - context:
+        file: {{ file | json }}
+    - template: jinja
+    - user: root
+    - group: users
+    - mode: 644
+
+{% endif %}
+
+{% endfor %}
 {% endif %}
 
 remove_compose_dummy:
   file.absent:
     - name: "/etc/openmediavault-compose.dummy"
-

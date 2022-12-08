@@ -1,0 +1,61 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-dockerfiles-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    stateId: 6ab36dd0-7698-11ed-b240-a73c8036aead
+    sorters:
+      - dir: asc
+        prop: name
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getDockerfileList
+    columns:
+      - name: _("Name")
+        prop: name
+        flexGrow: 1
+        sortable: true
+      - name: _("Description")
+        prop: description
+        flexGrow: 1
+        sortable: true
+    actions:
+      - template: create
+        execute:
+          type: url
+          url: "/services/compose/dockerfiles/create"
+      - template: edit
+        execute:
+          type: url
+          url: "/services/compose/dockerfiles/edit/{{ _selected[0].uuid }}"
+      - template: delete
+        execute:
+          type: request
+          request:
+            service: Compose
+            method: deleteFile
+            params:
+              uuid: "{{ _selected[0].uuid }}"
+      - type: iconButton
+        icon: mdi:download-network-outline
+        tooltip: _("Build")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("dockerfile build ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doCommand
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                  command: "build"

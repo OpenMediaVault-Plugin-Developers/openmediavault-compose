@@ -1,0 +1,56 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-dockerfile-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      get:
+        method: getDockerfile
+        params:
+          uuid: "{{ _routeParams.uuid }}"
+      post:
+        method: setDockerfile
+    fields:
+      - type: confObjUuid
+      - type: textInput
+        name: name
+        label: _("Name")
+        value: ""
+      - type: textInput
+        name: description
+        label: _("Description")
+        value: ""
+      - type: codeEditor
+        name: body
+        label: _("Dockerfile")
+        value: ""
+        language: "yaml"
+      - type: textInput
+        name: script
+        label: _("Script filename")
+        value: ""
+      - type: codeEditor
+        name: scriptfile
+        label: _("Script")
+        value: ""
+        language: "shell"
+      - type: textInput
+        name: conf
+        label: _("Conf filename")
+        value: ""
+      - type: codeEditor
+        name: conffile
+        label: _("Conf file")
+        value: ""
+        language: "shell"
+    buttons:
+      - template: submit
+        execute:
+          type: url
+          url: "/services/compose/dockerfiles"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/compose/dockerfiles"

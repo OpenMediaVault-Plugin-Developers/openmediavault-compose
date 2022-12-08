@@ -1,0 +1,37 @@
+{
+  "type": "config",
+  "id": "conf.service.compose.dockerfile",
+  "title": "dockerfile",
+  "queryinfo": {
+    "xpath": "//services/compose/dockerfiles/dockerfile",
+    "iterable": true,
+    "idproperty": "uuid"
+  },
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuidv4"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "script": {
+      "type": "string"
+    },
+    "scriptfile": {
+      "type": "string"
+    },
+    "conf": {
+      "type": "string"
+    },
+    "conffile": {
+      "type": "string"
+    }
+  }
+}

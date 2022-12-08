@@ -48,6 +48,44 @@
           }
         }
       }
+    },
+    "dockerfiles": {
+      "type": "object",
+      "properties": {
+        "dockerfile": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "format": "uuidv4"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "script": {
+                "type": "string"
+              },
+              "scriptfile": {
+                "type": "string"
+              },
+              "conf": {
+                "type": "string"
+              },
+              "conffile": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
