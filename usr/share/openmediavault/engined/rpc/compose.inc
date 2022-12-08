@@ -41,6 +41,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getDockerfile");
         $this->registerMethod("setDockerfile");
         $this->registerMethod("deleteDockerfile");
+        $this->registerMethod("doBuild");
 
         $this->registerMethod("getExampleList");
         $this->registerMethod("setExample");
@@ -255,6 +256,40 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db->delete($object);
         // Return the deleted configuration object.
         return $object->getAssoc();
+    }
+
+    public function doBuild($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.compose.file", $params['uuid']);
+        $sfobject = $db->get("conf.service.compose");
+        $sfref = $sfobject->get("sharedfolderref");
+        if (!is_uuid($sfref)) {
+            throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
+        $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
+          ["uuid" => $sfref], $context);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($object, $params, $sfpath) {
+                $name = $params['name'];
+                $path = sprintf("%s/%s/", $sfpath, $name);
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'build';
+                $cmdArgs[] = sprintf("--tag '%s'", $params['name']);
+                $cmdArgs[] = $path;
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
     }
 
     public function doCommand($params, $context)

@@ -42,7 +42,7 @@ data:
             params:
               uuid: "{{ _selected[0].uuid }}"
       - type: iconButton
-        icon: mdi:download-network-outline
+        icon: mdi:wrench-outline
         tooltip: _("Build")
         enabledConstraints:
           minSelected: 1
@@ -55,7 +55,6 @@ data:
               startOnInit: true
               request:
                 service: Compose
-                method: doCommand
+                method: doBuild
                 params:
-                  uuid: "{{ _selected[0].uuid }}"
-                  command: "build"
+                  name: "{{ _selected[0].name }}"
