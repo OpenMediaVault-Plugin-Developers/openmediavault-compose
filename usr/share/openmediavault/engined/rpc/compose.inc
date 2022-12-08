@@ -127,6 +127,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             // Check uniqueness - name
             $db->assertIsUnique($object, "name");
         }
+        $dockerfiles = $db->getByFilter("conf.service.compose.dockerfile", [
+            "operator" => "stringEquals",
+            "arg0" => "name",
+            "arg1" => $params['name']
+        ]);
+        if ($dockerfiles) {
+            throw new \OMV\Exception("Name is in use by a Dockerfile.");
+        }
         $db->set($object);
         // Return the configuration object.
         return $object->getAssoc();
@@ -213,6 +221,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (TRUE === $isNew) {
             // Check uniqueness - name
             $db->assertIsUnique($object, "name");
+        }
+        $files = $db->getByFilter("conf.service.compose.file", [
+            "operator" => "stringEquals",
+            "arg0" => "name",
+            "arg1" => $params['name']
+        ]);
+        if ($files) {
+            throw new \OMV\Exception("Name is in use by a compose file.");
         }
         $db->set($object);
         // Return the configuration object.
