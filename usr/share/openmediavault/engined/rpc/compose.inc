@@ -50,6 +50,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("doAutocompose");
 
         $this->registerMethod("importExistingFolder");
+
+        $this->registerMethod("getInfo");
+        $this->registerMethod("doInspect");
     }
 
     public function get($params, $context)
@@ -511,5 +514,56 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
             $db->set($object);
         }
+    }
+
+    public function getInfo($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Get running containers
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'stats';
+        $cmdArgs[] = '--no-stream';
+        $cmdArgs[] = '--format "{{.ID}},{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.MemPerc}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}"';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        $objects = [];
+        foreach ($output as $line) {
+            $cntr = explode(',', $line);
+            $objects[] = [
+                'id' => trim($cntr[0]),
+                'name' => trim($cntr[1]),
+                'cpu' => trim($cntr[2]),
+                'memuse' => trim($cntr[3]),
+                'mem' => trim($cntr[4]),
+                'netio' => trim($cntr[5]),
+                'blockio' => trim($cntr[6]),
+                'pids' => trim($cntr[7])
+            ];
+        }
+        return ($objects);
+    }
+
+    public function doInspect($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'inspect';
+                $cmdArgs[] = $params['id'];
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
     }
 }
