@@ -1,3 +1,9 @@
+openmediavault-compose (6.5.1) stable; urgency=low
+
+  * Add docker logs button to Info tab
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 11 Dec 2022 15:47:26 -0600
+
 openmediavault-compose (6.5) stable; urgency=low
 
   * Add Info tab to show container stats

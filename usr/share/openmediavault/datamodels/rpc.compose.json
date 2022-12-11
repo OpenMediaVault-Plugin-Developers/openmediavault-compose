@@ -154,5 +154,26 @@
         }
       }
     }
+  },
+  {
+    "type": "rpc",
+    "id": "rpc.compose.dodockercmd",
+    "params": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "cmd": {
+          "type": "string",
+          "enum": [
+            "inspect",
+            "logs"
+          ],
+          "required": true
+        }
+      }
+    }
   }
 ]

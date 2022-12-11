@@ -52,7 +52,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("importExistingFolder");
 
         $this->registerMethod("getInfo");
-        $this->registerMethod("doInspect");
+        $this->registerMethod("doDockerCmd");
     }
 
     public function get($params, $context)
@@ -546,15 +546,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return ($objects);
     }
 
-    public function doInspect($params, $context)
+    public function doDockerCmd($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.dodockercmd");
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($params) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
-                $cmdArgs[] = 'inspect';
+                $cmdArgs[] = $params['cmd'];
                 $cmdArgs[] = $params['id'];
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();

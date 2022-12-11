@@ -7,6 +7,7 @@ data:
     autoReload: false
     hasSearchField: true
     stateId: 8050106c-797c-11ed-bbaf-bb845b3510b9
+    rowId: id
     sorters:
       - dir: asc
         prop: name
@@ -59,9 +60,31 @@ data:
               startOnInit: true
               request:
                 service: Compose
-                method: doInspect
+                method: doDockerCmd
                 params:
                   id: "{{ _selected[0].id }}"
+                  cmd: "inspect"
+              buttons:
+                stop:
+                  hidden: true
+      - type: iconButton
+        icon: mdi:file-document-multiple-outline
+        tooltip: _("Logs")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker logs ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerCmd
+                params:
+                  id: "{{ _selected[0].id }}"
+                  cmd: "logs"
               buttons:
                 stop:
                   hidden: true
