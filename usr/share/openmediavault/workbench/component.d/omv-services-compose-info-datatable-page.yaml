@@ -1,0 +1,67 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-info-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    stateId: 8050106c-797c-11ed-bbaf-bb845b3510b9
+    sorters:
+      - dir: asc
+        prop: name
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getInfo
+    columns:
+      - name: _("Name")
+        prop: name
+        flexGrow: 1
+        sortable: true
+      - name: _("CPU %")
+        prop: cpu
+        flexGrow: 1
+        sortable: true
+      - name: _("Mem Usage / Limit")
+        prop: memuse
+        flexGrow: 2
+        sortable: true
+      - name: _("Mem %")
+        prop: mem
+        flexGrow: 1
+        sortable: true
+      - name: _("Net I/O")
+        prop: netio
+        flexGrow: 2
+        sortable: true
+      - name: _("Block I/O")
+        prop: blockio
+        flexGrow: 2
+        sortable: true
+      - name: _("PIDs")
+        prop: pids
+        flexGrow: 1
+        sortable: true
+    actions:
+      - type: iconButton
+        icon: mdi:magnify
+        tooltip: _("Inspect")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker inspect ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doInspect
+                params:
+                  id: "{{ _selected[0].id }}"
+              buttons:
+                stop:
+                  hidden: true

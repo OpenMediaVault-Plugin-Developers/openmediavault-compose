@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.info"
+  text: _("Info")
+  position: 40
+  icon: mdi:poll
+  url: "/services/compose/info"
