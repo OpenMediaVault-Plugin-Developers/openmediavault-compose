@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2022 OpenMediaVault Plugin Developers
+ * Copyright (C) 2022-2023 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,13 +46,32 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getExampleList");
         $this->registerMethod("setExample");
 
+        $this->registerMethod("getContainerList");
+        $this->registerMethod("doContainerCommand");
+
         $this->registerMethod("enumerateContainers");
         $this->registerMethod("doAutocompose");
 
         $this->registerMethod("importExistingFolder");
 
-        $this->registerMethod("getInfo");
+        $this->registerMethod("getStats");
         $this->registerMethod("doDockerCmd");
+    }
+
+    public function getComposePath($context)
+    {
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        // Get sharedfolder path
+        $sfobject = $db->get("conf.service.compose");
+        $sfref = $sfobject->get("sharedfolderref");
+        $sfpath = "";
+        if (is_uuid($sfref)) {
+            $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+        } else {
+            throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
+        return ($sfpath);
     }
 
     public function get($params, $context)
@@ -117,10 +136,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.compose.setfile");
         // Verify that shared folder is set
         $db = \OMV\Config\Database::getInstance();
-        $sfobject = $db->get("conf.service.compose");
-        if (!is_uuid($sfobject->get("sharedfolderref"))) {
-            throw new \OMV\Exception("Please set shared folder for file storage.");
-        }
+        $sfpath = $this->getComposePath($context);
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $object->setAssoc($params);
@@ -151,15 +167,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.objectuuid");
         // Verify that shared folder is set
         $db = \OMV\Config\Database::getInstance();
-        $sfobject = $db->get("conf.service.compose");
-        $sfref = $sfobject->get("sharedfolderref");
-        if (!is_uuid($sfref)) {
-            throw new \OMV\Exception("Please set shared folder for file storage.");
-        }
+        $sfpath = $this->getComposePath($context);
         // Delete the configuration object.
         $object = $db->get("conf.service.compose.file", $params['uuid']);
-        $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
-          ["uuid" => $sfref], $context);
         $cname = $object->get('name');
         $composeDir = sprintf("%s/%s", $sfpath, $cname);
         $composeName = sprintf("%s/%s", $composeDir, $cname);
@@ -212,10 +222,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.compose.setdockerfile");
         // Verify that shared folder is set
         $db = \OMV\Config\Database::getInstance();
-        $sfobject = $db->get("conf.service.compose");
-        if (!is_uuid($sfobject->get("sharedfolderref"))) {
-            throw new \OMV\Exception("Please set shared folder for file storage.");
-        }
+        $sfpath = $this->getComposePath($context);
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.dockerfile");
         $object->setAssoc($params);
@@ -246,15 +253,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.objectuuid");
         // Verify that shared folder is set
         $db = \OMV\Config\Database::getInstance();
-        $sfobject = $db->get("conf.service.compose");
-        $sfref = $sfobject->get("sharedfolderref");
-        if (!is_uuid($sfref)) {
-            throw new \OMV\Exception("Please set shared folder for file storage.");
-        }
+        $sfpath = $this->getComposePath($context);
         // Delete the configuration object.
         $object = $db->get("conf.service.compose.dockerfile", $params['uuid']);
-        $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
-          ["uuid" => $sfref], $context);
         $dname = $object->get('name');
         $dockerDir = sprintf("%s/%s", $sfpath, $dname);
         $dockerFile = sprintf("%s/Dockerfile", $dockerDir);
@@ -284,13 +285,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
-        $sfobject = $db->get("conf.service.compose");
-        $sfref = $sfobject->get("sharedfolderref");
-        if (!is_uuid($sfref)) {
-            throw new \OMV\Exception("Please set shared folder for file storage.");
-        }
-        $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
-          ["uuid" => $sfref], $context);
+        $sfpath = $this->getComposePath($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($object, $params, $sfpath) {
                 $name = $params['name'];
@@ -318,13 +313,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
-        $sfobject = $db->get("conf.service.compose");
-        $sfref = $sfobject->get("sharedfolderref");
-        if (!is_uuid($sfref)) {
-            throw new \OMV\Exception("Please set shared folder for file storage.");
-        }
-        $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath",
-          ["uuid" => $sfref], $context);
+        $sfpath = $this->getComposePath($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($object, $params, $sfpath) {
                 $cname = $object->get('name');
@@ -416,6 +405,75 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db->set($object);
         // Return the configuration object.
         return $object->getAssoc();
+    }
+
+    public function getContainerList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.getlist");
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        $sfpath = $this->getComposePath($context);
+        $objects = $db->get("conf.service.compose.file");
+        // Add additional file information
+        $imagesAssoc = [];
+        foreach ($objects as $objectk => &$objectv) {
+            $cname = $objectv->get('name');
+            $filepath = sprintf("%s/%s/%s.yml", $sfpath, $cname, $cname);
+            $exists = file_exists($filepath);
+            if ($exists) {
+                // Get images
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker-compose';
+                $cmdArgs[] = sprintf('-f "%s"', $filepath);
+                $cmdArgs[] = 'ps';
+                $cmdArgs[] = '--all';
+                $cmdArgs[] = '--format "json"';
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $output = [];
+                $cmd->execute($output, $exitStatus);
+                $images = json_decode($output[0]);
+                foreach ($images as $image) {
+                    $imagesAssoc[] = [
+                        "name" => $image->Name,
+                        "image" => $image->Image,
+                        "project" => $image->Project,
+                        "service" => $image->Service,
+                        "created" => date("Y-m-d H:i:s", $image->Created),
+                        "state" => $image->State,
+                        "status" => $image->Status,
+                        "filepath" => $filepath
+                    ];
+                }
+            }
+        }
+        // Filter the result.
+        return $this->applyFilter($imagesAssoc, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir']);
+    }
+
+    public function doContainerCommand($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker-compose';
+                $cmdArgs[] = sprintf("--file '%s'", $params['path']);
+                $cmdArgs[] = $params['command'];
+                $cmdArgs[] = $params['service'];
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
     }
 
     public function enumerateContainers($params, $context)
@@ -516,7 +574,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
     }
 
-    public function getInfo($params, $context)
+    public function getStats($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);

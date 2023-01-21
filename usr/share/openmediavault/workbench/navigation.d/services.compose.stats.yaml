@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.stats"
+  text: _("Stats")
+  position: 50
+  icon: mdi:poll
+  url: "/services/compose/stats"

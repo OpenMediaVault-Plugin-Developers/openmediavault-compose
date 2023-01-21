@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright (C) 2022 OpenMediaVault Plugin Developers
+ * Copyright (C) 2022-2023 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

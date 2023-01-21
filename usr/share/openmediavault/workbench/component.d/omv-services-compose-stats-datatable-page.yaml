@@ -1,7 +1,7 @@
 version: "1.0"
 type: component
 data:
-  name: omv-services-compose-info-datatable-page
+  name: omv-services-compose-stats-datatable-page
   type: datatablePage
   config:
     autoReload: false
@@ -15,7 +15,7 @@ data:
       proxy:
         service: Compose
         get:
-          method: getInfo
+          method: getStats
     columns:
       - name: _("Name")
         prop: name

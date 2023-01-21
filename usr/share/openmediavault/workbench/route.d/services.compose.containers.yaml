@@ -1,0 +1,6 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/compose/containers"
+  title: _("Containers")
+  component: omv-services-compose-containers-datatable-page
