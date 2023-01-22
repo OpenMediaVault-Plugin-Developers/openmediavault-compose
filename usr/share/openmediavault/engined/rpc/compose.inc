@@ -421,17 +421,21 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $imagesAssoc = [];
         foreach ($objects as $objectk => &$objectv) {
             $cname = $objectv->get('name');
-            $filepath = sprintf("%s/%s/%s.yml", $sfpath, $cname, $cname);
+            $path = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
+            $filepath = sprintf("%s.yml", $path);
+            $envfilepath = sprintf("%s.env", $path);
             $exists = file_exists($filepath);
             if ($exists) {
                 // Get images
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker-compose';
-                $cmdArgs[] = sprintf('-f "%s"', $filepath);
+                $cmdArgs[] = sprintf('--file "%s"', $filepath);
+                $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
                 $cmdArgs[] = 'ps';
                 $cmdArgs[] = '--all';
                 $cmdArgs[] = '--format "json"';
                 $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setQuiet(true);
                 $output = [];
                 $cmd->execute($output, $exitStatus);
                 $images = json_decode($output[0]);
@@ -444,7 +448,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         "created" => date("Y-m-d H:i:s", $image->Created),
                         "state" => $image->State,
                         "status" => $image->Status,
-                        "filepath" => $filepath
+                        "filepath" => $filepath,
+                        "envpath" => $envfilepath
                     ];
                 }
             }
@@ -463,6 +468,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker-compose';
                 $cmdArgs[] = sprintf("--file '%s'", $params['path']);
+                $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
                 $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['service'];
                 $cmd = new \OMV\System\Process($cmdArgs);

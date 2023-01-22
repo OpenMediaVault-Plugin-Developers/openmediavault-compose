@@ -48,6 +48,13 @@ data:
         flexGrow: 1
         sortable: true
         hidden: true
+        cellTemplateName: copyToClipboard
+      - name: _("Env Path")
+        prop: envpath
+        flexGrow: 1
+        sortable: true
+        hidden: true
+        cellTemplateName: copyToClipboard
     actions:
       - type: iconButton
         icon: mdi:download-network-outline
@@ -68,6 +75,7 @@ data:
                   command: "pull"
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"
       - type: iconButton
         icon: mdi:arrow-up-circle-outline
         tooltip: _("up")
@@ -87,6 +95,7 @@ data:
                   command: "up -d"
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"
       - type: iconButton
         icon: mdi:restart
         tooltip: _("restart")
@@ -106,6 +115,7 @@ data:
                   command: "restart"
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"
       - type: iconButton
         icon: mdi:file-document-multiple-outline
         tooltip: _("logs")
@@ -125,3 +135,4 @@ data:
                   command: "logs"
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"
