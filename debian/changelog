@@ -1,3 +1,9 @@
+openmediavault-compose (6.6.2) stable; urgency=low
+
+  * Add python3-docker package as dependency to fix autocompose
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 01 Apr 2023 13:43:59 -0500
+
 openmediavault-compose (6.6.1) stable; urgency=low
 
   * Specify environment file for docker-compose ps output in Container
