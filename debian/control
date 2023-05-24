@@ -9,12 +9,12 @@ Homepage: http://omv-extras.org/
 
 Package: openmediavault-compose
 Architecture: all
-Depends: docker-ce | docker.io,
-         docker-compose-plugin | docker-compose,
-         openmediavault (>= 6.1),
+Depends: openmediavault (>= 6.3.12),
+         openmediavault-omvextrasorg (>= 6.3),
          openmediavault-sharerootfs,
-         python3-docker,
          python3-pretty-yaml,
          ${misc:Depends}
+Recommends: docker-ce,
+            docker-compose-plugin
 Description: OpenMediaVault compose plugin
  lightweight plugin to maintain and execute docker-compose files.

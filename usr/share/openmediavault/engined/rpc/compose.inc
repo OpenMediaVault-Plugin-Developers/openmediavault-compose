@@ -29,6 +29,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         $this->registerMethod("get");
         $this->registerMethod("set");
+        $this->registerMethod("reinstallDocker");
+        $this->registerMethod("restartDocker");
 
         $this->registerMethod("getFileList");
         $this->registerMethod("getFile");
@@ -85,6 +87,30 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object = $db->get("conf.service.compose");
         // Remove useless properties from the object.
         $object->remove("files");
+        $object->remove("dockerfiles");
+        // docker status
+        $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-ce" || $2 == "docker.io") { print $3 }\'';
+        $cmd = new \OMV\System\Process($cmdLine);
+        $cmd->setQuiet(true);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        if (!empty($output)) {
+            // Get docker service status
+            $systemCtl = new \OMV\System\SystemCtl('docker');
+            if ($systemCtl->isActive()) {
+                $running = gettext("and running");
+            } else {
+                $running = gettext("and not running");
+            }
+            $status = sprintf('%s %s', gettext("Installed"), $running);
+            $version = $output[0];
+        } else {
+            $status = gettext("Not installed");
+            $version = gettext("n/a");
+        }
+        $object->add('dockerStatus', 'string', $status);
+        $object->add('dockerVersion', 'string', $version);
+        // Return the configuration object.
         return $object->getAssoc();
     }
 
@@ -101,8 +127,56 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db->set($object);
         // Remove useless properties from the object.
         $object->remove("files");
+        $object->remove("dockerfiles");
         // Return the configuration object.
         return $object->getAssoc();
+    }
+
+    public function reinstallDocker($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'apt-get';
+                $cmdArgs[] = '--yes';
+                $cmdArgs[] = '--autoremove';
+                $cmdArgs[] = 'purge';
+                $cmdArgs[] = 'docker-ce';
+                $cmdArgs[] = 'docker.io';
+                $cmdArgs[] = 'containerd.io';
+                $cmdArgs[] = 'docker-ce-cli';
+                $cmdArgs[] = 'docker-compose-plugin';
+                $cmdArgs[] = 'docker-compose';
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                $cmdArgs = [];
+                $cmdArgs[] = 'omv-salt';
+                $cmdArgs[] = 'deploy';
+                $cmdArgs[] = 'run';
+                $cmdArgs[] = 'compose';
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function restartDocker($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $systemCtl = new \OMV\System\SystemCtl('docker');
+        $systemCtl->restart();
     }
 
     public function getFileList($params, $context)

@@ -120,6 +120,69 @@ configure_dockerfile_conf_{{ confFile }}:
 {% endfor %}
 {% endif %}
 
-remove_compose_dummy:
-  file.absent:
-    - name: "/etc/openmediavault-compose.dummy"
+{% set omvextras = salt['omv_conf.get']('conf.system.omvextras') %}
+{% set arch = grains['osarch'] %}
+{% set docker = omvextras.docker %}
+
+{% if docker | to_bool and not arch == 'i386' %}
+{% set docker_pkg = "docker-ce" %}
+{% set compose_pkg = "docker-compose-plugin" %}
+{% else %}
+{% set docker_pkg = "docker.io" %}
+{% set compose_pkg = "docker-compose" %}
+{% endif %}
+
+docker_install_packages:
+  pkg.installed:
+    - pkgs:
+      - "{{ docker_pkg }}"
+      - "{{ compose_pkg }}"
+{% if docker | to_bool and not arch == 'i386' %}
+      - containerd.io
+      - docker-ce-cli
+{% endif %}
+
+{% set mounts = salt['cmd.shell']('systemctl list-units --type=mount | awk \'$5 ~ "/srv" { printf "%s ",$1 }\'') %}
+
+/etc/systemd/system/docker.service.d/waitAllMounts.conf:
+  file.managed:
+    - contents: |
+        [Unit]
+        After=local-fs.target {{ mounts }}
+    - mode: "0644"
+    - makedirs: True
+
+systemd_daemon_reload_docker:
+  cmd.run:
+    - name: systemctl daemon-reload
+
+# create daemon.json file if docker storage path is specified
+{% if config.dockerStorage | length > 1 %}
+
+/etc/docker/daemon.json:
+  file.serialize:
+    - dataset:
+        data-root: "{{ config.dockerStorage }}"
+    - serializer: json
+    - user: root
+    - group: root
+    - mode: "0600"
+
+{% endif %}
+
+docker:
+  service.running:
+    - reload: True
+    - enable: True
+    - watch:
+        - file: /etc/docker/daemon.json
+
+
+download_autocompose:
+  file.managed:
+    - name: /usr/bin/autocompose.py
+    - source: https://github.com/Red5d/docker-autocompose/raw/master/autocompose.py
+    - user: root
+    - group: root
+    - mode: 755
+    - skip_verify: True

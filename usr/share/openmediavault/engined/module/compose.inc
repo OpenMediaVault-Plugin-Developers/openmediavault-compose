@@ -18,11 +18,29 @@
  */
 
 class OMVModuleCompose extends \OMV\Engine\Module\ServiceAbstract
-    implements \OMV\Engine\Notify\IListener
+    implements \OMV\Engine\Notify\IListener, \OMV\Engine\Module\IServiceStatus
 {
     public function getName()
     {
         return "compose";
+    }
+
+    public function getStatus()
+    {
+        if (file_exists("/lib/systemd/system/docker.service")) {
+            $systemCtl = new \OMV\System\SystemCtl("docker");
+            $enabled = $systemCtl->isEnabled();
+            $running = $systemCtl->isActive();
+        } else {
+            $enabled = false;
+            $running = false;
+        }
+        return array(
+            "name" => "Docker",
+            "title" => "Docker",
+            "enabled" => $enabled,
+            "running" => $running
+        );
     }
 
     final public function onSharedFolder($type, $path, $object)

@@ -16,9 +16,54 @@ data:
         label: _("Shared folder")
         hasEmptyOption: true
         hint: _("The location of compose files.")
+      - type: divider
+        title: _("Docker")
+      - type: textInput
+        name: dockerStorage
+        label: _("Docker storage")
+        value: "/var/lib/docker"
+      - type: textInput
+        name: dockerStatus
+        label: _("Status")
+        submitValue: false
+        modifiers:
+          - type: readonly
+      - type: textInput
+        name: dockerVersion
+        label: _("Version")
+        submitValue: false
+        modifiers:
+          - type: readonly
     buttons:
       - template: submit
       - template: cancel
         execute:
           type: url
           url: "/services"
+      - text: _("Reinstall Docker")
+        confirmationDialogConfig:
+          template: confirmation-danger
+          message: _("Are you sure you want to reinstall?")
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Reinstall Docker ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: reinstallDocker
+              buttons:
+                stop:
+                  hidden: true
+      - text: _("Restart Docker")
+        confirmationDialogConfig:
+          template: confirmation-danger
+          message: _("Are you sure you want to restart?")
+        execute:
+          type: request
+          request:
+            service: Compose
+            method: restartDocker
+            progressMessage: _("Docker is restarting ...")
+            successNotification: _("Docker has been restarted.")

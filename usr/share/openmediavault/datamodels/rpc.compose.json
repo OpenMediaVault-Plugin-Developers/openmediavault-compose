@@ -18,6 +18,10 @@
             }
           ],
           "required": true
+        },
+        "dockerStorage": {
+          "type": "string",
+          "required": false
         }
       }
     }

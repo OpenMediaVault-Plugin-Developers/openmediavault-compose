@@ -20,6 +20,10 @@
         }
       ]
     },
+    "dockerStorage": {
+      "type": "string",
+      "default": "/var/lib/docker"
+    },
     "files": {
       "type": "object",
       "properties": {
