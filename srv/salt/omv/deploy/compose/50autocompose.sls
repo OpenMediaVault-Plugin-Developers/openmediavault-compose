@@ -1,6 +1,6 @@
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    OpenMediaVault Plugin Developers <plugins@omv-extras.org>
-# @copyright Copyright (c) 2019-2023 OpenMediaVault Plugin Developers
+# @copyright Copyright (c) 2022-2023 OpenMediaVault Plugin Developers
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-{% set dirpath = '/srv/salt' | path_join(tpldir) %}
-
-include:
-{% for file in salt['file.readdir'](dirpath) %}
-{% if file not in ('.', '..', 'init.sls', 'default.sls') %}
-{% if file.endswith('.sls') %}
-  - .{{ file | replace('.sls', '') }}
-{% endif %}
-{% endif %}
-{% endfor %}
+download_autocompose:
+  file.managed:
+    - name: /usr/bin/autocompose.py
+    - source: https://github.com/Red5d/docker-autocompose/raw/master/autocompose.py
+    - user: root
+    - group: root
+    - mode: 755
+    - skip_verify: True

@@ -146,6 +146,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'docker-ce';
                 $cmdArgs[] = 'docker.io';
                 $cmdArgs[] = 'containerd.io';
+                $cmdArgs[] = 'containerd';
                 $cmdArgs[] = 'docker-ce-cli';
                 $cmdArgs[] = 'docker-compose-plugin';
                 $cmdArgs[] = 'docker-compose';
@@ -161,10 +162,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'run';
                 $cmdArgs[] = 'compose';
                 $cmd = new \OMV\System\Process($cmdArgs);
-                $cmd->setRedirect2to1();
+                //$cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
-                    throw new \OMV\ExecException($cmdLine, $output);
+                    if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                        throw new \OMV\ExecException($cmdLine, $output);
+                    }
                 }
                 return $output;
             }

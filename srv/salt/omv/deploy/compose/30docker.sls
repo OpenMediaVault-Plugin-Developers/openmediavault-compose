@@ -1,6 +1,6 @@
 # @license   http://www.gnu.org/licenses/gpl.html GPL Version 3
 # @author    OpenMediaVault Plugin Developers <plugins@omv-extras.org>
-# @copyright Copyright (c) 2019-2023 OpenMediaVault Plugin Developers
+# @copyright Copyright (c) 2022-2023 OpenMediaVault Plugin Developers
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,13 +15,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-{% set dirpath = '/srv/salt' | path_join(tpldir) %}
+{% set arch = grains['osarch'] %}
+{% set omvextras = salt['omv_conf.get']('conf.system.omvextras') %}
+{% set docker = omvextras.docker %}
 
-include:
-{% for file in salt['file.readdir'](dirpath) %}
-{% if file not in ('.', '..', 'init.sls', 'default.sls') %}
-{% if file.endswith('.sls') %}
-  - .{{ file | replace('.sls', '') }}
+{% if docker | to_bool and not arch == 'i386' %}
+{% set docker_pkg = "docker-ce" %}
+{% set compose_pkg = "docker-compose-plugin" %}
+{% else %}
+{% set docker_pkg = "docker.io" %}
+{% set compose_pkg = "docker-compose" %}
 {% endif %}
+
+docker_install_packages:
+  pkg.installed:
+    - pkgs:
+      - "{{ docker_pkg }}"
+
+docker2_install_packages:
+  pkg.installed:
+    - pkgs:
+      - "{{ compose_pkg }}"
+{% if docker | to_bool and not arch == 'i386' %}
+      - containerd.io
+      - docker-ce-cli
 {% endif %}
-{% endfor %}
