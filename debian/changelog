@@ -1,3 +1,9 @@
+openmediavault-compose (6.7.2) stable; urgency=low
+
+  * Set current docker root path if already installed.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 30 May 2023 07:17:49 -0500
+
 openmediavault-compose (6.7.1) stable; urgency=low
 
   * Maintain docker-compose symlink to /usr/local/bin/docker-compose
