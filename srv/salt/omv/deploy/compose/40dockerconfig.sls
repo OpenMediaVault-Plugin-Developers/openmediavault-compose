@@ -17,6 +17,9 @@
 
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
 {% set mounts = salt['cmd.shell']('systemctl list-units --type=mount | awk \'$5 ~ "/srv" { printf "%s ",$1 }\'') %}
+{% set arch = grains['osarch'] %}
+{% set omvextras = salt['omv_conf.get']('conf.system.omvextras') %}
+{% set docker = omvextras.docker %}
 
 /etc/systemd/system/docker.service.d/waitAllMounts.conf:
   file.managed:
@@ -49,4 +52,11 @@ docker:
     - watch:
         - file: /etc/docker/daemon.json
 
+{% endif %}
+
+
+{% if docker | to_bool and not arch == 'i386' %}
+/usr/local/bin/docker-compose:
+  file.symlink:
+    - target: /usr/libexec/docker/cli-plugins/docker-compose
 {% endif %}

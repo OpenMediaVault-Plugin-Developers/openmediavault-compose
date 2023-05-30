@@ -1,4 +1,10 @@
-openmediavault-compose (6.7) UNRELEASED; urgency=medium
+openmediavault-compose (6.7.1) stable; urgency=low
+
+  * Maintain docker-compose symlink to /usr/local/bin/docker-compose
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 29 May 2023 19:24:29 -0500
+
+openmediavault-compose (6.7) stable; urgency=low
 
   * Add docker functions
 
