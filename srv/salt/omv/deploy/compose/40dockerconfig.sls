@@ -59,4 +59,5 @@ docker:
 /usr/local/bin/docker-compose:
   file.symlink:
     - target: /usr/libexec/docker/cli-plugins/docker-compose
+    - force: True
 {% endif %}
