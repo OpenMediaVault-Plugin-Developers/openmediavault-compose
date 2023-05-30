@@ -1,3 +1,10 @@
+openmediavault-compose (6.7.4) stable; urgency=low
+
+  * Stop container(s) before removing compose files and database entry
+  * Add ports column to container list
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 30 May 2023 09:44:01 -0500
+
 openmediavault-compose (6.7.3) stable; urgency=low
 
   * Fix container widget
