@@ -254,6 +254,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $composeName = sprintf("%s/%s", $composeDir, $cname);
         $composeFile = sprintf("%s.yml", $composeName);
         $envFile = sprintf("%s.env", $composeName);
+        // stop container(s) if running
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker-compose';
+        $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
+        $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
+        $cmdArgs[] = 'down';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setQuiet(true);
+        $cmd->execute($output, $exitStatus);
+        // remove files
         if (file_exists($composeFile)) {
             unlink($composeFile);
         }
@@ -263,6 +273,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (file_exists($composeDir)) {
             rmdir($composeDir);
         }
+        // delete database entry
         $db->delete($object);
         // Return the deleted configuration object.
         return $object->getAssoc();
