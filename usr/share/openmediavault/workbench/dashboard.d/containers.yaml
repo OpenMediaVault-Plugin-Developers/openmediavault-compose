@@ -23,6 +23,6 @@ data:
       sortable: true
     store:
       proxy:
-        service: OmvExtras
+        service: Compose
         get:
           method: getContainers
