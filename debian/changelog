@@ -1,3 +1,9 @@
+openmediavault-compose (6.7.6) stable; urgency=low
+
+  * Restart instead of reload docker service when changing docker path
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 31 May 2023 18:46:58 -0500
+
 openmediavault-compose (6.7.5) stable; urgency=low
 
   * In the Containers tab, create hyperlink to each port if using tcp
