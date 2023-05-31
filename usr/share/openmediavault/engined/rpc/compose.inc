@@ -507,6 +507,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $sfpath = $this->getComposePath($context);
         $objects = $db->get("conf.service.compose.file");
+        // get fqdn
+        $dns = $db->get('conf.system.network.dns');
+        $fqdn = $dns->get('hostname');
+        $dn = $dns->get('domainname');
+        if (strlen($dn) > 1) {
+            $fqdn = sprintf('%s.%s', $fqdn, $dn);
+        }
         // Add additional file information
         $imagesAssoc = [];
         foreach ($objects as $objectk => &$objectv) {
@@ -542,6 +549,15 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         }
                         $port .= sprintf('%s/%s', $tgtPort, $protocol);
                         if (strlen($url) > 0) $port .= sprintf(' [%s]', $url);
+                        if ($protocol == "tcp") {
+                            $hrefPort = 0;
+                            if ($pubPort > 0) {
+                                $hrefPort = $pubPort;
+                            } else {
+                                $hrefPort = $tgtPort;
+                            }
+                            $port = sprintf('<a href="http://%s:%d" target="_blank">%s</a>', $fqdn, $hrefPort, $port);
+                        }
                         $ports[] = $port;
                     }
                     $imagesAssoc[] = [
