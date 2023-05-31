@@ -47,7 +47,6 @@ systemd_daemon_reload_docker:
 
 docker:
   service.running:
-    - reload: True
     - enable: True
     - watch:
         - file: /etc/docker/daemon.json
