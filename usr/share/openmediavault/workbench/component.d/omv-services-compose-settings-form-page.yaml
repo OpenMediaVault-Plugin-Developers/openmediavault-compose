@@ -30,7 +30,13 @@ data:
           - type: readonly
       - type: textInput
         name: dockerVersion
-        label: _("Version")
+        label: _("Docker version")
+        submitValue: false
+        modifiers:
+          - type: readonly
+      - type: textInput
+        name: composeVersion
+        label: _("Compose version")
         submitValue: false
         modifiers:
           - type: readonly

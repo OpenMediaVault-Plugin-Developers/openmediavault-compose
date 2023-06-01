@@ -88,12 +88,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Remove useless properties from the object.
         $object->remove("files");
         $object->remove("dockerfiles");
-        // docker status
+        // docker version
         $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-ce" || $2 == "docker.io") { print $3 }\'';
         $cmd = new \OMV\System\Process($cmdLine);
         $cmd->setQuiet(true);
         $output = [];
         $cmd->execute($output, $exitStatus);
+        // compose version
+        $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-compose-plugin" || $2 == "docker-compose") { print $3 }\'';
+        $cmd = new \OMV\System\Process($cmdLine);
+        $cmd->setQuiet(true);
+        $output2 = [];
+        $cmd->execute($output2, $exitStatus);
         if (!empty($output)) {
             // Get docker service status
             $systemCtl = new \OMV\System\SystemCtl('docker');
@@ -103,13 +109,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $running = gettext("and not running");
             }
             $status = sprintf('%s %s', gettext("Installed"), $running);
-            $version = $output[0];
+            $dockerVersion = $output[0];
+            $composeVersion = $output2[0];
         } else {
             $status = gettext("Not installed");
-            $version = gettext("n/a");
+            $dockerVersion = gettext("n/a");
+            $composeVersion = gettext("n/a");
         }
         $object->add('dockerStatus', 'string', $status);
-        $object->add('dockerVersion', 'string', $version);
+        $object->add('dockerVersion', 'string', $dockerVersion);
+        $object->add('composeVersion', 'string', $composeVersion);
         // Return the configuration object.
         return $object->getAssoc();
     }
