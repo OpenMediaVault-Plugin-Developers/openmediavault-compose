@@ -89,13 +89,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object->remove("files");
         $object->remove("dockerfiles");
         // docker version
-        $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-ce" || $2 == "docker.io") { print $3 }\'';
+        $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-ce" || $2 == "docker.io") { print $2 " " $3 }\'';
         $cmd = new \OMV\System\Process($cmdLine);
         $cmd->setQuiet(true);
         $output = [];
         $cmd->execute($output, $exitStatus);
         // compose version
-        $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-compose-plugin" || $2 == "docker-compose") { print $3 }\'';
+        $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-compose-plugin" || $2 == "docker-compose") { print $2 " " $3 }\'';
         $cmd = new \OMV\System\Process($cmdLine);
         $cmd->setQuiet(true);
         $output2 = [];
