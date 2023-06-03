@@ -1,3 +1,14 @@
+openmediavault-compose (6.7.7) stable; urgency=low
+
+  * Add compose version to Settings tab
+  * Add package name to versions on Settings tab
+  * Prevent editing of compose file name after creation
+  * Optimize column widths
+  * Improve sorting and formatting of Stats tab
+  * Add stop button on Files tab
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 01 Jun 2023 08:26:08 -0500
+
 openmediavault-compose (6.7.6) stable; urgency=low
 
   * Restart instead of reload docker service when changing docker path
