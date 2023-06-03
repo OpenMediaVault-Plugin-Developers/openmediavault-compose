@@ -1,3 +1,9 @@
+openmediavault-compose (6.7.8) stable; urgency=low
+
+  * Remove docker file script headers to allow use as entrypoint
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 03 Jun 2023 18:59:00 -0500
+
 openmediavault-compose (6.7.7) stable; urgency=low
 
   * Add compose version to Settings tab
