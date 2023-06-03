@@ -20,7 +20,7 @@ data:
         sortable: true
       - name: _("Image")
         prop: image
-        flexGrow: 1
+        flexGrow: 2
         sortable: true
       - name: _("Project")
         prop: project
@@ -40,7 +40,7 @@ data:
         sortable: true
       - name: _("Ports")
         prop: ports
-        flexGrow: 2
+        flexGrow: 1
         sortable: true
       - name: _("Created")
         prop: created
