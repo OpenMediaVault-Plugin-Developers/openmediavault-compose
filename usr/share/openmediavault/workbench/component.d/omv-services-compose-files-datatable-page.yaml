@@ -157,6 +157,24 @@ data:
                   uuid: "{{ _selected[0].uuid }}"
                   command: "up -d"
       - type: iconButton
+        icon: mdi:stop
+        tooltip: _("stop")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker-compose stop ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doCommand
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                  command: "stop"
+      - type: iconButton
         icon: mdi:arrow-down-circle-outline
         tooltip: _("down")
         enabledConstraints:
