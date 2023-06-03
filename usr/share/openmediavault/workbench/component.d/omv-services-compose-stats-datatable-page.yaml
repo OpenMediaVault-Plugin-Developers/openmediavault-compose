@@ -25,22 +25,51 @@ data:
         prop: cpu
         flexGrow: 1
         sortable: true
-      - name: _("Mem Usage / Limit")
+        cellTemplateName: progressBar
+        cellTemplateConfig:
+          text: '{{ cpu | tofixed(2) }}'
+      - name: _("Mem Usage")
         prop: memuse
-        flexGrow: 2
+        flexGrow: 1
         sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: '{{ memuse | tobytes | binaryunit | notavailable("-") }}'
+      - name: _("Mem Limit")
+        prop: memlim
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: '{{ memlim | tobytes | binaryunit | notavailable("-") }}'
       - name: _("Mem %")
         prop: mem
         flexGrow: 1
         sortable: true
-      - name: _("Net I/O")
-        prop: netio
-        flexGrow: 2
+        cellTemplateName: template
+        cellTemplateConfig: '{{ mem | tofixed(2) }}'
+      - name: _("Net In")
+        prop: netin
+        flexGrow: 1
         sortable: true
-      - name: _("Block I/O")
-        prop: blockio
-        flexGrow: 2
+        cellTemplateName: template
+        cellTemplateConfig: '{{ netin | tobytes | binaryunit | notavailable("-") }}'
+      - name: _("Net Out")
+        prop: netout
+        flexGrow: 1
         sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: '{{ netout | tobytes | binaryunit | notavailable("-") }}'
+      - name: _("Block In")
+        prop: blockin
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: '{{ blockin | tobytes | binaryunit | notavailable("-") }}'
+      - name: _("Block Out")
+        prop: blockout
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: '{{ blockout | tobytes | binaryunit | notavailable("-") }}'
       - name: _("PIDs")
         prop: pids
         flexGrow: 1

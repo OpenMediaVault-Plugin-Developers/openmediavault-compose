@@ -726,15 +726,26 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $objects = [];
         foreach ($output as $line) {
             $cntr = explode(',', $line);
+            $cpu = floatval(trim(str_replace('%', '', $cntr[2])));
+            $memUse = trim(explode('/', $cntr[3])[0]);
+            $memLim = trim(explode('/', $cntr[3])[1]);
+            $mem = floatval(trim(str_replace('%', '', $cntr[4])));
+            $netIn = trim(explode('/', $cntr[5])[0]);
+            $netOut = trim(explode('/', $cntr[5])[1]);
+            $blockIn = trim(explode('/', $cntr[6])[0]);
+            $blockOut = trim(explode('/', $cntr[6])[1]);
             $objects[] = [
                 'id' => trim($cntr[0]),
                 'name' => trim($cntr[1]),
-                'cpu' => trim($cntr[2]),
-                'memuse' => trim($cntr[3]),
-                'mem' => trim($cntr[4]),
-                'netio' => trim($cntr[5]),
-                'blockio' => trim($cntr[6]),
-                'pids' => trim($cntr[7])
+                'cpu' => $cpu,
+                'memuse' => $memUse,
+                'memlim' => $memLim,
+                'mem' => $mem,
+                'netin' => $netIn,
+                'netout' => $netOut,
+                'blockin' => $blockIn,
+                'blockout' => $blockOut,
+                'pids' => intval(trim($cntr[7]))
             ];
         }
         return ($objects);
