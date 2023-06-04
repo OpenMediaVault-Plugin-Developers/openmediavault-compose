@@ -6,7 +6,6 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 remove_action() {
-    rm -f "/usr/bin/autocompose.py"
     dpkg-trigger update-workbench
 }
 
