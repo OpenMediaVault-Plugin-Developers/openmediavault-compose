@@ -28,7 +28,7 @@ configure_compose_dir_{{ file.name }}:
   file.directory:
     - name: "{{ composeDir }}"
     - user: root
-    - group: root
+    - group: users
     - mode: 755
     - makedirs: True
 
