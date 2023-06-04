@@ -1,3 +1,9 @@
+openmediavault-compose (6.7.10) stable; urgency=low
+
+  * Improve import
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 04 Jun 2023 10:06:28 -0500
+
 openmediavault-compose (6.7.9) stable; urgency=low
 
   * Allow import folders to have docker-compose.yml filename
