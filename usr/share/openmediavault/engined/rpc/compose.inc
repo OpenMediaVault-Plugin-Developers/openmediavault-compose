@@ -684,13 +684,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 continue;
             }
             $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+            // get compose file
             $bodyFile = sprintf('%s/%s.yml', $full, $dir);
             if (!file_exists($bodyFile)) {
-                continue;
+                $bodyFile = sprintf('%s/docker-compose.yml', $full);
+                if (!file_exists($bodyFile)) {
+                    continue;
+                }
             }
-            $body = file_get_contents(sprintf("%s/%s.yml", $full, $dir));
+            $body = file_get_contents($bodyFile);
+            // get environment file if it exists
             $envFile = sprintf('%s/%s.env', $full, $dir);
-            if (file_exists($bodyFile)) {
+            if (file_exists($envFile)) {
                 $env = file_get_contents(sprintf("%s/%s.env", $full, $dir));
             } else {
                 $env = '';
