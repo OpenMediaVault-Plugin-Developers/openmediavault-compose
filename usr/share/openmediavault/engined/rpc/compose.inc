@@ -696,7 +696,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             // get environment file if it exists
             $envFile = sprintf('%s/%s.env', $full, $dir);
             if (file_exists($envFile)) {
-                $env = file_get_contents(sprintf("%s/%s.env", $full, $dir));
+                $env = file_get_contents($envFile);
+                if ($env == false || is_null($env)) $env = '';
             } else {
                 $env = '';
             }
