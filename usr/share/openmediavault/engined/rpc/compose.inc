@@ -199,9 +199,52 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.getlist");
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
-        $objects = $db->getAssoc("conf.service.compose.file");
+        $objects = $db->get("conf.service.compose.file");
+        $sfpath = $this->getComposePath($context);
+        // Add additional informations.
+        $objectsAssoc = [];
+        foreach ($objects as $objectk => &$objectv) {
+            // build filenames
+            $cname = $objectv->get('name');
+            $composeDir = sprintf("%s/%s", $sfpath, $cname);
+            $composeName = sprintf("%s/%s", $composeDir, $cname);
+            $composeFile = sprintf("%s.yml", $composeName);
+            $envFile = sprintf("%s.env", $composeName);
+            // get ps output
+            $cmdArgs = [];
+            $cmdArgs[] = 'docker-compose';
+            $cmdArgs[] = sprintf('--file "%s"', $composeFile);
+            $cmdArgs[] = sprintf("--env-file '%s'", $envFile);
+            $cmdArgs[] = 'ps';
+            $cmdArgs[] = '--all';
+            $cmdArgs[] = '--format "json"';
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->setQuiet(true);
+            $output = [];
+            $cmd->execute($output, $exitStatus);
+            $containers = json_decode($output[0]);
+            // get state of each container
+            $running = 0;
+            $exited = 0;
+            foreach ($containers as $cnt) {
+                switch ($cnt->State) {
+                    case "running": $running++; break;
+                    case "exited": $exited++; break;
+                }
+            }
+            $status = "DOWN";
+            if ($running > 0 && $exited > 0) {
+                $status = "MIXED";
+            } elseif ($running > 0) {
+                $status = "UP";
+            } elseif ($exited > 0) {
+                $status = "STOPPED";
+            }
+            $objectv->add('status', 'string', $status);
+            $objectsAssoc[] = $objectv->getAssoc();
+        }
         // Filter the result.
-        return $this->applyFilter($objects, $params['start'], $params['limit'],
+        return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir']);
     }
 
