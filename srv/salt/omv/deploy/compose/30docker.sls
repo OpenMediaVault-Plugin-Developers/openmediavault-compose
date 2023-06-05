@@ -32,11 +32,18 @@ docker_install_packages:
     - pkgs:
       - "{{ docker_pkg }}"
 
-docker2_install_packages:
+docker_compose_install_packages:
   pkg.installed:
     - pkgs:
       - "{{ compose_pkg }}"
 {% if docker | to_bool and not arch == 'i386' %}
       - containerd.io
       - docker-ce-cli
+{% endif %}
+
+{% if docker | to_bool and not arch == 'i386' %}
+docker_purged_packages:
+  pkg.purged:
+    - pkgs:
+      - docker-compose
 {% endif %}
