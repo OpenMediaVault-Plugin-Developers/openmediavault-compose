@@ -224,23 +224,27 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmd->execute($output, $exitStatus);
             $containers = json_decode($output[0]);
             // get state of each container
-            $running = 0;
+            $down = 0;
             $exited = 0;
-            foreach ($containers as $cnt) {
-                switch ($cnt->State) {
-                    case "running": $running++; break;
-                    case "exited": $exited++; break;
+            $running = 0;
+            if (count($containers) == 0) {
+                $down++;
+            } else {
+                foreach ($containers as $cnt) {
+                    if ($cnt->State == "running") {
+                        $running++;
+                    } elseif ($cnt->State == "exited") {
+                        $exited++;
+                    } else {
+                        $down++;
+                    }
                 }
             }
-            $status = "DOWN";
-            if ($running > 0 && $exited > 0) {
-                $status = "MIXED";
-            } elseif ($running > 0) {
-                $status = "UP";
-            } elseif ($exited > 0) {
-                $status = "STOPPED";
-            }
-            $objectv->add('status', 'string', $status);
+            $status = [];
+            if ($running > 0) $status[] = "UP";
+            if ($exited > 0) $status[] = "STOPPED";
+            if ($down > 0) $status[] = "DOWN";
+            $objectv->add('status', 'string', implode(',', $status));
             $objectsAssoc[] = $objectv->getAssoc();
         }
         // Filter the result.

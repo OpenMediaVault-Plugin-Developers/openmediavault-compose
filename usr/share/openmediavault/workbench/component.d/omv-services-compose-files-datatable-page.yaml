@@ -30,6 +30,7 @@ data:
         sortable: true
         cellTemplateName: chip
         cellTemplateConfig:
+          separator: ','
           map:
             UP:
               value: _("Up")
