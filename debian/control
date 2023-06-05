@@ -12,6 +12,7 @@ Architecture: all
 Depends: openmediavault (>= 6.4),
          openmediavault-omvextrasorg (>= 6.3),
          openmediavault-sharerootfs,
+         python3-docker,
          python3-pretty-yaml,
          ${misc:Depends}
 Recommends: docker-ce,
