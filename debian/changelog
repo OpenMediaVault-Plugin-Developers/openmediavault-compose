@@ -1,3 +1,9 @@
+openmediavault-compose (6.7.14) stable; urgency=low
+
+  * Use multiple status tags instead of mixed on Files tab
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 05 Jun 2023 17:29:29 -0500
+
 openmediavault-compose (6.7.13) stable; urgency=low
 
   * Re-add python3-docker dependency required for autocompose
