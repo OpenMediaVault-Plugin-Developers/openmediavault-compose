@@ -780,13 +780,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         foreach ($output as $line) {
             $cntr = explode(',', $line);
             $cpu = floatval(trim(str_replace('%', '', $cntr[2])));
-            $memUse = trim(explode('/', $cntr[3])[0]);
-            $memLim = trim(explode('/', $cntr[3])[1]);
+            $memUL = explode('/', $cntr[3]);
+            $memUse = $this->convertToBytes($memUL[0]);
+            $memLim = $this->convertToBytes($memUL[1]);
             $mem = floatval(trim(str_replace('%', '', $cntr[4])));
-            $netIn = trim(explode('/', $cntr[5])[0]);
-            $netOut = trim(explode('/', $cntr[5])[1]);
-            $blockIn = trim(explode('/', $cntr[6])[0]);
-            $blockOut = trim(explode('/', $cntr[6])[1]);
+            $net = explode('/', $cntr[5]);
+            $netIn = $this->convertToBytes($net[0]);
+            $netOut = $this->convertToBytes($net[1]);
+            $block = explode('/', $cntr[6]);
+            $blockIn = $this->convertToBytes($block[0]);
+            $blockOut = $this->convertToBytes($block[1]);
             $objects[] = [
                 'id' => trim($cntr[0]),
                 'name' => trim($cntr[1]),
@@ -801,9 +804,27 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 'pids' => intval(trim($cntr[7]))
             ];
         }
-        return ($objects);
+		return $this->applyFilter($objects, $params['start'],
+			$params['limit'], $params['sortfield'], $params['sortdir']);
     }
 
+    private function convertToBytes($val)
+    {
+        $valL = strtolower($val);
+        $level = 1;
+        if (strpos($val, 'k')) {
+            $level = 1024;
+        } elseif (strpos($valL, 'm')) {
+            $level = pow(1024, 2);
+        } elseif (strpos($valL, 'g')) {
+            $level = pow(1024, 3);
+        } elseif (strpos($valL, 't')) {
+            $level = pow(1024, 4);
+        } elseif (strpos($valL, 'p')) {
+            $level = pow(1024, 5);
+        }
+        return (intval(floatval($val) * $level));
+    }
     public function doDockerCmd($params, $context)
     {
         // Validate the RPC caller context.
