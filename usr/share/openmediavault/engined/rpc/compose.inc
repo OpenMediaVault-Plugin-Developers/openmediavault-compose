@@ -804,8 +804,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 'pids' => intval(trim($cntr[7]))
             ];
         }
-		return $this->applyFilter($objects, $params['start'],
-			$params['limit'], $params['sortfield'], $params['sortdir']);
+        return $this->applyFilter($objects, $params['start'],
+            $params['limit'], $params['sortfield'], $params['sortdir']);
     }
 
     private function convertToBytes($val)
