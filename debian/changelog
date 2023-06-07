@@ -1,3 +1,9 @@
+openmediavault-compose (6.7.15) stable; urgency=low
+
+  * Sort stats columns correctly
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 07 Jun 2023 08:03:44 -0500
+
 openmediavault-compose (6.7.14) stable; urgency=low
 
   * Use multiple status tags instead of mixed on Files tab
