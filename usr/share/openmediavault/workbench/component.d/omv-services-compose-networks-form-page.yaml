@@ -1,0 +1,101 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-network-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      post:
+        method: setNetwork
+    fields:
+      - type: confObjUuid
+      - type: textInput
+        name: name
+        label: _("Name")
+        value: ""
+        validators:
+          required: true
+      - type: select
+        name: driver
+        label: _("Driver")
+        value: "bridge"
+        store:
+          data:
+            - ["bridge", "bridge"]
+            - ["ipvlan", "ipvlan"]
+            - ["macvlan", "macvlan"]
+            - ["overlay", "overlay"]
+      - type: select
+        name: parentnetwork
+        label: _("Parent network")
+        textField: devicename
+        valueField: devicename
+        store:
+          proxy:
+            service: Network
+            get:
+              method: enumerateDevices
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: driver
+              arg1: "macvlan"
+      - type: container
+        modifiers:
+          - type: visible
+            constraint:
+              operator: ne
+              arg0:
+                prop: driver
+              arg1: "macvlan"
+        fields:
+          - type: textInput
+            name: subnet
+            label: _("Subnet")
+            value: ""
+            hint: _("e.g. 172.20.0.0/16")
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: ne
+                  arg0:
+                    prop: driver
+                  arg1: "macvlan"
+          - type: textInput
+            name: gateway
+            label: _("Gateway")
+            value: ""
+            hint: _("e.g. 172.20.0.1")
+            validators:
+              patternType: ipv4
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: ne
+                  arg0:
+                    prop: driver
+                  arg1: "macvlan"
+          - type: textInput
+            name: iprange
+            label: _("IP range")
+            value: ""
+            hint: _("e.g. 172.20.10.128/25")
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: ne
+                  arg0:
+                    prop: driver
+                  arg1: "macvlan"
+    buttons:
+      - template: submit
+        execute:
+          type: url
+          url: "/services/compose/networks"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/compose/networks"

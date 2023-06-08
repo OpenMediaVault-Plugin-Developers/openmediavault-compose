@@ -25,6 +25,10 @@ data:
         flexGrow: 1
         sortable: true
     actions:
+      - template: create
+        execute:
+          type: url
+          url: "/services/compose/networks/create"
       - type: iconButton
         icon: mdi:magnify
         tooltip: _("Inspect")

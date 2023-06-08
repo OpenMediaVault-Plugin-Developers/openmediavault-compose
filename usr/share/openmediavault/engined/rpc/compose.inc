@@ -66,6 +66,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
         $this->registerMethod("getNetworks");
         $this->registerMethod("doDockerNetworkCmd");
+        $this->registerMethod("setNetwork");
     }
 
     public function getComposePath($context)
@@ -1002,5 +1003,30 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 return $output;
             }
         );
+    }
+
+    public function setNetwork($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $driver = $params['driver'];
+        // Get networks
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'network';
+        $cmdArgs[] = 'create';
+        $cmdArgs[] = sprintf("--driver %s", $driver);
+        if ($driver == 'macvlan') {
+            $cmdArgs[] = sprintf("--opt parent=%s", $params['parentnetwork']);
+        } else {
+            $cmdArgs[] = sprintf("--subnet=%s", $params['subnet']);
+            $cmdArgs[] = sprintf("--gateway=%s", $params['gateway']);
+            $cmdArgs[] = sprintf("--ip-range=%s", $params['iprange']);
+        }
+        $cmdArgs[] = $params['name'];
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setRedirect2to1();
+        $cmd->execute($output, $exitStatus);
+        return $output;
     }
 }
