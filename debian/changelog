@@ -1,3 +1,12 @@
+openmediavault-compose (6.7.16) stable; urgency=low
+
+  * Add Volumes tab to display information on docker volumes
+  * Add Networks tab to display information on docker networks
+  * Set Docker storage path to blank if nvidia is detected in docker
+    daemon.json to prevent custom config from being lost
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 08 Jun 2023 06:19:12 -0500
+
 openmediavault-compose (6.7.15) stable; urgency=low
 
   * Sort stats columns correctly
