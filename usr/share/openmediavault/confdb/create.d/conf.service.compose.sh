@@ -29,6 +29,12 @@ if ! omv_config_exists "/config/services/compose"; then
       dockerPath="${dockerRoot}"
     fi
   fi
+  daemonJson="/etc/docker/daemon.json"
+  if [ -f "${daemonJson}" ]; then
+    if grep -qi nvidia ${daemonJson}; then
+      dockerPath=""
+    fi
+  fi
   omv_config_add_node "/config/services" "compose"
   omv_config_add_key "/config/services/compose" "sharedfolderref" ""
   omv_config_add_key "/config/services/compose" "dockerStorage" "${dockerPath}"
