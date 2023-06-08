@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.volumes"
+  text: _("Volumes")
+  position: 50
+  icon: mdi:database
+  url: "/services/compose/volumes"

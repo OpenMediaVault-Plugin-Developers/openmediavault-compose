@@ -1,0 +1,47 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-networks-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    stateId: d32e223c-0591-11ee-9d61-9bfb68b33e85
+    sorters:
+      - dir: asc
+        prop: name
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getNetworks
+    columns:
+      - name: _("Name")
+        prop: name
+        flexGrow: 1
+        sortable: true
+      - name: _("Driver")
+        prop: driver
+        flexGrow: 1
+        sortable: true
+    actions:
+      - type: iconButton
+        icon: mdi:magnify
+        tooltip: _("Inspect")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker network inspect ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerNetworkCmd
+                params:
+                  name: "{{ _selected[0].name }}"
+              buttons:
+                stop:
+                  hidden: true

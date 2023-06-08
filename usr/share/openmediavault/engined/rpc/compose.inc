@@ -60,6 +60,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("doDockerCmd");
 
         $this->registerMethod("getContainers");
+
+        $this->registerMethod("getVolumes");
+        $this->registerMethod("doDockerVolumeCmd");
+
+        $this->registerMethod("getNetworks");
+        $this->registerMethod("doDockerNetworkCmd");
     }
 
     public function getComposePath($context)
@@ -825,6 +831,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         return (intval(floatval($val) * $level));
     }
+
     public function doDockerCmd($params, $context)
     {
         // Validate the RPC caller context.
@@ -892,5 +899,108 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
         }
         return ($objects);
+    }
+
+    public function getVolumes($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $objects = [];
+        // Get images
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'volume';
+        $cmdArgs[] = 'ls';
+        $cmdArgs[] = '--format "json"';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setQuiet(true);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        $volumesAssoc = [];
+        foreach ($output as $volume) {
+            $volumeJson = json_decode($volume);
+            $volumesAssoc[] = [
+                "name" => $volumeJson->Name,
+                "mountpoint" => $volumeJson->Mountpoint,
+                "driver" => $volumeJson->Driver
+            ];
+        }
+        // Filter the result.
+        return $this->applyFilter($volumesAssoc, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir']);
+    }
+
+    public function doDockerVolumeCmd($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'volume';
+                $cmdArgs[] = 'inspect';
+                $cmdArgs[] = $params['name'];
+                $cmdArgs[] = '| jq .';
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function getNetworks($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $objects = [];
+        // Get networks
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'network';
+        $cmdArgs[] = 'ls';
+        $cmdArgs[] = '--format "json"';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setQuiet(true);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        $networksAssoc = [];
+        foreach ($output as $network) {
+            $networkJson = json_decode($network);
+            $networksAssoc[] = [
+                "name" => $networkJson->Name,
+                "driver" => $networkJson->Driver
+            ];
+        }
+        // Filter the result.
+        return $this->applyFilter($networksAssoc, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir']);
+    }
+
+    public function doDockerNetworkCmd($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'network';
+                $cmdArgs[] = 'inspect';
+                $cmdArgs[] = $params['name'];
+                $cmdArgs[] = '| jq .';
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
     }
 }

@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.networks"
+  text: _("Networks")
+  position: 60
+  icon: mdi:lan
+  url: "/services/compose/networks"
