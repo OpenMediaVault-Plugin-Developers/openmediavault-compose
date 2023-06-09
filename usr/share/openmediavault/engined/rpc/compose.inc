@@ -446,6 +446,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'build';
+                if ($params['options'] == 'pull') {
+                    $cmdArgs[] = '--pull';
+                }
                 $cmdArgs[] = sprintf("--tag '%s'", $params['name']);
                 $cmdArgs[] = $path;
                 $cmd = new \OMV\System\Process($cmdArgs);

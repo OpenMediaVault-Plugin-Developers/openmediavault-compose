@@ -58,3 +58,22 @@ data:
                 method: doBuild
                 params:
                   name: "{{ _selected[0].name }}"
+                  options: ""
+      - type: iconButton
+        icon: mdi:wrench-cog-outline
+        tooltip: _("Pull and Build")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("dockerfile build ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doBuild
+                params:
+                  name: "{{ _selected[0].name }}"
+                  options: "pull"
