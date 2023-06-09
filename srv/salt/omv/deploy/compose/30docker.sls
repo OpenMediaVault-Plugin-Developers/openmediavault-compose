@@ -39,6 +39,7 @@ docker_compose_install_packages:
 {% if docker | to_bool and not arch == 'i386' %}
       - containerd.io
       - docker-ce-cli
+      - docker-buildx-plugin
 {% endif %}
 
 {% if docker | to_bool and not arch == 'i386' %}
