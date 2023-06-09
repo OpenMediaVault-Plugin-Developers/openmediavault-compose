@@ -1,3 +1,10 @@
+openmediavault-compose (6.7.17) stable; urgency=low
+
+  * Add docker-buildx-plugin package
+  * Add button to pull and build dockerfile
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 09 Jun 2023 09:20:00 -0500
+
 openmediavault-compose (6.7.16) stable; urgency=low
 
   * Add Volumes tab to display information on docker volumes
