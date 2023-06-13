@@ -6,6 +6,7 @@ data:
   config:
     autoReload: false
     hasSearchField: true
+    rowId: name
     stateId: 6ab36dd0-7698-11ed-b240-a73c8036aead
     sorters:
       - dir: asc

@@ -33,6 +33,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("restartDocker");
 
         $this->registerMethod("getFileList");
+        $this->registerMethod("getFileListBg");
         $this->registerMethod("getFile");
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
@@ -49,6 +50,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("setExample");
 
         $this->registerMethod("getContainerList");
+        $this->registerMethod("getContainerListBg");
         $this->registerMethod("doContainerCommand");
 
         $this->registerMethod("enumerateContainers");
@@ -57,16 +59,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("importExistingFolder");
 
         $this->registerMethod("getStats");
+        $this->registerMethod("getStatsBg");
         $this->registerMethod("doDockerCmd");
 
         $this->registerMethod("getContainers");
 
         $this->registerMethod("getVolumes");
+        $this->registerMethod("getVolumesBg");
         $this->registerMethod("doDockerVolumeCmd");
 
         $this->registerMethod("getNetworks");
+        $this->registerMethod("getNetworksBg");
         $this->registerMethod("doDockerNetworkCmd");
         $this->registerMethod("setNetwork");
+
+        $this->registerMethod("getImages");
+        $this->registerMethod("getImagesBg");
+        $this->registerMethod("doDockerImageCmd");
     }
 
     public function getComposePath($context)
@@ -257,6 +266,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Filter the result.
         return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir']);
+    }
+
+    public function getFileListBg($params, $context) {
+        return $this->callMethodBg("getFileList", $params, $context);
     }
 
     public function getFile($params, $context)
@@ -646,6 +659,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir']);
     }
 
+    public function getContainerListBg($params, $context) {
+        return $this->callMethodBg("getContainerList", $params, $context);
+    }
+
     public function doContainerCommand($params, $context)
     {
         // Validate the RPC caller context.
@@ -818,6 +835,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['limit'], $params['sortfield'], $params['sortdir']);
     }
 
+    public function getStatsBg($params, $context) {
+        return $this->callMethodBg("getStats", $params, $context);
+    }
+
     private function convertToBytes($val)
     {
         $valL = strtolower($val);
@@ -934,6 +955,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir']);
     }
 
+    public function getVolumesBg($params, $context) {
+        return $this->callMethodBg("getVolumes", $params, $context);
+    }
+
     public function doDockerVolumeCmd($params, $context)
     {
         // Validate the RPC caller context.
@@ -985,6 +1010,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir']);
     }
 
+    public function getNetworksBg($params, $context) {
+        return $this->callMethodBg("getNetworks", $params, $context);
+    }
+
     public function doDockerNetworkCmd($params, $context)
     {
         // Validate the RPC caller context.
@@ -1031,5 +1060,66 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmd->setRedirect2to1();
         $cmd->execute($output, $exitStatus);
         return $output;
+    }
+
+    public function getImages($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $objects = [];
+        // Get images
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'image';
+        $cmdArgs[] = 'ls';
+        $cmdArgs[] = '--all';
+        $cmdArgs[] = '--format "json"';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setQuiet(true);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        $imagesAssoc = [];
+        foreach ($output as $image) {
+            $imageJson = json_decode($image);
+            $imagesAssoc[] = [
+                "id" => $imageJson->ID,
+                "repo" => $imageJson->Repository,
+                "createat" => $imageJson->CreatedAt,
+                "createsince" => $imageJson->CreatedSince,
+                "size" => $this->convertToBytes($imageJson->Size),
+                "tag" => $imageJson->Tag,
+                "virtualsize" => $this->convertToBytes($imageJson->VirtualSize)
+            ];
+        }
+        // Filter the result.
+        return $this->applyFilter($imagesAssoc, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir']);
+    }
+
+    public function getImagesBg($params, $context) {
+        return $this->callMethodBg("getImages", $params, $context);
+    }
+
+    public function doDockerImageCmd($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'image';
+                $cmdArgs[] = 'inspect';
+                $cmdArgs[] = $params['id'];
+                $cmdArgs[] = '| jq .';
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
     }
 }

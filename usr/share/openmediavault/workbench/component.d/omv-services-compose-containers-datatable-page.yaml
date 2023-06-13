@@ -4,15 +4,18 @@ data:
   name: omv-services-compose-containers-datatable-page
   type: datatablePage
   config:
-    autoReload: 30000
+    autoReload: false
     hasSearchField: true
+    remoteSorting: true
+    remotePaging: true
     stateId: f350a8e8-9997-11ed-8f7b-83968f3f3a4f
     rowId: name
     store:
       proxy:
         service: Compose
         get:
-          method: getContainerList
+          method: getContainerListBg
+          task: true
     columns:
       - name: _("Name")
         prop: name

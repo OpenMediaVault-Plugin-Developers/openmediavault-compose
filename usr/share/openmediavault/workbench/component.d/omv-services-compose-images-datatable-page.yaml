@@ -1,0 +1,77 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-images-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    remoteSorting: true
+    remotePaging: true
+    rowId: id
+    stateId: c2e1baf6-0a19-11ee-9a0a-1bbcfb3e6ead
+    sorters:
+      - dir: asc
+        prop: repo
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getImagesBg
+          task: true
+    columns:
+      - name: _("ID")
+        prop: id
+        flexGrow: 1
+        sortable: true
+        hidden: true
+      - name: _("Repository")
+        prop: repo
+        flexGrow: 2
+        sortable: true
+      - name: _("Tag")
+        prop: tag
+        flexGrow: 1
+        sortable: true
+      - name: _("Created At")
+        prop: createat
+        flexGrow: 2
+        sortable: true
+        hidden: true
+      - name: _("Created")
+        prop: createsince
+        flexGrow: 1
+      - name: _("Size")
+        prop: size
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: '{{ size | tobytes | binaryunit | notavailable("-") }}'
+      - name: _("Virtual Size")
+        prop: virtualsize
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: '{{ virtualsize | tobytes | binaryunit | notavailable("-") }}'
+        hidden: true
+    actions:
+      - type: iconButton
+        icon: mdi:magnify
+        tooltip: _("Inspect")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker image inspect ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerImageCmd
+                params:
+                  id: "{{ _selected[0].id }}"
+              buttons:
+                stop:
+                  hidden: true

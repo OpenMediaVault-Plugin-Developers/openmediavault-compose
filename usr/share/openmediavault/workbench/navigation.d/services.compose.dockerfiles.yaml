@@ -3,6 +3,6 @@ type: navigation-item
 data:
   path: "services.compose.dockerfiles"
   text: _("Dockerfiles")
-  position: 70
+  position: 80
   icon: mdi:docker
   url: "/services/compose/dockerfiles"

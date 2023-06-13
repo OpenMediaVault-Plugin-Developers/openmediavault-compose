@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.images"
+  text: _("Images")
+  position: 70
+  icon: mdi:image-multiple-outline
+  url: "/services/compose/images"

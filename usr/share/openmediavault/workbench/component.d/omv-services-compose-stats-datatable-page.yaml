@@ -17,8 +17,14 @@ data:
       proxy:
         service: Compose
         get:
-          method: getStats
+          method: getStatsBg
+          task: true
     columns:
+      - name: _("ID")
+        prop: id
+        flexGrow: 1
+        sortable: true
+        hidden: true
       - name: _("Name")
         prop: name
         flexGrow: 1

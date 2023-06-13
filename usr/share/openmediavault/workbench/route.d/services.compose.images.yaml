@@ -1,0 +1,6 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/compose/images"
+  title: _("Images")
+  component: omv-services-compose-images-datatable-page

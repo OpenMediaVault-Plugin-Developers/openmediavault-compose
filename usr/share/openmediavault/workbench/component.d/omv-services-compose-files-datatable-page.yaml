@@ -6,6 +6,9 @@ data:
   config:
     autoReload: false
     hasSearchField: true
+    remoteSorting: true
+    remotePaging: true
+    rowId: name
     stateId: 2342fc64-d6d3-11ec-aa87-3bd4b4655482
     sorters:
       - dir: asc
@@ -14,7 +17,8 @@ data:
       proxy:
         service: Compose
         get:
-          method: getFileList
+          method: getFileListBg
+          task: true
     columns:
       - name: _("Name")
         prop: name
