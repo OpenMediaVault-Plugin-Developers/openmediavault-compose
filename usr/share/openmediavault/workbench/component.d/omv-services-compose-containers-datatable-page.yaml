@@ -7,7 +7,6 @@ data:
     autoReload: false
     hasSearchField: true
     remoteSorting: true
-    remotePaging: true
     stateId: f350a8e8-9997-11ed-8f7b-83968f3f3a4f
     rowId: name
     store:

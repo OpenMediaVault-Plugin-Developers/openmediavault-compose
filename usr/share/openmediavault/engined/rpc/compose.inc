@@ -265,7 +265,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // Filter the result.
         return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
-            $params['sortfield'], $params['sortdir']);
+            $params['sortfield'], $params['sortdir'], $params['search']);
+
     }
 
     public function getFileListBg($params, $context) {
@@ -366,7 +367,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $objects = $db->getAssoc("conf.service.compose.dockerfile");
         // Filter the result.
         return $this->applyFilter($objects, $params['start'], $params['limit'],
-            $params['sortfield'], $params['sortdir']);
+            $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
     public function getDockerfile($params, $context)
@@ -656,7 +657,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // Filter the result.
         return $this->applyFilter($imagesAssoc, $params['start'], $params['limit'],
-            $params['sortfield'], $params['sortdir']);
+            $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
     public function getContainerListBg($params, $context) {
@@ -831,8 +832,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 'pids' => intval(trim($cntr[7]))
             ];
         }
-        return $this->applyFilter($objects, $params['start'],
-            $params['limit'], $params['sortfield'], $params['sortdir']);
+        return $this->applyFilter($objects, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
     public function getStatsBg($params, $context) {
@@ -952,7 +953,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // Filter the result.
         return $this->applyFilter($volumesAssoc, $params['start'], $params['limit'],
-            $params['sortfield'], $params['sortdir']);
+            $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
     public function getVolumesBg($params, $context) {
@@ -1007,7 +1008,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // Filter the result.
         return $this->applyFilter($networksAssoc, $params['start'], $params['limit'],
-            $params['sortfield'], $params['sortdir']);
+            $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
     public function getNetworksBg($params, $context) {
@@ -1093,7 +1094,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // Filter the result.
         return $this->applyFilter($imagesAssoc, $params['start'], $params['limit'],
-            $params['sortfield'], $params['sortdir']);
+            $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
     public function getImagesBg($params, $context) {
