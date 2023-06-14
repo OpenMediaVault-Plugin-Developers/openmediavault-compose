@@ -1,3 +1,9 @@
+openmediavault-compose (6.7.19) stable; urgency=low
+
+  * Fix search
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 14 Jun 2023 06:08:01 -0500
+
 openmediavault-compose (6.7.18) stable; urgency=low
 
   * Add another link to wiki
