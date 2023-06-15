@@ -9,6 +9,9 @@ data:
     remoteSorting: true
     stateId: f350a8e8-9997-11ed-8f7b-83968f3f3a4f
     rowId: name
+    sorters:
+      - dir: asc
+        prop: name
     store:
       proxy:
         service: Compose
