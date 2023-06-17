@@ -261,6 +261,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($exited > 0) $status[] = "STOPPED";
             if ($down > 0) $status[] = "DOWN";
             $objectv->add('status', 'string', implode(',', $status));
+            $objectv->remove('body');
+            $objectv->remove('env');
             $objectsAssoc[] = $objectv->getAssoc();
         }
         // Filter the result.
@@ -493,6 +495,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
                 $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
                 $cmdArgs[] = $params['command'];
+                $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
+                if ($quiet) {
+                    switch ($params['command']) {
+                        case 'pull': $cmdArgs[] = '--quiet'; break;
+                        case 'up -d': $cmdArgs[] = '--quiet-pull'; break;
+                    }
+                }
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -675,6 +684,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = sprintf("--file '%s'", $params['path']);
                 $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
                 $cmdArgs[] = $params['command'];
+                $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
+                if ($quiet) {
+                    switch ($params['command']) {
+                        case 'pull': $cmdArgs[] = '--quiet'; break;
+                        case 'up -d': $cmdArgs[] = '--quiet-pull'; break;
+                    }
+                }
                 $cmdArgs[] = $params['service'];
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();

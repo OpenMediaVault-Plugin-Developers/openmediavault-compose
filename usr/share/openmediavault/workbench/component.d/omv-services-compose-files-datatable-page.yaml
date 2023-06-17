@@ -6,12 +6,12 @@ data:
   config:
     autoReload: false
     hasSearchField: true
-    remoteSorting: true
     rowId: name
     stateId: 2342fc64-d6d3-11ec-aa87-3bd4b4655482
     sorters:
       - dir: asc
         prop: name
+    sortType: multi
     store:
       proxy:
         service: Compose
