@@ -22,6 +22,10 @@
         "dockerStorage": {
           "type": "string",
           "required": false
+        },
+        "all": {
+          "type": "boolean",
+          "required": true
         }
       }
     }

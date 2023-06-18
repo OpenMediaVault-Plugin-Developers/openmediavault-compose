@@ -16,6 +16,11 @@ data:
         label: _("Shared folder")
         hasEmptyOption: true
         hint: _("The location of compose files.")
+      - type: checkbox
+        name: all
+        label: _("Show all")
+        value: false
+        hint: _("Show all containers on Containers tab including containers controlled outside of plugin.")
       - type: divider
         title: _("Docker")
       - type: textInput

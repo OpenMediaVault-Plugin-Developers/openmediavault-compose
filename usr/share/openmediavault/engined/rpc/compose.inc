@@ -595,7 +595,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
         $sfpath = $this->getComposePath($context);
-        $objects = $db->get("conf.service.compose.file");
+        $settings = $db->get("conf.service.compose");
         // get fqdn
         $dns = $db->get('conf.system.network.dns');
         $fqdn = $dns->get('hostname');
@@ -603,64 +603,123 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (strlen($dn) > 1) {
             $fqdn = sprintf('%s.%s', $fqdn, $dn);
         }
-        // Add additional file information
+        // populate containers
         $imagesAssoc = [];
-        foreach ($objects as $objectk => &$objectv) {
-            $cname = $objectv->get('name');
-            $path = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
-            $filepath = sprintf("%s.yml", $path);
-            $envfilepath = sprintf("%s.env", $path);
-            $exists = file_exists($filepath);
-            if ($exists) {
-                // Get images
-                $cmdArgs = [];
-                $cmdArgs[] = 'docker-compose';
-                $cmdArgs[] = sprintf('--file "%s"', $filepath);
-                $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
-                $cmdArgs[] = 'ps';
-                $cmdArgs[] = '--all';
-                $cmdArgs[] = '--format "json"';
-                $cmd = new \OMV\System\Process($cmdArgs);
-                $cmd->setQuiet(true);
-                $output = [];
-                $cmd->execute($output, $exitStatus);
-                $images = json_decode($output[0]);
-                foreach ($images as $image) {
-                    $ports = [];
-                    foreach ($image->Publishers as $publisher) {
-                        $port = '';
-                        $url = $publisher->URL;
-                        $tgtPort = $publisher->TargetPort;
-                        $pubPort = $publisher->PublishedPort;
-                        $protocol = $publisher->Protocol;
-                        if ($tgtPort > 0 && $pubPort > 0) {
-                            $port .= sprintf('%d->', $pubPort);
-                        }
-                        $port .= sprintf('%s/%s', $tgtPort, $protocol);
-                        if (strlen($url) > 0) $port .= sprintf(' [%s]', $url);
-                        if ($protocol == "tcp") {
-                            $hrefPort = 0;
-                            if ($pubPort > 0) {
-                                $hrefPort = $pubPort;
-                            } else {
-                                $hrefPort = $tgtPort;
-                            }
-                            $port = sprintf('<a href="http://%s:%d" target="_blank">%s</a>', $fqdn, $hrefPort, $port);
-                        }
+        if ($settings->get('all')) {
+            // Get images
+            $cmdArgs = [];
+            $cmdArgs[] = 'docker';
+            $cmdArgs[] = 'container';
+            $cmdArgs[] = 'ls';
+            $cmdArgs[] = '--all';
+            $cmdArgs[] = '--format "json"';
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->setQuiet(true);
+            $output = [];
+            $cmd->execute($output, $exitStatus);
+            foreach ($output as $line) {
+                $container = json_decode($line);
+                $portList = explode(',', $container->Ports);
+                $ports = [];
+                foreach ($portList as $port) {
+                    $match = [];
+                    if (preg_match('/:(.*?)->/', str_replace(':::', ':', $port), $match) == 1) {
+                        $ports[] = sprintf('<a href="http://%s:%s" target="_blank">%s</a>', $fqdn, $match[1], $port);
+                    } else {
                         $ports[] = $port;
                     }
-                    $imagesAssoc[] = [
-                        "name" => $image->Name,
-                        "image" => $image->Image,
-                        "project" => $image->Project,
-                        "service" => $image->Service,
-                        "ports" => implode('<br/>', $ports),
-                        "created" => date("Y-m-d H:i:s", $image->Created),
-                        "state" => $image->State,
-                        "status" => $image->Status,
-                        "filepath" => $filepath,
-                        "envpath" => $envfilepath
-                    ];
+                }
+                $imagesAssoc[] = [
+                    "name" => $container->Names,
+                    "image" => $container->Image,
+                    "project" => '',
+                    "service" => '',
+                    "ports" => implode('<br/>', $ports),
+                    "created" => $container->CreatedAt,
+                    "state" => $container->State,
+                    "status" => $container->Status,
+                    "filepath" => '',
+                    "envpath" => ''
+                ];
+            }
+        } else {
+            $objects = $db->get("conf.service.compose.file");
+            // Add additional container information
+            foreach ($objects as $objectk => &$objectv) {
+                if ($all) {
+                    $cname = $objectv['Name'];
+                    $filepath = $objectv['ConfigFiles'];
+                    if (!file_exists($filepath)) {
+                        $filepath = str_replace('/data', $portainerPath, $filepath);
+                    }
+                    $path = dirname($filepath);
+                    $envfilepath = sprintf("%s/%s.env", $path, $cname);
+                    if (!file_exists($envfilepath)) {
+                        $envfilepath = sprintf("%s/.env", $path, $cname);
+                        if (!file_exists($envfilepath)) {
+                            $envfilepath = '';
+                        }
+                    }
+                } else {
+                    $cname = $objectv->get('name');
+                    $path = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
+                    $filepath = sprintf("%s.yml", $path);
+                    $envfilepath = sprintf("%s.env", $path);
+                }
+                $exists = file_exists($filepath);
+                if ($exists) {
+                    // Get images
+                    $cmdArgs = [];
+                    $cmdArgs[] = 'docker-compose';
+                    $cmdArgs[] = sprintf('--file "%s"', $filepath);
+                    if ($envfilepath != '') {
+                        $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
+                    }
+                    $cmdArgs[] = 'ps';
+                    $cmdArgs[] = '--all';
+                    $cmdArgs[] = '--format "json"';
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setQuiet(true);
+                    $output = [];
+                    $cmd->execute($output, $exitStatus);
+                    $images = json_decode($output[0]);
+                    foreach ($images as $image) {
+                        $ports = [];
+                        foreach ($image->Publishers as $publisher) {
+                            $port = '';
+                            $url = $publisher->URL;
+                            $tgtPort = $publisher->TargetPort;
+                            $pubPort = $publisher->PublishedPort;
+                            $protocol = $publisher->Protocol;
+                            if ($tgtPort > 0 && $pubPort > 0) {
+                                $port .= sprintf('%d->', $pubPort);
+                            }
+                            $port .= sprintf('%s/%s', $tgtPort, $protocol);
+                            if (strlen($url) > 0) $port .= sprintf(' [%s]', $url);
+                            if ($protocol == "tcp") {
+                                $hrefPort = 0;
+                                if ($pubPort > 0) {
+                                    $hrefPort = $pubPort;
+                                } else {
+                                    $hrefPort = $tgtPort;
+                                }
+                                $port = sprintf('<a href="http://%s:%d" target="_blank">%s</a>', $fqdn, $hrefPort, $port);
+                            }
+                            $ports[] = $port;
+                        }
+                        $imagesAssoc[] = [
+                            "name" => $image->Name,
+                            "image" => $image->Image,
+                            "project" => $image->Project,
+                            "service" => $image->Service,
+                            "ports" => implode('<br/>', $ports),
+                            "created" => date("Y-m-d H:i:s", $image->Created),
+                            "state" => $image->State,
+                            "status" => $image->Status,
+                            "filepath" => $filepath,
+                            "envpath" => $envfilepath
+                        ];
+                    }
                 }
             }
         }
