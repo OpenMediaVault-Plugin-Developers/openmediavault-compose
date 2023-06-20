@@ -26,20 +26,17 @@ data:
         name: dockerStatus
         label: _("Status")
         submitValue: false
-        modifiers:
-          - type: readonly
+        readonly: true
       - type: textInput
         name: dockerVersion
         label: _("Docker version")
         submitValue: false
-        modifiers:
-          - type: readonly
+        readonly: true
       - type: textInput
         name: composeVersion
         label: _("Compose version")
         submitValue: false
-        modifiers:
-          - type: readonly
+        readonly: true
     buttons:
       - template: submit
       - template: cancel
