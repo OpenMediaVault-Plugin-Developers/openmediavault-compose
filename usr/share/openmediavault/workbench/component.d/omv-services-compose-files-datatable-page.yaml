@@ -268,19 +268,6 @@ data:
                     method: doPrune
                     params:
                       command: "system prune"
-          - text: _("Image")
-            icon: mdi:image-minus-outline
-            execute:
-              type: taskDialog
-              taskDialog:
-                config:
-                  title: _("docker image prune ...")
-                  startOnInit: true
-                  request:
-                    service: Compose
-                    method: doPrune
-                    params:
-                      command: "image prune"
           - text: _("Container")
             icon: mdi:card-minus-outline
             execute:
@@ -294,19 +281,19 @@ data:
                     method: doPrune
                     params:
                       command: "container prune"
-          - text: _("Volume")
-            icon: mdi:database-minus-outline
+          - text: _("Image")
+            icon: mdi:image-minus-outline
             execute:
               type: taskDialog
               taskDialog:
                 config:
-                  title: _("docker volume prune ...")
+                  title: _("docker image prune ...")
                   startOnInit: true
                   request:
                     service: Compose
                     method: doPrune
                     params:
-                      command: "volume prune"
+                      command: "image prune"
           - text: _("Network")
             icon: mdi:minus-network-outline
             execute:
@@ -320,6 +307,19 @@ data:
                     method: doPrune
                     params:
                       command: "network prune"
+          - text: _("Volume")
+            icon: mdi:database-minus-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker volume prune ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doPrune
+                    params:
+                      command: "volume prune"
       - type: menu
         icon: mdi:link
         tooltip: _("Docs")
