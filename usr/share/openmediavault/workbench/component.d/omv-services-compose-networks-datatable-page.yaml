@@ -33,6 +33,24 @@ data:
           type: url
           url: "/services/compose/networks/create"
       - type: iconButton
+        icon: mdi:delete
+        tooltip: _("Delete")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker network rm ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerNetworkCmd
+                params:
+                  name: "{{ _selected[0].name }}"
+                  command: "rm"
+      - type: iconButton
         icon: mdi:magnify
         tooltip: _("Inspect")
         enabledConstraints:
@@ -49,6 +67,7 @@ data:
                 method: doDockerNetworkCmd
                 params:
                   name: "{{ _selected[0].name }}"
+                  command: "inspect"
               buttons:
                 stop:
                   hidden: true

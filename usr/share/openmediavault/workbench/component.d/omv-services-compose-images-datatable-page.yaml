@@ -55,6 +55,24 @@ data:
         hidden: true
     actions:
       - type: iconButton
+        icon: mdi:delete
+        tooltip: _("Delete")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker image rm ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerImageCmd
+                params:
+                  id: "{{ _selected[0].id }}"
+                  command: "rm"
+      - type: iconButton
         icon: mdi:magnify
         tooltip: _("Inspect")
         enabledConstraints:
@@ -71,6 +89,7 @@ data:
                 method: doDockerImageCmd
                 params:
                   id: "{{ _selected[0].id }}"
+                  command: "inspect"
               buttons:
                 stop:
                   hidden: true

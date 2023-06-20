@@ -1085,9 +1085,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'volume';
-                $cmdArgs[] = 'inspect';
+                $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['name'];
-                $cmdArgs[] = '| jq .';
+                if ($params['command'] == 'inspect') {
+                    $cmdArgs[] = '| jq .';
+                }
+                array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -1140,9 +1143,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'network';
-                $cmdArgs[] = 'inspect';
+                $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['name'];
-                $cmdArgs[] = '| jq .';
+                if ($params['command'] == 'inspect') {
+                    $cmdArgs[] = '| jq .';
+                }
+                array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -1226,9 +1232,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'image';
-                $cmdArgs[] = 'inspect';
+                $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['id'];
-                $cmdArgs[] = '| jq .';
+                if ($params['command'] == 'inspect') {
+                    $cmdArgs[] = '| jq .';
+                }
+                array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();

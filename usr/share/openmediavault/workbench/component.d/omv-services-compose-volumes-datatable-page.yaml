@@ -33,6 +33,24 @@ data:
         sortable: true
     actions:
       - type: iconButton
+        icon: mdi:delete
+        tooltip: _("Delete")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker volume rm ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerVolumeCmd
+                params:
+                  name: "{{ _selected[0].name }}"
+                  command: "rm"
+      - type: iconButton
         icon: mdi:magnify
         tooltip: _("Inspect")
         enabledConstraints:
@@ -49,6 +67,7 @@ data:
                 method: doDockerVolumeCmd
                 params:
                   name: "{{ _selected[0].name }}"
+                  command: "inspect"
               buttons:
                 stop:
                   hidden: true
