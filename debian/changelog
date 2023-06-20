@@ -7,8 +7,7 @@ openmediavault-compose (6.8) UNRELEASED; urgency=medium
   * Add new Containers tab that shows all containers running on system
   * Add --progress plain argument to docker build command from
     Dockerfiles tab
-  * Add button on Services tab to follow logs
-  * Add button on Containers tab to follow logs
+  * Add button on Services, Containers, Stats tabs to follow logs
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 16 Jun 2023 07:11:25 -0500
 

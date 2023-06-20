@@ -100,12 +100,13 @@ data:
                 params:
                   id: "{{ _selected[0].id }}"
                   cmd: "inspect"
+                  cmd2: ""
               buttons:
                 stop:
                   hidden: true
       - type: iconButton
-        icon: mdi:file-document-multiple-outline
-        tooltip: _("Logs")
+        icon: mdi:file-document-outline
+        tooltip: _("logs")
         enabledConstraints:
           minSelected: 1
           maxSelected: 1
@@ -121,6 +122,26 @@ data:
                 params:
                   id: "{{ _selected[0].id }}"
                   cmd: "logs"
+                  cmd2: ""
               buttons:
                 stop:
                   hidden: true
+      - type: iconButton
+        icon: mdi:file-document-refresh-outline
+        tooltip: _("follow logs")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker logs --follow ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerCmd
+                params:
+                  id: "{{ _selected[0].id }}"
+                  cmd: "logs"
+                  cmd2: "--follow"

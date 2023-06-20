@@ -983,7 +983,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = $params['cmd'];
+                $cmdArgs[] = $params['cmd2'];
                 $cmdArgs[] = $params['id'];
+                array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
