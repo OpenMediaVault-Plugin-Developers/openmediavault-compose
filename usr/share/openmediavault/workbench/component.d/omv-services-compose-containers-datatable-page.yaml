@@ -7,7 +7,7 @@ data:
     autoReload: false
     hasSearchField: true
     remoteSorting: true
-    stateId: f350a8e8-9997-11ed-8f7b-83968f3f3a4f
+    stateId: 21c6ac02-0e98-11ee-99b7-d3fb1b8b430a
     rowId: name
     sorters:
       - dir: asc
@@ -19,6 +19,11 @@ data:
           method: getContainerListBg
           task: true
     columns:
+      - name: _("ID")
+        prop: id
+        flexGrow: 1
+        sortable: true
+        hidden: true
       - name: _("Name")
         prop: name
         flexGrow: 1
@@ -26,14 +31,6 @@ data:
       - name: _("Image")
         prop: image
         flexGrow: 2
-        sortable: true
-      - name: _("Project")
-        prop: project
-        flexGrow: 1
-        sortable: true
-      - name: _("Service")
-        prop: service
-        flexGrow: 1
         sortable: true
       - name: _("State")
         prop: state
@@ -43,68 +40,35 @@ data:
         prop: status
         flexGrow: 1
         sortable: true
-      - name: _("Ports")
-        prop: ports
-        flexGrow: 1
-        sortable: true
       - name: _("Created")
         prop: created
         flexGrow: 1
         sortable: true
         hidden: true
-      - name: _("Path")
-        prop: filepath
+      - name: _("Running For")
+        prop: running
         flexGrow: 1
         sortable: true
         hidden: true
-        cellTemplateName: copyToClipboard
-      - name: _("Env Path")
-        prop: envpath
+      - name: _("Ports")
+        prop: ports
+        flexGrow: 1
+        sortable: true
+      - name: _("Mounts")
+        prop: mounts
+        flexGrow: 2
+        sortable: true
+      - name: _("Command")
+        prop: command
+        flexGrow: 2
+        sortable: true
+        hidden: true
+      - name: _("Network")
+        prop: network
         flexGrow: 1
         sortable: true
         hidden: true
-        cellTemplateName: copyToClipboard
     actions:
-      - type: iconButton
-        icon: mdi:download-network-outline
-        tooltip: _("pull")
-        enabledConstraints:
-          minSelected: 1
-          maxSelected: 1
-        execute:
-          type: taskDialog
-          taskDialog:
-            config:
-              title: _("docker-compose pull ...")
-              startOnInit: true
-              request:
-                service: Compose
-                method: doContainerCommand
-                params:
-                  command: "pull"
-                  service: "{{ _selected[0].service }}"
-                  path: "{{ _selected[0].filepath }}"
-                  envpath: "{{ _selected[0].envpath }}"
-      - type: iconButton
-        icon: mdi:arrow-up-circle-outline
-        tooltip: _("up")
-        enabledConstraints:
-          minSelected: 1
-          maxSelected: 1
-        execute:
-          type: taskDialog
-          taskDialog:
-            config:
-              title: _("docker-compose up -d ...")
-              startOnInit: true
-              request:
-                service: Compose
-                method: doContainerCommand
-                params:
-                  command: "up -d"
-                  service: "{{ _selected[0].service }}"
-                  path: "{{ _selected[0].filepath }}"
-                  envpath: "{{ _selected[0].envpath }}"
       - type: iconButton
         icon: mdi:restart
         tooltip: _("restart")
@@ -115,16 +79,14 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose restart ...")
+              title: _("docker restart ...")
               startOnInit: true
               request:
                 service: Compose
                 method: doContainerCommand
                 params:
                   command: "restart"
-                  service: "{{ _selected[0].service }}"
-                  path: "{{ _selected[0].filepath }}"
-                  envpath: "{{ _selected[0].envpath }}"
+                  id: "{{ _selected[0].id }}"
       - type: iconButton
         icon: mdi:file-document-multiple-outline
         tooltip: _("logs")
@@ -135,13 +97,11 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose logs ...")
+              title: _("docker logs ...")
               startOnInit: true
               request:
                 service: Compose
                 method: doContainerCommand
                 params:
                   command: "logs"
-                  service: "{{ _selected[0].service }}"
-                  path: "{{ _selected[0].filepath }}"
-                  envpath: "{{ _selected[0].envpath }}"
+                  id: "{{ _selected[0].id }}"

@@ -49,6 +49,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getExampleList");
         $this->registerMethod("setExample");
 
+        $this->registerMethod("getServicesList");
+        $this->registerMethod("getServicesListBg");
+        $this->registerMethod("doServiceCommand");
+
         $this->registerMethod("getContainerList");
         $this->registerMethod("getContainerListBg");
         $this->registerMethod("doContainerCommand");
@@ -465,6 +469,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($params['options'] == 'pull') {
                     $cmdArgs[] = '--pull';
                 }
+                $cmdArgs[] = '--progress plain';
                 $cmdArgs[] = sprintf("--tag '%s'", $params['name']);
                 $cmdArgs[] = $path;
                 $cmd = new \OMV\System\Process($cmdArgs);
@@ -586,7 +591,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return $object->getAssoc();
     }
 
-    public function getContainerList($params, $context)
+    public function getServicesList($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
@@ -605,121 +610,65 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // populate containers
         $imagesAssoc = [];
-        if ($settings->get('all')) {
-            // Get images
-            $cmdArgs = [];
-            $cmdArgs[] = 'docker';
-            $cmdArgs[] = 'container';
-            $cmdArgs[] = 'ls';
-            $cmdArgs[] = '--all';
-            $cmdArgs[] = '--format "json"';
-            $cmd = new \OMV\System\Process($cmdArgs);
-            $cmd->setQuiet(true);
-            $output = [];
-            $cmd->execute($output, $exitStatus);
-            foreach ($output as $line) {
-                $container = json_decode($line);
-                $portList = explode(',', $container->Ports);
-                $ports = [];
-                foreach ($portList as $port) {
-                    $match = [];
-                    if (preg_match('/:(.*?)->/', str_replace(':::', ':', $port), $match) == 1) {
-                        $ports[] = sprintf('<a href="http://%s:%s" target="_blank">%s</a>', $fqdn, $match[1], $port);
-                    } else {
+        $objects = $db->get("conf.service.compose.file");
+        foreach ($objects as $objectk => &$objectv) {
+            $cname = $objectv->get('name');
+            $path = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
+            $filepath = sprintf("%s.yml", $path);
+            $envfilepath = sprintf("%s.env", $path);
+            $exists = file_exists($filepath);
+            if ($exists) {
+                // Get images
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker-compose';
+                $cmdArgs[] = sprintf('--file "%s"', $filepath);
+                if ($envfilepath != '') {
+                        $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
+                }
+                $cmdArgs[] = 'ps';
+                $cmdArgs[] = '--all';
+                $cmdArgs[] = '--format "json"';
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setQuiet(true);
+                $output = [];
+                $cmd->execute($output, $exitStatus);
+                $images = json_decode($output[0]);
+                foreach ($images as $image) {
+                    $ports = [];
+                    foreach ($image->Publishers as $publisher) {
+                        $port = '';
+                        $url = $publisher->URL;
+                        $tgtPort = $publisher->TargetPort;
+                        $pubPort = $publisher->PublishedPort;
+                        $protocol = $publisher->Protocol;
+                        if ($tgtPort > 0 && $pubPort > 0) {
+                            $port .= sprintf('%d->', $pubPort);
+                        }
+                        $port .= sprintf('%s/%s', $tgtPort, $protocol);
+                        if (strlen($url) > 0) $port .= sprintf(' [%s]', $url);
+                        if ($protocol == "tcp") {
+                            $hrefPort = 0;
+                            if ($pubPort > 0) {
+                                $hrefPort = $pubPort;
+                            } else {
+                                $hrefPort = $tgtPort;
+                            }
+                            $port = sprintf('<a href="http://%s:%d" target="_blank">%s</a>', $fqdn, $hrefPort, $port);
+                        }
                         $ports[] = $port;
                     }
-                }
-                $imagesAssoc[] = [
-                    "name" => $container->Names,
-                    "image" => $container->Image,
-                    "project" => '',
-                    "service" => '',
-                    "ports" => implode('<br/>', $ports),
-                    "created" => $container->CreatedAt,
-                    "state" => $container->State,
-                    "status" => $container->Status,
-                    "filepath" => '',
-                    "envpath" => ''
-                ];
-            }
-        } else {
-            $objects = $db->get("conf.service.compose.file");
-            // Add additional container information
-            foreach ($objects as $objectk => &$objectv) {
-                if ($all) {
-                    $cname = $objectv['Name'];
-                    $filepath = $objectv['ConfigFiles'];
-                    if (!file_exists($filepath)) {
-                        $filepath = str_replace('/data', $portainerPath, $filepath);
-                    }
-                    $path = dirname($filepath);
-                    $envfilepath = sprintf("%s/%s.env", $path, $cname);
-                    if (!file_exists($envfilepath)) {
-                        $envfilepath = sprintf("%s/.env", $path, $cname);
-                        if (!file_exists($envfilepath)) {
-                            $envfilepath = '';
-                        }
-                    }
-                } else {
-                    $cname = $objectv->get('name');
-                    $path = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
-                    $filepath = sprintf("%s.yml", $path);
-                    $envfilepath = sprintf("%s.env", $path);
-                }
-                $exists = file_exists($filepath);
-                if ($exists) {
-                    // Get images
-                    $cmdArgs = [];
-                    $cmdArgs[] = 'docker-compose';
-                    $cmdArgs[] = sprintf('--file "%s"', $filepath);
-                    if ($envfilepath != '') {
-                        $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
-                    }
-                    $cmdArgs[] = 'ps';
-                    $cmdArgs[] = '--all';
-                    $cmdArgs[] = '--format "json"';
-                    $cmd = new \OMV\System\Process($cmdArgs);
-                    $cmd->setQuiet(true);
-                    $output = [];
-                    $cmd->execute($output, $exitStatus);
-                    $images = json_decode($output[0]);
-                    foreach ($images as $image) {
-                        $ports = [];
-                        foreach ($image->Publishers as $publisher) {
-                            $port = '';
-                            $url = $publisher->URL;
-                            $tgtPort = $publisher->TargetPort;
-                            $pubPort = $publisher->PublishedPort;
-                            $protocol = $publisher->Protocol;
-                            if ($tgtPort > 0 && $pubPort > 0) {
-                                $port .= sprintf('%d->', $pubPort);
-                            }
-                            $port .= sprintf('%s/%s', $tgtPort, $protocol);
-                            if (strlen($url) > 0) $port .= sprintf(' [%s]', $url);
-                            if ($protocol == "tcp") {
-                                $hrefPort = 0;
-                                if ($pubPort > 0) {
-                                    $hrefPort = $pubPort;
-                                } else {
-                                    $hrefPort = $tgtPort;
-                                }
-                                $port = sprintf('<a href="http://%s:%d" target="_blank">%s</a>', $fqdn, $hrefPort, $port);
-                            }
-                            $ports[] = $port;
-                        }
-                        $imagesAssoc[] = [
-                            "name" => $image->Name,
-                            "image" => $image->Image,
-                            "project" => $image->Project,
-                            "service" => $image->Service,
-                            "ports" => implode('<br/>', $ports),
-                            "created" => date("Y-m-d H:i:s", $image->Created),
-                            "state" => $image->State,
-                            "status" => $image->Status,
-                            "filepath" => $filepath,
-                            "envpath" => $envfilepath
-                        ];
-                    }
+                    $imagesAssoc[] = [
+                        "name" => $image->Name,
+                        "image" => $image->Image,
+                        "project" => $image->Project,
+                        "service" => $image->Service,
+                        "ports" => implode('<br/>', $ports),
+                        "created" => date("Y-m-d H:i:s", $image->Created),
+                        "state" => $image->State,
+                        "status" => $image->Status,
+                        "filepath" => $filepath,
+                        "envpath" => $envfilepath
+                    ];
                 }
             }
         }
@@ -728,11 +677,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
-    public function getContainerListBg($params, $context) {
-        return $this->callMethodBg("getContainerList", $params, $context);
+    public function getServicesListBg($params, $context) {
+        return $this->callMethodBg("getServicesList", $params, $context);
     }
 
-    public function doContainerCommand($params, $context)
+    public function doServiceCommand($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
@@ -751,6 +700,92 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     }
                 }
                 $cmdArgs[] = $params['service'];
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function getContainerList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.getlist");
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        // get fqdn
+        $dns = $db->get('conf.system.network.dns');
+        $fqdn = $dns->get('hostname');
+        $dn = $dns->get('domainname');
+        if (strlen($dn) > 1) {
+            $fqdn = sprintf('%s.%s', $fqdn, $dn);
+        }
+        // populate containers
+        $cntAssoc = [];
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'container';
+        $cmdArgs[] = 'ls';
+        $cmdArgs[] = '--all';
+        $cmdArgs[] = '--no-trunc';
+        $cmdArgs[] = '--format "json"';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setQuiet(true);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        foreach ($output as $line) {
+            $container = json_decode($line);
+            $portList = explode(',', $container->Ports);
+            $mounts = explode(',', $container->Mounts);
+            $ports = [];
+            foreach ($portList as $port) {
+                $match = [];
+                if (preg_match('/:(.*?)->/', str_replace(':::', ':', $port), $match) == 1) {
+                    $ports[] = sprintf('<a href="http://%s:%s" target="_blank">%s</a>', $fqdn, $match[1], $port);
+                } else {
+                    $ports[] = $port;
+                }
+            }
+            $cntAssoc[] = [
+                "id" => $container->ID,
+                "name" => $container->Names,
+                "image" => $container->Image,
+                "ports" => implode('<br/>', $ports),
+                "mounts" => implode('<br/>', $mounts),
+                "created" => $container->CreatedAt,
+                "state" => $container->State,
+                "status" => $container->Status,
+                "running" => $container->RunningFor,
+                "command" => $container->Command,
+                "network" => $container->Networks
+            ];
+        }
+        // Filter the result.
+        return $this->applyFilter($cntAssoc, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir'], $params['search']);
+    }
+
+    public function getContainerListBg($params, $context) {
+        return $this->callMethodBg("getContainerList", $params, $context);
+    }
+
+    public function doContainerCommand($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = $params['command'];
+                $cmdArgs[] = $params['id'];
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();

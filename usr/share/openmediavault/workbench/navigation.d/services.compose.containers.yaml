@@ -3,6 +3,6 @@ type: navigation-item
 data:
   path: "services.compose.containers"
   text: _("Containers")
-  position: 30
-  icon: mdi:text-box-multiple-outline
+  position: 80
+  icon: mdi:list-box-outline
   url: "/services/compose/containers"

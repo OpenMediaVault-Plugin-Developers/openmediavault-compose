@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.services"
+  text: _("Services")
+  position: 30
+  icon: mdi:format-list-group
+  url: "/services/compose/services"

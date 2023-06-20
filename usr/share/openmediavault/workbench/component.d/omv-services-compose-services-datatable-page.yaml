@@ -1,0 +1,147 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-services-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    remoteSorting: true
+    stateId: f350a8e8-9997-11ed-8f7b-83968f3f3a4f
+    rowId: name
+    sorters:
+      - dir: asc
+        prop: name
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getServicesListBg
+          task: true
+    columns:
+      - name: _("Name")
+        prop: name
+        flexGrow: 1
+        sortable: true
+      - name: _("Image")
+        prop: image
+        flexGrow: 2
+        sortable: true
+      - name: _("Project")
+        prop: project
+        flexGrow: 1
+        sortable: true
+      - name: _("Service")
+        prop: service
+        flexGrow: 1
+        sortable: true
+      - name: _("State")
+        prop: state
+        flexGrow: 1
+        sortable: true
+      - name: _("Status")
+        prop: status
+        flexGrow: 1
+        sortable: true
+      - name: _("Ports")
+        prop: ports
+        flexGrow: 1
+        sortable: true
+      - name: _("Created")
+        prop: created
+        flexGrow: 1
+        sortable: true
+        hidden: true
+      - name: _("Path")
+        prop: filepath
+        flexGrow: 1
+        sortable: true
+        hidden: true
+        cellTemplateName: copyToClipboard
+      - name: _("Env Path")
+        prop: envpath
+        flexGrow: 1
+        sortable: true
+        hidden: true
+        cellTemplateName: copyToClipboard
+    actions:
+      - type: iconButton
+        icon: mdi:download-network-outline
+        tooltip: _("pull")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker-compose pull ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doServiceCommand
+                params:
+                  command: "pull"
+                  service: "{{ _selected[0].service }}"
+                  path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"
+      - type: iconButton
+        icon: mdi:arrow-up-circle-outline
+        tooltip: _("up")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker-compose up -d ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doServiceCommand
+                params:
+                  command: "up -d"
+                  service: "{{ _selected[0].service }}"
+                  path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"
+      - type: iconButton
+        icon: mdi:restart
+        tooltip: _("restart")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker-compose restart ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doServiceCommand
+                params:
+                  command: "restart"
+                  service: "{{ _selected[0].service }}"
+                  path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"
+      - type: iconButton
+        icon: mdi:file-document-multiple-outline
+        tooltip: _("logs")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker-compose logs ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doServiceCommand
+                params:
+                  command: "logs"
+                  service: "{{ _selected[0].service }}"
+                  path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"

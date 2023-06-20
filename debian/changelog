@@ -3,6 +3,8 @@ openmediavault-compose (6.7.20) UNRELEASED; urgency=medium
   * Add multi-column sort to Files tab
   * Add OMV_COMPOSE_QUIET environment variable to add --quiet flag to
     pull commands and --quiet-pull to up commands.
+  * Rename Containers tab to Services
+  * Add new Containers tab that shows all containers running on system
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 16 Jun 2023 07:11:25 -0500
 
