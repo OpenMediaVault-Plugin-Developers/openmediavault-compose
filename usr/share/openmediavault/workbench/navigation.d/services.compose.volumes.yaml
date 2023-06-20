@@ -3,6 +3,6 @@ type: navigation-item
 data:
   path: "services.compose.volumes"
   text: _("Volumes")
-  position: 50
+  position: 70
   icon: mdi:database
   url: "/services/compose/volumes"
