@@ -24,10 +24,6 @@
       "type": "string",
       "default": "/var/lib/docker"
     },
-    "all": {
-      "type": "boolean",
-      "default": false
-    },
     "files": {
       "type": "object",
       "properties": {
