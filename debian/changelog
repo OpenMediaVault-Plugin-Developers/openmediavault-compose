@@ -10,6 +10,9 @@ openmediavault-compose (6.8) UNRELEASED; urgency=medium
   * Add button on Services, Containers, Stats tabs to follow logs
   * Reorder Prune menu
   * Swap Images and Volumes tabs positions to reorder
+  * Add delete button to Images, Networks, Volumes tabs. Should be safe
+    because force flag is not used and command will not delete while in
+    use
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 16 Jun 2023 07:11:25 -0500
 
