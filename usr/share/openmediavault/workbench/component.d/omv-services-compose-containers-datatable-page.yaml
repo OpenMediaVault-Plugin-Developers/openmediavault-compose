@@ -86,9 +86,10 @@ data:
                 method: doContainerCommand
                 params:
                   command: "restart"
+                  command2: ""
                   id: "{{ _selected[0].id }}"
       - type: iconButton
-        icon: mdi:file-document-multiple-outline
+        icon: mdi:file-document-outline
         tooltip: _("logs")
         enabledConstraints:
           minSelected: 1
@@ -104,4 +105,24 @@ data:
                 method: doContainerCommand
                 params:
                   command: "logs"
+                  command2: ""
+                  id: "{{ _selected[0].id }}"
+      - type: iconButton
+        icon: mdi:file-document-refresh-outline
+        tooltip: _("follow logs")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker logs --follow ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doContainerCommand
+                params:
+                  command: "logs"
+                  command2: "--follow"
                   id: "{{ _selected[0].id }}"

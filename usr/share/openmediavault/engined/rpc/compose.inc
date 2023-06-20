@@ -692,6 +692,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = sprintf("--file '%s'", $params['path']);
                 $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
                 $cmdArgs[] = $params['command'];
+                $cmdArgs[] = $params['command2'];
                 $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
                 if ($quiet) {
                     switch ($params['command']) {
@@ -700,6 +701,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     }
                 }
                 $cmdArgs[] = $params['service'];
+                array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -785,7 +787,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = $params['command'];
+                $cmdArgs[] = $params['command2'];
                 $cmdArgs[] = $params['id'];
+                array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
