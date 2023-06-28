@@ -11,11 +11,30 @@ data:
       post:
         method: set
     fields:
+      - type: divider
+        title: _("Compose Files")
       - type: sharedFolderSelect
         name: sharedfolderref
         label: _("Shared folder")
         hasEmptyOption: true
-        hint: _("The location of compose files.")
+        hint: _("Location of compose files")
+      - type: divider
+        title: _("Backup")
+      - type: sharedFolderSelect
+        name: backupsharedfolderref
+        label: _("Shared folder")
+        hasEmptyOption: true
+        hint: _("Location of backups")
+      - type: numberInput
+        name: backupmaxsize
+        label: _("Max Size")
+        value: 1
+        validators:
+          min: 1
+          max: 65536
+          patternType: integer
+          required: true
+        hint: _("Units in GB. Backup will skip volumes larger than this size.")
       - type: divider
         title: _("Docker")
       - type: textInput

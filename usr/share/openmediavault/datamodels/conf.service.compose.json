@@ -20,6 +20,25 @@
         }
       ]
     },
+    "backupsharedfolderref": {
+      "type": "string",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uuidv4"
+        },
+        {
+          "type": "string",
+          "maxLength": 0
+        }
+      ]
+    },
+    "backupmaxsize": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 65535,
+      "default": 1
+    },
     "dockerStorage": {
       "type": "string",
       "default": "/var/lib/docker"

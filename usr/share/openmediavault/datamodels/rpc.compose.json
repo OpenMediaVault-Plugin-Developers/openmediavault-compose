@@ -19,6 +19,24 @@
           ],
           "required": true
         },
+        "backupsharedfolderref": {
+          "type": "string",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uuidv4"
+            },
+            {
+              "type": "string",
+              "maxLength": 0
+            }
+          ],
+          "required": true
+        },
+        "backupmaxsize": {
+          "type": "integer",
+          "required": true
+        },
         "dockerStorage": {
           "type": "string",
           "required": false

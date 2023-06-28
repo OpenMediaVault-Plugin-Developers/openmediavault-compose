@@ -1,3 +1,9 @@
+openmediavault-compose (6.9) UNRELEASED; urgency=medium
+
+  * Add backup
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 27 Jun 2023 16:29:02 -0500
+
 openmediavault-compose (6.8) stable; urgency=low
 
   * Add multi-column sort to Files tab

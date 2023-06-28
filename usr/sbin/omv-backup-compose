@@ -1,0 +1,129 @@
+#!/bin/bash
+#
+# shellcheck disable=SC1091,SC2086,SC2207
+#
+# Copyright (c) 2023 OpenMediaVault Plugin Developers
+#
+# This file is licensed under the terms of the GNU General Public
+# License version 2. This program is licensed "as is" without any
+# warranty of any kind, whether express or implied.
+#
+# version: 0.0.1
+
+. /usr/share/openmediavault/scripts/helper-functions
+
+declare -i force=0
+
+compose="${1}"
+if [ -z "${compose}" ]; then
+  echo "No compose name set.  Exiting..."
+  exit 10
+fi
+
+# Get docker storage path
+dockerStorage=$(omv_config_get "/config/services/compose/dockerStorage")
+echo "Docker storage :: ${dockerStorage}"
+
+# Get the shared folder reference and path
+sfref=$(omv_config_get "/config/services/compose/sharedfolderref")
+if ! omv_isuuid "${sfref}"; then
+  echo "No compose sharedfolder set."
+  exit 11
+fi
+sfpath="$(omv_get_sharedfolder_path "${sfref}")"
+if [ ! -d "${sfpath}" ]; then
+  echo "Shared folder directory does not exist.  Exiting..."
+  exit 12
+fi
+echo "Compose file path :: ${sfpath}"
+
+# Get the backup shared folder reference and path
+sfref=$(omv_config_get "/config/services/compose/backupsharedfolderref")
+if ! omv_isuuid "${sfref}"; then
+  echo "No backup sharedfolder set."
+  exit 13
+fi
+backuppath="$(omv_get_sharedfolder_path "${sfref}")"
+if [ ! -d "${backuppath}" ]; then
+  echo "Backup shared folder directory does not exist.  Exiting..."
+  exit 14
+fi
+echo "Backup path :: ${backuppath}"
+
+# copy yml and env files
+yml="${sfpath}/${compose}/${compose}.yml"
+if [ ! -f "${yml}" ]; then
+  echo "Compose file '${yml}' does not exist.  Exiting..."
+  exit 15
+fi
+echo "Compose file :: ${yml}"
+
+# Get the backup max size
+backupmax=$(omv_config_get "/config/services/compose/backupmaxsize")
+if [ ${backupmax} -lt 1 ]; then
+  backupmax=1 
+fi
+echo "Backup max size :: ${backupmax} GB"
+backupmax=$((backupmax * 1024 * 1024 * 1024))
+echo
+
+OFS=$IFS
+IFS=$'\n'
+
+# get volumes
+vols=($(yq '.services[] | .volumes' "${yml}" | grep '^- ' | sed 's/^- //' | sed 's/"//g'))
+
+IFS=$OFS
+
+# create backup subdirectory
+backupdir="${backuppath}/${compose}"
+mkdir -pv "${backupdir}"
+
+# rsync volumes to backup path
+i=0
+
+vollist="${backupdir}/vol.list"
+rm -f "${vollist}"
+
+for vol in "${vols[@]}"; do
+  if [[ "${vol}" == *"SKIP_BACKUP"* ]]; then
+    echo -e "Skipping :: ${vol}\n"
+    continue
+  elif [[ "${vol}" == *"BACKUP"* ]]; then
+    echo "Forcing :: ${vol}"
+    force=1
+  else
+    echo "Backup :: ${vol}"
+    force=0
+  fi
+  # host path
+  hostpath="${vol%%:*}"
+  hostpath="${hostpath//\'/}"
+
+  if [ ! -f "${hostpath}" ] && [ ! -d "${hostpath}" ]; then
+    if [ -e "${hostpath}" ]; then
+      echo -e "Special file. Skipping...\n"
+    else
+      echo -e "Path does not exist. Skipping...\n"
+    fi
+    continue
+  fi
+  foldersize=$(du --summarize "${hostpath}" | awk '{ print $1 }')
+  if [ ${foldersize} -gt ${backupmax} ] && [ ${force} -eq 0 ]; then
+    echo "Folder size greater than max backup size.  Skipping..."
+    continue;
+  fi
+  # add volume list entry
+  echo "${i},${hostpath}" >> "${vollist}"
+
+  # rsync to numbered subdirectory
+  voldir="${backupdir}/${i}"
+  mkdir -pv "${voldir}"
+  rsync -avr --delete --stats "${hostpath}" "${voldir}"
+  echo
+  ((i++))
+done
+
+echo "Done."
+
+exit 0

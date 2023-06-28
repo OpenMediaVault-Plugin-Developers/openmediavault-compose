@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+. /usr/share/openmediavault/scripts/helper-functions
+
+filter="${1}"
+
+xpath="/config/services/compose/files/file"
+count=$(omv_config_get_count "${xpath}")
+index=1
+while [ ${index} -le ${count} ]; do
+  pos="${xpath}[position()=${index}]"
+  name=$(omv_config_get "${pos}/name")
+  if [ -n "${filter}" ] && [[ "${name}" != ${filter} ]]; then
+    index=$(( index + 1 ))
+    continue
+  fi
+  echo ${name}
+  index=$(( index + 1 ))
+done;
