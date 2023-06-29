@@ -10,9 +10,12 @@
 #
 # version: 0.0.1
 
+export LANG=C.UTF-8
+
 . /usr/share/openmediavault/scripts/helper-functions
 
 declare -i force=0
+declare -i i=0
 
 compose="${1}"
 if [ -z "${compose}" ]; then
@@ -50,7 +53,8 @@ if [ ! -d "${backuppath}" ]; then
 fi
 echo "Backup path :: ${backuppath}"
 
-# copy yml and env files
+# set path for yml and env files
+env="${sfpath}/${compose}/${compose}.env"
 yml="${sfpath}/${compose}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
   echo "Compose file '${yml}' does not exist.  Exiting..."
@@ -79,12 +83,24 @@ IFS=$OFS
 backupdir="${backuppath}/${compose}"
 mkdir -pv "${backupdir}"
 
-# rsync volumes to backup path
-i=0
+# copy yml and env files
+cp -v "${env}" "${yml}" "${backupdir}/"
+
+# save status
+status="${backuppath}/${compose}/status"
+docker-compose ls --all --filter name="${compose}" --format json | jq .[0].Status | tee "${status}"
+
+# stop compose if running
+if grep -q "running" "${status}"; then
+  docker-compose --file "${yml}" --env-file "${env}" stop
+else
+  echo "${compose} is not running"
+fi
 
 vollist="${backupdir}/vol.list"
 rm -f "${vollist}"
 
+# loop through volumes
 for vol in "${vols[@]}"; do
   if [[ "${vol}" == *"SKIP_BACKUP"* ]]; then
     echo -e "Skipping :: ${vol}\n"
@@ -123,6 +139,11 @@ for vol in "${vols[@]}"; do
   echo
   ((i++))
 done
+
+# start compose if running before backup
+if grep -q "running" "${status}"; then
+  docker-compose --file "${yml}" --env-file "${env}" start
+fi
 
 echo "Done."
 

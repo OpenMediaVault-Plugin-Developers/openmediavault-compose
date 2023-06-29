@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -e
+declare -i count=0
+declare -i index=0
 
 . /usr/share/openmediavault/scripts/helper-functions
 
@@ -17,5 +18,6 @@ while [ ${index} -le ${count} ]; do
     continue
   fi
   echo ${name}
+#  omv-compose-backup ${name}
   index=$(( index + 1 ))
 done;
