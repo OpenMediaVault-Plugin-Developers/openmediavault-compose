@@ -135,7 +135,7 @@ for vol in "${vols[@]}"; do
   # rsync to numbered subdirectory
   voldir="${backupdir}/${i}"
   mkdir -pv "${voldir}"
-  rsync -avr --delete --stats "${hostpath}" "${voldir}"
+  rsync -avr --delete --stats "${hostpath}/" "${voldir}"
   echo
   ((i++))
 done
