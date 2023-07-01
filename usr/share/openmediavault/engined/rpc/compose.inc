@@ -80,9 +80,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getImages");
         $this->registerMethod("getImagesBg");
         $this->registerMethod("doDockerImageCmd");
+
+        $this->registerMethod('getRestoreList');
+        $this->registerMethod('doRestore');
+
+        $this->registerMethod('getJobList');
+        $this->registerMethod('getJob');
+        $this->registerMethod('setJob');
+        $this->registerMethod('deleteJob');
+        $this->registerMethod('doJob');
     }
 
-    public function getComposePath($context)
+    private function getComposePath($context)
     {
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
@@ -94,6 +103,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
         } else {
             throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
+        return ($sfpath);
+    }
+
+    private function getBackupPath($context)
+    {
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        // Get sharedfolder path
+        $sfobject = $db->get("conf.service.compose");
+        $sfref = $sfobject->get("backupsharedfolderref");
+        $sfpath = "";
+        if (is_uuid($sfref)) {
+            $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+        } else {
+            throw new \OMV\Exception("Please set shared folder for backups.");
         }
         return ($sfpath);
     }
@@ -1238,6 +1263,124 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs[] = '| jq .';
                 }
                 array_filter($cmdArgs);
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function getRestoreList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // get backup list from list file
+        $sfpath = $this->getBackupPath($context);
+        $dirs = array_diff(scandir($sfpath), ["..", "."]);
+        $objects = [];
+        foreach($dirs as $dir) {
+            $volList = sprintf("%s/%s/vol.list", $sfpath, $dir);
+            if (file_exists($volList)) {
+                $objects[] = [ 'description' => $dir ];
+            }
+        }
+        return ($objects);
+    }
+
+    public function doRestore($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                $cmdArgs = [];
+                $cmdArgs[] = '/usr/sbin/omv-compose-restore';
+                $cmdArgs[] = $params['backup'];
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function getJobList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.getlist");
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->getAssoc("conf.service.compose.job");
+        // Filter the result.
+        return $this->applyFilter($objects, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir']);
+    }
+
+    function getJob($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.compose.job", $params['uuid']);
+        return $object->getAssoc();
+    }
+
+    function setJob($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.setjob");
+        // Prepare the configuration object.
+        $object = new \OMV\Config\ConfigObject("conf.service.compose.job");
+        $db = \OMV\Config\Database::getInstance();
+        $object->setAssoc($params);
+        // Set the configuration object.
+        $db->set($object);
+        // Return the configuration object.
+        return $object->getAssoc();
+    }
+
+    public function deleteJob($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        // Delete the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.compose.job", $params['uuid']);
+        $db->delete($object);
+        // Return the deleted configuration object.
+        return $object->getAssoc();
+    }
+
+    public function doJob($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.compose.job", $params['uuid']);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($object) {
+                $cmdArgs = [];
+                $cmdArgs[] = '/usr/sbin/omv-compose-backup-multi';
+                $cmdArgs[] = $object->get('filter');
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();

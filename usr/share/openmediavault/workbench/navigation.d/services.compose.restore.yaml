@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.restore"
+  text: _("Restore")
+  position: 110
+  icon: mdi:restore
+  url: "/services/compose/restore"

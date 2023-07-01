@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.schedule"
+  text: _("Schedule")
+  position: 100
+  icon: mdi:calendar-clock-outline
+  url: "/services/compose/schedule"

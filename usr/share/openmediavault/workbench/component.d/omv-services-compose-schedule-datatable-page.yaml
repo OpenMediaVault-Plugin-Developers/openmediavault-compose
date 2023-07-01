@@ -1,0 +1,75 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-schedule-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    stateId: 721723ee-1843-11ee-8845-f794b6ff9154
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getJobList
+    columns:
+      - name: _('Enabled')
+        prop: enable
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: checkIcon
+      - name: _("Filter")
+        prop: filter
+        flexGrow: 1
+        sortable: true
+      - name: _('Scheduling')
+        prop: ''
+        flexGrow: 1
+        cellTemplateName: template
+        cellTemplateConfig: |
+          {% if execution == "exactly" %}
+          {% set _minute = minute %}
+          {% set _hour = hour %}
+          {% set _dayofmonth = dayofmonth %}
+          {% if everynminute %}{% set _minute %}*/{{ minute }}{% endset %}{% endif %}
+          {% if everynhour %}{% set _hour %}*/{{ hour }}{% endset %}{% endif %}
+          {% if everyndayofmonth %}{% set _dayofmonth %}*/{{ dayofmonth }}{% endset %}{% endif %}
+          {{ _minute }} {{ _hour }} {{ _dayofmonth }} {{ month }} {{ dayofweek }}
+          {% else %}
+          {{ execution | capitalize | translate }}
+          {% endif %}
+    actions:
+      - template: create
+        execute:
+          type: url
+          url: "/services/compose/schedule/create"
+      - template: edit
+        execute:
+          type: url
+          url: "/services/compose/schedule/edit/{{ _selected[0].uuid }}"
+      - template: delete
+        execute:
+          type: request
+          request:
+            service: Compose
+            method: deleteJob
+            params:
+              uuid: "{{ _selected[0].uuid }}"
+      - type: iconButton
+        tooltip: _("Run")
+        icon: mdi:play-box-outline
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Execute scheduled job ...")
+              startOnInit: false
+              showCompletion: false
+              request:
+                service: Compose
+                method: doJob
+                params:
+                  uuid: '{{ _selected[0].uuid }}'

@@ -197,5 +197,78 @@
         }
       }
     }
+  },
+  {
+    "type": "rpc",
+    "id": "rpc.compose.setjob",
+    "params": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "required": true
+        },
+        "enable": {
+          "type": "boolean",
+          "required": true
+        },
+        "filter": {
+          "type": "string",
+          "required": true
+        },
+        "sendemail": {
+          "type": "boolean",
+          "required": true
+        },
+        "comment": {
+          "type": "string"
+        },
+        "execution": {
+          "type": "string",
+          "enum": [
+            "exactly",
+            "hourly",
+            "daily",
+            "weekly",
+            "monthly",
+            "yearly",
+            "reboot"
+          ],
+          "required": true
+        },
+        "minute": {
+          "type": "string",
+          "required": true
+        },
+        "everynminute": {
+          "type": "boolean",
+          "required": true
+        },
+        "hour": {
+          "type": "string",
+          "required": true
+        },
+        "everynhour": {
+          "type": "boolean",
+          "required": true
+        },
+        "month": {
+          "type": "string",
+          "required": true
+        },
+        "dayofmonth": {
+          "type": "string",
+          "required": true
+        },
+        "everyndayofmonth": {
+          "type": "boolean",
+          "required": true
+        },
+        "dayofweek": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
   }
 ]

@@ -109,6 +109,62 @@
           }
         }
       }
+    },
+    "jobs": {
+      "type": "object",
+      "properties": {
+        "job": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "format": "uuidv4"
+              },
+              "enable": {
+                "type": "boolean"
+              },
+              "filter": {
+                "type": "string"
+              },
+              "sendemail": {
+                "type": "boolean"
+              },
+              "comment": {
+                "type": "string"
+              },
+              "execution": {
+                "type": "string"
+              },
+              "minute": {
+                "type": "string"
+              },
+              "everynminute": {
+                "type": "boolean"
+              },
+              "hour": {
+                "type": "string"
+              },
+              "everynhour": {
+                "type": "boolean"
+              },
+              "month": {
+                "type": "string"
+              },
+              "dayofmonth": {
+                "type": "string"
+              },
+              "everyndayofmonth": {
+                "type": "boolean"
+              },
+              "dayofweek": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

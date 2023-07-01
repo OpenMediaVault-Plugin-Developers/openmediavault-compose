@@ -42,6 +42,7 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_key "/config/services/compose" "dockerStorage" "${dockerPath}"
   omv_config_add_node "/config/services/compose" "files"
   omv_config_add_node "/config/services/compose" "dockerfiles"
+  omv_config_add_node "/config/services/compose" "jobs"
 fi
 
 exit 0
