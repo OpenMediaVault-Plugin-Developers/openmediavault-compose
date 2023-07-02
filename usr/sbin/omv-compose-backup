@@ -54,8 +54,9 @@ fi
 echo "Backup path :: ${backuppath}"
 
 # set path for yml and env files
-env="${sfpath}/${compose}/${compose}.env"
-yml="${sfpath}/${compose}/${compose}.yml"
+composepath="${sfpath}/${compose}"
+env="${composepath}/${compose}.env"
+yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
   echo "Compose file '${yml}' does not exist.  Exiting..."
   exit 15
@@ -83,8 +84,14 @@ IFS=$OFS
 backupdir="${backuppath}/${compose}"
 mkdir -pv "${backupdir}"
 
-# copy yml and env files
-cp -v "${env}" "${yml}" "${backupdir}/"
+# update volume list
+vollist="${backupdir}/vol.list"
+echo "${i},${composepath}" > "${vollist}"
+
+# copy yml and env files and other files that use a relative path
+voldir="${backupdir}/${i}"
+mkdir -pv "${voldir}"
+rsync -avr --delete "${composepath}/" "${voldir}"
 
 # save status
 status="${backuppath}/${compose}/status"
@@ -97,8 +104,6 @@ else
   echo "${compose} is not running"
 fi
 
-vollist="${backupdir}/vol.list"
-rm -f "${vollist}"
 
 # loop through volumes
 for vol in "${vols[@]}"; do
@@ -109,8 +114,11 @@ for vol in "${vols[@]}"; do
   if [[ "${vol}" == *"SKIP_BACKUP"* ]]; then
     echo -e "Skipping :: ${vol}\n"
     continue
-  elif [[ "${hostpath}" == @(/dev|/dev/*|/lib|/lib/*|/sys|/sys/*) ]]; then
+  elif [[ "${hostpath}" == @(/dev|/dev/*|/lib|/lib/*|/sys|/sys/*|./*|../*) ]]; then
     echo "Skipping :: ${hostpath}"
+    continue
+  elif [[ "${hostpath}" != *"/"* ]]; then
+    echo "Named volume. Skipping :: ${hostpath}"
     continue
   elif [[ "${vol}" == *"BACKUP"* ]]; then
     echo "Forcing :: ${vol}"
@@ -133,9 +141,9 @@ for vol in "${vols[@]}"; do
     echo "Folder size greater than max backup size.  Skipping..."
     continue;
   fi
+  ((i++))
   # add volume list entry
   echo "${i},${hostpath}" >> "${vollist}"
-
   # rsync to numbered subdirectory
   voldir="${backupdir}/${i}"
   mkdir -pv "${voldir}"
@@ -148,7 +156,6 @@ for vol in "${vols[@]}"; do
   fi
   rsync -avr --delete ${exclude} "${hostpath}" "${voldir}"
   echo
-  ((i++))
 done
 
 # start compose if running before backup
