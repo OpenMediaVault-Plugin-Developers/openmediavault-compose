@@ -30,6 +30,6 @@ while [ ${index} -le ${count} ]; do
     continue
   fi
   echo ${name}
-#  omv-compose-backup ${name}
+  omv-compose-backup ${name}
   index=$(( index + 1 ))
 done;

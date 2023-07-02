@@ -102,8 +102,15 @@ rm -f "${vollist}"
 
 # loop through volumes
 for vol in "${vols[@]}"; do
+  # host path
+  hostpath="${vol%%:*}"
+  hostpath="${hostpath//\'/}"
+  # check for paths to skip or force
   if [[ "${vol}" == *"SKIP_BACKUP"* ]]; then
     echo -e "Skipping :: ${vol}\n"
+    continue
+  elif [[ "${hostpath}" == @(/dev|/dev/*|/lib|/lib/*|/sys|/sys/*) ]]; then
+    echo "Skipping :: ${hostpath}"
     continue
   elif [[ "${vol}" == *"BACKUP"* ]]; then
     echo "Forcing :: ${vol}"
@@ -112,10 +119,6 @@ for vol in "${vols[@]}"; do
     echo "Backup :: ${vol}"
     force=0
   fi
-  # host path
-  hostpath="${vol%%:*}"
-  hostpath="${hostpath//\'/}"
-
   if [ ! -f "${hostpath}" ] && [ ! -d "${hostpath}" ]; then
     if [ -e "${hostpath}" ]; then
       echo -e "Special file. Skipping...\n"
@@ -125,6 +128,7 @@ for vol in "${vols[@]}"; do
     continue
   fi
   foldersize=$(du --summarize "${hostpath}" | awk '{ print $1 }')
+  echo "Folder size :: ${foldersize}"
   if [ ${foldersize} -gt ${backupmax} ] && [ ${force} -eq 0 ]; then
     echo "Folder size greater than max backup size.  Skipping..."
     continue;
@@ -135,7 +139,14 @@ for vol in "${vols[@]}"; do
   # rsync to numbered subdirectory
   voldir="${backupdir}/${i}"
   mkdir -pv "${voldir}"
-  rsync -avr --delete --stats "${hostpath}/" "${voldir}"
+  exclude=""
+  if [ -d "${hostpath}" ]; then
+    hostpath="${hostpath}/"
+    if [ "${force}" -ne 1 ]; then
+      exclude="--exclude *.qcow2"
+    fi
+  fi
+  rsync -avr --delete ${exclude} "${hostpath}" "${voldir}"
   echo
   ((i++))
 done

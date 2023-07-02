@@ -1380,7 +1380,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             use ($object) {
                 $cmdArgs = [];
                 $cmdArgs[] = '/usr/sbin/omv-compose-backup-multi';
-                $cmdArgs[] = $object->get('filter');
+                $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
