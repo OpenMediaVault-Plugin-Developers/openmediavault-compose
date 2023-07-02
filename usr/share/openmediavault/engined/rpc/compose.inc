@@ -342,6 +342,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             throw new \OMV\Exception("Name is in use by a Dockerfile.");
         }
         $db->set($object);
+        // Apply changes immmediately
+        \OMV\Rpc\Rpc::call('Config', 'applyChanges', [
+            'modules' => [ 'compose' ],
+            'force' => TRUE
+        ], $context);
         // Return the configuration object.
         return $object->getAssoc();
     }
