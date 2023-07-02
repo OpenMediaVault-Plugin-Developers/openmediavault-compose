@@ -55,6 +55,14 @@ docker:
 
 
 {% if docker | to_bool and not arch == 'i386' %}
+create_usr_local_bin_dir:
+  file.directory:
+    - name: "/usr/local/bin"
+    - user: root
+    - group: root
+    - mode: "0755"
+    - makedirs: True
+
 /usr/local/bin/docker-compose:
   file.symlink:
     - target: /usr/libexec/docker/cli-plugins/docker-compose
