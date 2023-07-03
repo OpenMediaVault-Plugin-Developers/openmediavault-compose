@@ -1197,10 +1197,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = sprintf("--driver %s", $driver);
         if ($driver == 'macvlan') {
             $cmdArgs[] = sprintf("--opt parent=%s", $params['parentnetwork']);
-        } else {
+        }
+        if ($params['subnet'] && $params['gateway'] && $params['iprange']) {
             $cmdArgs[] = sprintf("--subnet=%s", $params['subnet']);
             $cmdArgs[] = sprintf("--gateway=%s", $params['gateway']);
             $cmdArgs[] = sprintf("--ip-range=%s", $params['iprange']);
+            if ($params['auxaddress']) {
+                $aux = explode(',', $params['auxaddress']);
+                foreach ($aux as $entry) {
+                    $cmdArgs[] = sprintf('--aux-address="%s"', trim($entry));
+                }
+            }
         }
         $cmdArgs[] = $params['name'];
         $cmd = new \OMV\System\Process($cmdArgs);

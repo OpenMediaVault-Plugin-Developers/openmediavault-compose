@@ -44,26 +44,12 @@ data:
                 prop: driver
               arg1: "macvlan"
       - type: container
-        modifiers:
-          - type: visible
-            constraint:
-              operator: ne
-              arg0:
-                prop: driver
-              arg1: "macvlan"
         fields:
           - type: textInput
             name: subnet
             label: _("Subnet")
             value: ""
             hint: _("e.g. 172.20.0.0/16")
-            modifiers:
-              - type: visible
-                constraint:
-                  operator: ne
-                  arg0:
-                    prop: driver
-                  arg1: "macvlan"
           - type: textInput
             name: gateway
             label: _("Gateway")
@@ -71,25 +57,16 @@ data:
             hint: _("e.g. 172.20.0.1")
             validators:
               patternType: ipv4
-            modifiers:
-              - type: visible
-                constraint:
-                  operator: ne
-                  arg0:
-                    prop: driver
-                  arg1: "macvlan"
           - type: textInput
             name: iprange
             label: _("IP range")
             value: ""
             hint: _("e.g. 172.20.10.128/25")
-            modifiers:
-              - type: visible
-                constraint:
-                  operator: ne
-                  arg0:
-                    prop: driver
-                  arg1: "macvlan"
+      - type: textInput
+        name: auxaddress
+        label: _("Aux address")
+        value: ""
+        hint: _("Format is name=ip. Comma separate multiple entries.<br/>e.g. my-router=192.168.10.5,my-nas=192.168.20.6")
     buttons:
       - template: submit
         execute:
