@@ -129,7 +129,7 @@
   },
   {
     "type": "rpc",
-    "id": "rpc.compose.doautocomplete",
+    "id": "rpc.compose.doautocompose",
     "params": {
       "type": "object",
       "properties": {

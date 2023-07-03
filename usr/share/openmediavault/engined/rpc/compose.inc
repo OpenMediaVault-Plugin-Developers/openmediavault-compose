@@ -598,11 +598,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.setexample");
         // Verify that shared folder is set
-        $db = \OMV\Config\Database::getInstance();
-        $sfobject = $db->get("conf.service.compose");
-        if (!is_uuid($sfobject->get("sharedfolderref"))) {
-            throw new \OMV\Exception("Please set shared folder for file storage.");
-        }
+        $this->getComposePath($context);
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $name = $params['example'];
@@ -615,6 +611,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object->set('body', $body);
         $object->set('env', $env);
         // Set the configuration object.
+        $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, "name");
         $db->set($object);
         // Return the configuration object.
@@ -860,13 +857,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.compose.doautocomplete");
+        $this->validateMethodParams($params, "rpc.compose.doautocompose");
         // Verify that shared folder is set
-        $db = \OMV\Config\Database::getInstance();
-        $sfobject = $db->get("conf.service.compose");
-        if (!is_uuid($sfobject->get("sharedfolderref"))) {
-            throw new \OMV\Exception("Please set shared folder for file storage.");
-        }
+        $this->getComposePath($context);
         // Get running containers
         $cmdArgs = [];
         $cmdArgs[] = 'python3';
@@ -884,6 +877,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object->set('body', trim(implode(PHP_EOL, $output)));
         $object->set('env', '');
         // Set the configuration object.
+        $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, 'name');
         $db->set($object);
         // Return the configuration object.

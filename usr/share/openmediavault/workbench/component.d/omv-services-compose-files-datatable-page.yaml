@@ -33,7 +33,7 @@ data:
         sortable: true
         cellTemplateName: chip
         cellTemplateConfig:
-          separator: ','
+          separator: ","
           map:
             UP:
               value: _("Up")
@@ -64,14 +64,14 @@ data:
         execute:
           type: formDialog
           formDialog:
-            title: _('Create new compose file from running container ...')
+            title: _("Create new compose file from running container ...")
             fields:
               - type: select
                 name: container
-                label: _('Container')
+                label: _("Container")
                 textField: desc
                 valueField: name
-                value: 'Create new disk'
+                value: "Create new disk"
                 store:
                   proxy:
                     service: Compose
@@ -87,6 +87,7 @@ data:
               - type: textInput
                 name: description
                 label: _("Description")
+                value: ""
               - type: select
                 name: version
                 label: _("Version")
@@ -99,7 +100,7 @@ data:
                 hint: _("docker-compose file version")
             buttons:
               submit:
-                text: _('Create')
+                text: _("Create")
                 execute:
                   type: request
                   request:
@@ -111,7 +112,7 @@ data:
         execute:
           type: formDialog
           formDialog:
-            title: _('Import existing compose folders ...')
+            title: _("Import existing compose folders ...")
             fields:
               - type: hidden
                 name: rootfsref
@@ -120,12 +121,12 @@ data:
               - type: folderBrowser
                 name: path
                 label: _("Path")
-                value: ''
+                value: ""
                 dirType: mntent
                 dirRefIdField: rootfsref
             buttons:
               submit:
-                text: _('Create')
+                text: _("Create")
                 execute:
                   type: request
                   request:
@@ -328,9 +329,9 @@ data:
             icon: mdi:link-box
             execute:
               type: url
-              url: '/externalRedirect/https%3A%2F%2Fwiki.omv-extras.org%2Fdoku.php%3Fid%3Domv6%3Aomv6_plugins%3Adocker_compose'
+              url: "/externalRedirect/https%3A%2F%2Fwiki.omv-extras.org%2Fdoku.php%3Fid%3Domv6%3Aomv6_plugins%3Adocker_compose"
           - text: _("Docker on OMV")
             icon: mdi:docker
             execute:
               type: url
-              url: '/externalRedirect/https%3A%2F%2Fwiki.omv-extras.org%2Fdoku.php%3Fid%3Domv6%3Adocker_in_omv'
+              url: "/externalRedirect/https%3A%2F%2Fwiki.omv-extras.org%2Fdoku.php%3Fid%3Domv6%3Adocker_in_omv"
