@@ -22,7 +22,7 @@ data:
         name: filter
         label: _('Filter')
         value: ''
-        hint: _("Choose which compose files to backup by filtering the compose name by this field.<br/>Filter can be a partial match and/or use wildcards. Use * for wildcards.<br/>Leave blank or use just * for all compose.")
+        hint: _("Choose which compose files to backup by filtering the compose name by this field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd* or *asd* or *asd<br/>Leave blank or use just * for all compose.")
       - type: select
         name: execution
         label: _('Time of execution')
