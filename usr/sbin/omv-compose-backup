@@ -104,7 +104,6 @@ else
   echo "${compose} is not running"
 fi
 
-
 # loop through volumes
 for vol in "${vols[@]}"; do
   # host path
