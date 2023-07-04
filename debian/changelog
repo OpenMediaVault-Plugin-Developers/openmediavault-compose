@@ -1,6 +1,11 @@
 openmediavault-compose (6.9) UNRELEASED; urgency=medium
 
-  * Add backup
+  * Add scheduled backup
+  * Add restore
+  * Automatically apply changes when adding or editing on Files tab
+  * Allow more advanced macvlan networks
+  * Add aux addresses to network creation
+  * Ensure that /usr/local/bin exists
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 27 Jun 2023 16:29:02 -0500
 
