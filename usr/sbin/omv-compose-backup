@@ -69,7 +69,7 @@ if [ ${backupmax} -lt 1 ]; then
   backupmax=1 
 fi
 echo "Backup max size :: ${backupmax} GB"
-backupmax=$((backupmax * 1024 * 1024 * 1024))
+backupmax=$((backupmax * 1024 * 1024))
 echo
 
 OFS=$IFS
@@ -134,7 +134,7 @@ for vol in "${vols[@]}"; do
     fi
     continue
   fi
-  foldersize=$(du --summarize "${hostpath}" | awk '{ print $1 }')
+  foldersize=$(du --summarize -k "${hostpath}" | awk '{ print $1 }')
   echo "Folder size :: ${foldersize}"
   if [ ${foldersize} -gt ${backupmax} ] && [ ${force} -eq 0 ]; then
     echo "Folder size greater than max backup size.  Skipping..."
