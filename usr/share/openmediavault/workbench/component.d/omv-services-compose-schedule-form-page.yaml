@@ -22,7 +22,11 @@ data:
         name: filter
         label: _('Filter')
         value: ''
-        hint: _("Choose which compose files to backup by filtering the compose name by this field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd* or *asd* or *asd<br/>Leave blank or use just * for all compose.")
+        hint: _("Choose which compose files to backup by filtering the compose name by this field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd* or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add multiple filters separated by commas.")
+        validators:
+          pattern:
+            pattern: ^a-zA-Z0-9_-,*$
+            errorData: _("Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and asterisks (*) allowed!")
       - type: select
         name: execution
         label: _('Time of execution')

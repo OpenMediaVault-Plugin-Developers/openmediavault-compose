@@ -19,6 +19,10 @@ declare -i index=0
 
 filter="${1}"
 
+if [[ "${filter}" == *","* ]]; then
+  filter="@(${filter//,/|})"
+fi
+
 xpath="/config/services/compose/files/file"
 count=$(omv_config_get_count "${xpath}")
 index=1
