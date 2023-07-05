@@ -19,6 +19,7 @@
 
 set -e
 
+. /etc/default/openmediavault
 . /usr/share/openmediavault/scripts/helper-functions
 
 if ! omv_config_exists "/config/services/compose"; then
@@ -44,5 +45,29 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_node "/config/services/compose" "dockerfiles"
   omv_config_add_node "/config/services/compose" "jobs"
 fi
+
+# download yq
+version="v4.34.1"
+yq="/usr/local/bin/yq"
+arch="$(dpkg --print-architecture)"
+case "${arch}" in
+  armhf) arch="arm" ;;
+  i386) arch="386" ;;
+esac
+repo_url=${OMV_EXTRAS_YQ_URL:-"https://github.com/mikefarah/yq/releases/download"}
+if [ ! -f "${yq}" ]; then
+  echo "Downloading yq ..."
+  wget -O ${yq} "${repo_url}/${version}/yq_linux_${arch}"
+else
+  echo "Checking yq version ..."
+  chmod 755 ${yq}
+  yqvers="$(/usr/local/bin/yq -V | awk '{ print $4 }')"
+  if [ ! "${version}" = "${yqvers}" ]; then
+    wget -O ${yq} "${repo_url}/${version}/yq_linux_${arch}"
+  else
+    echo "Correct version of yq installed - '${version}'"
+  fi
+fi
+chmod 755 ${yq}
 
 exit 0

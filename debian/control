@@ -14,7 +14,6 @@ Depends: openmediavault (>= 6.4.5),
          openmediavault-sharerootfs,
          python3-docker,
          python3-pretty-yaml,
-         yq,
          ${misc:Depends}
 Recommends: docker-ce,
             docker-compose-plugin

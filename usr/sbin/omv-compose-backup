@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.0.1
+# version: 0.1.2
 
 export LANG=C.UTF-8
 
@@ -16,6 +16,7 @@ export LANG=C.UTF-8
 
 declare -i force=0
 declare -i i=0
+declare -i j=0
 
 compose="${1}"
 if [ -z "${compose}" ]; then
@@ -63,6 +64,12 @@ if [ ! -f "${yml}" ]; then
 fi
 echo "Compose file :: ${yml}"
 
+yq="/usr/local/bin/yq"
+if [ ! -f "${yq}" ]; then
+  echo "'${yq}' does not exist.  Exiting..."
+  exit 16
+fi
+
 # Get the backup max size
 backupmaxsize=$(omv_config_get "/config/services/compose/backupmaxsize")
 if [ ${backupmaxsize} -lt 1 ]; then
@@ -77,7 +84,7 @@ OFS=$IFS
 IFS=$'\n'
 
 # get volumes
-vols=($(yq '.services[] | .volumes[]' "${yml}" | sed 's/"//g'))
+vols=($(${yq} '.services[] | .volumes' "${yml}" | grep '^- ' | sed 's/^- //' | sed 's/"//g'))
 
 IFS=$OFS
 
@@ -110,15 +117,19 @@ for vol in "${vols[@]}"; do
   # host path
   hostpath="${vol%%:*}"
   hostpath="${hostpath//\'/}"
+  echo "Volume :: ${vol}"
   # check for paths to skip or force
   if [[ "${vol}" == *"SKIP_BACKUP"* ]]; then
     echo -e "Skipping :: ${vol}\n"
     continue
   elif [[ "${hostpath}" == @(/dev|/dev/*|/lib|/lib/*|/sys|/sys/*|./*|../*) ]]; then
-    echo "Skipping :: ${hostpath}"
+    echo -e "Skipping :: ${hostpath}\n"
+    continue
+  elif [[ "${vol}" == *":ro"* ]]; then
+    echo -e "Read only volume. Skipping :: ${hostpath}\n"
     continue
   elif [[ "${hostpath}" != *"/"* ]]; then
-    echo "Named volume. Skipping :: ${hostpath}"
+    echo -e "Named volume. Skipping :: ${hostpath}\n"
     continue
   elif [[ "${vol}" == *"BACKUP"* ]]; then
     echo "Forcing :: ${vol}"
@@ -158,6 +169,19 @@ for vol in "${vols[@]}"; do
   fi
   rsync -avr --delete ${exclude} "${hostpath}" "${voldir}"
   echo
+done
+
+# remove extra directories from a previous backupx
+# if a volume(s) were removed from the compose file.
+while [ ${i} -le 100 ] && [ ${j} -le 3 ]; do
+  ((i++))
+  voldir="${backupdir}/${i}"
+  if [ -f "${voldir}" ]; then
+    echo "Removing '${voldir}' directory from previous backup that is no longer in compose file."
+    rm -rf "${voldir}"
+  else
+    ((j++))
+  fi
 done
 
 # start compose if running before backup

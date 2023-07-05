@@ -34,3 +34,4 @@ data:
                 method: doRestore
                 params:
                   backup: "{{ backup }}"
+            successUrl: /services/compose
