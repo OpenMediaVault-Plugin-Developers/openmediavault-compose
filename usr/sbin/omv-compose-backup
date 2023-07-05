@@ -64,12 +64,13 @@ fi
 echo "Compose file :: ${yml}"
 
 # Get the backup max size
-backupmax=$(omv_config_get "/config/services/compose/backupmaxsize")
-if [ ${backupmax} -lt 1 ]; then
-  backupmax=1 
+backupmaxsize=$(omv_config_get "/config/services/compose/backupmaxsize")
+if [ ${backupmaxsize} -lt 1 ]; then
+  echo "Backup max size is set to unlimited."
+  backupmaxsize=0
 fi
 echo "Backup max size :: ${backupmax} GB"
-backupmax=$((backupmax * 1024 * 1024))
+backupmax=$((backupmaxsize * 1024 * 1024))
 echo
 
 OFS=$IFS
@@ -134,11 +135,13 @@ for vol in "${vols[@]}"; do
     fi
     continue
   fi
-  foldersize=$(du --summarize -k "${hostpath}" | awk '{ print $1 }')
-  echo "Folder size :: ${foldersize}"
-  if [ ${foldersize} -gt ${backupmax} ] && [ ${force} -eq 0 ]; then
-    echo "Folder size greater than max backup size.  Skipping..."
-    continue;
+  if [ ${backupmaxsize} -gt 0 ]; then
+    foldersize=$(du --summarize -k "${hostpath}" | awk '{ print $1 }')
+    echo "Folder size :: ${foldersize}"
+    if [ ${foldersize} -gt ${backupmax} ] && [ ${force} -eq 0 ]; then
+      echo "Folder size greater than max backup size.  Skipping..."
+      continue;
+    fi
   fi
   ((i++))
   # add volume list entry

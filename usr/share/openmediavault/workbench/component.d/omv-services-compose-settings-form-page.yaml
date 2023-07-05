@@ -30,11 +30,11 @@ data:
         label: _("Max Size")
         value: 1
         validators:
-          min: 1
+          min: 0
           max: 65536
           patternType: integer
           required: true
-        hint: _("Units in GB. Backup will skip volumes larger than this size.")
+        hint: _("Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 for unlimited.")
       - type: divider
         title: _("Docker")
       - type: textInput
