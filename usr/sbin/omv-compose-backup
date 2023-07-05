@@ -76,7 +76,7 @@ OFS=$IFS
 IFS=$'\n'
 
 # get volumes
-vols=($(yq '.services[] | .volumes' "${yml}" | grep '^- ' | sed 's/^- //' | sed 's/"//g'))
+vols=($(yq '.services[] | .volumes[]' "${yml}" | sed 's/"//g'))
 
 IFS=$OFS
 
