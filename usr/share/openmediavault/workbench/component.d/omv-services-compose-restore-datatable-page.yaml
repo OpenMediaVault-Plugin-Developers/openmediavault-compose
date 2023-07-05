@@ -1,0 +1,42 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-restore-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    rowId: backup
+    stateId: d4f9aeb6-1b7f-11ee-8b96-b71aa60c188d
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getRestoreList
+    columns:
+      - name: _('Backup')
+        prop: backup
+        flexGrow: 5
+        sortable: true
+      - name: _('Backup Time')
+        prop: time
+        flexGrow: 3
+        sortable: true
+    actions:
+      - type: iconButton
+        tooltip: _("Restore")
+        icon: mdi:restore
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Restore Compose ...")
+              startOnInit: false
+              request:
+                service: Compose
+                method: doRestore
+                params:
+                  backup: "{{ _selected[0].backup }}"
