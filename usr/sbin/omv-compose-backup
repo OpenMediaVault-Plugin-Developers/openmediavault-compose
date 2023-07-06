@@ -171,12 +171,12 @@ for vol in "${vols[@]}"; do
   echo
 done
 
-# remove extra directories from a previous backupx
+# remove extra directories from a previous backup
 # if a volume(s) were removed from the compose file.
 while [ ${i} -le 100 ] && [ ${j} -le 3 ]; do
   ((i++))
   voldir="${backupdir}/${i}"
-  if [ -f "${voldir}" ]; then
+  if [ -d "${voldir}" ]; then
     echo "Removing '${voldir}' directory from previous backup that is no longer in compose file."
     rm -rf "${voldir}"
   else
