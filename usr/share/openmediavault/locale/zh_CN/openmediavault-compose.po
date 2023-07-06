@@ -1,0 +1,496 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the openmediavault-compose package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-compose\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-05 19:25-0500\n"
+"PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add from Example"
+msgstr ""
+
+msgid "Are you sure you want to reinstall?"
+msgstr ""
+
+msgid "Are you sure you want to restart?"
+msgstr ""
+
+msgid "Autocompose"
+msgstr ""
+
+msgid "Aux address"
+msgstr ""
+
+msgid "Backup"
+msgstr ""
+
+msgid "Block In"
+msgstr ""
+
+msgid "Block Out"
+msgstr ""
+
+msgid "Build"
+msgstr ""
+
+msgid "CPU %"
+msgstr ""
+
+msgid "Check compose file for errors ..."
+msgstr ""
+
+msgid ""
+"Choose which compose files to backup by filtering the compose name by this "
+"field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd*"
+" or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
+"multiple filters separated by commas."
+msgstr ""
+
+msgid "Command"
+msgstr ""
+
+msgid "Compose"
+msgstr ""
+
+msgid "Compose Files"
+msgstr ""
+
+msgid "Compose version"
+msgstr ""
+
+msgid "Conf file"
+msgstr ""
+
+msgid "Conf filename"
+msgstr ""
+
+msgid "Container"
+msgstr ""
+
+msgid "Containers"
+msgstr ""
+
+msgid "Create"
+msgstr ""
+
+msgid "Create from example"
+msgstr ""
+
+msgid "Create new compose file from running container ..."
+msgstr ""
+
+msgid "Created"
+msgstr ""
+
+msgid "Created At"
+msgstr ""
+
+msgid "Created dockerfile."
+msgstr ""
+
+msgid "Created file."
+msgstr ""
+
+msgid "Created network."
+msgstr ""
+
+msgid "Created scheduled job."
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Docker"
+msgstr ""
+
+msgid "Docker has been restarted."
+msgstr ""
+
+msgid "Docker is restarting ..."
+msgstr ""
+
+msgid "Docker on OMV"
+msgstr ""
+
+msgid "Docker storage"
+msgstr ""
+
+msgid "Docker version"
+msgstr ""
+
+msgid "Dockerfile"
+msgstr ""
+
+msgid "Dockerfiles"
+msgstr ""
+
+msgid "Docs"
+msgstr ""
+
+msgid "Down"
+msgstr ""
+
+msgid "Driver"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Edit dockerfile."
+msgstr ""
+
+msgid "Edit file."
+msgstr ""
+
+msgid "Edit scheduled job."
+msgstr ""
+
+msgid "Env Path"
+msgstr ""
+
+msgid "Environment"
+msgstr ""
+
+msgid "Example"
+msgstr ""
+
+msgid "Execute scheduled job ..."
+msgstr ""
+
+msgid "File"
+msgstr ""
+
+msgid "Files"
+msgstr ""
+
+msgid "Filter"
+msgstr ""
+
+msgid ""
+"Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
+"router=192.168.10.5,my-nas=192.168.20.6"
+msgstr ""
+
+msgid "Gateway"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+msgid "IP range"
+msgstr ""
+
+msgid "Image"
+msgstr ""
+
+msgid "Images"
+msgstr ""
+
+msgid "Import"
+msgstr ""
+
+msgid "Import existing compose folders ..."
+msgstr ""
+
+msgid "Inspect"
+msgstr ""
+
+msgid "Installed"
+msgstr ""
+
+msgid "Location of backups"
+msgstr ""
+
+msgid "Location of compose files"
+msgstr ""
+
+msgid "Max Size"
+msgstr ""
+
+msgid "Mem %"
+msgstr ""
+
+msgid "Mem Limit"
+msgstr ""
+
+msgid "Mem Usage"
+msgstr ""
+
+msgid "Mixed"
+msgstr ""
+
+msgid "Mountpoint"
+msgstr ""
+
+msgid "Mounts"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
+msgid "Net In"
+msgstr ""
+
+msgid "Net Out"
+msgstr ""
+
+msgid "Network"
+msgstr ""
+
+msgid "Networks"
+msgstr ""
+
+msgid "Not installed"
+msgstr ""
+
+msgid ""
+"Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
+"asterisks (*) allowed!"
+msgstr ""
+
+msgid "PIDs"
+msgstr ""
+
+msgid "Parent network"
+msgstr ""
+
+msgid "Path"
+msgstr ""
+
+msgid "Ports"
+msgstr ""
+
+msgid "Project"
+msgstr ""
+
+msgid "Prune"
+msgstr ""
+
+msgid "Pull and Build"
+msgstr ""
+
+msgid "Reinstall Docker"
+msgstr ""
+
+msgid "Reinstall Docker ..."
+msgstr ""
+
+msgid "Repository"
+msgstr ""
+
+msgid "Restart Docker"
+msgstr ""
+
+msgid "Restore"
+msgstr ""
+
+msgid "Restore Compose ..."
+msgstr ""
+
+msgid "Run"
+msgstr ""
+
+msgid "Running For"
+msgstr ""
+
+msgid "Schedule"
+msgstr ""
+
+msgid "Script"
+msgstr ""
+
+msgid "Script filename"
+msgstr ""
+
+msgid "Service"
+msgstr ""
+
+msgid "Services"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Shared folder"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "Stats"
+msgstr ""
+
+msgid "Status"
+msgstr ""
+
+msgid "Stopped"
+msgstr ""
+
+msgid "Subnet"
+msgstr ""
+
+msgid "System"
+msgstr ""
+
+msgid "Tag"
+msgstr ""
+
+msgid ""
+"Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
+"for unlimited."
+msgstr ""
+
+msgid "Up"
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Virtual Size"
+msgstr ""
+
+msgid "Volume"
+msgstr ""
+
+msgid "Volumes"
+msgstr ""
+
+msgid "and not running"
+msgstr ""
+
+msgid "and running"
+msgstr ""
+
+msgid "check"
+msgstr ""
+
+msgid "docker container prune ..."
+msgstr ""
+
+msgid "docker image inspect ..."
+msgstr ""
+
+msgid "docker image prune ..."
+msgstr ""
+
+msgid "docker image rm ..."
+msgstr ""
+
+msgid "docker inspect ..."
+msgstr ""
+
+msgid "docker logs --follow ..."
+msgstr ""
+
+msgid "docker logs ..."
+msgstr ""
+
+msgid "docker network inspect ..."
+msgstr ""
+
+msgid "docker network prune ..."
+msgstr ""
+
+msgid "docker network rm ..."
+msgstr ""
+
+msgid "docker restart ..."
+msgstr ""
+
+msgid "docker system prune ..."
+msgstr ""
+
+msgid "docker volume inspect ..."
+msgstr ""
+
+msgid "docker volume prune ..."
+msgstr ""
+
+msgid "docker volume rm ..."
+msgstr ""
+
+msgid "docker-compose down ..."
+msgstr ""
+
+msgid "docker-compose file version"
+msgstr ""
+
+msgid "docker-compose logs --follow ..."
+msgstr ""
+
+msgid "docker-compose logs ..."
+msgstr ""
+
+msgid "docker-compose ps ..."
+msgstr ""
+
+msgid "docker-compose pull ..."
+msgstr ""
+
+msgid "docker-compose restart ..."
+msgstr ""
+
+msgid "docker-compose stop ..."
+msgstr ""
+
+msgid "docker-compose up -d ..."
+msgstr ""
+
+msgid "dockerfile build ..."
+msgstr ""
+
+msgid "down"
+msgstr ""
+
+msgid "e.g. 172.20.0.0/16"
+msgstr ""
+
+msgid "e.g. 172.20.0.1"
+msgstr ""
+
+msgid "e.g. 172.20.10.128/25"
+msgstr ""
+
+msgid "follow logs"
+msgstr ""
+
+msgid "logs"
+msgstr ""
+
+msgid "n/a"
+msgstr ""
+
+msgid "omv-extras wiki"
+msgstr ""
+
+msgid "ps"
+msgstr ""
+
+msgid "pull"
+msgstr ""
+
+msgid "restart"
+msgstr ""
+
+msgid "stop"
+msgstr ""
+
+msgid "up"
+msgstr ""
