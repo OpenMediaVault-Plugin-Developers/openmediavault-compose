@@ -8,56 +8,66 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.0.1
+# version: 0.9.2
 
 . /usr/share/openmediavault/scripts/helper-functions
 
+# logging location
+logDir="/var/log/"
+logFile="${logDir}/omv-compose-restore.log"
+
+_log()
+{
+    msg=${1}
+    echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composerestore] ${msg}" | tee -a ${logFile} >&2
+}
+
 compose="${1}"
 if [ -z "${compose}" ]; then
-  echo "No compose name set.  Exiting..."
+  _log "No compose name set.  Exiting..."
   exit 10
 fi
-echo "compose :: ${compose}"
+_log "compose :: ${compose}"
 
 # Get docker storage path
 dockerStorage=$(omv_config_get "/config/services/compose/dockerStorage")
-echo "Docker storage :: ${dockerStorage}"
+_log "Docker storage :: ${dockerStorage}"
 
 # Get the shared folder reference and path
 sfref=$(omv_config_get "/config/services/compose/sharedfolderref")
 if ! omv_isuuid "${sfref}"; then
-  echo "No compose sharedfolder set."
+  _log "No compose sharedfolder set."
   exit 11
 fi
 sfpath="$(omv_get_sharedfolder_path "${sfref}")"
 if [ ! -d "${sfpath}" ]; then
-  echo "Shared folder directory does not exist.  Exiting..."
+  _log "Shared folder directory does not exist.  Exiting..."
   exit 12
 fi
-echo "Compose file path :: ${sfpath}"
+_log "Compose file path :: ${sfpath}"
 
 # Get the backup shared folder reference and path
 sfref=$(omv_config_get "/config/services/compose/backupsharedfolderref")
 if ! omv_isuuid "${sfref}"; then
-  echo "No backup sharedfolder set."
+  _log "No backup sharedfolder set."
   exit 13
 fi
 backuppath="$(omv_get_sharedfolder_path "${sfref}")"
 if [ ! -d "${backuppath}" ]; then
-  echo "Backup shared folder directory does not exist.  Exiting..."
+  _log "Backup shared folder directory does not exist.  Exiting..."
   exit 14
 fi
-echo "Backup path :: ${backuppath}"
+_log "Backup path :: ${backuppath}"
 
 # set path for yml and env files
 composepath="${sfpath}/${compose}"
 env="${composepath}/${compose}.env"
 yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
-  echo "Compose file '${yml}' does not exist.  Exiting..."
+  _log "Compose file '${yml}' does not exist.  Exiting..."
   exit 15
 fi
-echo "Compose file :: ${yml}"
+_log "Compose file :: ${yml}"
 
 # save status
 status="$(mktemp)"
@@ -67,23 +77,24 @@ docker-compose ls --all --filter name="${compose}" --format json | jq .[0].Statu
 if grep -q "running" "${status}"; then
   docker-compose --file "${yml}" --env-file "${env}" stop
 else
-  echo "${compose} is not running"
+  _log "${compose} is not running"
 fi
 
 path="${backuppath}/${compose}"
-echo -e "path :: ${path}\n"
+_log "path :: ${path}"
+echo
 vollist="${path}/vol.list"
 if [ -f "${vollist}" ]; then
   while read -r line; do
     volnum="${line%%,*}"
     volpath="${line#*,}"
     src="${path}/${volnum}/"
-    echo "Source :: ${src}"
-    echo "Dest :: ${volpath}"
+    _log "Source :: ${src}"
+    _log "Dest :: ${volpath}"
     rsync -avr --delete "${src}" "${volpath}"
   done < "${vollist}"
 else
-  echo "No volume list found."
+  _log "No volume list found."
 fi
 
 # start compose if running before backup
@@ -93,6 +104,6 @@ fi
 
 rm -f "${status}"
 
-echo "Done."
+_log "Done."
 
 exit 0

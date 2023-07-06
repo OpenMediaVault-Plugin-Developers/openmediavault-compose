@@ -1,3 +1,4 @@
+etc/*  etc
 usr/bin/*  usr/bin
 usr/sbin/*  usr/sbin
 usr/share/openmediavault/*  usr/share/openmediavault

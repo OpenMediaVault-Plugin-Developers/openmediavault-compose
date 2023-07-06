@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.1.2
+# version: 0.9.3
 
 export LANG=C.UTF-8
 
@@ -18,65 +18,76 @@ declare -i force=0
 declare -i i=0
 declare -i j=0
 
+# logging location
+logDir="/var/log/"
+logFile="${logDir}/omv-compose-backup.log"
+
+_log()
+{
+    msg=${1}
+    echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composebackup] ${msg}" | tee -a ${logFile} >&2
+}
+
 compose="${1}"
 if [ -z "${compose}" ]; then
-  echo "No compose name set.  Exiting..."
+  _log "No compose name set.  Exiting..."
   exit 10
 fi
+_log "compose :: ${compose}"
 
 # Get docker storage path
 dockerStorage=$(omv_config_get "/config/services/compose/dockerStorage")
-echo "Docker storage :: ${dockerStorage}"
+_log "Docker storage :: ${dockerStorage}"
 
 # Get the shared folder reference and path
 sfref=$(omv_config_get "/config/services/compose/sharedfolderref")
 if ! omv_isuuid "${sfref}"; then
-  echo "No compose sharedfolder set."
+  _log "No compose sharedfolder set."
   exit 11
 fi
 sfpath="$(omv_get_sharedfolder_path "${sfref}")"
 if [ ! -d "${sfpath}" ]; then
-  echo "Shared folder directory does not exist.  Exiting..."
+  _log "Shared folder directory does not exist.  Exiting..."
   exit 12
 fi
-echo "Compose file path :: ${sfpath}"
+_log "Compose file path :: ${sfpath}"
 
 # Get the backup shared folder reference and path
 sfref=$(omv_config_get "/config/services/compose/backupsharedfolderref")
 if ! omv_isuuid "${sfref}"; then
-  echo "No backup sharedfolder set."
+  _log "No backup sharedfolder set."
   exit 13
 fi
 backuppath="$(omv_get_sharedfolder_path "${sfref}")"
 if [ ! -d "${backuppath}" ]; then
-  echo "Backup shared folder directory does not exist.  Exiting..."
+  _log "Backup shared folder directory does not exist.  Exiting..."
   exit 14
 fi
-echo "Backup path :: ${backuppath}"
+_log "Backup path :: ${backuppath}"
 
 # set path for yml and env files
 composepath="${sfpath}/${compose}"
 env="${composepath}/${compose}.env"
 yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
-  echo "Compose file '${yml}' does not exist.  Exiting..."
+  _log "Compose file '${yml}' does not exist.  Exiting..."
   exit 15
 fi
-echo "Compose file :: ${yml}"
+_log "Compose file :: ${yml}"
 
 yq="/usr/local/bin/yq"
 if [ ! -f "${yq}" ]; then
-  echo "'${yq}' does not exist.  Exiting..."
+  _log "'${yq}' does not exist.  Exiting..."
   exit 16
 fi
 
 # Get the backup max size
 backupmaxsize=$(omv_config_get "/config/services/compose/backupmaxsize")
 if [ ${backupmaxsize} -lt 1 ]; then
-  echo "Backup max size is set to unlimited."
+  _log "Backup max size is set to unlimited."
   backupmaxsize=0
 fi
-echo "Backup max size :: ${backupmax} GB"
+_log "Backup max size :: ${backupmaxsize} GB"
 backupmax=$((backupmaxsize * 1024 * 1024))
 echo
 
@@ -109,7 +120,7 @@ docker-compose ls --all --filter name="${compose}" --format json | jq .[0].Statu
 if grep -q "running" "${status}"; then
   docker-compose --file "${yml}" --env-file "${env}" stop
 else
-  echo "${compose} is not running"
+  _log "${compose} is not running"
 fi
 
 # loop through volumes
@@ -117,40 +128,46 @@ for vol in "${vols[@]}"; do
   # host path
   hostpath="${vol%%:*}"
   hostpath="${hostpath//\'/}"
-  echo "Volume :: ${vol}"
+  _log "Volume :: ${vol}"
   # check for paths to skip or force
   if [[ "${vol}" == *"SKIP_BACKUP"* ]]; then
-    echo -e "Skipping :: ${vol}\n"
+    _log "Skipping :: ${vol}"
+    echo
     continue
   elif [[ "${hostpath}" == @(/dev|/dev/*|/lib|/lib/*|/sys|/sys/*|./*|../*) ]]; then
-    echo -e "Skipping :: ${hostpath}\n"
+    _log "Skipping :: ${hostpath}"
+    echo
     continue
   elif [[ "${vol}" == *":ro"* ]]; then
-    echo -e "Read only volume. Skipping :: ${hostpath}\n"
+    _log "Read only volume. Skipping :: ${hostpath}"
+    echo
     continue
   elif [[ "${hostpath}" != *"/"* ]]; then
-    echo -e "Named volume. Skipping :: ${hostpath}\n"
+    _log "Named volume. Skipping :: ${hostpath}"
+    echo
     continue
   elif [[ "${vol}" == *"BACKUP"* ]]; then
-    echo "Forcing :: ${vol}"
+    _log "Forcing :: ${vol}"
     force=1
   else
-    echo "Backup :: ${vol}"
+    _log "Backup :: ${vol}"
     force=0
   fi
   if [ ! -f "${hostpath}" ] && [ ! -d "${hostpath}" ]; then
     if [ -e "${hostpath}" ]; then
-      echo -e "Special file. Skipping...\n"
+      _log "Special file. Skipping..."
+      echo
     else
-      echo -e "Path does not exist. Skipping...\n"
+      _log "Path does not exist. Skipping..."
+      echo
     fi
     continue
   fi
   if [ ${backupmaxsize} -gt 0 ]; then
     foldersize=$(du --summarize -k "${hostpath}" | awk '{ print $1 }')
-    echo "Folder size :: ${foldersize}"
+    _log "Folder size :: ${foldersize}"
     if [ ${foldersize} -gt ${backupmax} ] && [ ${force} -eq 0 ]; then
-      echo "Folder size greater than max backup size.  Skipping..."
+      _log "Folder size greater than max backup size.  Skipping..."
       continue;
     fi
   fi
@@ -177,7 +194,7 @@ while [ ${i} -le 100 ] && [ ${j} -le 3 ]; do
   ((i++))
   voldir="${backupdir}/${i}"
   if [ -d "${voldir}" ]; then
-    echo "Removing '${voldir}' directory from previous backup that is no longer in compose file."
+    _log "Removing '${voldir}' directory from previous backup that is no longer in compose file."
     rm -rf "${voldir}"
   else
     ((j++))
@@ -189,6 +206,6 @@ if grep -q "running" "${status}"; then
   docker-compose --file "${yml}" --env-file "${env}" start
 fi
 
-echo "Done."
+_log "Done."
 
 exit 0

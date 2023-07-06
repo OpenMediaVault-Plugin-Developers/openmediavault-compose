@@ -1,0 +1,9 @@
+/var/log/omv-compose-backup.log
+/var/log/omv-compose-restore.log
+{
+  monthly
+  missingok
+  rotate 12
+  compress
+  notifempty
+}
