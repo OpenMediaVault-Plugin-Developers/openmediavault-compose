@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Andi Chandler <andi@gowling.com>, 2023
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-05 19:25-0500\n"
+"POT-Creation-Date: 2023-07-06 06:43-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>, 2023\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,38 +21,41 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Add from Example"
+msgid "Action"
 msgstr ""
+
+msgid "Add from Example"
+msgstr "Add from Example"
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "Are you sure you want to reinstall?"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "Are you sure you want to restart?"
 
 msgid "Autocompose"
-msgstr ""
+msgstr "Autocompose"
 
 msgid "Aux address"
-msgstr ""
+msgstr "Aux address"
 
 msgid "Backup"
-msgstr ""
+msgstr "Backup"
 
 msgid "Block In"
-msgstr ""
+msgstr "Block In"
 
 msgid "Block Out"
-msgstr ""
+msgstr "Block Out"
 
 msgid "Build"
-msgstr ""
+msgstr "Build"
 
 msgid "CPU %"
-msgstr ""
+msgstr "CPU %"
 
 msgid "Check compose file for errors ..."
-msgstr ""
+msgstr "Check compose file for errors ..."
 
 msgid ""
 "Choose which compose files to backup by filtering the compose name by this "
@@ -56,441 +63,463 @@ msgid ""
 " or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
 "multiple filters separated by commas."
 msgstr ""
+"Choose which compose files to backup by filtering the compose name by this "
+"field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd*"
+" or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
+"multiple filters separated by commas."
 
 msgid "Command"
-msgstr ""
+msgstr "Command"
 
 msgid "Compose"
+msgstr "Compose"
+
+msgid "Compose Backup"
 msgstr ""
 
 msgid "Compose Files"
+msgstr "Compose Files"
+
+msgid "Compose Restore"
 msgstr ""
 
 msgid "Compose version"
-msgstr ""
+msgstr "Compose version"
 
 msgid "Conf file"
-msgstr ""
+msgstr "Conf file"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "Conf filename"
 
 msgid "Container"
-msgstr ""
+msgstr "Container"
 
 msgid "Containers"
-msgstr ""
+msgstr "Containers"
 
 msgid "Create"
-msgstr ""
+msgstr "Create"
 
 msgid "Create from example"
-msgstr ""
+msgstr "Create from example"
 
 msgid "Create new compose file from running container ..."
-msgstr ""
+msgstr "Create new compose file from running container ..."
 
 msgid "Created"
-msgstr ""
+msgstr "Created"
 
 msgid "Created At"
-msgstr ""
+msgstr "Created At"
 
 msgid "Created dockerfile."
-msgstr ""
+msgstr "Created dockerfile."
 
 msgid "Created file."
-msgstr ""
+msgstr "Created file."
 
 msgid "Created network."
-msgstr ""
+msgstr "Created network."
 
 msgid "Created scheduled job."
+msgstr "Created scheduled job."
+
+msgid "Date & Time"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 msgid "Docker"
-msgstr ""
+msgstr "Docker"
 
 msgid "Docker has been restarted."
-msgstr ""
+msgstr "Docker has been restarted."
 
 msgid "Docker is restarting ..."
-msgstr ""
+msgstr "Docker is restarting ..."
 
 msgid "Docker on OMV"
-msgstr ""
+msgstr "Docker on OMV"
 
 msgid "Docker storage"
-msgstr ""
+msgstr "Docker storage"
 
 msgid "Docker version"
-msgstr ""
+msgstr "Docker version"
 
 msgid "Dockerfile"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Dockerfiles"
-msgstr ""
+msgstr "Dockerfiles"
 
 msgid "Docs"
-msgstr ""
+msgstr "Docs"
 
 msgid "Down"
-msgstr ""
+msgstr "Down"
 
 msgid "Driver"
-msgstr ""
+msgstr "Driver"
 
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 msgid "Edit dockerfile."
-msgstr ""
+msgstr "Edit dockerfile."
 
 msgid "Edit file."
-msgstr ""
+msgstr "Edit file."
 
 msgid "Edit scheduled job."
-msgstr ""
+msgstr "Edit scheduled job."
 
 msgid "Env Path"
-msgstr ""
+msgstr "Env Path"
 
 msgid "Environment"
-msgstr ""
+msgstr "Environment"
 
 msgid "Example"
-msgstr ""
+msgstr "Example"
 
 msgid "Execute scheduled job ..."
-msgstr ""
+msgstr "Execute scheduled job ..."
 
 msgid "File"
-msgstr ""
+msgstr "File"
 
 msgid "Files"
-msgstr ""
+msgstr "Files"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
+"Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
+"router=192.168.10.5,my-nas=192.168.20.6"
 
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP range"
-msgstr ""
+msgstr "IP range"
 
 msgid "Image"
-msgstr ""
+msgstr "Image"
 
 msgid "Images"
-msgstr ""
+msgstr "Images"
 
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 msgid "Import existing compose folders ..."
-msgstr ""
+msgstr "Import existing compose folders ..."
 
 msgid "Inspect"
-msgstr ""
+msgstr "Inspect"
 
 msgid "Installed"
-msgstr ""
+msgstr "Installed"
 
 msgid "Location of backups"
-msgstr ""
+msgstr "Location of backups"
 
 msgid "Location of compose files"
-msgstr ""
+msgstr "Location of compose files"
 
 msgid "Max Size"
-msgstr ""
+msgstr "Max Size"
 
 msgid "Mem %"
-msgstr ""
+msgstr "Mem %"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "Mem Limit"
 
 msgid "Mem Usage"
+msgstr "Mem Usage"
+
+msgid "Message"
 msgstr ""
 
 msgid "Mixed"
-msgstr ""
+msgstr "Mixed"
 
 msgid "Mountpoint"
-msgstr ""
+msgstr "Mountpoint"
 
 msgid "Mounts"
-msgstr ""
+msgstr "Mounts"
 
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 msgid "Net In"
-msgstr ""
+msgstr "Net In"
 
 msgid "Net Out"
-msgstr ""
+msgstr "Net Out"
 
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 msgid "Networks"
-msgstr ""
+msgstr "Networks"
 
 msgid "Not installed"
-msgstr ""
+msgstr "Not installed"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
+"Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
+"asterisks (*) allowed!"
 
 msgid "PIDs"
-msgstr ""
+msgstr "PIDs"
 
 msgid "Parent network"
-msgstr ""
+msgstr "Parent network"
 
 msgid "Path"
-msgstr ""
+msgstr "Path"
 
 msgid "Ports"
-msgstr ""
+msgstr "Ports"
 
 msgid "Project"
-msgstr ""
+msgstr "Project"
 
 msgid "Prune"
-msgstr ""
+msgstr "Prune"
 
 msgid "Pull and Build"
-msgstr ""
+msgstr "Pull and Build"
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "Reinstall Docker"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "Reinstall Docker ..."
 
 msgid "Repository"
-msgstr ""
+msgstr "Repository"
 
 msgid "Restart Docker"
-msgstr ""
+msgstr "Restart Docker"
 
 msgid "Restore"
-msgstr ""
+msgstr "Restore"
 
 msgid "Restore Compose ..."
-msgstr ""
+msgstr "Restore Compose ..."
 
 msgid "Run"
-msgstr ""
+msgstr "Run"
 
 msgid "Running For"
-msgstr ""
+msgstr "Running For"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Schedule"
 
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 msgid "Script filename"
-msgstr ""
+msgstr "Script filename"
 
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 msgid "Services"
-msgstr ""
+msgstr "Services"
 
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 msgid "Shared folder"
-msgstr ""
+msgstr "Shared folder"
 
 msgid "Size"
-msgstr ""
+msgstr "Size"
 
 msgid "State"
-msgstr ""
+msgstr "State"
 
 msgid "Stats"
-msgstr ""
+msgstr "Stats"
 
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 msgid "Stopped"
-msgstr ""
+msgstr "Stopped"
 
 msgid "Subnet"
-msgstr ""
+msgstr "Subnet"
 
 msgid "System"
-msgstr ""
+msgstr "System"
 
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr ""
+"Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
+"for unlimited."
 
 msgid "Up"
-msgstr ""
+msgstr "Up"
 
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 msgid "Virtual Size"
-msgstr ""
+msgstr "Virtual Size"
 
 msgid "Volume"
-msgstr ""
+msgstr "Volume"
 
 msgid "Volumes"
-msgstr ""
+msgstr "Volumes"
 
 msgid "and not running"
-msgstr ""
+msgstr "and not running"
 
 msgid "and running"
-msgstr ""
+msgstr "and running"
 
 msgid "check"
-msgstr ""
+msgstr "check"
 
 msgid "docker container prune ..."
-msgstr ""
+msgstr "docker container prune ..."
 
 msgid "docker image inspect ..."
-msgstr ""
+msgstr "docker image inspect ..."
 
 msgid "docker image prune ..."
-msgstr ""
+msgstr "docker image prune ..."
 
 msgid "docker image rm ..."
-msgstr ""
+msgstr "docker image rm ..."
 
 msgid "docker inspect ..."
-msgstr ""
+msgstr "docker inspect ..."
 
 msgid "docker logs --follow ..."
-msgstr ""
+msgstr "docker logs --follow ..."
 
 msgid "docker logs ..."
-msgstr ""
+msgstr "docker logs ..."
 
 msgid "docker network inspect ..."
-msgstr ""
+msgstr "docker network inspect ..."
 
 msgid "docker network prune ..."
-msgstr ""
+msgstr "docker network prune ..."
 
 msgid "docker network rm ..."
-msgstr ""
+msgstr "docker network rm ..."
 
 msgid "docker restart ..."
-msgstr ""
+msgstr "docker restart ..."
 
 msgid "docker system prune ..."
-msgstr ""
+msgstr "docker system prune ..."
 
 msgid "docker volume inspect ..."
-msgstr ""
+msgstr "docker volume inspect ..."
 
 msgid "docker volume prune ..."
-msgstr ""
+msgstr "docker volume prune ..."
 
 msgid "docker volume rm ..."
-msgstr ""
+msgstr "docker volume rm ..."
 
 msgid "docker-compose down ..."
-msgstr ""
+msgstr "docker-compose down ..."
 
 msgid "docker-compose file version"
-msgstr ""
+msgstr "docker-compose file version"
 
 msgid "docker-compose logs --follow ..."
-msgstr ""
+msgstr "docker-compose logs --follow ..."
 
 msgid "docker-compose logs ..."
-msgstr ""
+msgstr "docker-compose logs ..."
 
 msgid "docker-compose ps ..."
-msgstr ""
+msgstr "docker-compose ps ..."
 
 msgid "docker-compose pull ..."
-msgstr ""
+msgstr "docker-compose pull ..."
 
 msgid "docker-compose restart ..."
-msgstr ""
+msgstr "docker-compose restart ..."
 
 msgid "docker-compose stop ..."
-msgstr ""
+msgstr "docker-compose stop ..."
 
 msgid "docker-compose up -d ..."
-msgstr ""
+msgstr "docker-compose up -d ..."
 
 msgid "dockerfile build ..."
-msgstr ""
+msgstr "dockerfile build ..."
 
 msgid "down"
-msgstr ""
+msgstr "down"
 
 msgid "e.g. 172.20.0.0/16"
-msgstr ""
+msgstr "e.g. 172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr ""
+msgstr "e.g. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr ""
+msgstr "e.g. 172.20.10.128/25"
 
 msgid "follow logs"
-msgstr ""
+msgstr "follow logs"
 
 msgid "logs"
-msgstr ""
+msgstr "logs"
 
 msgid "n/a"
-msgstr ""
+msgstr "n/a"
 
 msgid "omv-extras wiki"
-msgstr ""
+msgstr "omv-extras wiki"
 
 msgid "ps"
-msgstr ""
+msgstr "ps"
 
 msgid "pull"
-msgstr ""
+msgstr "pull"
 
 msgid "restart"
-msgstr ""
+msgstr "restart"
 
 msgid "stop"
-msgstr ""
+msgstr "stop"
 
 msgid "up"
-msgstr ""
+msgstr "up"

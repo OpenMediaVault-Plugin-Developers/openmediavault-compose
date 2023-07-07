@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# songming <by@songming.me>, 2023
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-05 19:25-0500\n"
+"POT-Creation-Date: 2023-07-06 06:43-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: songming <by@songming.me>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,23 +21,26 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-msgid "Add from Example"
+msgid "Action"
 msgstr ""
+
+msgid "Add from Example"
+msgstr "从模板添加"
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "您确定要重装？"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "您确定要重启？"
 
 msgid "Autocompose"
-msgstr ""
+msgstr "Autocompose"
 
 msgid "Aux address"
-msgstr ""
+msgstr "排除地址"
 
 msgid "Backup"
-msgstr ""
+msgstr "备份"
 
 msgid "Block In"
 msgstr ""
@@ -42,13 +49,13 @@ msgid "Block Out"
 msgstr ""
 
 msgid "Build"
-msgstr ""
+msgstr "构建"
 
 msgid "CPU %"
-msgstr ""
+msgstr "CPU %"
 
 msgid "Check compose file for errors ..."
-msgstr ""
+msgstr "检查 compose 文件错误 ..."
 
 msgid ""
 "Choose which compose files to backup by filtering the compose name by this "
@@ -58,88 +65,97 @@ msgid ""
 msgstr ""
 
 msgid "Command"
-msgstr ""
+msgstr "命令"
 
 msgid "Compose"
+msgstr "Compose"
+
+msgid "Compose Backup"
 msgstr ""
 
 msgid "Compose Files"
+msgstr "Compose 文件"
+
+msgid "Compose Restore"
 msgstr ""
 
 msgid "Compose version"
-msgstr ""
+msgstr "Compose 版本"
 
 msgid "Conf file"
-msgstr ""
+msgstr "配置文件"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "配置文件名"
 
 msgid "Container"
-msgstr ""
+msgstr "Container"
 
 msgid "Containers"
-msgstr ""
+msgstr "Containers"
 
 msgid "Create"
-msgstr ""
+msgstr "创建"
 
 msgid "Create from example"
-msgstr ""
+msgstr "从模板创建"
 
 msgid "Create new compose file from running container ..."
-msgstr ""
+msgstr "从允许的 container 创建新的 compose"
 
 msgid "Created"
-msgstr ""
+msgstr "已创建"
 
 msgid "Created At"
-msgstr ""
+msgstr "创建"
 
 msgid "Created dockerfile."
-msgstr ""
+msgstr "已创建 dockerfile。"
 
 msgid "Created file."
-msgstr ""
+msgstr "已创建文件。"
 
 msgid "Created network."
-msgstr ""
+msgstr "已创建网络。"
 
 msgid "Created scheduled job."
+msgstr "已创建计划任务。"
+
+msgid "Date & Time"
 msgstr ""
 
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 msgid "Docker"
-msgstr ""
+msgstr "Docker"
 
 msgid "Docker has been restarted."
-msgstr ""
+msgstr "Docker 已重启。"
 
 msgid "Docker is restarting ..."
-msgstr ""
+msgstr "Docker 重启中 ..."
 
 msgid "Docker on OMV"
-msgstr ""
+msgstr "Docker on OMV"
 
 msgid "Docker storage"
-msgstr ""
+msgstr "Docker 存储"
 
 msgid "Docker version"
-msgstr ""
+msgstr "Docker 版本"
 
 msgid "Dockerfile"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Dockerfiles"
-msgstr ""
+msgstr "Dockerfiles"
 
 msgid "Docs"
-msgstr ""
+msgstr "文档"
 
 msgid "Down"
 msgstr ""
@@ -148,253 +164,256 @@ msgid "Driver"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 msgid "Edit dockerfile."
-msgstr ""
+msgstr "编辑 dockerfile。"
 
 msgid "Edit file."
-msgstr ""
+msgstr "编辑文件。"
 
 msgid "Edit scheduled job."
-msgstr ""
+msgstr "编辑计划任务。"
 
 msgid "Env Path"
-msgstr ""
+msgstr "Env 路径"
 
 msgid "Environment"
-msgstr ""
+msgstr "环境"
 
 msgid "Example"
-msgstr ""
+msgstr "模板"
 
 msgid "Execute scheduled job ..."
-msgstr ""
+msgstr "执行计划任务 ..."
 
 msgid "File"
-msgstr ""
+msgstr "文件"
 
 msgid "Files"
-msgstr ""
+msgstr "文件"
 
 msgid "Filter"
-msgstr ""
+msgstr "过滤"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
-msgstr ""
+msgstr "格式为 名字=ip，如有多条用逗号分割，<br/>如my-router=192.168.10.5,my-nas=192.168.20.6"
 
 msgid "Gateway"
-msgstr ""
+msgstr "网关"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP range"
-msgstr ""
+msgstr "IP 范围"
 
 msgid "Image"
-msgstr ""
+msgstr "镜像"
 
 msgid "Images"
-msgstr ""
+msgstr "镜像"
 
 msgid "Import"
-msgstr ""
+msgstr "导入"
 
 msgid "Import existing compose folders ..."
-msgstr ""
+msgstr "导入现有 compose 文件夹 ..."
 
 msgid "Inspect"
-msgstr ""
+msgstr "检查"
 
 msgid "Installed"
-msgstr ""
+msgstr "已安装"
 
 msgid "Location of backups"
-msgstr ""
+msgstr "备份位置"
 
 msgid "Location of compose files"
-msgstr ""
+msgstr "compose 文件位置"
 
 msgid "Max Size"
-msgstr ""
+msgstr "最大尺寸"
 
 msgid "Mem %"
-msgstr ""
+msgstr "内存 %"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "内存限制"
 
 msgid "Mem Usage"
+msgstr "使用内存"
+
+msgid "Message"
 msgstr ""
 
 msgid "Mixed"
 msgstr ""
 
 msgid "Mountpoint"
-msgstr ""
+msgstr "挂载点"
 
 msgid "Mounts"
-msgstr ""
+msgstr "挂载"
 
 msgid "Name"
-msgstr ""
+msgstr "名字"
 
 msgid "Net In"
-msgstr ""
+msgstr "网络入"
 
 msgid "Net Out"
-msgstr ""
+msgstr "网络出"
 
 msgid "Network"
-msgstr ""
+msgstr "网络"
 
 msgid "Networks"
-msgstr ""
+msgstr "网络"
 
 msgid "Not installed"
-msgstr ""
+msgstr "未安装"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
-msgstr ""
+msgstr "仅允许使用字母数字 （a-zA-Z）、下划线 （_）、短划线 （-）、逗号 （，） 和星号 （*）！"
 
 msgid "PIDs"
-msgstr ""
+msgstr "PIDs"
 
 msgid "Parent network"
-msgstr ""
+msgstr "父网络"
 
 msgid "Path"
-msgstr ""
+msgstr "路径"
 
 msgid "Ports"
-msgstr ""
+msgstr "端口"
 
 msgid "Project"
-msgstr ""
+msgstr "工程"
 
 msgid "Prune"
-msgstr ""
+msgstr "修改"
 
 msgid "Pull and Build"
-msgstr ""
+msgstr "拉取并构建"
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "重新安装 Docker"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "重新安装 Docker ..."
 
 msgid "Repository"
-msgstr ""
+msgstr "源"
 
 msgid "Restart Docker"
-msgstr ""
+msgstr "重启 Docker"
 
 msgid "Restore"
-msgstr ""
+msgstr "恢复"
 
 msgid "Restore Compose ..."
-msgstr ""
+msgstr "恢复 Compose ..."
 
 msgid "Run"
-msgstr ""
+msgstr "运行"
 
 msgid "Running For"
-msgstr ""
+msgstr "运行"
 
 msgid "Schedule"
-msgstr ""
+msgstr "计划"
 
 msgid "Script"
-msgstr ""
+msgstr "脚本"
 
 msgid "Script filename"
-msgstr ""
+msgstr "脚本名字"
 
 msgid "Service"
-msgstr ""
+msgstr "服务"
 
 msgid "Services"
-msgstr ""
+msgstr "服务"
 
 msgid "Settings"
-msgstr ""
+msgstr "设置"
 
 msgid "Shared folder"
-msgstr ""
+msgstr "共享文件夹"
 
 msgid "Size"
-msgstr ""
+msgstr "尺寸"
 
 msgid "State"
 msgstr ""
 
 msgid "Stats"
-msgstr ""
+msgstr "统计"
 
 msgid "Status"
-msgstr ""
+msgstr "状态"
 
 msgid "Stopped"
-msgstr ""
+msgstr "停止"
 
 msgid "Subnet"
-msgstr ""
+msgstr "子网"
 
 msgid "System"
-msgstr ""
+msgstr "系统"
 
 msgid "Tag"
-msgstr ""
+msgstr "标签"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
-msgstr ""
+msgstr "单位GB，备份将跳过大于此大小的卷。<br/>设置为 0 表示无限制。"
 
 msgid "Up"
 msgstr ""
 
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 msgid "Virtual Size"
-msgstr ""
+msgstr "虚拟大小"
 
 msgid "Volume"
-msgstr ""
+msgstr "卷"
 
 msgid "Volumes"
-msgstr ""
+msgstr "卷"
 
 msgid "and not running"
-msgstr ""
+msgstr "未运行"
 
 msgid "and running"
-msgstr ""
+msgstr "运行"
 
 msgid "check"
-msgstr ""
+msgstr "检查"
 
 msgid "docker container prune ..."
-msgstr ""
+msgstr "docker container 修改..."
 
 msgid "docker image inspect ..."
-msgstr ""
+msgstr "docker 镜像检查 ..."
 
 msgid "docker image prune ..."
-msgstr ""
+msgstr "docker 镜像修改 ..."
 
 msgid "docker image rm ..."
-msgstr ""
+msgstr "删除 docker 镜像 ..."
 
 msgid "docker inspect ..."
-msgstr ""
+msgstr "docker 检查 ..."
 
 msgid "docker logs --follow ..."
 msgstr ""
@@ -409,10 +428,10 @@ msgid "docker network prune ..."
 msgstr ""
 
 msgid "docker network rm ..."
-msgstr ""
+msgstr "移除 docker 网络 ..."
 
 msgid "docker restart ..."
-msgstr ""
+msgstr "docker 重启中 ..."
 
 msgid "docker system prune ..."
 msgstr ""
@@ -424,7 +443,7 @@ msgid "docker volume prune ..."
 msgstr ""
 
 msgid "docker volume rm ..."
-msgstr ""
+msgstr "移除 docker 卷 ..."
 
 msgid "docker-compose down ..."
 msgstr ""
@@ -460,37 +479,37 @@ msgid "down"
 msgstr ""
 
 msgid "e.g. 172.20.0.0/16"
-msgstr ""
+msgstr "如 172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr ""
+msgstr "如 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr ""
+msgstr "如 172.20.10.128/25"
 
 msgid "follow logs"
 msgstr ""
 
 msgid "logs"
-msgstr ""
+msgstr "日志"
 
 msgid "n/a"
-msgstr ""
+msgstr "n/a"
 
 msgid "omv-extras wiki"
-msgstr ""
+msgstr "omv-extras wiki"
 
 msgid "ps"
 msgstr ""
 
 msgid "pull"
-msgstr ""
+msgstr "拉取"
 
 msgid "restart"
-msgstr ""
+msgstr "重启"
 
 msgid "stop"
-msgstr ""
+msgstr "停止"
 
 msgid "up"
 msgstr ""

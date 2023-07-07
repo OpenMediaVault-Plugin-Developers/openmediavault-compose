@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-05 19:25-0500\n"
+"POT-Creation-Date: 2023-07-06 06:43-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Javanese (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/jv/)\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: jv\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Action"
+msgstr ""
 
 msgid "Add from Example"
 msgstr ""
@@ -63,7 +66,13 @@ msgstr ""
 msgid "Compose"
 msgstr ""
 
+msgid "Compose Backup"
+msgstr ""
+
 msgid "Compose Files"
+msgstr ""
+
+msgid "Compose Restore"
 msgstr ""
 
 msgid "Compose version"
@@ -106,6 +115,9 @@ msgid "Created network."
 msgstr ""
 
 msgid "Created scheduled job."
+msgstr ""
+
+msgid "Date & Time"
 msgstr ""
 
 msgid "Delete"
@@ -228,6 +240,9 @@ msgid "Mem Limit"
 msgstr ""
 
 msgid "Mem Usage"
+msgstr ""
+
+msgid "Message"
 msgstr ""
 
 msgid "Mixed"
