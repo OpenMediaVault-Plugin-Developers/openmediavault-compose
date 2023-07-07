@@ -1,13 +1,15 @@
-openmediavault-compose (6.9) UNRELEASED; urgency=medium
+openmediavault-compose (6.9) stable; urgency=low
 
-  * Add scheduled backup
-  * Add restore
+  * Add scheduled backup with logging
+  * Add restore with logging
+  * Add backup and restore log viewers
   * Automatically apply changes when adding or editing on Files tab
   * Allow more advanced macvlan networks
   * Add aux addresses to network creation
   * Ensure that /usr/local/bin exists
+  * Start adding translations
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 27 Jun 2023 16:29:02 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 06 Jul 2023 20:01:07 -0500
 
 openmediavault-compose (6.8) stable; urgency=low
 
