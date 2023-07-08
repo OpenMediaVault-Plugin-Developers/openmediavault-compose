@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-08 08:58-0500\n"
+"POT-Creation-Date: 2023-07-08 16:06-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Polish (Poland) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl_PL/)\n"
 "MIME-Version: 1.0\n"
@@ -141,6 +141,9 @@ msgstr ""
 msgid "Created scheduled job."
 msgstr ""
 
+msgid "Data"
+msgstr ""
+
 msgid "Date & Time"
 msgstr ""
 
@@ -254,6 +257,9 @@ msgstr ""
 msgid "Installed"
 msgstr ""
 
+msgid "Leave blank to use a custom /etc/docker/daemon.json"
+msgstr ""
+
 msgid "Location of backups"
 msgstr ""
 
@@ -305,6 +311,12 @@ msgstr ""
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
+msgstr ""
+
+msgid ""
+"Optional - Location of persistent container data<br/>Only used to substitute"
+" CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
+"folder path."
 msgstr ""
 
 msgid "Owner of directories and files"
