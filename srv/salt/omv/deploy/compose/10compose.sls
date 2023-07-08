@@ -17,10 +17,10 @@
 
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
 {% if config.sharedfolderref | length > 0 %}
-{% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref) %}
+{% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref).rstrip('/') %}
 {% set datapath = "" %}
 {% if config.datasharedfolderref | string | length > 1 %}
-{% set datapath = salt['omv_conf.get_sharedfolder_path'](config.datasharedfolderref) %}
+{% set datapath = salt['omv_conf.get_sharedfolder_path'](config.datasharedfolderref).rstrip('/') %}
 {% if not salt['file.directory_exists'](datapath) %}
 {% set datapath = "" %}
 {% endif %}

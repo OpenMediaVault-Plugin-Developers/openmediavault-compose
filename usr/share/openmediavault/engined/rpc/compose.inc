@@ -103,6 +103,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $sfpath = "";
         if (is_uuid($sfref)) {
             $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+            $sfpath = rtrim($sfpath, '/');
         } else {
             throw new \OMV\Exception("Please set shared folder for file storage.");
         }
@@ -119,6 +120,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $sfpath = "";
         if (is_uuid($sfref)) {
             $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+            $sfpath = rtrim($sfpath, '/');
         } else {
             throw new \OMV\Exception("Please set shared folder for backups.");
         }

@@ -17,7 +17,7 @@
 
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
 {% if config.sharedfolderref | length > 0 %}
-{% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref) %}
+{% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref).rstrip('/') %}
 
 {% for file in config.dockerfiles.dockerfile %}
 {% set dockerfileDir = sfpath ~ file.name %}

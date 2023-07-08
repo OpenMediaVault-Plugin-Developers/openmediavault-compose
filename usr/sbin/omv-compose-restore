@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.9.2
+# version: 0.9.3
 
 . /usr/share/openmediavault/scripts/helper-functions
 
@@ -44,6 +44,7 @@ if [ ! -d "${sfpath}" ]; then
   _log "Shared folder directory does not exist.  Exiting..."
   exit 12
 fi
+sfpath="${sfpath/%\/}"
 _log "Compose file path :: ${sfpath}"
 
 # Get the backup shared folder reference and path
@@ -57,6 +58,7 @@ if [ ! -d "${backuppath}" ]; then
   _log "Backup shared folder directory does not exist.  Exiting..."
   exit 14
 fi
+backuppath="${backuppath/%\/}"
 _log "Backup path :: ${backuppath}"
 
 # set path for yml and env files
