@@ -1,0 +1,36 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-file-url-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      post:
+        method: setUrl
+    fields:
+      - type: textInput
+        name: url
+        label: _("URL")
+        value: ""
+        validators:
+          required: true
+      - type: textInput
+        name: name
+        label: _("Name")
+        value: ""
+        validators:
+          required: true
+      - type: textInput
+        name: description
+        label: _("Description")
+        value: ""
+    buttons:
+      - template: submit
+        execute:
+          type: url
+          url: "/services/compose/files"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/compose/files"

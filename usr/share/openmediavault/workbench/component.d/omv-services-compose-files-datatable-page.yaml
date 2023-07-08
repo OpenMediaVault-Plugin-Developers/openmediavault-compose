@@ -59,6 +59,12 @@ data:
           type: url
           url: "/services/compose/files/example"
       - type: iconButton
+        icon: mdi:download-box-outline
+        tooltip: _("Add from URL")
+        execute:
+          type: url
+          url: "/services/compose/files/url"
+      - type: iconButton
         icon: mdi:file-document-plus-outline
         tooltip: _("Autocompose")
         execute:

@@ -141,6 +141,27 @@
   },
   {
     "type": "rpc",
+    "id": "rpc.compose.seturl",
+    "params": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "string",
+          "required": true
+        },
+        "url": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  {
+    "type": "rpc",
     "id": "rpc.compose.doautocompose",
     "params": {
       "type": "object",

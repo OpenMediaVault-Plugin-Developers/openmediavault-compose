@@ -49,6 +49,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getExampleList");
         $this->registerMethod("setExample");
 
+        $this->registerMethod("setUrl");
+
         $this->registerMethod("getServicesList");
         $this->registerMethod("getServicesListBg");
         $this->registerMethod("doServiceCommand");
@@ -622,6 +624,30 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object->set('description', $params['description']);
         $object->set('body', $body);
         $object->set('env', $env);
+        // Set the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $db->assertIsUnique($object, "name");
+        $db->set($object);
+        // Return the configuration object.
+        return $object->getAssoc();
+    }
+
+    public function setUrl($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.seturl");
+        // Verify that shared folder is set
+        $this->getComposePath($context);
+        // Prepare the configuration object.
+        $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+        $body = trim(file_get_contents($params['url']));
+        // set object values
+        $object->set('name', $params['name']);
+        $object->set('description', $params['description']);
+        $object->set('body', $body);
+        $object->set('env', '');
         // Set the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, "name");
