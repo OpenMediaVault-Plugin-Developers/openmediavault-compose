@@ -18,6 +18,13 @@
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
 {% if config.sharedfolderref | length > 0 %}
 {% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref) %}
+{% set datapath = "" %}
+{% if config.datasharedfolderref | string | length > 1 %}
+{% set datapath = salt['omv_conf.get_sharedfolder_path'](config.datasharedfolderref) %}
+{% if not salt['file.directory_exists'](datapath) %}
+{% set datapath = "" %}
+{% endif %}
+{% endif %}
 
 {% for file in config.files.file %}
 {% set composeDir = sfpath ~ file.name %}
@@ -39,8 +46,7 @@ configure_compose_{{ file.name }}_file:
       - salt://{{ tpldir }}/files/compose_yml.j2
     - context:
         file: {{ file | json }}
-        sfpath: {{ sfpath }}
-        composeDir: {{ composeDir }}
+        datapath: {{ datapath }}
     - template: jinja
     - user: "{{ config.composeowner }}"
     - group: "{{ config.composegroup }}"
@@ -53,8 +59,7 @@ configure_compose_env_{{ file.name }}_file:
       - salt://{{ tpldir }}/files/compose_env_yml.j2
     - context:
         file: {{ file | json }}
-        sfpath: {{ sfpath }}
-        composeDir: {{ composeDir }}
+        datapath: {{ datapath }}
     - template: jinja
     - user: "{{ config.composeowner }}"
     - group: "{{ config.composegroup }}"

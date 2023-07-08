@@ -73,6 +73,13 @@ data:
             - - "777"
               - _("Everyone - read/write")
       - type: divider
+        title: _("Data")
+      - type: sharedFolderSelect
+        name: datasharedfolderref
+        label: _("Shared folder")
+        hasEmptyOption: true
+        hint: _("Optional - Location of persistent container data<br/>Only used to substitute CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared folder path.")
+      - type: divider
         title: _("Backup")
       - type: sharedFolderSelect
         name: backupsharedfolderref

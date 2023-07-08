@@ -4,4 +4,8 @@
 # environment file for {{ file.name }}
 # {{ file.description }}
 
-{{ file.env | replace("CHANGE_TO_COMPOSE_SHAREDFOLDER", sfpath) | replace("CHANGE_TO_COMPOSE_FILE_PATH", composeDir) }}
+{%- if datapath is not none %}
+{{ file.env | replace("CHANGE_TO_COMPOSE_DATA_PATH", datapath) }}
+{%- else %}
+{{ file.env }}
+{%- endif %}

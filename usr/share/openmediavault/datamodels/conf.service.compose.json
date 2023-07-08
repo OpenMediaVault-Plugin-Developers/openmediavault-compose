@@ -36,6 +36,19 @@
       "type": "string",
       "default": "600"
     },
+    "datasharedfolderref": {
+      "type": "string",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uuidv4"
+        },
+        {
+          "type": "string",
+          "maxLength": 0
+        }
+      ]
+    },
     "backupsharedfolderref": {
       "type": "string",
       "oneOf": [

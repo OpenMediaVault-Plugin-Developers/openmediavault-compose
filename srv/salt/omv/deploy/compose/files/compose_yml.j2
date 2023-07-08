@@ -4,4 +4,8 @@
 # {{ file.name }}
 # {{ file.description }}
 
-{{ file.body | replace("CHANGE_TO_COMPOSE_SHAREDFOLDER", sfpath) | replace("CHANGE_TO_COMPOSE_FILE_PATH", composeDir) }}
+{%- if datapath is not none %}
+{{ file.body | replace("CHANGE_TO_COMPOSE_DATA_PATH", datapath) }}
+{%- else %}
+{{ file.body }}
+{%- endif %}

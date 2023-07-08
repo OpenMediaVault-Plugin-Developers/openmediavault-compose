@@ -42,6 +42,7 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_key "/config/services/compose" "composegroup" ""
   omv_config_add_key "/config/services/compose" "mode" ""
   omv_config_add_key "/config/services/compose" "fileperms" ""
+  omv_config_add_key "/config/services/compose" "datasharedfolderref" ""
   omv_config_add_key "/config/services/compose" "backupsharedfolderref" ""
   omv_config_add_key "/config/services/compose" "backupmaxsize" "1"
   omv_config_add_key "/config/services/compose" "dockerStorage" "${dockerPath}"
