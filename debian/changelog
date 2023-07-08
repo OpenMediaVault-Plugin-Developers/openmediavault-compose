@@ -1,3 +1,13 @@
+openmediavault-compose (6.9.2) stable; urgency=low
+
+  * Add sharedfolder selection for Data to be used for substitution
+  * Replace CHANGE_TO_COMPOSE_DATA_PATH with compose sharedfolder
+    path in compose body and env files
+  * Remove CHANGE_TO_COMPOSE_SHAREDFOLDER substitution
+  * Remove CHANGE_TO_COMPOSE_FILE_PATH substitution
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 08 Jul 2023 16:06:59 -0500
+
 openmediavault-compose (6.9.1) stable; urgency=low
 
   * Add user, group, perms settings for compose files and dockerfiles
