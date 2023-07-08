@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# kochin <kochinc@outlook.com>, 2023
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-06 06:43-0500\n"
+"POT-Creation-Date: 2023-07-08 08:58-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: kochin <kochinc@outlook.com>, 2023\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,37 +25,55 @@ msgid "Action"
 msgstr ""
 
 msgid "Add from Example"
+msgstr "依據範例新增"
+
+msgid "Add from URL"
+msgstr ""
+
+msgid "Administrator - read/write, Users - no access, Others - no access"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read-only, Others - no access"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read-only, Others - read-only"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read/write, Others - no access"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "您確定要重新安裝嗎？"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "您確定要重新啟動嗎？"
 
 msgid "Autocompose"
-msgstr ""
+msgstr "自動compose"
 
 msgid "Aux address"
 msgstr ""
 
 msgid "Backup"
-msgstr ""
+msgstr "備份"
 
 msgid "Block In"
-msgstr ""
+msgstr "區塊讀入"
 
 msgid "Block Out"
-msgstr ""
+msgstr "區塊寫出"
 
 msgid "Build"
-msgstr ""
+msgstr "建構"
 
 msgid "CPU %"
-msgstr ""
+msgstr "CPU %"
 
 msgid "Check compose file for errors ..."
-msgstr ""
+msgstr "檢查 compose 檔案是否有錯誤 …"
 
 msgid ""
 "Choose which compose files to backup by filtering the compose name by this "
@@ -61,150 +83,163 @@ msgid ""
 msgstr ""
 
 msgid "Command"
-msgstr ""
+msgstr "指令"
 
 msgid "Compose"
-msgstr ""
+msgstr "Compose"
 
 msgid "Compose Backup"
-msgstr ""
+msgstr "Compose 備份"
 
 msgid "Compose Files"
-msgstr ""
+msgstr "Compose 檔案"
 
 msgid "Compose Restore"
-msgstr ""
+msgstr "Compose 還原"
 
 msgid "Compose version"
-msgstr ""
+msgstr "Compose 版本"
 
 msgid "Conf file"
-msgstr ""
+msgstr "配置檔案"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "配置檔案名稱"
 
 msgid "Container"
-msgstr ""
+msgstr "容器"
 
 msgid "Containers"
-msgstr ""
+msgstr "容器"
 
 msgid "Create"
+msgstr "創建"
+
+msgid "Create from URL"
 msgstr ""
 
 msgid "Create from example"
-msgstr ""
+msgstr "依據範例創建"
 
 msgid "Create new compose file from running container ..."
-msgstr ""
+msgstr "依據執行中的容器創建新的 compose 檔案 …"
 
 msgid "Created"
-msgstr ""
+msgstr "已建立"
 
 msgid "Created At"
-msgstr ""
+msgstr "已建立於"
 
 msgid "Created dockerfile."
+msgstr "已建立 dockerfile。"
+
+msgid "Created file from url."
 msgstr ""
 
 msgid "Created file."
-msgstr ""
+msgstr "已建立檔案。"
 
 msgid "Created network."
-msgstr ""
+msgstr "已建立網路。"
 
 msgid "Created scheduled job."
-msgstr ""
+msgstr "已建立預訂工作。"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "日期與時間"
 
 msgid "Delete"
-msgstr ""
+msgstr "刪除"
 
 msgid "Description"
-msgstr ""
+msgstr "敘述"
 
 msgid "Docker"
-msgstr ""
+msgstr "Docker"
 
 msgid "Docker has been restarted."
-msgstr ""
+msgstr "Docker 已經被重新啟動。"
 
 msgid "Docker is restarting ..."
-msgstr ""
+msgstr "Docker 正在重新啟動中 …"
 
 msgid "Docker on OMV"
 msgstr ""
 
 msgid "Docker storage"
-msgstr ""
+msgstr "Docker 儲存庫"
 
 msgid "Docker version"
-msgstr ""
+msgstr "Docker 版本"
 
 msgid "Dockerfile"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Dockerfiles"
-msgstr ""
+msgstr "Dockerfiles"
 
 msgid "Docs"
-msgstr ""
+msgstr "文件"
 
 msgid "Down"
 msgstr ""
 
 msgid "Driver"
-msgstr ""
+msgstr "驅動程式"
 
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 msgid "Edit dockerfile."
-msgstr ""
+msgstr "編輯 dockerfile。"
 
 msgid "Edit file."
-msgstr ""
+msgstr "編輯檔案。"
 
 msgid "Edit scheduled job."
-msgstr ""
+msgstr "編輯預訂工作。"
 
 msgid "Env Path"
-msgstr ""
+msgstr "Env 路徑"
 
 msgid "Environment"
+msgstr "環境"
+
+msgid "Everyone - read/write"
 msgstr ""
 
 msgid "Example"
-msgstr ""
+msgstr "範例"
 
 msgid "Execute scheduled job ..."
-msgstr ""
+msgstr "執行預訂工作 …"
 
 msgid "File"
-msgstr ""
+msgstr "檔案"
 
 msgid "Files"
-msgstr ""
+msgstr "檔案"
 
 msgid "Filter"
-msgstr ""
+msgstr "篩選"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
+"格式為 name=ip。多個項目則以逗號分開。<br/>例如：my-router=192.168.10.5,my-nas=192.168.20.6"
 
 msgid "Gateway"
 msgstr ""
 
-msgid "ID"
+msgid "Group of directories and files"
 msgstr ""
 
+msgid "ID"
+msgstr "ID"
+
 msgid "IP range"
-msgstr ""
+msgstr "IP 範圍"
 
 msgid "Image"
 msgstr ""
@@ -213,111 +248,117 @@ msgid "Images"
 msgstr ""
 
 msgid "Import"
-msgstr ""
+msgstr "導入"
 
 msgid "Import existing compose folders ..."
-msgstr ""
+msgstr "導入現存 compose 檔案夾 ..."
 
 msgid "Inspect"
-msgstr ""
+msgstr "檢驗"
 
 msgid "Installed"
-msgstr ""
+msgstr "已被安裝"
 
 msgid "Location of backups"
-msgstr ""
+msgstr "備份位置"
 
 msgid "Location of compose files"
-msgstr ""
+msgstr "compose 檔案位置"
 
 msgid "Max Size"
-msgstr ""
+msgstr "最大大小"
 
 msgid "Mem %"
-msgstr ""
+msgstr "記憶 %"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "記憶限制"
 
 msgid "Mem Usage"
-msgstr ""
+msgstr "記憶使用"
 
 msgid "Message"
-msgstr ""
+msgstr "訊息"
 
 msgid "Mixed"
 msgstr ""
 
 msgid "Mountpoint"
-msgstr ""
+msgstr "掛載點"
 
 msgid "Mounts"
-msgstr ""
+msgstr "掛載"
 
 msgid "Name"
-msgstr ""
+msgstr "名稱"
 
 msgid "Net In"
-msgstr ""
+msgstr "網路傳入"
 
 msgid "Net Out"
-msgstr ""
+msgstr "網路傳出"
 
 msgid "Network"
-msgstr ""
+msgstr "網路"
 
 msgid "Networks"
-msgstr ""
+msgstr "網路"
 
 msgid "Not installed"
-msgstr ""
+msgstr "未被安裝"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
 
-msgid "PIDs"
+msgid "Owner of directories and files"
 msgstr ""
+
+msgid "PIDs"
+msgstr "PIDs"
 
 msgid "Parent network"
-msgstr ""
+msgstr "上層網路"
 
 msgid "Path"
+msgstr "路徑"
+
+msgid "Permissions of directories and files"
 msgstr ""
 
 msgid "Ports"
-msgstr ""
+msgstr "連接埠"
 
 msgid "Project"
-msgstr ""
+msgstr "專案"
 
 msgid "Prune"
-msgstr ""
+msgstr "修剪"
 
 msgid "Pull and Build"
-msgstr ""
+msgstr "拉取並建構"
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "重新安裝 Docker"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "重新安裝 Docker …"
 
 msgid "Repository"
 msgstr ""
 
 msgid "Restart Docker"
-msgstr ""
+msgstr "重新啟動 Docker"
 
 msgid "Restore"
-msgstr ""
+msgstr "復原"
 
 msgid "Restore Compose ..."
-msgstr ""
+msgstr "復原 Compose ..."
 
 msgid "Run"
-msgstr ""
+msgstr "執行"
 
 msgid "Running For"
 msgstr ""
@@ -326,60 +367,69 @@ msgid "Schedule"
 msgstr ""
 
 msgid "Script"
-msgstr ""
+msgstr "腳本程式"
 
 msgid "Script filename"
+msgstr "腳本程式檔案名稱"
+
+msgid "Select a group ..."
+msgstr ""
+
+msgid "Select a user ..."
 msgstr ""
 
 msgid "Service"
-msgstr ""
+msgstr "服務"
 
 msgid "Services"
-msgstr ""
+msgstr "服務"
 
 msgid "Settings"
-msgstr ""
+msgstr "設置"
 
 msgid "Shared folder"
-msgstr ""
+msgstr "共享檔案夾"
 
 msgid "Size"
-msgstr ""
+msgstr "大小"
 
 msgid "State"
 msgstr ""
 
 msgid "Stats"
-msgstr ""
+msgstr "統計"
 
 msgid "Status"
 msgstr ""
 
 msgid "Stopped"
-msgstr ""
+msgstr "已停止"
 
 msgid "Subnet"
 msgstr ""
 
 msgid "System"
-msgstr ""
+msgstr "系統"
 
 msgid "Tag"
+msgstr "標籤"
+
+msgid "URL"
 msgstr ""
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
-msgstr ""
+msgstr "單位為 GB。備份將跳過大於此大小的儲存卷。<br/>設成 0 表示無限制。"
 
 msgid "Up"
 msgstr ""
 
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 msgid "Virtual Size"
-msgstr ""
+msgstr "虛擬大小"
 
 msgid "Volume"
 msgstr ""
@@ -388,100 +438,100 @@ msgid "Volumes"
 msgstr ""
 
 msgid "and not running"
-msgstr ""
+msgstr "且未執行中"
 
 msgid "and running"
-msgstr ""
+msgstr "且執行中"
 
 msgid "check"
-msgstr ""
+msgstr "檢查"
 
 msgid "docker container prune ..."
-msgstr ""
+msgstr "docker container prune ..."
 
 msgid "docker image inspect ..."
-msgstr ""
+msgstr "docker image inspect ..."
 
 msgid "docker image prune ..."
-msgstr ""
+msgstr "docker image prune ..."
 
 msgid "docker image rm ..."
-msgstr ""
+msgstr "docker image rm ..."
 
 msgid "docker inspect ..."
-msgstr ""
+msgstr "docker inspect ..."
 
 msgid "docker logs --follow ..."
-msgstr ""
+msgstr "docker logs --follow ..."
 
 msgid "docker logs ..."
-msgstr ""
+msgstr "docker logs ..."
 
 msgid "docker network inspect ..."
-msgstr ""
+msgstr "docker network inspect ..."
 
 msgid "docker network prune ..."
-msgstr ""
+msgstr "docker network prune ..."
 
 msgid "docker network rm ..."
-msgstr ""
+msgstr "docker network rm ..."
 
 msgid "docker restart ..."
-msgstr ""
+msgstr "docker restart ..."
 
 msgid "docker system prune ..."
-msgstr ""
+msgstr "docker system prune ..."
 
 msgid "docker volume inspect ..."
-msgstr ""
+msgstr "docker volume inspect ..."
 
 msgid "docker volume prune ..."
-msgstr ""
+msgstr "docker volume prune ..."
 
 msgid "docker volume rm ..."
-msgstr ""
+msgstr "docker volume rm ..."
 
 msgid "docker-compose down ..."
-msgstr ""
+msgstr "docker-compose down ..."
 
 msgid "docker-compose file version"
-msgstr ""
+msgstr "docker-compose file version"
 
 msgid "docker-compose logs --follow ..."
-msgstr ""
+msgstr "docker-compose logs --follow ..."
 
 msgid "docker-compose logs ..."
-msgstr ""
+msgstr "docker-compose logs ..."
 
 msgid "docker-compose ps ..."
-msgstr ""
+msgstr "docker-compose ps ..."
 
 msgid "docker-compose pull ..."
-msgstr ""
+msgstr "docker-compose pull ..."
 
 msgid "docker-compose restart ..."
-msgstr ""
+msgstr "docker-compose restart ..."
 
 msgid "docker-compose stop ..."
-msgstr ""
+msgstr "docker-compose stop ..."
 
 msgid "docker-compose up -d ..."
-msgstr ""
+msgstr "docker-compose up -d ..."
 
 msgid "dockerfile build ..."
-msgstr ""
+msgstr "dockerfile build ..."
 
 msgid "down"
 msgstr ""
 
 msgid "e.g. 172.20.0.0/16"
-msgstr ""
+msgstr "例如：172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr ""
+msgstr "例如：172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr ""
+msgstr "例如：172.20.10.128/25"
 
 msgid "follow logs"
 msgstr ""
@@ -493,7 +543,7 @@ msgid "n/a"
 msgstr ""
 
 msgid "omv-extras wiki"
-msgstr ""
+msgstr "omv-extras wiki"
 
 msgid "ps"
 msgstr ""

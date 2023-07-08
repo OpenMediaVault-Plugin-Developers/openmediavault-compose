@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-07 07:57-0500\n"
+"POT-Creation-Date: 2023-07-08 08:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,9 @@ msgid "Action"
 msgstr ""
 
 msgid "Add from Example"
+msgstr ""
+
+msgid "Add from URL"
 msgstr ""
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
@@ -104,6 +107,9 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+msgid "Create from URL"
+msgstr ""
+
 msgid "Create from example"
 msgstr ""
 
@@ -117,6 +123,9 @@ msgid "Created At"
 msgstr ""
 
 msgid "Created dockerfile."
+msgstr ""
+
+msgid "Created file from url."
 msgstr ""
 
 msgid "Created file."
@@ -350,6 +359,12 @@ msgstr ""
 msgid "Script filename"
 msgstr ""
 
+msgid "Select a group ..."
+msgstr ""
+
+msgid "Select a user ..."
+msgstr ""
+
 msgid "Service"
 msgstr ""
 
@@ -384,6 +399,9 @@ msgid "System"
 msgstr ""
 
 msgid "Tag"
+msgstr ""
+
+msgid "URL"
 msgstr ""
 
 msgid "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 for unlimited."

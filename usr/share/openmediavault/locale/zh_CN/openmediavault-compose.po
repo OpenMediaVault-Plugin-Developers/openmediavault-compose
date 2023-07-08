@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-06 06:43-0500\n"
+"POT-Creation-Date: 2023-07-08 08:58-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -26,6 +26,24 @@ msgstr ""
 
 msgid "Add from Example"
 msgstr "从模板添加"
+
+msgid "Add from URL"
+msgstr ""
+
+msgid "Administrator - read/write, Users - no access, Others - no access"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read-only, Others - no access"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read-only, Others - read-only"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read/write, Others - no access"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read/write, Others - read-only"
+msgstr ""
 
 msgid "Are you sure you want to reinstall?"
 msgstr "您确定要重装？"
@@ -97,6 +115,9 @@ msgstr "Containers"
 msgid "Create"
 msgstr "创建"
 
+msgid "Create from URL"
+msgstr ""
+
 msgid "Create from example"
 msgstr "从模板创建"
 
@@ -111,6 +132,9 @@ msgstr "创建"
 
 msgid "Created dockerfile."
 msgstr "已创建 dockerfile。"
+
+msgid "Created file from url."
+msgstr ""
 
 msgid "Created file."
 msgstr "已创建文件。"
@@ -181,6 +205,9 @@ msgstr "Env 路径"
 msgid "Environment"
 msgstr "环境"
 
+msgid "Everyone - read/write"
+msgstr ""
+
 msgid "Example"
 msgstr "模板"
 
@@ -203,6 +230,9 @@ msgstr "格式为 名字=ip，如有多条用逗号分割，<br/>如my-router=19
 
 msgid "Gateway"
 msgstr "网关"
+
+msgid "Group of directories and files"
+msgstr ""
 
 msgid "ID"
 msgstr "ID"
@@ -281,6 +311,9 @@ msgid ""
 "asterisks (*) allowed!"
 msgstr "仅允许使用字母数字 （a-zA-Z）、下划线 （_）、短划线 （-）、逗号 （，） 和星号 （*）！"
 
+msgid "Owner of directories and files"
+msgstr ""
+
 msgid "PIDs"
 msgstr "PIDs"
 
@@ -289,6 +322,9 @@ msgstr "父网络"
 
 msgid "Path"
 msgstr "路径"
+
+msgid "Permissions of directories and files"
+msgstr ""
 
 msgid "Ports"
 msgstr "端口"
@@ -335,6 +371,12 @@ msgstr "脚本"
 msgid "Script filename"
 msgstr "脚本名字"
 
+msgid "Select a group ..."
+msgstr ""
+
+msgid "Select a user ..."
+msgstr ""
+
 msgid "Service"
 msgstr "服务"
 
@@ -370,6 +412,9 @@ msgstr "系统"
 
 msgid "Tag"
 msgstr "标签"
+
+msgid "URL"
+msgstr ""
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "

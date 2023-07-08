@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-06 06:43-0500\n"
+"POT-Creation-Date: 2023-07-08 08:58-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2023\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -22,10 +22,28 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
 msgid "Add from Example"
 msgstr "Add from Example"
+
+msgid "Add from URL"
+msgstr ""
+
+msgid "Administrator - read/write, Users - no access, Others - no access"
+msgstr "Administrator - read/write, Users - no access, Others - no access"
+
+msgid "Administrator - read/write, Users - read-only, Others - no access"
+msgstr "Administrator - read/write, Users - read-only, Others - no access"
+
+msgid "Administrator - read/write, Users - read-only, Others - read-only"
+msgstr "Administrator - read/write, Users - read-only, Others - read-only"
+
+msgid "Administrator - read/write, Users - read/write, Others - no access"
+msgstr "Administrator - read/write, Users - read/write, Others - no access"
+
+msgid "Administrator - read/write, Users - read/write, Others - read-only"
+msgstr "Administrator - read/write, Users - read/write, Others - read-only"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "Are you sure you want to reinstall?"
@@ -75,13 +93,13 @@ msgid "Compose"
 msgstr "Compose"
 
 msgid "Compose Backup"
-msgstr ""
+msgstr "Compose Backup"
 
 msgid "Compose Files"
 msgstr "Compose Files"
 
 msgid "Compose Restore"
-msgstr ""
+msgstr "Compose Restore"
 
 msgid "Compose version"
 msgstr "Compose version"
@@ -101,6 +119,9 @@ msgstr "Containers"
 msgid "Create"
 msgstr "Create"
 
+msgid "Create from URL"
+msgstr ""
+
 msgid "Create from example"
 msgstr "Create from example"
 
@@ -116,6 +137,9 @@ msgstr "Created At"
 msgid "Created dockerfile."
 msgstr "Created dockerfile."
 
+msgid "Created file from url."
+msgstr ""
+
 msgid "Created file."
 msgstr "Created file."
 
@@ -126,7 +150,7 @@ msgid "Created scheduled job."
 msgstr "Created scheduled job."
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Date & Time"
 
 msgid "Delete"
 msgstr "Delete"
@@ -185,6 +209,9 @@ msgstr "Env Path"
 msgid "Environment"
 msgstr "Environment"
 
+msgid "Everyone - read/write"
+msgstr "Everyone - read/write"
+
 msgid "Example"
 msgstr "Example"
 
@@ -209,6 +236,9 @@ msgstr ""
 
 msgid "Gateway"
 msgstr "Gateway"
+
+msgid "Group of directories and files"
+msgstr "Group of directories and files"
 
 msgid "ID"
 msgstr "ID"
@@ -253,7 +283,7 @@ msgid "Mem Usage"
 msgstr "Mem Usage"
 
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 msgid "Mixed"
 msgstr "Mixed"
@@ -289,6 +319,9 @@ msgstr ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 
+msgid "Owner of directories and files"
+msgstr "Owner of directories and files"
+
 msgid "PIDs"
 msgstr "PIDs"
 
@@ -297,6 +330,9 @@ msgstr "Parent network"
 
 msgid "Path"
 msgstr "Path"
+
+msgid "Permissions of directories and files"
+msgstr "Permissions of directories and files"
 
 msgid "Ports"
 msgstr "Ports"
@@ -343,6 +379,12 @@ msgstr "Script"
 msgid "Script filename"
 msgstr "Script filename"
 
+msgid "Select a group ..."
+msgstr ""
+
+msgid "Select a user ..."
+msgstr ""
+
 msgid "Service"
 msgstr "Service"
 
@@ -378,6 +420,9 @@ msgstr "System"
 
 msgid "Tag"
 msgstr "Tag"
+
+msgid "URL"
+msgstr ""
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "

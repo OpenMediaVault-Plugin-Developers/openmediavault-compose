@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-06 06:43-0500\n"
+"POT-Creation-Date: 2023-07-08 08:58-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Swedish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sv/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,24 @@ msgid "Action"
 msgstr ""
 
 msgid "Add from Example"
+msgstr ""
+
+msgid "Add from URL"
+msgstr ""
+
+msgid "Administrator - read/write, Users - no access, Others - no access"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read-only, Others - no access"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read-only, Others - read-only"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read/write, Others - no access"
+msgstr ""
+
+msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
 
 msgid "Are you sure you want to reinstall?"
@@ -93,6 +111,9 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
+msgid "Create from URL"
+msgstr ""
+
 msgid "Create from example"
 msgstr ""
 
@@ -106,6 +127,9 @@ msgid "Created At"
 msgstr ""
 
 msgid "Created dockerfile."
+msgstr ""
+
+msgid "Created file from url."
 msgstr ""
 
 msgid "Created file."
@@ -177,6 +201,9 @@ msgstr ""
 msgid "Environment"
 msgstr ""
 
+msgid "Everyone - read/write"
+msgstr ""
+
 msgid "Example"
 msgstr ""
 
@@ -198,6 +225,9 @@ msgid ""
 msgstr ""
 
 msgid "Gateway"
+msgstr ""
+
+msgid "Group of directories and files"
 msgstr ""
 
 msgid "ID"
@@ -277,6 +307,9 @@ msgid ""
 "asterisks (*) allowed!"
 msgstr ""
 
+msgid "Owner of directories and files"
+msgstr ""
+
 msgid "PIDs"
 msgstr ""
 
@@ -284,6 +317,9 @@ msgid "Parent network"
 msgstr ""
 
 msgid "Path"
+msgstr ""
+
+msgid "Permissions of directories and files"
 msgstr ""
 
 msgid "Ports"
@@ -331,6 +367,12 @@ msgstr ""
 msgid "Script filename"
 msgstr ""
 
+msgid "Select a group ..."
+msgstr ""
+
+msgid "Select a user ..."
+msgstr ""
+
 msgid "Service"
 msgstr ""
 
@@ -365,6 +407,9 @@ msgid "System"
 msgstr ""
 
 msgid "Tag"
+msgstr ""
+
+msgid "URL"
 msgstr ""
 
 msgid ""
