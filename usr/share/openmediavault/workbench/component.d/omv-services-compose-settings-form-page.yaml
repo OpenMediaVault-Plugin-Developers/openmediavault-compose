@@ -95,6 +95,7 @@ data:
         name: dockerStorage
         label: _("Docker storage")
         value: "/var/lib/docker"
+        hint: _("Leave blank to use a custom /etc/docker/daemon.json")
       - type: textInput
         name: dockerStatus
         label: _("Status")
