@@ -26,11 +26,10 @@
 configure_compose_dir_{{ file.name }}:
   file.directory:
     - name: "{{ dockerfileDir }}"
-    - user: root
-    - group: root
-    - mode: 755
+    - user: "{{ config.composeowner }}"
+    - group: "{{ config.composegroup }}"
+    - mode: "{{ config.mode }}"
     - makedirs: True
-
 
 configure_dockerfile_{{ dockerFile }}:
   file.managed:
@@ -40,9 +39,9 @@ configure_dockerfile_{{ dockerFile }}:
     - context:
         file: {{ file | json }}
     - template: jinja
-    - user: root
-    - group: users
-    - mode: 644
+    - user: "{{ config.composeowner }}"
+    - group: "{{ config.composegroup }}"
+    - mode: "{{ config.fileperms }}"
 
 {% if file.script | length > 0 %}
 {% set scriptFile = dockerfileDir ~ '/' ~ file.script %}
@@ -55,9 +54,9 @@ configure_dockerfile_script_{{ scriptFile }}:
     - context:
         file: {{ file | json }}
     - template: jinja
-    - user: root
-    - group: users
-    - mode: 644
+    - user: "{{ config.composeowner }}"
+    - group: "{{ config.composegroup }}"
+    - mode: "{{ config.fileperms }}"
 
 {% endif %}
 
@@ -72,9 +71,9 @@ configure_dockerfile_conf_{{ confFile }}:
     - context:
         file: {{ file | json }}
     - template: jinja
-    - user: root
-    - group: users
-    - mode: 644
+    - user: "{{ config.composeowner }}"
+    - group: "{{ config.composegroup }}"
+    - mode: "{{ config.fileperms }}"
 
 {% endif %}
 

@@ -177,6 +177,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the existing configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose");
+        $perms = "";
+        switch ($params['mode']) {
+            case "700": $perms = "600"; break;
+            case "750": $perms = "640"; break;
+            case "770": $perms = "660"; break;
+            case "755": $perms = "644"; break;
+            case "775": $perms = "664"; break;
+            case "777": $perms = "666"; break;
+            default:    $perms = "600";
+        }
+        $params['fileperms'] = $perms;
         $object->setAssoc($params);
         $db->set($object);
         // Remove useless properties from the object.
@@ -341,6 +352,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if ($dockerfiles) {
             throw new \OMV\Exception("Name is in use by a Dockerfile.");
         }
+        // update database
         $db->set($object);
         // Apply changes immmediately
         \OMV\Rpc\Rpc::call('Config', 'applyChanges', [

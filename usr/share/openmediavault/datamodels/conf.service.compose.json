@@ -20,6 +20,22 @@
         }
       ]
     },
+    "composeowner": {
+      "type": "string",
+      "default": "root"
+    },
+    "composegroup": {
+      "type": "string",
+      "default": "root"
+    },
+    "mode": {
+      "type": "string",
+      "default": "700"
+    },
+    "fileperms": {
+      "type": "string",
+      "default": "600"
+    },
     "backupsharedfolderref": {
       "type": "string",
       "oneOf": [

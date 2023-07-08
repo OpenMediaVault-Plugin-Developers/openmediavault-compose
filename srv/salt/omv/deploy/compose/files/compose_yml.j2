@@ -4,4 +4,4 @@
 # {{ file.name }}
 # {{ file.description }}
 
-{{ file.body }}
+{{ file.body | replace("CHANGE_TO_COMPOSE_SHAREDFOLDER", sfpath) | replace("CHANGE_TO_COMPOSE_FILE_PATH", composeDir) }}

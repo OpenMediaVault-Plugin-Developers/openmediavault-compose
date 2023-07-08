@@ -19,6 +19,18 @@
           ],
           "required": true
         },
+        "composeowner": {
+          "type": "string",
+          "required": true
+        },
+        "composegroup": {
+          "type": "string",
+          "required": true
+        },
+        "mode": {
+          "type": "string",
+          "required": true
+        },
         "backupsharedfolderref": {
           "type": "string",
           "oneOf": [
