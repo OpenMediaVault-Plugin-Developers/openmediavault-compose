@@ -1,3 +1,9 @@
+openmediavault-compose (6.9.3) stable; urgency=low
+
+  * Prevent using the same shared folder for compose files and data
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 08 Jul 2023 19:17:51 -0500
+
 openmediavault-compose (6.9.2) stable; urgency=low
 
   * Add sharedfolder selection for Data to be used for substitution
