@@ -179,7 +179,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.set");
         // Make sure compose file shared folder is not the same as data shared folder
-        if ($params['sharedfolderref'] == $params['datasharedfolderref']) {
+        if ($params['sharedfolderref'] != '' && $params['sharedfolderref'] == $params['datasharedfolderref']) {
             throw new \OMV\ExecException(
                 gettext("Compose file shared folder must be different than data shared folder")
             );
