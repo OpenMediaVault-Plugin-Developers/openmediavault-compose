@@ -27,7 +27,7 @@
 {% endif %}
 
 {% for file in config.files.file %}
-{% set composeDir = sfpath ~ file.name %}
+{% set composeDir = sfpath ~ '/' ~ file.name %}
 {% set composeFile = composeDir ~ '/' ~ file.name ~ '.yml' %}
 {% set envFile = composeDir ~ '/' ~ file.name ~ '.env' %}
 

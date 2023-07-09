@@ -20,7 +20,7 @@
 {% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref).rstrip('/') %}
 
 {% for file in config.dockerfiles.dockerfile %}
-{% set dockerfileDir = sfpath ~ file.name %}
+{% set dockerfileDir = sfpath ~ '/' ~ file.name %}
 {% set dockerFile = dockerfileDir ~ '/Dockerfile' %}
 
 configure_compose_dir_{{ file.name }}:
