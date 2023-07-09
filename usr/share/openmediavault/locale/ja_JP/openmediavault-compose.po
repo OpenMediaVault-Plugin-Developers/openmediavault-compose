@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-08 16:06-0500\n"
+"POT-Creation-Date: 2023-07-08 19:19-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Japanese (Japan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -91,6 +91,9 @@ msgid "Compose Files"
 msgstr ""
 
 msgid "Compose Restore"
+msgstr ""
+
+msgid "Compose file shared folder must be different than data shared folder"
 msgstr ""
 
 msgid "Compose version"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-08 16:06-0500\n"
+"POT-Creation-Date: 2023-07-08 19:19-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2023\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -22,28 +22,28 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Action"
-msgstr ""
+msgstr "動作"
 
 msgid "Add from Example"
-msgstr "依據範例新增"
+msgstr "從範例新增"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "從 URL 新增"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
-msgstr ""
+msgstr "管理員 - 讀/寫，用戶 - 無法取用，其他 - 無法取用"
 
 msgid "Administrator - read/write, Users - read-only, Others - no access"
-msgstr ""
+msgstr "管理員 - 讀/寫，用戶 - 唯讀，其他 - 無法取用"
 
 msgid "Administrator - read/write, Users - read-only, Others - read-only"
-msgstr ""
+msgstr "管理員 - 讀/寫，用戶 - 唯讀，其他 - 唯讀"
 
 msgid "Administrator - read/write, Users - read/write, Others - no access"
-msgstr ""
+msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 無法取用"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
-msgstr ""
+msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 唯讀"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "您確定要重新安裝嗎？"
@@ -55,7 +55,7 @@ msgid "Autocompose"
 msgstr "自動compose"
 
 msgid "Aux address"
-msgstr ""
+msgstr "輔助地址"
 
 msgid "Backup"
 msgstr "備份"
@@ -96,6 +96,9 @@ msgstr "Compose 檔案"
 
 msgid "Compose Restore"
 msgstr "Compose 還原"
+
+msgid "Compose file shared folder must be different than data shared folder"
+msgstr ""
 
 msgid "Compose version"
 msgstr "Compose 版本"
