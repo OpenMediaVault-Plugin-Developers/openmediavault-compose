@@ -81,6 +81,8 @@ msgid ""
 " or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
 "multiple filters separated by commas."
 msgstr ""
+"經由以此欄位篩選 compose 名稱，來選擇備份哪些 compose 檔案。<br/>篩選可以用通配符號(*)來做部份匹配。例如：asd* 或 "
+"*asd* 或 *asd<br/>留空白或只使用 * 來選擇全部的 compose。<br/>多項篩選則以逗號分開。"
 
 msgid "Command"
 msgstr "指令"
@@ -98,7 +100,7 @@ msgid "Compose Restore"
 msgstr "Compose 還原"
 
 msgid "Compose file shared folder must be different than data shared folder"
-msgstr ""
+msgstr "Compose 檔案的共享檔案夾必須不同於資料的共享檔案夾"
 
 msgid "Compose version"
 msgstr "Compose 版本"
@@ -119,10 +121,10 @@ msgid "Create"
 msgstr "創建"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "從 URL 創建"
 
 msgid "Create from example"
-msgstr "依據範例創建"
+msgstr "從範例創建"
 
 msgid "Create new compose file from running container ..."
 msgstr "依據執行中的容器創建新的 compose 檔案 …"
@@ -137,7 +139,7 @@ msgid "Created dockerfile."
 msgstr "已建立 dockerfile。"
 
 msgid "Created file from url."
-msgstr ""
+msgstr "已從 url 建立檔案。"
 
 msgid "Created file."
 msgstr "已建立檔案。"
@@ -149,7 +151,7 @@ msgid "Created scheduled job."
 msgstr "已建立預訂工作。"
 
 msgid "Data"
-msgstr ""
+msgstr "資料"
 
 msgid "Date & Time"
 msgstr "日期與時間"
@@ -170,7 +172,7 @@ msgid "Docker is restarting ..."
 msgstr "Docker 正在重新啟動中 …"
 
 msgid "Docker on OMV"
-msgstr ""
+msgstr "Docker on OMV"
 
 msgid "Docker storage"
 msgstr "Docker 儲存庫"
@@ -188,7 +190,7 @@ msgid "Docs"
 msgstr "文件"
 
 msgid "Down"
-msgstr ""
+msgstr "停止"
 
 msgid "Driver"
 msgstr "驅動程式"
@@ -212,7 +214,7 @@ msgid "Environment"
 msgstr "環境"
 
 msgid "Everyone - read/write"
-msgstr ""
+msgstr "全員 - 讀/寫"
 
 msgid "Example"
 msgstr "範例"
@@ -236,10 +238,10 @@ msgstr ""
 "格式為 name=ip。多個項目則以逗號分開。<br/>例如：my-router=192.168.10.5,my-nas=192.168.20.6"
 
 msgid "Gateway"
-msgstr ""
+msgstr "閘道器"
 
 msgid "Group of directories and files"
-msgstr ""
+msgstr "目錄和檔案的群組"
 
 msgid "ID"
 msgstr "ID"
@@ -248,10 +250,10 @@ msgid "IP range"
 msgstr "IP 範圍"
 
 msgid "Image"
-msgstr ""
+msgstr "影像"
 
 msgid "Images"
-msgstr ""
+msgstr "影像"
 
 msgid "Import"
 msgstr "導入"
@@ -266,7 +268,7 @@ msgid "Installed"
 msgstr "已被安裝"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
-msgstr ""
+msgstr "留空白則使用客製的 /etc/docker/daemon.json"
 
 msgid "Location of backups"
 msgstr "備份位置"
@@ -290,7 +292,7 @@ msgid "Message"
 msgstr "訊息"
 
 msgid "Mixed"
-msgstr ""
+msgstr "混合"
 
 msgid "Mountpoint"
 msgstr "掛載點"
@@ -319,16 +321,18 @@ msgstr "未被安裝"
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
-msgstr ""
+msgstr "只允許文數字 (a-zA-Z)、底線 (_)、破折號 (-)、逗號 (,) 及 星號 (*)！"
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
+"選項 - 容器之持久性資料的位置<br/>此共享檔案夾路徑只被用來取代 compose 與 env 檔案內的 "
+"CHANGE_TO_COMPOSE_DATA_PATH 變數。"
 
 msgid "Owner of directories and files"
-msgstr ""
+msgstr "目錄和檔案的擁有者"
 
 msgid "PIDs"
 msgstr "PIDs"
@@ -340,7 +344,7 @@ msgid "Path"
 msgstr "路徑"
 
 msgid "Permissions of directories and files"
-msgstr ""
+msgstr "目錄和檔案的權限"
 
 msgid "Ports"
 msgstr "連接埠"
@@ -361,7 +365,7 @@ msgid "Reinstall Docker ..."
 msgstr "重新安裝 Docker …"
 
 msgid "Repository"
-msgstr ""
+msgstr "影像庫"
 
 msgid "Restart Docker"
 msgstr "重新啟動 Docker"
@@ -376,10 +380,10 @@ msgid "Run"
 msgstr "執行"
 
 msgid "Running For"
-msgstr ""
+msgstr "運行時間"
 
 msgid "Schedule"
-msgstr ""
+msgstr "預訂"
 
 msgid "Script"
 msgstr "腳本程式"
@@ -388,10 +392,10 @@ msgid "Script filename"
 msgstr "腳本程式檔案名稱"
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "選擇一個群組 …"
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "選擇一個用戶 …"
 
 msgid "Service"
 msgstr "服務"
@@ -409,19 +413,19 @@ msgid "Size"
 msgstr "大小"
 
 msgid "State"
-msgstr ""
+msgstr "狀態"
 
 msgid "Stats"
 msgstr "統計"
 
 msgid "Status"
-msgstr ""
+msgstr "狀況"
 
 msgid "Stopped"
 msgstr "已停止"
 
 msgid "Subnet"
-msgstr ""
+msgstr "子網路"
 
 msgid "System"
 msgstr "系統"
@@ -430,7 +434,7 @@ msgid "Tag"
 msgstr "標籤"
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -438,7 +442,7 @@ msgid ""
 msgstr "單位為 GB。備份將跳過大於此大小的儲存卷。<br/>設成 0 表示無限制。"
 
 msgid "Up"
-msgstr ""
+msgstr "起動"
 
 msgid "Version"
 msgstr "版本"
@@ -447,10 +451,10 @@ msgid "Virtual Size"
 msgstr "虛擬大小"
 
 msgid "Volume"
-msgstr ""
+msgstr "儲存卷"
 
 msgid "Volumes"
-msgstr ""
+msgstr "儲存卷"
 
 msgid "and not running"
 msgstr "且未執行中"
@@ -537,7 +541,7 @@ msgid "dockerfile build ..."
 msgstr "dockerfile build ..."
 
 msgid "down"
-msgstr ""
+msgstr "停止並拆解"
 
 msgid "e.g. 172.20.0.0/16"
 msgstr "例如：172.20.0.0/16"
@@ -549,28 +553,28 @@ msgid "e.g. 172.20.10.128/25"
 msgstr "例如：172.20.10.128/25"
 
 msgid "follow logs"
-msgstr ""
+msgstr "追隨日誌"
 
 msgid "logs"
-msgstr ""
+msgstr "日誌"
 
 msgid "n/a"
-msgstr ""
+msgstr "n/a"
 
 msgid "omv-extras wiki"
 msgstr "omv-extras wiki"
 
 msgid "ps"
-msgstr ""
+msgstr "程序狀態"
 
 msgid "pull"
-msgstr ""
+msgstr "拉取"
 
 msgid "restart"
-msgstr ""
+msgstr "重啟"
 
 msgid "stop"
-msgstr ""
+msgstr "停止"
 
 msgid "up"
-msgstr ""
+msgstr "組裝並起動"
