@@ -1285,6 +1285,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $imagesAssoc = [];
         foreach ($output as $image) {
             $imageJson = json_decode($image);
+            $status = $this->getImageStatus($imageJson->Repository, $imageJson->Tag, $context);
             $imagesAssoc[] = [
                 "id" => $imageJson->ID,
                 "repo" => $imageJson->Repository,
@@ -1292,12 +1293,76 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 "createsince" => $imageJson->CreatedSince,
                 "size" => $this->convertToBytes($imageJson->Size),
                 "tag" => $imageJson->Tag,
+                "status" => $status,
                 "virtualsize" => $this->convertToBytes($imageJson->VirtualSize)
             ];
         }
         // Filter the result.
         return $this->applyFilter($imagesAssoc, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir'], $params['search']);
+    }
+
+    private function getImageStatus($img, $tag, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+
+        // Unable to get digests from lscr.io
+        if (strpos($img, 'lscr.io') !== false) {
+            return 'NA';
+        }
+        // prepend library for single name images
+        if (strpos($img, '/') === false) {
+            $img = 'library/' . $img;
+        }
+        // get digest of local image
+        if ($tag != "") {
+            $cmd = sprintf('docker image inspect %s:%s', $img, $tag);
+        } else {
+            $cmd = sprintf('docker image inspect %s', $img);
+        }
+        $output = shell_exec($cmd);
+        $imageInfo = json_decode($output, true);
+        if (isset($imageInfo[0])) {
+            $digest = explode('@', $imageInfo[0]['RepoDigests'][0])[1];
+            $arch = $imageInfo[0]['Architecture'];
+            echo $digest . PHP_EOL;
+            echo $arch . PHP_EOL;
+        } else {
+            return 'NOIMAGE';
+        }
+        $url = '';
+        $lscr = false;
+        // get latest digest from docker hub
+        if (strpos($img, 'lscr.io') !== false) {
+            $apiUrl = 'https://lscr.io/v2';
+            $url = sprintf('%s/%s/manifests/%s', $apiUrl, $img, $tag);
+            $lscr = true;
+        } else {
+            $apiUrl = 'https://hub.docker.com/v2/repositories';
+            $url = sprintf('%s/%s/tags/%s', $apiUrl, $img, $tag);
+        }
+        $response = @file_get_contents($url);
+        $newest = '';
+        if ($response === false) {
+            return 'FAILED';
+        } else {
+            $data = json_decode($response, true);
+            if ($lscr) {
+                if (isset($data['config']['digest'])) {
+                    $newest = $data['config']['digest'];
+                }
+            } else {
+                if (isset($data['digest'])) {
+                    $newest = $data['digest'];
+                }
+            }
+        }
+        if ($digest != $newest) {
+          return 'AVAILABLE';
+        } else {
+          return 'CURRENT';
+        }
     }
 
     public function getImagesBg($params, $context) {

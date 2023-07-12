@@ -53,6 +53,28 @@ data:
         cellTemplateName: template
         cellTemplateConfig: '{{ virtualsize | tobytes | binaryunit | notavailable("-") }}'
         hidden: true
+      - name: _("Status")
+        prop: status
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: chip
+        cellTemplateConfig:
+          map:
+            AVAILABLE:
+              value: _("Available")
+              class: omv-background-color-pair-green
+            CURRENT:
+              value: _("Current")
+              class: omv-background-color-pair-yellow
+            NA:
+              value: _("n/a")
+              class: omv-background-color-pair-blue
+            NOIMAGE:
+              value: _("No Image")
+              class: omv-background-color-pair-blue
+            FAILED:
+              value: _("Failed")
+              class: omv-background-color-pair-red
     actions:
       - type: iconButton
         icon: mdi:delete
