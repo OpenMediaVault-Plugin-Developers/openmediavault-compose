@@ -151,6 +151,12 @@ data:
             params:
               uuid: "{{ _selected[0].uuid }}"
       - type: iconButton
+        icon: mdi:file-star-outline
+        tooltip: _("Edit global environment file")
+        execute:
+          type: url
+          url: "/services/compose/files/global"
+      - type: iconButton
         icon: mdi:check-network-outline
         tooltip: _("check")
         enabledConstraints:

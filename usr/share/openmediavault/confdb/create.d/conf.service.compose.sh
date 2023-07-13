@@ -49,6 +49,9 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_node "/config/services/compose" "files"
   omv_config_add_node "/config/services/compose" "dockerfiles"
   omv_config_add_node "/config/services/compose" "jobs"
+  omv_config_add_node "/config/services/compose" "globalenv"
+  omv_config_add_key "/config/services/compose/globalenv" "enabled" "1"
+  omv_config_add_key "/config/services/compose/globalenv" "globalenv" ""
 fi
 
 # download yq

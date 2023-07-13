@@ -1,0 +1,17 @@
+{
+  "type": "config",
+  "id": "conf.service.compose.globalenv",
+  "title": "global environment file",
+  "queryinfo": {
+    "xpath": "//services/compose/globalenv",
+    "iterable": false
+  },
+  "properties": {
+    "enabled": {
+      "type": "boolean"
+    },
+    "globalenv": {
+      "type": "string"
+    }
+  }
+}

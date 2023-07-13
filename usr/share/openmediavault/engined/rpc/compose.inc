@@ -40,6 +40,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("doCommand");
         $this->registerMethod("doPrune");
 
+        $this->registerMethod("getGlobalEnv");
+        $this->registerMethod("setGlobalEnv");
+
         $this->registerMethod("getDockerfileList");
         $this->registerMethod("getDockerfile");
         $this->registerMethod("setDockerfile");
@@ -418,6 +421,31 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // delete database entry
         $db->delete($object);
         // Return the deleted configuration object.
+        return $object->getAssoc();
+    }
+
+    public function getGlobalEnv($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.compose.globalenv");
+        return $object->getAssoc();
+    }
+
+    public function setGlobalEnv($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.setglobalenv");
+        // Get the existing configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.compose.globalenv");
+        $object->setAssoc($params);
+        $db->set($object);
+        // Return the configuration object.
         return $object->getAssoc();
     }
 

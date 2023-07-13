@@ -194,6 +194,17 @@
           }
         }
       }
+    },
+    "globalenv": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "globalenv": {
+          "type": "string"
+        }
+      }
     }
   }
 }

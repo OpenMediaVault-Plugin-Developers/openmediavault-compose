@@ -1,0 +1,31 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-files-global-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      get:
+        method: getGlobalEnv
+      post:
+        method: setGlobalEnv
+    fields:
+      - type: checkbox
+        name: enabled
+        label: _('Enabled')
+        value: true
+      - type: codeEditor
+        name: globalenv
+        label: _("Global Environment")
+        value: ""
+        language: "shell"
+    buttons:
+      - template: submit
+        execute:
+          type: url
+          url: "/services/compose/files"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/compose/files"

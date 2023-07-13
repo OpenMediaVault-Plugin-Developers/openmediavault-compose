@@ -66,4 +66,31 @@ configure_compose_env_{{ file.name }}_file:
     - mode: "{{ config.fileperms }}"
 
 {% endfor %}
+
+{% set globalenv = salt['omv_conf.get']('conf.service.compose.globalenv') %}
+{% set globalEnvFile = sfpath ~ '/global.env' %}
+
+{% if globalenv.enabled | to_bool %}
+
+configure_compose_global_env_file:
+  file.managed:
+    - name: '{{ globalEnvFile }}'
+    - source:
+      - salt://{{ tpldir }}/files/global_env_yml.j2
+    - context:
+        globalenv: {{ globalenv | json }}
+        datapath: {{ datapath }}
+    - template: jinja
+    - user: "{{ config.composeowner }}"
+    - group: "{{ config.composegroup }}"
+    - mode: "{{ config.fileperms }}"
+
+{% else %}
+
+{% set datapath = "" %}
+remove_compose_global_env_file:
+  file.absent:
+    - name: '{{ globalEnvFile }}'
+
+{% endif %}
 {% endif %}

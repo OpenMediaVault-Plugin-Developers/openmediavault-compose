@@ -97,6 +97,23 @@
   },
   {
     "type": "rpc",
+    "id": "rpc.compose.setglobalenv",
+    "params": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "required": true
+        },
+        "globalenv": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  {
+    "type": "rpc",
     "id": "rpc.compose.setdockerfile",
     "params": {
       "type": "object",

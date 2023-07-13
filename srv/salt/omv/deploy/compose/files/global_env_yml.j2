@@ -1,0 +1,5 @@
+{%- if datapath is not none -%}
+{{ globalenv.globalenv | replace("CHANGE_TO_COMPOSE_DATA_PATH", datapath) }}
+{%- else -%}
+{{ globalenv.globalenv }}
+{%- endif %}
