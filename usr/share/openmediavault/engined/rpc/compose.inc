@@ -276,11 +276,15 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $composeName = sprintf("%s/%s", $composeDir, $cname);
             $composeFile = sprintf("%s.yml", $composeName);
             $envFile = sprintf("%s.env", $composeName);
+            $globalEnvFile = sprintf("%s/global.env", $sfpath);
             // get ps output
             $cmdArgs = [];
             $cmdArgs[] = 'docker-compose';
             $cmdArgs[] = sprintf('--file "%s"', $composeFile);
             $cmdArgs[] = sprintf("--env-file '%s'", $envFile);
+            if (file_exists($globalEnvFile)) {
+                $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+            }
             $cmdArgs[] = 'ps';
             $cmdArgs[] = '--all';
             $cmdArgs[] = '--format "json"';
@@ -394,6 +398,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = 'docker-compose';
         $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
         $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
+        if (file_exists($globalEnvFile)) {
+            $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+        }
         $cmdArgs[] = 'down';
         $cmd = new \OMV\System\Process($cmdArgs);
         $cmd->setQuiet(true);
@@ -547,10 +554,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             use ($object, $params, $sfpath) {
                 $cname = $object->get('name');
                 $composeName = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
+                $globalEnvFile = sprintf("%s/global.env", $sfpath);
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker-compose';
                 $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
                 $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
+                if (file_exists($globalEnvFile)) {
+                    $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+                }
                 $cmdArgs[] = $params['command'];
                 $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
                 if ($quiet) {
@@ -689,6 +700,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $path = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
             $filepath = sprintf("%s.yml", $path);
             $envfilepath = sprintf("%s.env", $path);
+            $globalEnvFile = sprintf("%s/global.env", $sfpath);
             $exists = file_exists($filepath);
             if ($exists) {
                 // Get images
@@ -697,6 +709,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = sprintf('--file "%s"', $filepath);
                 if ($envfilepath != '') {
                         $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
+                }
+                if (file_exists($globalEnvFile)) {
+                    $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
                 }
                 $cmdArgs[] = 'ps';
                 $cmdArgs[] = '--all';
@@ -758,12 +773,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $sfpath = $this->getComposePath($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params) {
+            use ($params, $sfpath) {
+                $globalEnvFile = sprintf("%s/global.env", $sfpath);
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker-compose';
                 $cmdArgs[] = sprintf("--file '%s'", $params['path']);
                 $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
+                if (file_exists($globalEnvFile)) {
+                    $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+                }
                 $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['command2'];
                 $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);

@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.9.4
+# version: 0.9.5
 
 export LANG=C.UTF-8
 
@@ -70,6 +70,7 @@ _log "Backup path :: ${backuppath}"
 # set path for yml and env files
 composepath="${sfpath}/${compose}"
 env="${composepath}/${compose}.env"
+globalenv="${sfpath}/global.env"
 yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
   _log "Compose file '${yml}' does not exist.  Exiting..."
@@ -120,7 +121,11 @@ docker-compose ls --all --filter name="${compose}" --format json | jq .[0].Statu
 
 # stop compose if running
 if grep -q "running" "${status}"; then
-  docker-compose --file "${yml}" --env-file "${env}" stop
+  if [ -f "${globalenv}" ]; then
+    docker-compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" stop
+  else
+    docker-compose --file "${yml}" --env-file "${env}" stop
+  fi
 else
   _log "${compose} is not running"
 fi
@@ -205,7 +210,11 @@ done
 
 # start compose if running before backup
 if grep -q "running" "${status}"; then
-  docker-compose --file "${yml}" --env-file "${env}" start
+  if [ -f "${globalenv}" ]; then
+    docker-compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" start
+  else
+    docker-compose --file "${yml}" --env-file "${env}" start
+  fi
 fi
 
 _log "Done."
