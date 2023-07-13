@@ -1355,8 +1355,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
-        // Unable to get digests from lscr.io
-        if (strpos($img, 'lscr.io') !== false) {
+        // Unable to get digests from other registries
+        $registry = "/^(lscr.io|ghcr.io|quay.io)/";
+        if (preg_match($registry, $img) == 1) {
             return 'NA';
         }
         // prepend library for single name images
@@ -1373,9 +1374,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $imageInfo = json_decode($output, true);
         if (isset($imageInfo[0])) {
             $digest = explode('@', $imageInfo[0]['RepoDigests'][0])[1];
-            $arch = $imageInfo[0]['Architecture'];
-            echo $digest . PHP_EOL;
-            echo $arch . PHP_EOL;
+            if ($digest == "") {
+                return 'NA';
+            }
         } else {
             return 'NOIMAGE';
         }
