@@ -1,3 +1,12 @@
+openmediavault-compose (6.9.6) stable; urgency=low
+
+  *  Use global.env in the root of the compose folder if it exists
+  *  Add global.env editor
+  *  Ensure /etc/docker exists
+  *  Add image status column
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 13 Jul 2023 12:34:04 -0500
+
 openmediavault-compose (6.9.5) stable; urgency=low
 
   * Allow more flexibility in network creation
