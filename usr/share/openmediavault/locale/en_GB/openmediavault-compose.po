@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-08 19:19-0500\n"
+"POT-Creation-Date: 2023-07-13 15:18-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2023\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -56,6 +56,9 @@ msgstr "Autocompose"
 
 msgid "Aux address"
 msgstr "Aux address"
+
+msgid "Available"
+msgstr ""
 
 msgid "Backup"
 msgstr "Backup"
@@ -152,6 +155,9 @@ msgstr "Created network."
 msgid "Created scheduled job."
 msgstr "Created scheduled job."
 
+msgid "Current"
+msgstr ""
+
 msgid "Data"
 msgstr ""
 
@@ -206,6 +212,12 @@ msgstr "Edit dockerfile."
 msgid "Edit file."
 msgstr "Edit file."
 
+msgid "Edit global environment file"
+msgstr ""
+
+msgid "Edit global environment variable file."
+msgstr ""
+
 msgid "Edit scheduled job."
 msgstr "Edit scheduled job."
 
@@ -223,6 +235,9 @@ msgstr "Example"
 
 msgid "Execute scheduled job ..."
 msgstr "Execute scheduled job ..."
+
+msgid "Failed"
+msgstr ""
 
 msgid "File"
 msgstr "File"
@@ -242,6 +257,12 @@ msgstr ""
 
 msgid "Gateway"
 msgstr "Gateway"
+
+msgid "Global Environment"
+msgstr ""
+
+msgid "Global environment variables"
+msgstr ""
 
 msgid "Group of directories and files"
 msgstr "Group of directories and files"
@@ -317,6 +338,9 @@ msgstr "Network"
 
 msgid "Networks"
 msgstr "Networks"
+
+msgid "No Image"
+msgstr ""
 
 msgid "Not installed"
 msgstr "Not installed"

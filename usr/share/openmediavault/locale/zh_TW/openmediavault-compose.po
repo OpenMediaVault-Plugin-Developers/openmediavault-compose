@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-08 19:19-0500\n"
+"POT-Creation-Date: 2023-07-13 15:18-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2023\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -56,6 +56,9 @@ msgstr "自動compose"
 
 msgid "Aux address"
 msgstr "輔助地址"
+
+msgid "Available"
+msgstr ""
 
 msgid "Backup"
 msgstr "備份"
@@ -150,6 +153,9 @@ msgstr "已建立網路。"
 msgid "Created scheduled job."
 msgstr "已建立預訂工作。"
 
+msgid "Current"
+msgstr ""
+
 msgid "Data"
 msgstr "資料"
 
@@ -204,6 +210,12 @@ msgstr "編輯 dockerfile。"
 msgid "Edit file."
 msgstr "編輯檔案。"
 
+msgid "Edit global environment file"
+msgstr ""
+
+msgid "Edit global environment variable file."
+msgstr ""
+
 msgid "Edit scheduled job."
 msgstr "編輯預訂工作。"
 
@@ -222,6 +234,9 @@ msgstr "範例"
 msgid "Execute scheduled job ..."
 msgstr "執行預訂工作 …"
 
+msgid "Failed"
+msgstr ""
+
 msgid "File"
 msgstr "檔案"
 
@@ -239,6 +254,12 @@ msgstr ""
 
 msgid "Gateway"
 msgstr "閘道器"
+
+msgid "Global Environment"
+msgstr ""
+
+msgid "Global environment variables"
+msgstr ""
 
 msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
@@ -314,6 +335,9 @@ msgstr "網路"
 
 msgid "Networks"
 msgstr "網路"
+
+msgid "No Image"
+msgstr ""
 
 msgid "Not installed"
 msgstr "未被安裝"
