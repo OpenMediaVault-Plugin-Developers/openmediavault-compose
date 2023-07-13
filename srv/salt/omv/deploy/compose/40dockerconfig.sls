@@ -36,6 +36,14 @@ systemd_daemon_reload_docker:
 # create daemon.json file if docker storage path is specified
 {% if config.dockerStorage | length > 1 %}
 
+configure_etc_docker_dir:
+  file.directory:
+    - name: "/etc/docker"
+    - user: "root"
+    - group: "root"
+    - mode: "0755"
+    - makedirs: True
+
 /etc/docker/daemon.json:
   file.serialize:
     - dataset:
