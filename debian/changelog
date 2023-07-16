@@ -1,3 +1,12 @@
+openmediavault-compose (6.9.7) stable; urgency=low
+
+  * Add file date column to Files tab
+  * Display description as tag(s) on Files tab
+  * Improve image status on Images tab
+  * Add In Use column to Images tab for images in use by a container
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 16 Jul 2023 12:59:32 -0500
+
 openmediavault-compose (6.9.6) stable; urgency=low
 
   *  Use global.env in the root of the compose folder if it exists
