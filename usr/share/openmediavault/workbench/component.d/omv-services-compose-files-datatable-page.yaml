@@ -27,6 +27,9 @@ data:
         prop: description
         flexGrow: 1
         sortable: true
+        cellTemplateName: chip
+        cellTemplateConfig:
+          separator: ","
       - name: _("Status")
         prop: status
         flexGrow: 1
