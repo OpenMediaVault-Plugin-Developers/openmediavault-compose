@@ -32,6 +32,11 @@ data:
         prop: tag
         flexGrow: 1
         sortable: true
+      - name: _("Digest")
+        prop: digest
+        flexGrow: 2
+        sortable: true
+        hidden: true
       - name: _("Created At")
         prop: createat
         flexGrow: 2

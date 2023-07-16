@@ -1339,6 +1339,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = 'image';
         $cmdArgs[] = 'ls';
         $cmdArgs[] = '--all';
+        $cmdArgs[] = '--digests';
         $cmdArgs[] = '--format "json"';
         $cmd = new \OMV\System\Process($cmdArgs);
         $cmd->setQuiet(true);
@@ -1362,7 +1363,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     }
                 }
             }
-            $status = $this->getImageStatus($imageJson->Repository, $imageJson->Tag, $context);
+            $status = $this->getImageStatus($imageJson->Repository, $imageJson->Tag, $imageJson->Digest, $context);
             $imagesAssoc[] = [
                 "id" => $imageJson->ID,
                 "repo" => $imageJson->Repository,
@@ -1370,6 +1371,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 "createsince" => $imageJson->CreatedSince,
                 "size" => $this->convertToBytes($imageJson->Size),
                 "tag" => $imageJson->Tag,
+                "digest" => $imageJson->Digest,
                 "status" => $status,
                 "virtualsize" => $this->convertToBytes($imageJson->VirtualSize),
                 "inuse" => $inuse
@@ -1380,35 +1382,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
-    private function getImageStatus($img, $tag, $context)
+    private function getImageStatus($img, $tag, $digest, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-
+        // return n/a if no digest or image name
+        if ($img == "<none>" || $tag == "<none>" || $digest == "<none>" ||
+          strlen($img) == 0 || strlen($tag) == 0 || strlen($digest) == 0) {
+            return 'NA';
+        }
         // Unable to get digests from other registries
-        $registry = "/^(lscr.io|ghcr.io|quay.io)/";
+        $registry = "/^(lscr.io|ghcr.io|quay.io|mcr.microsoft.com)/";
         if (preg_match($registry, $img) == 1) {
             return 'NA';
         }
         // prepend library for single name images
         if (strpos($img, '/') === false) {
             $img = 'library/' . $img;
-        }
-        // get digest of local image
-        if ($tag != "") {
-            $cmd = sprintf('docker image inspect %s:%s', $img, $tag);
-        } else {
-            $cmd = sprintf('docker image inspect %s', $img);
-        }
-        $output = shell_exec($cmd);
-        $imageInfo = json_decode($output, true);
-        if (isset($imageInfo[0])) {
-            $digest = explode('@', $imageInfo[0]['RepoDigests'][0])[1];
-            if ($digest == "") {
-                return 'NA';
-            }
-        } else {
-            return 'NOIMAGE';
         }
         $url = '';
         $lscr = false;
