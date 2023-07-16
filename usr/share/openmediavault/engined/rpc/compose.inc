@@ -1322,6 +1322,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         $objects = [];
+        // Get container images
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'container';
+        $cmdArgs[] = 'ls';
+        $cmdArgs[] = '--all';
+        $cmdArgs[] = '--format "{{ .Image }}"';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $containerImages = [];
+        $cmd->execute($containerImages, $exitStatus);
+        array_filter($containerImages);
         // Get images
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
@@ -1336,6 +1347,21 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $imagesAssoc = [];
         foreach ($output as $image) {
             $imageJson = json_decode($image);
+            $inuse = false;
+            foreach ($containerImages as $img) {
+                $imginfo = explode(':', $img);
+                if ($imginfo[0] == $imageJson->Repository) {
+                    if (strlen($imginfo[1]) > 0) {
+                        if ($imginfo[1] == $imageJson->Tag) {
+                            $inuse = true;
+                            break;
+                        }
+                    } else {
+                        $inuse = true;
+                        break;
+                    }
+                }
+            }
             $status = $this->getImageStatus($imageJson->Repository, $imageJson->Tag, $context);
             $imagesAssoc[] = [
                 "id" => $imageJson->ID,
@@ -1345,7 +1371,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 "size" => $this->convertToBytes($imageJson->Size),
                 "tag" => $imageJson->Tag,
                 "status" => $status,
-                "virtualsize" => $this->convertToBytes($imageJson->VirtualSize)
+                "virtualsize" => $this->convertToBytes($imageJson->VirtualSize),
+                "inuse" => $inuse
             ];
         }
         // Filter the result.

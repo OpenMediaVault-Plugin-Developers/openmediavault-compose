@@ -75,6 +75,11 @@ data:
             FAILED:
               value: _("Failed")
               class: omv-background-color-pair-red
+      - name: _("In Use")
+        prop: inuse
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: checkIcon
     actions:
       - type: iconButton
         icon: mdi:delete
