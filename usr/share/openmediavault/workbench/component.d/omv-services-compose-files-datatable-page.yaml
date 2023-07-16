@@ -50,6 +50,12 @@ data:
             MIXED:
               value: _("Mixed")
               class: omv-background-color-pair-blue
+      - name: _("File date")
+        prop: filedate
+        flexGrow: 1
+        sortable: true
+        hidden: true
+        cellTemplateName: localeDateTime
     actions:
       - template: create
         execute:

@@ -318,6 +318,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($exited > 0) $status[] = "STOPPED";
             if ($down > 0) $status[] = "DOWN";
             $objectv->add('status', 'string', implode(',', $status));
+            $filedate = filemtime($composeFile);
+            $objectv->add('filedate', 'integer', $filedate);
+            $objectv->add('status', 'string', implode(',', $status));
             $objectv->remove('body');
             $objectv->remove('env');
             $objectsAssoc[] = $objectv->getAssoc();
