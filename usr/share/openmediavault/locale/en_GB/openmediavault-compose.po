@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-13 15:18-0500\n"
+"POT-Creation-Date: 2023-07-16 12:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2023\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -242,6 +242,9 @@ msgstr ""
 msgid "File"
 msgstr "File"
 
+msgid "File date"
+msgstr ""
+
 msgid "Files"
 msgstr "Files"
 
@@ -284,6 +287,9 @@ msgstr "Import"
 
 msgid "Import existing compose folders ..."
 msgstr "Import existing compose folders ..."
+
+msgid "In Use"
+msgstr ""
 
 msgid "Inspect"
 msgstr "Inspect"

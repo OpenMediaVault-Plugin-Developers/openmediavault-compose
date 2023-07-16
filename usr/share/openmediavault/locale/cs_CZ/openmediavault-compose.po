@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-13 15:18-0500\n"
+"POT-Creation-Date: 2023-07-16 12:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -234,6 +234,9 @@ msgstr ""
 msgid "File"
 msgstr ""
 
+msgid "File date"
+msgstr ""
+
 msgid "Files"
 msgstr ""
 
@@ -273,6 +276,9 @@ msgid "Import"
 msgstr ""
 
 msgid "Import existing compose folders ..."
+msgstr ""
+
+msgid "In Use"
 msgstr ""
 
 msgid "Inspect"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-13 15:18-0500\n"
+"POT-Creation-Date: 2023-07-16 12:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -238,6 +238,9 @@ msgstr ""
 msgid "File"
 msgstr "文件"
 
+msgid "File date"
+msgstr ""
+
 msgid "Files"
 msgstr "文件"
 
@@ -278,6 +281,9 @@ msgstr "导入"
 
 msgid "Import existing compose folders ..."
 msgstr "导入现有 compose 文件夹 ..."
+
+msgid "In Use"
+msgstr ""
 
 msgid "Inspect"
 msgstr "检查"

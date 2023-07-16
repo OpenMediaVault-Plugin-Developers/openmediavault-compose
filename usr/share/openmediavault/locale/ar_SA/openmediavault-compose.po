@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Odai Alghamdi, 2023
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-13 15:18-0500\n"
+"POT-Creation-Date: 2023-07-16 12:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: Odai Alghamdi, 2023\n"
 "Language-Team: Arabic (Saudi Arabia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ar_SA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,10 +25,10 @@ msgid "Action"
 msgstr ""
 
 msgid "Add from Example"
-msgstr ""
+msgstr "إضافة من مثال"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "إضافة من رابط"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
@@ -42,22 +46,22 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "هل أنت متأكد من إعادة التثبيت؟"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "هل أنت متأكد من إعادة التشغيل؟"
 
 msgid "Autocompose"
 msgstr ""
 
 msgid "Aux address"
-msgstr ""
+msgstr "عنوان إضافي"
 
 msgid "Available"
-msgstr ""
+msgstr "متاح"
 
 msgid "Backup"
-msgstr ""
+msgstr "نسخة احتياطية"
 
 msgid "Block In"
 msgstr ""
@@ -66,10 +70,10 @@ msgid "Block Out"
 msgstr ""
 
 msgid "Build"
-msgstr ""
+msgstr "بناء"
 
 msgid "CPU %"
-msgstr ""
+msgstr "CPU %"
 
 msgid "Check compose file for errors ..."
 msgstr ""
@@ -82,7 +86,7 @@ msgid ""
 msgstr ""
 
 msgid "Command"
-msgstr ""
+msgstr "أمر"
 
 msgid "Compose"
 msgstr ""
@@ -103,34 +107,34 @@ msgid "Compose version"
 msgstr ""
 
 msgid "Conf file"
-msgstr ""
+msgstr "ملف الاعدادات"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "اسم ملف الاعدادات"
 
 msgid "Container"
-msgstr ""
+msgstr "حاوية"
 
 msgid "Containers"
-msgstr ""
+msgstr "حاويات"
 
 msgid "Create"
-msgstr ""
+msgstr "إنشاء"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "إنشاء من رابط"
 
 msgid "Create from example"
-msgstr ""
+msgstr "إنشاء من مثال"
 
 msgid "Create new compose file from running container ..."
 msgstr ""
 
 msgid "Created"
-msgstr ""
+msgstr "مُنشأ"
 
 msgid "Created At"
-msgstr ""
+msgstr "مُنشأ في"
 
 msgid "Created dockerfile."
 msgstr ""
@@ -139,31 +143,31 @@ msgid "Created file from url."
 msgstr ""
 
 msgid "Created file."
-msgstr ""
+msgstr "ملف مٌنشأ"
 
 msgid "Created network."
-msgstr ""
+msgstr "شبكة مٌنشأة"
 
 msgid "Created scheduled job."
 msgstr ""
 
 msgid "Current"
-msgstr ""
+msgstr "الحالي"
 
 msgid "Data"
-msgstr ""
+msgstr "بيانات"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "التاريخ والوقت"
 
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 msgid "Description"
-msgstr ""
+msgstr "وصف"
 
 msgid "Docker"
-msgstr ""
+msgstr "دوكر"
 
 msgid "Docker has been restarted."
 msgstr ""
@@ -196,13 +200,13 @@ msgid "Driver"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "تعديل"
 
 msgid "Edit dockerfile."
 msgstr ""
 
 msgid "Edit file."
-msgstr ""
+msgstr "تعديل ملف."
 
 msgid "Edit global environment file"
 msgstr ""
@@ -223,19 +227,22 @@ msgid "Everyone - read/write"
 msgstr ""
 
 msgid "Example"
-msgstr ""
+msgstr "مثال"
 
 msgid "Execute scheduled job ..."
 msgstr ""
 
 msgid "Failed"
-msgstr ""
+msgstr "فشل"
 
 msgid "File"
+msgstr "ملف"
+
+msgid "File date"
 msgstr ""
 
 msgid "Files"
-msgstr ""
+msgstr "ملفات"
 
 msgid "Filter"
 msgstr ""
@@ -258,28 +265,31 @@ msgid "Group of directories and files"
 msgstr ""
 
 msgid "ID"
-msgstr ""
+msgstr "الهوية"
 
 msgid "IP range"
 msgstr ""
 
 msgid "Image"
-msgstr ""
+msgstr "صورة"
 
 msgid "Images"
-msgstr ""
+msgstr "صور"
 
 msgid "Import"
-msgstr ""
+msgstr "استيراد"
 
 msgid "Import existing compose folders ..."
 msgstr ""
 
-msgid "Inspect"
+msgid "In Use"
 msgstr ""
 
+msgid "Inspect"
+msgstr "فحص"
+
 msgid "Installed"
-msgstr ""
+msgstr "مُثبت"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr ""
@@ -291,19 +301,19 @@ msgid "Location of compose files"
 msgstr ""
 
 msgid "Max Size"
-msgstr ""
+msgstr "أقصى حجم"
 
 msgid "Mem %"
-msgstr ""
+msgstr "الذاكرة %"
 
 msgid "Mem Limit"
 msgstr ""
 
 msgid "Mem Usage"
-msgstr ""
+msgstr "استخدام الذاكرة"
 
 msgid "Message"
-msgstr ""
+msgstr "رسالة"
 
 msgid "Mixed"
 msgstr ""
@@ -315,7 +325,7 @@ msgid "Mounts"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 msgid "Net In"
 msgstr ""
@@ -324,16 +334,16 @@ msgid "Net Out"
 msgstr ""
 
 msgid "Network"
-msgstr ""
+msgstr "شبكة"
 
 msgid "Networks"
-msgstr ""
+msgstr "شبكات"
 
 msgid "No Image"
 msgstr ""
 
 msgid "Not installed"
-msgstr ""
+msgstr "غير مُثبت"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -359,13 +369,13 @@ msgid "Path"
 msgstr ""
 
 msgid "Permissions of directories and files"
-msgstr ""
+msgstr "صلاحيات المجلدات والملفات"
 
 msgid "Ports"
 msgstr ""
 
 msgid "Project"
-msgstr ""
+msgstr "مشروع"
 
 msgid "Prune"
 msgstr ""
@@ -374,10 +384,10 @@ msgid "Pull and Build"
 msgstr ""
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "إعادة تثبيت دوكر"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "إعادة تثبيت دوكر ..."
 
 msgid "Repository"
 msgstr ""
@@ -386,19 +396,19 @@ msgid "Restart Docker"
 msgstr ""
 
 msgid "Restore"
-msgstr ""
+msgstr "استعادة"
 
 msgid "Restore Compose ..."
 msgstr ""
 
 msgid "Run"
-msgstr ""
+msgstr "تشغيل"
 
 msgid "Running For"
 msgstr ""
 
 msgid "Schedule"
-msgstr ""
+msgstr "جدول"
 
 msgid "Script"
 msgstr ""
@@ -407,34 +417,34 @@ msgid "Script filename"
 msgstr ""
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "تحديد مجموعة"
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "تحديد مستخدم"
 
 msgid "Service"
-msgstr ""
+msgstr "خدمة"
 
 msgid "Services"
-msgstr ""
+msgstr "خدمات"
 
 msgid "Settings"
-msgstr ""
+msgstr "اعدادات"
 
 msgid "Shared folder"
-msgstr ""
+msgstr "مجلد مٌشارك"
 
 msgid "Size"
-msgstr ""
+msgstr "حجم"
 
 msgid "State"
-msgstr ""
+msgstr "حالة"
 
 msgid "Stats"
-msgstr ""
+msgstr "احصائيات"
 
 msgid "Status"
-msgstr ""
+msgstr "الحالة"
 
 msgid "Stopped"
 msgstr ""
@@ -443,7 +453,7 @@ msgid "Subnet"
 msgstr ""
 
 msgid "System"
-msgstr ""
+msgstr "نظام"
 
 msgid "Tag"
 msgstr ""
@@ -457,10 +467,10 @@ msgid ""
 msgstr ""
 
 msgid "Up"
-msgstr ""
+msgstr "أعلى"
 
 msgid "Version"
-msgstr ""
+msgstr "نسخة"
 
 msgid "Virtual Size"
 msgstr ""
@@ -574,7 +584,7 @@ msgid "logs"
 msgstr ""
 
 msgid "n/a"
-msgstr ""
+msgstr "غير متاح"
 
 msgid "omv-extras wiki"
 msgstr ""
@@ -586,10 +596,10 @@ msgid "pull"
 msgstr ""
 
 msgid "restart"
-msgstr ""
+msgstr "إعادة تشغيل"
 
 msgid "stop"
-msgstr ""
+msgstr "إيقاف"
 
 msgid "up"
-msgstr ""
+msgstr "أعلى"

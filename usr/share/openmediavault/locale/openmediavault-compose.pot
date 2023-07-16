@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-13 15:18-0500\n"
+"POT-Creation-Date: 2023-07-16 12:54-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -230,6 +230,9 @@ msgstr ""
 msgid "File"
 msgstr ""
 
+msgid "File date"
+msgstr ""
+
 msgid "Files"
 msgstr ""
 
@@ -267,6 +270,9 @@ msgid "Import"
 msgstr ""
 
 msgid "Import existing compose folders ..."
+msgstr ""
+
+msgid "In Use"
 msgstr ""
 
 msgid "Inspect"
