@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-16 12:54-0500\n"
+"POT-Creation-Date: 2023-07-17 06:45-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Javanese (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/jv/)\n"
 "MIME-Version: 1.0\n"
@@ -160,6 +160,9 @@ msgid "Delete"
 msgstr ""
 
 msgid "Description"
+msgstr ""
+
+msgid "Digest"
 msgstr ""
 
 msgid "Docker"
@@ -452,6 +455,9 @@ msgid "System"
 msgstr ""
 
 msgid "Tag"
+msgstr ""
+
+msgid "Tags"
 msgstr ""
 
 msgid "URL"

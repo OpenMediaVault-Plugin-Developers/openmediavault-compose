@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-16 12:54-0500\n"
+"POT-Creation-Date: 2023-07-17 06:45-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Odai Alghamdi, 2023\n"
 "Language-Team: Arabic (Saudi Arabia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ar_SA/)\n"
@@ -165,6 +165,9 @@ msgstr "حذف"
 
 msgid "Description"
 msgstr "وصف"
+
+msgid "Digest"
+msgstr ""
 
 msgid "Docker"
 msgstr "دوكر"
@@ -456,6 +459,9 @@ msgid "System"
 msgstr "نظام"
 
 msgid "Tag"
+msgstr ""
+
+msgid "Tags"
 msgstr ""
 
 msgid "URL"

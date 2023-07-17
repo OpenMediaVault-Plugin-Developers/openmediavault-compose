@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-16 12:54-0500\n"
+"POT-Creation-Date: 2023-07-17 06:45-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -156,6 +156,9 @@ msgid "Delete"
 msgstr ""
 
 msgid "Description"
+msgstr ""
+
+msgid "Digest"
 msgstr ""
 
 msgid "Docker"
@@ -441,6 +444,9 @@ msgid "System"
 msgstr ""
 
 msgid "Tag"
+msgstr ""
+
+msgid "Tags"
 msgstr ""
 
 msgid "URL"

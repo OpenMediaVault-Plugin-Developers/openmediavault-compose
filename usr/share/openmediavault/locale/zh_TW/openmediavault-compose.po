@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-16 12:54-0500\n"
+"POT-Creation-Date: 2023-07-17 06:45-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2023\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -168,6 +168,9 @@ msgstr "刪除"
 msgid "Description"
 msgstr "敘述"
 
+msgid "Digest"
+msgstr ""
+
 msgid "Docker"
 msgstr "Docker"
 
@@ -235,13 +238,13 @@ msgid "Execute scheduled job ..."
 msgstr "執行預訂工作 …"
 
 msgid "Failed"
-msgstr ""
+msgstr "失敗"
 
 msgid "File"
 msgstr "檔案"
 
 msgid "File date"
-msgstr ""
+msgstr "檔案日期"
 
 msgid "Files"
 msgstr "檔案"
@@ -286,7 +289,7 @@ msgid "Import existing compose folders ..."
 msgstr "導入現存 compose 檔案夾 ..."
 
 msgid "In Use"
-msgstr ""
+msgstr "使用中"
 
 msgid "Inspect"
 msgstr "檢驗"
@@ -343,7 +346,7 @@ msgid "Networks"
 msgstr "網路"
 
 msgid "No Image"
-msgstr ""
+msgstr "無影像"
 
 msgid "Not installed"
 msgstr "未被安裝"
@@ -462,6 +465,9 @@ msgstr "系統"
 
 msgid "Tag"
 msgstr "標籤"
+
+msgid "Tags"
+msgstr ""
 
 msgid "URL"
 msgstr "URL"
