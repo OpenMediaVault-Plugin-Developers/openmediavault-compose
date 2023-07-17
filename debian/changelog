@@ -1,3 +1,11 @@
+openmediavault-compose (6.9.8) stable; urgency=low
+
+  * Improve image status
+  * Revert change to tags for Description column and add another Tags
+    column using same description field that is hidden by default
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 17 Jul 2023 06:44:11 -0500
+
 openmediavault-compose (6.9.7) stable; urgency=low
 
   * Add file date column to Files tab
