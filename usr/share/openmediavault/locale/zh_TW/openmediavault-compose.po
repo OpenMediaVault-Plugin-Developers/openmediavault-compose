@@ -467,7 +467,7 @@ msgid "Tag"
 msgstr "標籤"
 
 msgid "Tags"
-msgstr ""
+msgstr "標籤"
 
 msgid "URL"
 msgstr "URL"

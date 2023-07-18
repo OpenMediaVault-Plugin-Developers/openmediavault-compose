@@ -28,7 +28,7 @@ msgid "Add from Example"
 msgstr "Add from Example"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "Add from URL"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr "Administrator - read/write, Users - no access, Others - no access"
@@ -58,7 +58,7 @@ msgid "Aux address"
 msgstr "Aux address"
 
 msgid "Available"
-msgstr ""
+msgstr "Available"
 
 msgid "Backup"
 msgstr "Backup"
@@ -105,7 +105,7 @@ msgid "Compose Restore"
 msgstr "Compose Restore"
 
 msgid "Compose file shared folder must be different than data shared folder"
-msgstr ""
+msgstr "Compose file shared folder must be different than data shared folder"
 
 msgid "Compose version"
 msgstr "Compose version"
@@ -126,7 +126,7 @@ msgid "Create"
 msgstr "Create"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "Create from URL"
 
 msgid "Create from example"
 msgstr "Create from example"
@@ -144,7 +144,7 @@ msgid "Created dockerfile."
 msgstr "Created dockerfile."
 
 msgid "Created file from url."
-msgstr ""
+msgstr "Created file from URL."
 
 msgid "Created file."
 msgstr "Created file."
@@ -156,10 +156,10 @@ msgid "Created scheduled job."
 msgstr "Created scheduled job."
 
 msgid "Current"
-msgstr ""
+msgstr "Current"
 
 msgid "Data"
-msgstr ""
+msgstr "Data"
 
 msgid "Date & Time"
 msgstr "Date & Time"
@@ -171,7 +171,7 @@ msgid "Description"
 msgstr "Description"
 
 msgid "Digest"
-msgstr ""
+msgstr "Digest"
 
 msgid "Docker"
 msgstr "Docker"
@@ -216,10 +216,10 @@ msgid "Edit file."
 msgstr "Edit file."
 
 msgid "Edit global environment file"
-msgstr ""
+msgstr "Edit global environment file"
 
 msgid "Edit global environment variable file."
-msgstr ""
+msgstr "Edit global environment variable file."
 
 msgid "Edit scheduled job."
 msgstr "Edit scheduled job."
@@ -240,13 +240,13 @@ msgid "Execute scheduled job ..."
 msgstr "Execute scheduled job ..."
 
 msgid "Failed"
-msgstr ""
+msgstr "Failed"
 
 msgid "File"
 msgstr "File"
 
 msgid "File date"
-msgstr ""
+msgstr "File date"
 
 msgid "Files"
 msgstr "Files"
@@ -265,10 +265,10 @@ msgid "Gateway"
 msgstr "Gateway"
 
 msgid "Global Environment"
-msgstr ""
+msgstr "Global Environment"
 
 msgid "Global environment variables"
-msgstr ""
+msgstr "Global environment variables"
 
 msgid "Group of directories and files"
 msgstr "Group of directories and files"
@@ -292,7 +292,7 @@ msgid "Import existing compose folders ..."
 msgstr "Import existing compose folders ..."
 
 msgid "In Use"
-msgstr ""
+msgstr "In Use"
 
 msgid "Inspect"
 msgstr "Inspect"
@@ -301,7 +301,7 @@ msgid "Installed"
 msgstr "Installed"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
-msgstr ""
+msgstr "Leave blank to use a custom /etc/docker/daemon.json"
 
 msgid "Location of backups"
 msgstr "Location of backups"
@@ -349,7 +349,7 @@ msgid "Networks"
 msgstr "Networks"
 
 msgid "No Image"
-msgstr ""
+msgstr "No Image"
 
 msgid "Not installed"
 msgstr "Not installed"
@@ -366,6 +366,9 @@ msgid ""
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
+"Optional - Location of persistent container data<br/>Only used to substitute"
+" CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
+"folder path."
 
 msgid "Owner of directories and files"
 msgstr "Owner of directories and files"
@@ -428,10 +431,10 @@ msgid "Script filename"
 msgstr "Script filename"
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "Select a group ..."
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "Select a user ..."
 
 msgid "Service"
 msgstr "Service"
@@ -470,10 +473,10 @@ msgid "Tag"
 msgstr "Tag"
 
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
