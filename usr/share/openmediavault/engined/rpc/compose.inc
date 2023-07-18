@@ -319,6 +319,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($down > 0) $status[] = "DOWN";
             $objectv->add('status', 'string', implode(',', $status));
             $filedate = filemtime($composeFile);
+            if ($filedate === false) $filedate = 0;
             $objectv->add('filedate', 'integer', $filedate);
             $objectv->add('status', 'string', implode(',', $status));
             $objectv->remove('body');
