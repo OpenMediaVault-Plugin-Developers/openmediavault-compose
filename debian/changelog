@@ -1,3 +1,9 @@
+openmediavault-compose (6.9.9) stable; urgency=low
+
+  * Set date to 0 when file doesn't exist on Files tab
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 17 Jul 2023 20:26:19 -0500
+
 openmediavault-compose (6.9.8) stable; urgency=low
 
   * Improve image status
