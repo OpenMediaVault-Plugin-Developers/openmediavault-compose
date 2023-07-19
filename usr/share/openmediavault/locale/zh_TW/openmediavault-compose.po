@@ -58,7 +58,7 @@ msgid "Aux address"
 msgstr "輔助地址"
 
 msgid "Available"
-msgstr ""
+msgstr "可用"
 
 msgid "Backup"
 msgstr "備份"
@@ -154,7 +154,7 @@ msgid "Created scheduled job."
 msgstr "已建立預訂工作。"
 
 msgid "Current"
-msgstr ""
+msgstr "目前"
 
 msgid "Data"
 msgstr "資料"
@@ -169,7 +169,7 @@ msgid "Description"
 msgstr "敘述"
 
 msgid "Digest"
-msgstr ""
+msgstr "摘要"
 
 msgid "Docker"
 msgstr "Docker"
@@ -214,10 +214,10 @@ msgid "Edit file."
 msgstr "編輯檔案。"
 
 msgid "Edit global environment file"
-msgstr ""
+msgstr "編輯全機環境檔案"
 
 msgid "Edit global environment variable file."
-msgstr ""
+msgstr "編輯全機環境變數檔案。"
 
 msgid "Edit scheduled job."
 msgstr "編輯預訂工作。"
@@ -262,10 +262,10 @@ msgid "Gateway"
 msgstr "閘道器"
 
 msgid "Global Environment"
-msgstr ""
+msgstr "全機環境"
 
 msgid "Global environment variables"
-msgstr ""
+msgstr "全機環境變數"
 
 msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
