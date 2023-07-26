@@ -15,36 +15,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-{% set arch = grains['osarch'] %}
-{% set omvextras = salt['omv_conf.get']('conf.system.omvextras') %}
-{% set docker = omvextras.docker %}
-
-{% if docker | to_bool and not arch == 'i386' %}
-{% set docker_pkg = "docker-ce" %}
-{% set compose_pkg = "docker-compose-plugin" %}
-{% else %}
-{% set docker_pkg = "docker.io" %}
-{% set compose_pkg = "docker-compose" %}
-{% endif %}
-
 docker_install_packages:
   pkg.installed:
     - pkgs:
-      - "{{ docker_pkg }}"
+      - docker-ce
 
 docker_compose_install_packages:
   pkg.installed:
     - pkgs:
-      - "{{ compose_pkg }}"
-{% if docker | to_bool and not arch == 'i386' %}
+      - docker-compose-plugin
       - containerd.io
       - docker-ce-cli
       - docker-buildx-plugin
-{% endif %}
 
-{% if docker | to_bool and not arch == 'i386' %}
 docker_purged_packages:
   pkg.purged:
     - pkgs:
       - docker-compose
-{% endif %}

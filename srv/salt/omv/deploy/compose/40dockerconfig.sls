@@ -17,11 +17,9 @@
 
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
 {% set mounts = salt['cmd.shell']('systemctl list-units --type=mount | awk \'$5 ~ "/srv" { printf "%s ",$1 }\'') %}
-{% set arch = grains['osarch'] %}
-{% set omvextras = salt['omv_conf.get']('conf.system.omvextras') %}
-{% set docker = omvextras.docker %}
+{% set waitConf = '/etc/systemd/system/docker.service.d/waitAllMounts.conf' %}
 
-/etc/systemd/system/docker.service.d/waitAllMounts.conf:
+{{ waitConf }}:
   file.managed:
     - contents: |
         [Unit]
@@ -32,6 +30,8 @@
 systemd_daemon_reload_docker:
   cmd.run:
     - name: systemctl daemon-reload
+    - onchanges:
+      - file: {{ waitConf }}
 
 # create daemon.json file if docker storage path is specified
 {% if config.dockerStorage | length > 1 %}
@@ -57,12 +57,10 @@ docker:
   service.running:
     - enable: True
     - watch:
-        - file: /etc/docker/daemon.json
+      - file: /etc/docker/daemon.json
 
 {% endif %}
 
-
-{% if docker | to_bool and not arch == 'i386' %}
 create_usr_local_bin_dir:
   file.directory:
     - name: "/usr/local/bin"
@@ -75,4 +73,3 @@ create_usr_local_bin_dir:
   file.symlink:
     - target: /usr/libexec/docker/cli-plugins/docker-compose
     - force: True
-{% endif %}
