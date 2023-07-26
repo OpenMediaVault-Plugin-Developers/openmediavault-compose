@@ -282,7 +282,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $globalEnvFile = sprintf("%s/global.env", $sfpath);
             // get ps output
             $cmdArgs = [];
-            $cmdArgs[] = 'docker-compose';
+            $cmdArgs[] = 'docker';
+            $cmdArgs[] = 'compose';
             $cmdArgs[] = sprintf('--file "%s"', $composeFile);
             $cmdArgs[] = sprintf("--env-file '%s'", $envFile);
             if (file_exists($globalEnvFile)) {
@@ -402,7 +403,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $envFile = sprintf("%s.env", $composeName);
         // stop container(s) if running
         $cmdArgs = [];
-        $cmdArgs[] = 'docker-compose';
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'compose';
         $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
         $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
         if (file_exists($globalEnvFile)) {
@@ -588,7 +590,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $composeName = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
                 $globalEnvFile = sprintf("%s/global.env", $sfpath);
                 $cmdArgs = [];
-                $cmdArgs[] = 'docker-compose';
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'compose';
                 $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
                 $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
                 if (file_exists($globalEnvFile)) {
@@ -737,7 +740,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($exists) {
                 // Get images
                 $cmdArgs = [];
-                $cmdArgs[] = 'docker-compose';
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'compose';
                 $cmdArgs[] = sprintf('--file "%s"', $filepath);
                 if ($envfilepath != '') {
                         $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
@@ -810,7 +814,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             use ($params, $sfpath) {
                 $globalEnvFile = sprintf("%s/global.env", $sfpath);
                 $cmdArgs = [];
-                $cmdArgs[] = 'docker-compose';
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'compose';
                 $cmdArgs[] = sprintf("--file '%s'", $params['path']);
                 $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
                 if (file_exists($globalEnvFile)) {
