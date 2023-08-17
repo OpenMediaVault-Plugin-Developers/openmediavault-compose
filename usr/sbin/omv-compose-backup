@@ -141,7 +141,7 @@ for vol in "${vols[@]}"; do
     _log "Skipping :: ${vol}"
     echo
     continue
-  elif [[ "${hostpath}" == @(/dev|/dev/*|/lib|/lib/*|/sys|/sys/*|./*|../*) ]]; then
+  elif [[ "${hostpath}" == @(/dev|/dev/*|/lib|/lib/*|/sys|/sys/*|./*|../*|/) ]]; then
     _log "Skipping :: ${hostpath}"
     echo
     continue
