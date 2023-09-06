@@ -3,6 +3,7 @@ openmediavault-compose (6.10) UNRELEASED; urgency=medium
   * Drop support for i386 since debian version is too old and
     docker does not support i386
   * Use compose plugin instead of symlink to plugin binary
+  * Update for docker compose plugin 2.21.0 changes
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 26 Jul 2023 15:46:12 -0500
 
