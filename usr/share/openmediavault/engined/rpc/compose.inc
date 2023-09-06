@@ -757,10 +757,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd->setQuiet(true);
                 $output = [];
                 $cmd->execute($output, $exitStatus);
-                $images = json_decode($output[0]);
-                foreach ($images as $image) {
+                array_filter($output);
+                foreach ($output as $image) {
+                    $imagej = json_decode($image);
                     $ports = [];
-                    foreach ($image->Publishers as $publisher) {
+                    foreach ($imagej->Publishers as $publisher) {
                         $port = '';
                         $url = $publisher->URL;
                         $tgtPort = $publisher->TargetPort;
@@ -783,14 +784,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         $ports[] = $port;
                     }
                     $imagesAssoc[] = [
-                        "name" => $image->Name,
-                        "image" => $image->Image,
-                        "project" => $image->Project,
-                        "service" => $image->Service,
+                        "name" => $imagej->Name,
+                        "image" => $imagej->Image,
+                        "project" => $imagej->Project,
+                        "service" => $imagej->Service,
                         "ports" => implode('<br/>', $ports),
-                        "created" => date("Y-m-d H:i:s", $image->Created),
-                        "state" => $image->State,
-                        "status" => $image->Status,
+                        "created" => date("Y-m-d H:i:s", $imagej->Created),
+                        "state" => $imagej->State,
+                        "status" => $imagej->Status,
                         "filepath" => $filepath,
                         "envpath" => $envfilepath
                     ];
