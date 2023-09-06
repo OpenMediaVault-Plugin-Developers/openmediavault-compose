@@ -16,6 +16,6 @@ Depends: openmediavault (>= 6.4.5),
          python3-pretty-yaml,
          ${misc:Depends}
 Recommends: docker-ce,
-            docker-compose-plugin
+            docker-compose-plugin (>= 2.21.0)
 Description: OpenMediaVault compose plugin
  lightweight plugin to maintain and execute docker-compose files.
