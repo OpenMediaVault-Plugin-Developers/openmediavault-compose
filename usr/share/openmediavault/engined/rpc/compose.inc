@@ -296,18 +296,19 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmd->setQuiet(true);
             $output = [];
             $cmd->execute($output, $exitStatus);
-            $containers = json_decode($output[0]);
+            array_filter($output);
             // get state of each container
             $down = 0;
             $exited = 0;
             $running = 0;
-            if (count($containers) == 0) {
+            if (count($output) == 0) {
                 $down++;
             } else {
-                foreach ($containers as $cnt) {
-                    if ($cnt->State == "running") {
+                foreach ($output as $cnt) {
+                    $cntj = json_decode($cnt);
+                    if ($cntj->State == "running") {
                         $running++;
-                    } elseif ($cnt->State == "exited") {
+                    } elseif ($cntj->State == "exited") {
                         $exited++;
                     } else {
                         $down++;
