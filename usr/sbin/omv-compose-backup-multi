@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.0.1
+# version: 0.0.2
 
 export LANG=C.UTF-8
 
@@ -19,7 +19,9 @@ declare -i index=0
 
 filter="${1}"
 
-if [[ "${filter}" == *","* ]]; then
+if [[ "${filter}" == "*" ]]; then
+  filter=""
+elif [[ "${filter}" == *","* ]]; then
   filter="@(${filter//,/|})"
 fi
 
