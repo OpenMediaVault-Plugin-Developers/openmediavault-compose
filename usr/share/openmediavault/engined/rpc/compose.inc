@@ -556,7 +556,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($object, $params, $sfpath) {
                 $name = $params['name'];
-                $path = sprintf("%s/%s/", $sfpath, $name);
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'build';
@@ -565,7 +564,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 }
                 $cmdArgs[] = '--progress plain';
                 $cmdArgs[] = sprintf("--tag '%s'", $params['name']);
-                $cmdArgs[] = $path;
+                $cmdArgs[] = sprintf("'%s/%s/'", $sfpath, $name);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
