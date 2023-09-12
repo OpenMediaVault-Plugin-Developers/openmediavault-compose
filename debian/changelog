@@ -1,11 +1,24 @@
-openmediavault-compose (6.10) UNRELEASED; urgency=medium
+openmediavault-compose (6.10.2) stable; urgency=low
 
-  * Drop support for i386 since debian version is too old and
-    docker does not support i386
-  * Use compose plugin instead of symlink to plugin binary
-  * Update for docker compose plugin 2.21.0 changes
+  * Fix dockerfile build when path has spaces in it
+  * Consolidate add buttons on Files tab into a menu
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 26 Jul 2023 15:46:12 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 12 Sep 2023 07:21:15 -0500
+
+openmediavault-compose (6.10.1) stable; urgency=low
+
+  * Fix * filter for backup
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 08 Sep 2023 06:16:46 -0500
+
+openmediavault-compose (6.10) stable; urgency=low
+
+   * Drop support for i386 since debian version is too old and
+     docker does not support i386
+   * Use compose plugin instead of symlink to plugin binary
+   * Update for docker compose plugin 2.21.0 changes
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 06 Sep 2023 06:15:13 -0500
 
 openmediavault-compose (6.9.9) stable; urgency=low
 
