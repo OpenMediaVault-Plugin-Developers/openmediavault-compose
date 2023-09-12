@@ -62,96 +62,97 @@ data:
         hidden: true
         cellTemplateName: localeDateTime
     actions:
-      - template: create
-        execute:
-          type: url
-          url: "/services/compose/files/create"
-      - type: iconButton
-        icon: mdi:plus-outline
-        tooltip: _("Add from Example")
-        execute:
-          type: url
-          url: "/services/compose/files/example"
-      - type: iconButton
-        icon: mdi:download-box-outline
-        tooltip: _("Add from URL")
-        execute:
-          type: url
-          url: "/services/compose/files/url"
-      - type: iconButton
-        icon: mdi:file-document-plus-outline
-        tooltip: _("Autocompose")
-        execute:
-          type: formDialog
-          formDialog:
-            title: _("Create new compose file from running container ...")
-            fields:
-              - type: select
-                name: container
-                label: _("Container")
-                textField: desc
-                valueField: name
-                value: "Create new disk"
-                store:
-                  proxy:
-                    service: Compose
-                    get:
-                      method: enumerateContainers
-                validators:
-                  required: true
-              - type: textInput
-                name: name
-                label: _("Name")
-                validators:
-                  required: true
-              - type: textInput
-                name: description
-                label: _("Description")
-                value: ""
-              - type: select
-                name: version
-                label: _("Version")
-                value: "3"
-                store:
-                  data:
-                    - ["1", "1"]
-                    - ["2", "2"]
-                    - ["3", "3"]
-                hint: _("docker-compose file version")
-            buttons:
-              submit:
-                text: _("Create")
-                execute:
-                  type: request
-                  request:
-                    service: Compose
-                    method: doAutocompose
-      - type: iconButton
-        icon: mdi:file-import-outline
-        tooltip: _("Import")
-        execute:
-          type: formDialog
-          formDialog:
-            title: _("Import existing compose folders ...")
-            fields:
-              - type: hidden
-                name: rootfsref
-                value: "79684322-3eac-11ea-a974-63a080abab18"
-                submitValue: false
-              - type: folderBrowser
-                name: path
-                label: _("Path")
-                value: ""
-                dirType: mntent
-                dirRefIdField: rootfsref
-            buttons:
-              submit:
-                text: _("Create")
-                execute:
-                  type: request
-                  request:
-                    service: Compose
-                    method: importExistingFolder
+      - type: menu
+        icon: add
+        tooltip: _("Add")
+        actions:
+          - text: _("Add")
+            icon: add
+            execute:
+              type: url
+              url: "/services/compose/files/create"
+          - text: _("Add from Example")
+            icon: mdi:plus-outline
+            execute:
+              type: url
+              url: "/services/compose/files/example"
+          - text: _("Add from URL")
+            icon: mdi:download-box-outline
+            execute:
+              type: url
+              url: "/services/compose/files/url"
+          - text: _("Autocompose")
+            icon: mdi:file-document-plus-outline
+            execute:
+              type: formDialog
+              formDialog:
+                title: _("Create new compose file from running container ...")
+                fields:
+                  - type: select
+                    name: container
+                    label: _("Container")
+                    textField: desc
+                    valueField: name
+                    value: "Create new disk"
+                    store:
+                      proxy:
+                        service: Compose
+                        get:
+                          method: enumerateContainers
+                    validators:
+                      required: true
+                  - type: textInput
+                    name: name
+                    label: _("Name")
+                    validators:
+                      required: true
+                  - type: textInput
+                    name: description
+                    label: _("Description")
+                    value: ""
+                  - type: select
+                    name: version
+                    label: _("Version")
+                    value: "3"
+                    store:
+                      data:
+                        - ["1", "1"]
+                        - ["2", "2"]
+                        - ["3", "3"]
+                    hint: _("docker-compose file version")
+                buttons:
+                  submit:
+                    text: _("Create")
+                    execute:
+                      type: request
+                      request:
+                        service: Compose
+                        method: doAutocompose
+          - text: _("Import")
+            icon: mdi:file-import-outline
+            execute:
+              type: formDialog
+              formDialog:
+                title: _("Import existing compose folders ...")
+                fields:
+                  - type: hidden
+                    name: rootfsref
+                    value: "79684322-3eac-11ea-a974-63a080abab18"
+                    submitValue: false
+                  - type: folderBrowser
+                    name: path
+                    label: _("Path")
+                    value: ""
+                    dirType: mntent
+                    dirRefIdField: rootfsref
+                buttons:
+                  submit:
+                    text: _("Create")
+                    execute:
+                      type: request
+                      request:
+                        service: Compose
+                        method: importExistingFolder
       - template: edit
         execute:
           type: url
