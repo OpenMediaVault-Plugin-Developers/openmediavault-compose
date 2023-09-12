@@ -2,6 +2,9 @@ openmediavault-compose (6.10.2) stable; urgency=low
 
   * Fix dockerfile build when path has spaces in it
   * Consolidate add buttons on Files tab into a menu
+  * Move global environment edit button after docker-compose command
+    buttons since the command buttons are used more often and this will
+    help the command buttons be visible on mobile clients
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 12 Sep 2023 07:21:15 -0500
 
