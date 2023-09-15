@@ -78,3 +78,42 @@ data:
                 params:
                   name: "{{ _selected[0].name }}"
                   options: "pull"
+      - type: iconButton
+        icon: mdi:tag-plus-outline
+        tooltip: _("Tag")
+        enabledConstraints:
+          minSelected: 0
+          maxSelected: 1
+        execute:
+          type: formDialog
+          formDialog:
+            title: _("Create new image tag ...")
+            fields:
+              - type: textInput
+                name: repo
+                label: _('Repository')
+                value: '{{ _selected[0].name }}'
+              - type: textInput
+                name: tag
+                label: _('Tag')
+                value: ''
+              - type: hidden
+                name: srcid
+                label: _('Image ID')
+                value: ''
+              - type: textInput
+                name: tgtimg
+                label: _('Target repo')
+                value: ''
+              - type: textInput
+                name: tgttag
+                label: _('Target tag')
+                value: ''
+            buttons:
+              submit:
+                text: _("Tag")
+                execute:
+                  type: request
+                  request:
+                    service: Compose
+                    method: doTag

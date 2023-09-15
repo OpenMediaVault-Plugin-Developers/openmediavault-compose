@@ -125,3 +125,65 @@ data:
               buttons:
                 stop:
                   hidden: true
+      - type: iconButton
+        icon: mdi:tag-plus-outline
+        tooltip: _("Tag")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: formDialog
+          formDialog:
+            title: _("Create new image tag ...")
+            fields:
+              - type: textInput
+                name: repo
+                label: _('Repository')
+                value: '{{ _selected[0].repo }}'
+                readonly: true
+                submitValue: false
+              - type: textInput
+                name: tag
+                label: _('Tag')
+                value: '{{ _selected[0].tag }}'
+                readonly: true
+                submitValue: false
+              - type: textInput
+                name: srcid
+                label: _('Image ID')
+                value: '{{ _selected[0].id }}'
+                readonly: true
+              - type: textInput
+                name: tgtimg
+                label: _('Target repo')
+                value: '{{ _selected[0].repo }}'
+              - type: textInput
+                name: tgttag
+                label: _('Target tag')
+                value: ''
+            buttons:
+              submit:
+                text: _("Tag")
+                execute:
+                  type: request
+                  request:
+                    service: Compose
+                    method: doTag
+      - type: iconButton
+        icon: mdi:tag-arrow-up-outline
+        tooltip: _("Push")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Push to Docker Hub ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doHubPush
+                params:
+                  imgname: "{{ _selected[0].repo }}"
+                  imgtag: "{{ _selected[0].tag }}"

@@ -48,6 +48,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("setDockerfile");
         $this->registerMethod("deleteDockerfile");
         $this->registerMethod("doBuild");
+        $this->registerMethod("doTag");
+        $this->registerMethod("doHubPush");
 
         $this->registerMethod("getExampleList");
         $this->registerMethod("setExample");
@@ -565,6 +567,68 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = '--progress plain';
                 $cmdArgs[] = sprintf("--tag '%s'", $params['name']);
                 $cmdArgs[] = sprintf("'%s/%s/'", $sfpath, $name);
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function doTag($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $sfpath = $this->getComposePath($context);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params, $sfpath) {
+                // docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'tag';
+                if (strlen($params['srcid']) > 0) {
+                    $cmdArgs[] = $params['srcid'];
+                } elseif (strlen($params['srctag']) > 0) {
+                    $cmdArgs[] = sprintf('%s:%s', $params['srcimg'], $params['srctag']);
+                } else {
+                    $cmdArgs[] = $params['srcimg'];
+                }
+                if (strlen($params['tgttag']) > 0) {
+                    $cmdArgs[] = sprintf('%s:%s', $params['tgtimg'], $params['tgttag']);
+                } else {
+                    $cmdArgs[] = $params['tgtimg'];
+                }
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function doHubPush($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $sfpath = $this->getComposePath($context);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params, $sfpath) {
+                // docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'image';
+                $cmdArgs[] = 'push';
+                if (strlen($params['imgtag']) > 0) {
+                    $cmdArgs[] = sprintf('%s:%s', $params['imgname'], $params['imgtag']);
+                } else {
+                    $cmdArgs[] = $params['imgimg'];
+                }
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
