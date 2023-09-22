@@ -1495,13 +1495,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             } else {
                 if (isset($data['digest'])) {
                     $newest = $data['digest'];
+                } elseif (isset($data['images'])) {
+                    $newest = $data['images'][0]['digest'];
                 }
             }
         }
-        if ($digest != $newest) {
-          return 'AVAILABLE';
+        if ($newest == '') {
+            return 'FAILED';
+        } elseif ($digest != $newest) {
+            return 'AVAILABLE';
         } else {
-          return 'CURRENT';
+            return 'CURRENT';
         }
     }
 
