@@ -1,3 +1,10 @@
+openmediavault-compose (6.10.3) stable; urgency=low
+
+  * Add tag and push buttons
+  * Look for image digest in alternative location if not found in primary location
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 23 Sep 2023 07:38:05 -0500
+
 openmediavault-compose (6.10.2) stable; urgency=low
 
   * Fix dockerfile build when path has spaces in it
