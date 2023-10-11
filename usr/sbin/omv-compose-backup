@@ -117,14 +117,14 @@ rsync -avr --delete "${composepath}/" "${voldir}"
 
 # save status
 status="${backuppath}/${compose}/status"
-docker-compose ls --all --filter name="${compose}" --format json | jq .[0].Status | tee "${status}"
+docker compose ls --all --filter name="${compose}" --format json | jq .[0].Status | tee "${status}"
 
 # stop compose if running
 if grep -q "running" "${status}"; then
   if [ -f "${globalenv}" ]; then
-    docker-compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" stop
+    docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" stop
   else
-    docker-compose --file "${yml}" --env-file "${env}" stop
+    docker compose --file "${yml}" --env-file "${env}" stop
   fi
 else
   _log "${compose} is not running"
@@ -211,9 +211,9 @@ done
 # start compose if running before backup
 if grep -q "running" "${status}"; then
   if [ -f "${globalenv}" ]; then
-    docker-compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" start
+    docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" start
   else
-    docker-compose --file "${yml}" --env-file "${env}" start
+    docker compose --file "${yml}" --env-file "${env}" start
   fi
 fi
 
