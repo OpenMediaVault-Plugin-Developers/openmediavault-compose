@@ -55,7 +55,7 @@ if ! omv_config_exists "/config/services/compose"; then
 fi
 
 # download yq
-version="v4.34.1"/usr/local/bin
+version="v4.34.1"
 bindir="/usr/local/bin"
 yq="$bindir/yq"
 arch="$(dpkg --print-architecture)"
