@@ -55,14 +55,18 @@ if ! omv_config_exists "/config/services/compose"; then
 fi
 
 # download yq
-version="v4.34.1"
-yq="/usr/local/bin/yq"
+version="v4.34.1"/usr/local/bin
+bindir="/usr/local/bin"
+yq="$bindir/yq"
 arch="$(dpkg --print-architecture)"
 case "${arch}" in
   armhf) arch="arm" ;;
   i386) arch="386" ;;
 esac
 repo_url=${OMV_EXTRAS_YQ_URL:-"https://github.com/mikefarah/yq/releases/download"}
+if [ ! -d "${bindir}" ]; then
+  mkdir -p ${bindir}
+fi
 if [ ! -f "${yq}" ]; then
   echo "Downloading yq ..."
   wget -O ${yq} "${repo_url}/${version}/yq_linux_${arch}"
