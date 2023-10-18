@@ -57,7 +57,7 @@ fi
 # download yq
 version="v4.34.1"
 bindir="/usr/local/bin"
-yq="$bindir/yq"
+yq="${bindir}/yq"
 arch="$(dpkg --print-architecture)"
 case "${arch}" in
   armhf) arch="arm" ;;
