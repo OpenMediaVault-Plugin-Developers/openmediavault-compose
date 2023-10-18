@@ -55,7 +55,7 @@ if ! omv_config_exists "/config/services/compose"; then
 fi
 
 # download yq
-version="v4.34.1"
+version="v4.35.2"
 bindir="/usr/local/bin"
 yq="${bindir}/yq"
 arch="$(dpkg --print-architecture)"
@@ -73,7 +73,7 @@ if [ ! -f "${yq}" ]; then
 else
   echo "Checking yq version ..."
   chmod 755 ${yq}
-  yqvers="$(/usr/local/bin/yq -V | awk '{ print $4 }')"
+  yqvers="$(${yq} -V | awk '{ print $4 }')"
   if [ ! "${version}" = "${yqvers}" ]; then
     wget -O ${yq} "${repo_url}/${version}/yq_linux_${arch}"
   else
