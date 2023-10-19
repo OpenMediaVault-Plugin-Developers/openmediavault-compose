@@ -20,6 +20,14 @@
       "type": "string",
       "default": ""
     },
+    "backup": {
+      "type": "boolean",
+      "default": true
+    },
+    "update": {
+      "type": "boolean",
+      "default": false
+    },
     "sendemail": {
       "type": "boolean",
       "default": false

@@ -1611,6 +1611,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.setjob");
+        if (!$params['backup'] && !$params['update']) {
+            throw new \OMV\ExecException(_('You must select at least one action type!'));
+        }
         $params['filter'] = str_replace(['@','(',')',' '], '', $params['filter']);
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.job");

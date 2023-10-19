@@ -280,6 +280,14 @@
           "type": "string",
           "required": true
         },
+        "backup": {
+          "type": "boolean",
+          "required": true
+        },
+        "update": {
+          "type": "boolean",
+          "required": true
+        },
         "sendemail": {
           "type": "boolean",
           "required": true

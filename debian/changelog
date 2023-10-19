@@ -1,3 +1,9 @@
+openmediavault-compose (6.11) UNRELEASED; urgency=medium
+
+  * Add update action to scheduled jobs
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 18 Oct 2023 19:30:20 -0500
+
 openmediavault-compose (6.10.3) stable; urgency=low
 
   * Add tag and push buttons
