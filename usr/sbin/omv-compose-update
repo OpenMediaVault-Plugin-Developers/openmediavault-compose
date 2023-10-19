@@ -12,6 +12,9 @@
 
 export LANG=C.UTF-8
 
+declare -i timeout=180
+declare -i i=0
+
 . /usr/share/openmediavault/scripts/helper-functions
 
 # logging location
@@ -65,6 +68,16 @@ if [ ! -f "${yq}" ]; then
   _log "'${yq}' does not exist.  Exiting..."
   exit 14
 fi
+
+while pgrep -f omv-compose-backup -l > /dev/null; do
+  _log "Backup is running.  Waiting ... ${i}"
+  sleep 10
+  (( i++ ))
+  if [ ${i} -gt ${timeout} ]; then
+    _log "Timed out waiting.  Exiting."
+    exit 15
+  fi
+done
 
 # save status
 status=$(docker compose ls --all --filter name="${compose}" --format json | jq ".[0].Status")
