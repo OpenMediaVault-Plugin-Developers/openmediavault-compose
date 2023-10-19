@@ -60,9 +60,20 @@ if [ ! -f "${yml}" ]; then
 fi
 _log "Compose file :: ${yml}"
 
+yq="/usr/local/bin/yq"
+if [ ! -f "${yq}" ]; then
+  _log "'${yq}' does not exist.  Exiting..."
+  exit 14
+fi
+
 # save status
 status=$(docker compose ls --all --filter name="${compose}" --format json | jq ".[0].Status")
 _log "status :: ${status}"
+
+# log current image versions
+for image in $(sudo ${yq} .services.[].image "${yml}"); do
+  _log "version before :: $(docker image ls --format "{{.ID}},{{.Repository}}:{{.Tag}}" ${image})"
+done
 
 # pull new images
 _log "Pulling new images ..."
@@ -71,6 +82,11 @@ if [ -f "${globalenv}" ]; then
 else
   docker compose --file "${yml}" --env-file "${env}" pull
 fi
+
+# log image versions after update
+for image in $(sudo ${yq} .services.[].image "${yml}"); do
+  _log "version after :: $(docker image ls --format "{{.ID}},{{.Repository}}:{{.Tag}}" ${image})"
+done
 
 # recreate containers with new images if running
 if [[ "${status}" =~ ^running.* ]]; then

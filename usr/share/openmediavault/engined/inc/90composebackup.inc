@@ -39,3 +39,14 @@
         "message" => 5
     ]
 ]);
+
+\OMV\System\LogFileSpec::registerSpecification("omv-compose-update", [
+    "filename" => "omv-compose-update.log",
+    "filepath" => "/var/log/omv-compose-update.log",
+    "regex" => "/^\[((.*?)\s+(.*?))\]\s+\[(.*?)\]\s+(.*?)$/",
+    "columns" => [
+        "date" => 1,
+        "action" => 4,
+        "message" => 5
+    ]
+]);

@@ -17,11 +17,23 @@
 
 {% set config = salt['omv_conf.get']('conf.service.compose.job') %}
 
-configure_compose_scheduled_jobs:
+configure_compose_scheduled_backup:
   file.managed:
     - name: "/etc/cron.d/omv-compose-backup"
     - source:
-      - salt://{{ tpldir }}/files/jobs.j2
+      - salt://{{ tpldir }}/files/backup.j2
+    - template: jinja
+    - context:
+        jobs: {{ config | json }}
+    - user: root
+    - group: root
+    - mode: 644
+
+configure_compose_scheduled_update:
+  file.managed:
+    - name: "/etc/cron.d/omv-compose-update"
+    - source:
+      - salt://{{ tpldir }}/files/update.j2
     - template: jinja
     - context:
         jobs: {{ config | json }}
