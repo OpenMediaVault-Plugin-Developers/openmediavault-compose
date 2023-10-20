@@ -42,7 +42,7 @@ data:
             name: update
             label: _('Update')
             value: false
-            hint: _('Update all images in compose file. Will recreate containers if running.')
+            hint: _('Update all images in compose file. Will recreate containers after update if running.<br/>Update will always run after backup if backup is enabled.')
       - type: divider
         title: _("Schedule")
       - type: select
