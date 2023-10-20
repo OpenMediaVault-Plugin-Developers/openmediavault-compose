@@ -1650,14 +1650,28 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object = $db->get("conf.service.compose.job", $params['uuid']);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($object) {
-                $cmdArgs = [];
-                $cmdArgs[] = '/usr/sbin/omv-compose-backup-multi';
-                $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
-                $cmd = new \OMV\System\Process($cmdArgs);
-                $cmd->setRedirect2to1();
-                $cmdLine = $cmd->getCommandLine();
-                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
-                    throw new \OMV\ExecException($cmdLine, $output);
+                $output = [];
+                if ($object->get('backup')) {
+                    $cmdArgs = [];
+                    $cmdArgs[] = '/usr/sbin/omv-compose-backup-multi';
+                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setRedirect2to1();
+                    $cmdLine = $cmd->getCommandLine();
+                    if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                        throw new \OMV\ExecException($cmdLine, $output);
+                    }
+                }
+                if ($object->get('update')) {
+                    $cmdArgs = [];
+                    $cmdArgs[] = '/usr/sbin/omv-compose-update-multi';
+                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setRedirect2to1();
+                    $cmdLine = $cmd->getCommandLine();
+                    if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                        throw new \OMV\ExecException($cmdLine, $output);
+                    }
                 }
                 return $output;
             }
