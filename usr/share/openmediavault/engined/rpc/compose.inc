@@ -34,6 +34,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
         $this->registerMethod("getFileList");
         $this->registerMethod("getFileListBg");
+        $this->registerMethod("getFileListSuggest");
         $this->registerMethod("getFile");
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
@@ -333,11 +334,27 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Filter the result.
         return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir'], $params['search']);
-
     }
 
     public function getFileListBg($params, $context) {
         return $this->callMethodBg("getFileList", $params, $context);
+    }
+
+    public function getFileListSuggest($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->get("conf.service.compose.file");
+        // Add additional informations.
+        $files = [];
+        $files[] = '*';
+        foreach ($objects as $objectk => &$objectv) {
+            $files[] = $objectv->get('name');
+        }
+        // Filter the result.
+        return ($files);
     }
 
     public function getFile($params, $context)
