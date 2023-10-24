@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-17 06:45-0500\n"
+"POT-Creation-Date: 2023-10-23 19:32-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2023\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -23,6 +23,12 @@ msgstr ""
 
 msgid "Action"
 msgstr "動作"
+
+msgid "Action type"
+msgstr ""
+
+msgid "Add"
+msgstr ""
 
 msgid "Add from Example"
 msgstr "從範例新增"
@@ -102,6 +108,9 @@ msgstr "Compose 檔案"
 msgid "Compose Restore"
 msgstr "Compose 還原"
 
+msgid "Compose Update"
+msgstr ""
+
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose 檔案的共享檔案夾必須不同於資料的共享檔案夾"
 
@@ -132,11 +141,14 @@ msgstr "從範例創建"
 msgid "Create new compose file from running container ..."
 msgstr "依據執行中的容器創建新的 compose 檔案 …"
 
+msgid "Create new image tag ..."
+msgstr ""
+
 msgid "Created"
-msgstr "已建立"
+msgstr "建立"
 
 msgid "Created At"
-msgstr "已建立於"
+msgstr "建立於"
 
 msgid "Created dockerfile."
 msgstr "已建立 dockerfile。"
@@ -390,6 +402,12 @@ msgstr "修剪"
 
 msgid "Pull and Build"
 msgstr "拉取並建構"
+
+msgid "Push"
+msgstr ""
+
+msgid "Push to Docker Hub ..."
+msgstr ""
 
 msgid "Reinstall Docker"
 msgstr "重新安裝 Docker"

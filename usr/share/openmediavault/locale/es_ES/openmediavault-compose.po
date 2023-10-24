@@ -11,24 +11,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-17 06:45-0500\n"
+"POT-Creation-Date: 2023-10-23 19:32-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2023\n"
-"Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
+"Language-Team: Spanish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es_ES\n"
+"Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Action"
 msgstr "Acción"
 
+msgid "Action type"
+msgstr ""
+
+msgid "Add"
+msgstr ""
+
 msgid "Add from Example"
 msgstr "Añadir de los ejemplos"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "Añadir desde URL"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
@@ -66,7 +72,7 @@ msgid "Aux address"
 msgstr "Dirección Auxiliar"
 
 msgid "Available"
-msgstr ""
+msgstr "Disponible"
 
 msgid "Backup"
 msgstr "Backup"
@@ -112,8 +118,13 @@ msgstr "Archivos compose"
 msgid "Compose Restore"
 msgstr "Restaurar Backup"
 
+msgid "Compose Update"
+msgstr ""
+
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr ""
+"La carpeta compartida del archivo Compose debe ser diferente de la carpeta "
+"compartida de datos"
 
 msgid "Compose version"
 msgstr "Versión de Compose"
@@ -134,13 +145,16 @@ msgid "Create"
 msgstr "Crear"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "Crear desde URL"
 
 msgid "Create from example"
 msgstr "Crear desde los ejemplos"
 
 msgid "Create new compose file from running container ..."
 msgstr "Crear un nuevo archivo compose desde un contenedor en marcha ..."
+
+msgid "Create new image tag ..."
+msgstr ""
 
 msgid "Created"
 msgstr "Creado"
@@ -152,7 +166,7 @@ msgid "Created dockerfile."
 msgstr "Dockerfile creado"
 
 msgid "Created file from url."
-msgstr ""
+msgstr "Archivo creado desde la URL."
 
 msgid "Created file."
 msgstr "Archivo creado."
@@ -164,10 +178,10 @@ msgid "Created scheduled job."
 msgstr "Trabajo programado creado."
 
 msgid "Current"
-msgstr ""
+msgstr "Actual"
 
 msgid "Data"
-msgstr ""
+msgstr "Datos"
 
 msgid "Date & Time"
 msgstr "Fecha y Hora"
@@ -179,7 +193,7 @@ msgid "Description"
 msgstr "Descripción"
 
 msgid "Digest"
-msgstr ""
+msgstr "Digest"
 
 msgid "Docker"
 msgstr "Docker"
@@ -224,10 +238,10 @@ msgid "Edit file."
 msgstr "Editar archivo"
 
 msgid "Edit global environment file"
-msgstr ""
+msgstr "Editar archivo global env."
 
 msgid "Edit global environment variable file."
-msgstr ""
+msgstr "Editar archivo global env."
 
 msgid "Edit scheduled job."
 msgstr "Editar trabajo programado"
@@ -248,13 +262,13 @@ msgid "Execute scheduled job ..."
 msgstr "Ejecutando trabajo programado ..."
 
 msgid "Failed"
-msgstr ""
+msgstr "Falló"
 
 msgid "File"
 msgstr "Archivo"
 
 msgid "File date"
-msgstr ""
+msgstr "Fecha de archivo"
 
 msgid "Files"
 msgstr "Archivos"
@@ -273,10 +287,10 @@ msgid "Gateway"
 msgstr "Puerta de enlace"
 
 msgid "Global Environment"
-msgstr ""
+msgstr "Global Environment"
 
 msgid "Global environment variables"
-msgstr ""
+msgstr "Variables Globales env."
 
 msgid "Group of directories and files"
 msgstr "Grupo de directorios y archivos"
@@ -300,7 +314,7 @@ msgid "Import existing compose folders ..."
 msgstr "Importando carpetas compose existentes ..."
 
 msgid "In Use"
-msgstr ""
+msgstr "En uso"
 
 msgid "Inspect"
 msgstr "Inspeccionar"
@@ -309,7 +323,7 @@ msgid "Installed"
 msgstr "Instalado"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
-msgstr ""
+msgstr "Dejar en blanco para usar /etc/docker/daemon.json personalizado"
 
 msgid "Location of backups"
 msgstr "Ubicación del Backup."
@@ -357,7 +371,7 @@ msgid "Networks"
 msgstr "Redes"
 
 msgid "No Image"
-msgstr ""
+msgstr "Sin Imagen"
 
 msgid "Not installed"
 msgstr "No Instalado"
@@ -374,6 +388,9 @@ msgid ""
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
+"Opcional: la ubicación de los datos del contenedor persistente <br/> solo se"
+" usa para sustituir CHANGE_TO_COMPOSE_DATA_PATH en archivos de compose y env"
+" con esta ruta de carpeta compartida."
 
 msgid "Owner of directories and files"
 msgstr "Propietario de los directorios y archivos"
@@ -401,6 +418,12 @@ msgstr "Limpiar"
 
 msgid "Pull and Build"
 msgstr "Pull and Build"
+
+msgid "Push"
+msgstr ""
+
+msgid "Push to Docker Hub ..."
+msgstr ""
 
 msgid "Reinstall Docker"
 msgstr "Reinstalar Docker"
@@ -436,10 +459,10 @@ msgid "Script filename"
 msgstr "Nombre del script"
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "Seleccionar un grupo ..."
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "Seleccionar un Usuario ..."
 
 msgid "Service"
 msgstr "Servicio"
@@ -478,10 +501,10 @@ msgid "Tag"
 msgstr "Etiqueta"
 
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
