@@ -110,11 +110,6 @@ mkdir -pv "${backupdir}"
 vollist="${backupdir}/vol.list"
 echo "${i},${composepath}" > "${vollist}"
 
-# copy yml and env files and other files that use a relative path
-voldir="${backupdir}/${i}"
-mkdir -pv "${voldir}"
-rsync -avr --delete "${composepath}/" "${voldir}"
-
 # save status
 status="${backuppath}/${compose}/status"
 docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" | tee "${status}"
@@ -129,6 +124,11 @@ if grep -q "running" "${status}"; then
 else
   _log "${compose} is not running"
 fi
+
+# copy yml and env files and other files that use a relative path
+voldir="${backupdir}/${i}"
+mkdir -pv "${voldir}"
+rsync -avr --delete "${composepath}/" "${voldir}"
 
 # loop through volumes
 for vol in "${vols[@]}"; do
