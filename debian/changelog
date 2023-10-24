@@ -1,6 +1,10 @@
 openmediavault-compose (6.11) UNRELEASED; urgency=medium
 
   * Add update action to scheduled jobs
+  * Add suggestions to schedule filter
+  * Install latest release of yq
+  * Improve running status detection
+  * Copy files in yml directory after the container is stopped"
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 18 Oct 2023 19:30:20 -0500
 
