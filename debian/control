@@ -3,14 +3,14 @@ Section: net
 XB-Plugin-Section: utilities
 Priority: optional
 Maintainer: OpenMediaVault Plugin Developers <plugins@omv-extras.org>
-Build-Depends: debhelper (>= 12 )
+Build-Depends: debhelper (>= 13 )
 Standards-Version: 4.3.0
 Homepage: http://omv-extras.org/
 
 Package: openmediavault-compose
 Architecture: all
-Depends: openmediavault (>= 6.9.4),
-         openmediavault-omvextrasorg (>= 6.3),
+Depends: openmediavault (>= 7),
+         openmediavault-omvextrasorg (>= 7),
          openmediavault-sharerootfs,
          python3-docker,
          python3-pretty-yaml,

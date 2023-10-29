@@ -1,3 +1,9 @@
+openmediavault-compose (7.0) stable; urgency=low
+
+  * Update for OMV 7.x
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 29 Oct 2023 11:09:10 -0500
+
 openmediavault-compose (6.11) stable; urgency=low
 
   * Add update action to scheduled jobs
