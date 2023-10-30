@@ -4,6 +4,13 @@ openmediavault-compose (7.0) stable; urgency=low
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 29 Oct 2023 11:09:10 -0500
 
+openmediavault-compose (6.11.1) stable; urgency=low
+
+  * Replace double / with single / to correct sharedfolder paths on root
+    fs
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 30 Oct 2023 06:21:30 -0500
+
 openmediavault-compose (6.11) stable; urgency=low
 
   * Add update action to scheduled jobs

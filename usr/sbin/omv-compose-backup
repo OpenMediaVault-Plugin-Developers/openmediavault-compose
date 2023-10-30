@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.9.6
+# version: 0.9.7
 
 export LANG=C.UTF-8
 
@@ -51,6 +51,7 @@ if [ ! -d "${sfpath}" ]; then
   exit 12
 fi
 sfpath="${sfpath/%\/}"
+sfpath="${sfpath//\/\//\/}"
 _log "Compose file path :: ${sfpath}"
 
 # Get the backup shared folder reference and path
