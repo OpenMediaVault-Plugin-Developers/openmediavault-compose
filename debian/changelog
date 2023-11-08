@@ -1,3 +1,9 @@
+openmediavault-compose (6.11.2) stable; urgency=low
+
+  * Allow spaces in file name for backup
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 08 Nov 2023 10:47:49 -0600
+
 openmediavault-compose (6.11.1) stable; urgency=low
 
   * Replace double / with single / to correct sharedfolder paths on root
