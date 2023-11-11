@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-23 19:32-0500\n"
+"POT-Creation-Date: 2023-11-11 16:02-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2023\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -25,10 +25,10 @@ msgid "Action"
 msgstr "Action"
 
 msgid "Action type"
-msgstr ""
+msgstr "Action type"
 
 msgid "Add"
-msgstr ""
+msgstr "Add"
 
 msgid "Add from Example"
 msgstr "Add from Example"
@@ -111,7 +111,7 @@ msgid "Compose Restore"
 msgstr "Compose Restore"
 
 msgid "Compose Update"
-msgstr ""
+msgstr "Compose Update"
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose file shared folder must be different than data shared folder"
@@ -144,7 +144,7 @@ msgid "Create new compose file from running container ..."
 msgstr "Create new compose file from running container ..."
 
 msgid "Create new image tag ..."
-msgstr ""
+msgstr "Create new image tag ..."
 
 msgid "Created"
 msgstr "Created"
@@ -410,10 +410,10 @@ msgid "Pull and Build"
 msgstr "Pull and Build"
 
 msgid "Push"
-msgstr ""
+msgstr "Push"
 
 msgid "Push to Docker Hub ..."
-msgstr ""
+msgstr "Push to Docker Hub ..."
 
 msgid "Reinstall Docker"
 msgstr "Reinstall Docker"
