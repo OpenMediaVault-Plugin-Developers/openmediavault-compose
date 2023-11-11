@@ -114,7 +114,7 @@ echo "${i},${composepath}" > "${vollist}"
 # save status
 status="${backuppath}/${compose}/status"
 docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" | tee "${status}"
-_log "status :: $(cat ${status})"
+_log "status :: $(cat "${status}")"
 
 # stop compose if running
 if grep -q "running" "${status}"; then
