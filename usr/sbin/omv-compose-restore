@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.9.4
+# version: 0.9.5
 
 . /usr/share/openmediavault/scripts/helper-functions
 
@@ -45,6 +45,7 @@ if [ ! -d "${sfpath}" ]; then
   exit 12
 fi
 sfpath="${sfpath/%\/}"
+sfpath="${sfpath//\/\//\/}"
 _log "Compose file path :: ${sfpath}"
 
 # Get the backup shared folder reference and path
@@ -74,7 +75,8 @@ _log "Compose file :: ${yml}"
 
 # save status
 status="$(mktemp)"
-docker compose ls --all --filter name="${compose}" --format json | jq .[0].Status | tee "${status}"
+docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" | tee "${status}"
+_log "status :: $(cat ${status})"
 
 # stop compose if running
 if grep -q "running" "${status}"; then

@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.9.7
+# version: 0.9.8
 
 export LANG=C.UTF-8
 
@@ -114,6 +114,7 @@ echo "${i},${composepath}" > "${vollist}"
 # save status
 status="${backuppath}/${compose}/status"
 docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" | tee "${status}"
+_log "status :: $(cat ${status})"
 
 # stop compose if running
 if grep -q "running" "${status}"; then

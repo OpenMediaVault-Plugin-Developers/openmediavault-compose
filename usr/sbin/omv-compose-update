@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.0.1
+# version: 0.1.0
 
 export LANG=C.UTF-8
 
@@ -50,6 +50,7 @@ if [ ! -d "${sfpath}" ]; then
   exit 12
 fi
 sfpath="${sfpath/%\/}"
+sfpath="${sfpath//\/\//\/}"
 _log "Compose file path :: ${sfpath}"
 
 # set path for yml and env files
@@ -80,8 +81,9 @@ while pgrep -f omv-compose-backup -l > /dev/null; do
 done
 
 # save status
-status=$(docker compose ls --all --filter name="${compose}" --format json | jq ".[0].Status")
-_log "status :: ${status}"
+status="$(mktemp)"
+docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" | tee "${status}"
+_log "status :: $(cat ${status})"
 
 # log current image versions
 for image in $(sudo ${yq} .services.[].image "${yml}"); do
@@ -102,7 +104,7 @@ for image in $(sudo ${yq} .services.[].image "${yml}"); do
 done
 
 # recreate containers with new images if running
-if [[ "${status}" =~ ^running.* ]]; then
+if grep -q "running" "${status}"; then
   _log "Recreating containers with new images ..."
   if [ -f "${globalenv}" ]; then
     docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" up -d
@@ -110,6 +112,8 @@ if [[ "${status}" =~ ^running.* ]]; then
     docker compose --file "${yml}" --env-file "${env}" up -d
   fi
 fi
+
+rm -f "${status}"
 
 _log "Done."
 
