@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-23 19:32-0500\n"
+"POT-Creation-Date: 2023-11-11 16:02-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -22,13 +22,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Action"
-msgstr "激活"
+msgstr "动作"
 
 msgid "Action type"
-msgstr ""
+msgstr "动作类型"
 
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 msgid "Add from Example"
 msgstr "从模板添加"
@@ -70,10 +70,10 @@ msgid "Backup"
 msgstr "备份"
 
 msgid "Block In"
-msgstr ""
+msgstr "Block In"
 
 msgid "Block Out"
-msgstr ""
+msgstr "Block Out"
 
 msgid "Build"
 msgstr "构建"
@@ -109,7 +109,7 @@ msgid "Compose Restore"
 msgstr "Compose 恢复"
 
 msgid "Compose Update"
-msgstr ""
+msgstr "Compose 更新"
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose 文件存储的共享文件夹必须与 data 存储共享文件夹不同"
@@ -142,7 +142,7 @@ msgid "Create new compose file from running container ..."
 msgstr "从允许的 container 创建新的 compose"
 
 msgid "Create new image tag ..."
-msgstr ""
+msgstr "创建新镜像标签 ..."
 
 msgid "Created"
 msgstr "已创建"
@@ -211,7 +211,7 @@ msgid "Docs"
 msgstr "文档"
 
 msgid "Down"
-msgstr ""
+msgstr "下线"
 
 msgid "Driver"
 msgstr "驱动"
@@ -403,10 +403,10 @@ msgid "Pull and Build"
 msgstr "拉取并构建"
 
 msgid "Push"
-msgstr ""
+msgstr "推送"
 
 msgid "Push to Docker Hub ..."
-msgstr ""
+msgstr "推送到 Docker Hub ..."
 
 msgid "Reinstall Docker"
 msgstr "重新安装 Docker"
@@ -495,7 +495,7 @@ msgid ""
 msgstr "单位GB，备份将跳过大于此大小的卷。<br/>设置为 0 表示无限制。"
 
 msgid "Up"
-msgstr ""
+msgstr "上线"
 
 msgid "Version"
 msgstr "版本"
@@ -534,10 +534,10 @@ msgid "docker inspect ..."
 msgstr "docker 检查 ..."
 
 msgid "docker logs --follow ..."
-msgstr ""
+msgstr "docker logs --follow ..."
 
 msgid "docker logs ..."
-msgstr ""
+msgstr "docker 日志 ..."
 
 msgid "docker network inspect ..."
 msgstr "docker 网络检查 ..."
@@ -564,22 +564,22 @@ msgid "docker volume rm ..."
 msgstr "移除 docker 卷 ..."
 
 msgid "docker-compose down ..."
-msgstr ""
+msgstr "docker-compose down ..."
 
 msgid "docker-compose file version"
 msgstr "docker-compose 文件版本"
 
 msgid "docker-compose logs --follow ..."
-msgstr ""
+msgstr "docker-compose logs --follow ..."
 
 msgid "docker-compose logs ..."
 msgstr "docker-compose 日志 ..."
 
 msgid "docker-compose ps ..."
-msgstr ""
+msgstr "docker-compose ps ..."
 
 msgid "docker-compose pull ..."
-msgstr ""
+msgstr "docker-compose pull ..."
 
 msgid "docker-compose restart ..."
 msgstr "docker-compose 重启 ..."
@@ -588,13 +588,13 @@ msgid "docker-compose stop ..."
 msgstr "docker-compose 停止 ..."
 
 msgid "docker-compose up -d ..."
-msgstr ""
+msgstr "docker-compose up -d ..."
 
 msgid "dockerfile build ..."
-msgstr ""
+msgstr "dockerfile 构建 ..."
 
 msgid "down"
-msgstr ""
+msgstr "下线"
 
 msgid "e.g. 172.20.0.0/16"
 msgstr "如 172.20.0.0/16"
@@ -606,7 +606,7 @@ msgid "e.g. 172.20.10.128/25"
 msgstr "如 172.20.10.128/25"
 
 msgid "follow logs"
-msgstr ""
+msgstr "日志跟踪"
 
 msgid "logs"
 msgstr "日志"
@@ -618,7 +618,7 @@ msgid "omv-extras wiki"
 msgstr "omv-extras wiki"
 
 msgid "ps"
-msgstr ""
+msgstr "ps"
 
 msgid "pull"
 msgstr "拉取"
@@ -630,4 +630,4 @@ msgid "stop"
 msgstr "停止"
 
 msgid "up"
-msgstr ""
+msgstr "上线"
