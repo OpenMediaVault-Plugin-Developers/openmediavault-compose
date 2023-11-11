@@ -1,3 +1,9 @@
+openmediavault-compose (7.0.1) stable; urgency=low
+
+  * improve status detection
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 11 Nov 2023 16:01:34 -0600
+
 openmediavault-compose (7.0) stable; urgency=low
 
   * Update for OMV 7.x
