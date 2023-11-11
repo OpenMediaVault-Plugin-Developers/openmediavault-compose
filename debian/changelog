@@ -1,3 +1,9 @@
+openmediavault-compose (6.11.3) stable; urgency=low
+
+  * improve space handling and status detection
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 11 Nov 2023 16:08:32 -0600
+
 openmediavault-compose (6.11.2) stable; urgency=low
 
   * Allow spaces in file name for backup
