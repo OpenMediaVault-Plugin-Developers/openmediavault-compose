@@ -28,6 +28,10 @@
       "type": "boolean",
       "default": false
     },
+    "prune": {
+      "type": "boolean",
+      "default": false
+    },
     "sendemail": {
       "type": "boolean",
       "default": false

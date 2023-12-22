@@ -40,3 +40,15 @@ configure_compose_scheduled_update:
     - user: root
     - group: root
     - mode: 644
+
+configure_compose_scheduled_prune:
+  file.managed:
+    - name: "/etc/cron.d/omv-compose-prune"
+    - source:
+      - salt://{{ tpldir }}/files/prune.j2
+    - template: jinja
+    - context:
+        jobs: {{ config | json }}
+    - user: root
+    - group: root
+    - mode: 644

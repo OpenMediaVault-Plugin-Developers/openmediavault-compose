@@ -163,6 +163,9 @@
               "update": {
                 "type": "boolean"
               },
+              "prune": {
+                "type": "boolean"
+              },
               "sendemail": {
                 "type": "boolean"
               },

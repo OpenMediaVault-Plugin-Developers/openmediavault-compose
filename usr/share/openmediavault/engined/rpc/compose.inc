@@ -1690,6 +1690,19 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         throw new \OMV\ExecException($cmdLine, $output);
                     }
                 }
+                if ($object->get('prune')) {
+                    $cmdArgs = [];
+                    $cmdArgs[] = '/usr/bin/docker';
+                    $cmdArgs[] = 'image';
+                    $cmdArgs[] = 'prune';
+                    $cmdArgs[] = '-f';
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setRedirect2to1();
+                    $cmdLine = $cmd->getCommandLine();
+                    if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                        throw new \OMV\ExecException($cmdLine, $output);
+                    }
+                }
                 return $output;
             }
         );

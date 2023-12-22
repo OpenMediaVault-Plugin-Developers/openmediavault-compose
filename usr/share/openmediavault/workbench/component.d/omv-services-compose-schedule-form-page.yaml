@@ -49,6 +49,11 @@ data:
             label: _('Update')
             value: false
             hint: _('Update all images in compose file. Will recreate containers after update if running.<br/>Update will always run after backup if backup is enabled.')
+          - type: checkbox
+            name: prune
+            label: _('Prune')
+            value: false
+            hint: _('Prune all dangling images.<br/>Does not use filter. Will run docker image prune -f')
       - type: divider
         title: _("Schedule")
       - type: select
