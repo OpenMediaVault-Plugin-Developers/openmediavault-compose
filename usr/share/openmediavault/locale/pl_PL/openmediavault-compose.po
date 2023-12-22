@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-11 16:02-0600\n"
+"POT-Creation-Date: 2023-12-22 09:44-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Daviteusz, 2023\n"
 "Language-Team: Polish (Poland) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl_PL/)\n"
@@ -81,10 +81,10 @@ msgid "Backup"
 msgstr "Kopia zapasowa"
 
 msgid "Block In"
-msgstr "Wejścia blokowe"
+msgstr "Odczyt"
 
 msgid "Block Out"
-msgstr "Wyjścia blokowe"
+msgstr "Zapis"
 
 msgid "Build"
 msgstr "Kompilacja"
@@ -241,10 +241,10 @@ msgid "Edit file."
 msgstr "Edycja pliku."
 
 msgid "Edit global environment file"
-msgstr "Edycja pliku globalnego środowiska"
+msgstr "Edytuj globalne zmienne środowiskowe"
 
 msgid "Edit global environment variable file."
-msgstr "Edycja pliku globalnych zmiennych środowiskowych."
+msgstr "Edycja globalnych zmiennych środowiskowych."
 
 msgid "Edit scheduled job."
 msgstr "Edycja zaplanowanego zadania."
@@ -253,7 +253,7 @@ msgid "Env Path"
 msgstr "Ścieżka środowiska"
 
 msgid "Environment"
-msgstr "Środowisko"
+msgstr "Zmienne środowiskowe"
 
 msgid "Everyone - read/write"
 msgstr "Wszyscy - odczyt/zapis"
@@ -290,7 +290,7 @@ msgid "Gateway"
 msgstr "Brama"
 
 msgid "Global Environment"
-msgstr "Globalne zmienne"
+msgstr "Globalne zmienne środowiskowe"
 
 msgid "Global environment variables"
 msgstr "Globalne zmienne środowiskowe"
@@ -363,10 +363,10 @@ msgid "Name"
 msgstr "Nazwa"
 
 msgid "Net In"
-msgstr "Śieć We"
+msgstr "Pobrano"
 
 msgid "Net Out"
-msgstr "Sieć Wy"
+msgstr "Wysłano"
 
 msgid "Network"
 msgstr "Sieć"
@@ -539,7 +539,7 @@ msgid "and running"
 msgstr "i działa"
 
 msgid "check"
-msgstr "sprawdź"
+msgstr "Sprawdź"
 
 msgid "docker container prune ..."
 msgstr "docker container prune ..."
