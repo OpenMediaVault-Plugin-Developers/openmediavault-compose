@@ -82,4 +82,12 @@ else
 fi
 chmod 755 ${yq}
 
+# make sure log files exist to eliminate log viewer error
+for log in backup restore update; do
+  file="/var/log/omv-compose-${log}.log"
+  if [ ! -f "${file}" ]; then
+    touch ${file}
+  fi
+done
+
 exit 0
