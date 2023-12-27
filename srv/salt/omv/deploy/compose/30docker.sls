@@ -15,6 +15,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+{% set config = salt['omv_conf.get']('conf.service.compose') %}
+
+# create daemon.json file if docker storage path is specified
+{% if config.dockerStorage | length > 1 %}
+
+configure_etc_docker_dir:
+  file.directory:
+    - name: "/etc/docker"
+    - user: "root"
+    - group: "root"
+    - mode: "0755"
+    - makedirs: True
+
+/etc/docker/daemon.json:
+  file.serialize:
+    - dataset:
+        data-root: "{{ config.dockerStorage }}"
+    - serializer: json
+    - user: root
+    - group: root
+    - mode: "0600"
+
+{% endif %}
+
 docker_install_packages:
   pkg.installed:
     - pkgs:
@@ -32,3 +56,43 @@ docker_purged_packages:
   pkg.purged:
     - pkgs:
       - docker-compose
+
+{% if config.dockerStorage | length > 1 %}
+
+docker:
+  service.running:
+    - enable: True
+    - watch:
+      - file: /etc/docker/daemon.json
+
+{% endif %}
+
+{% set mounts = salt['cmd.shell']('systemctl list-units --type=mount | awk \'$5 ~ "/srv" { printf "%s ",$1 }\'') %}
+{% set waitConf = '/etc/systemd/system/docker.service.d/waitAllMounts.conf' %}
+
+{{ waitConf }}:
+  file.managed:
+    - contents: |
+        [Unit]
+        After=local-fs.target {{ mounts }}
+    - mode: "0644"
+    - makedirs: True
+
+systemd_daemon_reload_docker:
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+      - file: {{ waitConf }}
+
+create_usr_local_bin_dir:
+  file.directory:
+    - name: "/usr/local/bin"
+    - user: root
+    - group: root
+    - mode: "0755"
+    - makedirs: True
+
+/usr/local/bin/docker-compose:
+  file.symlink:
+    - target: /usr/libexec/docker/cli-plugins/docker-compose
+    - force: True
