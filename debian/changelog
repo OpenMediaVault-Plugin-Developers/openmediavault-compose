@@ -1,3 +1,9 @@
+openmediavault-compose (7.0.4) stable; urgency=low
+
+  * Add build menu to Files tab
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 04 Jan 2024 19:00:01 -0600
+
 openmediavault-compose (7.0.3) stable; urgency=low
 
   * Improve config file and docker installation ordering
