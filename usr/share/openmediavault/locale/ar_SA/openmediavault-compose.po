@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-22 09:44-0600\n"
+"POT-Creation-Date: 2024-01-04 19:06-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Odai Alghamdi, 2023\n"
 "Language-Team: Arabic (Saudi Arabia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ar_SA/)\n"
@@ -77,6 +77,9 @@ msgstr ""
 
 msgid "Build"
 msgstr "بناء"
+
+msgid "Build ..."
+msgstr ""
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -396,6 +399,9 @@ msgid "Prune"
 msgstr ""
 
 msgid "Pull and Build"
+msgstr ""
+
+msgid "Pull and Build ..."
 msgstr ""
 
 msgid "Push"

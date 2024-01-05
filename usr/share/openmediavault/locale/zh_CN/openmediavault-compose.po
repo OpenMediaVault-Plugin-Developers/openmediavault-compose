@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-22 09:44-0600\n"
+"POT-Creation-Date: 2024-01-04 19:06-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -77,6 +77,9 @@ msgstr "Block Out"
 
 msgid "Build"
 msgstr "构建"
+
+msgid "Build ..."
+msgstr ""
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -401,6 +404,9 @@ msgstr "删除"
 
 msgid "Pull and Build"
 msgstr "拉取并构建"
+
+msgid "Pull and Build ..."
+msgstr ""
 
 msgid "Push"
 msgstr "推送"
