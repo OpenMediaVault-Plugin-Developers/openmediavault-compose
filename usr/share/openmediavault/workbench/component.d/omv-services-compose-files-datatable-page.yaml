@@ -61,6 +61,12 @@ data:
         sortable: true
         hidden: true
         cellTemplateName: localeDateTime
+      - name: _('Build')
+        prop: build
+        flexGrow: 1
+        sortable: true
+        hidden: true
+        cellTemplateName: checkIcon
     actions:
       - type: menu
         icon: add
@@ -273,6 +279,45 @@ data:
                 params:
                   uuid: "{{ _selected[0].uuid }}"
                   command: "ps"
+      - type: menu
+        icon: mdi:wrench
+        tooltip: _("Build")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+          constraint:
+            - operator: truthy
+              arg0:
+                prop: build
+        actions:
+          - text: _("Build")
+            icon: mdi:wrench-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("Build ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doCommand
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "build"
+          - text: _("Pull and Build")
+            icon: mdi:wrench-cog-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("Pull and Build ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doCommand
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "build --pull"
       - type: iconButton
         icon: mdi:file-star-outline
         tooltip: _("Edit global environment file")

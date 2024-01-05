@@ -327,6 +327,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($filedate === false) $filedate = 0;
             $objectv->add('filedate', 'integer', $filedate);
             $objectv->add('status', 'string', implode(',', $status));
+            $objectv->add('build', 'boolean', false);
+            if (stripos($objectv->get('body'), 'build:') !== false) {
+                $objectv->set('build', true);
+            }
             $objectv->remove('body');
             $objectv->remove('env');
             $objectsAssoc[] = $objectv->getAssoc();
