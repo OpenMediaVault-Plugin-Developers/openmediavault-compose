@@ -2,13 +2,13 @@
 #
 # shellcheck disable=SC1091,SC2086,SC2207
 #
-# Copyright (c) 2024 OpenMediaVault Plugin Developers
+# Copyright (c) 2023-2024 OpenMediaVault Plugin Developers
 #
 # This file is licensed under the terms of the GNU General Public
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.9.8
+# version: 0.9.9
 
 export LANG=C.UTF-8
 
@@ -112,7 +112,7 @@ vollist="${backupdir}/vol.list"
 echo "${i},${composepath}" > "${vollist}"
 
 # save status
-status="${backuppath}/${compose}/status"
+status="$(mktemp)"
 docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" | tee "${status}"
 _log "status :: $(cat "${status}")"
 
