@@ -60,6 +60,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getServicesList");
         $this->registerMethod("getServicesListBg");
         $this->registerMethod("doServiceCommand");
+        $this->registerMethod("getServiceLog");
 
         $this->registerMethod("getContainerList");
         $this->registerMethod("getContainerListBg");
@@ -928,6 +929,41 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
         );
     }
+
+    function getServiceLog($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Create a temporary file which will contain the content of the requested log file.
+        $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
+        // Execute the given command to get the log file content.
+        $sfpath = $this->getComposePath($context);
+        $globalEnvFile = sprintf('%s/global.env', $sfpath);
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'compose';
+        $cmdArgs[] = sprintf("--file '%s'", $params['path']);
+        $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
+        if (file_exists($globalEnvFile)) {
+            $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+        }
+        $cmdArgs[] = 'logs';
+        $cmdArgs[] = $params['service'];
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setRedirect1toFile($tmpFilePath);
+        $cmd->setRedirect2to1();
+        $cmd->execute();
+        // Modify the file mode/owner to allow the WebGUI PHP backend to unlink it.
+        chmod($tmpFilePath, 0700);
+        chown($tmpFilePath, \OMV\Environment::get('OMV_WEBGUI_FILE_OWNERGROUP_NAME'));
+        // Return values required by generic download RPC implementation.
+        return [
+            'filename' => sprintf('%s_%s.log', $params['service'],$params['name']),
+            'filepath' => $tmpFilePath,
+            'unlink' => TRUE
+        ];
+    }
+
 
     public function getContainerList($params, $context)
     {

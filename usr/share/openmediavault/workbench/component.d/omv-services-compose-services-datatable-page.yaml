@@ -170,3 +170,12 @@ data:
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
                   envpath: "{{ _selected[0].envpath }}"
+      - type: iconButton
+        icon: mdi:download
+        tooltip: _("Download logs")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: url
+          url: '/download?service=Compose&method=getServiceLog&params={"service":"{{ _selected[0].service }}","name":"{{ _selected[0].name }}","path":"{{ _selected[0].filepath }}","envpath":"{{ _selected[0].envpath }}"}'
