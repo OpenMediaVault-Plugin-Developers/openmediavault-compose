@@ -1,3 +1,9 @@
+openmediavault-compose (7.0.5) UNRELEASED; urgency=medium
+
+  * add download for log in Services, Stats, and Containers tabs
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 14 Jan 2024 09:09:05 -0600
+
 openmediavault-compose (7.0.4) stable; urgency=low
 
   * Add build menu to Files tab
