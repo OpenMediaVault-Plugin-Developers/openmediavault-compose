@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 19:06-0600\n"
+"POT-Creation-Date: 2024-01-14 11:18-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -215,6 +215,9 @@ msgstr "文件"
 
 msgid "Down"
 msgstr "停止"
+
+msgid "Download log"
+msgstr ""
 
 msgid "Driver"
 msgstr "驅動程式"

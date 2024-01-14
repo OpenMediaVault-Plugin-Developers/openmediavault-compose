@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 19:06-0600\n"
+"POT-Creation-Date: 2024-01-14 11:18-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Rysiek Jurczy, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl/)\n"
@@ -230,6 +230,9 @@ msgstr "Dokumentacja"
 
 msgid "Down"
 msgstr "Nieaktywne"
+
+msgid "Download log"
+msgstr ""
 
 msgid "Driver"
 msgstr "Sterownik"

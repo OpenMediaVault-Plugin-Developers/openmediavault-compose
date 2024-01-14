@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Rysiek Jurczy, 2023
-# Daviteusz, 2023
+# Daviteusz, 2024
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 19:06-0600\n"
+"POT-Creation-Date: 2024-01-14 11:18-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: Daviteusz, 2023\n"
+"Last-Translator: Daviteusz, 2024\n"
 "Language-Team: Polish (Poland) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,13 +90,13 @@ msgid "Build"
 msgstr "Kompilacja"
 
 msgid "Build ..."
-msgstr ""
+msgstr "Budowanie ..."
 
 msgid "CPU %"
 msgstr "CPU %"
 
 msgid "Check compose file for errors ..."
-msgstr "Sprawdzanie pliku ompose pod kątem błędów ..."
+msgstr "Sprawdzanie pliku compose pod kątem błędów ..."
 
 msgid ""
 "Choose which compose files to backup by filtering the compose name by this "
@@ -151,7 +151,7 @@ msgid "Create"
 msgstr "Utwórz"
 
 msgid "Create from URL"
-msgstr "Utw"
+msgstr "Utwórz z URL"
 
 msgid "Create from example"
 msgstr "Utwórz z przykładowych"
@@ -229,7 +229,10 @@ msgid "Docs"
 msgstr "Dokumentacja"
 
 msgid "Down"
-msgstr "Nieaktywne"
+msgstr "Nieaktywny"
+
+msgid "Download log"
+msgstr ""
 
 msgid "Driver"
 msgstr "Sterownik"
@@ -427,7 +430,7 @@ msgid "Pull and Build"
 msgstr "Ściągnij i zbuduj"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "Ściąganie i budowanie ..."
 
 msgid "Push"
 msgstr "Wysyłanie"
@@ -524,7 +527,7 @@ msgstr ""
 " <br/>Wartość 0 - bez ograniczeń."
 
 msgid "Up"
-msgstr "Up"
+msgstr "Działa"
 
 msgid "Version"
 msgstr "Wersja"
@@ -545,7 +548,7 @@ msgid "and running"
 msgstr "i działa"
 
 msgid "check"
-msgstr "Sprawdź"
+msgstr "Sprawdź (check)"
 
 msgid "docker container prune ..."
 msgstr "docker container prune ..."
@@ -623,7 +626,7 @@ msgid "dockerfile build ..."
 msgstr "budowanie dockerfile ..."
 
 msgid "down"
-msgstr "down"
+msgstr "Wyłącz (down)"
 
 msgid "e.g. 172.20.0.0/16"
 msgstr "np. 172.20.0.0/16"
@@ -650,13 +653,13 @@ msgid "ps"
 msgstr "ps"
 
 msgid "pull"
-msgstr "pull"
+msgstr "Zaktualizuj (pull)"
 
 msgid "restart"
 msgstr "restart"
 
 msgid "stop"
-msgstr "stop"
+msgstr "Zatrzymaj (stop)"
 
 msgid "up"
-msgstr "up"
+msgstr "Uruchom (up)"
