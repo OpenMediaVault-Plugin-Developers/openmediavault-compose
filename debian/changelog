@@ -1,3 +1,9 @@
+openmediavault-compose (7.0.6) stable; urgency=low
+
+  * Fix dockerfile delete
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 14 Jan 2024 13:23:54 -0600
+
 openmediavault-compose (7.0.5) stable; urgency=low
 
   * add download for log in Services, Stats, and Containers tabs
