@@ -935,6 +935,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.getservicelog");
         // Create a temporary file which will contain the content of the requested log file.
         $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
         // Execute the given command to get the log file content.
@@ -1058,6 +1060,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.getcontainerlog");
         // Create a temporary file which will contain the content of the requested log file.
         $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
         // Execute the given command to get the log file content.

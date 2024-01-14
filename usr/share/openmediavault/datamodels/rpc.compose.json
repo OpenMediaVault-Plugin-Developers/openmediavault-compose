@@ -193,6 +193,48 @@
   },
   {
     "type": "rpc",
+    "id": "rpc.compose.getcontainerlog",
+    "params": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  {
+    "type": "rpc",
+    "id": "rpc.compose.getservicelog",
+    "params": {
+      "type": "object",
+      "properties": {
+        "service": {
+          "type": "string",
+          "required": true
+        },
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "envpath": {
+          "type": "string",
+          "required": true
+        },
+        "path": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  {
+    "type": "rpc",
     "id": "rpc.compose.doautocompose",
     "params": {
       "type": "object",
