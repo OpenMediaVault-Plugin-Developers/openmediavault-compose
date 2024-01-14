@@ -172,7 +172,7 @@ data:
                   envpath: "{{ _selected[0].envpath }}"
       - type: iconButton
         icon: mdi:download
-        tooltip: _("Download logs")
+        tooltip: _("Download log")
         enabledConstraints:
           minSelected: 1
           maxSelected: 1

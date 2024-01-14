@@ -126,3 +126,12 @@ data:
                   command: "logs"
                   command2: "--follow"
                   id: "{{ _selected[0].id }}"
+      - type: iconButton
+        icon: mdi:download
+        tooltip: _("Download log")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: url
+          url: '/download?service=Compose&method=getContainerLog&params={"id":"{{ _selected[0].id }}","name":"{{ _selected[0].name }}"}'

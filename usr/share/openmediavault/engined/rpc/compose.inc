@@ -65,6 +65,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getContainerList");
         $this->registerMethod("getContainerListBg");
         $this->registerMethod("doContainerCommand");
+        $this->registerMethod("getContainerLog");
 
         $this->registerMethod("enumerateContainers");
         $this->registerMethod("doAutocompose");
@@ -1051,6 +1052,34 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 return $output;
             }
         );
+    }
+
+    function getContainerLog($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Create a temporary file which will contain the content of the requested log file.
+        $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
+        // Execute the given command to get the log file content.
+        $sfpath = $this->getComposePath($context);
+        $globalEnvFile = sprintf('%s/global.env', $sfpath);
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'logs';
+        $cmdArgs[] = $params['id'];
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setRedirect1toFile($tmpFilePath);
+        $cmd->setRedirect2to1();
+        $cmd->execute();
+        // Modify the file mode/owner to allow the WebGUI PHP backend to unlink it.
+        chmod($tmpFilePath, 0700);
+        chown($tmpFilePath, \OMV\Environment::get('OMV_WEBGUI_FILE_OWNERGROUP_NAME'));
+        // Return values required by generic download RPC implementation.
+        return [
+            'filename' => sprintf('%s_%s.log', $params['name'],$params['id']),
+            'filepath' => $tmpFilePath,
+            'unlink' => TRUE
+        ];
     }
 
     public function enumerateContainers($params, $context)
