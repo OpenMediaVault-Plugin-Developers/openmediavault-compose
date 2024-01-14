@@ -551,8 +551,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $dname = $object->get('name');
         $dockerDir = sprintf("%s/%s", $sfpath, $dname);
         $dockerFile = sprintf("%s/Dockerfile", $dockerDir);
-        $scriptFile = sprintf("%s/%s", $object->get('script'));
-        $confFile = sprintf("%s/%s", $object->get('conf'));
+        $scriptFile = sprintf("%s/%s", $dockerDir, $object->get('script'));
+        $confFile = sprintf("%s/%s", $dockerDir, $object->get('conf'));
         if (file_exists($dockerFile)) {
             unlink($composeFile);
         }
