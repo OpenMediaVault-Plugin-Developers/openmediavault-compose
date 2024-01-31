@@ -70,6 +70,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("enumerateContainers");
         $this->registerMethod("doAutocompose");
 
+        $this->registerMethod("importChanges");
         $this->registerMethod("importExistingFolder");
 
         $this->registerMethod("getStats");
@@ -114,6 +115,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $sfpath = rtrim($sfpath, '/');
         } else {
             throw new \OMV\Exception("Please set shared folder for file storage.");
+        }
+        return ($sfpath);
+    }
+
+    private function getDockerPath($context)
+    {
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        // Get sharedfolder path
+        $sfobject = $db->get("conf.service.compose");
+        $sfref = $sfobject->get("datasharedfolderref");
+        $sfpath = "";
+        if (is_uuid($sfref)) {
+            $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+            $sfpath = rtrim($sfpath, '/');
+        } else {
+            $sfpath = "";
         }
         return ($sfpath);
     }
@@ -1137,6 +1155,37 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Set the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, 'name');
+        $db->set($object);
+        // Return the configuration object.
+        return $object->getAssoc();
+    }
+
+    public function importChanges($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Verify that shared folder is set
+        $sfpath = $this->getComposePath($context);
+        $dockerpath = $this->getDockerPath($context);
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.compose.file", $params['uuid']);
+        // Set paths
+        $cname = $object->get('name');
+        $composeDir = sprintf("%s/%s", $sfpath, $cname);
+        $composeName = sprintf("%s/%s", $composeDir, $cname);
+        $composeFile = sprintf("%s.yml", $composeName);
+        $envFile = sprintf("%s.env", $composeName);
+        // Get file content
+        $composeContent = trim(file_get_contents($composeFile));
+        $envContent = trim(file_get_contents($envFile));
+        if ($dockerpath != '') {
+            $composeContent = preg_replace('/'.str_replace('/','\/',$dockerpath).'/', 'CHANGE_TO_COMPOSE_DATA_PATH', $composeContent);
+        }
+        // Update object
+        $object->set('body', $composeContent);
+        $object->set('env', $envContent);
+        // Set the configuration object.
         $db->set($object);
         // Return the configuration object.
         return $object->getAssoc();

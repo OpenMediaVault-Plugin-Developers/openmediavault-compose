@@ -19,6 +19,11 @@ data:
           method: getFileListBg
           task: true
     columns:
+      - name: "uuid"
+        prop: uuid
+        flexGrow: 1
+        sortable: true
+        hidden: true
       - name: _("Name")
         prop: name
         flexGrow: 1
@@ -159,6 +164,23 @@ data:
                       request:
                         service: Compose
                         method: importExistingFolder
+          - text: _("Sync changes from file")
+            icon: mdi:file-sync-outline
+            confirmationDialogConfig:
+              template: confirmation-danger
+              message: _("Are you sure you want to sync changes from the files?")
+            execute:
+              type: request
+              request:
+                service: Compose
+                method: importChanges
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                progressMessage: _("Syncing changes from file ...")
+                successNotification: _("Changes have been synced from file.")
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
       - template: edit
         execute:
           type: url
