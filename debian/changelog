@@ -1,3 +1,10 @@
+openmediavault-compose (7.0.7) UNRELEASED; urgency=medium
+
+  * Add button to sync compose file database entry to content on
+    filesystem
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 31 Jan 2024 14:05:26 -0600
+
 openmediavault-compose (7.0.6) stable; urgency=low
 
   * Fix dockerfile delete
