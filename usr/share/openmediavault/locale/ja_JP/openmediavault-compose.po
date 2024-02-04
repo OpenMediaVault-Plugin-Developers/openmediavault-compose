@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 11:18-0600\n"
+"POT-Creation-Date: 2024-02-04 09:23-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Japanese (Japan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,9 @@ msgstr ""
 msgid "Are you sure you want to restart?"
 msgstr ""
 
+msgid "Are you sure you want to sync changes from the files?"
+msgstr ""
+
 msgid "Autocompose"
 msgstr ""
 
@@ -78,6 +81,9 @@ msgid "Build ..."
 msgstr ""
 
 msgid "CPU %"
+msgstr ""
+
+msgid "Changes have been synced from file."
 msgstr ""
 
 msgid "Check compose file for errors ..."
@@ -476,6 +482,12 @@ msgid "Stopped"
 msgstr ""
 
 msgid "Subnet"
+msgstr ""
+
+msgid "Sync changes from file"
+msgstr ""
+
+msgid "Syncing changes from file ..."
 msgstr ""
 
 msgid "System"

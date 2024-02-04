@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Raul Fernandez Garcia <raulfg3@gmail.com>, 2023
+# Raul Fernandez Garcia <raulfg3@gmail.com>, 2024
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 11:18-0600\n"
+"POT-Creation-Date: 2024-02-04 09:23-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2023\n"
+"Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2024\n"
 "Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,6 +65,9 @@ msgstr "¿Está seguro que quiere reinstalar?"
 msgid "Are you sure you want to restart?"
 msgstr "¿Está seguro que quiere reiniciar?"
 
+msgid "Are you sure you want to sync changes from the files?"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "Autocompose"
 
@@ -87,10 +90,13 @@ msgid "Build"
 msgstr "Build"
 
 msgid "Build ..."
-msgstr ""
+msgstr "Build ..."
 
 msgid "CPU %"
 msgstr "CPU %"
+
+msgid "Changes have been synced from file."
+msgstr ""
 
 msgid "Check compose file for errors ..."
 msgstr "Comprobando el archivo compose para ver si hay errores..."
@@ -229,7 +235,7 @@ msgid "Down"
 msgstr "Down"
 
 msgid "Download log"
-msgstr ""
+msgstr "Descargar Log"
 
 msgid "Driver"
 msgstr "Driver"
@@ -426,7 +432,7 @@ msgid "Pull and Build"
 msgstr "Pull and Build"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "Publicar y Compilar ..."
 
 msgid "Push"
 msgstr "Push"
@@ -502,6 +508,12 @@ msgstr "Parado"
 
 msgid "Subnet"
 msgstr "SubRed"
+
+msgid "Sync changes from file"
+msgstr ""
+
+msgid "Syncing changes from file ..."
+msgstr ""
 
 msgid "System"
 msgstr "Sistema"

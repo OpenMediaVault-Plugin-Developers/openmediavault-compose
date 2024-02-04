@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 11:18-0600\n"
+"POT-Creation-Date: 2024-02-04 09:23-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -57,6 +57,9 @@ msgstr "您確定要重新安裝嗎？"
 msgid "Are you sure you want to restart?"
 msgstr "您確定要重新啟動嗎？"
 
+msgid "Are you sure you want to sync changes from the files?"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "自動compose"
 
@@ -83,6 +86,9 @@ msgstr "建構 ..."
 
 msgid "CPU %"
 msgstr "CPU %"
+
+msgid "Changes have been synced from file."
+msgstr ""
 
 msgid "Check compose file for errors ..."
 msgstr "檢查 compose 檔案是否有錯誤 …"
@@ -217,7 +223,7 @@ msgid "Down"
 msgstr "停止"
 
 msgid "Download log"
-msgstr ""
+msgstr "下載日誌"
 
 msgid "Driver"
 msgstr "驅動程式"
@@ -486,6 +492,12 @@ msgstr "已停止"
 
 msgid "Subnet"
 msgstr "子網路"
+
+msgid "Sync changes from file"
+msgstr ""
+
+msgid "Syncing changes from file ..."
+msgstr ""
 
 msgid "System"
 msgstr "系統"
