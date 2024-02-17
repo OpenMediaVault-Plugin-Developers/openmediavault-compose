@@ -1753,6 +1753,19 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (!$params['backup'] && !$params['update']) {
             throw new \OMV\ExecException(_('You must select at least one action type!'));
         }
+        if ($params['backup']) {
+            $params['prebackup'] = trim($params['prebackup']);
+            $params['postbackup'] = trim($params['postbackup']);
+            if (strlen($params['prebackup']) > 1 && !file_exists($params['prebackup'])) {
+                throw new \OMV\ExecException(_('The prebackup script does not exist!'));
+            }
+            if (strlen($params['postbackup']) > 1 && !file_exists($params['postbackup'])) {
+                throw new \OMV\ExecException(_('The postbackup script does not exist!'));
+            }
+        } else {
+            $params['prebackup'] = '';
+            $params['postbackup'] = '';
+        }
         $params['filter'] = str_replace(['@','(',')',' '], '', $params['filter']);
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.job");

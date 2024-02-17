@@ -160,6 +160,12 @@
               "backup": {
                 "type": "boolean"
               },
+              "prebackup": {
+                "type": "string"
+              },
+              "postbackup": {
+                "type": "string"
+              },
               "update": {
                 "type": "boolean"
               },

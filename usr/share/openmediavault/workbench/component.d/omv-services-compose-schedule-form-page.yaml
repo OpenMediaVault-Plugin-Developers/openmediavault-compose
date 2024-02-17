@@ -54,6 +54,28 @@ data:
             label: _('Prune')
             value: false
             hint: _('Prune all dangling images.<br/>Does not use filter. Will run docker image prune -f')
+      - type: textInput
+        name: prebackup
+        label: _('Pre-backup script')
+        value: ''
+        hint: _('Path to script that will be executed before backup')
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: backup
+      - type: textInput
+        name: postbackup
+        label: _('Post-backup script')
+        value: ''
+        hint: _('Path to script that will be executed after backup')
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: backup
       - type: divider
         title: _("Schedule")
       - type: select

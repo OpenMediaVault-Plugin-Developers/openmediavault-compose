@@ -326,6 +326,14 @@
           "type": "boolean",
           "required": true
         },
+        "prebackup": {
+          "type": "string",
+          "required": true
+        },
+        "postbackup": {
+          "type": "string",
+          "required": true
+        },
         "update": {
           "type": "boolean",
           "required": true

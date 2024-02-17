@@ -12,7 +12,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 {%- else -%}
 @{{ job.execution }}
 {%- endif -%}
-{{ separator }}root omv-compose-backup-multi {{ job.filter }}
+{{ separator }}root omv-compose-backup-multi -f '{{ job.filter }}' -u '{{ job.uuid }}'
 {%- if not job.sendemail | to_bool -%}
 {{ separator }}>/dev/null 2>&1
 {%- else -%}

@@ -8,21 +8,85 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.0.3
+# version: 0.1.4
 
 export LANG=C.UTF-8
 
 declare -i count=0
 declare -i index=0
 
+filter=""
+postbackup=""
+prebackup=""
+uuid=""
+
 . /usr/share/openmediavault/scripts/helper-functions
 
-filter="${1}"
+# logging location
+logDir="/var/log/"
+logFile="${logDir}/omv-compose-backup.log"
+
+_log()
+{
+  msg=${1}
+  echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composebackup] ${msg}" | tee -a ${logFile} >&2
+}
+
+# loop through options
+while getopts "f:hu:" opt; do
+  case "${opt}" in
+    f)
+      filter="${OPTARG}"
+      _log "filter :: ${filter}"
+      ;;
+    h)
+      echo "Use the following flags:"
+      echo "  -h"
+      echo "    show this help"
+      echo "  -u uuid of job"
+      echo ""
+      echo "Examples:"
+      echo "  omv-compile-backup-multi -f tst -u 41f4e112-cda9-11ee-938c-6715fcf387b0"
+      echo "  omv-compile-backup-multi tst"
+      echo ""
+      exit 100
+      ;;
+    u)
+      uuid="${OPTARG}"
+      _log "uuid :: ${uuid}"
+      ;;
+    \?)
+      echo "Invalid option: -${OPTARG}"
+      ;;
+  esac
+done
+
+# if executing doesn't use options, use passed arg as filter
+if [[ ! "${1}" = "-f" ]] && [[ ! "${1}" = "-u" ]]; then
+  filter="${1}"
+fi
 
 if [[ "${filter}" == "*" ]]; then
   filter=""
 elif [[ "${filter}" == *","* ]]; then
   filter="@(${filter//,/|})"
+fi
+
+if omv_isuuid "${uuid}"; then
+  job="/config/services/compose/jobs/job[uuid='${uuid}']"
+  prebackup=$(omv_config_get "${job}/prebackup")
+  postbackup=$(omv_config_get "${job}/postbackup")
+fi
+
+# execute pre-backup
+if [ -f "${prebackup}" ] && [ -x "${prebackup}" ]; then
+  _log "Executing pre-backup script :: ${prebackup}"
+  ${prebackup}
+  _log "pre-backup script complete."
+else
+  if [ -n "${prebackup}" ]; then
+    _log "pre-backup script not found."
+  fi
 fi
 
 xpath="/config/services/compose/files/file"
@@ -39,3 +103,14 @@ while [ ${index} -le ${count} ]; do
   omv-compose-backup "${name}"
   index=$(( index + 1 ))
 done;
+
+# execute post-backup
+if [ -f "${postbackup}" ] && [ -x "${postbackup}" ]; then
+  _log "Executing post-backup script :: ${postbackup}"
+  ${postbackup}
+  _log "post-backup script complete."
+else
+  if [ -n "${postbackup}" ]; then
+    _log "post-backup script not found."
+  fi
+fi
