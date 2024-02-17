@@ -37,7 +37,6 @@ while getopts "f:hu:" opt; do
   case "${opt}" in
     f)
       filter="${OPTARG}"
-      _log "filter :: ${filter}"
       ;;
     h)
       echo "Use the following flags:"
@@ -46,7 +45,10 @@ while getopts "f:hu:" opt; do
       echo "  -u uuid of job"
       echo ""
       echo "Examples:"
-      echo "  omv-compile-backup-multi -f tst -u 41f4e112-cda9-11ee-938c-6715fcf387b0"
+      echo "  omv-compile-backup-multi -u '41f4e112-cda9-11ee-938c-6715fcf387b0'"
+      echo "  omv-compile-backup-multi -f '*' -u '41f4e112-cda9-11ee-938c-6715fcf387b0'"
+      echo "  omv-compile-backup-multi -f 'tst' -u '41f4e112-cda9-11ee-938c-6715fcf387b0'"
+      echo "  omv-compile-backup-multi -f 'tst1,tst2,tst3' -u '41f4e112-cda9-11ee-938c-6715fcf387b0'"
       echo "  omv-compile-backup-multi tst"
       echo ""
       exit 100
@@ -71,6 +73,7 @@ if [[ "${filter}" == "*" ]]; then
 elif [[ "${filter}" == *","* ]]; then
   filter="@(${filter//,/|})"
 fi
+_log "filter :: ${filter}"
 
 if omv_isuuid "${uuid}"; then
   job="/config/services/compose/jobs/job[uuid='${uuid}']"
