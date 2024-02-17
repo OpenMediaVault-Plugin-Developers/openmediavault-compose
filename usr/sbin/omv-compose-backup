@@ -24,8 +24,8 @@ logFile="${logDir}/omv-compose-backup.log"
 
 _log()
 {
-    msg=${1}
-    echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composebackup] ${msg}" | tee -a ${logFile} >&2
+  msg=${1}
+  echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composebackup] ${msg}" | tee -a ${logFile} >&2
 }
 
 compose="${1}"

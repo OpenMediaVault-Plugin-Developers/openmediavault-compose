@@ -18,8 +18,8 @@ logFile="${logDir}/omv-compose-restore.log"
 
 _log()
 {
-    msg=${1}
-    echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composerestore] ${msg}" | tee -a ${logFile} >&2
+  msg=${1}
+  echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composerestore] ${msg}" | tee -a ${logFile} >&2
 }
 
 compose="${1}"
