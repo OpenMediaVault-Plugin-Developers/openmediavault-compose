@@ -1,3 +1,9 @@
+openmediavault-compose (7.0.8) stable; urgency=low
+
+  * Add fields for prebackup and postbackup scripts
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 17 Feb 2024 10:11:30 -0600
+
 openmediavault-compose (7.0.7) stable; urgency=low
 
   * Add button to sync compose file database entry to content on
