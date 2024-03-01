@@ -114,7 +114,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
             $sfpath = rtrim($sfpath, '/');
         } else {
-            throw new \OMV\Exception("Please set shared folder for file storage.");
+            throw new \OMV\Exception(gettext("Please set shared folder for file storage."));
         }
         return ($sfpath);
     }
@@ -148,7 +148,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
             $sfpath = rtrim($sfpath, '/');
         } else {
-            throw new \OMV\Exception("Please set shared folder for backups.");
+            throw new \OMV\Exception(gettext("Please set shared folder for backups."));
         }
         return ($sfpath);
     }
@@ -401,6 +401,15 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Verify that shared folder is set
         $db = \OMV\Config\Database::getInstance();
         $sfpath = $this->getComposePath($context);
+        // If data path string is used in file body, verify that data shared folder is set
+        if (strpos($params['body'], 'CHANGE_TO_COMPOSE_DATA_PATH') !== false) {
+            $datapath = $this->getDockerPath($context);
+            if ($datapath == '') {
+                throw new \OMV\Exception(
+                  gettext("Please set shared folder for data on the Settings tab.")
+                );
+            }
+        }
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $object->setAssoc($params);
@@ -416,7 +425,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             "arg1" => $params['name']
         ]);
         if ($dockerfiles) {
-            throw new \OMV\Exception("Name is in use by a Dockerfile.");
+            throw new \OMV\Exception(gettext("Name is in use by a Dockerfile."));
         }
         // update database
         $db->set($object);
@@ -548,7 +557,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             "arg1" => $params['name']
         ]);
         if ($files) {
-            throw new \OMV\Exception("Name is in use by a compose file.");
+            throw new \OMV\Exception(gettext("Name is in use by a compose file."));
         }
         $db->set($object);
         // Return the configuration object.
@@ -1751,16 +1760,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.setjob");
         if (!$params['backup'] && !$params['update']) {
-            throw new \OMV\ExecException(_('You must select at least one action type!'));
+            throw new \OMV\ExecException(gettext('You must select at least one action type!'));
         }
         if ($params['backup']) {
             $params['prebackup'] = trim($params['prebackup']);
             $params['postbackup'] = trim($params['postbackup']);
             if (strlen($params['prebackup']) > 1 && !file_exists($params['prebackup'])) {
-                throw new \OMV\ExecException(_('The prebackup script does not exist!'));
+                throw new \OMV\ExecException(gettext('The prebackup script does not exist!'));
             }
             if (strlen($params['postbackup']) > 1 && !file_exists($params['postbackup'])) {
-                throw new \OMV\ExecException(_('The postbackup script does not exist!'));
+                throw new \OMV\ExecException(gettext('The postbackup script does not exist!'));
             }
         } else {
             $params['prebackup'] = '';
