@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-17 10:12-0600\n"
+"POT-Creation-Date: 2024-03-01 13:08-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2024\n"
 "Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
@@ -370,6 +370,12 @@ msgstr "Montajes"
 msgid "Name"
 msgstr "Nombre"
 
+msgid "Name is in use by a Dockerfile."
+msgstr ""
+
+msgid "Name is in use by a compose file."
+msgstr ""
+
 msgid "Net In"
 msgstr "Net In"
 
@@ -418,6 +424,15 @@ msgstr "Ruta"
 
 msgid "Permissions of directories and files"
 msgstr "Permisos de los directorios y archivos"
+
+msgid "Please set shared folder for backups."
+msgstr ""
+
+msgid "Please set shared folder for data on the Settings tab."
+msgstr ""
+
+msgid "Please set shared folder for file storage."
+msgstr ""
 
 msgid "Ports"
 msgstr "Puertos"
