@@ -1,3 +1,11 @@
+openmediavault-compose (7.0.9) stable; urgency=low
+
+  * Translate more strings
+  * Throw error if compose file has CHANGE_TO_COMPOSE_DATA_PATH string
+    in it but data shared folder is not set.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 03 Mar 2024 10:34:47 -0600
+
 openmediavault-compose (7.0.8) stable; urgency=low
 
   * Add fields for prebackup and postbackup scripts
