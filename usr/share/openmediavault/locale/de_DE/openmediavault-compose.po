@@ -3,9 +3,6 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
-# Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2024
-# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -13,28 +10,27 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-01 13:08-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>, 2024\n"
-"Language-Team: German (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de/)\n"
+"Language-Team: German (Germany) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
+"Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Action"
-msgstr "Aktion"
+msgstr ""
 
 msgid "Action type"
-msgstr "Aktionstyp"
+msgstr ""
 
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr ""
 
 msgid "Add from Example"
-msgstr "Aus Beispiel hinzufügen"
+msgstr ""
 
 msgid "Add from URL"
-msgstr "Von URL hinzufügen"
+msgstr ""
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
@@ -67,10 +63,10 @@ msgid "Aux address"
 msgstr ""
 
 msgid "Available"
-msgstr "Verfügbar"
+msgstr ""
 
 msgid "Backup"
-msgstr "Sichern"
+msgstr ""
 
 msgid "Block In"
 msgstr ""
@@ -85,7 +81,7 @@ msgid "Build ..."
 msgstr ""
 
 msgid "CPU %"
-msgstr "CPU %"
+msgstr ""
 
 msgid "Changes have been synced from file."
 msgstr ""
@@ -101,7 +97,7 @@ msgid ""
 msgstr ""
 
 msgid "Command"
-msgstr "Befehl"
+msgstr ""
 
 msgid "Compose"
 msgstr ""
@@ -125,25 +121,25 @@ msgid "Compose version"
 msgstr ""
 
 msgid "Conf file"
-msgstr "Conf-Datei"
+msgstr ""
 
 msgid "Conf filename"
-msgstr "Conf-Dateiname"
+msgstr ""
 
 msgid "Container"
-msgstr "Container"
+msgstr ""
 
 msgid "Containers"
-msgstr "Container"
+msgstr ""
 
 msgid "Create"
-msgstr "Erstellen"
+msgstr ""
 
 msgid "Create from URL"
-msgstr "Von URL erstellen"
+msgstr ""
 
 msgid "Create from example"
-msgstr "Aus Beispiel erstellen"
+msgstr ""
 
 msgid "Create new compose file from running container ..."
 msgstr ""
@@ -152,94 +148,94 @@ msgid "Create new image tag ..."
 msgstr ""
 
 msgid "Created"
-msgstr "Erstellt"
+msgstr ""
 
 msgid "Created At"
 msgstr ""
 
 msgid "Created dockerfile."
-msgstr "Dockerdatei erstellt."
+msgstr ""
 
 msgid "Created file from url."
-msgstr "Datei von URL erstellt."
+msgstr ""
 
 msgid "Created file."
-msgstr "Datei erstellt."
+msgstr ""
 
 msgid "Created network."
-msgstr "Netzwerk erstellt."
+msgstr ""
 
 msgid "Created scheduled job."
 msgstr ""
 
 msgid "Current"
-msgstr "Aktuell"
+msgstr ""
 
 msgid "Data"
-msgstr "Daten"
+msgstr ""
 
 msgid "Date & Time"
-msgstr "Datum & Zeit"
+msgstr ""
 
 msgid "Delete"
-msgstr "Löschen"
+msgstr ""
 
 msgid "Description"
-msgstr "Beschreibung"
+msgstr ""
 
 msgid "Digest"
 msgstr ""
 
 msgid "Docker"
-msgstr "Docker"
+msgstr ""
 
 msgid "Docker has been restarted."
-msgstr "Docker wurde neu gestartet."
+msgstr ""
 
 msgid "Docker is restarting ..."
-msgstr "Docker wird neu gestartet ..."
+msgstr ""
 
 msgid "Docker on OMV"
-msgstr "Docker auf OMV"
+msgstr ""
 
 msgid "Docker storage"
-msgstr "Docker-Speicherung"
+msgstr ""
 
 msgid "Docker version"
-msgstr "Docker-Version"
+msgstr ""
 
 msgid "Dockerfile"
-msgstr "Dockerdatei"
+msgstr ""
 
 msgid "Dockerfiles"
-msgstr "Dockerdateien"
+msgstr ""
 
 msgid "Docs"
-msgstr "Doku"
+msgstr ""
 
 msgid "Down"
 msgstr ""
 
 msgid "Download log"
-msgstr "Protokoll herunterladen"
+msgstr ""
 
 msgid "Driver"
-msgstr "Treiber"
+msgstr ""
 
 msgid "Edit"
-msgstr "Bearbeiten"
+msgstr ""
 
 msgid "Edit dockerfile."
-msgstr "Dockerdatei bearbeiten."
+msgstr ""
 
 msgid "Edit file."
-msgstr "Datei bearbeiten."
+msgstr ""
 
 msgid "Edit global environment file"
-msgstr "Globale Umgebungsdatei bearbeiten"
+msgstr ""
 
 msgid "Edit global environment variable file."
-msgstr "Globale Umgebungsvariablendatei bearbeiten."
+msgstr ""
 
 msgid "Edit scheduled job."
 msgstr ""
@@ -248,31 +244,31 @@ msgid "Env Path"
 msgstr ""
 
 msgid "Environment"
-msgstr "Umgebung"
+msgstr ""
 
 msgid "Everyone - read/write"
-msgstr "Jeder - lesen/schreiben"
+msgstr ""
 
 msgid "Example"
-msgstr "Beispiel"
+msgstr ""
 
 msgid "Execute scheduled job ..."
 msgstr ""
 
 msgid "Failed"
-msgstr "Fehlgeschlagen"
+msgstr ""
 
 msgid "File"
-msgstr "Datei"
+msgstr ""
 
 msgid "File date"
-msgstr "Dateidatum"
+msgstr ""
 
 msgid "Files"
-msgstr "Dateien"
+msgstr ""
 
 msgid "Filter"
-msgstr "Filter"
+msgstr ""
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
@@ -283,40 +279,40 @@ msgid "Gateway"
 msgstr ""
 
 msgid "Global Environment"
-msgstr "Globale Umgebung"
+msgstr ""
 
 msgid "Global environment variables"
-msgstr "Globale Umgebungsvariablen"
+msgstr ""
 
 msgid "Group of directories and files"
-msgstr "Gruppe von Verzeichnissen und Dateien"
+msgstr ""
 
 msgid "ID"
 msgstr ""
 
 msgid "IP range"
-msgstr "IP-Bereich"
+msgstr ""
 
 msgid "Image"
-msgstr "Abbild"
+msgstr ""
 
 msgid "Images"
-msgstr "Abbilder"
+msgstr ""
 
 msgid "Import"
-msgstr "Importieren"
+msgstr ""
 
 msgid "Import existing compose folders ..."
 msgstr ""
 
 msgid "In Use"
-msgstr "In Gebrauch"
+msgstr ""
 
 msgid "Inspect"
-msgstr "Inspizieren"
+msgstr ""
 
 msgid "Installed"
-msgstr "Installiert"
+msgstr ""
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr ""
@@ -328,7 +324,7 @@ msgid "Location of compose files"
 msgstr ""
 
 msgid "Max Size"
-msgstr "Max. Größe"
+msgstr ""
 
 msgid "Mem %"
 msgstr ""
@@ -340,19 +336,19 @@ msgid "Mem Usage"
 msgstr ""
 
 msgid "Message"
-msgstr "Nachricht"
+msgstr ""
 
 msgid "Mixed"
-msgstr "Gemischt"
+msgstr ""
 
 msgid "Mountpoint"
-msgstr "Einhängepunkt"
+msgstr ""
 
 msgid "Mounts"
-msgstr "Einhängungen"
+msgstr ""
 
 msgid "Name"
-msgstr "Name"
+msgstr ""
 
 msgid "Name is in use by a Dockerfile."
 msgstr ""
@@ -367,16 +363,16 @@ msgid "Net Out"
 msgstr ""
 
 msgid "Network"
-msgstr "Netzwerk"
+msgstr ""
 
 msgid "Networks"
-msgstr "Netzwerke"
+msgstr ""
 
 msgid "No Image"
-msgstr "Kein Abbild"
+msgstr ""
 
 msgid "Not installed"
-msgstr "Nicht installiert"
+msgstr ""
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -390,19 +386,19 @@ msgid ""
 msgstr ""
 
 msgid "Owner of directories and files"
-msgstr "Eigentümer von Verzeichnissen und Dateien"
+msgstr ""
 
 msgid "PIDs"
 msgstr ""
 
 msgid "Parent network"
-msgstr "Übergeordnetes Netzwerk"
+msgstr ""
 
 msgid "Path"
-msgstr "Pfad"
+msgstr ""
 
 msgid "Permissions of directories and files"
-msgstr "Berechtigungen von Verzeichnissen und Dateien"
+msgstr ""
 
 msgid "Please set shared folder for backups."
 msgstr ""
@@ -414,10 +410,10 @@ msgid "Please set shared folder for file storage."
 msgstr ""
 
 msgid "Ports"
-msgstr "Ports"
+msgstr ""
 
 msgid "Project"
-msgstr "Projekt"
+msgstr ""
 
 msgid "Prune"
 msgstr ""
@@ -435,7 +431,7 @@ msgid "Push to Docker Hub ..."
 msgstr ""
 
 msgid "Reinstall Docker"
-msgstr "Docker neu installieren"
+msgstr ""
 
 msgid "Reinstall Docker ..."
 msgstr ""
@@ -444,82 +440,82 @@ msgid "Repository"
 msgstr ""
 
 msgid "Restart Docker"
-msgstr "Docker neu starten"
+msgstr ""
 
 msgid "Restore"
-msgstr "Wiederherstellen"
+msgstr ""
 
 msgid "Restore Compose ..."
 msgstr ""
 
 msgid "Run"
-msgstr "Ausführen"
+msgstr ""
 
 msgid "Running For"
 msgstr ""
 
 msgid "Schedule"
-msgstr "Planen"
+msgstr ""
 
 msgid "Script"
-msgstr "Skript"
+msgstr ""
 
 msgid "Script filename"
-msgstr "Skript-Dateiname"
+msgstr ""
 
 msgid "Select a group ..."
-msgstr "Gruppe auswählen ..."
+msgstr ""
 
 msgid "Select a user ..."
-msgstr "Benutzer auswählen ..."
+msgstr ""
 
 msgid "Service"
-msgstr "Dienst"
+msgstr ""
 
 msgid "Services"
-msgstr "Dienste"
+msgstr ""
 
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr ""
 
 msgid "Shared folder"
-msgstr "Gemeinsamer Ordner"
+msgstr ""
 
 msgid "Size"
-msgstr "Größe"
+msgstr ""
 
 msgid "State"
-msgstr "Zustand"
+msgstr ""
 
 msgid "Stats"
-msgstr "Statistiken"
+msgstr ""
 
 msgid "Status"
-msgstr "Status"
+msgstr ""
 
 msgid "Stopped"
-msgstr "Gestoppt"
+msgstr ""
 
 msgid "Subnet"
-msgstr "Subnetz"
+msgstr ""
 
 msgid "Sync changes from file"
-msgstr "Änderungen aus Datei synchronisieren"
+msgstr ""
 
 msgid "Syncing changes from file ..."
-msgstr "Änderungen aus Datei werden synchronisiert ..."
+msgstr ""
 
 msgid "System"
-msgstr "System"
+msgstr ""
 
 msgid "Tag"
-msgstr "Schlagwort"
+msgstr ""
 
 msgid "Tags"
-msgstr "Schlagwörter"
+msgstr ""
 
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -530,10 +526,10 @@ msgid "Up"
 msgstr ""
 
 msgid "Version"
-msgstr "Version"
+msgstr ""
 
 msgid "Virtual Size"
-msgstr "Virtuelle Größe"
+msgstr ""
 
 msgid "Volume"
 msgstr ""
@@ -542,13 +538,13 @@ msgid "Volumes"
 msgstr ""
 
 msgid "and not running"
-msgstr "und läuft nicht"
+msgstr ""
 
 msgid "and running"
-msgstr "und läuft"
+msgstr ""
 
 msgid "check"
-msgstr "überprüfen"
+msgstr ""
 
 msgid "docker container prune ..."
 msgstr ""
@@ -629,22 +625,22 @@ msgid "down"
 msgstr ""
 
 msgid "e.g. 172.20.0.0/16"
-msgstr "z. B. 172.20.0.0/16"
+msgstr ""
 
 msgid "e.g. 172.20.0.1"
-msgstr "z. B. 172.20.0.1"
+msgstr ""
 
 msgid "e.g. 172.20.10.128/25"
-msgstr "z. B. 172.20.10.128/25"
+msgstr ""
 
 msgid "follow logs"
 msgstr ""
 
 msgid "logs"
-msgstr "Protokolle"
+msgstr ""
 
 msgid "n/a"
-msgstr "n/v"
+msgstr ""
 
 msgid "omv-extras wiki"
 msgstr ""
