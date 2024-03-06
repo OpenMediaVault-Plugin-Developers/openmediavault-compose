@@ -26,16 +26,16 @@ data:
             - ["ipvlan", "ipvlan"]
             - ["macvlan", "macvlan"]
             - ["overlay", "overlay"]
-      - type: select
+      - type: textInput
         name: parentnetwork
         label: _("Parent network")
-        textField: devicename
-        valueField: devicename
+        value: ''
+        suggestions: true
         store:
           proxy:
-            service: Network
+            service: Compose
             get:
-              method: enumerateDevices
+              method: enumerateNetworkList
         modifiers:
           - type: visible
             constraint:

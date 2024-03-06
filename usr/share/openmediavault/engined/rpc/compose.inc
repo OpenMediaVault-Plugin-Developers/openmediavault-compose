@@ -87,6 +87,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getNetworksBg");
         $this->registerMethod("doDockerNetworkCmd");
         $this->registerMethod("setNetwork");
+        $this->registerMethod("enumerateNetworkList");
 
         $this->registerMethod("getImages");
         $this->registerMethod("getImagesBg");
@@ -1470,8 +1471,26 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
-    public function getNetworksBg($params, $context) {
+    public function getNetworksBg($params, $context)
+    {
         return $this->callMethodBg("getNetworks", $params, $context);
+    }
+
+    function enumerateNetworkList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Get the system network interface devices.
+        $objects = \OMV\Rpc\Rpc::call('Network', 'enumerateDevices', NULL, $context);
+        $devices = [];
+        foreach ($objects as $device) {
+            $devices[] = $device['devicename'];
+        }
+        sort($devices);
+        $devicesf = array_diff($devices, ['lo']);
+        // Filter the result.
+        return $this->applyFilter($devicesf, $params['start'],
+            $params['limit'], $params['sortfield'], $params['sortdir']);
     }
 
     public function doDockerNetworkCmd($params, $context)
