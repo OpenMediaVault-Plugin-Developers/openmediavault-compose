@@ -98,8 +98,19 @@ echo
 OFS=$IFS
 IFS=$'\n'
 
+# get docker compose command
+dockerComposeCmd="docker compose --file \"${yml}\" --env-file \"${env}\""
+if [ -f "${globalenv}" ]; then
+  dockerComposeCmd="${dockerComposeCmd} --env-file \"${globalenv}\""
+fi
+_log "${dockerComposeCmd}"
+
+confout="$(mktemp)"
+${dockerComposeCmd} config --config "${confout}"
+
 # get volumes
 vols=($(${yq} '.services[] | .volumes' "${yml}" | grep '^- ' | sed 's/^- //' | sed 's/"//g'))
+vols2=($(${yq} eval '.services[].volumes[]? | .source + ":" + .target' "${confout}"))
 
 IFS=$OFS
 
@@ -118,11 +129,7 @@ _log "status :: $(cat "${status}")"
 
 # stop compose if running
 if grep -q "running" "${status}"; then
-  if [ -f "${globalenv}" ]; then
-    docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" stop
-  else
-    docker compose --file "${yml}" --env-file "${env}" stop
-  fi
+  ${dockerComposeCmd} stop
 else
   _log "${compose} is not running"
 fi
@@ -133,13 +140,21 @@ mkdir -pv "${voldir}"
 rsync -avr --delete "${composepath}/" "${voldir}"
 
 # loop through volumes
-for vol in "${vols[@]}"; do
+for vol in "${vols2[@]}"; do
+  # container path
+  contpath="${vol#*:}"
+  cmt=""
+  for item in "${vols[@]}"; do
+    if [[ ${item%%:*} == "${contpath}"* ]]; then
+      cmt="${item}"
+    fi
+  done
   # host path
   hostpath="${vol%%:*}"
   hostpath="${hostpath//\'/}"
   _log "Volume :: ${vol}"
   # check for paths to skip or force
-  if [[ "${vol}" == *"SKIP_BACKUP"* ]]; then
+  if [[ "${cmt}" == *"SKIP_BACKUP"* ]]; then
     _log "Skipping :: ${vol}"
     echo
     continue
@@ -147,7 +162,7 @@ for vol in "${vols[@]}"; do
     _log "Skipping :: ${hostpath}"
     echo
     continue
-  elif [[ "${vol}" == *":ro"* ]]; then
+  elif [[ "${cmt}" == *":ro"* ]]; then
     _log "Read only volume. Skipping :: ${hostpath}"
     echo
     continue
@@ -155,7 +170,7 @@ for vol in "${vols[@]}"; do
     _log "Named volume. Skipping :: ${hostpath}"
     echo
     continue
-  elif [[ "${vol}" == *"BACKUP"* ]]; then
+  elif [[ "${cmt}" == *"BACKUP"* ]]; then
     _log "Forcing :: ${vol}"
     force=1
   else
@@ -212,11 +227,7 @@ done
 
 # start compose if running before backup
 if grep -q "running" "${status}"; then
-  if [ -f "${globalenv}" ]; then
-    docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" start
-  else
-    docker compose --file "${yml}" --env-file "${env}" start
-  fi
+  ${dockerComposeCmd} start
 fi
 
 _log "Done."
