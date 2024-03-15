@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.9.9
+# version: 0.9.10
 
 export LANG=C.UTF-8
 
@@ -99,14 +99,14 @@ OFS=$IFS
 IFS=$'\n'
 
 # get docker compose command
-dockerComposeCmd="docker compose --file \"${yml}\" --env-file \"${env}\""
+dockerComposeArgs=("--file" "${yml}" "--env-file" "${env}")
 if [ -f "${globalenv}" ]; then
-  dockerComposeCmd="${dockerComposeCmd} --env-file \"${globalenv}\""
+  dockerComposeArgs+=("--env-file" "${globalenv}")
 fi
-_log "${dockerComposeCmd}"
+echo "${dockerComposeArgs[@]}"
 
 confout="$(mktemp)"
-${dockerComposeCmd} config --config "${confout}"
+docker compose "${dockerComposeArgs[@]}" config --output "${confout}"
 
 # get volumes
 vols=($(${yq} '.services[] | .volumes' "${yml}" | grep '^- ' | sed 's/^- //' | sed 's/"//g'))
@@ -129,7 +129,7 @@ _log "status :: $(cat "${status}")"
 
 # stop compose if running
 if grep -q "running" "${status}"; then
-  ${dockerComposeCmd} stop
+  docker compose "${dockerComposeArgs[0]}" stop
 else
   _log "${compose} is not running"
 fi
@@ -227,7 +227,7 @@ done
 
 # start compose if running before backup
 if grep -q "running" "${status}"; then
-  ${dockerComposeCmd} start
+  docker compose "${dockerComposeArgs[0]}" start
 fi
 
 _log "Done."
