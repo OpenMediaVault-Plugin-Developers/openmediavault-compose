@@ -1,3 +1,9 @@
+openmediavault-compose (7.0.11) UNRELEASED; urgency=medium
+
+  * Support backup for paths using environment variables
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 14 Mar 2024 12:27:19 -0500
+
 openmediavault-compose (7.0.10) stable; urgency=low
 
   * Switch parent network to textinput with suggestions
