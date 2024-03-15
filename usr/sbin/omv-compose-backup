@@ -66,6 +66,7 @@ if [ ! -d "${backuppath}" ]; then
   exit 14
 fi
 backuppath="${backuppath/%\/}"
+backuppath="${backuppath//\/\//\/}"
 _log "Backup path :: ${backuppath}"
 
 # set path for yml and env files
