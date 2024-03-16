@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-01 13:08-0600\n"
+"POT-Creation-Date: 2024-03-16 12:38-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -357,10 +357,10 @@ msgid "Name"
 msgstr "名字"
 
 msgid "Name is in use by a Dockerfile."
-msgstr ""
+msgstr "名称已被一个 Dockerfile 使用。"
 
 msgid "Name is in use by a compose file."
-msgstr ""
+msgstr "名称已被一个 compose 文件使用。"
 
 msgid "Net In"
 msgstr "网络入"
@@ -409,13 +409,13 @@ msgid "Permissions of directories and files"
 msgstr "文件及文件夹的权限"
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "请设置共享文件夹用于备份。"
 
 msgid "Please set shared folder for data on the Settings tab."
-msgstr ""
+msgstr "请设置共享文件夹用于数据存储。"
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "请设置共享文件夹用于文件存储。"
 
 msgid "Ports"
 msgstr "端口"
