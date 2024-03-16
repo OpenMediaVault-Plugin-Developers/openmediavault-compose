@@ -28,6 +28,24 @@ _log()
   echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composebackup] ${msg}" | tee -a ${logFile} >&2
 }
 
+extractContPath() {
+  local val="$1"
+
+  # Remove everything before the first colon
+  val="${val#*:}"
+
+  # Remove anything after a '#' (comment)
+  val="${val%%#*}"
+
+  # Remove everything after the next colon
+  val="${val%%:*}"
+
+  # Trim trailing whitespace
+  val="${val%"${val##*[![:space:]]}"}"
+
+  echo "${val}"
+}
+
 compose="${1}"
 if [ -z "${compose}" ]; then
   _log "No compose name set.  Exiting..."
@@ -104,14 +122,13 @@ dockerComposeArgs=("--file" "${yml}" "--env-file" "${env}")
 if [ -f "${globalenv}" ]; then
   dockerComposeArgs+=("--env-file" "${globalenv}")
 fi
-echo "${dockerComposeArgs[@]}"
 
 confout="$(mktemp)"
 docker compose "${dockerComposeArgs[@]}" config --output "${confout}"
 
 # get volumes
-vols=($(${yq} '.services[] | .volumes' "${yml}" | grep '^- ' | sed 's/^- //' | sed 's/"//g'))
-vols2=($(${yq} eval '.services[].volumes[]? | .source + ":" + .target' "${confout}"))
+ymlVols=($(${yq} '.services[] | .volumes' "${yml}" | grep '^- ' | sed 's/^- //' | sed 's/"//g'))
+confVols=($(${yq} eval '.services[].volumes[]? | .source + ":" + .target' "${confout}"))
 
 IFS=$OFS
 
@@ -130,7 +147,7 @@ _log "status :: $(cat "${status}")"
 
 # stop compose if running
 if grep -q "running" "${status}"; then
-  docker compose "${dockerComposeArgs[0]}" stop
+  docker compose "${dockerComposeArgs[@]}" stop
 else
   _log "${compose} is not running"
 fi
@@ -141,22 +158,28 @@ mkdir -pv "${voldir}"
 rsync -avr --delete "${composepath}/" "${voldir}"
 
 # loop through volumes
-for vol in "${vols2[@]}"; do
+for vol in "${confVols[@]}"; do
   # container path
   contpath="${vol#*:}"
   cmt=""
-  for item in "${vols[@]}"; do
-    if [[ ${item%%:*} == "${contpath}"* ]]; then
+  for item in "${ymlVols[@]}"; do
+    contitem=$(extractContPath "${item}")
+    if [[ "${contpath}" == "${contitem}" ]]; then
       cmt="${item}"
+      break
     fi
   done
+  if [ -z "${cmt}" ]; then
+    _log "no docker compose config match found for ${vol}"
+    continue
+  fi
   # host path
   hostpath="${vol%%:*}"
   hostpath="${hostpath//\'/}"
   _log "Volume :: ${vol}"
   # check for paths to skip or force
   if [[ "${cmt}" == *"SKIP_BACKUP"* ]]; then
-    _log "Skipping :: ${vol}"
+    _log "Skipping for SKIP_BACKUP comment :: ${vol}"
     echo
     continue
   elif [[ "${hostpath}" == @(/dev|/dev/*|/lib|/lib/*|/sys|/sys/*|./*|../*|/) ]]; then
@@ -172,10 +195,10 @@ for vol in "${vols2[@]}"; do
     echo
     continue
   elif [[ "${cmt}" == *"BACKUP"* ]]; then
-    _log "Forcing :: ${vol}"
+    _log "Forcing for BACKUP comment :: ${vol}"
     force=1
   else
-    _log "Backup :: ${vol}"
+    _log "Backup host path :: ${vol}"
     force=0
   fi
   if [ ! -f "${hostpath}" ] && [ ! -d "${hostpath}" ]; then
@@ -228,7 +251,7 @@ done
 
 # start compose if running before backup
 if grep -q "running" "${status}"; then
-  docker compose "${dockerComposeArgs[0]}" start
+  docker compose "${dockerComposeArgs[@]}" start
 fi
 
 _log "Done."
