@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# shellcheck disable=SC1091,SC2086,SC2207
+# shellcheck disable=SC1091,SC2086,SC2181,SC2207
 #
 # Copyright (c) 2023-2024 OpenMediaVault Plugin Developers
 #
@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.9.10
+# version: 0.9.11
 
 export LANG=C.UTF-8
 
@@ -30,19 +30,14 @@ _log()
 
 extractContPath() {
   local val="$1"
-
   # Remove everything before the first colon
   val="${val#*:}"
-
   # Remove anything after a '#' (comment)
   val="${val%%#*}"
-
   # Remove everything after the next colon
   val="${val%%:*}"
-
   # Trim trailing whitespace
   val="${val%"${val##*[![:space:]]}"}"
-
   echo "${val}"
 }
 
@@ -112,7 +107,6 @@ if [ ${backupmaxsize} -lt 1 ]; then
 fi
 _log "Backup max size :: ${backupmaxsize} GB"
 backupmax=$((backupmaxsize * 1024 * 1024))
-echo
 
 OFS=$IFS
 IFS=$'\n'
@@ -125,6 +119,10 @@ fi
 
 confout="$(mktemp)"
 docker compose "${dockerComposeArgs[@]}" config --output "${confout}"
+if [ $? -gt 0 ] || [ -z "${confout}" ]; then
+  _log "Failed to run docker compose config.  Exiting..."
+  exit 17
+fi
 
 # get volumes
 ymlVols=($(${yq} '.services[] | .volumes' "${yml}" | grep '^- ' | sed 's/^- //' | sed 's/"//g'))
@@ -142,7 +140,7 @@ echo "${i},${composepath}" > "${vollist}"
 
 # save status
 status="$(mktemp)"
-docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" | tee "${status}"
+docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" > "${status}"
 _log "status :: $(cat "${status}")"
 
 # stop compose if running
@@ -198,7 +196,7 @@ for vol in "${confVols[@]}"; do
     _log "Forcing for BACKUP comment :: ${vol}"
     force=1
   else
-    _log "Backup host path :: ${vol}"
+    _log "Backup host path :: ${hostpath}"
     force=0
   fi
   if [ ! -f "${hostpath}" ] && [ ! -d "${hostpath}" ]; then
