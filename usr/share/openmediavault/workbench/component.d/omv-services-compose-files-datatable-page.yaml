@@ -146,6 +146,9 @@ data:
               formDialog:
                 title: _("Import existing compose folders ...")
                 fields:
+                  - type: hint
+                    hintType: info
+                    text: _("This will import one or more compose files in subfolders.<br/>It will not import any compose files that already exist in the plugin.")
                   - type: hidden
                     name: rootfsref
                     value: "79684322-3eac-11ea-a974-63a080abab18"
@@ -158,12 +161,40 @@ data:
                     dirRefIdField: rootfsref
                 buttons:
                   submit:
-                    text: _("Create")
+                    text: _("Import")
                     execute:
                       type: request
                       request:
                         service: Compose
                         method: importExistingFolder
+          - text: _("Import one")
+            icon: mdi:file-import
+            execute:
+              type: formDialog
+              formDialog:
+                title: _("Import existing compose file ...")
+                fields:
+                  - type: hint
+                    hintType: info
+                    text: _("This will import one compose file in the selected folder.<br/>It will not import a compose file that already exist in the plugin.")
+                  - type: hidden
+                    name: rootfsref
+                    value: "79684322-3eac-11ea-a974-63a080abab18"
+                    submitValue: false
+                  - type: folderBrowser
+                    name: path
+                    label: _("Path")
+                    value: ""
+                    dirType: mntent
+                    dirRefIdField: rootfsref
+                buttons:
+                  submit:
+                    text: _("Import")
+                    execute:
+                      type: request
+                      request:
+                        service: Compose
+                        method: importExistingOne
           - text: _("Sync changes from file")
             icon: mdi:file-sync-outline
             confirmationDialogConfig:

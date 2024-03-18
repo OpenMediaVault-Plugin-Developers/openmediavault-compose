@@ -72,6 +72,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
         $this->registerMethod("importChanges");
         $this->registerMethod("importExistingFolder");
+        $this->registerMethod("importExistingOne");
 
         $this->registerMethod("getStats");
         $this->registerMethod("getStatsBg");
@@ -1204,6 +1205,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     public function importExistingFolder($params, $context)
     {
         // Verify that shared folder is set
+        $sfpath = $this->getComposePath($context);
+        // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $path = $params['path'];
         $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
@@ -1244,6 +1247,57 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
             $db->set($object);
         }
+    }
+
+    public function importExistingOne($params, $context)
+    {
+        // Verify that shared folder is set
+        $sfpath = $this->getComposePath($context);
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $path = $params['path'];
+        $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
+        if (!is_dir($path)) {
+            throw new \OMV\ExecException($path . ' does not exist!');
+        }
+        $name = basename(rtrim($path, '/'));
+        $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+        // get compose file
+        $bodyFile = sprintf('%s/%s.yml', $path, $name);
+        if (!file_exists($bodyFile)) {
+            $bodyFile = sprintf('%s/docker-compose.yml', $path);
+            if (!file_exists($bodyFile)) {
+                throw new \OMV\ExecException(gettext("No compose file found!"));
+            }
+        }
+        $body = file_get_contents($bodyFile);
+        // get environment file if it exists
+        $envFile = sprintf('%s/%s.env', $path, $name);
+        $env = '';
+        if (file_exists($envFile)) {
+            $env = file_get_contents($envFile);
+            if ($env == false || is_null($env)) $env = '';
+        } else {
+            $envFile = sprintf('%s/.env', $path);
+            if (file_exists($envFile)) {
+                $env = file_get_contents($envFile);
+                if ($env == false || is_null($env)) $env = '';
+            } else {
+                $env = '';
+            }
+        }
+        // set object values
+        $object->set('name', $name);
+        $object->set('description', 'imported ' . date("Y.m.d H:i"));
+        $object->set('body', $body);
+        $object->set('env', $env);
+        // Set the configuration object.
+        try {
+            $db->assertIsUnique($object, 'name');
+        } catch (Exception $e) {
+            throw new \OMV\ExecException("A compose file with the name '$name' already exists!");
+        }
+        $db->set($object);
     }
 
     public function getStats($params, $context)
