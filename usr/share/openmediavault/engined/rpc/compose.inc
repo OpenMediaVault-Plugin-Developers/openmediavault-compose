@@ -1254,15 +1254,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         // Get the configuration object.
-        $db = \OMV\Config\Database::getInstance();
         $path = $params['path'];
         $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
         if (!is_dir($path)) {
             throw new \OMV\ExecException($path . ' does not exist!');
         }
         $name = basename(rtrim($path, '/'));
-        $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
-        // get compose file
+        // get body
         $bodyFile = sprintf('%s/%s.yml', $path, $name);
         if (!file_exists($bodyFile)) {
             $bodyFile = sprintf('%s/docker-compose.yml', $path);
@@ -1271,27 +1269,26 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
         }
         $body = file_get_contents($bodyFile);
-        // get environment file if it exists
+        // get env (if exists)
         $envFile = sprintf('%s/%s.env', $path, $name);
+        if (!file_exists($envFile)) {
+            $envFile = sprintf('%s/.env', $path);
+        }
         $env = '';
         if (file_exists($envFile)) {
             $env = file_get_contents($envFile);
-            if ($env == false || is_null($env)) $env = '';
-        } else {
-            $envFile = sprintf('%s/.env', $path);
-            if (file_exists($envFile)) {
-                $env = file_get_contents($envFile);
-                if ($env == false || is_null($env)) $env = '';
-            } else {
+            if ($env === false || $env === null) {
                 $env = '';
             }
         }
         // set object values
+        $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $object->set('name', $name);
         $object->set('description', 'imported ' . date("Y.m.d H:i"));
         $object->set('body', $body);
         $object->set('env', $env);
         // Set the configuration object.
+        $db = \OMV\Config\Database::getInstance();
         try {
             $db->assertIsUnique($object, 'name');
         } catch (Exception $e) {
