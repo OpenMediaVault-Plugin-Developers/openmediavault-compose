@@ -1,8 +1,9 @@
-openmediavault-compose (7.0.11) UNRELEASED; urgency=medium
+openmediavault-compose (7.0.11) stable; urgency=low
 
   * Support backup for paths using environment variables
+  * Add ability to import one compose file
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 14 Mar 2024 12:27:19 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 16 Mar 2024 12:39:34 -0500
 
 openmediavault-compose (7.0.10) stable; urgency=low
 
