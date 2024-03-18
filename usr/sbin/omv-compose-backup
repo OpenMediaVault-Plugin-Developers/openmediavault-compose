@@ -252,6 +252,9 @@ if grep -q "running" "${status}"; then
   docker compose "${dockerComposeArgs[@]}" start
 fi
 
+# remove temp files
+rm -f "${confout}" "${status}"
+
 _log "Done."
 
 exit 0
