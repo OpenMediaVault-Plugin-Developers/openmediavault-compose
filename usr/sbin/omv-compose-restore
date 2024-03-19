@@ -8,9 +8,11 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.9.5
+# version: 1.0.0
 
 . /usr/share/openmediavault/scripts/helper-functions
+
+declare -i skip=0
 
 # logging location
 logDir="/var/log/"
@@ -68,25 +70,27 @@ env="${composepath}/${compose}.env"
 globalenv="${sfpath}/global.env"
 yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
-  _log "Compose file '${yml}' does not exist.  Exiting..."
-  exit 15
+  _log "Compose file '${yml}' does not exist."
+  skip=1
 fi
 _log "Compose file :: ${yml}"
 
-# save status
-status="$(mktemp)"
-docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" | tee "${status}"
-_log "status :: $(cat ${status})"
+if [ ${skip} -ne 1 ]; then
+  # save status
+  status="$(mktemp)"
+  docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" | tee "${status}"
+  _log "status :: $(cat ${status})"
 
-# stop compose if running
-if grep -q "running" "${status}"; then
-  if [ -f "${globalenv}" ]; then
-    docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" stop
+  # stop compose if running
+  if grep -q "running" "${status}"; then
+    if [ -f "${globalenv}" ]; then
+      docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" stop
+    else
+      docker compose --file "${yml}" --env-file "${env}" stop
+    fi
   else
-    docker compose --file "${yml}" --env-file "${env}" stop
+    _log "${compose} is not running"
   fi
-else
-  _log "${compose} is not running"
 fi
 
 path="${backuppath}/${compose}"
@@ -97,25 +101,76 @@ if [ -f "${vollist}" ]; then
   while read -r line; do
     volnum="${line%%,*}"
     volpath="${line#*,}"
+    delete=""
+    if [[ ! "${volpath}" == */ ]]; then
+      volpath="$(dirname "${volpath}")"
+    else
+      delete=" --delete"
+    fi
     src="${path}/${volnum}/"
+    if [ ${volnum} -eq 0 ]; then
+      volpath="${volpath}/${compose}/"
+      volpath="${volpath//\/\//\/}"
+    fi
     _log "Source :: ${src}"
     _log "Dest :: ${volpath}"
-    rsync -avr --delete "${src}" "${volpath}"
+    rsync -avr${delete} "${src}" "${volpath}"
   done < "${vollist}"
 else
   _log "No volume list found."
 fi
 
-# start compose if running before backup
-if grep -q "running" "${status}"; then
-  if [ -f "${globalenv}" ]; then
-    docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" start
+if [ ${skip} -ne 1 ]; then
+  # start compose if running before backup
+  if grep -q "running" "${status}"; then
+    if [ -f "${globalenv}" ]; then
+      docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" start
+    else
+      docker compose --file "${yml}" --env-file "${env}" start
+    fi
+  fi
+
+  rm -f "${status}"
+else
+  # add compose file to database if it doesn't exist already
+  xpath="//services/compose/files"
+  if ! omv_config_exists "${xpath}/file[name='${compose}']"; then
+    _log "Adding '${compose}' to the database..."
+    composepath="${path}/0/${compose}"
+    envfile="${composepath}.env"
+    ymlfile="${composepath}.yml"
+    envtxt=""
+    ymltxt=""
+    # escape for xml
+    if [ -f "${envfile}" ]; then
+      envtxt=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' "${envfile}")
+    fi
+    if [ -f "${ymlfile}" ]; then
+      ymltxt=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' "${ymlfile}")
+    fi
+    if [ -n "${ymltxt}" ]; then
+      # create backup of omv database
+      date="$(date +'%Y-%m-%d_%H-%M-%S')"
+      cp -fv "${OMV_CONFIG_FILE}" "/root/config_${date}.xml"
+      # create database entry
+      object="<uuid>$(uuid)</uuid>"
+      object="${object}<name>${compose}</name>"
+      object="${object}<description></description>"
+      object="${object}<body>@@YAML_DATA@@</body>"
+      object="${object}<env>@@ENV_DATA@@</env>"
+      # add new entry to database
+      omv_config_add_node_data "${xpath}" "file" "${object}"
+      # repalce temp variables with compose yaml and environment file
+      omvdb=$(<"${OMV_CONFIG_FILE}")
+      omvdbmod=$(awk -v env="${envtxt}" -v yml="${ymltxt}" '{gsub(/@@ENV_DATA@@/, env); gsub(/@@YAML_DATA@@/, yml)} 1' <<< "${omvdb}")
+      echo "${omvdbmod}" > "${OMV_CONFIG_FILE}"
+      # mark compose module dirty
+      omv_module_set_dirty compose
+    fi
   else
-    docker compose --file "${yml}" --env-file "${env}" start
+    _log "File exists in database."
   fi
 fi
-
-rm -f "${status}"
 
 _log "Done."
 

@@ -218,8 +218,6 @@ for vol in "${confVols[@]}"; do
     fi
   fi
   ((i++))
-  # add volume list entry
-  echo "${i},${hostpath}" >> "${vollist}"
   # rsync to numbered subdirectory
   voldir="${backupdir}/${i}"
   mkdir -pv "${voldir}"
@@ -230,6 +228,9 @@ for vol in "${confVols[@]}"; do
       exclude="--exclude *.qcow2"
     fi
   fi
+  # add volume list entry
+  echo "${i},${hostpath}" >> "${vollist}"
+  # rsync
   rsync -avr --delete ${exclude} "${hostpath}" "${voldir}"
   echo
 done
