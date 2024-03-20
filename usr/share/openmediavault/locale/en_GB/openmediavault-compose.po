@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-01 13:08-0600\n"
+"POT-Creation-Date: 2024-03-20 06:57-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2023\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -50,6 +50,9 @@ msgstr "Administrator - read/write, Users - read/write, Others - no access"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "Administrator - read/write, Users - read/write, Others - read-only"
+
+msgid "Advanced"
+msgstr ""
 
 msgid "Are you sure you want to reinstall?"
 msgstr "Are you sure you want to reinstall?"
@@ -312,8 +315,14 @@ msgstr "Images"
 msgid "Import"
 msgstr "Import"
 
+msgid "Import existing compose file ..."
+msgstr ""
+
 msgid "Import existing compose folders ..."
 msgstr "Import existing compose folders ..."
+
+msgid "Import one"
+msgstr ""
 
 msgid "In Use"
 msgstr "In Use"
@@ -380,6 +389,9 @@ msgstr "Networks"
 
 msgid "No Image"
 msgstr "No Image"
+
+msgid "No compose file found!"
+msgstr ""
 
 msgid "Not installed"
 msgstr "Not installed"
@@ -529,6 +541,16 @@ msgstr "Tag"
 msgid "Tags"
 msgstr "Tags"
 
+msgid ""
+"This will import one compose file in the selected folder.<br/>It will not "
+"import a compose file that already exist in the plugin."
+msgstr ""
+
+msgid ""
+"This will import one or more compose files in subfolders.<br/>It will not "
+"import any compose files that already exist in the plugin."
+msgstr ""
+
 msgid "URL"
 msgstr "URL"
 
@@ -608,6 +630,9 @@ msgstr "docker volume prune ..."
 msgid "docker volume rm ..."
 msgstr "docker volume rm ..."
 
+msgid "docker-compose down --remove-orphans ..."
+msgstr ""
+
 msgid "docker-compose down ..."
 msgstr "docker-compose down ..."
 
@@ -632,6 +657,9 @@ msgstr "docker-compose restart ..."
 msgid "docker-compose stop ..."
 msgstr "docker-compose stop ..."
 
+msgid "docker-compose up -d --remove-orphans ..."
+msgstr ""
+
 msgid "docker-compose up -d ..."
 msgstr "docker-compose up -d ..."
 
@@ -640,6 +668,9 @@ msgstr "dockerfile build ..."
 
 msgid "down"
 msgstr "down"
+
+msgid "down and remove orphans"
+msgstr ""
 
 msgid "e.g. 172.20.0.0/16"
 msgstr "e.g. 172.20.0.0/16"
@@ -676,3 +707,6 @@ msgstr "stop"
 
 msgid "up"
 msgstr "up"
+
+msgid "up and remove orphans"
+msgstr ""

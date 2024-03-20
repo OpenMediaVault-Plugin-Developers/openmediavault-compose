@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-01 13:08-0600\n"
+"POT-Creation-Date: 2024-03-20 06:57-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Odai Alghamdi, 2023\n"
 "Language-Team: Arabic (Saudi Arabia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ar_SA/)\n"
@@ -49,6 +49,9 @@ msgid "Administrator - read/write, Users - read/write, Others - no access"
 msgstr ""
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
+msgstr ""
+
+msgid "Advanced"
 msgstr ""
 
 msgid "Are you sure you want to reinstall?"
@@ -306,7 +309,13 @@ msgstr "صور"
 msgid "Import"
 msgstr "استيراد"
 
+msgid "Import existing compose file ..."
+msgstr ""
+
 msgid "Import existing compose folders ..."
+msgstr ""
+
+msgid "Import one"
 msgstr ""
 
 msgid "In Use"
@@ -373,6 +382,9 @@ msgid "Networks"
 msgstr "شبكات"
 
 msgid "No Image"
+msgstr ""
+
+msgid "No compose file found!"
 msgstr ""
 
 msgid "Not installed"
@@ -518,6 +530,16 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
+msgid ""
+"This will import one compose file in the selected folder.<br/>It will not "
+"import a compose file that already exist in the plugin."
+msgstr ""
+
+msgid ""
+"This will import one or more compose files in subfolders.<br/>It will not "
+"import any compose files that already exist in the plugin."
+msgstr ""
+
 msgid "URL"
 msgstr ""
 
@@ -595,6 +617,9 @@ msgstr ""
 msgid "docker volume rm ..."
 msgstr ""
 
+msgid "docker-compose down --remove-orphans ..."
+msgstr ""
+
 msgid "docker-compose down ..."
 msgstr ""
 
@@ -619,6 +644,9 @@ msgstr ""
 msgid "docker-compose stop ..."
 msgstr ""
 
+msgid "docker-compose up -d --remove-orphans ..."
+msgstr ""
+
 msgid "docker-compose up -d ..."
 msgstr ""
 
@@ -626,6 +654,9 @@ msgid "dockerfile build ..."
 msgstr ""
 
 msgid "down"
+msgstr ""
+
+msgid "down and remove orphans"
 msgstr ""
 
 msgid "e.g. 172.20.0.0/16"
@@ -663,3 +694,6 @@ msgstr "إيقاف"
 
 msgid "up"
 msgstr "أعلى"
+
+msgid "up and remove orphans"
+msgstr ""
