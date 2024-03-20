@@ -332,45 +332,6 @@ data:
                 params:
                   uuid: "{{ _selected[0].uuid }}"
                   command: "ps"
-      - type: menu
-        icon: mdi:wrench
-        tooltip: _("Build")
-        enabledConstraints:
-          minSelected: 1
-          maxSelected: 1
-          constraint:
-            - operator: truthy
-              arg0:
-                prop: build
-        actions:
-          - text: _("Build")
-            icon: mdi:wrench-outline
-            execute:
-              type: taskDialog
-              taskDialog:
-                config:
-                  title: _("Build ...")
-                  startOnInit: true
-                  request:
-                    service: Compose
-                    method: doCommand
-                    params:
-                      uuid: "{{ _selected[0].uuid }}"
-                      command: "build"
-          - text: _("Pull and Build")
-            icon: mdi:wrench-cog-outline
-            execute:
-              type: taskDialog
-              taskDialog:
-                config:
-                  title: _("Pull and Build ...")
-                  startOnInit: true
-                  request:
-                    service: Compose
-                    method: doCommand
-                    params:
-                      uuid: "{{ _selected[0].uuid }}"
-                      command: "build --pull"
       - type: iconButton
         icon: mdi:file-star-outline
         tooltip: _("Edit global environment file")
@@ -446,6 +407,86 @@ data:
                     method: doPrune
                     params:
                       command: "volume prune"
+      - type: menu
+        icon: mdi:cog-outline
+        tooltip: _("Advanced")
+        actions:
+          - text: _("Build")
+            icon: mdi:wrench-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("Build ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doCommand
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "build"
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
+              constraint:
+                - operator: truthy
+                  arg0:
+                    prop: build
+          - text: _("Pull and Build")
+            icon: mdi:wrench-cog-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("Pull and Build ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doCommand
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "build --pull"
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
+              constraint:
+                - operator: truthy
+                  arg0:
+                    prop: build
+          - text: _("up and remove orphans")
+            icon: mdi:arrow-up-circle-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker-compose up -d --remove-orphans ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doCommand
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "up -d --remove-orphans"
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
+          - text: _("down and remove orphans")
+            icon: mdi:arrow-down-circle-outline
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker-compose down --remove-orphans ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doCommand
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "down --remove-orphans"
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
       - type: menu
         icon: mdi:link
         tooltip: _("Docs")
