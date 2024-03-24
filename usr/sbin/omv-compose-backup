@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.0
+# version: 1.0.1
 
 export LANG=C.UTF-8
 
@@ -217,22 +217,26 @@ for vol in "${confVols[@]}"; do
       continue;
     fi
   fi
-  ((i++))
-  # rsync to numbered subdirectory
-  voldir="${backupdir}/${i}"
-  mkdir -pv "${voldir}"
-  _log "Backup to :: ${voldir}"
-  exclude=""
-  if [ -d "${hostpath}" ]; then
-    hostpath="${hostpath}/"
-    if [ "${force}" -ne 1 ]; then
-      exclude="--exclude *.qcow2"
+  if cut -d"," -f2 "${vollist}" | sed 's#/$##' | grep -Fqx "${hostpath%/}"; then
+    _log "Duplicate volume path '${hostpath}' - skipping..."
+  else
+    ((i++))
+    # rsync to numbered subdirectory
+    voldir="${backupdir}/${i}"
+    mkdir -pv "${voldir}"
+    _log "Backup to :: ${voldir}"
+    exclude=""
+    if [ -d "${hostpath}" ]; then
+      hostpath="${hostpath}/"
+      if [ "${force}" -ne 1 ]; then
+        exclude="--exclude *.qcow2"
+      fi
     fi
+    # add volume list entry
+    echo "${i},${hostpath}" >> "${vollist}"
+    # rsync
+    rsync -avr --delete ${exclude} "${hostpath}" "${voldir}"
   fi
-  # add volume list entry
-  echo "${i},${hostpath}" >> "${vollist}"
-  # rsync
-  rsync -avr --delete ${exclude} "${hostpath}" "${voldir}"
   echo
 done
 
