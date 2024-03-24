@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.0
+# version: 1.0.1
 
 . /usr/share/openmediavault/scripts/helper-functions
 
@@ -114,7 +114,11 @@ if [ -f "${vollist}" ]; then
     fi
     _log "Source :: ${src}"
     _log "Dest :: ${volpath}"
-    rsync -avr${delete} "${src}" "${volpath}"
+    if [ ${volnum} -eq 0 ]; then
+      cp -v "${src}/${compose}.yml" "${src}/${compose}.env" "${volpath}"
+    else
+      rsync -avr${delete} "${src}" "${volpath}"
+    fi
   done < "${vollist}"
 else
   _log "No volume list found."
