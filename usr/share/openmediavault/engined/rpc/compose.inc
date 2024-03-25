@@ -1768,8 +1768,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         foreach($dirs as $dir) {
             $volList = sprintf("%s/%s/vol.list", $sfpath, $dir);
             if (file_exists($volList)) {
+                $spaceUsed = sprintf("%s/%s/space.used", $sfpath, $dir);
+                $backupSize = -1;
+                if (file_exists($spaceUsed)) {
+                    $backupSize = intval(file_get_contents($spaceUsed));
+                }
                 $objects[] = [
                     'backup' => $dir,
+                    'backupsize' => $backupSize,
                     'time' => date("Y-m-d H:i:s", filemtime($volList))
                 ];
             }

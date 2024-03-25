@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.1
+# version: 1.0.2
 
 export LANG=C.UTF-8
 
@@ -106,7 +106,7 @@ if [ ${backupmaxsize} -lt 1 ]; then
   backupmaxsize=0
 fi
 _log "Backup max size :: ${backupmaxsize} GB"
-backupmax=$((backupmaxsize * 1024 * 1024))
+backupmax=$((backupmaxsize * 1024 * 1024 * 1024))
 
 OFS=$IFS
 IFS=$'\n'
@@ -210,8 +210,8 @@ for vol in "${confVols[@]}"; do
     continue
   fi
   if [ ${backupmaxsize} -gt 0 ]; then
-    foldersize=$(du --summarize -k "${hostpath}" | awk '{ print $1 }')
-    _log "Folder size :: ${foldersize}"
+    foldersize=$(du --summarize --bytes "${hostpath}" | awk '{ print $1 }')
+    _log "Folder size :: ${foldersize} bytes"
     if [ ${foldersize} -gt ${backupmax} ] && [ ${force} -eq 0 ]; then
       _log "Folder size greater than max backup size.  Skipping..."
       continue;
@@ -257,6 +257,12 @@ done
 if grep -q "running" "${status}"; then
   docker compose "${dockerComposeArgs[@]}" start
 fi
+
+# store size of backup
+spaceused="${backupdir}/space.used"
+backupsize=$(du --summarize --bytes "${backupdir}" | awk '{ print $1 }')
+_log "Backup size :: ${backupsize} bytes"
+echo ${backupsize} > "${spaceused}"
 
 # remove temp files
 rm -f "${confout}" "${status}"
