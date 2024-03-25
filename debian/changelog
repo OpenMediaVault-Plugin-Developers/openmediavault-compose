@@ -1,8 +1,9 @@
 openmediavault-compose (7.1.1) stable; urgency=low
 
   * Improve backup and restore to not backup relative paths twice
+  * Add backup size column to restore tab
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 24 Mar 2024 08:59:39 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 25 Mar 2024 17:23:19 -0500
 
 openmediavault-compose (7.1) stable; urgency=low
 
