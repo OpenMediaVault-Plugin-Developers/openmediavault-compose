@@ -1,3 +1,10 @@
+openmediavault-compose (7.1.3) stable; urgency=low
+
+  * Add CHANGE_TO_COMPOSE_NAME string that will be replaced with the
+    name of the compose file
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 31 Mar 2024 09:37:37 -0500
+
 openmediavault-compose (7.1.2) stable; urgency=low
 
   * Add backup size column to restore tab
