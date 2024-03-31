@@ -5,7 +5,7 @@
 # {{ file.description }}
 
 {%- if datapath is not none %}
-{{ file.body | replace("CHANGE_TO_COMPOSE_DATA_PATH", datapath) }}
+{{ file.body | replace("CHANGE_TO_COMPOSE_DATA_PATH", datapath) | replace("CHANGE_TO_COMPOSE_NAME", file.name) }}
 {%- else %}
-{{ file.body }}
+{{ file.body | replace("CHANGE_TO_COMPOSE_NAME", file.name) }}
 {%- endif %}
