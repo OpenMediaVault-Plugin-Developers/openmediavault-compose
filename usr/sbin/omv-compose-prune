@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# shellcheck disable=
+#
+# Copyright (c) 2023-2024 OpenMediaVault Plugin Developers
+#
+# This file is licensed under the terms of the GNU General Public
+# License version 2. This program is licensed "as is" without any
+# warranty of any kind, whether express or implied.
+#
+# version: 0.0.1
+
+export LANG=C.UTF-8
+
+declare -i timeout=180
+declare -i i=0
+
+# logging location
+logDir="/var/log/"
+logFile="${logDir}/omv-compose-prune.log"
+
+_log()
+{
+  msg=${1}
+  echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composeupdate] ${msg}" | tee -a ${logFile} >&2
+}
+
+_log "Starting docker image prune ..."
+
+while pgrep -f omv-compose-update -l > /dev/null; do
+  _log "Update is running.  Waiting ... ${i}"
+  sleep 10
+  (( i++ ))
+  if [ ${i} -gt ${timeout} ]; then
+    _log "Timed out waiting.  Exiting."
+    exit 10
+  fi
+done
+
+docker image prune -f | tee -a ${logFile} >&2
+
+_log "Done."
+
+exit 0
