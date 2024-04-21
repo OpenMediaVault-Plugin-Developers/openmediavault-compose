@@ -1610,6 +1610,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $skipStatus = \OMV\Environment::getBoolean('OMV_COMPOSE_SKIP_IMAGE_STATUS', false);
         $objects = [];
         // Get container images
         $cmdArgs = [];
@@ -1652,7 +1653,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     }
                 }
             }
-            $status = $this->getImageStatus($imageJson->Repository, $imageJson->Tag, $imageJson->Digest, $context);
+            if ($skipStatus) {
+                $status = 'NA';
+            } else {
+                $status = $this->getImageStatus($imageJson->Repository, $imageJson->Tag, $imageJson->Digest, $context);
+            }
             $imagesAssoc[] = [
                 "id" => $imageJson->ID,
                 "repo" => $imageJson->Repository,
