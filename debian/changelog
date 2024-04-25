@@ -1,3 +1,10 @@
+openmediavault-compose (7.1.6) stable; urgency=low
+
+  * Skip checking image status if regctl not found
+  * Change current image status to green and available to yellow
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 25 Apr 2024 16:42:42 -0500
+
 openmediavault-compose (7.1.5) stable; urgency=low
 
   * Add OMV_COMPOSE_SKIP_IMAGE_STATUS environment variable to allow
