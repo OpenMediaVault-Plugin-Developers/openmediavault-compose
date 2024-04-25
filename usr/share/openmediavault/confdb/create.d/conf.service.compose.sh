@@ -82,6 +82,29 @@ else
 fi
 chmod 755 ${yq}
 
+# download regctl
+arch="$(dpkg --print-architecture)"
+if [ "${arch}" = "amd64" ] || [ "${arch}" = "arm64" ]; then
+  version="v0.6.0"
+  bindir="/usr/local/bin"
+  regctl="${bindir}/regctl"
+  repo_url=${OMV_EXTRAS_REGCTL_URL:-"https://github.com/regclient/regclient/releases/download"}
+  if [ ! -f "${regctl}" ]; then
+    echo "Downloading regctl ..."
+    wget -O ${regctl} "${repo_url}/${version}/regctl-linux-${arch}"
+  else
+    echo "Checking regctl version ..."
+    chmod 755 ${regctl}
+    regctlvers="$(${regctl} version | awk '$1 == "VCSTag:" { print $2 }')"
+    if [ ! "${version}" = "${regctlvers}" ]; then
+      wget -O ${regctl} "${repo_url}/${version}/regctl-linux-${arch}"
+    else
+      echo "Correct version of regctl installed - '${version}'"
+    fi
+  fi
+  chmod 755 ${regctl}
+fi
+
 # make sure log files exist to eliminate log viewer error
 for log in backup restore update; do
   file="/var/log/omv-compose-${log}.log"

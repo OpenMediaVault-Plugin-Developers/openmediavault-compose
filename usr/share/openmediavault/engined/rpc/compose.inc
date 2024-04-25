@@ -1656,7 +1656,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($skipStatus) {
                 $status = 'NA';
             } else {
-                $status = $this->getImageStatus($imageJson->Repository, $imageJson->Tag, $imageJson->Digest, $context);
+                $status = $this->getImageStatus($imageJson->Repository, $imageJson->Tag, $imageJson->Digest);
             }
             $imagesAssoc[] = [
                 "id" => $imageJson->ID,
@@ -1676,54 +1676,34 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
-    private function getImageStatus($img, $tag, $digest, $context)
+    private function getImageStatus($img, $tag, $digest)
     {
-        // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // return n/a if no digest or image name
         if ($img == "<none>" || $tag == "<none>" || $digest == "<none>" ||
-          strlen($img) == 0 || strlen($tag) == 0 || strlen($digest) == 0) {
+            strlen($img) == 0 || strlen($tag) == 0 || strlen($digest) == 0) {
             return 'NA';
         }
-        // Unable to get digests from other registries
-        $registry = "/^(lscr.io|ghcr.io|quay.io|mcr.microsoft.com)/";
-        if (preg_match($registry, $img) == 1) {
-            return 'NA';
-        }
-        // prepend library for single name images
-        if (strpos($img, '/') === false) {
-            $img = 'library/' . $img;
-        }
-        $url = '';
-        $lscr = false;
-        // get latest digest from docker hub
-        if (strpos($img, 'lscr.io') !== false) {
-            $apiUrl = 'https://lscr.io/v2';
-            $url = sprintf('%s/%s/manifests/%s', $apiUrl, $img, $tag);
-            $lscr = true;
+        // get latest digest from image's registry
+        $cmdArgs = [];
+        $cmdArgs[] = 'image';
+        $cmdArgs[] = 'digest';
+        $cmdArgs[] = '--list';
+        if (strlen($tag) > 0) {
+            $cmdArgs[] = sprintf('"%s:%s"', $img, $tag);
         } else {
-            $apiUrl = 'https://hub.docker.com/v2/repositories';
-            $url = sprintf('%s/%s/tags/%s', $apiUrl, $img, $tag);
+            $cmdArgs[] = sprintf('"%s"', $img);
         }
-        $response = @file_get_contents($url);
+        $output = [];
+        $cmd = new \OMV\System\Process('/usr/local/bin/regctl', $cmdArgs);
+        $cmd->setQuiet(true);
+        $cmd->execute($output, $exitStatus);
         $newest = '';
-        if ($response === false) {
+        if ($exitStatus > 0) {
             return 'FAILED';
         } else {
-            $data = json_decode($response, true);
-            if ($lscr) {
-                if (isset($data['config']['digest'])) {
-                    $newest = $data['config']['digest'];
-                }
-            } else {
-                if (isset($data['digest'])) {
-                    $newest = $data['digest'];
-                } elseif (isset($data['images'])) {
-                    $newest = $data['images'][0]['digest'];
-                }
-            }
+            $newest = implode('', $output);
         }
-        if ($newest == '') {
+        if (!isset($newest) || $newest == '') {
             return 'FAILED';
         } elseif ($digest != $newest) {
             return 'AVAILABLE';
