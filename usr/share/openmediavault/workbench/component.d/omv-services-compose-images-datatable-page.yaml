@@ -67,10 +67,10 @@ data:
           map:
             AVAILABLE:
               value: _("Available")
-              class: omv-background-color-pair-green
+              class: omv-background-color-pair-yellow
             CURRENT:
               value: _("Current")
-              class: omv-background-color-pair-yellow
+              class: omv-background-color-pair-green
             NA:
               value: _("n/a")
               class: omv-background-color-pair-blue
