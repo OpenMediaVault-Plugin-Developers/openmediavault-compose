@@ -1,9 +1,10 @@
-openmediavault-compose (7.1.5) UNRELEASED; urgency=medium
+openmediavault-compose (7.1.5) stable; urgency=low
 
   * Add OMV_COMPOSE_SKIP_IMAGE_STATUS environment variable to allow
     disabling image status in Images tab.
+  * Use regctl to get newest image digest
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 21 Apr 2024 08:13:46 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 25 Apr 2024 15:41:51 -0500
 
 openmediavault-compose (7.1.4) stable; urgency=low
 
