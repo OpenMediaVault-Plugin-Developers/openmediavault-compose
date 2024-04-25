@@ -52,7 +52,7 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理员 - 读/写，用户 - 读/写，其它 - 只读"
 
 msgid "Advanced"
-msgstr ""
+msgstr "高级"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "您确定要重装？"
@@ -312,13 +312,13 @@ msgid "Import"
 msgstr "导入"
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "导入已存在的 compose 文件 ..."
 
 msgid "Import existing compose folders ..."
 msgstr "导入现有 compose 文件夹 ..."
 
 msgid "Import one"
-msgstr ""
+msgstr "导入一个"
 
 msgid "In Use"
 msgstr "使用中"
@@ -387,7 +387,7 @@ msgid "No Image"
 msgstr "无镜像"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "未找到 compose 文件！"
 
 msgid "Not installed"
 msgstr "未安装"
@@ -537,12 +537,12 @@ msgstr "标签"
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
-msgstr ""
+msgstr "这将从选择文件夹导入一个 compose 文件。<br/>它不会导入插件中已存在的 compose 文件。"
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose files that already exist in the plugin."
-msgstr ""
+msgstr "这将从选中文件夹导入一个或多个 compose 文件。<br/>它不会导入插件中已存在的任何  compose 文件"
 
 msgid "URL"
 msgstr "URL"
@@ -622,7 +622,7 @@ msgid "docker volume rm ..."
 msgstr "移除 docker 卷 ..."
 
 msgid "docker-compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker-compose down --remove-orphans ..."
 
 msgid "docker-compose down ..."
 msgstr "docker-compose down ..."
@@ -649,7 +649,7 @@ msgid "docker-compose stop ..."
 msgstr "docker-compose 停止 ..."
 
 msgid "docker-compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker-compose up -d --remove-orphans ..."
 
 msgid "docker-compose up -d ..."
 msgstr "docker-compose up -d ..."
@@ -661,7 +661,7 @@ msgid "down"
 msgstr "下线"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "下线并删除孤立容器"
 
 msgid "e.g. 172.20.0.0/16"
 msgstr "如 172.20.0.0/16"
@@ -700,4 +700,4 @@ msgid "up"
 msgstr "上线"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "上线并删除孤立容器"

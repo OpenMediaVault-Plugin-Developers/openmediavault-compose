@@ -3,6 +3,9 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Gyuris Gellért <jobel@ujevangelizacio.hu>, 2024
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -10,6 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-20 06:57-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2024\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,79 +22,89 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Action"
-msgstr ""
+msgstr "Művelet"
 
 msgid "Action type"
-msgstr ""
+msgstr "Művelet típusa"
 
 msgid "Add"
-msgstr ""
+msgstr "Hozzáadás"
 
 msgid "Add from Example"
-msgstr ""
+msgstr "Hozzáadás példa alapján"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "Hozzáadás URL-ből"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
+"Adminisztrátor – olvasás/írás, Felhasználók – nincs hozzáférés, Mások – "
+"nincs hozzáférés"
 
 msgid "Administrator - read/write, Users - read-only, Others - no access"
 msgstr ""
+"Adminisztrátor – olvasás/írás, Felhasználók – csak olvasás, Mások – nincs "
+"hozzáférés"
 
 msgid "Administrator - read/write, Users - read-only, Others - read-only"
 msgstr ""
+"Adminisztrátor – olvasás/írás, Felhasználók – csak olvasás, Mások – csak "
+"olvasás"
 
 msgid "Administrator - read/write, Users - read/write, Others - no access"
 msgstr ""
+"Adminisztrátor – olvasás/írás, Felhasználók – olvasás/írás, Mások – nincs "
+"hozzáférés"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
+"Adminisztrátor – olvasás/írás, Felhasználók – olvasás/írás, Mások – csak "
+"olvasás"
 
 msgid "Advanced"
-msgstr ""
+msgstr "Haladó"
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "Valóban újra szeretné telepíteni?"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "Valóban újra szeretné indítani?"
 
 msgid "Are you sure you want to sync changes from the files?"
-msgstr ""
+msgstr "Biztosan szinkronizálni szeretné a fájlok változásait?"
 
 msgid "Autocompose"
-msgstr ""
+msgstr "Automatikus összeállítás"
 
 msgid "Aux address"
-msgstr ""
+msgstr "Kiegészítő cím"
 
 msgid "Available"
-msgstr ""
+msgstr "Elérhető"
 
 msgid "Backup"
-msgstr ""
+msgstr "Biztonsági mentés"
 
 msgid "Block In"
-msgstr ""
+msgstr "Blokk be"
 
 msgid "Block Out"
-msgstr ""
+msgstr "Blokk ki"
 
 msgid "Build"
-msgstr ""
+msgstr "Összeállítás"
 
 msgid "Build ..."
-msgstr ""
+msgstr "Összeállítás…"
 
 msgid "CPU %"
-msgstr ""
+msgstr "CPU %"
 
 msgid "Changes have been synced from file."
-msgstr ""
+msgstr "A változások szinkronizálásra kerültek a fájlból."
 
 msgid "Check compose file for errors ..."
-msgstr ""
+msgstr "Összeállító fájl hibaellenőrzése…"
 
 msgid ""
 "Choose which compose files to backup by filtering the compose name by this "
@@ -98,598 +112,620 @@ msgid ""
 " or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
 "multiple filters separated by commas."
 msgstr ""
+"Válassza ki, hogy mely összeállítási fájlokról kíván biztonsági mentést "
+"készíteni a összeállítás nevére való szűrésével ebben a mezőben.<br/>A szűrő"
+" lehet részleges egyezés a helyettesítő karakter (*) használatával. pl. "
+"„asd*” vagy „*asd*” vagy „*asd”.<br/>Üresen hagyva, vagy csak *-ot használva"
+" az összes megjelenik.<br/>Több szűrőt vesszővel lehet elválasztani."
 
 msgid "Command"
-msgstr ""
+msgstr "Parancs"
 
 msgid "Compose"
-msgstr ""
+msgstr "Összeállítás"
 
 msgid "Compose Backup"
-msgstr ""
+msgstr "Összeállítás biztonsági mentése"
 
 msgid "Compose Files"
-msgstr ""
+msgstr "Összeállító fájlok"
 
 msgid "Compose Restore"
-msgstr ""
+msgstr "Összeállítás visszaálítása"
 
 msgid "Compose Update"
-msgstr ""
+msgstr "Összeállítás frisstése"
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr ""
+"Az összeállítási fájl megosztott mappának különböznie kell az adatok "
+"megosztott mappájától."
 
 msgid "Compose version"
-msgstr ""
+msgstr "Összeállítás verziója"
 
 msgid "Conf file"
-msgstr ""
+msgstr "Konfigurációs fájl"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "Konfigurációs fájl neve"
 
 msgid "Container"
-msgstr ""
+msgstr "Konténer"
 
 msgid "Containers"
-msgstr ""
+msgstr "Konténerek"
 
 msgid "Create"
-msgstr ""
+msgstr "Létrehozás"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "Létrehozás URL-ből"
 
 msgid "Create from example"
-msgstr ""
+msgstr "Létrehozás példa alapján"
 
 msgid "Create new compose file from running container ..."
-msgstr ""
+msgstr "Új összeállítási fájl létrehozása a futó konténerből…"
 
 msgid "Create new image tag ..."
-msgstr ""
+msgstr "Új lemezképcímke készítése…"
 
 msgid "Created"
-msgstr ""
+msgstr "Létrehozva"
 
 msgid "Created At"
-msgstr ""
+msgstr "Létrehozva ekkor"
 
 msgid "Created dockerfile."
-msgstr ""
+msgstr "Dockerfájl létrehozva."
 
 msgid "Created file from url."
-msgstr ""
+msgstr "Fájl létrehozása URL-ből."
 
 msgid "Created file."
-msgstr ""
+msgstr "Fájl létrehozva."
 
 msgid "Created network."
-msgstr ""
+msgstr "Hálózat létrehozva."
 
 msgid "Created scheduled job."
-msgstr ""
+msgstr "Ütemezett feladat létrehozva."
 
 msgid "Current"
-msgstr ""
+msgstr "Jelenlegi"
 
 msgid "Data"
-msgstr ""
+msgstr "Adat"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Dátum és idő"
 
 msgid "Delete"
-msgstr ""
+msgstr "Törlés"
 
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 msgid "Digest"
-msgstr ""
+msgstr "Kivonat"
 
 msgid "Docker"
-msgstr ""
+msgstr "Docker"
 
 msgid "Docker has been restarted."
-msgstr ""
+msgstr "A Docker újra lett indítva."
 
 msgid "Docker is restarting ..."
-msgstr ""
+msgstr "A Docker újraindul…"
 
 msgid "Docker on OMV"
-msgstr ""
+msgstr "Docker az OMV-n"
 
 msgid "Docker storage"
-msgstr ""
+msgstr "Docker tároló"
 
 msgid "Docker version"
-msgstr ""
+msgstr "Docker verzió"
 
 msgid "Dockerfile"
-msgstr ""
+msgstr "Docker fájl"
 
 msgid "Dockerfiles"
-msgstr ""
+msgstr "Docker fájlok"
 
 msgid "Docs"
-msgstr ""
+msgstr "Dokumentáció"
 
 msgid "Down"
-msgstr ""
+msgstr "Le"
 
 msgid "Download log"
-msgstr ""
+msgstr "Letöltési napló"
 
 msgid "Driver"
-msgstr ""
+msgstr "Illesztőprogram"
 
 msgid "Edit"
-msgstr ""
+msgstr "Szerkesztés"
 
 msgid "Edit dockerfile."
-msgstr ""
+msgstr "Docker fájl szerkesztése."
 
 msgid "Edit file."
-msgstr ""
+msgstr "Fájl szerkesztése."
 
 msgid "Edit global environment file"
-msgstr ""
+msgstr "Globális környezeti fájl szerkesztése"
 
 msgid "Edit global environment variable file."
-msgstr ""
+msgstr "A globális környezeti változókat tartalmazó fájl szerkesztése."
 
 msgid "Edit scheduled job."
-msgstr ""
+msgstr "Ütemezett feladat szerkesztése."
 
 msgid "Env Path"
-msgstr ""
+msgstr "Körny. útvonal"
 
 msgid "Environment"
-msgstr ""
+msgstr "Környezet"
 
 msgid "Everyone - read/write"
-msgstr ""
+msgstr "Mindenki – olvasás/írás"
 
 msgid "Example"
-msgstr ""
+msgstr "Példa"
 
 msgid "Execute scheduled job ..."
-msgstr ""
+msgstr "Ütemezett feladat futtatása…"
 
 msgid "Failed"
-msgstr ""
+msgstr "Sikertelen"
 
 msgid "File"
-msgstr ""
+msgstr "Fájl"
 
 msgid "File date"
-msgstr ""
+msgstr "Adatfájl"
 
 msgid "Files"
-msgstr ""
+msgstr "Fájlok"
 
 msgid "Filter"
-msgstr ""
+msgstr "Szűrő"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
+"A formátum: „name=ip”. Több bejegyzést vesszővel lehet elválasztani,<br/>pl."
+" „my-router=192.168.10.5,my-nas=192.168.20.6”."
 
 msgid "Gateway"
-msgstr ""
+msgstr "Átjáró"
 
 msgid "Global Environment"
-msgstr ""
+msgstr "Globális környezet"
 
 msgid "Global environment variables"
-msgstr ""
+msgstr "Globális környezeti változó"
 
 msgid "Group of directories and files"
-msgstr ""
+msgstr "Mappák és fájlok csoportja"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP range"
-msgstr ""
+msgstr "IP-tartomány"
 
 msgid "Image"
-msgstr ""
+msgstr "Lemezkép"
 
 msgid "Images"
-msgstr ""
+msgstr "Lemezképek"
 
 msgid "Import"
-msgstr ""
+msgstr "Importálás"
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "Meglévő összeállítás fájl importálása…"
 
 msgid "Import existing compose folders ..."
-msgstr ""
+msgstr "Meglévő összeállítás mappák importálása…"
 
 msgid "Import one"
-msgstr ""
+msgstr "Egy importálása"
 
 msgid "In Use"
-msgstr ""
+msgstr "Alkalmazva"
 
 msgid "Inspect"
-msgstr ""
+msgstr "Vizsgálat"
 
 msgid "Installed"
-msgstr ""
+msgstr "Telepítve"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
-msgstr ""
+msgstr "Üresen hagyva egyéni /etc/docker/daemon.json alkalmazása."
 
 msgid "Location of backups"
-msgstr ""
+msgstr "Biztonsági mentések helye"
 
 msgid "Location of compose files"
-msgstr ""
+msgstr "Összeállítás fájl helye"
 
 msgid "Max Size"
-msgstr ""
+msgstr "Maximális méret"
 
 msgid "Mem %"
-msgstr ""
+msgstr "Memória %"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "Memóriakorlát"
 
 msgid "Mem Usage"
-msgstr ""
+msgstr "Használt memória"
 
 msgid "Message"
-msgstr ""
+msgstr "Üzenet"
 
 msgid "Mixed"
-msgstr ""
+msgstr "Kevert"
 
 msgid "Mountpoint"
-msgstr ""
+msgstr "Csatolási pont"
 
 msgid "Mounts"
-msgstr ""
+msgstr "Csatolási pontok"
 
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
 msgid "Name is in use by a Dockerfile."
-msgstr ""
+msgstr "A nevet egy Dockerfájl már használja."
 
 msgid "Name is in use by a compose file."
-msgstr ""
+msgstr "A nevet egy összeállítás fájl már használja."
 
 msgid "Net In"
-msgstr ""
+msgstr "Bejövő net"
 
 msgid "Net Out"
-msgstr ""
+msgstr "Kimenő net"
 
 msgid "Network"
-msgstr ""
+msgstr "Hálózat"
 
 msgid "Networks"
-msgstr ""
+msgstr "Hálózatok"
 
 msgid "No Image"
-msgstr ""
+msgstr "Nincs lemezkép"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "Nem található összeállítás fájl!"
 
 msgid "Not installed"
-msgstr ""
+msgstr "Nincs telepítve"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
+"Csak alfanumerikus (a-zA-Z), aláhúzás (_), kötőjel (-), vessző (,) és "
+"csillag (*) engedélyezett!"
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
+"Nem kötelező – A megmaradó konténeradatok helye<br/>Kizárólag a "
+"CHANGE_TO_COMPOSE_DATA_PATH helyettesítésére szolgál a compose és env "
+"fájlokban ezzel a megosztott mappa elérési útvonalával."
 
 msgid "Owner of directories and files"
-msgstr ""
+msgstr "Mappák és fájlok tulajdonosa"
 
 msgid "PIDs"
-msgstr ""
+msgstr "PID-ek"
 
 msgid "Parent network"
-msgstr ""
+msgstr "Szülő hálózat"
 
 msgid "Path"
-msgstr ""
+msgstr "Útvonal"
 
 msgid "Permissions of directories and files"
-msgstr ""
+msgstr "Mappák és fájlok jogosultságai"
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "Kérjük, állítson be megosztott mappát a biztonsági mentéseknek."
 
 msgid "Please set shared folder for data on the Settings tab."
 msgstr ""
+"Kérjük, állítson be megosztott mappát az adatok számára a Beállítások lapon."
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "Kérjük, állítson be megosztott mappát a fájlok tárolására."
 
 msgid "Ports"
-msgstr ""
+msgstr "Portok"
 
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 msgid "Prune"
-msgstr ""
+msgstr "Tisztítás"
 
 msgid "Pull and Build"
-msgstr ""
+msgstr "Lekérés és összeállítás"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "Lekérés és összeállítás…"
 
 msgid "Push"
-msgstr ""
+msgstr "Felküldés"
 
 msgid "Push to Docker Hub ..."
-msgstr ""
+msgstr "Felküldés a Docker Hub-ba…"
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "Docker újratelepítése"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "Docker újratelepítése…"
 
 msgid "Repository"
-msgstr ""
+msgstr "Tároló"
 
 msgid "Restart Docker"
-msgstr ""
+msgstr "Docker újraindítása"
 
 msgid "Restore"
-msgstr ""
+msgstr "Visszaállítás"
 
 msgid "Restore Compose ..."
-msgstr ""
+msgstr "Összeállítás visszaállítása…"
 
 msgid "Run"
-msgstr ""
+msgstr "Futtatás"
 
 msgid "Running For"
-msgstr ""
+msgstr "Fut ennek"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Ütemezés"
 
 msgid "Script"
-msgstr ""
+msgstr "Parancsfájl"
 
 msgid "Script filename"
-msgstr ""
+msgstr "Parancsfájl fájlneve"
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "Csoport kiválasztása…"
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "Felhasználó kiválasztása…"
 
 msgid "Service"
-msgstr ""
+msgstr "Szolgáltatás"
 
 msgid "Services"
-msgstr ""
+msgstr "Szolgáltatások"
 
 msgid "Settings"
-msgstr ""
+msgstr "Beállítások"
 
 msgid "Shared folder"
-msgstr ""
+msgstr "Megosztott mappa"
 
 msgid "Size"
-msgstr ""
+msgstr "Méret"
 
 msgid "State"
-msgstr ""
+msgstr "Állapot"
 
 msgid "Stats"
-msgstr ""
+msgstr "Statisztikák"
 
 msgid "Status"
-msgstr ""
+msgstr "Státusz"
 
 msgid "Stopped"
-msgstr ""
+msgstr "Leállítva"
 
 msgid "Subnet"
-msgstr ""
+msgstr "Alhálózat"
 
 msgid "Sync changes from file"
-msgstr ""
+msgstr "Módosítások szinkronizálása fájlból"
 
 msgid "Syncing changes from file ..."
-msgstr ""
+msgstr "Módosítások szinkronizálása fájlból…"
 
 msgid "System"
-msgstr ""
+msgstr "Rendszer"
 
 msgid "Tag"
-msgstr ""
+msgstr "Címke"
 
 msgid "Tags"
-msgstr ""
+msgstr "Címkék"
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"Egy összeállítás fájlt fog importálni a kiválasztott mappában.<br/>Nem "
+"importál olyan összeállítás fájlt, amely már létezik a bővítményben."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose files that already exist in the plugin."
 msgstr ""
+"Egy vagy több összeállítás fájlt fog importálni a kiválasztott "
+"mappában.<br/>Nem importál olyan összeállítás fájlokat, amelyek már léteznek"
+" a bővítményben."
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr ""
+"Egységek GB-ban. A biztonsági mentés kihagyja az ennél nagyobb "
+"köteteket.<br/>0-ra állítva a méret korlátlan."
 
 msgid "Up"
-msgstr ""
+msgstr "Fel"
 
 msgid "Version"
-msgstr ""
+msgstr "Verzió"
 
 msgid "Virtual Size"
-msgstr ""
+msgstr "Virtuális méret"
 
 msgid "Volume"
-msgstr ""
+msgstr "Kötet"
 
 msgid "Volumes"
-msgstr ""
+msgstr "Kötetek"
 
 msgid "and not running"
-msgstr ""
+msgstr "és nem fut"
 
 msgid "and running"
-msgstr ""
+msgstr "és fut"
 
 msgid "check"
-msgstr ""
+msgstr "ellenőrzés"
 
 msgid "docker container prune ..."
-msgstr ""
+msgstr "docker container prune…"
 
 msgid "docker image inspect ..."
-msgstr ""
+msgstr "docker image inspect…"
 
 msgid "docker image prune ..."
-msgstr ""
+msgstr "docker image prune…"
 
 msgid "docker image rm ..."
-msgstr ""
+msgstr "docker image rm…"
 
 msgid "docker inspect ..."
-msgstr ""
+msgstr "docker inspect…"
 
 msgid "docker logs --follow ..."
-msgstr ""
+msgstr "docker logs --follow…"
 
 msgid "docker logs ..."
-msgstr ""
+msgstr "docker logs…"
 
 msgid "docker network inspect ..."
-msgstr ""
+msgstr "docker network inspect…"
 
 msgid "docker network prune ..."
-msgstr ""
+msgstr "docker network prune…"
 
 msgid "docker network rm ..."
-msgstr ""
+msgstr "docker network rm…"
 
 msgid "docker restart ..."
-msgstr ""
+msgstr "docker restart…"
 
 msgid "docker system prune ..."
-msgstr ""
+msgstr "docker system prune…"
 
 msgid "docker volume inspect ..."
-msgstr ""
+msgstr "docker volume inspect…"
 
 msgid "docker volume prune ..."
-msgstr ""
+msgstr "docker volume prune…"
 
 msgid "docker volume rm ..."
-msgstr ""
+msgstr "docker volume rm…"
 
 msgid "docker-compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker-compose down --remove-orphans…"
 
 msgid "docker-compose down ..."
-msgstr ""
+msgstr "docker-compose down…"
 
 msgid "docker-compose file version"
-msgstr ""
+msgstr "docker-compose file version"
 
 msgid "docker-compose logs --follow ..."
-msgstr ""
+msgstr "docker-compose logs --follow…"
 
 msgid "docker-compose logs ..."
-msgstr ""
+msgstr "docker-compose logs…"
 
 msgid "docker-compose ps ..."
-msgstr ""
+msgstr "docker-compose ps…"
 
 msgid "docker-compose pull ..."
-msgstr ""
+msgstr "docker-compose pull…"
 
 msgid "docker-compose restart ..."
-msgstr ""
+msgstr "docker-compose restart…"
 
 msgid "docker-compose stop ..."
-msgstr ""
+msgstr "docker-compose stop…"
 
 msgid "docker-compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker-compose up -d --remove-orphans…"
 
 msgid "docker-compose up -d ..."
-msgstr ""
+msgstr "docker-compose up -d…"
 
 msgid "dockerfile build ..."
-msgstr ""
+msgstr "dockerfile build…"
 
 msgid "down"
-msgstr ""
+msgstr "le"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "le és árvák eltávolítása"
 
 msgid "e.g. 172.20.0.0/16"
-msgstr ""
+msgstr "pl. 172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr ""
+msgstr "pl. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr ""
+msgstr "pl. 172.20.10.128/25"
 
 msgid "follow logs"
-msgstr ""
+msgstr "naplók követése"
 
 msgid "logs"
-msgstr ""
+msgstr "naplók"
 
 msgid "n/a"
-msgstr ""
+msgstr "nem alkalmazható"
 
 msgid "omv-extras wiki"
-msgstr ""
+msgstr "omv-extras wiki"
 
 msgid "ps"
-msgstr ""
+msgstr "ps"
 
 msgid "pull"
-msgstr ""
+msgstr "lekérés"
 
 msgid "restart"
-msgstr ""
+msgstr "újraindítás"
 
 msgid "stop"
-msgstr ""
+msgstr "leállítás"
 
 msgid "up"
-msgstr ""
+msgstr "fel"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "fel és árvák eltávolítása"
