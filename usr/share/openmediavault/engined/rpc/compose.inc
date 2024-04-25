@@ -19,6 +19,7 @@
 class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 {
     private $url = "https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/compose-files";
+    private $regctl = "/usr/local/bin/regctl";
 
     public function getName()
     {
@@ -1611,6 +1612,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         $skipStatus = \OMV\Environment::getBoolean('OMV_COMPOSE_SKIP_IMAGE_STATUS', false);
+        if (!file_exists($this->regctl)) {
+            $skipStatus = true;
+        }
         $objects = [];
         // Get container images
         $cmdArgs = [];
@@ -1694,7 +1698,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = sprintf('"%s"', $img);
         }
         $output = [];
-        $cmd = new \OMV\System\Process('/usr/local/bin/regctl', $cmdArgs);
+        $cmd = new \OMV\System\Process($this->regctl, $cmdArgs);
         $cmd->setQuiet(true);
         $cmd->execute($output, $exitStatus);
         $newest = '';
