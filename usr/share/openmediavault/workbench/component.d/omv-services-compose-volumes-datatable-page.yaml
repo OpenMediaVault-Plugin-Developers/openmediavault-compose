@@ -23,6 +23,12 @@ data:
         prop: name
         flexGrow: 2
         sortable: true
+      - name: _("Size")
+        prop: size
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: '{{ size | tobytes | binaryunit | notavailable("-") }}'
       - name: _("Mountpoint")
         prop: mountpoint
         flexGrow: 4

@@ -1444,20 +1444,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get images
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'volume';
-        $cmdArgs[] = 'ls';
+        $cmdArgs[] = 'system';
+        $cmdArgs[] = 'df';
+        $cmdArgs[] = '--verbose';
         $cmdArgs[] = '--format "json"';
         $cmd = new \OMV\System\Process($cmdArgs);
         $cmd->setQuiet(true);
         $output = [];
         $cmd->execute($output, $exitStatus);
+        $outputJson = implode("", $output);
+        $data = json_decode($outputJson, true);
         $volumesAssoc = [];
-        foreach ($output as $volume) {
-            $volumeJson = json_decode($volume);
+        foreach ($data['Volumes'] as $volume) {
             $volumesAssoc[] = [
-                "name" => $volumeJson->Name,
-                "mountpoint" => $volumeJson->Mountpoint,
-                "driver" => $volumeJson->Driver
+                "name" => $volume['Name'],
+                "size" => $volume['Size'],
+                "mountpoint" => $volume['Mountpoint'],
+                "driver" => $volume['Driver']
             ];
         }
         // Filter the result.
