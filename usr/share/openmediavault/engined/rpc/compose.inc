@@ -338,7 +338,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        // delete cache files
+        // delete all cache files
         $this->clearCache('all');
     }
 
@@ -878,6 +878,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, "name");
         $db->set($object);
+        // delete cache files
+        $this->clearCache('files');
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -902,6 +904,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, "name");
         $db->set($object);
+        // delete cache files
+        $this->clearCache('files');
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -1275,6 +1279,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, 'name');
         $db->set($object);
+        // delete cache files
+        $this->clearCache('files');
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -1283,8 +1289,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        // clear cache for files
-        $this->clearCache('files');
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         $dockerpath = $this->getDockerPath($context);
@@ -1308,14 +1312,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object->set('env', $envContent);
         // Set the configuration object.
         $db->set($object);
+        // delete cache files
+        $this->clearCache('files');
         // Return the configuration object.
         return $object->getAssoc();
     }
 
     public function importExistingFolder($params, $context)
     {
-        // clear cache for files
-        $this->clearCache('files');
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         // Get the configuration object.
@@ -1359,12 +1363,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
             $db->set($object);
         }
+        // clear cache for files
+        $this->clearCache('files');
     }
 
     public function importExistingOne($params, $context)
     {
-        // clear cache for files
-        $this->clearCache('files');
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         // Get the configuration object.
@@ -1409,6 +1413,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             throw new \OMV\ExecException("A compose file with the name '$name' already exists!");
         }
         $db->set($object);
+        // clear cache for files
+        $this->clearCache('files');
     }
 
     public function getStats($params, $context)
@@ -1497,6 +1503,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for stats
+        $this->clearCache('stats');
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.dodockercmd");
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
@@ -1618,6 +1626,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for volumes
+        $this->clearCache('volumes');
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($params) {
                 $cmdArgs = [];

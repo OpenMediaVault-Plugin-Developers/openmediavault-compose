@@ -10,6 +10,9 @@ case "$1" in
         # Activate package triggers.
         dpkg-trigger update-workbench
 
+        # remove cache files
+        rm -f /var/cache/openmediavault/compose_cache_*
+
         # Initialize and migrate configuration database.
         echo "Updating configuration database ..."
         omv-confdbadm create "conf.service.compose"
