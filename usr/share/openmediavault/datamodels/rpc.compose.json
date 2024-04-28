@@ -66,6 +66,34 @@
         "dockerStorage": {
           "type": "string",
           "required": false
+        },
+        "cachetimefiles": {
+          "type": "integer",
+          "required": true
+        },
+        "cachetimeservices": {
+          "type": "integer",
+          "required": true
+        },
+        "cachetimestats": {
+          "type": "integer",
+          "required": true
+        },
+        "cachetimeimages": {
+          "type": "integer",
+          "required": true
+        },
+        "cachetimenetworks": {
+          "type": "integer",
+          "required": true
+        },
+        "cachetimevolumes": {
+          "type": "integer",
+          "required": true
+        },
+        "cachetimecontainers": {
+          "type": "integer",
+          "required": true
         }
       }
     }

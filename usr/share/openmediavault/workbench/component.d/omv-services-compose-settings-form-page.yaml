@@ -118,6 +118,74 @@ data:
         label: _("Compose version")
         submitValue: false
         readonly: true
+      - type: divider
+        title: _("Cache times for tabs")
+      - type: container
+        fields:
+          - type: numberInput
+            name: cachetimefiles
+            label: _("Files")
+            value: 60
+            hint: _("Units in seconds.<br/>Set to 0 for no caching.")
+            validators:
+              min: 0
+              max: 65536
+              patternType: integer
+              required: true
+          - type: numberInput
+            name: cachetimeservices
+            label: _("Services")
+            value: 60
+            validators:
+              min: 0
+              max: 65536
+              patternType: integer
+              required: true
+          - type: numberInput
+            name: cachetimestats
+            label: _("Stats")
+            value: 60
+            validators:
+              min: 0
+              max: 65536
+              patternType: integer
+              required: true
+          - type: numberInput
+            name: cachetimeimages
+            label: _("Images")
+            value: 60
+            validators:
+              min: 0
+              max: 65536
+              patternType: integer
+              required: true
+          - type: numberInput
+            name: cachetimenetworks
+            label: _("Networks")
+            value: 60
+            validators:
+              min: 0
+              max: 65536
+              patternType: integer
+              required: true
+          - type: numberInput
+            name: cachetimevolumes
+            label: _("Volumes")
+            value: 60
+            validators:
+              min: 0
+              max: 65536
+              patternType: integer
+              required: true
+          - type: numberInput
+            name: cachetimecontainers
+            label: _("Containers")
+            value: 60
+            validators:
+              min: 0
+              max: 65536
+              patternType: integer
+              required: true
     buttons:
       - template: submit
       - template: cancel
@@ -151,3 +219,11 @@ data:
             method: restartDocker
             progressMessage: _("Docker is restarting ...")
             successNotification: _("Docker has been restarted.")
+      - text: _("Clear cache")
+        execute:
+          type: request
+          request:
+            service: Compose
+            method: clearCacheFiles
+            progressMessage: _("Clearing cache ...")
+            successNotification: _("Cache has been cleared.")

@@ -72,6 +72,48 @@
       "type": "string",
       "default": "/var/lib/docker"
     },
+    "cachetimefiles": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535,
+      "default": 60
+    },
+    "cachetimeservices": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535,
+      "default": 60
+    },
+    "cachetimestats": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535,
+      "default": 60
+    },
+    "cachetimeimages": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535,
+      "default": 60
+    },
+    "cachetimenetworks": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535,
+      "default": 60
+    },
+    "cachetimevolumes": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535,
+      "default": 60
+    },
+    "cachetimecontainers": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535,
+      "default": 60
+    },
     "files": {
       "type": "object",
       "properties": {
