@@ -20,6 +20,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 {
     private $url = "https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/compose-files";
     private $regctl = "/usr/local/bin/regctl";
+    private $cacheFileFiles = '/var/cache/openmediavault/compose_cache_files';
+    private $cacheFileServices = '/var/cache/openmediavault/compose_cache_services';
+    private $cacheFileStats = '/var/cache/openmediavault/compose_cache_stats.json';
+    private $cacheFileImages = '/var/cache/openmediavault/compose_cache_images';
+    private $cacheFileNetworks = '/var/cache/openmediavault/compose_cache_networks.json';
+    private $cacheFileVolumes = '/var/cache/openmediavault/compose_cache_volumes.json';
+    private $cacheFileContainers = '/var/cache/openmediavault/compose_cache_containers.json';
 
     public function getName()
     {
@@ -32,6 +39,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("set");
         $this->registerMethod("reinstallDocker");
         $this->registerMethod("restartDocker");
+        $this->registerMethod("clearCacheFiles");
 
         $this->registerMethod("getFileList");
         $this->registerMethod("getFileListBg");
@@ -105,6 +113,46 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod('doJob');
     }
 
+    private function clearCache($file)
+    {
+        // delete cache files
+        if ($file == 'files' || $file == 'all') {
+            $files = glob(sprintf('%s*.json', $this->cacheFileFiles));
+            foreach ($files as $ufile) {
+                if (is_file($ufile)) {
+                    unlink($ufile);
+                }
+            }
+        }
+        if ($file == 'services' || $file == 'all') {
+            $files = glob(sprintf('%s*.json', $this->cacheFileServices));
+            foreach ($files as $ufile) {
+                if (is_file($ufile)) {
+                    unlink($ufile);
+                }
+            }
+        }
+        if (($file == 'stats' || $file == 'all') && file_exists($this->cacheFileStats)) {
+            unlink($this->cacheFileStats);
+        }
+        if ($file == 'images' || $file == 'all') {
+            $files = glob(sprintf('%s*.json', $this->cacheFileImages));
+            foreach ($files as $ufile) {
+                if (is_file($ufile)) {
+                    unlink($ufile);
+                }
+            }
+        }
+        if (($file == 'networks' || $file == 'all') && file_exists($this->cacheFileNetworks)) {
+            unlink($this->cacheFileNetworks);
+        }
+        if (($file == 'volumes' || $file == 'all') && file_exists($this->cacheFileVolumes)) {
+            unlink($this->cacheFileVolumes);
+        }
+        if (($file == 'containers' || $file == 'all') && file_exists($this->cacheFileContainers)) {
+            unlink($this->cacheFileContainers);
+        }
+    }
     private function getComposePath($context)
     {
         // Get configuration data.
@@ -286,6 +334,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $systemCtl->restart();
     }
 
+    public function clearCacheFiles($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // delete cache files
+        $this->clearCache('all');
+    }
+
     public function getFileList($params, $context)
     {
         // Validate the RPC caller context.
@@ -296,6 +352,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $objects = $db->get("conf.service.compose.file");
         $sfpath = $this->getComposePath($context);
+        // get cache time
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $cacheTime = $settings->get('cachetimefiles');
         // Add additional informations.
         $objectsAssoc = [];
         foreach ($objects as $objectk => &$objectv) {
@@ -306,23 +366,34 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $composeFile = sprintf("%s.yml", $composeName);
             $envFile = sprintf("%s.env", $composeName);
             $globalEnvFile = sprintf("%s/global.env", $sfpath);
-            // get ps output
-            $cmdArgs = [];
-            $cmdArgs[] = 'docker';
-            $cmdArgs[] = 'compose';
-            $cmdArgs[] = sprintf('--file "%s"', $composeFile);
-            $cmdArgs[] = sprintf("--env-file '%s'", $envFile);
-            if (file_exists($globalEnvFile)) {
-                $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-            }
-            $cmdArgs[] = 'ps';
-            $cmdArgs[] = '--all';
-            $cmdArgs[] = '--format "json"';
-            $cmd = new \OMV\System\Process($cmdArgs);
-            $cmd->setQuiet(true);
+            // Check if cache file exists and is not older than cache setting
+            $cacheFile = sprintf('%s_%s.json', $this->cacheFileFiles, $cname);
+            $cacheTime = 60; // You can adjust this as needed
             $output = [];
-            $cmd->execute($output, $exitStatus);
-            array_filter($output);
+            if ($cacheTime > 0 && file_exists($cacheFile) &&
+              (time() - filemtime($cacheFile)) < $cacheTime) {
+                $output = json_decode(file_get_contents($cacheFile), true);
+            } else {
+                // get ps output
+                $cmdArgs = [];
+                $cmdArgs[] = 'docker';
+                $cmdArgs[] = 'compose';
+                $cmdArgs[] = sprintf('--file "%s"', $composeFile);
+                $cmdArgs[] = sprintf("--env-file '%s'", $envFile);
+                if (file_exists($globalEnvFile)) {
+                    $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+                }
+                $cmdArgs[] = 'ps';
+                $cmdArgs[] = '--all';
+                $cmdArgs[] = '--format "json"';
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setQuiet(true);
+                $cmd->execute($output, $exitStatus);
+                array_filter($output);
+                if ($cacheTime > 0) {
+                    file_put_contents($cacheFile, json_encode($output));
+                }
+            }
             // get state of each container
             $down = 0;
             $exited = 0;
@@ -437,6 +508,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             'modules' => [ 'compose' ],
             'force' => TRUE
         ], $context);
+        // clear cache for files
+        $this->clearCache('files');
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -482,6 +555,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // delete database entry
         $db->delete($object);
+        // clear cache for files
+        $this->clearCache('files');
         // Return the deleted configuration object.
         return $object->getAssoc();
     }
@@ -697,6 +772,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for files
+        $this->clearCache('files');
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
@@ -737,6 +814,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for all
+        $this->clearCache('all');
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.doprune");
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
@@ -844,7 +923,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (strlen($dn) > 1) {
             $fqdn = sprintf('%s.%s', $fqdn, $dn);
         }
-        // populate containers
+        // get cache time
+        $settings = $db->get("conf.service.compose");
+        $cacheTime = $settings->get('cachetimeservices');
+        // populate services
         $imagesAssoc = [];
         $objects = $db->get("conf.service.compose.file");
         foreach ($objects as $objectk => &$objectv) {
@@ -854,26 +936,36 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $envfilepath = sprintf("%s.env", $path);
             $globalEnvFile = sprintf("%s/global.env", $sfpath);
             $exists = file_exists($filepath);
+            $output = [];
             if ($exists) {
-                // Get images
-                $cmdArgs = [];
-                $cmdArgs[] = 'docker';
-                $cmdArgs[] = 'compose';
-                $cmdArgs[] = sprintf('--file "%s"', $filepath);
-                if ($envfilepath != '') {
-                        $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
+                // Check if cache file exists and is not older than cache setting
+                $cacheFile = sprintf('%s_%s.json', $this->cacheFileServices, $cname);
+                if ($cacheTime > 0 && file_exists($cacheFile) &&
+                  (time() - filemtime($cacheFile)) < $cacheTime) {
+                    $output = json_decode(file_get_contents($cacheFile), true);
+                } else {
+                    // Get images
+                    $cmdArgs = [];
+                    $cmdArgs[] = 'docker';
+                    $cmdArgs[] = 'compose';
+                    $cmdArgs[] = sprintf('--file "%s"', $filepath);
+                    if ($envfilepath != '') {
+                            $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
+                    }
+                    if (file_exists($globalEnvFile)) {
+                        $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+                    }
+                    $cmdArgs[] = 'ps';
+                    $cmdArgs[] = '--all';
+                    $cmdArgs[] = '--format "json"';
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setQuiet(true);
+                    $cmd->execute($output, $exitStatus);
+                    array_filter($output);
+                    if ($cacheTime > 0) {
+                        file_put_contents($cacheFile, json_encode($output));
+                    }
                 }
-                if (file_exists($globalEnvFile)) {
-                    $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-                }
-                $cmdArgs[] = 'ps';
-                $cmdArgs[] = '--all';
-                $cmdArgs[] = '--format "json"';
-                $cmd = new \OMV\System\Process($cmdArgs);
-                $cmd->setQuiet(true);
-                $output = [];
-                $cmd->execute($output, $exitStatus);
-                array_filter($output);
                 foreach ($output as $image) {
                     $imagej = json_decode($image);
                     $ports = [];
@@ -927,6 +1019,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for services
+        $this->clearCache('services');
         $sfpath = $this->getComposePath($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($params, $sfpath) {
@@ -1006,7 +1100,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.getlist");
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
+        // get cache time
         $settings = $db->get("conf.service.compose");
+        $cacheTime = $settings->get('cachetimecontainers');
         // get fqdn
         $dns = $db->get('conf.system.network.dns');
         $fqdn = $dns->get('hostname');
@@ -1014,19 +1110,28 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (strlen($dn) > 1) {
             $fqdn = sprintf('%s.%s', $fqdn, $dn);
         }
-        // populate containers
+        // Check if cache file exists and is not older than cache setting
+        if ($cacheTime > 0 && file_exists($this->cacheFileContainers)
+          && (time() - filemtime($this->cacheFileContainers)) < $cacheTime) {
+            $output = json_decode(file_get_contents($this->cacheFileContainers), true);
+        } else {
+            $output = [];
+            // populate containers
+            $cmdArgs = [];
+            $cmdArgs[] = 'docker';
+            $cmdArgs[] = 'container';
+            $cmdArgs[] = 'ls';
+            $cmdArgs[] = '--all';
+            $cmdArgs[] = '--no-trunc';
+            $cmdArgs[] = '--format "json"';
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->setQuiet(true);
+            $cmd->execute($output, $exitStatus);
+            if ($cacheTime > 0) {
+                file_put_contents($this->cacheFileContainers, json_encode($output));
+            }
+        }
         $cntAssoc = [];
-        $cmdArgs = [];
-        $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'container';
-        $cmdArgs[] = 'ls';
-        $cmdArgs[] = '--all';
-        $cmdArgs[] = '--no-trunc';
-        $cmdArgs[] = '--format "json"';
-        $cmd = new \OMV\System\Process($cmdArgs);
-        $cmd->setQuiet(true);
-        $output = [];
-        $cmd->execute($output, $exitStatus);
         foreach ($output as $line) {
             $container = json_decode($line);
             $portList = explode(',', $container->Ports);
@@ -1067,6 +1172,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // delete cache containers
+        $this->clearCache('containers');
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($params) {
                 $cmdArgs = [];
@@ -1176,6 +1283,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for files
+        $this->clearCache('files');
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         $dockerpath = $this->getDockerPath($context);
@@ -1205,6 +1314,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     public function importExistingFolder($params, $context)
     {
+        // clear cache for files
+        $this->clearCache('files');
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         // Get the configuration object.
@@ -1252,6 +1363,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     public function importExistingOne($params, $context)
     {
+        // clear cache for files
+        $this->clearCache('files');
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         // Get the configuration object.
@@ -1302,15 +1415,30 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        // Get running containers
-        $cmdArgs = [];
-        $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'stats';
-        $cmdArgs[] = '--no-stream';
-        $cmdArgs[] = '--format "{{.ID}},{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.MemPerc}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}"';
-        $cmd = new \OMV\System\Process($cmdArgs);
-        $output = [];
-        $cmd->execute($output, $exitStatus);
+        // get cache time
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $cacheTime = $settings->get('cachetimestats');
+        // Check if cache file exists and is not older than cache setting
+        if ($cacheTime > 0 && file_exists($this->cacheFileStats)
+          && (time() - filemtime($this->cacheFileStats)) < $cacheTime) {
+            $output = file_get_contents($this->cacheFileStats);
+            $output = explode(PHP_EOL, $output);
+        } else {
+            // Get running containers
+            $cmdArgs = [];
+            $cmdArgs[] = 'docker';
+            $cmdArgs[] = 'stats';
+            $cmdArgs[] = '--no-stream';
+            $cmdArgs[] = '--format "{{.ID}},{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.MemPerc}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}"';
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $output = [];
+            $cmd->execute($output, $exitStatus);
+            if ($cacheTime > 0) {
+                $output2 = implode(PHP_EOL, $output);
+                file_put_contents($this->cacheFileStats, $output2);
+            }
+        }
         $objects = [];
         foreach ($output as $line) {
             $cntr = explode(',', $line);
@@ -1441,19 +1569,33 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         $objects = [];
-        // Get images
-        $cmdArgs = [];
-        $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'system';
-        $cmdArgs[] = 'df';
-        $cmdArgs[] = '--verbose';
-        $cmdArgs[] = '--format "json"';
-        $cmd = new \OMV\System\Process($cmdArgs);
-        $cmd->setQuiet(true);
-        $output = [];
-        $cmd->execute($output, $exitStatus);
-        $outputJson = implode("", $output);
-        $data = json_decode($outputJson, true);
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        // get cache time
+        $settings = $db->get("conf.service.compose");
+        $cacheTime = $settings->get('cachetimevolumes');
+        // Check if cache file exists and is not older than cache setting
+        if ($cacheTime > 0 && file_exists($this->cacheFileVolumes) &&
+          (time() - filemtime($this->cacheFileVolumes)) < $cacheTime) {
+            $data = json_decode(file_get_contents($this->cacheFileVolumes), true);
+        } else {
+            // Get images
+            $cmdArgs = [];
+            $cmdArgs[] = 'docker';
+            $cmdArgs[] = 'system';
+            $cmdArgs[] = 'df';
+            $cmdArgs[] = '--verbose';
+            $cmdArgs[] = '--format "json"';
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->setQuiet(true);
+            $output = [];
+            $cmd->execute($output, $exitStatus);
+            $outputJson = implode("", $output);
+            if ($cacheTime > 0) {
+                file_put_contents($this->cacheFileVolumes, $outputJson);
+            }
+            $data = json_decode($outputJson, true);
+        }
         $volumesAssoc = [];
         foreach ($data['Volumes'] as $volume) {
             $volumesAssoc[] = [
@@ -1503,16 +1645,30 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         $objects = [];
-        // Get networks
-        $cmdArgs = [];
-        $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'network';
-        $cmdArgs[] = 'ls';
-        $cmdArgs[] = '--format "json"';
-        $cmd = new \OMV\System\Process($cmdArgs);
-        $cmd->setQuiet(true);
+        // get cache time
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $cacheTime = $settings->get('cachetimenetworks');
+        // Check if cache file exists and is not older than cache setting
         $output = [];
-        $cmd->execute($output, $exitStatus);
+        if ($cacheTime > 0 && file_exists($this->cacheFileNetworks) &&
+          (time() - filemtime($this->cacheFileNetworks)) < $cacheTime) {
+            $output = json_decode(file_get_contents($this->cacheFileNetworks), true);
+        } else {
+            // Get networks
+            $cmdArgs = [];
+            $cmdArgs[] = 'docker';
+            $cmdArgs[] = 'network';
+            $cmdArgs[] = 'ls';
+            $cmdArgs[] = '--format "json"';
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->setQuiet(true);
+            $output = [];
+            $cmd->execute($output, $exitStatus);
+            if ($cacheTime > 0) {
+                file_put_contents($this->cacheFileNetworks, json_encode($output));
+            }
+        }
         $networksAssoc = [];
         foreach ($output as $network) {
             $networkJson = json_decode($network);
@@ -1552,6 +1708,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for networks
+        $this->clearCache('networks');
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($params) {
                 $cmdArgs = [];
@@ -1578,6 +1736,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for networks
+        $this->clearCache('networks');
         $driver = $params['driver'];
         // Get networks
         $cmdArgs = [];
@@ -1618,30 +1778,52 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (!file_exists($this->regctl)) {
             $skipStatus = true;
         }
-        $objects = [];
+        // get cache time
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $cacheTime = $settings->get('cachetimeimages');
+        $cacheFileContainers = sprintf('%s_containers.json', $this->cacheFileImages);
+        $cacheFileImages = sprintf('%s_images.json', $this->cacheFileImages);
         // Get container images
-        $cmdArgs = [];
-        $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'container';
-        $cmdArgs[] = 'ls';
-        $cmdArgs[] = '--all';
-        $cmdArgs[] = '--format "{{ .Image }}"';
-        $cmd = new \OMV\System\Process($cmdArgs);
         $containerImages = [];
-        $cmd->execute($containerImages, $exitStatus);
-        array_filter($containerImages);
+        if ($cacheTime > 0 && file_exists($cacheFileContainers) &&
+          (time() - filemtime($cacheFileContainers)) < $cacheTime) {
+            $containerImages = json_decode(file_get_contents($cacheFileContainers), true);
+        } else {
+            $cmdArgs = [];
+            $cmdArgs[] = 'docker';
+            $cmdArgs[] = 'container';
+            $cmdArgs[] = 'ls';
+            $cmdArgs[] = '--all';
+            $cmdArgs[] = '--format "{{ .Image }}"';
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->execute($containerImages, $exitStatus);
+            array_filter($containerImages);
+            if ($cacheTime > 0) {
+                file_put_contents($cacheFileContainers, json_encode($containerImages));
+            }
+        }
         // Get images
-        $cmdArgs = [];
-        $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'image';
-        $cmdArgs[] = 'ls';
-        $cmdArgs[] = '--all';
-        $cmdArgs[] = '--digests';
-        $cmdArgs[] = '--format "json"';
-        $cmd = new \OMV\System\Process($cmdArgs);
-        $cmd->setQuiet(true);
         $output = [];
-        $cmd->execute($output, $exitStatus);
+        if ($cacheTime > 0 && file_exists($cacheFileImages) &&
+          (time() - filemtime($cacheFileImages)) < $cacheTime) {
+            $output = json_decode(file_get_contents($cacheFileImages), true);
+        } else {
+            $cmdArgs = [];
+            $cmdArgs[] = 'docker';
+            $cmdArgs[] = 'image';
+            $cmdArgs[] = 'ls';
+            $cmdArgs[] = '--all';
+            $cmdArgs[] = '--digests';
+            $cmdArgs[] = '--format "json"';
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->setQuiet(true);
+            $output = [];
+            $cmd->execute($output, $exitStatus);
+            if ($cacheTime > 0) {
+                file_put_contents($cacheFileImages, json_encode($output));
+            }
+        }
         $imagesAssoc = [];
         foreach ($output as $image) {
             $imageJson = json_decode($image);
@@ -1690,20 +1872,35 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             strlen($img) == 0 || strlen($tag) == 0 || strlen($digest) == 0) {
             return 'NA';
         }
+        // get cache time
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $cacheTime = $settings->get('cachetimeimages');
+        $iname = sprintf('%s_%s', str_replace('/', '_', $img), $tag);
+        $cacheFile = sprintf('%s_%s.json', $this->cacheFileImages, $iname);
         // get latest digest from image's registry
-        $cmdArgs = [];
-        $cmdArgs[] = 'image';
-        $cmdArgs[] = 'digest';
-        $cmdArgs[] = '--list';
-        if (strlen($tag) > 0) {
-            $cmdArgs[] = sprintf('"%s:%s"', $img, $tag);
+        $exitStatus = 0;
+        if ($cacheTime > 0 && file_exists($cacheFile) &&
+          (time() - filemtime($cacheFile)) < $cacheTime) {
+            $output = json_decode(file_get_contents($cacheFile), true);
         } else {
-            $cmdArgs[] = sprintf('"%s"', $img);
+            $cmdArgs = [];
+            $cmdArgs[] = 'image';
+            $cmdArgs[] = 'digest';
+            $cmdArgs[] = '--list';
+            if (strlen($tag) > 0) {
+                $cmdArgs[] = sprintf('"%s:%s"', $img, $tag);
+            } else {
+                $cmdArgs[] = sprintf('"%s"', $img);
+            }
+            $output = [];
+            $cmd = new \OMV\System\Process($this->regctl, $cmdArgs);
+            $cmd->setQuiet(true);
+            $cmd->execute($output, $exitStatus);
+            if ($cacheTime > 0) {
+                file_put_contents($cacheFile, json_encode($output));
+            }
         }
-        $output = [];
-        $cmd = new \OMV\System\Process($this->regctl, $cmdArgs);
-        $cmd->setQuiet(true);
-        $cmd->execute($output, $exitStatus);
         $newest = '';
         if ($exitStatus > 0) {
             return 'FAILED';
@@ -1727,6 +1924,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for images
+        $this->clearCache('images');
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($params) {
                 $cmdArgs = [];
