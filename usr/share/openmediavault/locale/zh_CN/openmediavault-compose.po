@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-20 06:57-0500\n"
+"POT-Creation-Date: 2024-04-28 14:35-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -90,6 +90,12 @@ msgstr "构建中 ..."
 msgid "CPU %"
 msgstr "CPU %"
 
+msgid "Cache has been cleared."
+msgstr ""
+
+msgid "Cache times for tabs"
+msgstr ""
+
 msgid "Changes have been synced from file."
 msgstr "已从文件同步变更。"
 
@@ -104,6 +110,12 @@ msgid ""
 msgstr ""
 "通过此字段筛选要备份的 compose 文件名。<br/>筛选可以是使用通配符 （*） 。例如 asd* 或 *asd* 或 "
 "*asd<br/>留空或仅使用 * 表示所有compose 。<br/>添加多个筛选可使用以逗号分隔筛选条件。"
+
+msgid "Clear cache"
+msgstr ""
+
+msgid "Clearing cache ..."
+msgstr ""
 
 msgid "Command"
 msgstr "命令"
@@ -551,6 +563,9 @@ msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr "单位GB，备份将跳过大于此大小的卷。<br/>设置为 0 表示无限制。"
+
+msgid "Units in seconds.<br/>Set to 0 for no caching."
+msgstr ""
 
 msgid "Up"
 msgstr "上线"

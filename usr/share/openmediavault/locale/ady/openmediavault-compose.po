@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-20 06:57-0500\n"
+"POT-Creation-Date: 2024-04-28 14:35-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Adyghe (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ady/)\n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,12 @@ msgstr ""
 msgid "CPU %"
 msgstr ""
 
+msgid "Cache has been cleared."
+msgstr ""
+
+msgid "Cache times for tabs"
+msgstr ""
+
 msgid "Changes have been synced from file."
 msgstr ""
 
@@ -97,6 +103,12 @@ msgid ""
 "field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd*"
 " or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
 "multiple filters separated by commas."
+msgstr ""
+
+msgid "Clear cache"
+msgstr ""
+
+msgid "Clearing cache ..."
 msgstr ""
 
 msgid "Command"
@@ -542,6 +554,9 @@ msgstr ""
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
+msgstr ""
+
+msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr ""
 
 msgid "Up"

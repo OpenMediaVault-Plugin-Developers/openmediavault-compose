@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-20 06:57-0500\n"
+"POT-Creation-Date: 2024-04-28 14:35-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Daviteusz, 2024\n"
 "Language-Team: Polish (Poland) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl_PL/)\n"
@@ -101,6 +101,12 @@ msgstr "Budowanie ..."
 msgid "CPU %"
 msgstr "CPU %"
 
+msgid "Cache has been cleared."
+msgstr ""
+
+msgid "Cache times for tabs"
+msgstr ""
+
 msgid "Changes have been synced from file."
 msgstr ""
 
@@ -118,6 +124,12 @@ msgstr ""
 "wieloznacznego (*). np. asd* lub *asd* oraz *asd<br/>Pozostaw puste lub użyj"
 " * dla wszystkich plików Compose.<br/> Dodaj wiele filtrów oddzielonych "
 "przecinkami."
+
+msgid "Clear cache"
+msgstr ""
+
+msgid "Clearing cache ..."
+msgstr ""
 
 msgid "Command"
 msgstr "Komenda"
@@ -574,6 +586,9 @@ msgid ""
 msgstr ""
 "Jednostki w GB. Kopia zapasowa pominie woluminy większe niż ten rozmiar.\n"
 " <br/>Wartość 0 - bez ograniczeń."
+
+msgid "Units in seconds.<br/>Set to 0 for no caching."
+msgstr ""
 
 msgid "Up"
 msgstr "Działa"

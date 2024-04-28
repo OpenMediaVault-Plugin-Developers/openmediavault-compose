@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-20 06:57-0500\n"
+"POT-Creation-Date: 2024-04-28 14:35-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -90,6 +90,12 @@ msgstr "建構 ..."
 msgid "CPU %"
 msgstr "CPU %"
 
+msgid "Cache has been cleared."
+msgstr ""
+
+msgid "Cache times for tabs"
+msgstr ""
+
 msgid "Changes have been synced from file."
 msgstr "變更已經從檔案同步進來。"
 
@@ -104,6 +110,12 @@ msgid ""
 msgstr ""
 "經由以此欄位篩選 compose 名稱，來選擇備份哪些 compose 檔案。<br/>篩選可以用通配符號(*)來做部份匹配。例如：asd* 或 "
 "*asd* 或 *asd<br/>留空白或只使用 * 來選擇全部的 compose。<br/>多項篩選則以逗號分開。"
+
+msgid "Clear cache"
+msgstr ""
+
+msgid "Clearing cache ..."
+msgstr ""
 
 msgid "Command"
 msgstr "指令"
@@ -552,6 +564,9 @@ msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr "單位為 GB。備份將跳過大於此大小的儲存卷。<br/>設成 0 表示無限制。"
+
+msgid "Units in seconds.<br/>Set to 0 for no caching."
+msgstr ""
 
 msgid "Up"
 msgstr "起動"
