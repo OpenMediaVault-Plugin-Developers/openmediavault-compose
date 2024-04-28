@@ -1,6 +1,7 @@
 openmediavault-compose (7.2) stable; urgency=low
 
   * Cache tab content
+  * Add size column to volume tab
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 28 Apr 2024 14:47:19 -0500
 
