@@ -1529,7 +1529,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     public function getContainers($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_EVERYONE]);
         $objects = [];
         $status = '';
         // check to see if docker is installed and running
