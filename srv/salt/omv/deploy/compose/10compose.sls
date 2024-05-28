@@ -31,7 +31,7 @@
 {% set composeFile = composeDir ~ '/' ~ file.name ~ '.yml' %}
 {% set envFile = composeDir ~ '/' ~ file.name ~ '.env' %}
 
-configure_compose_dir_{{ file.name }}:
+configure_compose_file_dir_{{ file.name }}:
   file.directory:
     - name: "{{ composeDir }}"
     - user: "{{ config.composeowner }}"

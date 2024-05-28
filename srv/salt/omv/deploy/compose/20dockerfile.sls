@@ -23,7 +23,7 @@
 {% set dockerfileDir = sfpath ~ '/' ~ file.name %}
 {% set dockerFile = dockerfileDir ~ '/Dockerfile' %}
 
-configure_compose_dir_{{ file.name }}:
+configure_compose_dockerfile_dir_{{ file.name }}:
   file.directory:
     - name: "{{ dockerfileDir }}"
     - user: "{{ config.composeowner }}"

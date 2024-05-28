@@ -493,14 +493,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             // Check uniqueness - name
             $db->assertIsUnique($object, "name");
         }
-        $dockerfiles = $db->getByFilter("conf.service.compose.dockerfile", [
-            "operator" => "stringEquals",
-            "arg0" => "name",
-            "arg1" => $params['name']
-        ]);
-        if ($dockerfiles) {
-            throw new \OMV\Exception(gettext("Name is in use by a Dockerfile."));
-        }
         // update database
         $db->set($object);
         // Apply changes immmediately
@@ -617,6 +609,21 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.setdockerfile");
+        // make sure filenames are not a full path
+        $params['script'] = basename($params['script']);
+        $params['conf'] = basename($params['conf']);
+        // check for disallowed filenames
+        $fname = sprintf('%s.yml', $params['name']);
+        $ename = sprintf('%s.env', $params['name']);
+        $errors = [
+            'script' => gettext("Script filename cannot be"),
+            'conf' => gettext("Conf filename cannot be")
+        ];
+        foreach ($errors as $key => $message) {
+            if ($params[$key] == $fname || $params[$key] == $ename || $params[$key] == 'Dockerfile') {
+                throw new \OMV\Exception(sprintf("%s %s.", $message, $params[$key]));
+            }
+        }
         // Verify that shared folder is set
         $db = \OMV\Config\Database::getInstance();
         $sfpath = $this->getComposePath($context);
@@ -628,14 +635,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (TRUE === $isNew) {
             // Check uniqueness - name
             $db->assertIsUnique($object, "name");
-        }
-        $files = $db->getByFilter("conf.service.compose.file", [
-            "operator" => "stringEquals",
-            "arg0" => "name",
-            "arg1" => $params['name']
-        ]);
-        if ($files) {
-            throw new \OMV\Exception(gettext("Name is in use by a compose file."));
         }
         $db->set($object);
         // Return the configuration object.
@@ -659,13 +658,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $scriptFile = sprintf("%s/%s", $dockerDir, $object->get('script'));
         $confFile = sprintf("%s/%s", $dockerDir, $object->get('conf'));
         if (file_exists($dockerFile)) {
-            unlink($composeFile);
+            unlink($dockerFile);
         }
         if (file_exists($scriptFile)) {
-            unlink($envFile);
+            unlink($scriptFile);
         }
         if (file_exists($confFile)) {
-            unlink($envFile);
+            unlink($confFile);
         }
         if (file_exists($composeDir)) {
             rmdir($composeDir);
