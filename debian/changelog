@@ -1,3 +1,12 @@
+openmediavault-compose (7.2.1) stable; urgency=low
+
+  * Allow user use of container list widget
+  * Allow File and Dockerfile to share a name
+  * Fix Dockerfile delete of created files
+  * Add script and conf filename to Dockerfile datatable
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 28 May 2024 17:41:13 -0500
+
 openmediavault-compose (7.2) stable; urgency=low
 
   * Cache tab content
