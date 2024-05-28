@@ -25,6 +25,16 @@ data:
         prop: description
         flexGrow: 1
         sortable: true
+      - name: _("Script")
+        prop: script
+        flexGrow: 1
+        sortable: true
+        hidden: true
+      - name: _("Conf")
+        prop: conf
+        flexGrow: 1
+        sortable: true
+        hidden: true
     actions:
       - template: create
         execute:
