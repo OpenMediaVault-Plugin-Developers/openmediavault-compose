@@ -2052,6 +2052,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['postbackup'] = '';
         }
         $params['filter'] = str_replace(['@','(',')',' '], '', $params['filter']);
+        // Convert array into a comma separated list.
+        $params['minute'] = implode(",", $params['minute']);
+        $params['hour'] = implode(",", $params['hour']);
+        $params['dayofmonth'] = implode(",", $params['dayofmonth']);
+        $params['month'] = implode(",", $params['month']);
+        $params['dayofweek'] = implode(",", $params['dayofweek']);
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.job");
         $db = \OMV\Config\Database::getInstance();
