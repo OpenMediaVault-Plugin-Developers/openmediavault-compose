@@ -2086,12 +2086,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.job", $params['uuid']);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($object) {
+            use ($object, $params) {
                 $output = [];
                 if ($object->get('backup')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-backup-multi';
-                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
