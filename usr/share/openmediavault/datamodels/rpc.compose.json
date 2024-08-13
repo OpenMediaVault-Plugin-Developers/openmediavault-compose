@@ -391,7 +391,22 @@
           "required": true
         },
         "minute": {
-          "type": "string",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "*"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^[0-9]|[1-5][0-9]$"
+              }
+            ]
+          },
           "required": true
         },
         "everynminute": {
@@ -399,7 +414,22 @@
           "required": true
         },
         "hour": {
-          "type": "string",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "*"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^[0-9]|1[0-9]|2[0-3]$"
+              }
+            ]
+          },
           "required": true
         },
         "everynhour": {
@@ -407,11 +437,41 @@
           "required": true
         },
         "month": {
-          "type": "string",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "*"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^[1-9]|1[0-2]$"
+              }
+            ]
+          },
           "required": true
         },
         "dayofmonth": {
-          "type": "string",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "*"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^[1-9]|[12][0-9]|3[01]$"
+              }
+            ]
+          },
           "required": true
         },
         "everyndayofmonth": {
@@ -419,7 +479,22 @@
           "required": true
         },
         "dayofweek": {
-          "type": "string",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "*"
+                ]
+              },
+              {
+                "type": "string",
+                "pattern": "^[1-7]$"
+              }
+            ]
+          },
           "required": true
         }
       }
