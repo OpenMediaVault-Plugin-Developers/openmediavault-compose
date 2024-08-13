@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Andi Chandler <andi@gowling.com>, 2023
+# Andi Chandler <andi@gowling.com>, 2024
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 14:35-0500\n"
+"POT-Creation-Date: 2024-08-13 08:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: Andi Chandler <andi@gowling.com>, 2023\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>, 2024\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +52,7 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "Administrator - read/write, Users - read/write, Others - read-only"
 
 msgid "Advanced"
-msgstr ""
+msgstr "Advanced"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "Are you sure you want to reinstall?"
@@ -61,7 +61,7 @@ msgid "Are you sure you want to restart?"
 msgstr "Are you sure you want to restart?"
 
 msgid "Are you sure you want to sync changes from the files?"
-msgstr ""
+msgstr "Are you sure you want to sync changes from the files?"
 
 msgid "Autocompose"
 msgstr "Autocompose"
@@ -85,19 +85,19 @@ msgid "Build"
 msgstr "Build"
 
 msgid "Build ..."
-msgstr ""
+msgstr "Build ..."
 
 msgid "CPU %"
 msgstr "CPU %"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "Cache has been cleared."
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "Cache times for tabs"
 
 msgid "Changes have been synced from file."
-msgstr ""
+msgstr "Changes have been synced from file."
 
 msgid "Check compose file for errors ..."
 msgstr "Check compose file for errors ..."
@@ -114,10 +114,10 @@ msgstr ""
 "multiple filters separated by commas."
 
 msgid "Clear cache"
-msgstr ""
+msgstr "Clear cache"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "Clearing cache ..."
 
 msgid "Command"
 msgstr "Command"
@@ -143,11 +143,17 @@ msgstr "Compose file shared folder must be different than data shared folder"
 msgid "Compose version"
 msgstr "Compose version"
 
+msgid "Conf"
+msgstr "Conf"
+
 msgid "Conf file"
 msgstr "Conf file"
 
 msgid "Conf filename"
 msgstr "Conf filename"
+
+msgid "Conf filename cannot be"
+msgstr "Conf filename cannot be"
 
 msgid "Container"
 msgstr "Container"
@@ -240,7 +246,7 @@ msgid "Down"
 msgstr "Down"
 
 msgid "Download log"
-msgstr ""
+msgstr "Download log"
 
 msgid "Driver"
 msgstr "Driver"
@@ -328,13 +334,13 @@ msgid "Import"
 msgstr "Import"
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "Import existing compose file ..."
 
 msgid "Import existing compose folders ..."
 msgstr "Import existing compose folders ..."
 
 msgid "Import one"
-msgstr ""
+msgstr "Import one"
 
 msgid "In Use"
 msgstr "In Use"
@@ -381,12 +387,6 @@ msgstr "Mounts"
 msgid "Name"
 msgstr "Name"
 
-msgid "Name is in use by a Dockerfile."
-msgstr ""
-
-msgid "Name is in use by a compose file."
-msgstr ""
-
 msgid "Net In"
 msgstr "Net In"
 
@@ -403,7 +403,7 @@ msgid "No Image"
 msgstr "No Image"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "No compose file found!"
 
 msgid "Not installed"
 msgstr "Not installed"
@@ -440,13 +440,13 @@ msgid "Permissions of directories and files"
 msgstr "Permissions of directories and files"
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "Please set shared folder for backups."
 
 msgid "Please set shared folder for data on the Settings tab."
-msgstr ""
+msgstr "Please set shared folder for data on the Settings tab."
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "Please set shared folder for file storage."
 
 msgid "Ports"
 msgstr "Ports"
@@ -461,7 +461,7 @@ msgid "Pull and Build"
 msgstr "Pull and Build"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "Pull and Build ..."
 
 msgid "Push"
 msgstr "Push"
@@ -502,6 +502,9 @@ msgstr "Script"
 msgid "Script filename"
 msgstr "Script filename"
 
+msgid "Script filename cannot be"
+msgstr "Script filename cannot be"
+
 msgid "Select a group ..."
 msgstr "Select a group ..."
 
@@ -539,10 +542,10 @@ msgid "Subnet"
 msgstr "Subnet"
 
 msgid "Sync changes from file"
-msgstr ""
+msgstr "Sync changes from file"
 
 msgid "Syncing changes from file ..."
-msgstr ""
+msgstr "Syncing changes from file ..."
 
 msgid "System"
 msgstr "System"
@@ -553,15 +556,22 @@ msgstr "Tag"
 msgid "Tags"
 msgstr "Tags"
 
+msgid "The field should only contain * or a comma separated list of values."
+msgstr ""
+
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"This will import one compose file in the selected folder.<br/>It will not "
+"import a compose file that already exist in the plugin."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose files that already exist in the plugin."
 msgstr ""
+"This will import one or more compose files in subfolders.<br/>It will not "
+"import any compose files that already exist in the plugin."
 
 msgid "URL"
 msgstr "URL"
@@ -574,7 +584,7 @@ msgstr ""
 "for unlimited."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "Units in seconds.<br/>Set to 0 for no caching."
 
 msgid "Up"
 msgstr "Up"
@@ -646,7 +656,7 @@ msgid "docker volume rm ..."
 msgstr "docker volume rm ..."
 
 msgid "docker-compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker-compose down --remove-orphans ..."
 
 msgid "docker-compose down ..."
 msgstr "docker-compose down ..."
@@ -673,7 +683,7 @@ msgid "docker-compose stop ..."
 msgstr "docker-compose stop ..."
 
 msgid "docker-compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker-compose up -d --remove-orphans ..."
 
 msgid "docker-compose up -d ..."
 msgstr "docker-compose up -d ..."
@@ -685,7 +695,7 @@ msgid "down"
 msgstr "down"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "down and remove orphans"
 
 msgid "e.g. 172.20.0.0/16"
 msgstr "e.g. 172.20.0.0/16"
@@ -724,4 +734,4 @@ msgid "up"
 msgstr "up"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "up and remove orphans"

@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 14:35-0500\n"
+"POT-Creation-Date: 2024-08-13 08:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2024\n"
-"Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
+"Language-Team: Spanish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es_ES\n"
+"Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Action"
@@ -60,7 +60,7 @@ msgstr ""
 "lectura"
 
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzado"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "¿Está seguro que quiere reinstalar?"
@@ -99,10 +99,10 @@ msgid "CPU %"
 msgstr "CPU %"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "La cache ha sido borrada"
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "Tiempos de caché para pestañas"
 
 msgid "Changes have been synced from file."
 msgstr "Los cambios se han sincronizado desde el archivo."
@@ -122,10 +122,10 @@ msgstr ""
 "los compose . <br/>Agregue múltiples filtros separados por comas."
 
 msgid "Clear cache"
-msgstr ""
+msgstr "Limpiar cache"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "Limpiando cache ..."
 
 msgid "Command"
 msgstr "Comando"
@@ -153,11 +153,17 @@ msgstr ""
 msgid "Compose version"
 msgstr "Versión de Compose"
 
+msgid "Conf"
+msgstr "Configuración"
+
 msgid "Conf file"
 msgstr "Archivo de configuración"
 
 msgid "Conf filename"
 msgstr "Nombre"
+
+msgid "Conf filename cannot be"
+msgstr "El nombre del archivo conf no puede ser"
 
 msgid "Container"
 msgstr "Contenedor"
@@ -338,13 +344,13 @@ msgid "Import"
 msgstr "Importar"
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "Importar un archivo compose existente ..."
 
 msgid "Import existing compose folders ..."
 msgstr "Importando carpetas compose existentes ..."
 
 msgid "Import one"
-msgstr ""
+msgstr "Importar uno"
 
 msgid "In Use"
 msgstr "En uso"
@@ -391,12 +397,6 @@ msgstr "Montajes"
 msgid "Name"
 msgstr "Nombre"
 
-msgid "Name is in use by a Dockerfile."
-msgstr ""
-
-msgid "Name is in use by a compose file."
-msgstr ""
-
 msgid "Net In"
 msgstr "Net In"
 
@@ -413,7 +413,7 @@ msgid "No Image"
 msgstr "Sin Imagen"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "No encuentro el archivo compose!"
 
 msgid "Not installed"
 msgstr "No Instalado"
@@ -450,13 +450,14 @@ msgid "Permissions of directories and files"
 msgstr "Permisos de los directorios y archivos"
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "Seleccione una carpeta compartida para backup."
 
 msgid "Please set shared folder for data on the Settings tab."
 msgstr ""
+"Seleccione una carpeta compartida para los datos en la pestaña de opciones."
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "Seleccione una carpeta compartida como almacén de archivos."
 
 msgid "Ports"
 msgstr "Puertos"
@@ -512,6 +513,9 @@ msgstr "Script"
 msgid "Script filename"
 msgstr "Nombre del script"
 
+msgid "Script filename cannot be"
+msgstr "El nombre del script no puede ser"
+
 msgid "Select a group ..."
 msgstr "Seleccionar un grupo ..."
 
@@ -563,15 +567,22 @@ msgstr "Etiqueta"
 msgid "Tags"
 msgstr "Etiquetas"
 
+msgid "The field should only contain * or a comma separated list of values."
+msgstr ""
+
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"Esto importará un archivo compose en la carpeta seleccionada. <br/>No "
+"importará un archivo compose que ya exista en el complemento."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose files that already exist in the plugin."
 msgstr ""
+"Esto importará uno o más archivos compose en la carpeta seleccionada. "
+"<br/>No importará un archivo compose que ya exista en el complemento."
 
 msgid "URL"
 msgstr "URL"
@@ -584,7 +595,7 @@ msgstr ""
 " tamaño. <br/>Establézcalo en 0 para un número ilimitado."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "Unidades en segundos. <br/>poner a 0 para no cachear."
 
 msgid "Up"
 msgstr "Up"
@@ -656,7 +667,7 @@ msgid "docker volume rm ..."
 msgstr "Eliminando los volúmenes ..."
 
 msgid "docker-compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker-compose down --remove-orphans ..."
 
 msgid "docker-compose down ..."
 msgstr "docker-compose down ..."
@@ -683,7 +694,7 @@ msgid "docker-compose stop ..."
 msgstr "docker-compose stop ..."
 
 msgid "docker-compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker-compose up -d --remove-orphans ..."
 
 msgid "docker-compose up -d ..."
 msgstr "docker-compose up -d ..."
@@ -695,7 +706,7 @@ msgid "down"
 msgstr "down"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "down and remove orphans"
 
 msgid "e.g. 172.20.0.0/16"
 msgstr "ej:. 172.20.0.0/16"
@@ -734,4 +745,4 @@ msgid "up"
 msgstr "up"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "up and remove orphans"

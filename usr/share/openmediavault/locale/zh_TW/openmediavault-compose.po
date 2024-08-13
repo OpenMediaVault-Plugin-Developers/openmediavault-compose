@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 14:35-0500\n"
+"POT-Creation-Date: 2024-08-13 08:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -91,10 +91,10 @@ msgid "CPU %"
 msgstr "CPU %"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "內存已經被清理。"
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "分頁的內存時限"
 
 msgid "Changes have been synced from file."
 msgstr "變更已經從檔案同步進來。"
@@ -112,10 +112,10 @@ msgstr ""
 "*asd* 或 *asd<br/>留空白或只使用 * 來選擇全部的 compose。<br/>多項篩選則以逗號分開。"
 
 msgid "Clear cache"
-msgstr ""
+msgstr "清理內存"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "清理內存中 …"
 
 msgid "Command"
 msgstr "指令"
@@ -141,11 +141,17 @@ msgstr "Compose 檔案的共享檔案夾必須不同於資料的共享檔案夾"
 msgid "Compose version"
 msgstr "Compose 版本"
 
+msgid "Conf"
+msgstr "配置"
+
 msgid "Conf file"
 msgstr "配置檔案"
 
 msgid "Conf filename"
 msgstr "配置檔案名稱"
+
+msgid "Conf filename cannot be"
+msgstr "配置檔案名稱不能是"
 
 msgid "Container"
 msgstr "容器"
@@ -378,12 +384,6 @@ msgstr "掛載"
 msgid "Name"
 msgstr "名稱"
 
-msgid "Name is in use by a Dockerfile."
-msgstr "名稱已被一個 Dockerfile 使用。"
-
-msgid "Name is in use by a compose file."
-msgstr "名稱已被一個 compose 檔案使用。"
-
 msgid "Net In"
 msgstr "網路傳入"
 
@@ -496,6 +496,9 @@ msgstr "腳本程式"
 msgid "Script filename"
 msgstr "腳本程式檔案名稱"
 
+msgid "Script filename cannot be"
+msgstr "腳本程式檔案名稱不能是"
+
 msgid "Select a group ..."
 msgstr "選擇一個群組 …"
 
@@ -547,6 +550,9 @@ msgstr "標籤"
 msgid "Tags"
 msgstr "標籤"
 
+msgid "The field should only contain * or a comma separated list of values."
+msgstr ""
+
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
@@ -566,7 +572,7 @@ msgid ""
 msgstr "單位為 GB。備份將跳過大於此大小的儲存卷。<br/>設成 0 表示無限制。"
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "以秒為單位。<br/>設定為 0 則不使用內存。"
 
 msgid "Up"
 msgstr "起動"

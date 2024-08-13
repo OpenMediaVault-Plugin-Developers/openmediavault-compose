@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 14:35-0500\n"
+"POT-Creation-Date: 2024-08-13 08:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -91,10 +91,10 @@ msgid "CPU %"
 msgstr "CPU %"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "缓存已清除。"
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "标签页缓存时间"
 
 msgid "Changes have been synced from file."
 msgstr "已从文件同步变更。"
@@ -112,10 +112,10 @@ msgstr ""
 "*asd<br/>留空或仅使用 * 表示所有compose 。<br/>添加多个筛选可使用以逗号分隔筛选条件。"
 
 msgid "Clear cache"
-msgstr ""
+msgstr "清除缓存"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "清除缓存中 ..."
 
 msgid "Command"
 msgstr "命令"
@@ -141,11 +141,17 @@ msgstr "Compose 文件存储的共享文件夹必须与 data 存储共享文件�
 msgid "Compose version"
 msgstr "Compose 版本"
 
+msgid "Conf"
+msgstr "配置"
+
 msgid "Conf file"
 msgstr "配置文件"
 
 msgid "Conf filename"
 msgstr "配置文件名"
+
+msgid "Conf filename cannot be"
+msgstr "配置文件名称不能是"
 
 msgid "Container"
 msgstr "Container"
@@ -377,12 +383,6 @@ msgstr "挂载"
 msgid "Name"
 msgstr "名字"
 
-msgid "Name is in use by a Dockerfile."
-msgstr "名称已被一个 Dockerfile 使用。"
-
-msgid "Name is in use by a compose file."
-msgstr "名称已被一个 compose 文件使用。"
-
 msgid "Net In"
 msgstr "网络入"
 
@@ -495,6 +495,9 @@ msgstr "脚本"
 msgid "Script filename"
 msgstr "脚本名字"
 
+msgid "Script filename cannot be"
+msgstr "脚本文件名称不能是"
+
 msgid "Select a group ..."
 msgstr "选择一个组 ..."
 
@@ -546,6 +549,9 @@ msgstr "标签"
 msgid "Tags"
 msgstr "标签"
 
+msgid "The field should only contain * or a comma separated list of values."
+msgstr ""
+
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
@@ -565,7 +571,7 @@ msgid ""
 msgstr "单位GB，备份将跳过大于此大小的卷。<br/>设置为 0 表示无限制。"
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "单位是秒。<br/>设为0表示不缓存。"
 
 msgid "Up"
 msgstr "上线"

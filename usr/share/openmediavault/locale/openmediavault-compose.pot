@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 14:35-0500\n"
+"POT-Creation-Date: 2024-08-13 08:54-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,10 +131,16 @@ msgstr ""
 msgid "Compose version"
 msgstr ""
 
+msgid "Conf"
+msgstr ""
+
 msgid "Conf file"
 msgstr ""
 
 msgid "Conf filename"
+msgstr ""
+
+msgid "Conf filename cannot be"
 msgstr ""
 
 msgid "Container"
@@ -365,12 +371,6 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-msgid "Name is in use by a Dockerfile."
-msgstr ""
-
-msgid "Name is in use by a compose file."
-msgstr ""
-
 msgid "Net In"
 msgstr ""
 
@@ -476,6 +476,9 @@ msgstr ""
 msgid "Script filename"
 msgstr ""
 
+msgid "Script filename cannot be"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr ""
 
@@ -525,6 +528,9 @@ msgid "Tag"
 msgstr ""
 
 msgid "Tags"
+msgstr ""
+
+msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
 
 msgid "This will import one compose file in the selected folder.<br/>It will not import a compose file that already exist in the plugin."

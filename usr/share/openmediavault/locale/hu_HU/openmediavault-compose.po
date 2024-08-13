@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 14:35-0500\n"
+"POT-Creation-Date: 2024-08-13 08:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2024\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -101,10 +101,10 @@ msgid "CPU %"
 msgstr "CPU %"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "Gyorsítótár törölve."
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "Lapok gyorsítótárazásának ideje"
 
 msgid "Changes have been synced from file."
 msgstr "A változások szinkronizálásra kerültek a fájlból."
@@ -125,22 +125,22 @@ msgstr ""
 " az összes megjelenik.<br/>Több szűrőt vesszővel lehet elválasztani."
 
 msgid "Clear cache"
-msgstr ""
+msgstr "Gyorsítótár törlése"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "Gyorsítótár törlése…"
 
 msgid "Command"
 msgstr "Parancs"
 
 msgid "Compose"
-msgstr "Összeállítás"
+msgstr "Compose"
 
 msgid "Compose Backup"
 msgstr "Összeállítás biztonsági mentése"
 
 msgid "Compose Files"
-msgstr "Összeállító fájlok"
+msgstr "Összeállítás fájlok"
 
 msgid "Compose Restore"
 msgstr "Összeállítás visszaálítása"
@@ -156,11 +156,17 @@ msgstr ""
 msgid "Compose version"
 msgstr "Összeállítás verziója"
 
+msgid "Conf"
+msgstr "Konfiguráció"
+
 msgid "Conf file"
 msgstr "Konfigurációs fájl"
 
 msgid "Conf filename"
 msgstr "Konfigurációs fájl neve"
+
+msgid "Conf filename cannot be"
+msgstr "Konfigurációs fájl nem lehet"
 
 msgid "Container"
 msgstr "Konténer"
@@ -253,7 +259,7 @@ msgid "Down"
 msgstr "Le"
 
 msgid "Download log"
-msgstr "Letöltési napló"
+msgstr "Napló letöltése"
 
 msgid "Driver"
 msgstr "Illesztőprogram"
@@ -394,12 +400,6 @@ msgstr "Csatolási pontok"
 msgid "Name"
 msgstr "Név"
 
-msgid "Name is in use by a Dockerfile."
-msgstr "A nevet egy Dockerfájl már használja."
-
-msgid "Name is in use by a compose file."
-msgstr "A nevet egy összeállítás fájl már használja."
-
 msgid "Net In"
 msgstr "Bejövő net"
 
@@ -516,6 +516,9 @@ msgstr "Parancsfájl"
 msgid "Script filename"
 msgstr "Parancsfájl fájlneve"
 
+msgid "Script filename cannot be"
+msgstr "Parancssoros fájl nem lehet"
+
 msgid "Select a group ..."
 msgstr "Csoport kiválasztása…"
 
@@ -567,6 +570,9 @@ msgstr "Címke"
 msgid "Tags"
 msgstr "Címkék"
 
+msgid "The field should only contain * or a comma separated list of values."
+msgstr ""
+
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
@@ -593,7 +599,7 @@ msgstr ""
 "köteteket.<br/>0-ra állítva a méret korlátlan."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "Mértékegység: másodperc.<br/>0-ra állítva nincs gyorsítótárazás."
 
 msgid "Up"
 msgstr "Fel"
@@ -731,7 +737,7 @@ msgid "ps"
 msgstr "ps"
 
 msgid "pull"
-msgstr "lekérés"
+msgstr "Lekérés"
 
 msgid "restart"
 msgstr "újraindítás"

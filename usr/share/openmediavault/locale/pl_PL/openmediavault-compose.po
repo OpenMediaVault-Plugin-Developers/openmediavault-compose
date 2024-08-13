@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 14:35-0500\n"
+"POT-Creation-Date: 2024-08-13 08:54-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Daviteusz, 2024\n"
 "Language-Team: Polish (Poland) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl_PL/)\n"
@@ -156,11 +156,17 @@ msgstr ""
 msgid "Compose version"
 msgstr "Wersja Compose"
 
+msgid "Conf"
+msgstr ""
+
 msgid "Conf file"
 msgstr "Plik konfiguracyjny"
 
 msgid "Conf filename"
 msgstr "Nazwa pliku konfiguracyjnego"
+
+msgid "Conf filename cannot be"
+msgstr ""
 
 msgid "Container"
 msgstr "Kontener"
@@ -395,12 +401,6 @@ msgstr "Punkty montowania"
 msgid "Name"
 msgstr "Nazwa"
 
-msgid "Name is in use by a Dockerfile."
-msgstr ""
-
-msgid "Name is in use by a compose file."
-msgstr ""
-
 msgid "Net In"
 msgstr "Pobrano"
 
@@ -516,6 +516,9 @@ msgstr "Skrypt"
 msgid "Script filename"
 msgstr "Nazwa skryptu"
 
+msgid "Script filename cannot be"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "Wybierz grupę ..."
 
@@ -566,6 +569,9 @@ msgstr "Tag"
 
 msgid "Tags"
 msgstr "Tagi"
+
+msgid "The field should only contain * or a comma separated list of values."
+msgstr ""
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
