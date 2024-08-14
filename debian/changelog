@@ -1,3 +1,9 @@
+openmediavault-compose (7.2.3) stable; urgency=low
+
+  * Fix job edit field population
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 14 Aug 2024 07:34:11 -0500
+
 openmediavault-compose (7.2.2) stable; urgency=low
 
   * Allow multiple minutes, hours, days, months for scheduled jobs
