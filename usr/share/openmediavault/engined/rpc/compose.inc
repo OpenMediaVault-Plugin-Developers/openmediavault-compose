@@ -2025,8 +2025,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.objectuuid");
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->get("conf.service.compose.job", $params['uuid']);
-        return $object->getAssoc();
+        $result = $db->getAssoc("conf.service.compose.job", $params['uuid']);
+        // Convert comma separated list into an array.
+        $result['minute'] = explode(",", $result['minute']);
+        $result['hour'] = explode(",", $result['hour']);
+        $result['dayofmonth'] = explode(",", $result['dayofmonth']);
+        $result['month'] = explode(",", $result['month']);
+        $result['dayofweek'] = explode(",", $result['dayofweek']);
+        return $result;
     }
 
     function setJob($params, $context)
