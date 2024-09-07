@@ -67,6 +67,10 @@
           "type": "string",
           "required": false
         },
+        "urlHostname": {
+          "type": "string",
+          "required": true
+        },
         "cachetimefiles": {
           "type": "integer",
           "required": true
@@ -255,6 +259,19 @@
           "required": true
         },
         "path": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  {
+    "type": "rpc",
+    "id": "rpc.compose.getlog",
+    "params": {
+      "type": "object",
+      "properties": {
+        "name": {
           "type": "string",
           "required": true
         }

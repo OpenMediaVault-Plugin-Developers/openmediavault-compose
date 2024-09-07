@@ -19,6 +19,9 @@ case "$1" in
         if [ -n "$2" ]; then
             omv-confdbadm migrate "conf.service.compose" "${2}"
         fi
+
+        # clear cache
+        find /var/cache/openmediavault/ -type f -name "compose_cache_*"
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

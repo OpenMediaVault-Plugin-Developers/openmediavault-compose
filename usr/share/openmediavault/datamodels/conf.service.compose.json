@@ -72,6 +72,10 @@
       "type": "string",
       "default": "/var/lib/docker"
     },
+    "urlHostname": {
+      "type": "string",
+      "default": ""
+    },
     "cachetimefiles": {
       "type": "integer",
       "minimum": 0,

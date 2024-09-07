@@ -46,6 +46,7 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_key "/config/services/compose" "backupsharedfolderref" ""
   omv_config_add_key "/config/services/compose" "backupmaxsize" "1"
   omv_config_add_key "/config/services/compose" "dockerStorage" "${dockerPath}"
+  omv_config_add_key "/config/services/compose" "urlHostname" ""
   omv_config_add_key "/config/services/compose" "cachetimefiles" "60"
   omv_config_add_key "/config/services/compose" "cachetimeservices" "60"
   omv_config_add_key "/config/services/compose" "cachetimestats" "60"
@@ -62,7 +63,7 @@ if ! omv_config_exists "/config/services/compose"; then
 fi
 
 # download yq
-version="v4.35.2"
+version="v4.44.3"
 bindir="/usr/local/bin"
 yq="${bindir}/yq"
 arch="$(dpkg --print-architecture)"
@@ -92,7 +93,7 @@ chmod 755 ${yq}
 # download regctl
 arch="$(dpkg --print-architecture)"
 if [ "${arch}" = "amd64" ] || [ "${arch}" = "arm64" ]; then
-  version="v0.6.0"
+  version="v0.7.1"
   bindir="/usr/local/bin"
   regctl="${bindir}/regctl"
   repo_url=${OMV_EXTRAS_REGCTL_URL:-"https://github.com/regclient/regclient/releases/download"}

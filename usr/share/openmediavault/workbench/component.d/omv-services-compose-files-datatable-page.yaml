@@ -40,6 +40,16 @@ data:
         cellTemplateConfig:
           separator: ","
         hidden: true
+      - name: _("Service Name")
+        prop: svcname
+        flexGrow: 1
+        sortable: true
+        hidden: true
+      - name: _("Image")
+        prop: image
+        flexGrow: 1
+        sortable: true
+        hidden: true
       - name: _("Status")
         prop: status
         flexGrow: 1
@@ -60,6 +70,11 @@ data:
             MIXED:
               value: _("Mixed")
               class: omv-background-color-pair-blue
+      - name: _("Uptime")
+        prop: uptime
+        flexGrow: 1
+        sortable: true
+        hidden: true
       - name: _("File date")
         prop: filedate
         flexGrow: 1
@@ -72,6 +87,10 @@ data:
         sortable: true
         hidden: true
         cellTemplateName: checkIcon
+      - name: _("Ports")
+        prop: ports
+        flexGrow: 1
+        sortable: true
     actions:
       - type: menu
         icon: add
@@ -409,8 +428,52 @@ data:
                       command: "volume prune"
       - type: menu
         icon: mdi:cog-outline
-        tooltip: _("Advanced")
+        tooltip: _("Tools")
         actions:
+          - text: _("logs")
+            icon: mdi:file-document-outline
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker-compose logs ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doCommand
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "logs"
+                      command2: ""
+          - text: _("follow logs")
+            icon: mdi:file-document-refresh-outline
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker-compose logs --follow ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doCommand
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "logs"
+                      command2: "--follow"
+          - text: _("Download logs")
+            icon: mdi:download
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
+            execute:
+              type: url
+              url: '/download?service=Compose&method=getLog&params={"name":"{{ _selected[0].name }}"}'
           - text: _("Build")
             icon: mdi:wrench-outline
             execute:

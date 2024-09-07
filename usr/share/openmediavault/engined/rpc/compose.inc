@@ -48,6 +48,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
         $this->registerMethod("doCommand");
+        $this->registerMethod("getLog");
         $this->registerMethod("doPrune");
 
         $this->registerMethod("getGlobalEnv");
@@ -204,6 +205,49 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return ($sfpath);
     }
 
+    private function getUrlHostname($context)
+    {
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        // Get sharedfolder path
+        $settings = $db->get("conf.service.compose");
+        $urlhn = $settings->get('urlHostname');
+        if (strlen($urlhn) < 1) {
+            // get fqdn
+            $dns = $db->get('conf.system.network.dns');
+            $urlhn = $dns->get('hostname');
+            $dn = $dns->get('domainname');
+            if (strlen($dn) > 1) {
+                $urlhn = sprintf('%s.%s', $urlhn, $dn);
+            }
+        }
+        return ($urlhn);
+    }
+
+    private function getPort($context, $publisher, $fqdn)
+    {
+        $port = '';
+        $url = $publisher->URL;
+        $tgtPort = $publisher->TargetPort;
+        $pubPort = $publisher->PublishedPort;
+        $protocol = $publisher->Protocol;
+        if ($tgtPort > 0 && $pubPort > 0) {
+            $port .= sprintf('%d->', $pubPort);
+        }
+        $port .= sprintf('%s/%s', $tgtPort, $protocol);
+        if (strlen($url) > 0) $port .= sprintf(' [%s]', $url);
+        if ($protocol == "tcp") {
+            $hrefPort = 0;
+            if ($pubPort > 0) {
+                $hrefPort = $pubPort;
+            } else {
+                $hrefPort = $tgtPort;
+            }
+            $port = sprintf('<a href="http://%s:%d" target="_blank">%s</a>', $fqdn, $hrefPort, $port);
+        }
+        return ($port);
+    }
+
     public function get($params, $context)
     {
         // Validate the RPC caller context.
@@ -214,6 +258,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Remove useless properties from the object.
         $object->remove("files");
         $object->remove("dockerfiles");
+        $object->remove("globalenv");
         // docker version
         $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-ce" || $2 == "docker.io") { print $2 " " $3 }\'';
         $cmd = new \OMV\System\Process($cmdLine);
@@ -356,6 +401,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $settings = $db->get("conf.service.compose");
         $cacheTime = $settings->get('cachetimefiles');
+        // get fqdn
+        $fqdn = $this->getUrlHostname($context);
         // Add additional informations.
         $objectsAssoc = [];
         foreach ($objects as $objectk => &$objectv) {
@@ -417,6 +464,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($exited > 0) $status[] = "STOPPED";
             if ($down > 0) $status[] = "DOWN";
             $objectv->add('status', 'string', implode(',', $status));
+            // Add other details
             $filedate = filemtime($composeFile);
             if ($filedate === false) $filedate = 0;
             $objectv->add('filedate', 'integer', $filedate);
@@ -425,8 +473,28 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if (stripos($objectv->get('body'), 'build:') !== false) {
                 $objectv->set('build', true);
             }
+            // add image names, ports, service names, uptime
+            $ports = [];
+            $uptime = [];
+            $svcname = [];
+            $imgname = [];
+            foreach ($output as $cnt) {
+                $cntj = json_decode($cnt);
+                foreach ($cntj->Publishers as $publisher) {
+                    $ports[] = $this->getPort($context, $publisher, $fqdn);
+                }
+                $uptime[] = $cntj->Status;
+                $svcname[] = $cntj->Service;
+                $imgname[] = $cntj->Image;
+            }
+            $objectv->add('image', 'string', implode('<br/>', $imgname));
+            $objectv->add('ports', 'string', implode('<br/>', $ports));
+            $objectv->add('svcname', 'string', implode('<br/>', $svcname));
+            $objectv->add('uptime', 'string', implode('<br/>', $uptime));
+            // remove unneeded fields
             $objectv->remove('body');
             $objectv->remove('env');
+            // add to list
             $objectsAssoc[] = $objectv->getAssoc();
         }
         // Filter the result.
@@ -791,6 +859,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
                 }
                 $cmdArgs[] = $params['command'];
+                $cmdArgs[] = $params['command2'];
                 $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
                 if ($quiet) {
                     switch ($params['command']) {
@@ -798,6 +867,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         case 'up -d': $cmdArgs[] = '--quiet-pull'; break;
                     }
                 }
+                array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -807,6 +877,43 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 return $output;
             }
         );
+    }
+
+    function getLog($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.getlog");
+        // Create a temporary file which will contain the content of the requested log file.
+        $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
+        // Execute the given command to get the log file content.
+        $sfpath = $this->getComposePath($context);
+        $cname = $params['name'];
+        $composeName = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
+        $globalEnvFile = sprintf('%s/global.env', $sfpath);
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'compose';
+        $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
+        $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
+        if (file_exists($globalEnvFile)) {
+            $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+        }
+        $cmdArgs[] = 'logs';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setRedirect1toFile($tmpFilePath);
+        $cmd->setRedirect2to1();
+        $cmd->execute();
+        // Modify the file mode/owner to allow the WebGUI PHP backend to unlink it.
+        chmod($tmpFilePath, 0700);
+        chown($tmpFilePath, \OMV\Environment::get('OMV_WEBGUI_FILE_OWNERGROUP_NAME'));
+        // Return values required by generic download RPC implementation.
+        return [
+            'filename' => sprintf('%s.log', $cname),
+            'filepath' => $tmpFilePath,
+            'unlink' => TRUE
+        ];
     }
 
     public function doPrune($params, $context)
@@ -920,12 +1027,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $sfpath = $this->getComposePath($context);
         $settings = $db->get("conf.service.compose");
         // get fqdn
-        $dns = $db->get('conf.system.network.dns');
-        $fqdn = $dns->get('hostname');
-        $dn = $dns->get('domainname');
-        if (strlen($dn) > 1) {
-            $fqdn = sprintf('%s.%s', $fqdn, $dn);
-        }
+        $fqdn = $this->getUrlHostname($context);
         // get cache time
         $settings = $db->get("conf.service.compose");
         $cacheTime = $settings->get('cachetimeservices');
@@ -973,26 +1075,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $imagej = json_decode($image);
                     $ports = [];
                     foreach ($imagej->Publishers as $publisher) {
-                        $port = '';
-                        $url = $publisher->URL;
-                        $tgtPort = $publisher->TargetPort;
-                        $pubPort = $publisher->PublishedPort;
-                        $protocol = $publisher->Protocol;
-                        if ($tgtPort > 0 && $pubPort > 0) {
-                            $port .= sprintf('%d->', $pubPort);
-                        }
-                        $port .= sprintf('%s/%s', $tgtPort, $protocol);
-                        if (strlen($url) > 0) $port .= sprintf(' [%s]', $url);
-                        if ($protocol == "tcp") {
-                            $hrefPort = 0;
-                            if ($pubPort > 0) {
-                                $hrefPort = $pubPort;
-                            } else {
-                                $hrefPort = $tgtPort;
-                            }
-                            $port = sprintf('<a href="http://%s:%d" target="_blank">%s</a>', $fqdn, $hrefPort, $port);
-                        }
-                        $ports[] = $port;
+                        $ports[] = $this->getPort($context, $publisher, $fqdn);
                     }
                     $imagesAssoc[] = [
                         "name" => $imagej->Name,
@@ -1107,12 +1190,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $settings = $db->get("conf.service.compose");
         $cacheTime = $settings->get('cachetimecontainers');
         // get fqdn
-        $dns = $db->get('conf.system.network.dns');
-        $fqdn = $dns->get('hostname');
-        $dn = $dns->get('domainname');
-        if (strlen($dn) > 1) {
-            $fqdn = sprintf('%s.%s', $fqdn, $dn);
-        }
+        $fqdn = $this->getUrlHostname($context);
         // Check if cache file exists and is not older than cache setting
         if ($cacheTime > 0 && file_exists($this->cacheFileContainers)
           && (time() - filemtime($this->cacheFileContainers)) < $cacheTime) {

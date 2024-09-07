@@ -1,3 +1,15 @@
+openmediavault-compose (7.2.4) UNRELEASED; urgency=medium
+
+  * Add hostname override for port URLs
+  * Add ports column to Files tab for running containers
+  * Add image names column (hidden by default) to Files tab for running containers
+  * Add service names column (hidden by default) to Files tab for running containers
+  * Add logs menu entries to Files tab for running containers
+  * Use yq 4.44.3
+  * Use regctl 0.7.1
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 05 Sep 2024 07:53:01 -0500
+
 openmediavault-compose (7.2.3) stable; urgency=low
 
   * Fix job edit field population

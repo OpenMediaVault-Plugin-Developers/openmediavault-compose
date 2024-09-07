@@ -119,6 +119,13 @@ data:
         submitValue: false
         readonly: true
       - type: divider
+        title: _("Overrides")
+      - type: textInput
+        name: urlHostname
+        label: _("URL hostname")
+        value: ""
+        hint: _("Override hostname when opening ports in Files, Services, and Containers tabs")
+      - type: divider
         title: _("Cache times for tabs")
       - type: container
         fields:
