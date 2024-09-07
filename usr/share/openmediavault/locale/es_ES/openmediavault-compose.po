@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 08:54-0500\n"
+"POT-Creation-Date: 2024-09-07 09:23-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2024\n"
-"Language-Team: Spanish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es/)\n"
+"Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
+"Language: es_ES\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Action"
@@ -258,6 +258,9 @@ msgstr "Down"
 msgid "Download log"
 msgstr "Descargar Log"
 
+msgid "Download logs"
+msgstr ""
+
 msgid "Driver"
 msgstr "Driver"
 
@@ -434,6 +437,13 @@ msgstr ""
 " usa para sustituir CHANGE_TO_COMPOSE_DATA_PATH en archivos de compose y env"
 " con esta ruta de carpeta compartida."
 
+msgid ""
+"Override hostname when opening ports in Files, Services, and Containers tabs"
+msgstr ""
+
+msgid "Overrides"
+msgstr ""
+
 msgid "Owner of directories and files"
 msgstr "Propietario de los directorios y archivos"
 
@@ -525,6 +535,9 @@ msgstr "Seleccionar un Usuario ..."
 msgid "Service"
 msgstr "Servicio"
 
+msgid "Service Name"
+msgstr ""
+
 msgid "Services"
 msgstr "Servicios"
 
@@ -569,6 +582,7 @@ msgstr "Etiquetas"
 
 msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
+"El campo solo debe contener * o una lista de valores separados por comas."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
@@ -584,8 +598,14 @@ msgstr ""
 "Esto importará uno o más archivos compose en la carpeta seleccionada. "
 "<br/>No importará un archivo compose que ya exista en el complemento."
 
+msgid "Tools"
+msgstr ""
+
 msgid "URL"
 msgstr "URL"
+
+msgid "URL hostname"
+msgstr ""
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -599,6 +619,9 @@ msgstr "Unidades en segundos. <br/>poner a 0 para no cachear."
 
 msgid "Up"
 msgstr "Up"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Version"
 msgstr "Versión"

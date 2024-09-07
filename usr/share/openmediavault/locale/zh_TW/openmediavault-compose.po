@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 08:54-0500\n"
+"POT-Creation-Date: 2024-09-07 09:23-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -246,6 +246,9 @@ msgstr "停止"
 msgid "Download log"
 msgstr "下載日誌"
 
+msgid "Download logs"
+msgstr ""
+
 msgid "Driver"
 msgstr "驅動程式"
 
@@ -418,6 +421,13 @@ msgstr ""
 "選項 - 容器之持久性資料的位置<br/>此共享檔案夾路徑只被用來取代 compose 與 env 檔案內的 "
 "CHANGE_TO_COMPOSE_DATA_PATH 變數。"
 
+msgid ""
+"Override hostname when opening ports in Files, Services, and Containers tabs"
+msgstr ""
+
+msgid "Overrides"
+msgstr ""
+
 msgid "Owner of directories and files"
 msgstr "目錄和檔案的擁有者"
 
@@ -508,6 +518,9 @@ msgstr "選擇一個用戶 …"
 msgid "Service"
 msgstr "服務"
 
+msgid "Service Name"
+msgstr ""
+
 msgid "Services"
 msgstr "服務"
 
@@ -551,7 +564,7 @@ msgid "Tags"
 msgstr "標籤"
 
 msgid "The field should only contain * or a comma separated list of values."
-msgstr ""
+msgstr "此欄位應該只含有 * 或一個以逗號分隔的數值列表。"
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
@@ -563,8 +576,14 @@ msgid ""
 "import any compose files that already exist in the plugin."
 msgstr "這將導入一個或多個位於子檔案夾中的 compose 檔案。<br/>它將不會導入任何已經存在於插件中的 compose 檔案。"
 
+msgid "Tools"
+msgstr ""
+
 msgid "URL"
 msgstr "URL"
+
+msgid "URL hostname"
+msgstr ""
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -576,6 +595,9 @@ msgstr "以秒為單位。<br/>設定為 0 則不使用內存。"
 
 msgid "Up"
 msgstr "起動"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Version"
 msgstr "版本"

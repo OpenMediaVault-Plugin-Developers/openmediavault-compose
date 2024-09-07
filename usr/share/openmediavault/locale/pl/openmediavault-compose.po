@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 08:54-0500\n"
+"POT-Creation-Date: 2024-09-07 09:23-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Rysiek Jurczy, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl/)\n"
@@ -261,6 +261,9 @@ msgstr "Nieaktywne"
 msgid "Download log"
 msgstr ""
 
+msgid "Download logs"
+msgstr ""
+
 msgid "Driver"
 msgstr "Sterownik"
 
@@ -438,6 +441,13 @@ msgstr ""
 "zastąpienia CHANGE_TO_COMPOSE_DATA_PATH w plikach compose i env tą ścieżką "
 "folderu współdzielonego."
 
+msgid ""
+"Override hostname when opening ports in Files, Services, and Containers tabs"
+msgstr ""
+
+msgid "Overrides"
+msgstr ""
+
 msgid "Owner of directories and files"
 msgstr "Właściciel katalogów i plików"
 
@@ -528,6 +538,9 @@ msgstr "Wybierz użytkownika ..."
 msgid "Service"
 msgstr "Usługa"
 
+msgid "Service Name"
+msgstr ""
+
 msgid "Services"
 msgstr "Usługi"
 
@@ -583,8 +596,14 @@ msgid ""
 "import any compose files that already exist in the plugin."
 msgstr ""
 
+msgid "Tools"
+msgstr ""
+
 msgid "URL"
 msgstr "URL"
+
+msgid "URL hostname"
+msgstr ""
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -598,6 +617,9 @@ msgstr ""
 
 msgid "Up"
 msgstr "Up"
+
+msgid "Uptime"
+msgstr ""
 
 msgid "Version"
 msgstr "Wersja"

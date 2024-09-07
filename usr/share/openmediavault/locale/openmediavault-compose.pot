@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 08:54-0500\n"
+"POT-Creation-Date: 2024-09-07 14:15-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,6 +236,9 @@ msgstr ""
 msgid "Download log"
 msgstr ""
 
+msgid "Download logs"
+msgstr ""
+
 msgid "Driver"
 msgstr ""
 
@@ -398,6 +401,12 @@ msgstr ""
 msgid "Optional - Location of persistent container data<br/>Only used to substitute CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared folder path."
 msgstr ""
 
+msgid "Override hostname when opening ports in Files, Services, and Containers tabs"
+msgstr ""
+
+msgid "Overrides"
+msgstr ""
+
 msgid "Owner of directories and files"
 msgstr ""
 
@@ -488,6 +497,9 @@ msgstr ""
 msgid "Service"
 msgstr ""
 
+msgid "Service Name"
+msgstr ""
+
 msgid "Services"
 msgstr ""
 
@@ -539,7 +551,13 @@ msgstr ""
 msgid "This will import one or more compose files in subfolders.<br/>It will not import any compose files that already exist in the plugin."
 msgstr ""
 
+msgid "Tools"
+msgstr ""
+
 msgid "URL"
+msgstr ""
+
+msgid "URL hostname"
 msgstr ""
 
 msgid "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 for unlimited."
@@ -549,6 +567,9 @@ msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr ""
 
 msgid "Up"
+msgstr ""
+
+msgid "Uptime"
 msgstr ""
 
 msgid "Version"
