@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-07 09:23-0500\n"
+"POT-Creation-Date: 2024-09-07 14:15-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -247,7 +247,7 @@ msgid "Download log"
 msgstr "下載日誌"
 
 msgid "Download logs"
-msgstr ""
+msgstr "下載日誌"
 
 msgid "Driver"
 msgstr "驅動程式"
@@ -423,10 +423,10 @@ msgstr ""
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
-msgstr ""
+msgstr "當在檔案、服務、容器分頁，開啟連接埠時，置換主機名稱"
 
 msgid "Overrides"
-msgstr ""
+msgstr "置換"
 
 msgid "Owner of directories and files"
 msgstr "目錄和檔案的擁有者"
@@ -519,7 +519,7 @@ msgid "Service"
 msgstr "服務"
 
 msgid "Service Name"
-msgstr ""
+msgstr "服務名稱"
 
 msgid "Services"
 msgstr "服務"
@@ -577,13 +577,13 @@ msgid ""
 msgstr "這將導入一個或多個位於子檔案夾中的 compose 檔案。<br/>它將不會導入任何已經存在於插件中的 compose 檔案。"
 
 msgid "Tools"
-msgstr ""
+msgstr "工具"
 
 msgid "URL"
 msgstr "URL"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "URL 主機名稱"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -597,7 +597,7 @@ msgid "Up"
 msgstr "起動"
 
 msgid "Uptime"
-msgstr ""
+msgstr "運作時間"
 
 msgid "Version"
 msgstr "版本"
