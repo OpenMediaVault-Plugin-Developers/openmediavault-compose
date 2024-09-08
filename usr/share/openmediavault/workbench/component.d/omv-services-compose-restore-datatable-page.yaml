@@ -46,3 +46,23 @@ data:
                 method: doRestore
                 params:
                   backup: "{{ _selected[0].backup }}"
+      - type: iconButton
+        icon: mdi:delete
+        tooltip: _("Delete")
+        confirmationDialogConfig:
+          template: confirmation-danger
+          message: _("Are you sure you want to delete this backup?")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Delete backup ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: deleteBackup
+                params:
+                  name: "{{ _selected[0].backup }}"

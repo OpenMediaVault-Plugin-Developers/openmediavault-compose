@@ -106,6 +106,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
         $this->registerMethod('getRestoreList');
         $this->registerMethod('doRestore');
+        $this->registerMethod('deleteBackup');
 
         $this->registerMethod('getJobList');
         $this->registerMethod('getJob');
@@ -2070,6 +2071,40 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = '/usr/sbin/omv-compose-restore';
                 $cmdArgs[] = $params['backup'];
+                $cmd = new \OMV\System\Process($cmdArgs);
+                $cmd->setRedirect2to1();
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function deleteBackup($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $sfpath = $this->getBackupPath($context);
+        if (strlen($params['name']) < 1) {
+          throw new \OMV\ExecException(
+              gettext("No name specified!")
+          );
+        }
+        $delPath = sprintf('%s/%s', $sfpath, $params['name']);
+        if (!is_dir($delPath)) {
+          throw new \OMV\ExecException(
+            gettext("Directory does not exist!") .
+            ' - ' . $delPath
+          );
+        }
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($delPath) {
+                $cmdArgs = [];
+                $cmdArgs[] = 'rm';
+                $cmdArgs[] = '-rfv';
+                $cmdArgs[] = sprintf('"%s"', $delPath);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
