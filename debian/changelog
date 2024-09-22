@@ -1,3 +1,11 @@
+openmediavault-compose (7.2.5) stable; urgency=low
+
+  * Add delete button to Restore tab
+  * Add compose.override.yml creation to Files
+  * Add docker command to output window
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 22 Sep 2024 11:21:50 -0500
+
 openmediavault-compose (7.2.4) stable; urgency=low
 
   * Add hostname override for port URLs
