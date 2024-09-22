@@ -23,6 +23,9 @@
     },
     "env": {
       "type": "string"
+    },
+    "override": {
+      "type": "string"
     }
   }
 }

@@ -413,6 +413,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $composeName = sprintf("%s/%s", $composeDir, $cname);
             $composeFile = sprintf("%s.yml", $composeName);
             $envFile = sprintf("%s.env", $composeName);
+            $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
             $globalEnvFile = sprintf("%s/global.env", $sfpath);
             // Check if cache file exists and is not older than cache setting
             $cacheFile = sprintf('%s_%s.json', $this->cacheFileFiles, $cname);
@@ -427,6 +428,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'compose';
                 $cmdArgs[] = sprintf('--file "%s"', $composeFile);
+                if (file_exists($overrideFile)) {
+                    $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
+                }
                 $cmdArgs[] = sprintf("--env-file '%s'", $envFile);
                 if (file_exists($globalEnvFile)) {
                     $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
@@ -495,6 +499,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             // remove unneeded fields
             $objectv->remove('body');
             $objectv->remove('env');
+            $objectv->remove('override');
             // add to list
             $objectsAssoc[] = $objectv->getAssoc();
         }
@@ -590,12 +595,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $composeDir = sprintf("%s/%s", $sfpath, $cname);
         $composeName = sprintf("%s/%s", $composeDir, $cname);
         $composeFile = sprintf("%s.yml", $composeName);
+        $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
         $envFile = sprintf("%s.env", $composeName);
         // stop container(s) if running
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'compose';
         $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
+        if (file_exists($overrideFile)) {
+            $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
+        }
         $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
         if (file_exists($globalEnvFile)) {
             $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
@@ -766,6 +775,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -800,6 +810,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -849,12 +860,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($object, $params, $sfpath) {
                 $cname = $object->get('name');
-                $composeName = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
+                $composeDir = sprintf("%s/%s", $sfpath, $cname);
+                $composeName = sprintf("%s/%s", $composeDir, $cname);
+                $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
                 $globalEnvFile = sprintf("%s/global.env", $sfpath);
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'compose';
                 $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
+                if (file_exists($overrideFile)) {
+                    $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
+                }
                 $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
                 if (file_exists($globalEnvFile)) {
                     $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
@@ -872,6 +888,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -891,12 +908,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Execute the given command to get the log file content.
         $sfpath = $this->getComposePath($context);
         $cname = $params['name'];
-        $composeName = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
+        $composeDir = sprintf("%s/%s", $sfpath, $cname);
+        $composeName = sprintf("%s/%s", $composeDir, $cname);
+        $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
         $globalEnvFile = sprintf('%s/global.env', $sfpath);
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'compose';
         $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
+        if (file_exists($overrideFile)) {
+            $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
+        }
         $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
         if (file_exists($globalEnvFile)) {
             $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
@@ -934,6 +956,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -981,6 +1004,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object->set('description', $params['description']);
         $object->set('body', $body);
         $object->set('env', $env);
+        $object->set('override', '');
         // Set the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, "name");
@@ -1007,6 +1031,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object->set('description', $params['description']);
         $object->set('body', $body);
         $object->set('env', '');
+        $object->set('override', '');
         // Set the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, "name");
@@ -1041,6 +1066,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $filepath = sprintf("%s.yml", $path);
             $envfilepath = sprintf("%s.env", $path);
             $globalEnvFile = sprintf("%s/global.env", $sfpath);
+            $overrideFile = sprintf("%s/%s/compose.override.yml", $sfpath, $cname);
             $exists = file_exists($filepath);
             $output = [];
             if ($exists) {
@@ -1055,6 +1081,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs[] = 'docker';
                     $cmdArgs[] = 'compose';
                     $cmdArgs[] = sprintf('--file "%s"', $filepath);
+                    if (file_exists($overrideFile)) {
+                        $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
+                    }
                     if ($envfilepath != '') {
                             $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
                     }
@@ -1088,7 +1117,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         "state" => $imagej->State,
                         "status" => $imagej->Status,
                         "filepath" => $filepath,
-                        "envpath" => $envfilepath
+                        "envpath" => $envfilepath,
+                        "overridepath" => $overrideFile
                     ];
                 }
             }
@@ -1116,6 +1146,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'compose';
                 $cmdArgs[] = sprintf("--file '%s'", $params['path']);
+                if (file_exists($params['overridepath'])) {
+                    $cmdArgs[] = sprintf('--file "%s"', $params['overridepath']);
+                }
                 $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
                 if (file_exists($globalEnvFile)) {
                     $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
@@ -1134,6 +1167,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -1157,6 +1191,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'compose';
         $cmdArgs[] = sprintf("--file '%s'", $params['path']);
+        if (file_exists($params['overridepath'])) {
+            $cmdArgs[] = sprintf('--file "%s"', $params['overridepath']);
+        }
         $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
         if (file_exists($globalEnvFile)) {
             $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
@@ -1267,6 +1304,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -1285,7 +1323,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
         // Execute the given command to get the log file content.
         $sfpath = $this->getComposePath($context);
-        $globalEnvFile = sprintf('%s/global.env', $sfpath);
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'logs';
@@ -1353,6 +1390,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object->set('description', $params['description']);
         $object->set('body', trim(implode(PHP_EOL, $output)));
         $object->set('env', '');
+        $object->set('override', '');
         // Set the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $db->assertIsUnique($object, 'name');
@@ -1378,16 +1416,19 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $composeDir = sprintf("%s/%s", $sfpath, $cname);
         $composeName = sprintf("%s/%s", $composeDir, $cname);
         $composeFile = sprintf("%s.yml", $composeName);
+        $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
         $envFile = sprintf("%s.env", $composeName);
         // Get file content
         $composeContent = trim(file_get_contents($composeFile));
         $envContent = trim(file_get_contents($envFile));
+        $overrideContent = trim(file_get_contents($overrideFile));
         if ($dockerpath != '') {
             $composeContent = preg_replace('/'.str_replace('/','\/',$dockerpath).'/', 'CHANGE_TO_COMPOSE_DATA_PATH', $composeContent);
         }
         // Update object
         $object->set('body', $composeContent);
         $object->set('env', $envContent);
+        $object->set('override', $overrideContent);
         // Set the configuration object.
         $db->set($object);
         // delete cache files
@@ -1428,11 +1469,19 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             } else {
                 $env = '';
             }
+            $overrideFile = sprintf("%s/compose.override.yml", $full);
+            if (file_exists($overrideFile)) {
+                $override = file_get_contents($overrideFile);
+                if ($override == false || is_null($override)) $override = '';
+            } else {
+                $override = '';
+            }
             // set object values
             $object->set('name', $dir);
             $object->set('description', 'imported ' . date("Y.m.d H:i"));
             $object->set('body', $body);
             $object->set('env', $env);
+            $object->set('override', $override);
             // Set the configuration object.
             try {
                 $db->assertIsUnique($object, 'name');
@@ -1477,12 +1526,20 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $env = '';
             }
         }
+        $overrideFile = sprintf("%s/compose.override.yml", $path);
+        if (file_exists($overrideFile)) {
+            $override = file_get_contents($overrideFile);
+            if ($override == false || is_null($override)) $override = '';
+        } else {
+            $override = '';
+        }
         // set object values
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $object->set('name', $name);
         $object->set('description', 'imported ' . date("Y.m.d H:i"));
         $object->set('body', $body);
         $object->set('env', $env);
+        $object->set('override', $override);
         // Set the configuration object.
         $db = \OMV\Config\Database::getInstance();
         try {
@@ -1596,6 +1653,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -1720,6 +1778,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -1812,6 +1871,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -2028,6 +2088,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
+                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }

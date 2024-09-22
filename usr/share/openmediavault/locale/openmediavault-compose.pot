@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-07 14:15-0500\n"
+"POT-Creation-Date: 2024-09-22 11:19-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,9 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
 
 msgid "Advanced"
+msgstr ""
+
+msgid "Are you sure you want to delete this backup?"
 msgstr ""
 
 msgid "Are you sure you want to reinstall?"
@@ -197,10 +200,16 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+msgid "Delete backup ..."
+msgstr ""
+
 msgid "Description"
 msgstr ""
 
 msgid "Digest"
+msgstr ""
+
+msgid "Directory does not exist!"
 msgstr ""
 
 msgid "Docker"
@@ -392,6 +401,9 @@ msgstr ""
 msgid "No compose file found!"
 msgstr ""
 
+msgid "No name specified!"
+msgstr ""
+
 msgid "Not installed"
 msgstr ""
 
@@ -399,6 +411,12 @@ msgid "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and ast
 msgstr ""
 
 msgid "Optional - Location of persistent container data<br/>Only used to substitute CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared folder path."
+msgstr ""
+
+msgid "Override"
+msgstr ""
+
+msgid "Override Path"
 msgstr ""
 
 msgid "Override hostname when opening ports in Files, Services, and Containers tabs"
@@ -507,6 +525,12 @@ msgid "Settings"
 msgstr ""
 
 msgid "Shared folder"
+msgstr ""
+
+msgid "Show environment file"
+msgstr ""
+
+msgid "Show override"
 msgstr ""
 
 msgid "Size"

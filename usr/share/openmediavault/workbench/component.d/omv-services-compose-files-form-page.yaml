@@ -30,11 +30,36 @@ data:
         label: _("File")
         value: ""
         language: "yaml"
+      - type: checkbox
+        name: showenv
+        label: _("Show environment file")
+        submitValue: false
       - type: codeEditor
         name: env
         label: _("Environment")
         value: ""
         language: "shell"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: showenv
+      - type: checkbox
+        name: showoverride
+        label: _("Show override")
+        submitValue: false
+      - type: codeEditor
+        name: override
+        label: _("Override")
+        value: ""
+        language: "yaml"
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: showoverride
     buttons:
       - template: submit
         execute:

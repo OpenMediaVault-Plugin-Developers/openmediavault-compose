@@ -1,0 +1,11 @@
+{{ pillar['headers']['auto_generated'] }}
+{{ pillar['headers']['warning'] }}
+
+# {{ file.name }}
+# {{ file.description }}
+
+{%- if datapath is not none %}
+{{ file.override | replace("CHANGE_TO_COMPOSE_DATA_PATH", datapath) }}
+{%- else %}
+{{ file.override }}
+{%- endif %}

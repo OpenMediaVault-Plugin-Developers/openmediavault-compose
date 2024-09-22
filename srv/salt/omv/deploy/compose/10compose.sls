@@ -29,6 +29,7 @@
 {% for file in config.files.file %}
 {% set composeDir = sfpath ~ '/' ~ file.name %}
 {% set composeFile = composeDir ~ '/' ~ file.name ~ '.yml' %}
+{% set overrideFile = composeDir ~ '/compose.override.yml' %}
 {% set envFile = composeDir ~ '/' ~ file.name ~ '.env' %}
 
 configure_compose_file_dir_{{ file.name }}:
@@ -44,6 +45,19 @@ configure_compose_{{ file.name }}_file:
     - name: '{{ composeFile }}'
     - source:
       - salt://{{ tpldir }}/files/compose_yml.j2
+    - context:
+        file: {{ file | json }}
+        datapath: {{ datapath }}
+    - template: jinja
+    - user: "{{ config.composeowner }}"
+    - group: "{{ config.composegroup }}"
+    - mode: "{{ config.fileperms }}"
+
+configure_compose_{{ file.name }}_override:
+  file.managed:
+    - name: '{{ overrideFile }}'
+    - source:
+      - salt://{{ tpldir }}/files/override_yml.j2
     - context:
         file: {{ file | json }}
         datapath: {{ datapath }}

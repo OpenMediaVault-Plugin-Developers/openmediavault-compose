@@ -123,6 +123,10 @@
         "env": {
           "type": "string",
           "required": true
+        },
+        "override": {
+          "type": "string",
+          "required": true
         }
       }
     }

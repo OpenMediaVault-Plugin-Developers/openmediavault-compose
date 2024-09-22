@@ -64,6 +64,12 @@ data:
         sortable: true
         hidden: true
         cellTemplateName: copyToClipboard
+      - name: _("Override Path")
+        prop: overridepath
+        flexGrow: 1
+        sortable: true
+        hidden: true
+        cellTemplateName: copyToClipboard
     actions:
       - type: iconButton
         icon: mdi:download-network-outline
@@ -86,6 +92,7 @@ data:
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
                   envpath: "{{ _selected[0].envpath }}"
+                  overridepath: "{{ _selected[0].overridepath }}"
       - type: iconButton
         icon: mdi:arrow-up-circle-outline
         tooltip: _("up")
@@ -107,6 +114,7 @@ data:
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
                   envpath: "{{ _selected[0].envpath }}"
+                  overridepath: "{{ _selected[0].overridepath }}"
       - type: iconButton
         icon: mdi:restart
         tooltip: _("restart")
@@ -128,6 +136,7 @@ data:
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
                   envpath: "{{ _selected[0].envpath }}"
+                  overridepath: "{{ _selected[0].overridepath }}"
       - type: iconButton
         icon: mdi:file-document-outline
         tooltip: _("logs")
@@ -149,6 +158,7 @@ data:
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
                   envpath: "{{ _selected[0].envpath }}"
+                  overridepath: "{{ _selected[0].overridepath }}"
       - type: iconButton
         icon: mdi:file-document-refresh-outline
         tooltip: _("follow logs")
@@ -170,6 +180,7 @@ data:
                   service: "{{ _selected[0].service }}"
                   path: "{{ _selected[0].filepath }}"
                   envpath: "{{ _selected[0].envpath }}"
+                  overridepath: "{{ _selected[0].overridepath }}"
       - type: iconButton
         icon: mdi:download
         tooltip: _("Download log")
@@ -178,4 +189,4 @@ data:
           maxSelected: 1
         execute:
           type: url
-          url: '/download?service=Compose&method=getServiceLog&params={"service":"{{ _selected[0].service }}","name":"{{ _selected[0].name }}","path":"{{ _selected[0].filepath }}","envpath":"{{ _selected[0].envpath }}"}'
+          url: '/download?service=Compose&method=getServiceLog&params={"service":"{{ _selected[0].service }}","name":"{{ _selected[0].name }}","path":"{{ _selected[0].filepath }}","envpath":"{{ _selected[0].envpath }}","overridepath":"{{ _selected[0].overridepath }}"}'
