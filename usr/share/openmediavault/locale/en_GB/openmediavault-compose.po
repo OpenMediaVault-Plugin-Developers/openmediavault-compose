@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-07 09:23-0500\n"
+"POT-Creation-Date: 2024-09-22 11:19-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2024\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -53,6 +53,9 @@ msgstr "Administrator - read/write, Users - read/write, Others - read-only"
 
 msgid "Advanced"
 msgstr "Advanced"
+
+msgid "Are you sure you want to delete this backup?"
+msgstr "Are you sure you want to delete this backup?"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "Are you sure you want to reinstall?"
@@ -209,11 +212,17 @@ msgstr "Date & Time"
 msgid "Delete"
 msgstr "Delete"
 
+msgid "Delete backup ..."
+msgstr "Delete backup ..."
+
 msgid "Description"
 msgstr "Description"
 
 msgid "Digest"
 msgstr "Digest"
+
+msgid "Directory does not exist!"
+msgstr "Directory does not exist!"
 
 msgid "Docker"
 msgstr "Docker"
@@ -249,7 +258,7 @@ msgid "Download log"
 msgstr "Download log"
 
 msgid "Download logs"
-msgstr ""
+msgstr "Download logs"
 
 msgid "Driver"
 msgstr "Driver"
@@ -408,6 +417,9 @@ msgstr "No Image"
 msgid "No compose file found!"
 msgstr "No compose file found!"
 
+msgid "No name specified!"
+msgstr "No name specified!"
+
 msgid "Not installed"
 msgstr "Not installed"
 
@@ -427,12 +439,19 @@ msgstr ""
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 
+msgid "Override"
+msgstr ""
+
+msgid "Override Path"
+msgstr ""
+
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
 msgstr ""
+"Override hostname when opening ports in Files, Services, and Containers tabs"
 
 msgid "Overrides"
-msgstr ""
+msgstr "Overrides"
 
 msgid "Owner of directories and files"
 msgstr "Owner of directories and files"
@@ -525,7 +544,7 @@ msgid "Service"
 msgstr "Service"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Service Name"
 
 msgid "Services"
 msgstr "Services"
@@ -535,6 +554,12 @@ msgstr "Settings"
 
 msgid "Shared folder"
 msgstr "Shared folder"
+
+msgid "Show environment file"
+msgstr ""
+
+msgid "Show override"
+msgstr ""
 
 msgid "Size"
 msgstr "Size"
@@ -587,13 +612,13 @@ msgstr ""
 "import any compose files that already exist in the plugin."
 
 msgid "Tools"
-msgstr ""
+msgstr "Tools"
 
 msgid "URL"
 msgstr "URL"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "URL hostname"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -609,7 +634,7 @@ msgid "Up"
 msgstr "Up"
 
 msgid "Uptime"
-msgstr ""
+msgstr "Uptime"
 
 msgid "Version"
 msgstr "Version"

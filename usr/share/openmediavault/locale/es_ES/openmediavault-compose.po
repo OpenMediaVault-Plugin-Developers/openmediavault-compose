@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-07 09:23-0500\n"
+"POT-Creation-Date: 2024-09-22 11:19-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2024\n"
 "Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
@@ -61,6 +61,9 @@ msgstr ""
 
 msgid "Advanced"
 msgstr "Avanzado"
+
+msgid "Are you sure you want to delete this backup?"
+msgstr "¿Esta seguro de que desea borrar este backup?"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "¿Está seguro que quiere reinstalar?"
@@ -219,11 +222,17 @@ msgstr "Fecha y Hora"
 msgid "Delete"
 msgstr "Borrar"
 
+msgid "Delete backup ..."
+msgstr "Borrando Backup ..."
+
 msgid "Description"
 msgstr "Descripción"
 
 msgid "Digest"
 msgstr "Digest"
+
+msgid "Directory does not exist!"
+msgstr "La carpeta no existe!"
 
 msgid "Docker"
 msgstr "Docker"
@@ -259,7 +268,7 @@ msgid "Download log"
 msgstr "Descargar Log"
 
 msgid "Download logs"
-msgstr ""
+msgstr "Descargar Logs"
 
 msgid "Driver"
 msgstr "Driver"
@@ -418,6 +427,9 @@ msgstr "Sin Imagen"
 msgid "No compose file found!"
 msgstr "No encuentro el archivo compose!"
 
+msgid "No name specified!"
+msgstr "No se ha especificado el nombre!"
+
 msgid "Not installed"
 msgstr "No Instalado"
 
@@ -437,12 +449,20 @@ msgstr ""
 " usa para sustituir CHANGE_TO_COMPOSE_DATA_PATH en archivos de compose y env"
 " con esta ruta de carpeta compartida."
 
+msgid "Override"
+msgstr ""
+
+msgid "Override Path"
+msgstr ""
+
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
 msgstr ""
+"Ignorar el nombre de host al abrir puertos en las pestañas Archivos, "
+"Servicios y Contenedores"
 
 msgid "Overrides"
-msgstr ""
+msgstr "Ignorar"
 
 msgid "Owner of directories and files"
 msgstr "Propietario de los directorios y archivos"
@@ -536,7 +556,7 @@ msgid "Service"
 msgstr "Servicio"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Nombre del servicio"
 
 msgid "Services"
 msgstr "Servicios"
@@ -546,6 +566,12 @@ msgstr "Opciones"
 
 msgid "Shared folder"
 msgstr "Carpeta compartida"
+
+msgid "Show environment file"
+msgstr ""
+
+msgid "Show override"
+msgstr ""
 
 msgid "Size"
 msgstr "Tamaño"
@@ -599,13 +625,13 @@ msgstr ""
 "<br/>No importará un archivo compose que ya exista en el complemento."
 
 msgid "Tools"
-msgstr ""
+msgstr "Herramientas"
 
 msgid "URL"
 msgstr "URL"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "URL hostname"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -621,7 +647,7 @@ msgid "Up"
 msgstr "Up"
 
 msgid "Uptime"
-msgstr ""
+msgstr "Tiempo en servicio"
 
 msgid "Version"
 msgstr "Versión"

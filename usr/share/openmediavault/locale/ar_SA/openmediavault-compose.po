@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-07 09:23-0500\n"
+"POT-Creation-Date: 2024-09-22 11:19-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Odai Alghamdi, 2023\n"
 "Language-Team: Arabic (Saudi Arabia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ar_SA/)\n"
@@ -52,6 +52,9 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
 
 msgid "Advanced"
+msgstr ""
+
+msgid "Are you sure you want to delete this backup?"
 msgstr ""
 
 msgid "Are you sure you want to reinstall?"
@@ -205,10 +208,16 @@ msgstr "التاريخ والوقت"
 msgid "Delete"
 msgstr "حذف"
 
+msgid "Delete backup ..."
+msgstr ""
+
 msgid "Description"
 msgstr "وصف"
 
 msgid "Digest"
+msgstr ""
+
+msgid "Directory does not exist!"
 msgstr ""
 
 msgid "Docker"
@@ -402,6 +411,9 @@ msgstr ""
 msgid "No compose file found!"
 msgstr ""
 
+msgid "No name specified!"
+msgstr ""
+
 msgid "Not installed"
 msgstr "غير مُثبت"
 
@@ -414,6 +426,12 @@ msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
+msgstr ""
+
+msgid "Override"
+msgstr ""
+
+msgid "Override Path"
 msgstr ""
 
 msgid ""
@@ -524,6 +542,12 @@ msgstr "اعدادات"
 
 msgid "Shared folder"
 msgstr "مجلد مٌشارك"
+
+msgid "Show environment file"
+msgstr ""
+
+msgid "Show override"
+msgstr ""
 
 msgid "Size"
 msgstr "حجم"

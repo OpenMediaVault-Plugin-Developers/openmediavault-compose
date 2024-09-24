@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Marek Pavelka, 2024
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-07 09:23-0500\n"
+"POT-Creation-Date: 2024-09-22 11:19-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: Marek Pavelka, 2024\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,58 +22,64 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
 
 msgid "Action"
-msgstr ""
+msgstr "Akce"
 
 msgid "Action type"
-msgstr ""
+msgstr "Typ akce"
 
 msgid "Add"
-msgstr ""
+msgstr "Přidat"
 
 msgid "Add from Example"
-msgstr ""
+msgstr "Přidat z příkladu"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "Přidat z adresy URL"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
+"Správce – čtení/zápis, Uživatelé – bez přístupu, Ostatní – bez přístupu"
 
 msgid "Administrator - read/write, Users - read-only, Others - no access"
 msgstr ""
+"Správce – čtení/zápis, Uživatelé – pouze čtení, Ostatní – bez přístupu"
 
 msgid "Administrator - read/write, Users - read-only, Others - read-only"
-msgstr ""
+msgstr "Správce – čtení/zápis, Uživatelé – pouze čtení, Ostatní – pouze čtení"
 
 msgid "Administrator - read/write, Users - read/write, Others - no access"
 msgstr ""
+"Správce – čtení/zápis, Uživatelé – čtení/zápis, Ostatní – bez přístupu"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
-msgstr ""
+msgstr "Správce – čtení/zápis, Uživatelé – čtení/zápis, Ostatní – pouze čtení"
 
 msgid "Advanced"
-msgstr ""
+msgstr "Rozšířené"
+
+msgid "Are you sure you want to delete this backup?"
+msgstr "Opravdu chcete tuto zálohu odstranit?"
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "Opravdu chcete provést přeinstalaci?"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "Opravdu chcete restartovat?"
 
 msgid "Are you sure you want to sync changes from the files?"
-msgstr ""
+msgstr "Opravdu chcete synchronizovat změny ze souborů?"
 
 msgid "Autocompose"
-msgstr ""
+msgstr "Autocompose"
 
 msgid "Aux address"
-msgstr ""
+msgstr "Adresa pomocné jednotky"
 
 msgid "Available"
-msgstr ""
+msgstr "Dostupné"
 
 msgid "Backup"
-msgstr ""
+msgstr "Záloha"
 
 msgid "Block In"
 msgstr ""
@@ -78,25 +88,25 @@ msgid "Block Out"
 msgstr ""
 
 msgid "Build"
-msgstr ""
+msgstr "Sestavit"
 
 msgid "Build ..."
-msgstr ""
+msgstr "Sestavit…"
 
 msgid "CPU %"
-msgstr ""
+msgstr "% procesoru"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "Mezipaměť byla vymazána."
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "Doba uložení karet do mezipaměti"
 
 msgid "Changes have been synced from file."
-msgstr ""
+msgstr "Změny byly synchronizovány ze souboru."
 
 msgid "Check compose file for errors ..."
-msgstr ""
+msgstr "Kontrola chyb v souboru compose…"
 
 msgid ""
 "Choose which compose files to backup by filtering the compose name by this "
@@ -104,233 +114,246 @@ msgid ""
 " or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
 "multiple filters separated by commas."
 msgstr ""
+"Zvolte, které soubory compose se mají zálohovat, filtrováním názvu compose "
+"podle tohoto pole.<br/>Filtr může být částečná shoda s použitím zástupného "
+"znaku (*), např. asd* nebo *asd* nebo *asd<br/>Ponechte prázdné nebo "
+"použijte pouze * pro všechny compose.<br/>Přidejte více filtrů oddělených "
+"čárkami."
 
 msgid "Clear cache"
-msgstr ""
+msgstr "Vymazat mezipaměť"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "Mazání mezipaměti…"
 
 msgid "Command"
-msgstr ""
+msgstr "Příkaz"
 
 msgid "Compose"
-msgstr ""
+msgstr "Compose"
 
 msgid "Compose Backup"
-msgstr ""
+msgstr "Záloha compose"
 
 msgid "Compose Files"
-msgstr ""
+msgstr "Soubory compose"
 
 msgid "Compose Restore"
-msgstr ""
+msgstr "Obnovit compose"
 
 msgid "Compose Update"
-msgstr ""
+msgstr "Aktualizace compose"
 
 msgid "Compose file shared folder must be different than data shared folder"
-msgstr ""
+msgstr "Sdílená složka souborů compose musí být jiná než sdílená složka dat"
 
 msgid "Compose version"
-msgstr ""
+msgstr "Verze compose"
 
 msgid "Conf"
-msgstr ""
+msgstr "Conf"
 
 msgid "Conf file"
-msgstr ""
+msgstr "Soubor conf"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "Název souboru conf"
 
 msgid "Conf filename cannot be"
-msgstr ""
+msgstr "Název souboru conf nemůže být"
 
 msgid "Container"
-msgstr ""
+msgstr "Kontejner"
 
 msgid "Containers"
-msgstr ""
+msgstr "Kontejnery"
 
 msgid "Create"
-msgstr ""
+msgstr "Vytvořit"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "Vytvořit z adresy URL"
 
 msgid "Create from example"
-msgstr ""
+msgstr "Vytvořit z příkladu"
 
 msgid "Create new compose file from running container ..."
-msgstr ""
+msgstr "Vytvořit nový soubor compose ze spuštěného kontejneru…"
 
 msgid "Create new image tag ..."
-msgstr ""
+msgstr "Vytvořit nový štítek obrazu…"
 
 msgid "Created"
-msgstr ""
+msgstr "Vytvořeno"
 
 msgid "Created At"
-msgstr ""
+msgstr "Vytvořeno"
 
 msgid "Created dockerfile."
-msgstr ""
+msgstr "Vytvořen dockerfile."
 
 msgid "Created file from url."
-msgstr ""
+msgstr "Vytvořen soubor z adresy URL."
 
 msgid "Created file."
-msgstr ""
+msgstr "Vytvořen soubor."
 
 msgid "Created network."
-msgstr ""
+msgstr "Vytvořena síť."
 
 msgid "Created scheduled job."
-msgstr ""
+msgstr "Vytvořena naplánovaná úloha."
 
 msgid "Current"
-msgstr ""
+msgstr "Aktuální"
 
 msgid "Data"
-msgstr ""
+msgstr "Data"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Datum a čas"
 
 msgid "Delete"
-msgstr ""
+msgstr "Odstranit"
+
+msgid "Delete backup ..."
+msgstr "Odstranit zálohu…"
 
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 msgid "Digest"
 msgstr ""
 
+msgid "Directory does not exist!"
+msgstr "Adresář neexistuje!"
+
 msgid "Docker"
-msgstr ""
+msgstr "Docker"
 
 msgid "Docker has been restarted."
-msgstr ""
+msgstr "Docker byl restartován."
 
 msgid "Docker is restarting ..."
-msgstr ""
+msgstr "Docker se restartuje…"
 
 msgid "Docker on OMV"
-msgstr ""
+msgstr "Docker v OMV"
 
 msgid "Docker storage"
-msgstr ""
+msgstr "Úložiště Dockeru"
 
 msgid "Docker version"
-msgstr ""
+msgstr "Verze Dockeru"
 
 msgid "Dockerfile"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Dockerfiles"
-msgstr ""
+msgstr "Dockerfiles"
 
 msgid "Docs"
-msgstr ""
+msgstr "Dokumentace"
 
 msgid "Down"
 msgstr ""
 
 msgid "Download log"
-msgstr ""
+msgstr "Stáhnout protokol"
 
 msgid "Download logs"
-msgstr ""
+msgstr "Stáhnout protokoly"
 
 msgid "Driver"
-msgstr ""
+msgstr "Ovladač"
 
 msgid "Edit"
-msgstr ""
+msgstr "Upravit"
 
 msgid "Edit dockerfile."
-msgstr ""
+msgstr "Upravit dockerfile."
 
 msgid "Edit file."
-msgstr ""
+msgstr "Upravit soubor."
 
 msgid "Edit global environment file"
-msgstr ""
+msgstr "Upravit soubor globálního prostředí"
 
 msgid "Edit global environment variable file."
-msgstr ""
+msgstr "Upravit soubor globálních proměnných prostředí."
 
 msgid "Edit scheduled job."
-msgstr ""
+msgstr "Upravit naplánovanou úlohu."
 
 msgid "Env Path"
-msgstr ""
+msgstr "Cesta k env"
 
 msgid "Environment"
-msgstr ""
+msgstr "Prostředí"
 
 msgid "Everyone - read/write"
-msgstr ""
+msgstr "Kdokoliv – čtení/zápis"
 
 msgid "Example"
-msgstr ""
+msgstr "Příklad"
 
 msgid "Execute scheduled job ..."
-msgstr ""
+msgstr "Spustit naplánovanou úlohu…"
 
 msgid "Failed"
 msgstr ""
 
 msgid "File"
-msgstr ""
+msgstr "Soubor"
 
 msgid "File date"
-msgstr ""
+msgstr "Datum souboru"
 
 msgid "Files"
-msgstr ""
+msgstr "Soubory"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filtr"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
+"Formát je nazev=ip. Více položek oddělte čárkou.<br/>Např. muj-"
+"router=192.168.10.5,muj-nas=192.168.20.6"
 
 msgid "Gateway"
-msgstr ""
+msgstr "Brána"
 
 msgid "Global Environment"
-msgstr ""
+msgstr "Globální prostředí"
 
 msgid "Global environment variables"
-msgstr ""
+msgstr "Globální proměnné prostředí"
 
 msgid "Group of directories and files"
-msgstr ""
+msgstr "Skupina adresářů a souborů"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP range"
-msgstr ""
+msgstr "Rozsah IP adres"
 
 msgid "Image"
-msgstr ""
+msgstr "Obraz"
 
 msgid "Images"
-msgstr ""
+msgstr "Obrazy"
 
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "Importovat existující soubory compose…"
 
 msgid "Import existing compose folders ..."
-msgstr ""
+msgstr "Importovat existující složky compose…"
 
 msgid "Import one"
 msgstr ""
@@ -342,43 +365,44 @@ msgid "Inspect"
 msgstr ""
 
 msgid "Installed"
-msgstr ""
+msgstr "Instalováno"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr ""
+"Ponechte prázdné pro použití vlastního souboru /etc/docker/daemon.json"
 
 msgid "Location of backups"
-msgstr ""
+msgstr "Umístění zálohy"
 
 msgid "Location of compose files"
-msgstr ""
+msgstr "Umístění souborů compose"
 
 msgid "Max Size"
-msgstr ""
+msgstr "Maximální velikost"
 
 msgid "Mem %"
-msgstr ""
+msgstr "% paměti"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "Omezení paměti"
 
 msgid "Mem Usage"
-msgstr ""
+msgstr "Využití paměti"
 
 msgid "Message"
-msgstr ""
+msgstr "Zpráva"
 
 msgid "Mixed"
 msgstr ""
 
 msgid "Mountpoint"
-msgstr ""
+msgstr "Přípojný bod"
 
 msgid "Mounts"
-msgstr ""
+msgstr "Připojení"
 
 msgid "Name"
-msgstr ""
+msgstr "Název"
 
 msgid "Net In"
 msgstr ""
@@ -387,67 +411,83 @@ msgid "Net Out"
 msgstr ""
 
 msgid "Network"
-msgstr ""
+msgstr "Síť"
 
 msgid "Networks"
-msgstr ""
+msgstr "Sítě"
 
 msgid "No Image"
-msgstr ""
+msgstr "Žádný obraz"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "Nebyl nalezen žádný soubor compose!"
+
+msgid "No name specified!"
+msgstr "Nebyl zadán žádný název!"
 
 msgid "Not installed"
-msgstr ""
+msgstr "Neinstalováno"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
+"Povoleny jsou pouze alfanumerické znaky (a-zA-Z), podtržítko (_), pomlčka "
+"(-), čárky (,) a hvězdičky (*)!"
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
+"Volitelné – Umístění trvalých dat kontejneru<br/>Používá se pouze k "
+"nahrazení CHANGE_TO_COMPOSE_DATA_PATH v souborech compose a env touto cestou"
+" ke sdílené složce."
+
+msgid "Override"
+msgstr ""
+
+msgid "Override Path"
+msgstr ""
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
 msgstr ""
+"Přepisovat název hostitele při otevírání portů na kartách Soubory, Služby a "
+"Kontejnery"
 
 msgid "Overrides"
-msgstr ""
+msgstr "Přepíše"
 
 msgid "Owner of directories and files"
-msgstr ""
+msgstr "Vlastník adresářů a souborů"
 
 msgid "PIDs"
-msgstr ""
+msgstr "PID"
 
 msgid "Parent network"
-msgstr ""
+msgstr "Nadřazená síť"
 
 msgid "Path"
-msgstr ""
+msgstr "Cesta"
 
 msgid "Permissions of directories and files"
-msgstr ""
+msgstr "Oprávnění adresářů a souborů"
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "Nastavte sdílenou složku pro zálohování."
 
 msgid "Please set shared folder for data on the Settings tab."
-msgstr ""
+msgstr "Nastavte sdílenou složku pro data na kartě Nastavení."
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "Nastavte sdílenou složku pro ukládání souborů."
 
 msgid "Ports"
-msgstr ""
+msgstr "Porty"
 
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 msgid "Prune"
 msgstr ""
@@ -465,148 +505,160 @@ msgid "Push to Docker Hub ..."
 msgstr ""
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "Přeinstalovat Docker"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "Přeinstalování Dockeru…"
 
 msgid "Repository"
-msgstr ""
+msgstr "Repozitář"
 
 msgid "Restart Docker"
-msgstr ""
+msgstr "Restartovat Docker"
 
 msgid "Restore"
-msgstr ""
+msgstr "Obnovit"
 
 msgid "Restore Compose ..."
-msgstr ""
+msgstr "Obnovit Compose…"
 
 msgid "Run"
-msgstr ""
+msgstr "Spustit"
 
 msgid "Running For"
-msgstr ""
+msgstr "Spuštěno"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Plán"
 
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 msgid "Script filename"
-msgstr ""
+msgstr "Název souboru skriptu"
 
 msgid "Script filename cannot be"
-msgstr ""
+msgstr "Název souboru skriptu nemůže být"
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "Vyberte skupinu…"
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "Vyberte uživatele…"
 
 msgid "Service"
-msgstr ""
+msgstr "Služba"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Název služby"
 
 msgid "Services"
-msgstr ""
+msgstr "Služby"
 
 msgid "Settings"
-msgstr ""
+msgstr "Nastavení"
 
 msgid "Shared folder"
+msgstr "Sdílená složka"
+
+msgid "Show environment file"
+msgstr ""
+
+msgid "Show override"
 msgstr ""
 
 msgid "Size"
-msgstr ""
+msgstr "Velikost"
 
 msgid "State"
-msgstr ""
+msgstr "Stav"
 
 msgid "Stats"
-msgstr ""
+msgstr "Statistiky"
 
 msgid "Status"
-msgstr ""
+msgstr "Stav"
 
 msgid "Stopped"
-msgstr ""
+msgstr "Zastaveno"
 
 msgid "Subnet"
-msgstr ""
+msgstr "Podsíť"
 
 msgid "Sync changes from file"
-msgstr ""
+msgstr "Synchronizovat změny ze souboru"
 
 msgid "Syncing changes from file ..."
-msgstr ""
+msgstr "Synchronizace změn ze souboru…"
 
 msgid "System"
-msgstr ""
+msgstr "Systém"
 
 msgid "Tag"
-msgstr ""
+msgstr "Štítek"
 
 msgid "Tags"
-msgstr ""
+msgstr "Štítky"
 
 msgid "The field should only contain * or a comma separated list of values."
-msgstr ""
+msgstr "Pole by mělo obsahovat pouze * nebo seznam hodnot oddělených čárkou."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"Toto importuje jeden soubor compose do vybrané složky.<br/>Neimportuje se "
+"soubor compose, který již v zásuvném modulu existuje."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose files that already exist in the plugin."
 msgstr ""
+"Toto importuje jeden nebo více souborů compose do podsložek.<br/>Neimportují"
+" se žádné soubory compose, které již v zásuvném modulu existují."
 
 msgid "Tools"
-msgstr ""
+msgstr "Nástroje"
 
 msgid "URL"
-msgstr ""
+msgstr "Adresa URL"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "Název hostitele URL"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr ""
+"Jednotky v GB. Zálohování přeskočí svazky větší než tato velikost.<br/>Pro "
+"neomezenou velikost nastavte na 0."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "Jednotky v sekundách.<br/>Pro nepoužívání mezipaměti nastavte na 0."
 
 msgid "Up"
 msgstr ""
 
 msgid "Uptime"
-msgstr ""
+msgstr "Doba provozu"
 
 msgid "Version"
-msgstr ""
+msgstr "Verze"
 
 msgid "Virtual Size"
-msgstr ""
+msgstr "Virtuální velikost"
 
 msgid "Volume"
-msgstr ""
+msgstr "Svazek"
 
 msgid "Volumes"
-msgstr ""
+msgstr "Svazky"
 
 msgid "and not running"
-msgstr ""
+msgstr "a není spuštěno"
 
 msgid "and running"
-msgstr ""
+msgstr "a je spuštěno"
 
 msgid "check"
 msgstr ""
@@ -699,22 +751,22 @@ msgid "down and remove orphans"
 msgstr ""
 
 msgid "e.g. 172.20.0.0/16"
-msgstr ""
+msgstr "např. 172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr ""
+msgstr "např. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr ""
+msgstr "např. 172.20.10.128/25"
 
 msgid "follow logs"
 msgstr ""
 
 msgid "logs"
-msgstr ""
+msgstr "protokoly"
 
 msgid "n/a"
-msgstr ""
+msgstr "neuvedeno"
 
 msgid "omv-extras wiki"
 msgstr ""
@@ -726,10 +778,10 @@ msgid "pull"
 msgstr ""
 
 msgid "restart"
-msgstr ""
+msgstr "restartovat"
 
 msgid "stop"
-msgstr ""
+msgstr "zastavit"
 
 msgid "up"
 msgstr ""

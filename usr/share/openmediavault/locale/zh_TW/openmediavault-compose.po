@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-07 14:15-0500\n"
+"POT-Creation-Date: 2024-09-22 11:19-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -53,6 +53,9 @@ msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 唯讀"
 
 msgid "Advanced"
 msgstr "進階"
+
+msgid "Are you sure you want to delete this backup?"
+msgstr "您確定要刪除這個備份嗎？"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "您確定要重新安裝嗎？"
@@ -207,11 +210,17 @@ msgstr "日期與時間"
 msgid "Delete"
 msgstr "刪除"
 
+msgid "Delete backup ..."
+msgstr "刪除備份 ..."
+
 msgid "Description"
 msgstr "敘述"
 
 msgid "Digest"
 msgstr "摘要"
+
+msgid "Directory does not exist!"
+msgstr "檔案目錄不存在！"
 
 msgid "Docker"
 msgstr "Docker"
@@ -405,6 +414,9 @@ msgstr "無影像"
 msgid "No compose file found!"
 msgstr "找不到 compose 檔案！"
 
+msgid "No name specified!"
+msgstr "未指定名稱！"
+
 msgid "Not installed"
 msgstr "未被安裝"
 
@@ -420,6 +432,12 @@ msgid ""
 msgstr ""
 "選項 - 容器之持久性資料的位置<br/>此共享檔案夾路徑只被用來取代 compose 與 env 檔案內的 "
 "CHANGE_TO_COMPOSE_DATA_PATH 變數。"
+
+msgid "Override"
+msgstr ""
+
+msgid "Override Path"
+msgstr ""
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
@@ -529,6 +547,12 @@ msgstr "設置"
 
 msgid "Shared folder"
 msgstr "共享檔案夾"
+
+msgid "Show environment file"
+msgstr ""
+
+msgid "Show override"
+msgstr ""
 
 msgid "Size"
 msgstr "大小"
