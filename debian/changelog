@@ -1,3 +1,12 @@
+openmediavault-compose (7.2.6) UNRELEASED; urgency=medium
+
+  * Enforce minimum docker-related packages versions
+  * Fix dialog titles
+  * Stop creating docker-compose symlink
+  * Update plugin description
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 30 Sep 2024 12:45:59 -0500
+
 openmediavault-compose (7.2.5) stable; urgency=low
 
   * Add delete button to Restore tab
