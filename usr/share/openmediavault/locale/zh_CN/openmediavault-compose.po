@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-22 11:19-0500\n"
+"POT-Creation-Date: 2024-09-30 18:55-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -50,9 +50,6 @@ msgstr "管理员 - 读/写，用户 - 读/写，其它 - 无权限"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理员 - 读/写，用户 - 读/写，其它 - 只读"
-
-msgid "Advanced"
-msgstr "高级"
 
 msgid "Are you sure you want to delete this backup?"
 msgstr ""
@@ -643,6 +640,39 @@ msgstr "运行"
 msgid "check"
 msgstr "检查"
 
+msgid "docker compose down --remove-orphans ..."
+msgstr ""
+
+msgid "docker compose down ..."
+msgstr ""
+
+msgid "docker compose file version"
+msgstr ""
+
+msgid "docker compose logs --follow ..."
+msgstr ""
+
+msgid "docker compose logs ..."
+msgstr ""
+
+msgid "docker compose ps ..."
+msgstr ""
+
+msgid "docker compose pull ..."
+msgstr ""
+
+msgid "docker compose restart ..."
+msgstr ""
+
+msgid "docker compose stop ..."
+msgstr ""
+
+msgid "docker compose up -d --remove-orphans ..."
+msgstr ""
+
+msgid "docker compose up -d ..."
+msgstr ""
+
 msgid "docker container prune ..."
 msgstr "docker container 修改..."
 
@@ -687,39 +717,6 @@ msgstr "docker 卷修改 ..."
 
 msgid "docker volume rm ..."
 msgstr "移除 docker 卷 ..."
-
-msgid "docker-compose down --remove-orphans ..."
-msgstr "docker-compose down --remove-orphans ..."
-
-msgid "docker-compose down ..."
-msgstr "docker-compose down ..."
-
-msgid "docker-compose file version"
-msgstr "docker-compose 文件版本"
-
-msgid "docker-compose logs --follow ..."
-msgstr "docker-compose logs --follow ..."
-
-msgid "docker-compose logs ..."
-msgstr "docker-compose 日志 ..."
-
-msgid "docker-compose ps ..."
-msgstr "docker-compose ps ..."
-
-msgid "docker-compose pull ..."
-msgstr "docker-compose pull ..."
-
-msgid "docker-compose restart ..."
-msgstr "docker-compose 重启 ..."
-
-msgid "docker-compose stop ..."
-msgstr "docker-compose 停止 ..."
-
-msgid "docker-compose up -d --remove-orphans ..."
-msgstr "docker-compose up -d --remove-orphans ..."
-
-msgid "docker-compose up -d ..."
-msgstr "docker-compose up -d ..."
 
 msgid "dockerfile build ..."
 msgstr "dockerfile 构建 ..."

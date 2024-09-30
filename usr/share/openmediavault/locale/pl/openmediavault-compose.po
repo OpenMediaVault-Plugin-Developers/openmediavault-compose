@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-22 11:19-0500\n"
+"POT-Creation-Date: 2024-09-30 18:55-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Rysiek Jurczy, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl/)\n"
@@ -61,9 +61,6 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
 "Administrator - odczyt/zapis, Użytkownicy - odczyt/zapis, Inni - tylko "
 "odczyt"
-
-msgid "Advanced"
-msgstr ""
 
 msgid "Are you sure you want to delete this backup?"
 msgstr ""
@@ -666,6 +663,39 @@ msgstr "i działa"
 msgid "check"
 msgstr "sprawdź"
 
+msgid "docker compose down --remove-orphans ..."
+msgstr ""
+
+msgid "docker compose down ..."
+msgstr ""
+
+msgid "docker compose file version"
+msgstr ""
+
+msgid "docker compose logs --follow ..."
+msgstr ""
+
+msgid "docker compose logs ..."
+msgstr ""
+
+msgid "docker compose ps ..."
+msgstr ""
+
+msgid "docker compose pull ..."
+msgstr ""
+
+msgid "docker compose restart ..."
+msgstr ""
+
+msgid "docker compose stop ..."
+msgstr ""
+
+msgid "docker compose up -d --remove-orphans ..."
+msgstr ""
+
+msgid "docker compose up -d ..."
+msgstr ""
+
 msgid "docker container prune ..."
 msgstr "docker container prune ..."
 
@@ -710,39 +740,6 @@ msgstr "docker volume prune ..."
 
 msgid "docker volume rm ..."
 msgstr "docker volume rm ..."
-
-msgid "docker-compose down --remove-orphans ..."
-msgstr ""
-
-msgid "docker-compose down ..."
-msgstr "docker-compose down ..."
-
-msgid "docker-compose file version"
-msgstr "wersja pliku docker-compose"
-
-msgid "docker-compose logs --follow ..."
-msgstr "docker-compose logs --follow ..."
-
-msgid "docker-compose logs ..."
-msgstr "docker-compose logs ..."
-
-msgid "docker-compose ps ..."
-msgstr "docker-compose ps ..."
-
-msgid "docker-compose pull ..."
-msgstr "docker-compose pull ..."
-
-msgid "docker-compose restart ..."
-msgstr "docker-compose restart ..."
-
-msgid "docker-compose stop ..."
-msgstr "docker-compose stop ..."
-
-msgid "docker-compose up -d --remove-orphans ..."
-msgstr ""
-
-msgid "docker-compose up -d ..."
-msgstr "docker-compose up -d ..."
 
 msgid "dockerfile build ..."
 msgstr "budowanie dockerfile ..."
