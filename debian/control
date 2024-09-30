@@ -15,7 +15,17 @@ Depends: openmediavault (>= 7),
          python3-docker,
          python3-pretty-yaml,
          ${misc:Depends}
-Recommends: docker-ce,
-            docker-compose-plugin (>= 2.21.0)
+Recommends: docker-ce (>= 27.2.1),
+            docker-compose-plugin (>= 2.29.2)
 Description: OpenMediaVault compose plugin
- lightweight plugin to maintain and execute docker-compose files.
+ This plugin enhances OpenMediaVault by providing a comprehensive solution for managing
+ Docker containers and their resources. Key features include:
+ .
+ * Docker-Compose Management: Maintain and execute Docker Compose files.
+ * Automated Backups: Schedule regular backups of containers to ensure data integrity.
+ * Backup Restoration: Restore backups to minimize downtime.
+ * Cleanup Automation: Automatically purge outdated images, containers, and resources.
+ * Container Monitoring: Access statistics on running containers.
+ * Image Status Tracking: Monitor image statuses and relevant metrics.
+ * Network Management: Create and manage Docker networks.
+ * Log Viewing: View logs for your containers.
