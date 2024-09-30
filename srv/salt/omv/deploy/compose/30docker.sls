@@ -42,20 +42,21 @@ configure_etc_docker_dir:
 docker_install_packages:
   pkg.installed:
     - pkgs:
-      - docker-ce
+      - docker-ce: '>=27.2.1'
 
 docker_compose_install_packages:
   pkg.installed:
     - pkgs:
-      - docker-compose-plugin
-      - containerd.io
-      - docker-ce-cli
-      - docker-buildx-plugin
+      - docker-compose-plugin: '>=2.29.2'
+      - containerd.io: '>=1.7.21'
+      - docker-ce-cli: '>=27.2.1'
+      - docker-buildx-plugin: '>=0.16.2'
 
 docker_purged_packages:
   pkg.purged:
     - pkgs:
       - docker-compose
+      - docker.io
 
 {% if config.dockerStorage | length > 1 %}
 
@@ -91,8 +92,3 @@ create_usr_local_bin_dir:
     - group: root
     - mode: "0755"
     - makedirs: True
-
-/usr/local/bin/docker-compose:
-  file.symlink:
-    - target: /usr/libexec/docker/cli-plugins/docker-compose
-    - force: True
