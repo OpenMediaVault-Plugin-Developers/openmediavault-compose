@@ -81,7 +81,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose pull ...")
+              title: _("docker compose pull ...")
               startOnInit: true
               request:
                 service: Compose
@@ -103,7 +103,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose up -d ...")
+              title: _("docker compose up -d ...")
               startOnInit: true
               request:
                 service: Compose
@@ -125,7 +125,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose restart ...")
+              title: _("docker compose restart ...")
               startOnInit: true
               request:
                 service: Compose
@@ -147,7 +147,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose logs ...")
+              title: _("docker compose logs ...")
               startOnInit: true
               request:
                 service: Compose
@@ -169,7 +169,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose logs --follow ...")
+              title: _("docker compose logs --follow ...")
               startOnInit: true
               request:
                 service: Compose

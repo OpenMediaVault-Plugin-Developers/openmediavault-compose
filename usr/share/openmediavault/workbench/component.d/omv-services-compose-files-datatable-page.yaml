@@ -149,7 +149,7 @@ data:
                         - ["1", "1"]
                         - ["2", "2"]
                         - ["3", "3"]
-                    hint: _("docker-compose file version")
+                    hint: _("docker compose file version")
                 buttons:
                   submit:
                     text: _("Create")
@@ -271,7 +271,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose up -d ...")
+              title: _("docker compose up -d ...")
               startOnInit: true
               request:
                 service: Compose
@@ -289,7 +289,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose stop ...")
+              title: _("docker compose stop ...")
               startOnInit: true
               request:
                 service: Compose
@@ -307,7 +307,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose down ...")
+              title: _("docker compose down ...")
               startOnInit: true
               request:
                 service: Compose
@@ -325,7 +325,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose pull ...")
+              title: _("docker compose pull ...")
               startOnInit: true
               request:
                 service: Compose
@@ -343,7 +343,7 @@ data:
           type: taskDialog
           taskDialog:
             config:
-              title: _("docker-compose ps ...")
+              title: _("docker compose ps ...")
               startOnInit: true
               request:
                 service: Compose
@@ -439,7 +439,7 @@ data:
               type: taskDialog
               taskDialog:
                 config:
-                  title: _("docker-compose logs ...")
+                  title: _("docker compose logs ...")
                   startOnInit: true
                   request:
                     service: Compose
@@ -457,7 +457,7 @@ data:
               type: taskDialog
               taskDialog:
                 config:
-                  title: _("docker-compose logs --follow ...")
+                  title: _("docker compose logs --follow ...")
                   startOnInit: true
                   request:
                     service: Compose
@@ -522,7 +522,7 @@ data:
               type: taskDialog
               taskDialog:
                 config:
-                  title: _("docker-compose up -d --remove-orphans ...")
+                  title: _("docker compose up -d --remove-orphans ...")
                   startOnInit: true
                   request:
                     service: Compose
@@ -539,7 +539,7 @@ data:
               type: taskDialog
               taskDialog:
                 config:
-                  title: _("docker-compose down --remove-orphans ...")
+                  title: _("docker compose down --remove-orphans ...")
                   startOnInit: true
                   request:
                     service: Compose
