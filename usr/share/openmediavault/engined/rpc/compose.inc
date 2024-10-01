@@ -431,10 +431,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if (file_exists($overrideFile)) {
                     $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
                 }
-                $cmdArgs[] = sprintf("--env-file '%s'", $envFile);
                 if (file_exists($globalEnvFile)) {
                     $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
                 }
+                $cmdArgs[] = sprintf("--env-file '%s'", $envFile);
                 $cmdArgs[] = 'ps';
                 $cmdArgs[] = '--all';
                 $cmdArgs[] = '--format "json"';
@@ -605,10 +605,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (file_exists($overrideFile)) {
             $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
         }
-        $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
         if (file_exists($globalEnvFile)) {
             $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
         }
+        $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
         $cmdArgs[] = 'down';
         $cmd = new \OMV\System\Process($cmdArgs);
         $cmd->setQuiet(true);
@@ -871,10 +871,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if (file_exists($overrideFile)) {
                     $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
                 }
-                $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
                 if (file_exists($globalEnvFile)) {
                     $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
                 }
+                $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
                 $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['command2'];
                 $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
@@ -919,10 +919,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (file_exists($overrideFile)) {
             $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
         }
-        $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
         if (file_exists($globalEnvFile)) {
             $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
         }
+        $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
         $cmdArgs[] = 'logs';
         $cmd = new \OMV\System\Process($cmdArgs);
         $cmd->setRedirect1toFile($tmpFilePath);
@@ -1084,11 +1084,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     if (file_exists($overrideFile)) {
                         $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
                     }
-                    if ($envfilepath != '') {
-                            $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
-                    }
                     if (file_exists($globalEnvFile)) {
                         $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+                    }
+                    if ($envfilepath != '') {
+                            $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
                     }
                     $cmdArgs[] = 'ps';
                     $cmdArgs[] = '--all';
@@ -1149,10 +1149,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if (file_exists($params['overridepath'])) {
                     $cmdArgs[] = sprintf('--file "%s"', $params['overridepath']);
                 }
-                $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
                 if (file_exists($globalEnvFile)) {
                     $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
                 }
+                $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
                 $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['command2'];
                 $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
@@ -1194,10 +1194,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (file_exists($params['overridepath'])) {
             $cmdArgs[] = sprintf('--file "%s"', $params['overridepath']);
         }
-        $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
         if (file_exists($globalEnvFile)) {
             $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
         }
+        $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
         $cmdArgs[] = 'logs';
         $cmdArgs[] = $params['service'];
         $cmd = new \OMV\System\Process($cmdArgs);

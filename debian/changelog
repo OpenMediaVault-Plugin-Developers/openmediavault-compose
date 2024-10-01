@@ -4,6 +4,8 @@ openmediavault-compose (7.2.6) UNRELEASED; urgency=medium
   * Fix dialog titles
   * Stop creating docker-compose symlink
   * Update plugin description
+  * Load global environment variable file before service-specific environment
+    variable file
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 30 Sep 2024 12:45:59 -0500
 
