@@ -122,7 +122,7 @@ if [ -f "${vollist}" ]; then
     _log "Source :: ${src}"
     _log "Dest :: ${volpath}"
     if [ ${volnum} -eq 0 ]; then
-      cp -v "${src}/${compose}.yml" "${src}/${compose}.env" "${volpath}"
+      cp -v "${src}/${compose}.yml" "${src}/compose.override.yml" "${src}/${compose}.env" "${volpath}"
     else
       rsync -avr${delete} "${src}" "${volpath}"
     fi

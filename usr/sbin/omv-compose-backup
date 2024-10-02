@@ -159,7 +159,7 @@ fi
 # copy yml and env files and other files that use a relative path
 voldir="${backupdir}/${i}"
 mkdir -pv "${voldir}"
-cp -v "${yml}" "${env}" "${voldir}/"
+cp -v "${yml}" "${ovr}" "${env}" "${voldir}/"
 
 # loop through volumes
 for vol in "${confVols[@]}"; do
