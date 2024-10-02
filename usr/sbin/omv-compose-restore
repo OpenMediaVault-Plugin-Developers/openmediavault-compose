@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.1
+# version: 1.0.2
 
 . /usr/share/openmediavault/scripts/helper-functions
 
@@ -68,12 +68,23 @@ _log "Backup path :: ${backuppath}"
 composepath="${sfpath}/${compose}"
 env="${composepath}/${compose}.env"
 globalenv="${sfpath}/global.env"
+ovr="${composepath}/compose.override.yml"
 yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
   _log "Compose file '${yml}' does not exist."
   skip=1
 fi
 _log "Compose file :: ${yml}"
+
+# build compose arguments
+dockerComposeArgs=("--file" "${yml}")
+if [ -f "${ovr}" ]; then
+  dockerComposeArgs+=("--file" "${ovr}")
+fi
+if [ -f "${globalenv}" ]; then
+  dockerComposeArgs+=("--env-file" "${globalenv}")
+fi
+dockerComposeArgs+=("--env-file" "${env}")
 
 if [ ${skip} -ne 1 ]; then
   # save status
@@ -83,11 +94,7 @@ if [ ${skip} -ne 1 ]; then
 
   # stop compose if running
   if grep -q "running" "${status}"; then
-    if [ -f "${globalenv}" ]; then
-      docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" stop
-    else
-      docker compose --file "${yml}" --env-file "${env}" stop
-    fi
+    docker compose "${dockerComposeArgs[@]}" stop
   else
     _log "${compose} is not running"
   fi
@@ -127,11 +134,7 @@ fi
 if [ ${skip} -ne 1 ]; then
   # start compose if running before backup
   if grep -q "running" "${status}"; then
-    if [ -f "${globalenv}" ]; then
-      docker compose --file "${yml}" --env-file "${env}" --env-file "${globalenv}" start
-    else
-      docker compose --file "${yml}" --env-file "${env}" start
-    fi
+    docker compose "${dockerComposeArgs[@]}" start
   fi
 
   rm -f "${status}"

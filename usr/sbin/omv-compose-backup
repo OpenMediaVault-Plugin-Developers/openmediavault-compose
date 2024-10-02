@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.2
+# version: 1.0.3
 
 export LANG=C.UTF-8
 
@@ -87,6 +87,7 @@ composepath="${sfpath}/${compose}"
 env="${composepath}/${compose}.env"
 globalenv="${sfpath}/global.env"
 yml="${composepath}/${compose}.yml"
+ovr="${composepath}/compose.override.yml"
 if [ ! -f "${yml}" ]; then
   _log "Compose file '${yml}' does not exist.  Exiting..."
   exit 15
@@ -111,12 +112,17 @@ backupmax=$((backupmaxsize * 1024 * 1024 * 1024))
 OFS=$IFS
 IFS=$'\n'
 
-# get docker compose command
-dockerComposeArgs=("--file" "${yml}" "--env-file" "${env}")
+# build compose arguments
+dockerComposeArgs=("--file" "${yml}")
+if [ -f "${ovr}" ]; then
+  dockerComposeArgs+=("--file" "${ovr}")
+fi
 if [ -f "${globalenv}" ]; then
   dockerComposeArgs+=("--env-file" "${globalenv}")
 fi
+dockerComposeArgs+=("--env-file" "${env}")
 
+# run docker compose config
 confout="$(mktemp)"
 docker compose "${dockerComposeArgs[@]}" config --output "${confout}"
 if [ $? -gt 0 ] || [ -z "${confout}" ]; then
