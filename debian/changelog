@@ -1,3 +1,10 @@
+openmediavault-compose (7.2.7) stable; urgency=low
+
+  * Load global environment variable file before service-specific
+    environment variable file in backup scripts
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 02 Oct 2024 05:54:45 -0500
+
 openmediavault-compose (7.2.6) stable; urgency=low
 
   * Enforce minimum docker-related packages versions
