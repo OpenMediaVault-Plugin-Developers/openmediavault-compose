@@ -225,6 +225,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return ($urlhn);
     }
 
+    private function getShowCmd($context)
+    {
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        // Get sharedfolder path
+        $settings = $db->get("conf.service.compose");
+        $showCmd = $settings->get('showcmd');
+        return (boolval($showCmd));
+    }
+
     private function getPort($context, $publisher, $fqdn)
     {
         $port = '';
@@ -760,8 +770,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
         $sfpath = $this->getComposePath($context);
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($object, $params, $sfpath) {
+            use ($object, $params, $sfpath, $showCmd) {
                 $name = $params['name'];
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
@@ -775,7 +786,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -789,8 +800,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $sfpath = $this->getComposePath($context);
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $sfpath) {
+            use ($params, $sfpath, $showCmd) {
                 // docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
@@ -810,7 +822,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -857,8 +869,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
         $sfpath = $this->getComposePath($context);
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($object, $params, $sfpath) {
+            use ($object, $params, $sfpath, $showCmd) {
                 $cname = $object->get('name');
                 $composeDir = sprintf("%s/%s", $sfpath, $cname);
                 $composeName = sprintf("%s/%s", $composeDir, $cname);
@@ -888,7 +901,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -947,8 +960,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->clearCache('all');
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.doprune");
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params) {
+            use ($params, $showCmd) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = $params['command'];
@@ -956,7 +970,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -1139,8 +1153,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // clear cache for services
         $this->clearCache('services');
         $sfpath = $this->getComposePath($context);
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $sfpath) {
+            use ($params, $sfpath, $showCmd) {
                 $globalEnvFile = sprintf("%s/global.env", $sfpath);
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
@@ -1167,7 +1182,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -1293,8 +1308,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // delete cache containers
         $this->clearCache('containers');
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params) {
+            use ($params, $showCmd) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = $params['command'];
@@ -1304,7 +1320,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -1642,8 +1658,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->clearCache('stats');
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.dodockercmd");
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params) {
+            use ($params, $showCmd) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = $params['cmd'];
@@ -1653,7 +1670,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -1764,8 +1781,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // clear cache for volumes
         $this->clearCache('volumes');
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params) {
+            use ($params, $showCmd) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'volume';
@@ -1778,7 +1796,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -1857,8 +1875,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // clear cache for networks
         $this->clearCache('networks');
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params) {
+            use ($params, $showCmd) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'network';
@@ -1871,7 +1890,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -2074,8 +2093,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // clear cache for images
         $this->clearCache('images');
+        $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params) {
+            use ($params, $showCmd) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'image';
@@ -2088,7 +2108,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }

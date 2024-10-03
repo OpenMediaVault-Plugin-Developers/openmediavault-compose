@@ -98,6 +98,10 @@
         "cachetimecontainers": {
           "type": "integer",
           "required": true
+        },
+        "showcmd": {
+          "type": "boolean",
+          "required": true
         }
       }
     }

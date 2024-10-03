@@ -125,6 +125,10 @@ data:
         label: _("URL hostname")
         value: ""
         hint: _("Override hostname when opening ports in Files, Services, and Containers tabs")
+      - type: checkbox
+        name: showcmd
+        label: _("Show commands")
+        hint: _("Show docker command for task in task dialog")
       - type: divider
         title: _("Cache times for tabs")
       - type: container

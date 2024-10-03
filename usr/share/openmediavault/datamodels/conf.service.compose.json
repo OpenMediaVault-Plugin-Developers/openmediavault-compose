@@ -118,6 +118,9 @@
       "maximum": 65535,
       "default": 60
     },
+    "showcmd": {
+      "type": "boolean"
+    },
     "files": {
       "type": "object",
       "properties": {

@@ -1,3 +1,9 @@
+openmediavault-compose (7.2.8) UNRELEASED; urgency=medium
+
+  * Add setting to show or hide docker command in task dialogs
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 03 Oct 2024 16:22:04 -0500
+
 openmediavault-compose (7.2.7) stable; urgency=low
 
   * Load global environment variable file before service-specific
