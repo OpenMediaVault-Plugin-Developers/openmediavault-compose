@@ -124,8 +124,16 @@
           "type": "string",
           "required": true
         },
+        "showenv": {
+          "type": "boolean",
+          "required": true
+        },
         "env": {
           "type": "string",
+          "required": true
+        },
+        "showoverride": {
+          "type": "boolean",
           "required": true
         },
         "override": {

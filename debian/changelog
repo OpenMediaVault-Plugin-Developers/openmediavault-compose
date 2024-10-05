@@ -1,6 +1,7 @@
 openmediavault-compose (7.2.8) UNRELEASED; urgency=medium
 
   * Add setting to show or hide docker command in task dialogs
+  * Save state of show environment and show override checkboxes in File editor
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 03 Oct 2024 16:22:04 -0500
 

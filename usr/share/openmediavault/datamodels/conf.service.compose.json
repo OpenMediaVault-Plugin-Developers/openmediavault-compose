@@ -142,8 +142,14 @@
               "body": {
                 "type": "string"
               },
+              "showenv": {
+                "type": "boolean"
+              },
               "env": {
                 "type": "string"
+              },
+              "showoverride": {
+                "type": "boolean"
               },
               "override": {
                 "type": "string"
