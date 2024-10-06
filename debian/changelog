@@ -1,3 +1,9 @@
+openmediavault-compose (7.2.9) stable; urgency=low
+
+  * Set default value of show environment and overrides checkboxes
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 06 Oct 2024 08:50:13 -0500
+
 openmediavault-compose (7.2.8) stable; urgency=low
 
   * Add setting to show or hide docker command in task dialogs
