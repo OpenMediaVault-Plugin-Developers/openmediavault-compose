@@ -33,6 +33,7 @@ data:
       - type: checkbox
         name: showenv
         label: _("Show environment file")
+        value: false
       - type: codeEditor
         name: env
         label: _("Environment")
@@ -47,6 +48,7 @@ data:
       - type: checkbox
         name: showoverride
         label: _("Show override")
+        value: false
       - type: codeEditor
         name: override
         label: _("Override")
