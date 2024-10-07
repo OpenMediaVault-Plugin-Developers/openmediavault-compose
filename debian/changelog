@@ -1,3 +1,9 @@
+openmediavault-compose (7.2.10) stable; urgency=low
+
+  * Fix path check for paths ending with slash in backup script
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 07 Oct 2024 12:42:45 -0500
+
 openmediavault-compose (7.2.9) stable; urgency=low
 
   * Set default value of show environment and overrides checkboxes
