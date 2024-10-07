@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.3
+# version: 1.0.4
 
 export LANG=C.UTF-8
 
@@ -168,7 +168,7 @@ for vol in "${confVols[@]}"; do
   cmt=""
   for item in "${ymlVols[@]}"; do
     contitem=$(extractContPath "${item}")
-    if [[ "${contpath}" == "${contitem}" ]]; then
+    if [[ "${contpath%/}" == "${contitem%/}" ]]; then
       cmt="${item}"
       break
     fi
