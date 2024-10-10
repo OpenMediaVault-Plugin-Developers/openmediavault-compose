@@ -1,3 +1,10 @@
+openmediavault-compose (7.2.11) UNRELEASED; urgency=medium
+
+  * Make compose file editing much faster by writing file directly and
+    skipping saltstack run
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 10 Oct 2024 06:57:21 -0500
+
 openmediavault-compose (7.2.10) stable; urgency=low
 
   * Fix path check for paths ending with slash in backup script
