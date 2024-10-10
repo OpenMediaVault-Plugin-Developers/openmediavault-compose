@@ -611,12 +611,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
             $dblEol = PHP_EOL . PHP_EOL;
             $header = $this->getHeader();
-            $header1 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
+            $header1 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, PHP_EOL);
             $header2 = sprintf('%s# environment file for %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
+            $header3 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
 
             file_put_contents($composeFile, $header1 . $body . PHP_EOL);
             file_put_contents($envFile, $header2 . $env);
-            file_put_contents($overrideFile, $header1 . $override);
+            file_put_contents($overrideFile, $header3 . $override);
         }
         // Return the configuration object.
         return $object->getAssoc();
