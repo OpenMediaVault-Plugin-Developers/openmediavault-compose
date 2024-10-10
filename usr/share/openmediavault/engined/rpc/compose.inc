@@ -268,6 +268,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return ($header);
     }
 
+    private function applyChanges($context)
+    {
+        \OMV\Rpc\Rpc::call('Config', 'applyChanges', [
+          'modules' => [ 'compose' ],
+          'force' => TRUE
+        ], $context);
+    }
+
     public function get($params, $context)
     {
         // Validate the RPC caller context.
@@ -590,34 +598,36 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db->set($object);
         // Apply changes immmediately
         if (TRUE === $isNew) {
-            \OMV\Rpc\Rpc::call('Config', 'applyChanges', [
-                'modules' => [ 'compose' ],
-                'force' => TRUE
-            ], $context);
+            $this->applyChanges($context);
             // clear cache for files
             $this->clearCache('files');
         } else {
             $cname = $object->get('name');
             $composeDir = sprintf("%s/%s", $sfpath, $cname);
-            $composeName = sprintf("%s/%s", $composeDir, $cname);
-            $composeFile = sprintf("%s.yml", $composeName);
-            $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
-            $envFile = sprintf("%s.env", $composeName);
+            if (is_dir($composeDir)) {
+                $composeName = sprintf("%s/%s", $composeDir, $cname);
+                $composeFile = sprintf("%s.yml", $composeName);
+                $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
+                $envFile = sprintf("%s.env", $composeName);
 
-            $body = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('body'));
-            $desc = $object->get('description');
-            $env = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('env'));
-            $override = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('override'));
+                $body = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('body'));
+                $desc = $object->get('description');
+                $env = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('env'));
+                $override = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('override'));
 
-            $dblEol = PHP_EOL . PHP_EOL;
-            $header = $this->getHeader();
-            $header1 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, PHP_EOL);
-            $header2 = sprintf('%s# environment file for %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
-            $header3 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
+                $dblEol = PHP_EOL . PHP_EOL;
+                $header = $this->getHeader();
+                $header1 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, PHP_EOL);
+                $header2 = sprintf('%s# environment file for %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
+                $header3 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
 
-            file_put_contents($composeFile, $header1 . $body . PHP_EOL);
-            file_put_contents($envFile, $header2 . $env);
-            file_put_contents($overrideFile, $header3 . $override);
+                file_put_contents($composeFile, $header1 . $body . PHP_EOL);
+                file_put_contents($envFile, $header2 . $env);
+                file_put_contents($overrideFile, $header3 . $override);
+            } else {
+                $this->applyChanges($context);
+                $this->clearCache('files');
+            }
         }
         // Return the configuration object.
         return $object->getAssoc();
@@ -759,19 +769,21 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         } else {
             $dfname = $object->get('name');
             $dfDir = sprintf("%s/%s", $sfpath, $dfname);
-            $dfFile = sprintf("%s/Dockerfile", $dfDir);
-            $confFile = sprintf("%s/%s", $dfDir, $object->get('conf'));
-            $scriptFile = sprintf("%s/%s", $dfDir, $object->get('script'));
+            if (is_dir($dfDir)) {
+                $dfFile = sprintf("%s/Dockerfile", $dfDir);
+                $confFile = sprintf("%s/%s", $dfDir, $object->get('conf'));
+                $scriptFile = sprintf("%s/%s", $dfDir, $object->get('script'));
 
-            $dblEol = PHP_EOL . PHP_EOL;
-            $desc = $object->get('description');
-            $header = $this->getHeader();
-            $header1 = sprintf('%s# %s%s# %s%s', $header, $dfname, PHP_EOL, $desc, $dblEol);
-            $header2 = sprintf('%s# config file for %s%s# %s%s', $header, $dfname, PHP_EOL, $desc, $dblEol);
+                $dblEol = PHP_EOL . PHP_EOL;
+                $desc = $object->get('description');
+                $header = $this->getHeader();
+                $header1 = sprintf('%s# %s%s# %s%s', $header, $dfname, PHP_EOL, $desc, $dblEol);
+                $header2 = sprintf('%s# config file for %s%s# %s%s', $header, $dfname, PHP_EOL, $desc, $dblEol);
 
-            file_put_contents($dfFile, $header1 . $object->get('body') . PHP_EOL);
-            file_put_contents($confFile, $header2 . $object->get('conffile') . PHP_EOL);
-            file_put_contents($scriptFile, $object->get('scriptfile') . PHP_EOL);
+                file_put_contents($dfFile, $header1 . $object->get('body') . PHP_EOL);
+                file_put_contents($confFile, $header2 . $object->get('conffile') . PHP_EOL);
+                file_put_contents($scriptFile, $object->get('scriptfile') . PHP_EOL);
+            }
         }
         $db->set($object);
         // Return the configuration object.
