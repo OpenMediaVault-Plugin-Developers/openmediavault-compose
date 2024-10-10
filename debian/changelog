@@ -1,3 +1,9 @@
+openmediavault-compose (7.2.12) stable; urgency=low
+
+  * Apply changes when compose directory doesn't exist
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 10 Oct 2024 11:01:02 -0500
+
 openmediavault-compose (7.2.11) stable; urgency=low
 
   * Make compose file editing much faster by writing file directly and
