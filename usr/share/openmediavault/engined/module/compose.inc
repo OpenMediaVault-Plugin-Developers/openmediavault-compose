@@ -63,7 +63,7 @@ class OMVModuleCompose extends \OMV\Engine\Module\ServiceAbstract
             [ $this, "setDirty" ]
         );
         $dispatcher->addListener(
-            OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
+            OMV_NOTIFY_CREATE | OMV_NOTIFY_DELETE,
             "org.openmediavault.conf.service.compose.file",
             [ $this, "setDirty" ]
         );
@@ -73,7 +73,7 @@ class OMVModuleCompose extends \OMV\Engine\Module\ServiceAbstract
             [ $this, "setDirty" ]
         );
         $dispatcher->addListener(
-            OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
+            OMV_NOTIFY_CREATE | OMV_NOTIFY_DELETE,
             "org.openmediavault.conf.service.compose.dockerfile",
             [ $this, "setDirty" ]
         );
