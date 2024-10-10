@@ -1,9 +1,11 @@
-openmediavault-compose (7.2.11) UNRELEASED; urgency=medium
+openmediavault-compose (7.2.11) stable; urgency=low
 
   * Make compose file editing much faster by writing file directly and
     skipping saltstack run
+  * Make dockerfile editing much faster by writing file directly and
+    skipping saltstack run
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 10 Oct 2024 06:57:21 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 10 Oct 2024 10:05:46 -0500
 
 openmediavault-compose (7.2.10) stable; urgency=low
 
