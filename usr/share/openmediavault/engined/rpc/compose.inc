@@ -2215,7 +2215,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             use ($params) {
                 $cmdArgs = [];
                 $cmdArgs[] = '/usr/sbin/omv-compose-restore';
-                $cmdArgs[] = $params['backup'];
+                $cmdArgs[] = sprintf("'%s'", $params['backup']);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
