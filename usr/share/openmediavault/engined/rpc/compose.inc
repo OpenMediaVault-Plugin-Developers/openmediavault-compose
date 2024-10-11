@@ -766,6 +766,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (TRUE === $isNew) {
             // Check uniqueness - name
             $db->assertIsUnique($object, "name");
+        }
+        $db->set($object);
+        if (TRUE === $isNew) {
+            $this->applyChanges($context);
         } else {
             $dfname = $object->get('name');
             $dfDir = sprintf("%s/%s", $sfpath, $dfname);
@@ -785,7 +789,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 file_put_contents($scriptFile, $object->get('scriptfile') . PHP_EOL);
             }
         }
-        $db->set($object);
         // Return the configuration object.
         return $object->getAssoc();
     }
