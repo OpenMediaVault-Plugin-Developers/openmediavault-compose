@@ -1,3 +1,9 @@
+openmediavault-compose (7.2.13) stable; urgency=low
+
+  * Apply changes automatically when creating a dockerfile
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 11 Oct 2024 06:13:43 -0500
+
 openmediavault-compose (7.2.12) stable; urgency=low
 
   * Apply changes when compose directory doesn't exist
