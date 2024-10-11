@@ -1,3 +1,9 @@
+openmediavault-compose (7.2.14) stable; urgency=low
+
+  * Allow spaces in restore name
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 11 Oct 2024 18:46:46 -0500
+
 openmediavault-compose (7.2.13) stable; urgency=low
 
   * Apply changes automatically when creating a dockerfile
