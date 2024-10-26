@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-03 16:41-0500\n"
+"POT-Creation-Date: 2024-10-26 09:05-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -264,6 +264,12 @@ msgid "Edit global environment variable file."
 msgstr ""
 
 msgid "Edit scheduled job."
+msgstr ""
+
+msgid "Enable Docker repo"
+msgstr ""
+
+msgid "Enable Docker repo ..."
 msgstr ""
 
 msgid "Env Path"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-30 18:55-0500\n"
+"POT-Creation-Date: 2024-10-26 09:01-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -275,6 +275,12 @@ msgstr "編輯全機環境變數檔案。"
 
 msgid "Edit scheduled job."
 msgstr "編輯預訂工作。"
+
+msgid "Enable Docker repo"
+msgstr ""
+
+msgid "Enable Docker repo ..."
+msgstr ""
 
 msgid "Env Path"
 msgstr "Env 路徑"
@@ -545,6 +551,12 @@ msgstr "設置"
 msgid "Shared folder"
 msgstr "共享檔案夾"
 
+msgid "Show commands"
+msgstr "顯示指令"
+
+msgid "Show docker command for task in task dialog"
+msgstr "顯示在工作對話中之工作的 docker 指示"
+
 msgid "Show environment file"
 msgstr "顯示環境檔案"
 
@@ -642,37 +654,37 @@ msgid "check"
 msgstr "檢查"
 
 msgid "docker compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker compose down --remove-orphans ..."
 
 msgid "docker compose down ..."
-msgstr ""
+msgstr "docker compose down ..."
 
 msgid "docker compose file version"
-msgstr ""
+msgstr "docker compose file version"
 
 msgid "docker compose logs --follow ..."
-msgstr ""
+msgstr "docker compose logs --follow ..."
 
 msgid "docker compose logs ..."
-msgstr ""
+msgstr "docker compose logs ..."
 
 msgid "docker compose ps ..."
-msgstr ""
+msgstr "docker compose ps ..."
 
 msgid "docker compose pull ..."
-msgstr ""
+msgstr "docker compose pull ..."
 
 msgid "docker compose restart ..."
-msgstr ""
+msgstr "docker compose restart ..."
 
 msgid "docker compose stop ..."
-msgstr ""
+msgstr "docker compose stop ..."
 
 msgid "docker compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker compose up -d --remove-orphans ..."
 
 msgid "docker compose up -d ..."
-msgstr ""
+msgstr "docker compose up -d ..."
 
 msgid "docker container prune ..."
 msgstr "docker container prune ..."

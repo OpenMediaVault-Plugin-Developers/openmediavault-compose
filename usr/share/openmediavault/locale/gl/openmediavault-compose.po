@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-30 18:55-0500\n"
+"POT-Creation-Date: 2024-10-26 09:01-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Galician (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -268,6 +268,12 @@ msgid "Edit global environment variable file."
 msgstr ""
 
 msgid "Edit scheduled job."
+msgstr ""
+
+msgid "Enable Docker repo"
+msgstr ""
+
+msgid "Enable Docker repo ..."
 msgstr ""
 
 msgid "Env Path"
@@ -534,6 +540,12 @@ msgid "Settings"
 msgstr ""
 
 msgid "Shared folder"
+msgstr ""
+
+msgid "Show commands"
+msgstr ""
+
+msgid "Show docker command for task in task dialog"
 msgstr ""
 
 msgid "Show environment file"

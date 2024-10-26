@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-30 18:55-0500\n"
+"POT-Creation-Date: 2024-10-26 09:01-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2024\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -62,7 +62,7 @@ msgstr ""
 "olvasás"
 
 msgid "Are you sure you want to delete this backup?"
-msgstr ""
+msgstr "Valóban törölni szeretné ezt a biztonsági másolatot?"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "Valóban újra szeretné telepíteni?"
@@ -223,7 +223,7 @@ msgid "Delete"
 msgstr "Törlés"
 
 msgid "Delete backup ..."
-msgstr ""
+msgstr "Biztonsági másolat törlése…"
 
 msgid "Description"
 msgstr "Leírás"
@@ -232,7 +232,7 @@ msgid "Digest"
 msgstr "Kivonat"
 
 msgid "Directory does not exist!"
-msgstr ""
+msgstr "A mappa nem létezik!"
 
 msgid "Docker"
 msgstr "Docker"
@@ -268,7 +268,7 @@ msgid "Download log"
 msgstr "Napló letöltése"
 
 msgid "Download logs"
-msgstr ""
+msgstr "Naplók letöltése"
 
 msgid "Driver"
 msgstr "Illesztőprogram"
@@ -290,6 +290,12 @@ msgstr "A globális környezeti változókat tartalmazó fájl szerkesztése."
 
 msgid "Edit scheduled job."
 msgstr "Ütemezett feladat szerkesztése."
+
+msgid "Enable Docker repo"
+msgstr ""
+
+msgid "Enable Docker repo ..."
+msgstr ""
 
 msgid "Env Path"
 msgstr "Körny. útvonal"
@@ -428,7 +434,7 @@ msgid "No compose file found!"
 msgstr "Nem található összeállítás fájl!"
 
 msgid "No name specified!"
-msgstr ""
+msgstr "Nem lett név megadva!"
 
 msgid "Not installed"
 msgstr "Nincs telepítve"
@@ -450,17 +456,19 @@ msgstr ""
 "fájlokban ezzel a megosztott mappa elérési útvonalával."
 
 msgid "Override"
-msgstr ""
+msgstr "Felülbírálás"
 
 msgid "Override Path"
-msgstr ""
+msgstr "Felülbíráló útvonal"
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
 msgstr ""
+"Kiszolgálónév felülírása portok megnyitásakor a fájlok, szolgáltatások és "
+"konténerek lapokon."
 
 msgid "Overrides"
-msgstr ""
+msgstr "Felülbírálások"
 
 msgid "Owner of directories and files"
 msgstr "Mappák és fájlok tulajdonosa"
@@ -554,7 +562,7 @@ msgid "Service"
 msgstr "Szolgáltatás"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Szolgáltatásnév"
 
 msgid "Services"
 msgstr "Szolgáltatások"
@@ -565,11 +573,18 @@ msgstr "Beállítások"
 msgid "Shared folder"
 msgstr "Megosztott mappa"
 
-msgid "Show environment file"
+msgid "Show commands"
+msgstr "Parancsok megjelenítése"
+
+msgid "Show docker command for task in task dialog"
 msgstr ""
+"A feladathoz tartozó docker parancs megjelenítése a feladat párbeszédpanelen"
+
+msgid "Show environment file"
+msgstr "Környezeti fájl megjelenítése"
 
 msgid "Show override"
-msgstr ""
+msgstr "Felülbírálás megjelenítése"
 
 msgid "Size"
 msgstr "Méret"
@@ -606,6 +621,7 @@ msgstr "Címkék"
 
 msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
+"A mező csak * vagy vesszővel elválasztott értékek listáját tartalmazhatja."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
@@ -623,13 +639,13 @@ msgstr ""
 " a bővítményben."
 
 msgid "Tools"
-msgstr ""
+msgstr "Eszközök"
 
 msgid "URL"
 msgstr "URL"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "URL kiszolgálónév"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -645,7 +661,7 @@ msgid "Up"
 msgstr "Fel"
 
 msgid "Uptime"
-msgstr ""
+msgstr "Üzemidő"
 
 msgid "Version"
 msgstr "Verzió"
@@ -669,37 +685,37 @@ msgid "check"
 msgstr "ellenőrzés"
 
 msgid "docker compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker compose down --remove-orphans ..."
 
 msgid "docker compose down ..."
-msgstr ""
+msgstr "docker compose down ..."
 
 msgid "docker compose file version"
-msgstr ""
+msgstr "docker compose file version"
 
 msgid "docker compose logs --follow ..."
-msgstr ""
+msgstr "docker compose logs --follow ..."
 
 msgid "docker compose logs ..."
-msgstr ""
+msgstr "docker compose logs ..."
 
 msgid "docker compose ps ..."
-msgstr ""
+msgstr "docker compose ps ..."
 
 msgid "docker compose pull ..."
-msgstr ""
+msgstr "docker compose pull ..."
 
 msgid "docker compose restart ..."
-msgstr ""
+msgstr "docker compose restart ..."
 
 msgid "docker compose stop ..."
-msgstr ""
+msgstr "docker compose stop ..."
 
 msgid "docker compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker compose up -d --remove-orphans ..."
 
 msgid "docker compose up -d ..."
-msgstr ""
+msgstr "docker compose up -d ..."
 
 msgid "docker container prune ..."
 msgstr "docker container prune…"
@@ -780,7 +796,7 @@ msgid "ps"
 msgstr "ps"
 
 msgid "pull"
-msgstr "Lekérés"
+msgstr "lekérés"
 
 msgid "restart"
 msgstr "újraindítás"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-30 18:55-0500\n"
+"POT-Creation-Date: 2024-10-26 09:01-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2024\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -278,6 +278,12 @@ msgstr "Edit global environment variable file."
 msgid "Edit scheduled job."
 msgstr "Edit scheduled job."
 
+msgid "Enable Docker repo"
+msgstr ""
+
+msgid "Enable Docker repo ..."
+msgstr ""
+
 msgid "Env Path"
 msgstr "Env Path"
 
@@ -437,10 +443,10 @@ msgstr ""
 "folder path."
 
 msgid "Override"
-msgstr ""
+msgstr "Override"
 
 msgid "Override Path"
-msgstr ""
+msgstr "Override Path"
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
@@ -552,11 +558,17 @@ msgstr "Settings"
 msgid "Shared folder"
 msgstr "Shared folder"
 
+msgid "Show commands"
+msgstr "Show commands"
+
+msgid "Show docker command for task in task dialog"
+msgstr "Show docker command for task in task dialogue"
+
 msgid "Show environment file"
-msgstr ""
+msgstr "Show environment file"
 
 msgid "Show override"
-msgstr ""
+msgstr "Show override"
 
 msgid "Size"
 msgstr "Size"
@@ -655,37 +667,37 @@ msgid "check"
 msgstr "check"
 
 msgid "docker compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker compose down --remove-orphans ..."
 
 msgid "docker compose down ..."
-msgstr ""
+msgstr "docker compose down ..."
 
 msgid "docker compose file version"
-msgstr ""
+msgstr "docker compose file version"
 
 msgid "docker compose logs --follow ..."
-msgstr ""
+msgstr "docker compose logs --follow ..."
 
 msgid "docker compose logs ..."
-msgstr ""
+msgstr "docker compose logs ..."
 
 msgid "docker compose ps ..."
-msgstr ""
+msgstr "docker compose ps ..."
 
 msgid "docker compose pull ..."
-msgstr ""
+msgstr "docker compose pull ..."
 
 msgid "docker compose restart ..."
-msgstr ""
+msgstr "docker compose restart ..."
 
 msgid "docker compose stop ..."
-msgstr ""
+msgstr "docker compose stop ..."
 
 msgid "docker compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker compose up -d --remove-orphans ..."
 
 msgid "docker compose up -d ..."
-msgstr ""
+msgstr "docker compose up -d ..."
 
 msgid "docker container prune ..."
 msgstr "docker container prune ..."
