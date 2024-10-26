@@ -203,6 +203,19 @@ data:
         execute:
           type: url
           url: "/services/compose"
+      - text: _("Enable Docker repo")
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Enable Docker repo ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: enableDockerRepo
+              buttons:
+                stop:
+                  hidden: true
       - text: _("Reinstall Docker")
         confirmationDialogConfig:
           template: confirmation-danger

@@ -37,6 +37,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         $this->registerMethod("get");
         $this->registerMethod("set");
+        $this->registerMethod("enableDockerRepo");
         $this->registerMethod("reinstallDocker");
         $this->registerMethod("restartDocker");
         $this->registerMethod("clearCacheFiles");
@@ -357,12 +358,35 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return $object->getAssoc();
     }
 
+    public function enableDockerRepo($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // enable docker repo
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get('conf.system.omvextras');
+        $object->set('docker', true);
+        $db->set($object);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($params) {
+                // setup repos
+                $cmd = new \OMV\System\Process('omv-aptclean repos');
+                $cmdLine = $cmd->getCommandLine();
+                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                    throw new \OMV\ExecException($cmdLine, $output);
+                }
+                return $output;
+            }
+        );
+    }
+
     public function reinstallDocker($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($params) {
+                // remove existing docker packages
                 $cmdArgs = [];
                 $cmdArgs[] = 'apt-get';
                 $cmdArgs[] = '--yes';
@@ -381,6 +405,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
+                // run compose saltsack
                 $cmdArgs = [];
                 $cmdArgs[] = 'omv-salt';
                 $cmdArgs[] = 'deploy';
