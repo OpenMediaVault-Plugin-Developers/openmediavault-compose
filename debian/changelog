@@ -1,3 +1,9 @@
+openmediavault-compose (7.2.15) stable; urgency=low
+
+  * Add enable docker repo button
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 26 Oct 2024 09:00:31 -0500
+
 openmediavault-compose (7.2.14) stable; urgency=low
 
   * Allow spaces in restore name
