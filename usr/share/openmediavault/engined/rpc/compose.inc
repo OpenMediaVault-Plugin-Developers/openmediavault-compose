@@ -698,6 +698,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (file_exists($envFile)) {
             unlink($envFile);
         }
+        if (file_exists($overrideFile)) {
+            unlink($overrideFile);
+        }
         if (file_exists($composeDir)) {
             rmdir($composeDir);
         }
