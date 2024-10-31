@@ -1,3 +1,9 @@
+openmediavault-compose (7.2.16) stable; urgency=low
+
+  * Delete override when deleting file
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 31 Oct 2024 15:27:45 -0500
+
 openmediavault-compose (7.2.15) stable; urgency=low
 
   * Add enable docker repo button
