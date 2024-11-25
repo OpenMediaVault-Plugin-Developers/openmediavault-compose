@@ -10,7 +10,7 @@
 #
 # version: 0.1.1
 
-export LANG=C.UTF-8
+export LC_ALL=C.UTF-8
 
 declare -i timeout=180
 declare -i i=0
