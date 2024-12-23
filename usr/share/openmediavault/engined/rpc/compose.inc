@@ -507,7 +507,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setQuiet(true);
                 $cmd->execute($output, $exitStatus);
-                array_filter($output);
+                $output = array_filter($output);
                 if ($cacheTime > 0) {
                     file_put_contents($cacheFile, json_encode($output));
                 }
@@ -1003,7 +1003,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         case 'up -d': $cmdArgs[] = '--quiet-pull'; break;
                     }
                 }
-                array_filter($cmdArgs);
+                $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -1349,7 +1349,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setQuiet(true);
                     $cmd->execute($output, $exitStatus);
-                    array_filter($output);
+                    $output = array_filter($output);
                     if ($cacheTime > 0) {
                         file_put_contents($cacheFile, json_encode($output));
                     }
@@ -1417,7 +1417,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     }
                 }
                 $cmdArgs[] = $params['service'];
-                array_filter($cmdArgs);
+                $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -1555,7 +1555,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['command2'];
                 $cmdArgs[] = $params['id'];
-                array_filter($cmdArgs);
+                $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -1917,7 +1917,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = $params['cmd'];
                 $cmdArgs[] = $params['cmd2'];
                 $cmdArgs[] = $params['id'];
-                array_filter($cmdArgs);
+                $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -2043,7 +2043,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($params['command'] == 'inspect') {
                     $cmdArgs[] = '| jq .';
                 }
-                array_filter($cmdArgs);
+                $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -2137,7 +2137,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($params['command'] == 'inspect') {
                     $cmdArgs[] = '| jq .';
                 }
-                array_filter($cmdArgs);
+                $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -2216,7 +2216,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = '--format "{{ .Image }}"';
             $cmd = new \OMV\System\Process($cmdArgs);
             $cmd->execute($containerImages, $exitStatus);
-            array_filter($containerImages);
+            $containerImages = array_filter($containerImages);
             if ($cacheTime > 0) {
                 file_put_contents($cacheFileContainers, json_encode($containerImages));
             }
@@ -2355,7 +2355,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($params['command'] == 'inspect') {
                     $cmdArgs[] = '| jq .';
                 }
-                array_filter($cmdArgs);
+                $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
