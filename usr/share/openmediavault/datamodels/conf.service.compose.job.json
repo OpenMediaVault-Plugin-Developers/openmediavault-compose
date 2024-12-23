@@ -48,6 +48,10 @@
       "type": "string",
       "default": ""
     },
+    "excludes": {
+      "type": "string",
+      "default": ""
+    },
     "execution": {
       "type": "string",
       "enum": [

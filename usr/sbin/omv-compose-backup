@@ -231,17 +231,28 @@ for vol in "${confVols[@]}"; do
     voldir="${backupdir}/${i}"
     mkdir -pv "${voldir}"
     _log "Backup to :: ${voldir}"
-    exclude=""
+    args=(-avr)
+    args+=(--delete)
     if [ -d "${hostpath}" ]; then
       hostpath="${hostpath}/"
       if [ "${force}" -ne 1 ]; then
-        exclude="--exclude *.qcow2"
+        args+=(--exclude="*.qcow2")
       fi
     fi
+
+    # check for exclusions
+    exclusions="$(omv_config_get "/config/services/compose/files/file[name='${compose}']/excludes")"
+    if [ -n "${exclusions}" ]; then
+      IFS=',' read -r -a exclude_array <<< "${exclusions}"
+      for item in "${exclude_array[@]}"; do
+        args+=(--exclude="${item}")
+      done
+    fi
+
     # add volume list entry
     echo "${i},${hostpath}" >> "${vollist}"
     # rsync
-    rsync -avr --delete ${exclude} "${hostpath}" "${voldir}"
+    rsync "${args[@]}" "${hostpath}" "${voldir}"
   fi
   echo
 done

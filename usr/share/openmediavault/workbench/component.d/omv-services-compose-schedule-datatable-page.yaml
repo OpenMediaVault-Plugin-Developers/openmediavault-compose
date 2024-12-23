@@ -22,6 +22,10 @@ data:
         prop: filter
         flexGrow: 1
         sortable: true
+      - name: _("Excludes")
+        prop: excludes
+        flexGrow: 1
+        hidden: true
       - name: _('Backup')
         prop: backup
         flexGrow: 1

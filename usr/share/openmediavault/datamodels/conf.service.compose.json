@@ -266,6 +266,9 @@
               "comment": {
                 "type": "string"
               },
+              "excludes": {
+                "type": "string"
+              },
               "execution": {
                 "type": "string",
                 "enum": [

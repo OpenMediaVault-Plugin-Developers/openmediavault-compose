@@ -2456,10 +2456,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.getlist");
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
-        $objects = $db->getAssoc("conf.service.compose.job");
+        $objects = $db->get("conf.service.compose.job");
+        // Add additional job informations.
+        $objectsAssoc = [];
+        foreach ($objects as $objectk => &$objectv) {
+            $excludes = str_replace(',', '<br />', $objectv->get("excludes"));
+            $objectv->set("excludes", $excludes);
+            $objectsAssoc[] = $objectv->getAssoc();
+        }
         // Filter the result.
-        return $this->applyFilter($objects, $params['start'], $params['limit'],
-            $params['sortfield'], $params['sortdir']);
+        return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
     function getJob($params, $context)
@@ -2503,6 +2510,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['postbackup'] = '';
         }
         $params['filter'] = str_replace(['@','(',')',' '], '', $params['filter']);
+        // clean excludes
+        $excludes = explode(',', $params['excludes']);
+        $excludest = array_map('trim', $excludes);
+        $excludesu = array_unique($excludest);
+        $excludesf = array_filter($excludesu);
+        sort($excludesf);
+        $params['excludes'] = implode(',', $excludesf);
         // Convert array into a comma separated list.
         $params['minute'] = implode(",", $params['minute']);
         $params['hour'] = implode(",", $params['hour']);

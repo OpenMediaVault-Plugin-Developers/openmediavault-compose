@@ -35,6 +35,11 @@ data:
             service: Compose
             get:
               method: getFileListSuggest
+      - type: textInput
+        name: excludes
+        label: _('Excludes')
+        value: ''
+        hint: _("Multiple exclusions should be comma separated.")
       - type: divider
         title: _("Action type")
       - type: container
