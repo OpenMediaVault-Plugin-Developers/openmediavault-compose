@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.configs"
+  text: _("Configs")
+  position: 22
+  icon: mdi:text
+  url: "/services/compose/configs"

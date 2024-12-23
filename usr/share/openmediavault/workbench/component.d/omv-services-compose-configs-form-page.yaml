@@ -1,0 +1,53 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-config-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      get:
+        method: getConfig
+        params:
+          uuid: "{{ _routeParams.uuid }}"
+      post:
+        method: setConfig
+    fields:
+      - type: confObjUuid
+      - type: textInput
+        name: name
+        label: _("Filename")
+        value: ""
+        disabled: '{{ _routeConfig.data.editing | toboolean }}'
+        validators:
+          required: true
+        hint: _("This is the filename. This should not be a path.")
+      - type: textInput
+        name: description
+        label: _("Description")
+        value: ""
+      - type: select
+        name: fileref
+        label: _('Compose File')
+        textField: name
+        valueField: uuid
+        store:
+          proxy:
+            service: Compose
+            get:
+              method: enumerateFiles
+        hint: _("The config file will be created in this compose file's directory.")
+      - type: codeEditor
+        name: body
+        label: _("Body")
+        value: ""
+        language: "none"
+    buttons:
+      - template: submit
+        execute:
+          type: url
+          url: "/services/compose/configs"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/compose/configs"

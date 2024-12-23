@@ -145,6 +145,31 @@
   },
   {
     "type": "rpc",
+    "id": "rpc.compose.setconfig",
+    "params": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "description": {
+          "type": "string",
+          "required": true
+        },
+        "fileref": {
+          "type": "string",
+          "required": true
+        },
+        "body": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  },
+  {
+    "type": "rpc",
     "id": "rpc.compose.setglobalenv",
     "params": {
       "type": "object",

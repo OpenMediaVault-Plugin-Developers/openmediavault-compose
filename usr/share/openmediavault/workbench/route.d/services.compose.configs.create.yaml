@@ -1,0 +1,7 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/compose/configs/create"
+  title: _("Create")
+  notificationTitle: _("Created config.")
+  component: omv-services-compose-config-form-page

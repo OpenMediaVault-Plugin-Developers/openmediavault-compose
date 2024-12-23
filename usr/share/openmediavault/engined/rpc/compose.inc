@@ -51,6 +51,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("doCommand");
         $this->registerMethod("getLog");
         $this->registerMethod("doPrune");
+        $this->registerMethod("enumerateFiles");
+
+        $this->registerMethod("getConfigList");
+        $this->registerMethod("getConfig");
+        $this->registerMethod("setConfig");
+        $this->registerMethod("deleteConfig");
 
         $this->registerMethod("getGlobalEnv");
         $this->registerMethod("setGlobalEnv");
@@ -85,6 +91,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("importExistingFolder");
         $this->registerMethod("importExistingOne");
 
+        $this->registerMethod("importConfigChanges");
+        $this->registerMethod("importConfigExistingFolder");
+        $this->registerMethod("importConfigExistingOne");
+
         $this->registerMethod("getStats");
         $this->registerMethod("getStatsBg");
         $this->registerMethod("doDockerCmd");
@@ -114,6 +124,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod('setJob');
         $this->registerMethod('deleteJob');
         $this->registerMethod('doJob');
+
+        $this->registerMethod('getRepoList');
+        $this->registerMethod('repoLogin');
+        $this->registerMethod('repoLogout');
     }
 
     private function clearCache($file)
@@ -1071,6 +1085,139 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         );
     }
 
+    public function enumerateFiles($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->get("conf.service.compose.file");
+        $files = [];
+        foreach ($objects as $objectk => &$objectv) {
+            $uuid = $objectv->get("uuid");
+            $name = $objectv->get("name");
+            $files[] = [
+                'uuid' => $uuid,
+                'name' => $name
+            ];
+        }
+        // Filter the result.
+        return ($files);
+    }
+
+    public function getConfigList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.getlist");
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->get("conf.service.compose.config");
+        $objectsAssoc = [];
+        foreach ($objects as $objectk => &$objectv) {
+            $objectv->add("composefile", "string", gettext("n/a"));
+            try {
+                $file = $db->get("conf.service.compose.file", $objectv->get('fileref'));
+                $objectv->set("composefile", $file->get("name"));
+            } catch (Exception $e) {
+            }
+            $objectsAssoc[] = $objectv->getAssoc();
+        }
+        // Filter the result.
+        return $this->applyFilter($objectsAssoc, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir'], $params['search']);
+    }
+
+    public function getConfig($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        return $db->getAssoc("conf.service.compose.config", $params['uuid']);
+    }
+
+    public function setConfig($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, 'rpc.compose.setconfig');
+        // make sure filenames are not a full path
+        $params['body'] = basename($params['body']);
+        // Verify that shared folder is set
+        $db = \OMV\Config\Database::getInstance();
+        $sfpath = $this->getComposePath($context);
+        // check for bad filename
+        $file = $db->get('conf.service.compose.file', $params['fileref']);
+        $cfname = $file->get('name');
+        $composeFile = sprintf('%s.yml', $cfname);
+        $envFile = sprintf('%s.env', $cfname);
+        $confName = $params['name'];
+        if (($confName == $composeFile) || ($confName == 'compose.override.yml') ||
+            ($confName == $envFile) || ($confName == 'Dockerfile')) {
+            throw new \OMV\ExecException('Cannot use that filename!');
+        }
+        // Prepare the configuration object.
+        $object = new \OMV\Config\ConfigObject('conf.service.compose.config');
+        $object->setAssoc($params);
+        // Set the configuration object.
+        $isNew = $object->isNew();
+        if (TRUE === $isNew) {
+            // Check uniqueness - name
+            $db->assertIsUnique($object, 'name');
+        }
+        $db->set($object);
+        if (TRUE === $isNew) {
+            $this->applyChanges($context);
+        } else {
+            $composeDir = sprintf('%s/%s', $sfpath, $cfname);
+            if (is_dir($composeDir)) {
+                $confFile = sprintf('%s/%s', $composeDir, $confName);
+                file_put_contents($confFile, $params['body'] . PHP_EOL);
+            }
+        }
+        // Return the configuration object.
+        return $object->getAssoc();
+    }
+
+    public function deleteConfig($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        // Verify that shared folder is set
+        $db = \OMV\Config\Database::getInstance();
+        $sfpath = $this->getComposePath($context);
+        // get compose file
+        var_dump($file);
+        $object = $db->get("conf.service.compose.config", $params['uuid']);
+        $fileref = $object->get('fileref');
+        try {
+            $file = $db->get('conf.service.compose.file', $fileref);
+        } catch (Exception $e) {
+            return;
+        }
+        $composeName = $file->get('name');
+        $composeDir = sprintf("%s/%s", $sfpath, $composeName);
+        // Delete the configuration object.
+        $cnfName = $object->get('name');
+        $cnfPath = sprintf("%s/%s", $composeDir, $cnfName);
+        if (file_exists($cnfPath)) {
+            unlink($cnfPath);
+        }
+        if (file_exists($composeDir)) {
+            rmdir($composeDir);
+        }
+        $db->delete($object);
+        // Return the deleted configuration object.
+        return $object->getAssoc();
+    }
+
     public function getExampleList($params, $context)
     {
         // Validate the RPC caller context.
@@ -1658,6 +1805,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db->set($object);
         // clear cache for files
         $this->clearCache('files');
+    }
+
+    public function importConfigChanges($params, $context)
+    {
+    }
+
+    public function importConfigExistingFolder($params, $context)
+    {
+    }
+
+    public function importConfigExistingOne($params, $context)
+    {
     }
 
     public function getStats($params, $context)
@@ -2425,5 +2584,54 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 return $output;
             }
         );
+    }
+
+    public function getRepoList($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // get repos
+        $repos = [];
+        $repoFile = '/root/.docker/config.json';
+        if (file_exists($repoFile)) {
+            $configData = json_decode(file_get_contents($repoFile), true);
+            if (isset($configData['auths']) && is_array($configData['auths'])) {
+                foreach ($configData['auths'] as $repo => $details) {
+                    $repos[] = [
+                        "repo" => $repo
+                    ];
+                }
+            }
+        }
+        // Filter the result.
+        return $this->applyFilter($repos, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir'], $params['search']);
+    }
+
+    public function repoLogin($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $cmdArgs = [];
+        $cmdArgs[] = sprintf("echo '%s' |", $params['passwd']);
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'login';
+        $cmdArgs[] = $params['url'];
+        $cmdArgs[] = sprintf('--username %s', $params['username']);
+        $cmdArgs[] = '--password-stdin';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->execute($output, $exitStatus);
+    }
+
+    public function repoLogout($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'logout';
+        $cmdArgs[] = $params['repo'];
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->execute($output, $exitStatus);
     }
 }

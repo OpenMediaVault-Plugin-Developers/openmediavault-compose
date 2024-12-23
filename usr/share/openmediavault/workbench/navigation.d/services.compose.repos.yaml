@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.repos"
+  text: _("Repos")
+  position: 120
+  icon: mdi:file-key-outline
+  url: "/services/compose/repos"

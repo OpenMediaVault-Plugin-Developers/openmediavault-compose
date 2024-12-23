@@ -79,6 +79,23 @@ configure_compose_env_{{ file.name }}_file:
     - group: "{{ config.composegroup }}"
     - mode: "{{ config.fileperms }}"
 
+{%- for cnf in config.configs.config | selectattr("fileref", "equalto", file.uuid) %}
+
+{% set cnfFile = composeDir ~ '/' ~ cnf.name %}
+
+configure_compose_{{ file.name }}_config_{{ cnf.uuid }}:
+  file.managed:
+    - name: '{{ cnfFile }}'
+    - source:
+      - salt://{{ tpldir }}/files/compose_cnf.j2
+    - context:
+        file: {{ cnf | json }}
+    - template: jinja
+    - user: "{{ config.composeowner }}"
+    - group: "{{ config.composegroup }}"
+    - mode: "{{ config.fileperms }}"
+
+{% endfor %}
 {% endfor %}
 
 {% set globalenv = salt['omv_conf.get']('conf.service.compose.globalenv') %}

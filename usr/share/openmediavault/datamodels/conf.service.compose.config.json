@@ -1,0 +1,29 @@
+{
+  "type": "config",
+  "id": "conf.service.compose.config",
+  "title": "additional files for compose",
+  "queryinfo": {
+    "xpath": "//services/compose/configs/config",
+    "iterable": true,
+    "idproperty": "uuid"
+  },
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuidv4"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "fileref": {
+      "type": "string",
+      "format": "uuidv4"
+    },
+    "body": {
+      "type": "string"
+    }
+  }
+}

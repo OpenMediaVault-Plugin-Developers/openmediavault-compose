@@ -1,0 +1,6 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/compose/repos"
+  title: _("Repos")
+  component: omv-services-compose-repos-datatable-page

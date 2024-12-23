@@ -1,0 +1,6 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/compose/configs"
+  title: _("Configs")
+  component: omv-services-compose-configs-datatable-page

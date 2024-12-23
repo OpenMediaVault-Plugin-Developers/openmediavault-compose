@@ -56,6 +56,7 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_key "/config/services/compose" "cachetimecontainers" "60"
   omv_config_add_key "/config/services/compose" "showcmd" "0"
   omv_config_add_node "/config/services/compose" "files"
+  omv_config_add_node "/config/services/compose" "configs"
   omv_config_add_node "/config/services/compose" "dockerfiles"
   omv_config_add_node "/config/services/compose" "jobs"
   omv_config_add_node "/config/services/compose" "globalenv"
@@ -64,7 +65,7 @@ if ! omv_config_exists "/config/services/compose"; then
 fi
 
 # download yq
-version="v4.44.3"
+version="v4.44.6"
 bindir="/usr/local/bin"
 yq="${bindir}/yq"
 arch="$(dpkg --print-architecture)"
@@ -94,7 +95,7 @@ chmod 755 ${yq}
 # download regctl
 arch="$(dpkg --print-architecture)"
 if [ "${arch}" = "amd64" ] || [ "${arch}" = "arm64" ]; then
-  version="v0.7.1"
+  version="v0.8.0"
   bindir="/usr/local/bin"
   regctl="${bindir}/regctl"
   repo_url=${OMV_EXTRAS_REGCTL_URL:-"https://github.com/regclient/regclient/releases/download"}

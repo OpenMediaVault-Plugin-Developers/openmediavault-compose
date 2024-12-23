@@ -159,6 +159,36 @@
         }
       }
     },
+    "configs": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uuid": {
+                "type": "string",
+                "format": "uuidv4"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "fileref": {
+                "type": "string",
+                "format": "uuidv4"
+              },
+              "body": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
     "dockerfiles": {
       "type": "object",
       "properties": {

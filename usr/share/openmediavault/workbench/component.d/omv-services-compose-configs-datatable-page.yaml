@@ -1,0 +1,130 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-configs-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    stateId: 284c8cb0-9b99-11ef-b1fd-f7b945601cd3
+    sorters:
+      - dir: asc
+        prop: name
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getConfigList
+    columns:
+      - name: "uuid"
+        prop: uuid
+        flexGrow: 1
+        sortable: true
+        hidden: true
+      - name: _("Name")
+        prop: name
+        flexGrow: 1
+        sortable: true
+      - name: _("Description")
+        prop: description
+        flexGrow: 1
+        sortable: true
+      - name: _("Compose File")
+        prop: composefile
+        flexGrow: 1
+        sortable: true
+    actions:
+      - type: menu
+        icon: add
+        tooltip: _("Add")
+        actions:
+          - text: _("Add")
+            icon: add
+            execute:
+              type: url
+              url: "/services/compose/configs/create"
+          - text: _("Import")
+            icon: mdi:file-import-outline
+            execute:
+              type: formDialog
+              formDialog:
+                title: _("Import existing compose folders ...")
+                fields:
+                  - type: hint
+                    hintType: info
+                    text: _("This will import one or more compose files in subfolders.<br/>It will not import any compose configs that already exist in the plugin.")
+                  - type: hidden
+                    name: rootfsref
+                    value: "79684322-3eac-11ea-a974-63a080abab18"
+                    submitValue: false
+                  - type: folderBrowser
+                    name: path
+                    label: _("Path")
+                    value: ""
+                    dirType: mntent
+                    dirRefIdField: rootfsref
+                buttons:
+                  submit:
+                    text: _("Import")
+                    execute:
+                      type: request
+                      request:
+                        service: Compose
+                        method: importConfigExistingFolder
+          - text: _("Import one")
+            icon: mdi:file-import
+            execute:
+              type: formDialog
+              formDialog:
+                title: _("Import existing compose file ...")
+                fields:
+                  - type: hint
+                    hintType: info
+                    text: _("This will import one compose file in the selected folder.<br/>It will not import a compose file that already exist in the plugin.")
+                  - type: hidden
+                    name: rootfsref
+                    value: "79684322-3eac-11ea-a974-63a080abab18"
+                    submitValue: false
+                  - type: folderBrowser
+                    name: path
+                    label: _("Path")
+                    value: ""
+                    dirType: mntent
+                    dirRefIdField: rootfsref
+                buttons:
+                  submit:
+                    text: _("Import")
+                    execute:
+                      type: request
+                      request:
+                        service: Compose
+                        method: importConfigExistingOne
+          - text: _("Sync changes from file")
+            icon: mdi:file-sync-outline
+            confirmationDialogConfig:
+              template: confirmation-danger
+              message: _("Are you sure you want to sync changes from the files?")
+            execute:
+              type: request
+              request:
+                service: Compose
+                method: importConfigChanges
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                progressMessage: _("Syncing changes from file ...")
+                successNotification: _("Changes have been synced from file.")
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
+      - template: edit
+        execute:
+          type: url
+          url: "/services/compose/configs/edit/{{ _selected[0].uuid }}"
+      - template: delete
+        execute:
+          type: request
+          request:
+            service: Compose
+            method: deleteConfig
+            params:
+              uuid: "{{ _selected[0].uuid }}"

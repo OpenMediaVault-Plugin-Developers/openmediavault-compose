@@ -1,0 +1,72 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-repos-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    remoteSorting: true
+    rowId: repo
+    stateId: 1abf3ad8-b67a-11ef-904d-5bc7eacaba79
+    sorters:
+      - dir: asc
+        prop: repo
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getRepoList
+    columns:
+      - name: _("Repo")
+        prop: repo
+        flexGrow: 4
+        sortable: true
+    actions:
+      - type: iconButton
+        icon: mdi:login
+        tooltip: _("Login")
+        execute:
+          type: formDialog
+          formDialog:
+            title: _("Login to docker repo ...")
+            fields:
+              - type: textInput
+                name: url
+                label: _('URL')
+                value: ''
+              - type: textInput
+                name: username
+                label: _('Username')
+                value: ''
+              - type: passwordInput
+                name: passwd
+                label: _('Password')
+                value: ''
+            buttons:
+              submit:
+                text: _("Login")
+                execute:
+                  type: request
+                  request:
+                    service: Compose
+                    method: repoLogin
+      - type: iconButton
+        icon: mdi:logout
+        tooltip: _("Logout")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        confirmationDialogConfig:
+          template: confirmation-danger
+          message: _("Are you sure you want to delete?")
+        execute:
+          type: request
+          request:
+            service: Compose
+            method: repoLogout
+            params:
+              repo: "{{ _selected[0].repo }}"
+            progressMessage: _("Logging out ...")
+            successNotification: _("Logged out.")
+            task: false
