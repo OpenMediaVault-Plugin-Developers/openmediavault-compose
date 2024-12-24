@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-26 09:01-0500\n"
+"POT-Creation-Date: 2024-12-23 19:14-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2024\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -54,6 +54,9 @@ msgstr "Administrator - read/write, Users - read/write, Others - read-only"
 msgid "Are you sure you want to delete this backup?"
 msgstr "Are you sure you want to delete this backup?"
 
+msgid "Are you sure you want to delete?"
+msgstr ""
+
 msgid "Are you sure you want to reinstall?"
 msgstr "Are you sure you want to reinstall?"
 
@@ -80,6 +83,9 @@ msgstr "Block In"
 
 msgid "Block Out"
 msgstr "Block Out"
+
+msgid "Body"
+msgstr ""
 
 msgid "Build"
 msgstr "Build"
@@ -128,6 +134,9 @@ msgstr "Compose"
 msgid "Compose Backup"
 msgstr "Compose Backup"
 
+msgid "Compose File"
+msgstr ""
+
 msgid "Compose Files"
 msgstr "Compose Files"
 
@@ -139,6 +148,9 @@ msgstr "Compose Update"
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose file shared folder must be different than data shared folder"
+
+msgid "Compose file to be associate imported files with"
+msgstr ""
 
 msgid "Compose version"
 msgstr "Compose version"
@@ -154,6 +166,9 @@ msgstr "Conf filename"
 
 msgid "Conf filename cannot be"
 msgstr "Conf filename cannot be"
+
+msgid "Configs"
+msgstr ""
 
 msgid "Container"
 msgstr "Container"
@@ -181,6 +196,9 @@ msgstr "Created"
 
 msgid "Created At"
 msgstr "Created At"
+
+msgid "Created config."
+msgstr ""
 
 msgid "Created dockerfile."
 msgstr "Created dockerfile."
@@ -263,6 +281,9 @@ msgstr "Driver"
 msgid "Edit"
 msgstr "Edit"
 
+msgid "Edit config."
+msgstr ""
+
 msgid "Edit dockerfile."
 msgstr "Edit dockerfile."
 
@@ -279,10 +300,10 @@ msgid "Edit scheduled job."
 msgstr "Edit scheduled job."
 
 msgid "Enable Docker repo"
-msgstr ""
+msgstr "Enable Docker repo"
 
 msgid "Enable Docker repo ..."
-msgstr ""
+msgstr "Enable Docker repo ..."
 
 msgid "Env Path"
 msgstr "Env Path"
@@ -296,6 +317,9 @@ msgstr "Everyone - read/write"
 msgid "Example"
 msgstr "Example"
 
+msgid "Excludes"
+msgstr ""
+
 msgid "Execute scheduled job ..."
 msgstr "Execute scheduled job ..."
 
@@ -307,6 +331,9 @@ msgstr "File"
 
 msgid "File date"
 msgstr "File date"
+
+msgid "Filename"
+msgstr ""
 
 msgid "Files"
 msgstr "Files"
@@ -348,6 +375,9 @@ msgstr "Images"
 msgid "Import"
 msgstr "Import"
 
+msgid "Import config files from folders ..."
+msgstr ""
+
 msgid "Import existing compose file ..."
 msgstr "Import existing compose file ..."
 
@@ -375,6 +405,21 @@ msgstr "Location of backups"
 msgid "Location of compose files"
 msgstr "Location of compose files"
 
+msgid "Logged out."
+msgstr ""
+
+msgid "Logging out ..."
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Login to docker repo ..."
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
 msgid "Max Size"
 msgstr "Max Size"
 
@@ -398,6 +443,9 @@ msgstr "Mountpoint"
 
 msgid "Mounts"
 msgstr "Mounts"
+
+msgid "Multiple exclusions should be comma separated."
+msgstr ""
 
 msgid "Name"
 msgstr "Name"
@@ -507,6 +555,12 @@ msgstr "Reinstall Docker"
 msgid "Reinstall Docker ..."
 msgstr "Reinstall Docker ..."
 
+msgid "Repo"
+msgstr ""
+
+msgid "Repos"
+msgstr ""
+
 msgid "Repository"
 msgstr "Repository"
 
@@ -603,8 +657,19 @@ msgstr "Tag"
 msgid "Tags"
 msgstr "Tags"
 
+msgid "The config file will be created in this compose file's directory."
+msgstr ""
+
 msgid "The field should only contain * or a comma separated list of values."
 msgstr "The field should only contain * or a comma-separated list of values."
+
+msgid "This is the filename. This should not be a path."
+msgstr ""
+
+msgid ""
+"This will import config files in from the selected folder.<br/>It will not "
+"import any config files that already exist in the plugin."
+msgstr ""
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
@@ -612,6 +677,11 @@ msgid ""
 msgstr ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
+
+msgid ""
+"This will import one or more compose files in subfolders.<br/>It will not "
+"import any compose configs that already exist in the plugin."
+msgstr ""
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "

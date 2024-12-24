@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-26 09:01-0500\n"
+"POT-Creation-Date: 2024-12-23 19:14-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Marek Pavelka, 2024\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
@@ -57,6 +57,9 @@ msgstr "Správce – čtení/zápis, Uživatelé – čtení/zápis, Ostatní �
 msgid "Are you sure you want to delete this backup?"
 msgstr "Opravdu chcete tuto zálohu odstranit?"
 
+msgid "Are you sure you want to delete?"
+msgstr ""
+
 msgid "Are you sure you want to reinstall?"
 msgstr "Opravdu chcete provést přeinstalaci?"
 
@@ -82,6 +85,9 @@ msgid "Block In"
 msgstr ""
 
 msgid "Block Out"
+msgstr ""
+
+msgid "Body"
 msgstr ""
 
 msgid "Build"
@@ -132,6 +138,9 @@ msgstr "Compose"
 msgid "Compose Backup"
 msgstr "Záloha compose"
 
+msgid "Compose File"
+msgstr ""
+
 msgid "Compose Files"
 msgstr "Soubory compose"
 
@@ -143,6 +152,9 @@ msgstr "Aktualizace compose"
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Sdílená složka souborů compose musí být jiná než sdílená složka dat"
+
+msgid "Compose file to be associate imported files with"
+msgstr ""
 
 msgid "Compose version"
 msgstr "Verze compose"
@@ -158,6 +170,9 @@ msgstr "Název souboru conf"
 
 msgid "Conf filename cannot be"
 msgstr "Název souboru conf nemůže být"
+
+msgid "Configs"
+msgstr ""
 
 msgid "Container"
 msgstr "Kontejner"
@@ -185,6 +200,9 @@ msgstr "Vytvořeno"
 
 msgid "Created At"
 msgstr "Vytvořeno"
+
+msgid "Created config."
+msgstr ""
 
 msgid "Created dockerfile."
 msgstr "Vytvořen dockerfile."
@@ -267,6 +285,9 @@ msgstr "Ovladač"
 msgid "Edit"
 msgstr "Upravit"
 
+msgid "Edit config."
+msgstr ""
+
 msgid "Edit dockerfile."
 msgstr "Upravit dockerfile."
 
@@ -300,6 +321,9 @@ msgstr "Kdokoliv – čtení/zápis"
 msgid "Example"
 msgstr "Příklad"
 
+msgid "Excludes"
+msgstr ""
+
 msgid "Execute scheduled job ..."
 msgstr "Spustit naplánovanou úlohu…"
 
@@ -311,6 +335,9 @@ msgstr "Soubor"
 
 msgid "File date"
 msgstr "Datum souboru"
+
+msgid "Filename"
+msgstr ""
 
 msgid "Files"
 msgstr "Soubory"
@@ -352,6 +379,9 @@ msgstr "Obrazy"
 msgid "Import"
 msgstr "Import"
 
+msgid "Import config files from folders ..."
+msgstr ""
+
 msgid "Import existing compose file ..."
 msgstr "Importovat existující soubory compose…"
 
@@ -380,6 +410,21 @@ msgstr "Umístění zálohy"
 msgid "Location of compose files"
 msgstr "Umístění souborů compose"
 
+msgid "Logged out."
+msgstr ""
+
+msgid "Logging out ..."
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Login to docker repo ..."
+msgstr ""
+
+msgid "Logout"
+msgstr ""
+
 msgid "Max Size"
 msgstr "Maximální velikost"
 
@@ -403,6 +448,9 @@ msgstr "Přípojný bod"
 
 msgid "Mounts"
 msgstr "Připojení"
+
+msgid "Multiple exclusions should be comma separated."
+msgstr ""
 
 msgid "Name"
 msgstr "Název"
@@ -513,6 +561,12 @@ msgstr "Přeinstalovat Docker"
 msgid "Reinstall Docker ..."
 msgstr "Přeinstalování Dockeru…"
 
+msgid "Repo"
+msgstr ""
+
+msgid "Repos"
+msgstr ""
+
 msgid "Repository"
 msgstr "Repozitář"
 
@@ -609,8 +663,19 @@ msgstr "Štítek"
 msgid "Tags"
 msgstr "Štítky"
 
+msgid "The config file will be created in this compose file's directory."
+msgstr ""
+
 msgid "The field should only contain * or a comma separated list of values."
 msgstr "Pole by mělo obsahovat pouze * nebo seznam hodnot oddělených čárkou."
+
+msgid "This is the filename. This should not be a path."
+msgstr ""
+
+msgid ""
+"This will import config files in from the selected folder.<br/>It will not "
+"import any config files that already exist in the plugin."
+msgstr ""
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
@@ -618,6 +683,11 @@ msgid ""
 msgstr ""
 "Toto importuje jeden soubor compose do vybrané složky.<br/>Neimportuje se "
 "soubor compose, který již v zásuvném modulu existuje."
+
+msgid ""
+"This will import one or more compose files in subfolders.<br/>It will not "
+"import any compose configs that already exist in the plugin."
+msgstr ""
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
