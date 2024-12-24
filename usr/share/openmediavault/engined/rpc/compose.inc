@@ -91,9 +91,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("importExistingFolder");
         $this->registerMethod("importExistingOne");
 
-        $this->registerMethod("importConfigChanges");
-        $this->registerMethod("importConfigExistingFolder");
-        $this->registerMethod("importConfigExistingOne");
+        $this->registerMethod("importConfig");
 
         $this->registerMethod("getStats");
         $this->registerMethod("getStatsBg");
@@ -1807,16 +1805,43 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->clearCache('files');
     }
 
-    public function importConfigChanges($params, $context)
+    public function importConfig($params, $context)
     {
-    }
-
-    public function importConfigExistingFolder($params, $context)
-    {
-    }
-
-    public function importConfigExistingOne($params, $context)
-    {
+        // Verify that shared folder is set
+        $sfpath = $this->getComposePath($context);
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        // fix path
+        $path = $params['path'];
+        $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
+        // get last directory name
+        $lastDir = rtrim($path, DIRECTORY_SEPARATOR);
+        $lastDirName = basename($lastDir);
+        // get a list files and exclude compose related files
+        $excludes = ["..", ".", "docker.override.yml", $lastDirName . '.yml', $lastDirName . '.env'];
+        $files = array_diff(scandir($path), $excludes);
+        // get compose file uuid
+        $fileref = $params['fileref'];
+        // import files
+        foreach ($files as $file) {
+            $full = sprintf('%s/%s', $path, $file);
+            if (is_dir($full)) {
+                continue;
+            }
+            $object = new \OMV\Config\ConfigObject("conf.service.compose.config");
+            // set object values
+            $object->set('name', $file);
+            $object->set('description', 'imported ' . date("Y.m.d H:i"));
+            $object->set('fileref', $fileref);
+            $object->set('body', file_get_contents($full));
+            // Set the configuration object.
+            try {
+                $db->assertIsUnique($object, 'name');
+            } catch (Exception $e) {
+                continue;
+            }
+            $db->set($object);
+        }
     }
 
     public function getStats($params, $context)
