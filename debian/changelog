@@ -1,10 +1,10 @@
-openmediavault-compose (7.3) UNRELEASED; urgency=medium
+openmediavault-compose (7.3) stable; urgency=low
 
   * Add Repos tab for adding private repos
   * Add Config tab for creating and maintaining config files
   * Add excludes to backup jobs
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 09 Dec 2024 18:15:31 -0600
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 26 Dec 2024 11:15:06 -0600
 
 openmediavault-compose (7.2.16) stable; urgency=low
 
