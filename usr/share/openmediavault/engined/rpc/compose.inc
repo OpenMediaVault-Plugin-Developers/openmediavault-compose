@@ -648,12 +648,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $envFile = sprintf("%s.env", $composeName);
 
                 $body = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('body'));
-                $desc = $object->get('description');
+                $body = str_replace('CHANGE_TO_COMPOSE_NAME', $cname, $body);
                 $env = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('env'));
+                $env = str_replace('CHANGE_TO_COMPOSE_NAME', $cname, $env);
                 $override = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('override'));
 
                 $dblEol = PHP_EOL . PHP_EOL;
                 $header = $this->getHeader();
+                $desc = $object->get('description');
                 $header1 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, PHP_EOL);
                 $header2 = sprintf('%s# environment file for %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
                 $header3 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
