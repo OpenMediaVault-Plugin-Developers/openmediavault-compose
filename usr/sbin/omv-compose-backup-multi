@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.1.4
+# version: 0.1.5
 
 export LC_ALL=C.UTF-8
 
@@ -103,7 +103,7 @@ while [ ${index} -le ${count} ]; do
     continue
   fi
   echo ${name}
-  omv-compose-backup "${name}"
+  omv-compose-backup "${name}" "${uuid:+${uuid}}"
   index=$(( index + 1 ))
 done;
 

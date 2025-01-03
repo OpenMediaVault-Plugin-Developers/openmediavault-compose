@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.4
+# version: 1.0.5
 
 export LC_ALL=C.UTF-8
 
@@ -42,11 +42,13 @@ extractContPath() {
 }
 
 compose="${1}"
+uuid="${2}"
 if [ -z "${compose}" ]; then
   _log "No compose name set.  Exiting..."
   exit 10
 fi
 _log "compose :: ${compose}"
+_log "uuid :: ${uuid}"
 
 # Get docker storage path
 dockerStorage=$(omv_config_get "/config/services/compose/dockerStorage")
@@ -241,12 +243,15 @@ for vol in "${confVols[@]}"; do
     fi
 
     # check for exclusions
-    exclusions="$(omv_config_get "/config/services/compose/files/file[name='${compose}']/excludes")"
-    if [ -n "${exclusions}" ]; then
-      IFS=',' read -r -a exclude_array <<< "${exclusions}"
-      for item in "${exclude_array[@]}"; do
-        args+=(--exclude="${item}")
-      done
+    if omv_isuuid "${uuid}"; then
+      exclusions="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/excludes")"
+      if [ -n "${exclusions}" ]; then
+        IFS=',' read -r -a exclude_array <<< "${exclusions}"
+        for item in "${exclude_array[@]}"; do
+          _log "exclude: ${item}"
+          args+=(--exclude="${item}")
+        done
+      fi
     fi
 
     # add volume list entry
