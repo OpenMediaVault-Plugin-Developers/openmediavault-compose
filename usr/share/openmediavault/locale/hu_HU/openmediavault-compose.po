@@ -65,7 +65,7 @@ msgid "Are you sure you want to delete this backup?"
 msgstr "Valóban törölni szeretné ezt a biztonsági másolatot?"
 
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Valóban újra törölni szeretné?"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "Valóban újra szeretné telepíteni?"
@@ -95,7 +95,7 @@ msgid "Block Out"
 msgstr "Blokk ki"
 
 msgid "Body"
-msgstr ""
+msgstr "Törzs"
 
 msgid "Build"
 msgstr "Összeállítás"
@@ -146,7 +146,7 @@ msgid "Compose Backup"
 msgstr "Összeállítás biztonsági mentése"
 
 msgid "Compose File"
-msgstr ""
+msgstr "Compose fájl"
 
 msgid "Compose Files"
 msgstr "Összeállítás fájlok"
@@ -163,7 +163,7 @@ msgstr ""
 "megosztott mappájától."
 
 msgid "Compose file to be associate imported files with"
-msgstr ""
+msgstr "Az importált fájlokkal társítandó Compose fájl"
 
 msgid "Compose version"
 msgstr "Összeállítás verziója"
@@ -181,7 +181,7 @@ msgid "Conf filename cannot be"
 msgstr "Konfigurációs fájl nem lehet"
 
 msgid "Configs"
-msgstr ""
+msgstr "Beállítások"
 
 msgid "Container"
 msgstr "Konténer"
@@ -211,7 +211,7 @@ msgid "Created At"
 msgstr "Létrehozva ekkor"
 
 msgid "Created config."
-msgstr ""
+msgstr "Beállítás létrehozva."
 
 msgid "Created dockerfile."
 msgstr "Dockerfájl létrehozva."
@@ -295,7 +295,7 @@ msgid "Edit"
 msgstr "Szerkesztés"
 
 msgid "Edit config."
-msgstr ""
+msgstr "Beállítás szerkesztése."
 
 msgid "Edit dockerfile."
 msgstr "Docker fájl szerkesztése."
@@ -313,10 +313,10 @@ msgid "Edit scheduled job."
 msgstr "Ütemezett feladat szerkesztése."
 
 msgid "Enable Docker repo"
-msgstr ""
+msgstr "Docker tároló engedélyezése"
 
 msgid "Enable Docker repo ..."
-msgstr ""
+msgstr "Docker tároló engedélyezése…"
 
 msgid "Env Path"
 msgstr "Körny. útvonal"
@@ -331,7 +331,7 @@ msgid "Example"
 msgstr "Példa"
 
 msgid "Excludes"
-msgstr ""
+msgstr "Kizártak"
 
 msgid "Execute scheduled job ..."
 msgstr "Ütemezett feladat futtatása…"
@@ -346,7 +346,7 @@ msgid "File date"
 msgstr "Adatfájl"
 
 msgid "Filename"
-msgstr ""
+msgstr "Fájlnév"
 
 msgid "Files"
 msgstr "Fájlok"
@@ -389,7 +389,7 @@ msgid "Import"
 msgstr "Importálás"
 
 msgid "Import config files from folders ..."
-msgstr ""
+msgstr "Beállítás fájlok importálása mappákból…"
 
 msgid "Import existing compose file ..."
 msgstr "Meglévő összeállítás fájl importálása…"
@@ -419,19 +419,19 @@ msgid "Location of compose files"
 msgstr "Összeállítás fájl helye"
 
 msgid "Logged out."
-msgstr ""
+msgstr "Kilépve."
 
 msgid "Logging out ..."
-msgstr ""
+msgstr "Kilépés…"
 
 msgid "Login"
-msgstr ""
+msgstr "Belépés"
 
 msgid "Login to docker repo ..."
-msgstr ""
+msgstr "Belépés a docker tárolóba…"
 
 msgid "Logout"
-msgstr ""
+msgstr "Kilépés"
 
 msgid "Max Size"
 msgstr "Maximális méret"
@@ -458,7 +458,7 @@ msgid "Mounts"
 msgstr "Csatolási pontok"
 
 msgid "Multiple exclusions should be comma separated."
-msgstr ""
+msgstr "Több kizárást vesszővel kell elválasztani."
 
 msgid "Name"
 msgstr "Név"
@@ -571,10 +571,10 @@ msgid "Reinstall Docker ..."
 msgstr "Docker újratelepítése…"
 
 msgid "Repo"
-msgstr ""
+msgstr "Tároló"
 
 msgid "Repos"
-msgstr ""
+msgstr "Tárolók"
 
 msgid "Repository"
 msgstr "Tároló"
@@ -674,19 +674,21 @@ msgid "Tags"
 msgstr "Címkék"
 
 msgid "The config file will be created in this compose file's directory."
-msgstr ""
+msgstr "A konfigurációs fájl az összeállítási fájl könyvtárában jön létre."
 
 msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
 "A mező csak * vagy vesszővel elválasztott értékek listáját tartalmazhatja."
 
 msgid "This is the filename. This should not be a path."
-msgstr ""
+msgstr "Ez a fájl neve. Ez nem lehet elérési útvonal."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
+"Importálja a konfigurációs fájlokat a kijelölt mappából.<br/>Nem importál "
+"olyan konfigurációs fájlt, amely már létezik a bővítményben."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
@@ -699,6 +701,8 @@ msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose configs that already exist in the plugin."
 msgstr ""
+"Egy vagy több almappában lévő összeállítás fájlokat importál.<br/>Nem "
+"importál olyan konfigurációs fájlt, amely már létezik a bővítményben."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
