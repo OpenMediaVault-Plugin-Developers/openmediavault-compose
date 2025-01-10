@@ -1147,7 +1147,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, 'rpc.compose.setconfig');
         // make sure filenames are not a full path
-        $params['body'] = basename($params['body']);
+        $params['name'] = basename($params['name']);
         // Verify that shared folder is set
         $db = \OMV\Config\Database::getInstance();
         $sfpath = $this->getComposePath($context);
