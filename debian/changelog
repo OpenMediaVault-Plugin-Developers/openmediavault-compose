@@ -1,3 +1,9 @@
+openmediavault-compose (7.3.2) stable; urgency=low
+
+  * Fix typo that is truncating the files on Configs tab
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 10 Jan 2025 12:52:41 -0600
+
 openmediavault-compose (7.3.1) stable; urgency=low
 
   * Fix job exclusions
