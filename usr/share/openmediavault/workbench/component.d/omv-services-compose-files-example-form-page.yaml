@@ -2,41 +2,56 @@ version: "1.0"
 type: component
 data:
   name: omv-services-compose-file-example-form-page
-  type: formPage
+  type: datatablePage
   config:
-    request:
-      service: Compose
-      post:
-        method: setExample
-    fields:
-      - type: select
-        name: example
-        label: _("Example")
-        valueField: name
-        textField: description
-        store:
-          proxy:
-            service: Compose
-            get:
-              method: getExampleList
-        validators:
-          required: true
-      - type: textInput
-        name: name
-        label: _("Name")
-        value: ""
-        validators:
-          required: true
-      - type: textInput
-        name: description
-        label: _("Description")
-        value: ""
-    buttons:
-      - template: submit
+    autoReload: false
+    hasSearchField: true
+    rowId: name
+    stateId: 2342fc64-d6d3-11ec-aa87-3bd4b4655422
+    sorters:
+      - dir: asc
+        prop: name
+    sortType: multi
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getExampleList
+    columns:
+      - name: _("Name")
+        prop: name
+        flexGrow: 1
+        sortable: true
+      - name: _("Description")
+        prop: description
+        flexGrow: 1
+        sortable: true
+    actions:
+      - type: iconButton
+        icon: mdi:plus-box
+        tooltip: _("Add Docker Image")
         execute:
-          type: url
-          url: "/services/compose/files"
-      - template: cancel
-        execute:
-          type: url
-          url: "/services/compose/files"
+          type: formDialog
+          formDialog:
+            title: _('Add...')
+            fields:
+              - type: hidden
+                name: example
+                value: "{{ _selected[0].name }}"
+              - type: textInput
+                name: name
+                label: _("Name")
+                value: "{{ _selected[0].name }}"
+              - type: textInput
+                name: description
+                label: _("Description")
+                value: ""
+            buttons:
+              submit:
+                text: _('Add')
+                execute:
+                  type: request
+                  request:
+                    service: Compose
+                    method: setExample
+                  url: "/services/compose/files"
