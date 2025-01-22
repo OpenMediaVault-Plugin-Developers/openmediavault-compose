@@ -146,6 +146,25 @@ data:
                   cmd: "logs"
                   cmd2: "--follow"
       - type: iconButton
+        icon: mdi:restart
+        tooltip: _("restart")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker restart ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerCmd
+                params:
+                  cmd: "restart"
+                  cmd2: ""
+                  id: "{{ _selected[0].id }}"
+      - type: iconButton
         icon: mdi:download
         tooltip: _("Download log")
         enabledConstraints:

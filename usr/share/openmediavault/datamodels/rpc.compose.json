@@ -383,7 +383,8 @@
           "type": "string",
           "enum": [
             "inspect",
-            "logs"
+            "logs",
+            "restart"
           ],
           "required": true
         }
