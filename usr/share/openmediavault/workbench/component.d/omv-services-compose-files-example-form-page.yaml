@@ -19,13 +19,13 @@ data:
           method: getExampleList
     columns:
       - name: _(" ")
-        prop: qr
+        prop: image
         flexGrow: 0.06
         cellTemplateName: image
         cellTemplateConfig:
           class: "mat-icon notranslate mat-icon-no-color"
           alt: " "
-          src: "https://img.icons8.com/color/16/{{ name }}" #IF NO INTERNET IMAGES NOT LOADING
+          src: "{{ image }}"
       - name: _("Name")
         prop: name
         flexGrow: 1
