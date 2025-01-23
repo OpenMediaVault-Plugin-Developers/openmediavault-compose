@@ -1,7 +1,7 @@
 version: "1.0"
 type: component
 data:
-  name: omv-services-compose-files-example-form-page
+  name: omv-services-compose-file-example-form-page
   type: datatablePage
   config:
     autoReload: false
