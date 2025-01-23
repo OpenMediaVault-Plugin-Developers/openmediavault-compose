@@ -1251,7 +1251,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         {
            // exists
         } else {
-           $image = file_get_contents('https://github.com/gekomod/icons/raw/refs/heads/main/'.$params, 0, stream_context_create(["http"=>["timeout"=>1]]));
+           $image = file_get_contents('https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/refs/heads/master/compose-files/'.$params.'/'.$params, 0, stream_context_create(["http"=>["timeout"=>1]]));
 
            if ($image === false) {
                return '/assets/composeImages/none';
