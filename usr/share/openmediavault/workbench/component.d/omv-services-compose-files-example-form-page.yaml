@@ -18,6 +18,14 @@ data:
         get:
           method: getExampleList
     columns:
+      - name: _(" ")
+        prop: qr
+        flexGrow: 0.06
+        cellTemplateName: image
+        cellTemplateConfig:
+          class: "mat-icon notranslate mat-icon-no-color"
+          alt: " "
+          src: "https://img.icons8.com/color/16/{{ name }}"
       - name: _("Name")
         prop: name
         flexGrow: 1
@@ -57,4 +65,6 @@ data:
                   request:
                     service: Compose
                     method: setExample
-                  url: "/services/compose/files"
+                    progressMessage: _("Adding a image docker ...")
+                    successNotification: _("Image Docker has been added.")
+                    successUrl: /services/compose/files
