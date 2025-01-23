@@ -27,6 +27,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     private $cacheFileNetworks = '/var/cache/openmediavault/compose_cache_networks.json';
     private $cacheFileVolumes = '/var/cache/openmediavault/compose_cache_volumes.json';
     private $cacheFileContainers = '/var/cache/openmediavault/compose_cache_containers.json';
+    private $cacheImagesExampleList = '/var/www/openmediavault/assets/composeImages';
 
     public function getName()
     {
@@ -1231,11 +1232,45 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         foreach ($listJson as $image) {
             $objects[] = [
                 "name" => $image['name'],
-                "description" => sprintf("%s - %s", $image['name'], $image['description'])
+                "description" => sprintf("%s - %s", $image['name'], $image['description']),
+                "image" => $this->getExampleImagesList($image['name'])
             ];
         }
         // Filter the result.
         return ($objects);
+    }
+
+    public function getExampleImagesList($params)
+    {
+
+        if (!mkdir($this->cacheImagesExampleList, 0777, true)) {
+            echo 'Failed to create directories...';
+        }
+
+        if(file_exists($this->cacheImagesExampleList.'/'.$params))
+        {
+           // exists
+        } else {
+           $image = file_get_contents('https://github.com/gekomod/icons/raw/refs/heads/main/'.$params, 0, stream_context_create(["http"=>["timeout"=>1]]));
+
+           if ($image === false) {
+               return '/assets/composeImages/none';
+           }
+        }
+
+        if(file_exists($this->cacheImagesExampleList.'/'.$params))
+        {
+           // exists 
+        }
+        else
+        {
+           if (file_put_contents($this->cacheImagesExampleList.'/'.$params, $image) === false) {
+               return 'Failed to save image';
+           }
+        }
+
+        $bb = '/assets/composeImages/'.$params;
+        return $bb;
     }
 
     public function setExample($params, $context)
