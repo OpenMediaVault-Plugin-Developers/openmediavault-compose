@@ -25,7 +25,7 @@ data:
         cellTemplateConfig:
           class: "mat-icon notranslate mat-icon-no-color"
           alt: " "
-          src: "https://img.icons8.com/color/16/{{ name }}"
+          src: "https://img.icons8.com/color/16/{{ name }}" #IF NO INTERNET IMAGES NOT LOADING
       - name: _("Name")
         prop: name
         flexGrow: 1
@@ -67,4 +67,4 @@ data:
                     method: setExample
                     progressMessage: _("Adding a image docker ...")
                     successNotification: _("Image Docker has been added.")
-                    successUrl: /services/compose/files
+                  successUrl: /services/compose/files
