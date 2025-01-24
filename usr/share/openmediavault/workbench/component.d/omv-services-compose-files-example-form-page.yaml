@@ -17,9 +17,9 @@ data:
         get:
           method: getExampleList
     columns:
-      - name: _("")
+      - name: " "
         prop: image
-        flexGrow: 0.08
+        flexGrow: 0.15
         cellTemplateName: image
         cellTemplateConfig:
           class: "mat-icon notranslate mat-icon-no-color"
@@ -66,4 +66,4 @@ data:
                     method: setExample
                     progressMessage: _("Adding an example compose file ...")
                     successNotification: _("Example compose file has been added.")
-                successUrl: /services/compose/files
+                    successUrl: /services/compose/files
