@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-23 19:14-0600\n"
+"POT-Creation-Date: 2025-01-23 19:06-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,10 +26,19 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
+msgid "Add example compose file"
+msgstr ""
+
 msgid "Add from Example"
 msgstr ""
 
 msgid "Add from URL"
+msgstr ""
+
+msgid "Add..."
+msgstr ""
+
+msgid "Adding an example compose file ..."
 msgstr ""
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
@@ -303,6 +312,9 @@ msgid "Everyone - read/write"
 msgstr ""
 
 msgid "Example"
+msgstr ""
+
+msgid "Example compose file has been added."
 msgstr ""
 
 msgid "Excludes"

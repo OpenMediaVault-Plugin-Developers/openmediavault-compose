@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-23 19:14-0600\n"
+"POT-Creation-Date: 2025-01-23 19:06-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2024\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -30,11 +30,20 @@ msgstr "Action type"
 msgid "Add"
 msgstr "Add"
 
+msgid "Add example compose file"
+msgstr ""
+
 msgid "Add from Example"
 msgstr "Add from Example"
 
 msgid "Add from URL"
 msgstr "Add from URL"
+
+msgid "Add..."
+msgstr ""
+
+msgid "Adding an example compose file ..."
+msgstr ""
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr "Administrator - read/write, Users - no access, Others - no access"
@@ -316,6 +325,9 @@ msgstr "Everyone - read/write"
 
 msgid "Example"
 msgstr "Example"
+
+msgid "Example compose file has been added."
+msgstr ""
 
 msgid "Excludes"
 msgstr ""

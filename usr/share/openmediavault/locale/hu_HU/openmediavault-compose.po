@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-23 19:14-0600\n"
+"POT-Creation-Date: 2025-01-23 19:06-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2024\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -30,11 +30,20 @@ msgstr "Művelet típusa"
 msgid "Add"
 msgstr "Hozzáadás"
 
+msgid "Add example compose file"
+msgstr ""
+
 msgid "Add from Example"
 msgstr "Hozzáadás példa alapján"
 
 msgid "Add from URL"
 msgstr "Hozzáadás URL-ből"
+
+msgid "Add..."
+msgstr ""
+
+msgid "Adding an example compose file ..."
+msgstr ""
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
@@ -329,6 +338,9 @@ msgstr "Mindenki – olvasás/írás"
 
 msgid "Example"
 msgstr "Példa"
+
+msgid "Example compose file has been added."
+msgstr ""
 
 msgid "Excludes"
 msgstr "Kizártak"
