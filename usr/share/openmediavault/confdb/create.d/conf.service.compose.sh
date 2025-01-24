@@ -123,4 +123,8 @@ for log in backup restore update; do
   fi
 done
 
+# download icons
+echo "Downloading example file icons ..."
+omv-compose-download-icons
+
 exit 0

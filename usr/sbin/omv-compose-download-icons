@@ -1,0 +1,23 @@
+#!/bin/bash
+
+url="https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/compose-files/icons.tar.gz"
+icon_file="/tmp/icons.tar.gz"
+icon_dir="/var/www/openmediavault/assets/composeImages/"
+
+# download tar ball
+wget --quiet ${url} -O ${icon_file}
+
+# remove existing dir and recreate
+rm -rf "${icon_dir}"
+mkdir -p "${icon_dir}"
+
+# extract tar ball
+tar -xzf "${icon_file}" --strip-components=2 -C "${icon_dir}"
+
+# fix permissions on icon files
+chown -R openmediavault-webgui:openmediavault-webgui "${icon_dir}"
+
+# remove temp file
+rm -f "${icon_file}"
+
+exit 0

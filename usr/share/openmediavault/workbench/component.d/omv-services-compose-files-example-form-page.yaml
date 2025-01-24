@@ -7,20 +7,19 @@ data:
     autoReload: false
     hasSearchField: true
     rowId: name
-    stateId: 2342fc64-d6d3-11ec-aa87-3bd4b4655422
+    stateId: ecd28e82-d9eb-11ef-9165-73923693377a
     sorters:
       - dir: asc
         prop: name
-    sortType: multi
     store:
       proxy:
         service: Compose
         get:
           method: getExampleList
     columns:
-      - name: _(" ")
+      - name: _("")
         prop: image
-        flexGrow: 0.06
+        flexGrow: 0.08
         cellTemplateName: image
         cellTemplateConfig:
           class: "mat-icon notranslate mat-icon-no-color"
@@ -32,19 +31,19 @@ data:
         sortable: true
       - name: _("Description")
         prop: description
-        flexGrow: 1
+        flexGrow: 3
         sortable: true
     actions:
       - type: iconButton
         icon: mdi:plus-box
-        tooltip: _("Add Docker Image")
+        tooltip: _("Add example compose file")
         enabledConstraints:
           minSelected: 1
           maxSelected: 1
         execute:
           type: formDialog
           formDialog:
-            title: _('Add...')
+            title: _("Add...")
             fields:
               - type: hidden
                 name: example
@@ -59,12 +58,12 @@ data:
                 value: ""
             buttons:
               submit:
-                text: _('Add')
+                text: _("Add")
                 execute:
                   type: request
                   request:
                     service: Compose
                     method: setExample
-                    progressMessage: _("Adding a image docker ...")
-                    successNotification: _("Image Docker has been added.")
-                  successUrl: /services/compose/files
+                    progressMessage: _("Adding an example compose file ...")
+                    successNotification: _("Example compose file has been added.")
+                successUrl: /services/compose/files

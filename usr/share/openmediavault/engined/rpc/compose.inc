@@ -18,7 +18,9 @@
 
 class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 {
-    private $url = "https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/compose-files";
+    private $baseUrl = "https://github.com/OpenMediaVault-Plugin-Developers/packages/raw";
+    private $url = "master/compose-files";
+    private $refsUrl = "refs/heads/master/compose-files";
     private $regctl = "/usr/local/bin/regctl";
     private $cacheFileFiles = '/var/cache/openmediavault/compose_cache_files';
     private $cacheFileServices = '/var/cache/openmediavault/compose_cache_services';
@@ -1224,7 +1226,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Download example list
-        $listUrl = sprintf("%s/list.json", $this->url);
+        $listUrl = sprintf("%s/%s/list.json", $this->baseUrl, $this->url);
         $list = file_get_contents($listUrl);
         $listJson = json_decode($list, true);
         // create list
@@ -1240,37 +1242,26 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return ($objects);
     }
 
-    public function getExampleImagesList($params)
+    private function getExampleImagesList($name)
     {
-
-        if (!mkdir($this->cacheImagesExampleList, 0777, true)) {
-            echo 'Failed to create directories...';
+        $assets = '/assets/composeImages/';
+        mkdir($this->cacheImagesExampleList, 0755, true);
+        $path = sprintf('%s/%s', $this->cacheImagesExampleList, $name);
+        if (file_exists($path)) {
+            return $assets . $name;
         }
-
-        if(file_exists($this->cacheImagesExampleList.'/'.$params))
-        {
-           // exists
-        } else {
-           $image = file_get_contents('https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/refs/heads/master/compose-files/'.$params.'/'.$params, 0, stream_context_create(["http"=>["timeout"=>1]]));
-
-           if ($image === false) {
-               return '/assets/composeImages/none';
-           }
+        // Fetch the image from the URL
+        $url = sprintf('%s/%s/%s/%s', $this->baseUrl, $this->refsUrl, $name, $name);
+        $context = stream_context_create(["http" => ["timeout" => 1]]);
+        $image = @file_get_contents($url, false, $context);
+        if ($image === false) {
+            return $assets . 'none';
         }
-
-        if(file_exists($this->cacheImagesExampleList.'/'.$params))
-        {
-           // exists 
+        // Save the image to the cache
+        if (file_put_contents($path, $image) === false) {
+            return 'Failed to save image';
         }
-        else
-        {
-           if (file_put_contents($this->cacheImagesExampleList.'/'.$params, $image) === false) {
-               return 'Failed to save image';
-           }
-        }
-
-        $bb = '/assets/composeImages/'.$params;
-        return $bb;
+        return $assets . $name;
     }
 
     public function setExample($params, $context)
@@ -1284,7 +1275,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $name = $params['example'];
-        $url = sprintf("%s/%s/%s", $this->url, $name, $name);
+        $url = sprintf("%s/%s/%s/%s", $this->baseUrl, $this->url, $name, $name);
         $body = file_get_contents(sprintf("%s.yml", $url));
         $env = file_get_contents(sprintf("%s.env", $url));
         // set object values

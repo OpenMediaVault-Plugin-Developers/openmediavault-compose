@@ -1,3 +1,9 @@
+openmediavault-compose (7.3.3) UNRELEASED; urgency=medium
+
+  * Change example selector to datatable with icons
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 23 Jan 2025 17:35:49 -0600
+
 openmediavault-compose (7.3.2) stable; urgency=low
 
   * Fix typo that is truncating the files on Configs tab
