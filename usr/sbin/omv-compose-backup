@@ -151,9 +151,33 @@ status="$(mktemp)"
 docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status" > "${status}"
 _log "status :: $(cat "${status}")"
 
+wait_for_compose_to_exit() {
+  local attempt=0
+  local max_attempts=10
+
+  _log "Waiting for compose to fully stop..."
+
+  while [ $attempt -lt $max_attempts ]; do
+    current_status=$(docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status")
+
+    if grep -q "exited" <(echo "${current_status}"); then
+      _log "compose stopped after $attempt millisecond(s): ${current_status}"
+      return 0
+    fi
+
+    _log "compose still stopping (attempt $((attempt+1))/${max_attempts}): ${current_status}"
+    ((attempt++))
+    sleep 0.001
+  done
+
+  _log "WARNING: compose might not be fully stopped after ${max_attempts} milliseconds. Proceeding anyway..."
+  return 1
+}
+
 # stop compose if running
 if grep -q "running" "${status}"; then
   docker compose "${dockerComposeArgs[@]}" stop
+  wait_for_compose_to_exit
 else
   _log "${compose} is not running"
 fi
