@@ -1,3 +1,10 @@
+openmediavault-compose (7.3.4) stable; urgency=low
+
+  * Wait for compose to stop completely before proceeding with backup
+  * Support backup of named volumes
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 02 Mar 2025 10:35:21 -0600
+
 openmediavault-compose (7.3.3) stable; urgency=low
 
   * Change example selector to datatable with icons
