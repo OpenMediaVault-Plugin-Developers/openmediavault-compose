@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.5
+# version: 1.1.0
 
 export LC_ALL=C.UTF-8
 
@@ -223,9 +223,23 @@ for vol in "${confVols[@]}"; do
     echo
     continue
   elif [[ "${hostpath}" != *"/"* ]]; then
-    _log "Named volume. Skipping :: ${hostpath}"
-    echo
-    continue
+    _log "Named volume :: ${hostpath}"
+    fullvolname=$(docker compose "${dockerComposeArgs[@]}" config 2>/dev/null | yq ".volumes.${hostpath}.name")
+    _log "Full volume name :: ${fullvolname}"
+    if [ -z "${fullvolname}" ]; then
+      _log "Failed to retrieve full volume name. Skipping"
+      continue
+    fi
+    hostpath=$(docker volume inspect "${fullvolname}" --format '{{ .Mountpoint }}')
+    if [ -z "${hostpath}" ]; then
+      _log "Failed to retrieve named volume path. Skipping"
+      continue
+    fi
+    if [ ! -d "${hostpath}" ]; then
+      _log "Named volume path does not exist. Skipping"
+      continue
+    fi
+    _log "Named volume path :: ${hostpath}"
   elif [[ "${cmt}" == *"BACKUP"* ]]; then
     _log "Forcing for BACKUP comment :: ${vol}"
     force=1
