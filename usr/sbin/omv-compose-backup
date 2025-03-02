@@ -225,11 +225,11 @@ for vol in "${confVols[@]}"; do
   elif [[ "${hostpath}" != *"/"* ]]; then
     _log "Named volume :: ${hostpath}"
     fullvolname=$(docker compose "${dockerComposeArgs[@]}" config 2>/dev/null | yq ".volumes.${hostpath}.name")
-    _log "Full volume name :: ${fullvolname}"
     if [ -z "${fullvolname}" ]; then
       _log "Failed to retrieve full volume name. Skipping"
       continue
     fi
+    _log "Full volume name :: ${fullvolname}"
     hostpath=$(docker volume inspect "${fullvolname}" --format '{{ .Mountpoint }}')
     if [ -z "${hostpath}" ]; then
       _log "Failed to retrieve named volume path. Skipping"
