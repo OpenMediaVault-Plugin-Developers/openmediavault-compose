@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# kochin <kochinc@outlook.com>, 2024
+# kochin <kochinc@outlook.com>, 2025
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-01-23 19:06-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: kochin <kochinc@outlook.com>, 2024\n"
+"Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgid "Add"
 msgstr "新增"
 
 msgid "Add example compose file"
-msgstr ""
+msgstr "新增範例 compose 檔案"
 
 msgid "Add from Example"
 msgstr "從範例新增"
@@ -40,10 +40,10 @@ msgid "Add from URL"
 msgstr "從 URL 新增"
 
 msgid "Add..."
-msgstr ""
+msgstr "新增…"
 
 msgid "Adding an example compose file ..."
-msgstr ""
+msgstr "新增範例 compose 檔案中 …"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr "管理員 - 讀/寫，用戶 - 無法取用，其他 - 無法取用"
@@ -325,7 +325,7 @@ msgid "Example"
 msgstr "範例"
 
 msgid "Example compose file has been added."
-msgstr ""
+msgstr "範例 compose 檔案已被加入。"
 
 msgid "Excludes"
 msgstr "排除"
