@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.1.5
+# version: 0.1.6
 
 export LC_ALL=C.UTF-8
 
@@ -90,6 +90,43 @@ else
   if [ -n "${prebackup}" ]; then
     _log "pre-backup script not found."
   fi
+fi
+
+# Get the shared folder reference and path
+sfref=$(omv_config_get "/config/services/compose/sharedfolderref")
+if ! omv_isuuid "${sfref}"; then
+  _log "No compose sharedfolder set."
+  exit 11
+fi
+sfpath="$(omv_get_sharedfolder_path "${sfref}")"
+if [ ! -d "${sfpath}" ]; then
+  _log "Shared folder directory does not exist.  Exiting..."
+  exit 12
+fi
+sfpath="${sfpath/%\/}"
+sfpath="${sfpath//\/\//\/}"
+_log "Compose file path :: ${sfpath}"
+
+# Get the backup shared folder reference and path
+sfref=$(omv_config_get "/config/services/compose/backupsharedfolderref")
+if ! omv_isuuid "${sfref}"; then
+  _log "No backup sharedfolder set."
+  exit 13
+fi
+backuppath="$(omv_get_sharedfolder_path "${sfref}")"
+if [ ! -d "${backuppath}" ]; then
+  _log "Backup shared folder directory does not exist.  Exiting..."
+  exit 14
+fi
+backuppath="${backuppath/%\/}"
+backuppath="${backuppath//\/\//\/}"
+_log "Backup path :: ${backuppath}"
+
+# backup global.env
+globalenv="${sfpath}/global.env"
+if [ -f "${globalenv}" ]; then
+  _log "Backup global.env..."
+  cp -pv "${globalenv}" "${backuppath}/"
 fi
 
 xpath="/config/services/compose/files/file"
