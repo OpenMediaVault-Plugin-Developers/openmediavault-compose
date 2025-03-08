@@ -47,6 +47,19 @@ data:
                 params:
                   backup: "{{ _selected[0].backup }}"
       - type: iconButton
+        tooltip: _("Restore global.env")
+        icon: mdi:file-restore-outline
+        confirmationDialogConfig:
+          template: confirmation-danger
+          message: _("Are you sure you want to restore global.env from backup?")
+        execute:
+          type: request
+          request:
+            service: Compose
+            method: restoreGlobalEnv
+            progressMessage: _("Restoring global.env from backup ...")
+            successNotification: _("global.env has been restored from backup.")
+      - type: iconButton
         icon: mdi:delete
         tooltip: _("Delete")
         confirmationDialogConfig:

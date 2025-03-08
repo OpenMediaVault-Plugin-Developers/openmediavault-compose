@@ -118,6 +118,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
         $this->registerMethod('getRestoreList');
         $this->registerMethod('doRestore');
+        $this->registerMethod('restoreGlobalEnv');
         $this->registerMethod('deleteBackup');
 
         $this->registerMethod('getJobList');
@@ -1203,7 +1204,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $sfpath = $this->getComposePath($context);
         // get compose file
-        var_dump($file);
         $object = $db->get("conf.service.compose.config", $params['uuid']);
         $fileref = $object->get('fileref');
         try {
@@ -2471,6 +2471,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 return $output;
             }
         );
+    }
+
+    public function restoreGlobalEnv($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // get backup list from list file
+        $sfpath = $this->getBackupPath($context);
+        $globalEnv = sprintf('%s/global.env', $sfpath);
+        if (file_exists($globalEnv)) {
+            $curparams = $this->getGlobalEnv(null, $context);
+            $curparams['globalenv'] = trim(file_get_contents($globalEnv));
+            $this->setGlobalEnv($curparams, $context);
+        } else {
+            throw new \OMV\Exception($globalEnv . ' does not exist!');
+        }
     }
 
     public function deleteBackup($params, $context)
