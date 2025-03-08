@@ -1,3 +1,10 @@
+openmediavault-compose (7.3.5) stable; urgency=low
+
+  * Add global.env restore from backup button to restore tab
+  * Backup script will backup global.env if it exists
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 08 Mar 2025 09:13:26 -0600
+
 openmediavault-compose (7.3.4) stable; urgency=low
 
   * Wait for compose to stop completely before proceeding with backup
