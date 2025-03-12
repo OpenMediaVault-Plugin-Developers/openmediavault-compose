@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-23 19:06-0600\n"
+"POT-Creation-Date: 2025-03-08 09:14-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2025\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -71,6 +71,9 @@ msgstr "Are you sure you want to reinstall?"
 
 msgid "Are you sure you want to restart?"
 msgstr "Are you sure you want to restart?"
+
+msgid "Are you sure you want to restore global.env from backup?"
+msgstr "Are you sure you want to restore global.env from backup?"
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Are you sure you want to sync changes from the files?"
@@ -585,6 +588,12 @@ msgstr "Restore"
 msgid "Restore Compose ..."
 msgstr "Restore Compose ..."
 
+msgid "Restore global.env"
+msgstr "Restore global.env"
+
+msgid "Restoring global.env from backup ..."
+msgstr "Restoring global.env from backup ..."
+
 msgid "Run"
 msgstr "Run"
 
@@ -850,6 +859,9 @@ msgstr "e.g. 172.20.10.128/25"
 
 msgid "follow logs"
 msgstr "follow logs"
+
+msgid "global.env has been restored from backup."
+msgstr "global.env has been restored from backup."
 
 msgid "logs"
 msgstr "logs"

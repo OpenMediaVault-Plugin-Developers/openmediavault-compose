@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-23 19:06-0600\n"
+"POT-Creation-Date: 2025-03-08 09:14-0600\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2024\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -81,6 +81,9 @@ msgstr "Valóban újra szeretné telepíteni?"
 
 msgid "Are you sure you want to restart?"
 msgstr "Valóban újra szeretné indítani?"
+
+msgid "Are you sure you want to restore global.env from backup?"
+msgstr ""
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Biztosan szinkronizálni szeretné a fájlok változásait?"
@@ -600,6 +603,12 @@ msgstr "Visszaállítás"
 msgid "Restore Compose ..."
 msgstr "Összeállítás visszaállítása…"
 
+msgid "Restore global.env"
+msgstr ""
+
+msgid "Restoring global.env from backup ..."
+msgstr ""
+
 msgid "Run"
 msgstr "Futtatás"
 
@@ -868,6 +877,9 @@ msgstr "pl. 172.20.10.128/25"
 
 msgid "follow logs"
 msgstr "naplók követése"
+
+msgid "global.env has been restored from backup."
+msgstr ""
 
 msgid "logs"
 msgstr "naplók"
