@@ -1,3 +1,9 @@
+openmediavault-compose (7.3.6) stable; urgency=low
+
+  * Show command output in realtime
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 12 Mar 2025 16:31:07 -0500
+
 openmediavault-compose (7.3.5) stable; urgency=low
 
   * Add global.env restore from backup button to restore tab
