@@ -1013,13 +1013,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd->setQuiet(true);
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
-                $cmd->execute($output, $exitStatus);
-                $outStr = implode(PHP_EOL, $output);
-                if ($outStr) {
-                    file_put_contents($bgOutputFilename, $outStr . PHP_EOL . PHP_EOL, FILE_APPEND);
-                }
+                $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
                 if ($params['command'] != 'config' && $exitStatus !== 0) {
-                    file_put_contents($bgOutputFilename, '*** ERROR #' . $exitStatus . ' ***'. PHP_EOL . PHP_EOL, FILE_APPEND);
+                    $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
+                    file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
                 }
                 return $output;
             }
