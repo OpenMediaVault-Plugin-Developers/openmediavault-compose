@@ -3,6 +3,7 @@ type: dashboard-widget
 data:
   id: 33ebe908-8878-11ec-991b-f356096873ad
   title: _("Containers")
+  description: _("Displays information about containers in a table.")
   type: datatable
   permissions:
     role:
