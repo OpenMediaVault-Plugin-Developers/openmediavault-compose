@@ -94,3 +94,21 @@ data:
             method: deleteConfig
             params:
               uuid: "{{ _selected[0].uuid }}"
+      - type: iconButton
+        icon: mdi:vector-difference
+        tooltip: _("Show config changes")
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Show all file changes ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doGit
+                params:
+                  uuid: "{{ _selected[0].uuid }}"
+                  command: "diffc"
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1

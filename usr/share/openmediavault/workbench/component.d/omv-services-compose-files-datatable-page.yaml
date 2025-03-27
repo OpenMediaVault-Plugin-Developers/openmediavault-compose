@@ -550,7 +550,7 @@ data:
             enabledConstraints:
               minSelected: 1
               maxSelected: 1
-          - text: _("git init")
+          - text: _("init git repo")
             icon: mdi:git
             confirmationDialogConfig:
               template: confirmation-danger
@@ -567,13 +567,13 @@ data:
                     params:
                       uuid: ""
                       command: "init"
-          - text: _("git diff")
+          - text: _("show file changes")
             icon: mdi:vector-difference
             execute:
               type: taskDialog
               taskDialog:
                 config:
-                  title: _("Show git diffs of each commit ...")
+                  title: _("Show all file changes ...")
                   startOnInit: true
                   request:
                     service: Compose
@@ -584,6 +584,20 @@ data:
             enabledConstraints:
               minSelected: 1
               maxSelected: 1
+          - text: _("show global.env changes")
+            icon: mdi:vector-difference
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("Show all global.env changes ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doGit
+                    params:
+                      uuid: ""
+                      command: "diffg"
       - type: menu
         icon: mdi:link
         tooltip: _("Docs")

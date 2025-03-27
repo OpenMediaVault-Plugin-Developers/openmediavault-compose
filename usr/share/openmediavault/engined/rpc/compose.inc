@@ -294,6 +294,29 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         ], $context);
     }
 
+    private function addAndCommit($context, $files, $msg)
+    {
+        $sfpath = $this->getComposePath($context);
+        if (is_dir(sprintf("%s/.git", $sfpath))) {
+            // git add to repo
+            $cmdArgs = [];
+            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = 'add';
+            $cmdArgs = array_merge($cmdArgs, $files);
+            $cmd = new \OMV\System\Process('git', $cmdArgs);
+            $cmd->setQuiet(true);
+            $cmd->execute($output, $exitStatus);
+            // git commit change
+            $cmdArgs = [];
+            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = 'commit';
+            $cmdArgs[] = sprintf("-m 'Added %s on %s'", $msg, date('Y.m.d h:i:sa'));
+            $cmd = new \OMV\System\Process('git', $cmdArgs);
+            $cmd->setQuiet(true);
+            $cmd->execute($output, $exitStatus);
+        }
+    }
+
     public function get($params, $context)
     {
         // Validate the RPC caller context.
@@ -673,24 +696,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $this->clearCache('files');
             }
         }
-        if (is_dir(sprintf("%s/.git", $sfpath))) {
-            // git add to repo
-            $cmdArgs = [];
-            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
-            $cmdArgs[] = 'add';
-            $cmdArgs[] = sprintf("%s/%s.yml", $cname, $cname);
-            $cmd = new \OMV\System\Process('git', $cmdArgs);
-            $cmd->setQuiet(true);
-            $cmd->execute($output, $exitStatus);
-            // git commit change
-            $cmdArgs = [];
-            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
-            $cmdArgs[] = 'commit';
-            $cmdArgs[] = sprintf("-m 'Added %s.yml on %s'", $cname, date('Y.m.d h:i:sa'));
-            $cmd = new \OMV\System\Process('git', $cmdArgs);
-            $cmd->setQuiet(true);
-            $cmd->execute($output, $exitStatus);
-        }
+        // add and commit to git if repo exists
+        $files = [];
+        $files[] = sprintf("%s/%s.yml", $cname, $cname);
+        $files[] = sprintf("%s/%s.env", $cname, $cname);
+        $files[] = sprintf("%s/compose.override.yml", $cname);
+        $this->addAndCommit($context, $files, $cname);
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -770,6 +781,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object = $db->get("conf.service.compose.globalenv");
         $object->setAssoc($params);
         $db->set($object);
+        // write changes
+        $sfpath = $this->getComposePath($context);
+        $globalenv = sprintf('%s/global.env', $sfpath);
+        file_put_contents($globalenv, $params['globalenv'] . PHP_EOL);
+        // add and commit to git if repo exists
+        $this->addAndCommit($context, ['global.env'], 'global.env');
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -1051,88 +1068,77 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = false;
-        if ($params['command'] != 'init') {
-            $object = $db->get("conf.service.compose.file", $params['uuid']);
+        if (is_uuid($params['uuid'])) {
+            if ($params['command'] == 'diffc') {
+                $object = $db->get("conf.service.compose.config", $params['uuid']);
+            } else {
+                $object = $db->get("conf.service.compose.file", $params['uuid']);
+            }
         }
         $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($object, $params, $sfpath, $showCmd) {
-                if ($object) {
-                    $cname = $object->get('name');
-                    $composeDir = sprintf("%s/%s", $sfpath, $cname);
-                    $composeName = sprintf("%s/%s", $composeDir, $cname);
-                    $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
-                    $globalEnvFile = sprintf("%s/global.env", $sfpath);
-                }
+            use ($object, $params, $sfpath, $showCmd, $db) {
                 $cmdArgs = [];
                 switch ($params['command']) {
                     case 'init':
-                        // remove existing directory if found
                         $cmdArgs = [];
-                        $cmdArgs[] = '-rf';
-                        $cmdArgs[] = sprintf("'%s/.git'", $sfpath);
-                        $cmd = new \OMV\System\Process('rm', $cmdArgs);
-                        $cmd->setRedirect2to1();
-                        $cmd->execute($output, $exitStatus);
-                        // git init /path/to/dir
-                        $cmdArgs = [];
-                        $cmdArgs[] = 'init';
                         $cmdArgs[] = sprintf("'%s'", $sfpath);
-
+                        $cmd = new \OMV\System\Process('omv-compose-init-git', $cmdArgs);
                         break;
                     case 'diff':
-                        // git log -p -- path/to/docker-compose.yml
+                        if (!$object)
+                            return [];
+
+                        $cname = $object->get('name');
+                        $composeDir = sprintf("%s/%s", $sfpath, $cname);
+                        $composeName = sprintf("%s/%s", $composeDir, $cname);
+                        $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
+                        $globalEnvFile = sprintf("%s/global.env", $sfpath);
+
                         $cmdArgs = [];
                         $cmdArgs[] = sprintf("-C '%s'", $sfpath);
                         $cmdArgs[] = 'log';
                         $cmdArgs[] = '-p';
                         $cmdArgs[] = '--';
                         $cmdArgs[] = sprintf('%s.yml', $composeName);
+                        $cmd = new \OMV\System\Process('git', $cmdArgs);
+                        break;
+                    case 'diffg':
+                        $cmdArgs = [];
+                        $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                        $cmdArgs[] = 'log';
+                        $cmdArgs[] = '-p';
+                        $cmdArgs[] = '--';
+                        $cmdArgs[] = 'global.env';
+                        $cmd = new \OMV\System\Process('git', $cmdArgs);
+                        break;
+                    case 'diffc':
+                        if (!$object)
+                            return [];
+                        $cname = $object->get('name');
+                        $fobj = $db->get("conf.service.compose.file", $object->get('fileref'));
+                        $fname = $fobj->get('name');
+                        $cpath = sprintf('%s/%s', $fname, $cname);
+                        $cmdArgs = [];
+                        $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                        $cmdArgs[] = 'log';
+                        $cmdArgs[] = '-p';
+                        $cmdArgs[] = '--';
+                        $cmdArgs[] = sprintf("'%s'", $cpath);
+                        $cmd = new \OMV\System\Process('git', $cmdArgs);
                         break;
                 }
-                $cmd = new \OMV\System\Process('git', $cmdArgs);
-                $cmd->setEnv("GIT_OPTIONAL_LOCKS", 0);
-                //$cmd->setRedirect2to1();
+                $cmd->setRedirect2to1();
                 $cmd->setQuiet(true);
                 $cmdLine = $cmd->getCommandLine();
-                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) {
+                    file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                }
                 $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
                 if ($exitStatus !== 0) {
                     $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
                     file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
-                }
-                if ($params['command'] == 'init') {
-                    // git -C /srv/composeFiles config user.name "openmediavault-compose"
-                    $cmdArgs = [];
-                    $cmdArgs[] = sprintf("-C '%s'", $sfpath);
-                    $cmdArgs[] = 'config';
-                    $cmdArgs[] = 'user.name';
-                    $cmdArgs[] = 'openmediavault-compose';
-                    $cmd = new \OMV\System\Process('git', $cmdArgs);
-                    $cmd->execute($output, $exitStatus);
-                    // git -C /srv/composeFiles config user.email "compose@localhost"
-                    $cmdArgs = [];
-                    $cmdArgs[] = sprintf("-C '%s'", $sfpath);
-                    $cmdArgs[] = 'config';
-                    $cmdArgs[] = 'user.email';
-                    $cmdArgs[] = 'compose@localhost';
-                    $cmd = new \OMV\System\Process('git', $cmdArgs);
-                    $cmd->execute($output, $exitStatus);
-                    // git -C /srv/composeFiles add .
-                    $cmdArgs = [];
-                    $cmdArgs[] = sprintf("-C '%s'", $sfpath);
-                    $cmdArgs[] = 'add';
-                    $cmdArgs[] = '.';
-                    $cmd = new \OMV\System\Process('git', $cmdArgs);
-                    $cmd->execute($output, $exitStatus);
-                    // git -C /srv/composeFiles commit -m "initial commit"
-                    $cmdArgs = [];
-                    $cmdArgs[] = sprintf("-C '%s'", $sfpath);
-                    $cmdArgs[] = 'commit';
-                    $cmdArgs[] = "-m 'initial commit'";
-                    $cmd = new \OMV\System\Process('git', $cmdArgs);
-                    $cmd->execute($output, $exitStatus);
                 }
                 return $output;
             }
