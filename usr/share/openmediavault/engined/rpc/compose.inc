@@ -52,6 +52,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
         $this->registerMethod("doCommand");
+        $this->registerMethod("doGit");
         $this->registerMethod("getLog");
         $this->registerMethod("doPrune");
         $this->registerMethod("enumerateFiles");
@@ -672,6 +673,24 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $this->clearCache('files');
             }
         }
+        if (is_dir(sprintf("%s/.git", $sfpath))) {
+            // git add to repo
+            $cmdArgs = [];
+            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = 'add';
+            $cmdArgs[] = sprintf("%s/%s.yml", $cname, $cname);
+            $cmd = new \OMV\System\Process('git', $cmdArgs);
+            $cmd->setQuiet(true);
+            $cmd->execute($output, $exitStatus);
+            // git commit change
+            $cmdArgs = [];
+            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = 'commit';
+            $cmdArgs[] = sprintf("-m 'Added %s.yml on %s'", $cname, date('Y.m.d h:i:sa'));
+            $cmd = new \OMV\System\Process('git', $cmdArgs);
+            $cmd->setQuiet(true);
+            $cmd->execute($output, $exitStatus);
+        }
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -1017,6 +1036,103 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($params['command'] != 'config' && $exitStatus !== 0) {
                     $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
                     file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function doGit($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for files
+        $this->clearCache('files');
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $object = false;
+        if ($params['command'] != 'init') {
+            $object = $db->get("conf.service.compose.file", $params['uuid']);
+        }
+        $sfpath = $this->getComposePath($context);
+        $showCmd = $this->getShowCmd($context);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($object, $params, $sfpath, $showCmd) {
+                if ($object) {
+                    $cname = $object->get('name');
+                    $composeDir = sprintf("%s/%s", $sfpath, $cname);
+                    $composeName = sprintf("%s/%s", $composeDir, $cname);
+                    $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
+                    $globalEnvFile = sprintf("%s/global.env", $sfpath);
+                }
+                $cmdArgs = [];
+                switch ($params['command']) {
+                    case 'init':
+                        // remove existing directory if found
+                        $cmdArgs = [];
+                        $cmdArgs[] = '-rf';
+                        $cmdArgs[] = sprintf("'%s/.git'", $sfpath);
+                        $cmd = new \OMV\System\Process('rm', $cmdArgs);
+                        $cmd->setRedirect2to1();
+                        $cmd->execute($output, $exitStatus);
+                        // git init /path/to/dir
+                        $cmdArgs = [];
+                        $cmdArgs[] = 'init';
+                        $cmdArgs[] = sprintf("'%s'", $sfpath);
+
+                        break;
+                    case 'diff':
+                        // git log -p -- path/to/docker-compose.yml
+                        $cmdArgs = [];
+                        $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                        $cmdArgs[] = 'log';
+                        $cmdArgs[] = '-p';
+                        $cmdArgs[] = '--';
+                        $cmdArgs[] = sprintf('%s.yml', $composeName);
+                        break;
+                }
+                $cmd = new \OMV\System\Process('git', $cmdArgs);
+                $cmd->setEnv("GIT_OPTIONAL_LOCKS", 0);
+                //$cmd->setRedirect2to1();
+                $cmd->setQuiet(true);
+                $cmdLine = $cmd->getCommandLine();
+                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
+                if ($exitStatus !== 0) {
+                    $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
+                    file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
+                }
+                if ($params['command'] == 'init') {
+                    // git -C /srv/composeFiles config user.name "openmediavault-compose"
+                    $cmdArgs = [];
+                    $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                    $cmdArgs[] = 'config';
+                    $cmdArgs[] = 'user.name';
+                    $cmdArgs[] = 'openmediavault-compose';
+                    $cmd = new \OMV\System\Process('git', $cmdArgs);
+                    $cmd->execute($output, $exitStatus);
+                    // git -C /srv/composeFiles config user.email "compose@localhost"
+                    $cmdArgs = [];
+                    $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                    $cmdArgs[] = 'config';
+                    $cmdArgs[] = 'user.email';
+                    $cmdArgs[] = 'compose@localhost';
+                    $cmd = new \OMV\System\Process('git', $cmdArgs);
+                    $cmd->execute($output, $exitStatus);
+                    // git -C /srv/composeFiles add .
+                    $cmdArgs = [];
+                    $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                    $cmdArgs[] = 'add';
+                    $cmdArgs[] = '.';
+                    $cmd = new \OMV\System\Process('git', $cmdArgs);
+                    $cmd->execute($output, $exitStatus);
+                    // git -C /srv/composeFiles commit -m "initial commit"
+                    $cmdArgs = [];
+                    $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                    $cmdArgs[] = 'commit';
+                    $cmdArgs[] = "-m 'initial commit'";
+                    $cmd = new \OMV\System\Process('git', $cmdArgs);
+                    $cmd->execute($output, $exitStatus);
                 }
                 return $output;
             }

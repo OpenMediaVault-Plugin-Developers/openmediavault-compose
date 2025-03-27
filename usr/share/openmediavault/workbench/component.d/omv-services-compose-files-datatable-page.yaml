@@ -550,6 +550,40 @@ data:
             enabledConstraints:
               minSelected: 1
               maxSelected: 1
+          - text: _("git init")
+            icon: mdi:git
+            confirmationDialogConfig:
+              template: confirmation-danger
+              message: _("Are you sure you want to create a new git repo?  This will erase all history!")
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("Initialize new git repo ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doGit
+                    params:
+                      uuid: ""
+                      command: "init"
+          - text: _("git diff")
+            icon: mdi:vector-difference
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("Show git diffs of each commit ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doGit
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "diff"
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
       - type: menu
         icon: mdi:link
         tooltip: _("Docs")
