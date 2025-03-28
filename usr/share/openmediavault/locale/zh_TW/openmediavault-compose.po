@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-08 09:14-0600\n"
+"POT-Creation-Date: 2025-03-27 19:57-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -59,6 +59,11 @@ msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 無法取用"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 唯讀"
+
+msgid ""
+"Are you sure you want to create a new git repo?  This will erase all "
+"history!"
+msgstr ""
 
 msgid "Are you sure you want to delete this backup?"
 msgstr "您確定要刪除這個備份嗎？"
@@ -249,6 +254,12 @@ msgstr "摘要"
 msgid "Directory does not exist!"
 msgstr "檔案目錄不存在！"
 
+msgid "Displays information about containers in a grid."
+msgstr ""
+
+msgid "Displays information about containers in a table."
+msgstr ""
+
 msgid "Docker"
 msgstr "Docker"
 
@@ -401,6 +412,9 @@ msgstr "導入一個"
 
 msgid "In Use"
 msgstr "使用中"
+
+msgid "Initialize new git repo ..."
+msgstr ""
 
 msgid "Inspect"
 msgstr "檢驗"
@@ -626,8 +640,17 @@ msgstr "設置"
 msgid "Shared folder"
 msgstr "共享檔案夾"
 
+msgid "Show all file changes ..."
+msgstr ""
+
+msgid "Show all global.env changes ..."
+msgstr ""
+
 msgid "Show commands"
 msgstr "顯示指令"
+
+msgid "Show config changes"
+msgstr ""
 
 msgid "Show docker command for task in task dialog"
 msgstr "顯示在工作對話中之工作的 docker 指示"
@@ -846,6 +869,9 @@ msgstr "追隨日誌"
 msgid "global.env has been restored from backup."
 msgstr "global.env 已經從備份復原回來。"
 
+msgid "init git repo"
+msgstr ""
+
 msgid "logs"
 msgstr "日誌"
 
@@ -863,6 +889,12 @@ msgstr "拉取"
 
 msgid "restart"
 msgstr "重啟"
+
+msgid "show file changes"
+msgstr ""
+
+msgid "show global.env changes"
+msgstr ""
 
 msgid "stop"
 msgstr "停止"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-08 09:14-0600\n"
+"POT-Creation-Date: 2025-03-27 19:57-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,6 +54,9 @@ msgid "Administrator - read/write, Users - read/write, Others - no access"
 msgstr ""
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
+msgstr ""
+
+msgid "Are you sure you want to create a new git repo?  This will erase all history!"
 msgstr ""
 
 msgid "Are you sure you want to delete this backup?"
@@ -239,6 +242,12 @@ msgstr ""
 msgid "Directory does not exist!"
 msgstr ""
 
+msgid "Displays information about containers in a grid."
+msgstr ""
+
+msgid "Displays information about containers in a table."
+msgstr ""
+
 msgid "Docker"
 msgstr ""
 
@@ -387,6 +396,9 @@ msgid "Import one"
 msgstr ""
 
 msgid "In Use"
+msgstr ""
+
+msgid "Initialize new git repo ..."
 msgstr ""
 
 msgid "Inspect"
@@ -605,7 +617,16 @@ msgstr ""
 msgid "Shared folder"
 msgstr ""
 
+msgid "Show all file changes ..."
+msgstr ""
+
+msgid "Show all global.env changes ..."
+msgstr ""
+
 msgid "Show commands"
+msgstr ""
+
+msgid "Show config changes"
 msgstr ""
 
 msgid "Show docker command for task in task dialog"
@@ -815,6 +836,9 @@ msgstr ""
 msgid "global.env has been restored from backup."
 msgstr ""
 
+msgid "init git repo"
+msgstr ""
+
 msgid "logs"
 msgstr ""
 
@@ -831,6 +855,12 @@ msgid "pull"
 msgstr ""
 
 msgid "restart"
+msgstr ""
+
+msgid "show file changes"
+msgstr ""
+
+msgid "show global.env changes"
 msgstr ""
 
 msgid "stop"

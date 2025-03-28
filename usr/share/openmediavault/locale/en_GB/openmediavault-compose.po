@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-08 09:14-0600\n"
+"POT-Creation-Date: 2025-03-27 19:57-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2025\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -59,6 +59,11 @@ msgstr "Administrator - read/write, Users - read/write, Others - no access"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "Administrator - read/write, Users - read/write, Others - read-only"
+
+msgid ""
+"Are you sure you want to create a new git repo?  This will erase all "
+"history!"
+msgstr ""
 
 msgid "Are you sure you want to delete this backup?"
 msgstr "Are you sure you want to delete this backup?"
@@ -251,6 +256,12 @@ msgstr "Digest"
 msgid "Directory does not exist!"
 msgstr "Directory does not exist!"
 
+msgid "Displays information about containers in a grid."
+msgstr ""
+
+msgid "Displays information about containers in a table."
+msgstr ""
+
 msgid "Docker"
 msgstr "Docker"
 
@@ -404,6 +415,9 @@ msgstr "Import one"
 
 msgid "In Use"
 msgstr "In Use"
+
+msgid "Initialize new git repo ..."
+msgstr ""
 
 msgid "Inspect"
 msgstr "Inspect"
@@ -633,8 +647,17 @@ msgstr "Settings"
 msgid "Shared folder"
 msgstr "Shared folder"
 
+msgid "Show all file changes ..."
+msgstr ""
+
+msgid "Show all global.env changes ..."
+msgstr ""
+
 msgid "Show commands"
 msgstr "Show commands"
+
+msgid "Show config changes"
+msgstr ""
 
 msgid "Show docker command for task in task dialog"
 msgstr "Show docker command for task in task dialogue"
@@ -863,6 +886,9 @@ msgstr "follow logs"
 msgid "global.env has been restored from backup."
 msgstr "global.env has been restored from backup."
 
+msgid "init git repo"
+msgstr ""
+
 msgid "logs"
 msgstr "logs"
 
@@ -880,6 +906,12 @@ msgstr "pull"
 
 msgid "restart"
 msgstr "restart"
+
+msgid "show file changes"
+msgstr ""
+
+msgid "show global.env changes"
+msgstr ""
 
 msgid "stop"
 msgstr "stop"
