@@ -1,8 +1,8 @@
-openmediavault-compose (7.3.7) UNRELEASED; urgency=medium
+openmediavault-compose (7.4) stable; urgency=low
 
   * Add version control for compose files
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 26 Mar 2025 19:10:39 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 27 Mar 2025 19:57:18 -0500
 
 openmediavault-compose (7.3.6) stable; urgency=low
 
