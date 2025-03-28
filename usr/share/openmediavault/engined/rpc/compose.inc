@@ -317,6 +317,31 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
     }
 
+    private function removeAndCommit($context, $files, $msg)
+    {
+        $sfpath = $this->getComposePath($context);
+        if (is_dir(sprintf("%s/.git", $sfpath))) {
+            // git add to repo
+            $cmdArgs = [];
+            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = 'rm';
+            $cmdArgs[] = '-f';
+            $cmdArgs = array_merge($cmdArgs, $files);
+            $cmd = new \OMV\System\Process('git', $cmdArgs);
+            $cmd->setQuiet(true);
+            $cmd->execute($output, $exitStatus);
+            // git commit change
+            $cmdArgs = [];
+            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = 'commit';
+            $cmdArgs[] = sprintf("-m 'Removed %s on %s'", $msg, date('Y.m.d h:i:sa'));
+            $cmd = new \OMV\System\Process('git', $cmdArgs);
+            $cmd->setQuiet(true);
+            $cmd->execute($output, $exitStatus);
+        }
+    }
+
+
     public function get($params, $context)
     {
         // Validate the RPC caller context.
@@ -739,6 +764,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmd = new \OMV\System\Process($cmdArgs);
         $cmd->setQuiet(true);
         $cmd->execute($output, $exitStatus);
+        // remove and commit to git if repo exists
+        $files = [];
+        $files[] = sprintf("%s/%s.yml", $cname, $cname);
+        $files[] = sprintf("%s/%s.env", $cname, $cname);
+        $files[] = sprintf("%s/compose.override.yml", $cname);
+        $this->removeAndCommit($context, $files, $cname);
         // remove files
         if (file_exists($composeFile)) {
             unlink($composeFile);
@@ -1063,8 +1094,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        // clear cache for files
-        $this->clearCache('files');
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = false;
@@ -1338,6 +1367,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Delete the configuration object.
         $cnfName = $object->get('name');
         $cnfPath = sprintf("%s/%s", $composeDir, $cnfName);
+        // remove and commit to git if repo exists
+        $confPath = sprintf('%s/%s', $composeName, $cnfName);
+        $this->removeAndCommit($context, [$confPath], $cnfName);
+        // remove file
         if (file_exists($cnfPath)) {
             unlink($cnfPath);
         }
