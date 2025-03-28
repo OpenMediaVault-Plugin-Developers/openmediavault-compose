@@ -103,6 +103,7 @@ data:
             config:
               title: _("Show all file changes ...")
               startOnInit: true
+              autoScroll: false
               request:
                 service: Compose
                 method: doGit

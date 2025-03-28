@@ -575,6 +575,7 @@ data:
                 config:
                   title: _("Show all file changes ...")
                   startOnInit: true
+                  autoScroll: false
                   request:
                     service: Compose
                     method: doGit
@@ -592,6 +593,7 @@ data:
                 config:
                   title: _("Show all global.env changes ...")
                   startOnInit: true
+                  autoScroll: false
                   request:
                     service: Compose
                     method: doGit

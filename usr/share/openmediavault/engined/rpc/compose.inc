@@ -1309,6 +1309,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 file_put_contents($confFile, $params['body'] . PHP_EOL);
             }
         }
+        // add and commit to git if repo exists
+        $confPath = sprintf('%s/%s', $cfname, $confName);
+        $this->addAndCommit($context, [$confPath], $confName);
         // Return the configuration object.
         return $object->getAssoc();
     }

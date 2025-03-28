@@ -4,61 +4,62 @@
 
 sfpath="${1}"
 
-if [ -d "${sfpath}" ]; then
-  echo "Removing old .git directory (if found) ..."
-  rm -rf "${sfpath}/.git"
+if [ ! -d "${sfpath}" ]; then
+  echo "Invalid directory: ${sfpath}"
+  exit 1
+fi
 
-  echo "Initializing new git repo ..."
-  GIT_OPTIONAL_LOCKS=0 git init --initial-branch=main "${sfpath}"
+echo "Removing old .git directory (if found) ..."
+rm -rf "${sfpath}/.git"
 
-  echo "Configuring ..."
-  git -C "${sfpath}" config user.name "openmediavault-compose"
-  git -C "${sfpath}" config user.email "compose@localhost"
+echo "Initializing new git repo ..."
+GIT_OPTIONAL_LOCKS=0 git init --initial-branch=main "${sfpath}" --quiet
 
-  echo "Adding all existing files to new git repo ..."
-  git -C "${sfpath}" add global.env
-  find "${sfpath}" -mindepth 1 -maxdepth 1 -type d | while read -r dir; do
-    name=$(basename "${dir}")
-    yml_file="${dir}/${name}.yml"
-    env_file="${dir}/${name}.env"
-    ovr_file="${dir}/compose.override.yml"
+echo "Configuring ..."
+git -C "${sfpath}" config user.name "openmediavault-compose"
+git -C "${sfpath}" config user.email "compose@localhost"
 
-    [ -f "${yml_file}" ] && git -C "${sfpath}" add "${yml_file}"
-    [ -f "${env_file}" ] && git -C "${sfpath}" add "${env_file}"
-    [ -f "${ovr_file}" ] && git -C "${sfpath}" add "${ovr_file}"
-  done
+echo "Adding existing files to repo ..."
+cd "${sfpath}" || exit 2
 
-  xpath="/config/services/compose/configs/config"
-  count=$(omv_config_get_count "${xpath}");
-  index=1;
-  while [ ${index} -le ${count} ]; do
-    pos="${xpath}[position()=${index}]"
-    if omv_config_exists "${pos}/name"; then
-      cfgname="$(omv_config_get "${pos}/name")"
-      cfguuid="$(omv_config_get "${pos}/fileref")"
-      if [ -z "${cfgname}" ] || [ -z "${cfguuid}" ]; then
-        index=$(( index + 1 ))
-        continue
-      fi
+# Add global.env if it exists
+[ -f "global.env" ] && git add global.env
+
+# Add docker-compose relevant files
+for dir in */; do
+  [ -d "${dir}" ] || continue
+  name="${dir%/}"
+  [ -f "${dir}${name}.yml" ] && git add "${dir}${name}.yml"
+  [ -f "${dir}${name}.env" ] && git add "${dir}${name}.env"
+  [ -f "${dir}compose.override.yml" ] && git add "${dir}compose.override.yml"
+done
+
+# Add configs from OMV database
+xpath="/config/services/compose/configs/config"
+count=$(omv_config_get_count "${xpath}")
+
+for (( index=1; index<=count; index++ )); do
+  pos="${xpath}[position()=${index}]"
+  if omv_config_exists "${pos}/name"; then
+    cfgname="$(omv_config_get "${pos}/name")"
+    cfguuid="$(omv_config_get "${pos}/fileref")"
+
+    if [ -n "${cfgname}" ] && [ -n "${cfguuid}" ]; then
       filename="$(omv_config_get "/config/services/compose/files/file[uuid='${cfguuid}']/name")"
-      if [ -z "${filename}" ]; then
-        index=$(( index + 1 ))
-        continue
+      if [ -n "${filename}" ]; then
+        cfgpath="${filename}/${cfgname}"
+        [ -f "${cfgpath}" ] && git add "${cfgpath}"
       fi
-      cfgpath="${filename}/${cfgname}"
-      fullpath="${sfpath}/${cfgpath}"
-      echo ${cfgpath}
-      echo ${fullpath}
-      [ -f "${fullpath}" ] && git -C "${sfpath}" add "${cfgpath}"
     fi
-    index=$(( index + 1 ))
-  done;
-
-  if git -C "${sfpath}" diff --cached --quiet; then
-    echo "No files to commit."
-  else
-    git -C "${sfpath}" commit --quiet --message "initial commit"
   fi
+done
+
+# Commit if there are staged changes
+if git diff --cached --quiet; then
+  echo "No files to commit."
+else
+  git commit --quiet --message "initial commit"
+  echo "Initial commit created."
 fi
 
 echo "Done."
