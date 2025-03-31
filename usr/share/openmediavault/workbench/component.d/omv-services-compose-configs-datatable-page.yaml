@@ -33,6 +33,11 @@ data:
         prop: composefile
         flexGrow: 1
         sortable: true
+      - name: _("Path")
+        prop: fullpath
+        flexGrow: 2
+        sortable: true
+        cellTemplateName: copyToClipboard
     actions:
       - type: menu
         icon: add
