@@ -1,3 +1,12 @@
+openmediavault-compose (7.4.2) UNRELEASED; urgency=medium
+
+  * Add full path of file in Configs datatable
+  * Put file in title to make exclusion purpose more explicit
+  * Put quotes around filter to prevent expansion
+  * Add menu item to bring all compose files down
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 31 Mar 2025 07:53:39 -0500
+
 openmediavault-compose (7.4.1) stable; urgency=low
 
   * Improve version control when removing from Files and Configs tabs
