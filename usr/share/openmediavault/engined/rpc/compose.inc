@@ -52,6 +52,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
         $this->registerMethod("doCommand");
+        $this->registerMethod("doDownAll");
         $this->registerMethod("doGit");
         $this->registerMethod("getLog");
         $this->registerMethod("doPrune");
@@ -1084,6 +1085,56 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($params['command'] != 'config' && $exitStatus !== 0) {
                     $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
                     file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function doDownAll($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for files
+        $this->clearCache('files');
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->get("conf.service.compose.file");
+        $sfpath = $this->getComposePath($context);
+        $showCmd = $this->getShowCmd($context);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($objects, $sfpath, $showCmd) {
+                foreach ($objects as $objectk => &$objectv) {
+                    // build filenames
+                    $cname = $objectv->get('name');
+                    $composeDir = sprintf("%s/%s", $sfpath, $cname);
+                    $composeName = sprintf("%s/%s", $composeDir, $cname);
+                    $composeFile = sprintf("%s.yml", $composeName);
+                    $envFile = sprintf("%s.env", $composeName);
+                    $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
+                    $globalEnvFile = sprintf("%s/global.env", $sfpath);
+                    $cmdArgs = [];
+                    $cmdArgs[] = 'docker';
+                    $cmdArgs[] = 'compose';
+                    $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
+                    if (file_exists($overrideFile)) {
+                        $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
+                    }
+                    if (file_exists($globalEnvFile)) {
+                        $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+                    }
+                    $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
+                    $cmdArgs[] = 'down';
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setRedirect2to1();
+                    $cmd->setQuiet(true);
+                    $cmdLine = $cmd->getCommandLine();
+                    if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                    $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
+                    if ($params['command'] != 'config' && $exitStatus !== 0) {
+                        $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
+                        file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
+                    }
                 }
                 return $output;
             }

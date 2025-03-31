@@ -550,6 +550,20 @@ data:
             enabledConstraints:
               minSelected: 1
               maxSelected: 1
+          - text: _("down all")
+            icon: mdi:arrow-down-bold-box
+            confirmationDialogConfig:
+              template: confirmation-danger
+              message: _("Are you sure you want to stop all containers?")
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("docker compose down all files...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doDownAll
           - text: _("init git repo")
             icon: mdi:git
             confirmationDialogConfig:
