@@ -37,7 +37,7 @@ data:
               method: getFileListSuggest
       - type: textInput
         name: excludes
-        label: _('Excludes')
+        label: _('File excludes')
         value: ''
         hint: _("Multiple exclusions should be comma separated.")
       - type: divider
