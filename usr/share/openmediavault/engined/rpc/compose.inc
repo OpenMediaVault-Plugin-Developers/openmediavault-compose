@@ -2653,7 +2653,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $spaceUsed = sprintf("%s/%s/space.used", $sfpath, $dir);
                 $backupSize = -1;
                 if (file_exists($spaceUsed)) {
-                    $backupSize = intval(file_get_contents($spaceUsed));
+                    $backupSize = file_get_contents($spaceUsed);
                 }
                 $objects[] = [
                     'backup' => $dir,
