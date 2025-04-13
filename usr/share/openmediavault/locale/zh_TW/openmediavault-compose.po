@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 08:23-0500\n"
+"POT-Creation-Date: 2025-04-13 09:30-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -160,6 +160,12 @@ msgstr "Compose 檔案"
 
 msgid "Compose Restore"
 msgstr "Compose 還原"
+
+msgid "Compose Start"
+msgstr ""
+
+msgid "Compose Stop"
+msgstr ""
 
 msgid "Compose Update"
 msgstr "Compose 更新"
