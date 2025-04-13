@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 19:57-0500\n"
+"POT-Creation-Date: 2025-04-13 08:23-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Odai Alghamdi, 2023\n"
 "Language-Team: Arabic (Saudi Arabia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ar_SA/)\n"
@@ -78,6 +78,9 @@ msgid "Are you sure you want to restart?"
 msgstr "هل أنت متأكد من إعادة التشغيل؟"
 
 msgid "Are you sure you want to restore global.env from backup?"
+msgstr ""
+
+msgid "Are you sure you want to stop all containers?"
 msgstr ""
 
 msgid "Are you sure you want to sync changes from the files?"
@@ -185,6 +188,9 @@ msgstr ""
 
 msgid "Container"
 msgstr "حاوية"
+
+msgid "Container state"
+msgstr ""
 
 msgid "Containers"
 msgstr "حاويات"
@@ -443,6 +449,9 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+msgid "Maintenance"
+msgstr ""
+
 msgid "Max Size"
 msgstr "أقصى حجم"
 
@@ -614,6 +623,9 @@ msgstr ""
 msgid "Script filename cannot be"
 msgstr ""
 
+msgid "Scripts"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "تحديد مجموعة"
 
@@ -768,6 +780,9 @@ msgstr ""
 msgid "docker compose down ..."
 msgstr ""
 
+msgid "docker compose down all files..."
+msgstr ""
+
 msgid "docker compose file version"
 msgstr ""
 
@@ -846,6 +861,9 @@ msgstr ""
 msgid "down"
 msgstr ""
 
+msgid "down all"
+msgstr ""
+
 msgid "down and remove orphans"
 msgstr ""
 
@@ -856,6 +874,9 @@ msgid "e.g. 172.20.0.1"
 msgstr ""
 
 msgid "e.g. 172.20.10.128/25"
+msgstr ""
+
+msgid "file not found!"
 msgstr ""
 
 msgid "follow logs"

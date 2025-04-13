@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 19:57-0500\n"
+"POT-Creation-Date: 2025-04-13 08:23-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Marek Pavelka, 2024\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
@@ -81,6 +81,9 @@ msgid "Are you sure you want to restart?"
 msgstr "Opravdu chcete restartovat?"
 
 msgid "Are you sure you want to restore global.env from backup?"
+msgstr ""
+
+msgid "Are you sure you want to stop all containers?"
 msgstr ""
 
 msgid "Are you sure you want to sync changes from the files?"
@@ -193,6 +196,9 @@ msgstr ""
 
 msgid "Container"
 msgstr "Kontejner"
+
+msgid "Container state"
+msgstr ""
 
 msgid "Containers"
 msgstr "Kontejnery"
@@ -454,6 +460,9 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+msgid "Maintenance"
+msgstr ""
+
 msgid "Max Size"
 msgstr "Maximální velikost"
 
@@ -632,6 +641,9 @@ msgstr "Název souboru skriptu"
 msgid "Script filename cannot be"
 msgstr "Název souboru skriptu nemůže být"
 
+msgid "Scripts"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "Vyberte skupinu…"
 
@@ -792,6 +804,9 @@ msgstr ""
 msgid "docker compose down ..."
 msgstr ""
 
+msgid "docker compose down all files..."
+msgstr ""
+
 msgid "docker compose file version"
 msgstr ""
 
@@ -870,6 +885,9 @@ msgstr ""
 msgid "down"
 msgstr ""
 
+msgid "down all"
+msgstr ""
+
 msgid "down and remove orphans"
 msgstr ""
 
@@ -881,6 +899,9 @@ msgstr "např. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
 msgstr "např. 172.20.10.128/25"
+
+msgid "file not found!"
+msgstr ""
 
 msgid "follow logs"
 msgstr ""

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 19:57-0500\n"
+"POT-Creation-Date: 2025-04-13 08:23-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -78,6 +78,9 @@ msgid "Are you sure you want to restart?"
 msgstr "您确定要重启？"
 
 msgid "Are you sure you want to restore global.env from backup?"
+msgstr ""
+
+msgid "Are you sure you want to stop all containers?"
 msgstr ""
 
 msgid "Are you sure you want to sync changes from the files?"
@@ -187,6 +190,9 @@ msgstr ""
 
 msgid "Container"
 msgstr "Container"
+
+msgid "Container state"
+msgstr ""
 
 msgid "Containers"
 msgstr "Containers"
@@ -445,6 +451,9 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+msgid "Maintenance"
+msgstr ""
+
 msgid "Max Size"
 msgstr "最大尺寸"
 
@@ -618,6 +627,9 @@ msgstr "脚本名字"
 msgid "Script filename cannot be"
 msgstr "脚本文件名称不能是"
 
+msgid "Scripts"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "选择一个组 ..."
 
@@ -772,6 +784,9 @@ msgstr "docker compose down --remove-orphans ..."
 msgid "docker compose down ..."
 msgstr "docker compose down ..."
 
+msgid "docker compose down all files..."
+msgstr ""
+
 msgid "docker compose file version"
 msgstr "docker compose file version"
 
@@ -850,6 +865,9 @@ msgstr "dockerfile 构建 ..."
 msgid "down"
 msgstr "下线"
 
+msgid "down all"
+msgstr ""
+
 msgid "down and remove orphans"
 msgstr "下线并删除孤立容器"
 
@@ -861,6 +879,9 @@ msgstr "如 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
 msgstr "如 172.20.10.128/25"
+
+msgid "file not found!"
+msgstr ""
 
 msgid "follow logs"
 msgstr "日志跟踪"

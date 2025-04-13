@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-30 19:11-0500\n"
+"POT-Creation-Date: 2025-04-13 08:23-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,6 +72,9 @@ msgid "Are you sure you want to restart?"
 msgstr ""
 
 msgid "Are you sure you want to restore global.env from backup?"
+msgstr ""
+
+msgid "Are you sure you want to stop all containers?"
 msgstr ""
 
 msgid "Are you sure you want to sync changes from the files?"
@@ -174,6 +177,9 @@ msgid "Configs"
 msgstr ""
 
 msgid "Container"
+msgstr ""
+
+msgid "Container state"
 msgstr ""
 
 msgid "Containers"
@@ -431,6 +437,9 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+msgid "Maintenance"
+msgstr ""
+
 msgid "Max Size"
 msgstr ""
 
@@ -596,6 +605,9 @@ msgstr ""
 msgid "Script filename cannot be"
 msgstr ""
 
+msgid "Scripts"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr ""
 
@@ -740,6 +752,9 @@ msgstr ""
 msgid "docker compose down ..."
 msgstr ""
 
+msgid "docker compose down all files..."
+msgstr ""
+
 msgid "docker compose file version"
 msgstr ""
 
@@ -818,6 +833,9 @@ msgstr ""
 msgid "down"
 msgstr ""
 
+msgid "down all"
+msgstr ""
+
 msgid "down and remove orphans"
 msgstr ""
 
@@ -828,6 +846,9 @@ msgid "e.g. 172.20.0.1"
 msgstr ""
 
 msgid "e.g. 172.20.10.128/25"
+msgstr ""
+
+msgid "file not found!"
 msgstr ""
 
 msgid "follow logs"
