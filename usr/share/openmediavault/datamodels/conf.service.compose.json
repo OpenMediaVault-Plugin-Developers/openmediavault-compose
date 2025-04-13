@@ -260,6 +260,12 @@
               "prune": {
                 "type": "boolean"
               },
+              "filestart": {
+                "type": "boolean"
+              },
+              "filestop": {
+                "type": "boolean"
+              },
               "sendemail": {
                 "type": "boolean"
               },

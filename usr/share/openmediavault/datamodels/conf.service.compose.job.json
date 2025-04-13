@@ -40,6 +40,14 @@
       "type": "boolean",
       "default": false
     },
+    "filestart": {
+      "type": "boolean",
+      "default": false
+    },
+    "filestop": {
+      "type": "boolean",
+      "default": false
+    },
     "sendemail": {
       "type": "boolean",
       "default": false

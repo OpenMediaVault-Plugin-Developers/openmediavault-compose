@@ -52,3 +52,27 @@ configure_compose_scheduled_prune:
     - user: root
     - group: root
     - mode: 644
+
+configure_compose_scheduled_start:
+  file.managed:
+    - name: "/etc/cron.d/omv-compose-start"
+    - source:
+      - salt://{{ tpldir }}/files/start.j2
+    - template: jinja
+    - context:
+        jobs: {{ config | json }}
+    - user: root
+    - group: root
+    - mode: 644
+
+configure_compose_scheduled_stop:
+  file.managed:
+    - name: "/etc/cron.d/omv-compose-stop"
+    - source:
+      - salt://{{ tpldir }}/files/stop.j2
+    - template: jinja
+    - context:
+        jobs: {{ config | json }}
+    - user: root
+    - group: root
+    - mode: 644

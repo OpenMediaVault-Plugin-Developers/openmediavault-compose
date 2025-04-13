@@ -2765,6 +2765,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $result = $db->getAssoc("conf.service.compose.job", $params['uuid']);
+        // set action visibility
+        $result['maintenance'] = $result['backup'] || $result['update'] || $result['prune'];
+        $result['cstate'] = $result['filestart'] || $result['filestop'];
         // Convert comma separated list into an array.
         $result['minute'] = explode(",", $result['minute']);
         $result['hour'] = explode(",", $result['hour']);
@@ -2780,7 +2783,20 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.setjob");
-        if (!$params['backup'] && !$params['update'] && !$params['prune']) {
+        // make checkboxes in hidden fields are set to false
+        if ($params['maintenance']) {
+            $params['filestart'] = false;
+            $params['filestop'] = false;
+        }
+        if ($params['cstate']) {
+            $params['backup'] = false;
+            $params['update'] = false;
+            $params['prune'] = false;
+        }
+        unset($params['maintenance']);
+        unset($params['cstate']);
+        if (!$params['backup'] && !$params['update'] && !$params['prune'] &&
+            !$params['filestart'] && !$params['filestop']) {
             throw new \OMV\ExecException(gettext('You must select at least one action type!'));
         }
         if ($params['backup']) {

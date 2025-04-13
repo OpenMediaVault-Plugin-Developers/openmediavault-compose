@@ -42,23 +42,109 @@ data:
         hint: _("Multiple exclusions should be comma separated.")
       - type: divider
         title: _("Action type")
+
+
+      - type: checkbox
+        name: maintenance
+        label: _("Maintenance")
+        value: true
+        modifiers:
+          - type: unchecked
+            opposite: false
+            constraint:
+              operator: truthy
+              arg0:
+                prop: cstate
+      - type: checkbox
+        name: cstate
+        label: _("Container state")
+        value: false
+        modifiers:
+          - type: unchecked
+            opposite: false
+            constraint:
+              operator: truthy
+              arg0:
+                prop: maintenance
+
       - type: container
+        modifiers:
         fields:
           - type: checkbox
             name: backup
             label: _('Backup')
             value: true
             hint: _('Backup container data.')
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: maintenance
           - type: checkbox
             name: update
             label: _('Update')
             value: false
             hint: _('Update all images in compose file. Will recreate containers after update if running.<br/>Update will always run after backup if backup is enabled.')
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: maintenance
           - type: checkbox
             name: prune
             label: _('Prune')
             value: false
             hint: _('Prune all dangling images.<br/>Does not use filter. Will run docker image prune -f')
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: maintenance
+      - type: container
+        modifiers:
+        fields:
+          - type: checkbox
+            name: filestart
+            label: _('Start')
+            value: false
+            hint: _('Start all compose files')
+            modifiers:
+              - type: unchecked
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: filestop
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cstate
+          - type: checkbox
+            name: filestop
+            label: _('Stop')
+            value: false
+            hint: _('Stop all compose files')
+            modifiers:
+              - type: unchecked
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: filestart
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cstate
+          - type: hidden
+            name: empty
+            value: false
+            submitValue: false
+
+      - type: divider
+        title: _("Scripts")
       - type: textInput
         name: prebackup
         label: _('Pre-backup script')

@@ -1,0 +1,94 @@
+#!/bin/bash
+#
+# shellcheck disable=SC1091,SC2086,SC2207
+#
+# Copyright (c) 2023-2025 openmediavault plugin developers
+#
+# This file is licensed under the terms of the GNU General Public
+# License version 2. This program is licensed "as is" without any
+# warranty of any kind, whether express or implied.
+#
+# version: 0.0.1
+
+export LC_ALL=C.UTF-8
+
+declare -i timeout=180
+declare -i i=0
+
+. /usr/share/openmediavault/scripts/helper-functions
+
+# logging location
+logDir="/var/log/"
+logFile="${logDir}/omv-compose-start.log"
+
+_log()
+{
+  msg=${1}
+  echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composestart] ${msg}" | tee -a ${logFile} >&2
+}
+
+compose="${1}"
+if [ -z "${compose}" ]; then
+  _log "No compose name set.  Exiting..."
+  exit 10
+fi
+_log "compose :: ${compose}"
+
+# Get docker storage path
+dockerStorage=$(omv_config_get "/config/services/compose/dockerStorage")
+_log "Docker storage :: ${dockerStorage}"
+
+# Get the shared folder reference and path
+sfref=$(omv_config_get "/config/services/compose/sharedfolderref")
+if ! omv_isuuid "${sfref}"; then
+  _log "No compose sharedfolder set."
+  exit 11
+fi
+sfpath="$(omv_get_sharedfolder_path "${sfref}")"
+if [ ! -d "${sfpath}" ]; then
+  _log "Shared folder directory does not exist.  Exiting..."
+  exit 12
+fi
+sfpath="${sfpath/%\/}"
+sfpath="${sfpath//\/\//\/}"
+_log "Compose file path :: ${sfpath}"
+
+# set path for yml and env files
+composepath="${sfpath}/${compose}"
+env="${composepath}/${compose}.env"
+globalenv="${sfpath}/global.env"
+ovr="${composepath}/compose.override.yml"
+yml="${composepath}/${compose}.yml"
+if [ ! -f "${yml}" ]; then
+  _log "Compose file '${yml}' does not exist.  Exiting..."
+  exit 13
+fi
+_log "Compose file :: ${yml}"
+
+while pgrep -f omv-compose-backup -l > /dev/null; do
+  _log "Backup is running.  Waiting ... ${i}"
+  sleep 10
+  (( i++ ))
+  if [ ${i} -gt ${timeout} ]; then
+    _log "Timed out waiting.  Exiting."
+    exit 15
+  fi
+done
+
+# build compose arguments
+dockerComposeArgs=("--file" "${yml}")
+if [ -f "${ovr}" ]; then
+  dockerComposeArgs+=("--file" "${ovr}")
+fi
+if [ -f "${globalenv}" ]; then
+  dockerComposeArgs+=("--env-file" "${globalenv}")
+fi
+dockerComposeArgs+=("--env-file" "${env}")
+
+# start container(s)
+_log "Starting container(s) ..."
+docker compose "${dockerComposeArgs[@]}" start
+
+_log "Done."
+
+exit 0

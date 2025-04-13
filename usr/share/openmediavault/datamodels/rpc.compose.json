@@ -421,11 +421,27 @@
           "type": "string",
           "required": true
         },
+        "maintenance": {
+          "type": "boolean",
+          "required": true
+        },
+        "cstate": {
+          "type": "boolean",
+          "required": true
+        },
         "update": {
           "type": "boolean",
           "required": true
         },
         "prune": {
+          "type": "boolean",
+          "required": true
+        },
+        "filestart": {
+          "type": "boolean",
+          "required": true
+        },
+        "filestop": {
           "type": "boolean",
           "required": true
         },
