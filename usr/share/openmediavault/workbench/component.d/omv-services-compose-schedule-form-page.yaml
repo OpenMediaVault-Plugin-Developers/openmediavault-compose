@@ -42,8 +42,6 @@ data:
         hint: _("Multiple exclusions should be comma separated.")
       - type: divider
         title: _("Action type")
-
-
       - type: checkbox
         name: maintenance
         label: _("Maintenance")
@@ -66,7 +64,6 @@ data:
               operator: truthy
               arg0:
                 prop: maintenance
-
       - type: container
         modifiers:
         fields:
@@ -142,7 +139,6 @@ data:
             name: empty
             value: false
             submitValue: false
-
       - type: divider
         title: _("Scripts")
       - type: textInput
@@ -153,9 +149,15 @@ data:
         modifiers:
           - type: visible
             constraint:
-              operator: truthy
+              operator: and
               arg0:
-                prop: backup
+                operator: truthy
+                arg0:
+                  prop: maintenance
+              arg1:
+                operator: truthy
+                arg0:
+                  prop: backup
       - type: textInput
         name: postbackup
         label: _('Post-backup script')
@@ -164,9 +166,15 @@ data:
         modifiers:
           - type: visible
             constraint:
-              operator: truthy
+              operator: and
               arg0:
-                prop: backup
+                operator: truthy
+                arg0:
+                  prop: maintenance
+              arg1:
+                operator: truthy
+                arg0:
+                  prop: backup
       - type: divider
         title: _("Schedule")
       - type: select
