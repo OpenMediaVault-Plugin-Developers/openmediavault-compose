@@ -1,3 +1,9 @@
+openmediavault-compose (7.4.3) UNRELEASED; urgency=medium
+
+  * Add scheduled container start or stop
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 12 Apr 2025 19:57:44 -0500
+
 openmediavault-compose (7.4.2) stable; urgency=low
 
   * Add full path of file in Configs datatable
