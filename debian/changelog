@@ -1,8 +1,8 @@
-openmediavault-compose (7.4.3) UNRELEASED; urgency=medium
+openmediavault-compose (7.4.3) stable; urgency=low
 
   * Add scheduled container start or stop
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 12 Apr 2025 19:57:44 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 13 Apr 2025 09:19:07 -0500
 
 openmediavault-compose (7.4.2) stable; urgency=low
 
