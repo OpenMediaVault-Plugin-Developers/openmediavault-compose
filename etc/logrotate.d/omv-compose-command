@@ -1,6 +1,8 @@
 /var/log/omv-compose-backup.log
 /var/log/omv-compose-restore.log
 /var/log/omv-compose-update.log
+/var/log/omv-compose-start.log
+/var/log/omv-compose-stop.log
 {
   monthly
   missingok
