@@ -2898,6 +2898,28 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         throw new \OMV\ExecException($cmdLine, $output);
                     }
                 }
+                if ($object->get('filestart')) {
+                    $cmdArgs = [];
+                    $cmdArgs[] = '/usr/sbin/omv-compose-start-multi';
+                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setRedirect2to1();
+                    $cmdLine = $cmd->getCommandLine();
+                    if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                        throw new \OMV\ExecException($cmdLine, $output);
+                    }
+                }
+                if ($object->get('filestop')) {
+                    $cmdArgs = [];
+                    $cmdArgs[] = '/usr/sbin/omv-compose-stop-multi';
+                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setRedirect2to1();
+                    $cmdLine = $cmd->getCommandLine();
+                    if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                        throw new \OMV\ExecException($cmdLine, $output);
+                    }
+                }
                 return $output;
             }
         );
