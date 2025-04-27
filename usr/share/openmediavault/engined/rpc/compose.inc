@@ -1523,6 +1523,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $body = trim(file_get_contents($params['url']));
+        $body = preg_replace('/^(\s*)(?!#)(env_file:)/m', '$1#${2}', $body);
         // set object values
         $object->set('name', $params['name']);
         $object->set('description', $params['description']);
