@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.1.0
+# version: 1.2.0
 
 export LC_ALL=C.UTF-8
 
@@ -132,9 +132,34 @@ if [ $? -gt 0 ] || [ -z "${confout}" ]; then
   exit 17
 fi
 
-# get volumes
-ymlVols=($(${yq} '.services[] | .volumes' "${yml}" | grep '^- ' | sed 's/^- //' | sed 's/"//g'))
-confVols=($(${yq} eval '.services[].volumes[]? | .source + ":" + .target' "${confout}"))
+# get services
+services=($(${yq} '.services | keys | .[]' "${yml}"))
+
+serviceVolsMap=()
+
+OFS=$IFS
+IFS=$'\n'
+
+# build list of all container host and container paths with comments
+for service in "${services[@]}"; do
+  ymlVolsSvc=($(${yq} ".services.${service}.volumes" "${yml}" 2>/dev/null | sed 's/^- //' | sed 's/"//g'))
+  confVolsSvc=($(${yq} eval ".services.${service}.volumes[]? | .source + \":\" + .target" "${confout}" 2>/dev/null))
+
+  for vol in "${ymlVolsSvc[@]}"; do
+    if [ -n "${vol}" ]; then
+      vol2="${vol#*:}"
+      vol2a="$(extractContPath "${vol}")"
+      for confvol in "${confVolsSvc[@]}"; do
+        confvol1="${confvol%%:*}"
+        confvol2="${confvol#*:}"
+        if [ "${confvol2}" = "${vol2a}" ]; then
+          serviceVolsMap+=("${confvol1}:${vol2}")
+          break
+        fi
+      done
+    fi
+  done
+done
 
 IFS=$OFS
 
@@ -190,25 +215,18 @@ mkdir -pv "${voldir}"
 cp -v "${yml}" "${ovr}" "${env}" "${voldir}/"
 
 # loop through volumes
-for vol in "${confVols[@]}"; do
-  # container path
-  contpath="${vol#*:}"
-  cmt=""
-  for item in "${ymlVols[@]}"; do
-    contitem=$(extractContPath "${item}")
-    if [[ "${contpath%/}" == "${contitem%/}" ]]; then
-      cmt="${item}"
-      break
-    fi
-  done
-  if [ -z "${cmt}" ]; then
-    _log "no docker compose config match found for ${vol}"
-    continue
-  fi
-  # host path
+for vol in "${serviceVolsMap[@]}"; do
+  _log "Volume :: ${vol}"
   hostpath="${vol%%:*}"
   hostpath="${hostpath//\'/}"
-  _log "Volume :: ${vol}"
+  _log "host path :: ${hostpath}"
+  contpath=$(extractContPath "${vol}")
+  _log "container path :: ${contpath}"
+  cmt=""
+  if [[ "$vol" == *#* ]]; then
+    cmt="${vol##*#}"
+  fi
+  _log "path comment :: ${cmt}"
   # check for paths to skip or force
   if [[ "${cmt}" == *"SKIP_BACKUP"* ]]; then
     _log "Skipping for SKIP_BACKUP comment :: ${vol}"
