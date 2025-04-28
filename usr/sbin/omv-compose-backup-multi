@@ -8,7 +8,9 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.1.6
+# version: 0.2.0
+
+. /usr/share/openmediavault/scripts/helper-functions
 
 export LC_ALL=C.UTF-8
 
@@ -19,8 +21,6 @@ filter=""
 postbackup=""
 prebackup=""
 uuid=""
-
-. /usr/share/openmediavault/scripts/helper-functions
 
 # logging location
 logDir="/var/log/"
@@ -33,13 +33,21 @@ _log()
 }
 
 # loop through options
-while getopts "f:hu:" opt; do
-  case "${opt}" in
-    f)
-      filter="${OPTARG}"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -f)
+      filter="$2"
+      shift 2
       ;;
-    h)
+    -u)
+      uuid="$2"
+      _log "uuid :: ${uuid}"
+      shift 2
+      ;;
+    -h)
       echo "Use the following flags:"
+      echo "  -f 'filter'"
+      echo "    will be used over filter specified without -f flag"
       echo "  -h"
       echo "    show this help"
       echo "  -u uuid of job"
@@ -53,20 +61,19 @@ while getopts "f:hu:" opt; do
       echo ""
       exit 100
       ;;
-    u)
-      uuid="${OPTARG}"
-      _log "uuid :: ${uuid}"
+    -*)
+      echo "Invalid option: $1"
+      exit 1
       ;;
-    \?)
-      echo "Invalid option: -${OPTARG}"
+    *)
+      # if no dash in front, treat as a filter
+      if [[ -z "${filter}" ]]; then
+        filter="$1"
+      fi
+      shift
       ;;
   esac
 done
-
-# if executing doesn't use options, use passed arg as filter
-if [[ ! "${1}" = "-f" ]] && [[ ! "${1}" = "-u" ]]; then
-  filter="${1}"
-fi
 
 if [[ "${filter}" == "*" ]]; then
   filter=""
