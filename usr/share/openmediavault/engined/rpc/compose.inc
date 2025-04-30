@@ -1330,13 +1330,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             try {
                 $file = $db->get('conf.service.compose.file', $objectv->get('fileref'));
                 $objectv->set('composefile', $file->get('name'));
+                $path = sprintf('%s/%s/%s', $sfpath, $file->get('name'), $objectv->get('name'));
+                $fullpath = file_exists($path) ? $path : gettext("file not found!");
             } catch (Exception $e) {
-            }
-            $fullpath = sprintf('%s/%s/%s', $sfpath, $file->get('name'), $objectv->get('name'));
-            if (!file_exists($fullpath)) {
                 $fullpath = gettext("file not found!");
             }
             $objectv->add('fullpath', 'string', $fullpath);
+            $objectv->remove('body');
             $objectsAssoc[] = $objectv->getAssoc();
         }
         // Filter the result.
