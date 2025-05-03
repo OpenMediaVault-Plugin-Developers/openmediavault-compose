@@ -205,6 +205,7 @@ data:
             name: execenable
             label: _("Enable")
             value: false
+            hint: _("User must be in dockerterm group to login.")
           - type: textInput
             name: host
             label: _("Host")
@@ -218,10 +219,11 @@ data:
               min: 1024
               max: 65536
               patternType: integer
-          - type: checkbox
-            name: debug
-            label: _("Debug mode")
-            value: false
+            hint: _("Port to listen on.")
+      - type: hidden
+        name: debug
+        label: _("Debug mode")
+        value: false
     buttons:
       - template: submit
       - template: cancel
