@@ -8,12 +8,13 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.1.1
+# version: 0.1.2
 
 export LC_ALL=C.UTF-8
 
 declare -i timeout=180
 declare -i i=0
+declare -A before_versions
 
 . /usr/share/openmediavault/scripts/helper-functions
 
@@ -88,7 +89,9 @@ _log "status :: $(cat ${status})"
 
 # log current image versions
 for image in $(sudo ${yq} .services.[].image "${yml}"); do
-  _log "version before :: $(docker image ls --format "{{.ID}},{{.Repository}}:{{.Tag}}" ${image})"
+   version_before=$(docker image ls --format '{{.ID}},{{.Repository}}:{{.Tag}}' "${image}")
+  _log "version before :: ${version_before}"
+  before_versions["${image}"]="${version_before}"
 done
 
 # build compose arguments
@@ -107,7 +110,10 @@ docker compose "${dockerComposeArgs[@]}" pull
 
 # log image versions after update
 for image in $(sudo ${yq} .services.[].image "${yml}"); do
-  _log "version after :: $(docker image ls --format "{{.ID}},{{.Repository}}:{{.Tag}}" ${image})"
+  version_after=$(docker image ls --format '{{.ID}},{{.Repository}}:{{.Tag}}' "${image}")
+  if [ "${version_after}" != "${before_versions["${image}"]}" ]; then
+    _log "version after :: ${version_after}"
+  fi
 done
 
 # recreate containers with new images if running
