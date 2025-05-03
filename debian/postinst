@@ -27,30 +27,12 @@ case "$1" in
         ln -sf /usr/share/javascript/xterm/xterm.js /opt/omv-compose-term/static/xterm.js
         ln -sf /usr/share/javascript/xterm/xterm.css /opt/omv-compose-term/static/xterm.css
 
-        # wget https://cdn.socket.io/4.8.1/socket.io.min.js
+        # wget https://cdn.socket.io/4.8.1/socket.io.min.js -O /opt/omv-compose-term/static/socket.io.min.js
 
         # create dockerterm group if it doesn't exist
         if ! getent group dockerterm >/dev/null 2>&1; then
             groupadd --system dockerterm
         fi
-
-        # create home dir if it doesn't exist
-        mkdir -p /var/lib/dockerterm
-
-        # create dockerterm user if it doesn't exist
-        if ! getent passwd dockerterm >/dev/null 2>&1; then
-          useradd --system \
-            --gid dockerterm \
-            --groups docker \
-            --home-dir /var/lib/dockerterm \
-            --shell /usr/sbin/nologin \
-            --comment "omv-compose-term service" \
-            dockerterm
-        fi
-
-        # fix permissions
-        chown -R dockerterm:dockerterm /var/lib/dockerterm
-        chown -R dockerterm:dockerterm /opt/omv-compose-term
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
