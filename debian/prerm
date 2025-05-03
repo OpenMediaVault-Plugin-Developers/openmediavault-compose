@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+  purge|remove|failed-upgrade|abort-install|abort-upgrade|disappear)
+    rm -f /opt/omv-compose-term/static/xterm.js
+    rm -f /opt/omv-compose-term/static/xterm.css
+    ;;
+
+  upgrade)
+  ;;
+
+  *)
+    echo "postrm called with unknown argument \`$1'" >&2
+    exit 1
+  ;;
+esac
+
+exit 0

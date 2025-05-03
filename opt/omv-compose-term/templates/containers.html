@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Terminal - Container Selection</title>
+     <!-- External stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='containers.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Available Containers</h1>
+            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+        </div>
+        
+        {% if containers %}
+            <ul class="container-list">
+                {% for container in containers %}
+                <li class="container-item">
+                    <a href="{{ url_for('terminal', container=container) }}">{{ container }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="no-containers">
+                <p>No containers are currently running.</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

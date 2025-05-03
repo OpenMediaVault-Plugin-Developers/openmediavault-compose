@@ -9,11 +9,16 @@ Homepage: http://omv-extras.org/
 
 Package: openmediavault-compose
 Architecture: all
-Depends: openmediavault (>= 7),
+Depends: openmediavault (>= 7.7.6),
          openmediavault-omvextrasorg (>= 7),
          openmediavault-sharerootfs,
          python3-docker,
          python3-pretty-yaml,
+         python3-flask,
+         python3-flask-socketio,
+         python3-eventlet,
+         python3-pam,
+         libjs-xterm,
          ${misc:Depends}
 Recommends: docker-ce (>= 27.2.1),
             docker-compose-plugin (>= 2.29.2)

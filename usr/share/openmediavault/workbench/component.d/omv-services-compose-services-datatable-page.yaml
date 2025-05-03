@@ -43,6 +43,10 @@ data:
         prop: status
         flexGrow: 1
         sortable: true
+      - name: _("Terminal Link")
+        prop: execurl
+        flexGrow: 1
+        sortable: true
       - name: _("Ports")
         prop: ports
         flexGrow: 1

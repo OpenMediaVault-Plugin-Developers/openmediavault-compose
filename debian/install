@@ -3,3 +3,4 @@ usr/bin/*  usr/bin
 usr/sbin/*  usr/sbin
 usr/share/openmediavault/*  usr/share/openmediavault
 srv/*                       srv
+opt/omv-compose-term/*  opt/omv-compose-term

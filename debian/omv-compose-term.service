@@ -1,0 +1,12 @@
+[Unit]
+Description=Docker exec terminal for openmediavault-compose
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/omv-compose-term
+ExecStart=/usr/bin/python3 /opt/omv-compose-term/omv-compose-term.py
+Environment="FLASK_APP=/opt/omv-compose-term/omv-compose-term.py"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

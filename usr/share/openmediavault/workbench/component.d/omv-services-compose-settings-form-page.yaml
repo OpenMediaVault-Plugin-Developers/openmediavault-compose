@@ -197,6 +197,31 @@ data:
               max: 65536
               patternType: integer
               required: true
+      - type: divider
+        title: _("Container Exec Terminal service")
+      - type: container
+        fields:
+          - type: checkbox
+            name: execenable
+            label: _("Enable")
+            value: false
+          - type: textInput
+            name: host
+            label: _("Host")
+            value: "0.0.0.0"
+            hint: _("IP to listen on. Use 0.0.0.0 for all IPs.")
+          - type: numberInput
+            name: port
+            label: _("Port")
+            value: 5000
+            validators:
+              min: 1024
+              max: 65536
+              patternType: integer
+          - type: checkbox
+            name: debug
+            label: _("Debug mode")
+            value: false
     buttons:
       - template: submit
       - template: cancel

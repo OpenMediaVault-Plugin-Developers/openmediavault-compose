@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Terminal - {{ container }}</title>
+    <!-- External stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='terminal.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Terminal: {{ container }}</h1>
+        <div class="header-buttons">
+            <a href="{{ url_for('container_selection') }}">Back to Containers</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+
+    <div id="terminal-container" onclick="focusTerminal()">
+        <div id="terminal"></div>
+        <input type="text" id="terminal-input" autocomplete="off" autofocus>
+        <div id="status">Connected to {{ container }}</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const containerEl = document.getElementById('terminal-container');
+        const termEl      = document.getElementById('terminal');
+        const inputEl     = document.getElementById('terminal-input');
+        const container   = "{{ container }}";
+
+        let bufferHTML   = '';
+        let currentInput = '';
+
+        function focusTerminal() { inputEl.focus(); }
+        window.onload = focusTerminal;
+        document.addEventListener('click', focusTerminal);
+
+        function render() {
+            // Render buffer + prompt + input + cursor
+            termEl.innerHTML = bufferHTML
+                + `[${container}]$ ${escapeHTML(currentInput)}`
+                + '<span class="cursor"></span>';
+            // Scroll the container to bottom
+            containerEl.scrollTop = containerEl.scrollHeight;
+        }
+
+        function escapeHTML(str) {
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function formatOutput(data) {
+            let escaped = escapeHTML(data).replace(/\r/g, '');
+            let colored = escaped
+                .replace(/\[32m/g, '<span class="ansi-green">')
+                .replace(/\[31m/g, '<span class="ansi-red">')
+                .replace(/\[33m/g, '<span class="ansi-yellow">')
+                .replace(/\[34m/g, '<span class="ansi-blue">')
+                .replace(/\[0m/g, '</span>');
+            let lines = colored.split('\n');
+            while (lines.length > 0 && lines[0] === '') lines.shift();
+            let normalized = [];
+            for (let line of lines) {
+                if (line === '' && normalized[normalized.length - 1] === '') continue;
+                normalized.push(line);
+            }
+            if (normalized.length > 0 && /^\[[^\]]+\]\$\s*$/.test(normalized[normalized.length - 1])) {
+                normalized.pop();
+            }
+            let html = normalized.join('<br>');
+            if (html !== '' && !html.endsWith('<br>')) html += '<br>';
+            return html;
+        }
+
+        socket.on('connect', () => {
+            socket.emit('start_terminal', { container });
+        });
+
+        socket.on('output', (data) => {
+            bufferHTML += formatOutput(data);
+            render();
+        });
+
+        inputEl.addEventListener('input', (e) => {
+            currentInput = e.target.value;
+            render();
+        });
+
+        inputEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                socket.emit('terminal_input', { input: currentInput, container });
+                bufferHTML += escapeHTML(`[${container}]$ ${currentInput}`) + '<br>';
+                currentInput = '';
+                inputEl.value = '';
+                render();
+            }
+            if (e.key === 'c' && e.ctrlKey) {
+                socket.emit('terminal_input', { input: '\x03', container });
+            }
+        });
+    </script>
+</body>
+</html>

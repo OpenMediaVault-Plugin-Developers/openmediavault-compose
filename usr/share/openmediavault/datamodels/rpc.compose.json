@@ -102,6 +102,18 @@
         "showcmd": {
           "type": "boolean",
           "required": true
+        },
+        "execenable": {
+          "type": "boolean",
+          "required": true
+        },
+        "host": {
+          "type": "string",
+          "required": true
+        },
+        "port": {
+          "type": "integer",
+          "required": true
         }
       }
     }
