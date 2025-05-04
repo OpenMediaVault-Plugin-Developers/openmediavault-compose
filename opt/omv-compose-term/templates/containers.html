@@ -15,10 +15,15 @@
                 <i class="fab fa-docker"></i>
                 Docker Containers
             </h1>
-            <button class="logout" onclick="window.location.href='{{ url_for('logout') }}'">
-                <i class="fas fa-sign-out-alt"></i>
-                Logout
-            </button>
+            <div class="header-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+                <button class="logout" onclick="window.location.href='{{ url_for('logout') }}'">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
         </div>
 
         {% if containers %}
@@ -41,5 +46,5 @@
             </div>
         {% endif %}
     </div>
+    <script src="{{ url_for('static', filename='light-dark-theme.js') }}""></script>
 </body>
-</html>
