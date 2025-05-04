@@ -1597,7 +1597,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
                     }
                     if ($envfilepath != '') {
-                            $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
+                        $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
                     }
                     $cmdArgs[] = 'ps';
                     $cmdArgs[] = '--all';
@@ -1616,11 +1616,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     foreach ($imagej->Publishers as $publisher) {
                         $ports[] = $this->getPort($context, $publisher, $fqdn);
                     }
-                    if($settings->get("execenable") == 0) { 
-                        $url = 'disabled';
-		    } else {
-                    $url = sprintf('<a href="%s/%s" target="_blank">exec terminal</a>',
-                        $execurl, $imagej->Name);
+                    if ($settings->get("execenable") == 0) {
+                        $url = gettext("disabled");
+                    } else {
+                        $url = sprintf('<a href="%s/%s" target="_blank">exec terminal</a>',
+                          $execurl, $imagej->Name);
                     }
                     $imagesAssoc[] = [
                         "name" => $imagej->Name,
@@ -1783,8 +1783,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $ports[] = $port;
                 }
             }
-            $url = sprintf('<a href="%s/%s" target="_blank">exec terminal</a>',
-              $execurl, $container->Names);
+            if ($settings->get("execenable") == 0) {
+                $url = gettext("disabled");
+            } else {
+                $url = sprintf('<a href="%s/%s" target="_blank">exec terminal</a>',
+                  $execurl, $container->Names);
+            }
             $cntAssoc[] = [
                 "id" => $container->ID,
                 "name" => $container->Names,
