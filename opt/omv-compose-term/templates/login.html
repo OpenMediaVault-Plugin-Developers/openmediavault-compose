@@ -12,6 +12,10 @@
 </head>
 <body>
     <div class="container">
+        <button id="themeToggle" class="theme-toggle">
+            <i id="themeIcon" class="fas fa-moon"></i>
+        </button>
+
         <h1><i class="fab fa-docker"></i> Docker Terminal Login</h1>
         
         {% if error %}
@@ -43,5 +47,6 @@
             Docker Terminal &copy; 2023
         </div>
     </div>
+    <script src="{{ url_for('static', filename='light-dark-theme.js') }}""></script>
 </body>
 </html>
