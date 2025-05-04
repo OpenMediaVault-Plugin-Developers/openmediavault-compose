@@ -1,59 +1,135 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 20px;
-  background-color: #f5f5f5;
-}
-.container {
-  max-width: 800px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-h1 {
-  text-align: center;
-  color: #333;
-}
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.logout {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-}
-.container-list {
-  list-style: none;
-  padding: 0;
-}
-.container-item {
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  padding: 15px;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-}
-.container-item a {
-  display: block;
-  color: #2196F3;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-}
-.container-item a:hover {
-  text-decoration: underline;
-}
-.no-containers {
-  text-align: center;
-  color: #757575;
-  padding: 20px;
-}
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --border: #e5e7eb;
+            --hover-bg: #f3f4f6;
+            --transition: all 0.2s ease-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .title i {
+            color: var(--primary);
+        }
+
+        .logout {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .logout:hover {
+            background: var(--hover-bg);
+        }
+
+        .container-list {
+            list-style: none;
+            padding: 8px;
+        }
+
+        .container-item {
+            margin: 4px 0;
+        }
+
+        .container-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .container-link:hover {
+            background: var(--hover-bg);
+        }
+
+        .container-name {
+            font-weight: 500;
+            font-size: 15px;
+            font-family: 'Menlo', 'Consolas', monospace;
+        }
+
+        .container-arrow {
+            color: var(--border);
+            transition: var(--transition);
+        }
+
+        .container-link:hover .container-arrow {
+            color: var(--primary);
+            transform: translateX(3px);
+        }
+
+        .empty-state {
+            padding: 40px 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .empty-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            color: #d1d5db;
+        }
+
+        @media (max-width: 640px) {
+            .header {
+                padding: 16px;
+            }
+            
+            .container-link {
+                padding: 12px 16px;
+            }
+        }

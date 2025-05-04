@@ -1616,8 +1616,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     foreach ($imagej->Publishers as $publisher) {
                         $ports[] = $this->getPort($context, $publisher, $fqdn);
                     }
+                    if($settings->get("execenable") == 0) { 
+                        $url = 'disabled';
+		    } else {
                     $url = sprintf('<a href="%s/%s" target="_blank">exec terminal</a>',
                         $execurl, $imagej->Name);
+                    }
                     $imagesAssoc[] = [
                         "name" => $imagej->Name,
                         "image" => $imagej->Image,
