@@ -4,27 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Docker Terminal - Container Selection</title>
-     <!-- External stylesheet -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='containers.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div class="app">
         <div class="header">
-            <h1>Available Containers</h1>
-            <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+            <h1 class="title">
+                <i class="fab fa-docker"></i>
+                Docker Containers
+            </h1>
+            <button class="logout" onclick="window.location.href='{{ url_for('logout') }}'">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
         </div>
-        
+
         {% if containers %}
             <ul class="container-list">
                 {% for container in containers %}
                 <li class="container-item">
-                    <a href="{{ url_for('terminal', container=container) }}">{{ container }}</a>
+                    <a href="{{ url_for('terminal', container=container) }}" class="container-link">
+                        <span class="container-name">{{ container }}</span>
+                        <i class="fas fa-chevron-right container-arrow"></i>
+                    </a>
                 </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <div class="no-containers">
-                <p>No containers are currently running.</p>
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fas fa-box-open"></i>
+                </div>
+                <p>No running containers</p>
             </div>
         {% endif %}
     </div>
