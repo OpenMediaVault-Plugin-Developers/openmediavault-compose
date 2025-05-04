@@ -2546,16 +2546,19 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $imageJson = json_decode($image);
             $inuse = false;
             foreach ($containerImages as $img) {
-                $imginfo = explode(':', $img);
-                if ($imginfo[0] == $imageJson->Repository) {
-                    if (strlen($imginfo[1]) > 0) {
-                        if ($imginfo[1] == $imageJson->Tag) {
+                $pos = strrpos($img, ':');
+                $repo = substr($img, 0, $pos);
+                $tag = substr($img, $pos + 1);
+                if ($img === $imageJson->ID) {
+                    $inuse = true;
+                    break;
+                }
+                if ($repo == $imageJson->Repository) {
+                    if (strlen($tag) > 0) {
+                        if ($tag == $imageJson->Tag) {
                             $inuse = true;
                             break;
                         }
-                    } else {
-                        $inuse = true;
-                        break;
                     }
                 }
             }
