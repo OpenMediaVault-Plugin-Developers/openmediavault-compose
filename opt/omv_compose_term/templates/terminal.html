@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Terminal - {{ container }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='terminal.css') }}">
+    <style>
+        #terminal-container {
+            height: 80vh;
+            width: 100%;
+            padding: 0;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Terminal: {{ container }}</h1>
+        <div class="header-buttons">
+            <a href="{{ url_for('container_selection') }}">Back to Containers</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+
+    <div id="terminal-container"></div>
+    <div id="status">Connected to {{ container }}</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.min.js"></script>
+    <script>
+        const socket = io();
+        const container = "{{ container }}";
+
+        const term = new Terminal();
+        term.open(document.getElementById('terminal-container'));
+        term.focus();
+
+        socket.on('connect', () => {
+            socket.emit('start_terminal', { container });
+        });
+
+        socket.on('output', (data) => {
+            term.write(data);
+        });
+
+        term.onData((data) => {
+            socket.emit('terminal_input', { input: data, container });
+        });
+
+        socket.on('terminal_exit', () => {
+            // go back to the container list
+            window.location.href = "{{ url_for('container_selection') }}";
+        });
+    </script>
+</body>
+</html>
