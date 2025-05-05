@@ -6,14 +6,6 @@
     <title>Docker Terminal - {{ container }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='terminal.css') }}">
-    <style>
-        #terminal-container {
-            height: 80vh;
-            width: 100%;
-            padding: 0;
-            margin: 0 auto;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -25,7 +17,6 @@
     </header>
 
     <div id="terminal-container"></div>
-    <div id="status">Connected to {{ container }}</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.min.js"></script>

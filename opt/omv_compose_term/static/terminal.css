@@ -33,6 +33,11 @@ h1 {
   white-space: pre-wrap;
   font-size: 14px;
   line-height: 1.3;
+  height: 100%;
+}
+.xterm {
+  width: 100%;
+  height: 100%;
 }
 #terminal-input {
   position: absolute;
