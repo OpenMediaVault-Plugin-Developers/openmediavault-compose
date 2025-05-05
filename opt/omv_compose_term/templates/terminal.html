@@ -44,6 +44,10 @@
             // go back to the container list
             window.location.href = "{{ url_for('container_selection') }}";
         });
+
+        window.addEventListener('beforeunload', () => {
+            socket.emit('close_terminal', { termId });
+        });
     </script>
 </body>
 </html>

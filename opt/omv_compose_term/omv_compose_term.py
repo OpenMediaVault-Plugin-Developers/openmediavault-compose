@@ -203,6 +203,22 @@ def terminal_input(data):
         os.write(master_fd, inp.encode())
     else:
         emit('output', 'No shell session\n')
+        import signal
+
+@socketio.on('close_terminal')
+def on_close_terminal(data):
+    sid = request.sid
+    entry = shells.pop(sid, None)
+    if entry:
+        master_fd, child_pid = entry
+        try:
+            os.kill(pid, signal.SIGTERM)
+        except OSError:
+            pass
+        try:
+            os.close(master_fd)
+        except OSError:
+            pass
 
 
 if __name__ == '__main__':
