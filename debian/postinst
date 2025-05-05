@@ -24,10 +24,10 @@ case "$1" in
         find /var/cache/openmediavault/ -type f -name "compose_cache_*"
 
         # create xterm.js symlinks
-        ln -sf /usr/share/javascript/xterm/xterm.js /opt/omv-compose-term/static/xterm.js
-        ln -sf /usr/share/javascript/xterm/xterm.css /opt/omv-compose-term/static/xterm.css
+        ln -sf /usr/share/javascript/xterm/xterm.js /opt/omv_compose_term/static/xterm.js
+        ln -sf /usr/share/javascript/xterm/xterm.css /opt/omv_compose_term/static/xterm.css
 
-        # wget https://cdn.socket.io/4.8.1/socket.io.min.js -O /opt/omv-compose-term/static/socket.io.min.js
+        # wget https://cdn.socket.io/4.8.1/socket.io.min.js -O /opt/omv_compose_term/static/socket.io.min.js
 
         # create dockerterm group if it doesn't exist
         if ! getent group dockerterm >/dev/null 2>&1; then
