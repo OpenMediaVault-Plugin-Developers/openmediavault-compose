@@ -6,6 +6,8 @@ import signal, sys, atexit
 import threading
 import configparser
 import PAM
+import termios, tty
+import fcntl, struct, termios
 
 # Load configuration
 cfg = configparser.ConfigParser()
@@ -187,8 +189,11 @@ def start_terminal(data):
     pid, master_fd = pty.fork()
     if pid == 0:
         # In child: exec interactive shell
-        os.execvp('docker', ['docker', 'exec', '-i', '-t', container, 'bash', '--noprofile', '--norc', '-i'])
+        env = os.environ.copy()
+        env['TERM'] = data.get('termType','xterm')
+        os.execvpe('docker', ['docker', 'exec', '-i', '-t', container, 'bash', '--noprofile', '--norc', '-i'], env)
     else:
+        tty.setraw(master_fd)
         shells[sid] = (master_fd, pid)
         threading.Thread(target=read_and_emit, args=(master_fd, sid), daemon=True).start()
         emit('output', f"Connected to {container}\r\n")
@@ -204,6 +209,13 @@ def terminal_input(data):
     else:
         emit('output', 'No shell session\n')
         import signal
+
+@socketio.on('resize')
+def resize(data):
+    rows = data['rows']; cols = data['cols']
+    # pack winsize: rows, cols, xpixels, ypixels
+    winsize = struct.pack('HHHH', rows, cols, 0, 0)
+    fcntl.ioctl(master_fd, termios.TIOCSWINSZ, winsize)
 
 @socketio.on('close_terminal')
 def on_close_terminal(data):

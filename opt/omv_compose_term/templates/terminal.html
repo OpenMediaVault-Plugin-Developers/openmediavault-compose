@@ -29,7 +29,7 @@
         term.focus();
 
         socket.on('connect', () => {
-            socket.emit('start_terminal', { container });
+            socket.emit('start_terminal', {container, termType: term.termType});
         });
 
         socket.on('output', (data) => {
@@ -42,7 +42,10 @@
 
         socket.on('terminal_exit', () => {
             // go back to the container list
-            window.location.href = "{{ url_for('container_selection') }}";
+            term.write('\r\n\x1b[1;31m[ session ended – press any key to return ]\x1b[0m');
+            term.onKey(() => {
+              window.location.href = "{{ url_for('container_selection') }}";
+            });
         });
 
         window.addEventListener('beforeunload', () => {
