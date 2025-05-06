@@ -4,53 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Docker Terminal - {{ container }}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='terminal.css') }}">
 </head>
-<body>
+<body class="light-theme">
     <header>
-        <h1>Terminal: {{ container }}</h1>
-        <div class="header-buttons">
-            <a href="{{ url_for('container_selection') }}">Back to Containers</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
+        <div class="header-left">
+            <h1><i class="fas fa-terminal"></i> {{ container }}</h1>
+        </div>
+        <div class="header-right">
+            <button id="themeToggle" class="theme-toggle">
+                <i id="themeIcon" class="fas fa-moon"></i>
+            </button>
+            <a href="{{ url_for('container_selection') }}" class="btn">
+                <i class="fas fa-server"></i> Containers
+            </a>
+            <a href="{{ url_for('logout') }}" class="btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
         </div>
     </header>
 
-    <div id="terminal-container"></div>
+    <div class="terminal-wrapper">
+        <div id="terminal"></div>
+    </div>
+    <div id="status">
+        <i class="fas fa-circle connected"></i> Connected to {{ container }}
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.7.0/lib/xterm-addon-fit.min.js"></script>
     <script>
-        const socket = io();
-        const container = "{{ container }}";
-
-        const term = new Terminal();
-        term.open(document.getElementById('terminal-container'));
-        term.focus();
-
-        socket.on('connect', () => {
-            socket.emit('start_terminal', {container, termType: term.termType});
-        });
-
-        socket.on('output', (data) => {
-            term.write(data);
-        });
-
-        term.onData((data) => {
-            socket.emit('terminal_input', { input: data, container });
-        });
-
-        socket.on('terminal_exit', () => {
-            // go back to the container list
-            term.write('\r\n\x1b[1;31m[ session ended – press any key to return ]\x1b[0m');
-            term.onKey(() => {
-              window.location.href = "{{ url_for('container_selection') }}";
+        // Theme management
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const body = document.body;
+            
+            // Check saved theme or system preference
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Set initial theme
+            const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+            body.className = initialTheme + '-theme';
+            themeIcon.className = initialTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            // Theme toggle
+            themeToggle.addEventListener('click', function() {
+                const isDark = body.classList.contains('dark-theme');
+                body.classList.replace(
+                    isDark ? 'dark-theme' : 'light-theme', 
+                    isDark ? 'light-theme' : 'dark-theme'
+                );
+                themeIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+                localStorage.setItem('theme', isDark ? 'light' : 'dark');
+                updateTerminalTheme(!isDark);
             });
+
+            // Initialize terminal with theme
+            initTerminal(initialTheme === 'dark');
         });
 
-        window.addEventListener('beforeunload', () => {
-            socket.emit('close_terminal', { termId });
-        });
+        // Terminal initialization
+        function initTerminal(isDarkTheme) {
+            const term = new Terminal({
+                cursorBlink: true,
+                fontSize: 14,
+                fontFamily: "'Menlo', 'Consolas', monospace",
+                theme: isDarkTheme ? {
+                    background: '#1f2937',
+                    foreground: '#f9fafb',
+                    cursor: '#3b82f6',
+                    selection: 'rgba(59, 130, 246, 0.3)'
+                } : {
+                    background: '#ffffff',
+                    foreground: '#1f2937',
+                    cursor: '#2563eb',
+                    selection: 'rgba(37, 99, 235, 0.3)'
+                }
+            });
+
+            const fitAddon = new FitAddon.FitAddon();
+            term.loadAddon(fitAddon);
+            term.open(document.getElementById('terminal'));
+            
+            function fitTerminal() {
+                try {
+                    fitAddon.fit();
+                    const dimensions = term.proposeDimensions();
+                    if (dimensions) {
+                        term.resize(dimensions.cols, dimensions.rows);
+                    }
+                } catch (e) {
+                    console.error('Error fitting terminal:', e);
+                }
+            }
+
+            // Initial fit and on resize
+            fitTerminal();
+            window.addEventListener('resize', debounce(fitTerminal, 100));
+
+            const socket = io();
+            const container = "{{ container }}";
+
+            // Terminal <-> Socket.io communication
+            term.onData(data => socket.emit('terminal_input', { input: data, container }));
+            socket.on('output', data => term.write(data));
+            socket.on('terminal_exit', () => {
+                term.write('\r\n\x1b[1;31m[Session ended - press any key to return]\x1b[0m\r\n');
+                term.onKey(() => window.location.href = "{{ url_for('container_selection') }}");
+            });
+
+            socket.on('connect', () => socket.emit('start_terminal', {container, termType: term.termType}));
+        }
+
+        function updateTerminalTheme(isDarkTheme) {
+            const termElement = document.querySelector('#terminal');
+            if (termElement) {
+                termElement.style.backgroundColor = isDarkTheme ? '#1f2937' : '#ffffff';
+            }
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), wait);
+            };
+        }
     </script>
 </body>
 </html>
