@@ -1,9 +1,13 @@
-openmediavault-compose (7.5.0) UNRELEASED; urgency=medium
+openmediavault-compose (7.5.0-6) UNRELEASED; urgency=medium
 
   * Add container exec terminal
   * Improve configs tab datatable population error handling
   * Only show version after line in logs if version changed
     in update script
+  * Use full volume path to check for :ro
+  * Use yq 4.45.2
+  * Use regctl 0.8.3
+  * Add verbose option to backup job
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 30 Apr 2025 06:39:38 -0500
 
