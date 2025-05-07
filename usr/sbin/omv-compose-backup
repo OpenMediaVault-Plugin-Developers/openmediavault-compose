@@ -15,6 +15,7 @@ export LC_ALL=C.UTF-8
 . /usr/share/openmediavault/scripts/helper-functions
 
 declare -i force=0
+declare -i verbose=1
 declare -i i=0
 declare -i j=0
 
@@ -101,6 +102,11 @@ if [ ! -f "${yq}" ]; then
   _log "'${yq}' does not exist.  Exiting..."
   exit 16
 fi
+
+if omv_isuuid "${uuid}"; then
+  verbose="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/verbose")"
+fi
+_log "Verbose :: ${verbose}"
 
 # Get the backup max size
 backupmaxsize=$(omv_config_get "/config/services/compose/backupmaxsize")
@@ -291,7 +297,11 @@ for vol in "${serviceVolsMap[@]}"; do
     voldir="${backupdir}/${i}"
     mkdir -pv "${voldir}"
     _log "Backup to :: ${voldir}"
-    args=(-avr)
+    if [ ${verbose} -eq 0 ]; then
+      args=(-ar)
+    else
+      args=(-avr)
+    fi
     args+=(--delete)
     if [ -d "${hostpath}" ]; then
       hostpath="${hostpath}/"

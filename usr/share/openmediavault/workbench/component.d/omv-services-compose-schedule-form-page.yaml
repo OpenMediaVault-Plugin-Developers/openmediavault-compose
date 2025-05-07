@@ -547,6 +547,11 @@ data:
         label: _('Send command output via email')
         value: false
         hint: _('An email message with the command output (if any produced) is send to the user who performs the job.')
+      - type: checkbox
+        name: verbose
+        label: _('Verbose')
+        value: true
+        hint: _('If checked, backup rsync command will include the verbose flag.')
       - type: textInput
         name: comment
         label: _('Comment')

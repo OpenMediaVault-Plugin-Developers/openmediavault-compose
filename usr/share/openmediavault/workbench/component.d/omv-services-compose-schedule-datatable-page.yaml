@@ -51,6 +51,12 @@ data:
         flexGrow: 1
         sortable: true
         cellTemplateName: checkIcon
+      - name: _('Verbose')
+        prop: verbose
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: checkIcon
+        hidden: true
       - name: _('Scheduling')
         prop: ''
         flexGrow: 1
