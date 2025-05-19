@@ -191,7 +191,19 @@ def start_terminal(data):
         # In child: exec interactive shell
         env = os.environ.copy()
         env['TERM'] = data.get('termType','xterm')
-        os.execvpe('docker', ['docker', 'exec', '-i', '-t', container, 'bash', '--noprofile', '--norc', '-i'], env)
+        base_args = ['docker', 'exec', '-i', '-t', container]
+        # Check if bash works
+        check = subprocess.call(
+            base_args + ['bash', '-c', 'exit 0'],
+            env=env,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        if check == 0:
+            args = base_args + ['bash', '--noprofile', '--norc', '-i']
+        else:
+            args = base_args + ['sh', '-i']
+        os.execvpe('docker', args, env)
     else:
         tty.setraw(master_fd)
         shells[sid] = (master_fd, pid)
