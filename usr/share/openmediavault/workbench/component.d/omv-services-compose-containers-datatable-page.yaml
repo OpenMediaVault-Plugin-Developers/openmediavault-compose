@@ -93,6 +93,25 @@ data:
                   command2: ""
                   id: "{{ _selected[0].id }}"
       - type: iconButton
+        icon: mdi:note-search-outline
+        tooltip: _("inspect")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker inspect ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doContainerCommand
+                params:
+                  command: "inspect"
+                  command2: ""
+                  id: "{{ _selected[0].id }}"
+      - type: iconButton
         icon: mdi:file-document-outline
         tooltip: _("logs")
         enabledConstraints:

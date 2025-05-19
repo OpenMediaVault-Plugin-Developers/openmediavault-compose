@@ -120,6 +120,50 @@ data:
                   envpath: "{{ _selected[0].envpath }}"
                   overridepath: "{{ _selected[0].overridepath }}"
       - type: iconButton
+        icon: mdi:stop
+        tooltip: _("stop")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker compose stop ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doServiceCommand
+                params:
+                  command: "stop"
+                  command2: ""
+                  service: "{{ _selected[0].service }}"
+                  path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"
+                  overridepath: "{{ _selected[0].overridepath }}"
+      - type: iconButton
+        icon: mdi:arrow-down-circle-outline
+        tooltip: _("down")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker compose down ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doServiceCommand
+                params:
+                  command: "down"
+                  command2: ""
+                  service: "{{ _selected[0].service }}"
+                  path: "{{ _selected[0].filepath }}"
+                  envpath: "{{ _selected[0].envpath }}"
+                  overridepath: "{{ _selected[0].overridepath }}"
+      - type: iconButton
         icon: mdi:restart
         tooltip: _("restart")
         enabledConstraints:
@@ -141,6 +185,25 @@ data:
                   path: "{{ _selected[0].filepath }}"
                   envpath: "{{ _selected[0].envpath }}"
                   overridepath: "{{ _selected[0].overridepath }}"
+      - type: iconButton
+        icon: mdi:note-search-outline
+        tooltip: _("inspect")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker inspect ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doContainerCommand
+                params:
+                  command: "inspect"
+                  command2: ""
+                  id: "{{ _selected[0].name }}"
       - type: iconButton
         icon: mdi:file-document-outline
         tooltip: _("logs")
