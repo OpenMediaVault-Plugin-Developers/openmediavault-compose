@@ -23,15 +23,18 @@ case "$1" in
         # clear cache
         find /var/cache/openmediavault/ -type f -name "compose_cache_*"
 
-        # create xterm.js symlinks
-        ln -sf /usr/share/javascript/xterm/xterm.js /opt/omv_compose_term/static/xterm.js
-        ln -sf /usr/share/javascript/xterm/xterm.css /opt/omv_compose_term/static/xterm.css
-
-        # wget https://cdn.socket.io/4.8.1/socket.io.min.js -O /opt/omv_compose_term/static/socket.io.min.js
-
         # create dockerterm group if it doesn't exist
         if ! getent group dockerterm >/dev/null 2>&1; then
             groupadd --system dockerterm
+        fi
+
+        # restart service if running
+        term="omv_compose_term.service"
+        if systemctl is-active --quiet "${term}"; then
+            # remove python cache
+            rm -rfv /opt/omv_compose_term/__pycache__
+            # restart service
+            systemctl restart "${term}"
         fi
     ;;
 

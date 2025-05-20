@@ -4,13 +4,14 @@ set -e
 
 case "$1" in
   purge|remove|failed-upgrade|abort-install|abort-upgrade|disappear)
-    rm -f /opt/omv_compose_term/static/xterm.js
-    rm -f /opt/omv_compose_term/static/xterm.css
+    # remove python cache
     rm -rfv /opt/omv_compose_term/__pycache__
-    systemctl stop omv_compose_term.service || :
-    rm -f /etc/systemd/system/omv_compose_term.service
+
+    # stop and remove service
+    systemctl stop "${term}" || :
+    rm -f "/etc/systemd/system/${term}"
     systemctl daemon-reload
-    ;;
+  ;;
 
   upgrade)
   ;;

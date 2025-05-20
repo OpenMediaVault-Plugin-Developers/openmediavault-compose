@@ -17,7 +17,6 @@ Depends: openmediavault (>= 7.7.6),
          python3-flask,
          python3-flask-socketio,
          python3-pam,
-         libjs-xterm,
          ${misc:Depends}
 Recommends: docker-ce (>= 27.2.1),
             docker-compose-plugin (>= 2.29.2),
