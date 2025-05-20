@@ -1,4 +1,4 @@
-openmediavault-compose (7.5.0-8) UNRELEASED; urgency=medium
+openmediavault-compose (7.5.0-8) stable; urgency=low
 
   * Add container exec terminal
   * Improve configs tab datatable population error handling
@@ -11,7 +11,7 @@ openmediavault-compose (7.5.0-8) UNRELEASED; urgency=medium
   * Add down, stop, and inspect to Services tab
   * Add inspect to Containers tab
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 30 Apr 2025 06:39:38 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 20 May 2025 18:07:42 -0500
 
 openmediavault-compose (7.4.5) stable; urgency=low
 
