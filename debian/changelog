@@ -1,3 +1,10 @@
+openmediavault-compose (7.5.1) stable; urgency=low
+
+  * Sort container list on exec terminal list
+  * Fix column calculation and line wrap
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 21 May 2025 16:47:40 -0500
+
 openmediavault-compose (7.5.0-8) stable; urgency=low
 
   * Add container exec terminal
