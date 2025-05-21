@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 09:30-0500\n"
+"POT-Creation-Date: 2025-05-21 16:48-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -197,6 +197,9 @@ msgstr ""
 msgid "Container"
 msgstr "Container"
 
+msgid "Container Exec Terminal service"
+msgstr ""
+
 msgid "Container state"
 msgstr ""
 
@@ -250,6 +253,9 @@ msgstr "Data"
 
 msgid "Date & Time"
 msgstr "日期&时间"
+
+msgid "Debug mode"
+msgstr ""
 
 msgid "Delete"
 msgstr "删除"
@@ -332,6 +338,9 @@ msgstr "编辑全局环境变量文件。"
 msgid "Edit scheduled job."
 msgstr "编辑计划任务。"
 
+msgid "Enable"
+msgstr ""
+
 msgid "Enable Docker repo"
 msgstr "启用 Docker 源"
 
@@ -394,11 +403,17 @@ msgstr "全局环境变量"
 msgid "Group of directories and files"
 msgstr "文件和文件夹所属组"
 
+msgid "Host"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "IP 范围"
+
+msgid "IP to listen on. Use 0.0.0.0 for all IPs."
+msgstr ""
 
 msgid "Image"
 msgstr "镜像"
@@ -564,6 +579,12 @@ msgstr "请设置共享文件夹用于数据存储。"
 msgid "Please set shared folder for file storage."
 msgstr "请设置共享文件夹用于文件存储。"
 
+msgid "Port"
+msgstr ""
+
+msgid "Port to listen on."
+msgstr ""
+
 msgid "Ports"
 msgstr "端口"
 
@@ -711,6 +732,9 @@ msgstr "标签"
 msgid "Tags"
 msgstr "标签"
 
+msgid "Terminal Link"
+msgstr ""
+
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
 
@@ -763,6 +787,9 @@ msgstr "上线"
 msgid "Uptime"
 msgstr "上线时间"
 
+msgid "User must be in dockerterm group to login."
+msgstr ""
+
 msgid "Version"
 msgstr "版本"
 
@@ -783,6 +810,9 @@ msgstr "运行"
 
 msgid "check"
 msgstr "检查"
+
+msgid "disabled"
+msgstr ""
 
 msgid "docker compose down --remove-orphans ..."
 msgstr "docker compose down --remove-orphans ..."
@@ -896,6 +926,9 @@ msgid "global.env has been restored from backup."
 msgstr ""
 
 msgid "init git repo"
+msgstr ""
+
+msgid "inspect"
 msgstr ""
 
 msgid "logs"

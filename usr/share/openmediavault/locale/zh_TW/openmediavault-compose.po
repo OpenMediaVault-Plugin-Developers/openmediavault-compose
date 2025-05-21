@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 09:30-0500\n"
+"POT-Creation-Date: 2025-05-21 16:48-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -81,7 +81,7 @@ msgid "Are you sure you want to restore global.env from backup?"
 msgstr "您確定要從備份來復原 global.env 嗎？"
 
 msgid "Are you sure you want to stop all containers?"
-msgstr ""
+msgstr "您確定要停止全部的容器嗎？"
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "您確定要從檔案同步變更嗎？"
@@ -162,10 +162,10 @@ msgid "Compose Restore"
 msgstr "Compose 還原"
 
 msgid "Compose Start"
-msgstr ""
+msgstr "Compose 啟動"
 
 msgid "Compose Stop"
-msgstr ""
+msgstr "Compose 停止"
 
 msgid "Compose Update"
 msgstr "Compose 更新"
@@ -197,8 +197,11 @@ msgstr "配置"
 msgid "Container"
 msgstr "容器"
 
-msgid "Container state"
+msgid "Container Exec Terminal service"
 msgstr ""
+
+msgid "Container state"
+msgstr "容器狀態"
 
 msgid "Containers"
 msgstr "容器"
@@ -250,6 +253,9 @@ msgstr "資料"
 
 msgid "Date & Time"
 msgstr "日期與時間"
+
+msgid "Debug mode"
+msgstr ""
 
 msgid "Delete"
 msgstr "刪除"
@@ -332,6 +338,9 @@ msgstr "編輯全機環境變數檔案。"
 msgid "Edit scheduled job."
 msgstr "編輯預訂工作。"
 
+msgid "Enable"
+msgstr ""
+
 msgid "Enable Docker repo"
 msgstr "啟用 Docker 影像庫"
 
@@ -395,11 +404,17 @@ msgstr "全機環境變數"
 msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
 
+msgid "Host"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "IP 範圍"
+
+msgid "IP to listen on. Use 0.0.0.0 for all IPs."
+msgstr ""
 
 msgid "Image"
 msgstr "影像"
@@ -459,7 +474,7 @@ msgid "Logout"
 msgstr "登出"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "維護"
 
 msgid "Max Size"
 msgstr "最大大小"
@@ -565,6 +580,12 @@ msgstr "請於設定分頁中設定資料的檔案夾。"
 msgid "Please set shared folder for file storage."
 msgstr "請設定檔案儲存用的共享檔案夾。"
 
+msgid "Port"
+msgstr ""
+
+msgid "Port to listen on."
+msgstr ""
+
 msgid "Ports"
 msgstr "連接埠"
 
@@ -635,7 +656,7 @@ msgid "Script filename cannot be"
 msgstr "腳本程式檔案名稱不能是"
 
 msgid "Scripts"
-msgstr ""
+msgstr "腳本程式"
 
 msgid "Select a group ..."
 msgstr "選擇一個群組 …"
@@ -712,6 +733,9 @@ msgstr "標籤"
 msgid "Tags"
 msgstr "標籤"
 
+msgid "Terminal Link"
+msgstr ""
+
 msgid "The config file will be created in this compose file's directory."
 msgstr "配置檔案將被建立於此 compse 檔案所在的目錄中。"
 
@@ -764,6 +788,9 @@ msgstr "起動"
 msgid "Uptime"
 msgstr "運作時間"
 
+msgid "User must be in dockerterm group to login."
+msgstr ""
+
 msgid "Version"
 msgstr "版本"
 
@@ -785,6 +812,9 @@ msgstr "且執行中"
 msgid "check"
 msgstr "檢查"
 
+msgid "disabled"
+msgstr ""
+
 msgid "docker compose down --remove-orphans ..."
 msgstr "docker compose down --remove-orphans ..."
 
@@ -792,7 +822,7 @@ msgid "docker compose down ..."
 msgstr "docker compose down ..."
 
 msgid "docker compose down all files..."
-msgstr ""
+msgstr "docker compose down all files..."
 
 msgid "docker compose file version"
 msgstr "docker compose file version"
@@ -873,10 +903,10 @@ msgid "down"
 msgstr "停止並拆解"
 
 msgid "down all"
-msgstr ""
+msgstr "停止並拆解全部"
 
 msgid "down and remove orphans"
-msgstr "停止並移除孤兒"
+msgstr "停止並拆解移除孤兒"
 
 msgid "e.g. 172.20.0.0/16"
 msgstr "例如：172.20.0.0/16"
@@ -888,7 +918,7 @@ msgid "e.g. 172.20.10.128/25"
 msgstr "例如：172.20.10.128/25"
 
 msgid "file not found!"
-msgstr ""
+msgstr "没有檔案！"
 
 msgid "follow logs"
 msgstr "追隨日誌"
@@ -898,6 +928,9 @@ msgstr "global.env 已經從備份復原回來。"
 
 msgid "init git repo"
 msgstr "初始化 git 儲存庫"
+
+msgid "inspect"
+msgstr ""
 
 msgid "logs"
 msgstr "日誌"

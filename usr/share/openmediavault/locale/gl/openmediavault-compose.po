@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 09:30-0500\n"
+"POT-Creation-Date: 2025-05-21 16:48-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Galician (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -191,6 +191,9 @@ msgstr ""
 msgid "Container"
 msgstr ""
 
+msgid "Container Exec Terminal service"
+msgstr ""
+
 msgid "Container state"
 msgstr ""
 
@@ -243,6 +246,9 @@ msgid "Data"
 msgstr ""
 
 msgid "Date & Time"
+msgstr ""
+
+msgid "Debug mode"
 msgstr ""
 
 msgid "Delete"
@@ -326,6 +332,9 @@ msgstr ""
 msgid "Edit scheduled job."
 msgstr ""
 
+msgid "Enable"
+msgstr ""
+
 msgid "Enable Docker repo"
 msgstr ""
 
@@ -388,10 +397,16 @@ msgstr ""
 msgid "Group of directories and files"
 msgstr ""
 
+msgid "Host"
+msgstr ""
+
 msgid "ID"
 msgstr ""
 
 msgid "IP range"
+msgstr ""
+
+msgid "IP to listen on. Use 0.0.0.0 for all IPs."
 msgstr ""
 
 msgid "Image"
@@ -556,6 +571,12 @@ msgstr ""
 msgid "Please set shared folder for file storage."
 msgstr ""
 
+msgid "Port"
+msgstr ""
+
+msgid "Port to listen on."
+msgstr ""
+
 msgid "Ports"
 msgstr ""
 
@@ -703,6 +724,9 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
+msgid "Terminal Link"
+msgstr ""
+
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
 
@@ -755,6 +779,9 @@ msgstr ""
 msgid "Uptime"
 msgstr ""
 
+msgid "User must be in dockerterm group to login."
+msgstr ""
+
 msgid "Version"
 msgstr ""
 
@@ -774,6 +801,9 @@ msgid "and running"
 msgstr ""
 
 msgid "check"
+msgstr ""
+
+msgid "disabled"
 msgstr ""
 
 msgid "docker compose down --remove-orphans ..."
@@ -888,6 +918,9 @@ msgid "global.env has been restored from backup."
 msgstr ""
 
 msgid "init git repo"
+msgstr ""
+
+msgid "inspect"
 msgstr ""
 
 msgid "logs"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 09:30-0500\n"
+"POT-Creation-Date: 2025-05-21 16:48-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Rysiek Jurczy, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl/)\n"
@@ -212,6 +212,9 @@ msgstr ""
 msgid "Container"
 msgstr "Kontener"
 
+msgid "Container Exec Terminal service"
+msgstr ""
+
 msgid "Container state"
 msgstr ""
 
@@ -265,6 +268,9 @@ msgstr "Data"
 
 msgid "Date & Time"
 msgstr "Data i czas"
+
+msgid "Debug mode"
+msgstr ""
 
 msgid "Delete"
 msgstr "Usuń"
@@ -347,6 +353,9 @@ msgstr "Edycja pliku globalnych zmiennych środowiskowych."
 msgid "Edit scheduled job."
 msgstr "Edycja zaplanowanego zadania."
 
+msgid "Enable"
+msgstr ""
+
 msgid "Enable Docker repo"
 msgstr ""
 
@@ -411,11 +420,17 @@ msgstr "Globalne zmienne środowiskowe"
 msgid "Group of directories and files"
 msgstr "Grupa plików i folderów"
 
+msgid "Host"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "Zakres IP"
+
+msgid "IP to listen on. Use 0.0.0.0 for all IPs."
+msgstr ""
 
 msgid "Image"
 msgstr "Obraz"
@@ -585,6 +600,12 @@ msgstr ""
 msgid "Please set shared folder for file storage."
 msgstr ""
 
+msgid "Port"
+msgstr ""
+
+msgid "Port to listen on."
+msgstr ""
+
 msgid "Ports"
 msgstr "Porty"
 
@@ -732,6 +753,9 @@ msgstr "Tag"
 msgid "Tags"
 msgstr "Tagi"
 
+msgid "Terminal Link"
+msgstr ""
+
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
 
@@ -786,6 +810,9 @@ msgstr "Up"
 msgid "Uptime"
 msgstr ""
 
+msgid "User must be in dockerterm group to login."
+msgstr ""
+
 msgid "Version"
 msgstr "Wersja"
 
@@ -806,6 +833,9 @@ msgstr "i działa"
 
 msgid "check"
 msgstr "sprawdź"
+
+msgid "disabled"
+msgstr ""
 
 msgid "docker compose down --remove-orphans ..."
 msgstr ""
@@ -919,6 +949,9 @@ msgid "global.env has been restored from backup."
 msgstr ""
 
 msgid "init git repo"
+msgstr ""
+
+msgid "inspect"
 msgstr ""
 
 msgid "logs"

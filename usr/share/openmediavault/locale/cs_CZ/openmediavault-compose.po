@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-13 09:30-0500\n"
+"POT-Creation-Date: 2025-05-21 16:48-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Marek Pavelka, 2024\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
@@ -203,6 +203,9 @@ msgstr ""
 msgid "Container"
 msgstr "Kontejner"
 
+msgid "Container Exec Terminal service"
+msgstr ""
+
 msgid "Container state"
 msgstr ""
 
@@ -256,6 +259,9 @@ msgstr "Data"
 
 msgid "Date & Time"
 msgstr "Datum a čas"
+
+msgid "Debug mode"
+msgstr ""
 
 msgid "Delete"
 msgstr "Odstranit"
@@ -338,6 +344,9 @@ msgstr "Upravit soubor globálních proměnných prostředí."
 msgid "Edit scheduled job."
 msgstr "Upravit naplánovanou úlohu."
 
+msgid "Enable"
+msgstr ""
+
 msgid "Enable Docker repo"
 msgstr ""
 
@@ -402,11 +411,17 @@ msgstr "Globální proměnné prostředí"
 msgid "Group of directories and files"
 msgstr "Skupina adresářů a souborů"
 
+msgid "Host"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "Rozsah IP adres"
+
+msgid "IP to listen on. Use 0.0.0.0 for all IPs."
+msgstr ""
 
 msgid "Image"
 msgstr "Obraz"
@@ -578,6 +593,12 @@ msgstr "Nastavte sdílenou složku pro data na kartě Nastavení."
 msgid "Please set shared folder for file storage."
 msgstr "Nastavte sdílenou složku pro ukládání souborů."
 
+msgid "Port"
+msgstr ""
+
+msgid "Port to listen on."
+msgstr ""
+
 msgid "Ports"
 msgstr "Porty"
 
@@ -725,6 +746,9 @@ msgstr "Štítek"
 msgid "Tags"
 msgstr "Štítky"
 
+msgid "Terminal Link"
+msgstr ""
+
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
 
@@ -783,6 +807,9 @@ msgstr ""
 msgid "Uptime"
 msgstr "Doba provozu"
 
+msgid "User must be in dockerterm group to login."
+msgstr ""
+
 msgid "Version"
 msgstr "Verze"
 
@@ -802,6 +829,9 @@ msgid "and running"
 msgstr "a je spuštěno"
 
 msgid "check"
+msgstr ""
+
+msgid "disabled"
 msgstr ""
 
 msgid "docker compose down --remove-orphans ..."
@@ -916,6 +946,9 @@ msgid "global.env has been restored from backup."
 msgstr ""
 
 msgid "init git repo"
+msgstr ""
+
+msgid "inspect"
 msgstr ""
 
 msgid "logs"
