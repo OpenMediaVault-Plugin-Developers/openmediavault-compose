@@ -90,22 +90,23 @@
             const fitAddon = new FitAddon.FitAddon();
             term.loadAddon(fitAddon);
             term.open(document.getElementById('terminal'));
-            
-            function fitTerminal() {
+
+            // Resize pty + xterm whenever the window/container changes
+            function fitAndSync() {
                 try {
                     fitAddon.fit();
-                    const dimensions = term.proposeDimensions();
-                    if (dimensions) {
-                        term.resize(dimensions.cols, dimensions.rows);
-                    }
+                    socket.emit('resize', {
+                        cols: term.cols,
+                        rows: term.rows
+                    });
                 } catch (e) {
-                    console.error('Error fitting terminal:', e);
+                    console.error('Fit&Sync error:', e);
                 }
             }
 
             // Initial fit and on resize
-            fitTerminal();
-            window.addEventListener('resize', debounce(fitTerminal, 100));
+            setTimeout(fitAndSync, 0);
+            window.addEventListener('resize', debounce(fitAndSync, 100));
 
             const socket = io();
             const container = "{{ container }}";
@@ -117,8 +118,9 @@
                 term.write('\r\n\x1b[1;31m[Session ended - press any key to return]\x1b[0m\r\n');
                 term.onKey(() => window.location.href = "{{ url_for('container_selection') }}");
             });
-
-            socket.on('connect', () => socket.emit('start_terminal', {container, termType: term.termType}));
+            socket.on('connect', () => socket.emit('start_terminal', {
+                container, termType: term.termType
+            }));
         }
 
         function updateTerminalTheme(isDarkTheme) {

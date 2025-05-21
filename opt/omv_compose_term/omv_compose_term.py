@@ -224,10 +224,18 @@ def terminal_input(data):
 
 @socketio.on('resize')
 def resize(data):
-    rows = data['rows']; cols = data['cols']
-    # pack winsize: rows, cols, xpixels, ypixels
+    sid = request.sid
+    entry = shells.get(sid)
+    if not entry:
+        return
+    master_fd, child_pid = entry
+    rows, cols = data['rows'], data['cols']
     winsize = struct.pack('HHHH', rows, cols, 0, 0)
     fcntl.ioctl(master_fd, termios.TIOCSWINSZ, winsize)
+    try:
+        os.kill(child_pid, signal.SIGWINCH)
+    except OSError:
+        pass
 
 @socketio.on('close_terminal')
 def on_close_terminal(data):
