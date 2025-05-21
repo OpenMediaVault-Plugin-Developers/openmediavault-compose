@@ -81,7 +81,7 @@ def pam_authenticate(username, password):
 
 def get_containers():
     try:
-        out = subprocess.check_output("docker ps --format '{{.Names}}'", shell=True)
+        out = subprocess.check_output("docker container ls --format '{{.Names}}' | sort", shell=True)
         return [n for n in out.decode().splitlines() if n]
     except subprocess.CalledProcessError:
         return []
