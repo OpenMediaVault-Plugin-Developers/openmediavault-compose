@@ -205,7 +205,7 @@ data:
             name: execenable
             label: _("Enable")
             value: false
-            hint: _("User must be in dockerterm group to login.")
+            hint: _("User must be in dockerterm group to login.<br/>Service will be named CTerm in service status.")
           - type: textInput
             name: host
             label: _("Host")
