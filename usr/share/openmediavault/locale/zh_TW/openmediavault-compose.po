@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-21 16:48-0500\n"
+"POT-Creation-Date: 2025-05-24 08:34-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -116,6 +116,9 @@ msgstr "建構 ..."
 msgid "CPU %"
 msgstr "CPU %"
 
+msgid "CTerm"
+msgstr ""
+
 msgid "Cache has been cleared."
 msgstr "內存已經被清理。"
 
@@ -198,7 +201,7 @@ msgid "Container"
 msgstr "容器"
 
 msgid "Container Exec Terminal service"
-msgstr ""
+msgstr "容器執行終端機服務"
 
 msgid "Container state"
 msgstr "容器狀態"
@@ -255,7 +258,7 @@ msgid "Date & Time"
 msgstr "日期與時間"
 
 msgid "Debug mode"
-msgstr ""
+msgstr "偵錯模式"
 
 msgid "Delete"
 msgstr "刪除"
@@ -339,7 +342,7 @@ msgid "Edit scheduled job."
 msgstr "編輯預訂工作。"
 
 msgid "Enable"
-msgstr ""
+msgstr "啟用"
 
 msgid "Enable Docker repo"
 msgstr "啟用 Docker 影像庫"
@@ -405,7 +408,7 @@ msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
 
 msgid "Host"
-msgstr ""
+msgstr "主機"
 
 msgid "ID"
 msgstr "ID"
@@ -414,7 +417,7 @@ msgid "IP range"
 msgstr "IP 範圍"
 
 msgid "IP to listen on. Use 0.0.0.0 for all IPs."
-msgstr ""
+msgstr "要監聽的 IP 地址。使用 0.0.0.0 來代表所有 IP 地址。"
 
 msgid "Image"
 msgstr "影像"
@@ -581,10 +584,10 @@ msgid "Please set shared folder for file storage."
 msgstr "請設定檔案儲存用的共享檔案夾。"
 
 msgid "Port"
-msgstr ""
+msgstr "通訊埠"
 
 msgid "Port to listen on."
-msgstr ""
+msgstr "要監聽的通訊埠。"
 
 msgid "Ports"
 msgstr "連接埠"
@@ -734,7 +737,7 @@ msgid "Tags"
 msgstr "標籤"
 
 msgid "Terminal Link"
-msgstr ""
+msgstr "終端機連結"
 
 msgid "The config file will be created in this compose file's directory."
 msgstr "配置檔案將被建立於此 compse 檔案所在的目錄中。"
@@ -789,6 +792,11 @@ msgid "Uptime"
 msgstr "運作時間"
 
 msgid "User must be in dockerterm group to login."
+msgstr "用户必須屬於 dockerterm 群組才能登入。"
+
+msgid ""
+"User must be in dockerterm group to login.<br/>Service will be named CTerm "
+"in service status."
 msgstr ""
 
 msgid "Version"
@@ -813,7 +821,7 @@ msgid "check"
 msgstr "檢查"
 
 msgid "disabled"
-msgstr ""
+msgstr "已被停用"
 
 msgid "docker compose down --remove-orphans ..."
 msgstr "docker compose down --remove-orphans ..."
@@ -930,7 +938,7 @@ msgid "init git repo"
 msgstr "初始化 git 儲存庫"
 
 msgid "inspect"
-msgstr ""
+msgstr "檢驗"
 
 msgid "logs"
 msgstr "日誌"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-21 16:48-0500\n"
+"POT-Creation-Date: 2025-05-24 08:34-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Basque (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/eu/)\n"
 "MIME-Version: 1.0\n"
@@ -110,6 +110,9 @@ msgid "Build ..."
 msgstr ""
 
 msgid "CPU %"
+msgstr ""
+
+msgid "CTerm"
 msgstr ""
 
 msgid "Cache has been cleared."
@@ -780,6 +783,11 @@ msgid "Uptime"
 msgstr ""
 
 msgid "User must be in dockerterm group to login."
+msgstr ""
+
+msgid ""
+"User must be in dockerterm group to login.<br/>Service will be named CTerm "
+"in service status."
 msgstr ""
 
 msgid "Version"
