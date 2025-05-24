@@ -6,11 +6,14 @@ case "$1" in
   purge|remove|failed-upgrade|abort-install|abort-upgrade|disappear)
     # remove python cache
     rm -rfv /opt/omv_compose_term/__pycache__
-
     # stop and remove service
-    systemctl stop "${term}" || :
-    rm -f "/etc/systemd/system/${term}"
-    systemctl daemon-reload
+    term="omv_compose_term.service"
+    unit="/etc/systemd/system/${term}"
+    if [ -f "${unit}" ]; then
+      systemctl stop "${term}" || :
+      rm -f "${unit}"
+      systemctl daemon-reload
+    fi
   ;;
 
   upgrade)
