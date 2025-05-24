@@ -1,3 +1,10 @@
+openmediavault-compose (7.5.2) stable; urgency=low
+
+  * Add compose term service status
+  * Improve uninstall
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 24 May 2025 08:31:12 -0500
+
 openmediavault-compose (7.5.1) stable; urgency=low
 
   * Sort container list on exec terminal list
