@@ -137,6 +137,9 @@
     "debug": {
       "type": "boolean"
     },
+    "hostshell": {
+      "type": "boolean"
+    },
     "files": {
       "type": "object",
       "properties": {

@@ -8,3 +8,4 @@ debug = {{ 'True' if config.debug | to_bool else 'False' }}
 use_https = {{ 'True' if webadmin.enablessl | to_bool else 'False' }}
 ssl_cert = {{ ssl_cert_dir | path_join('certs', ssl_cert_prefix ~ webadmin.sslcertificateref ~ '.crt') }}
 ssl_key = {{ ssl_cert_dir | path_join('private', ssl_cert_prefix ~ webadmin.sslcertificateref ~ '.key') }}
+host_shell = {{ 'True' if config.hostshell | to_bool else 'False' }}

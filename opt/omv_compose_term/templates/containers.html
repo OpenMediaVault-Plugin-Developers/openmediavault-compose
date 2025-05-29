@@ -36,6 +36,14 @@
                     </a>
                 </li>
                 {% endfor %}
+                {% if host_shell %}
+                <li class="container-item">
+                    <a href="{{ url_for('terminal', container='__host__') }}" class="container-link">
+                        <span class="container-name">Host Shell</span>
+                        <i class="fas fa-chevron-right container-arrow"></i>
+                    </a>
+                </li>
+                {% endif %}
             </ul>
         {% else %}
             <div class="empty-state">

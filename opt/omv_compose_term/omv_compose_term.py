@@ -1,3 +1,13 @@
+#!/usr/bin/env python3
+
+# Copyright (c) 2025 openmediavault plugin developers
+#
+# This file is licensed under the terms of the GNU General Public
+# License version 2. This program is licensed "as is" without any
+# warranty of any kind, whether express or implied.
+#
+# version: 1.1.0
+
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from flask_socketio import SocketIO, emit
 import logging
@@ -20,6 +30,7 @@ DEBUG = srv.getboolean("debug", False)
 USE_HTTPS = srv.getboolean("use_https", False)
 SSL_CERT = srv.get("ssl_cert", None)
 SSL_KEY = srv.get("ssl_key", None)
+HOST_SHELL = srv.getboolean("host_shell", False)
 
 def handle_sigterm(signum, frame):
     for termId, (master_fd, pid) in list(shells.items()):
@@ -101,7 +112,7 @@ def after_request(response):
 def index():
     container = request.args.get('container')
     if session.get('username'):
-        return redirect(url_for('terminal', container=container)) if container else redirect(url_for('container_selection'))
+        return redirect(url_for('terminal', container=container, host_shell=HOST_SHELL)) if container else redirect(url_for('container_selection'))
     return render_template('login.html', container=container)
 
 @app.route('/login', methods=['POST'])
@@ -127,17 +138,27 @@ def logout():
 def container_selection():
     if not session.get('username'):
         return redirect(url_for('index'))
-    return render_template('containers.html', containers=get_containers())
+    return render_template('containers.html', containers=get_containers(), host_shell=HOST_SHELL)
 
 @app.route('/terminal/<container>')
 def terminal(container):
     if not session.get('username'):
         return redirect(url_for('index', container=container))
+    if container == '__host__':
+        if not HOST_SHELL:
+            return render_template(
+                'containers.html',
+                error="Host Shell is disabled",
+                containers=get_containers(),
+                host_shell=HOST_SHELL
+            )
+        else:
+            return render_template('terminal.html', container='__host__', host_shell=HOST_SHELL)
     try:
         subprocess.check_call(['docker', 'inspect', container], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return render_template('terminal.html', container=container)
+        return render_template('terminal.html', container=container, host_shell=HOST_SHELL)
     except subprocess.CalledProcessError:
-        return render_template('containers.html', error=f"Container '{container}' not found", containers=get_containers())
+        return render_template('containers.html', error=f"Container '{container}' not found", containers=get_containers(), host_shell=HOST_SHELL)
 
 # PTY read loop
 def read_and_emit(master_fd, sid):
@@ -180,6 +201,9 @@ def on_disconnect():
 def start_terminal(data):
     container = data.get('container')
     sid = request.sid
+    if container == '__host__' and not HOST_SHELL:
+        emit('output', 'Error: Host shell is disabled\n')
+        return
     if not container:
         emit('output', 'Error: No container specified\n')
         return
@@ -191,21 +215,53 @@ def start_terminal(data):
         # In child: exec interactive shell
         env = os.environ.copy()
         env['TERM'] = data.get('termType','xterm')
-        base_args = ['docker', 'exec', '-i', '-t', container]
-        # Check if bash works
-        check = subprocess.call(
-            base_args + ['bash', '-c', 'exit 0'],
-            env=env,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
-        )
-        if check == 0:
-            args = base_args + ['bash', '--noprofile', '--norc', '-i']
+        if container == '__host__':
+            # Prepare environment and args
+            username = session.get('username')
+            pw = pwd.getpwnam(username)
+            # Drop group privileges first
+            os.setgid(pw.pw_gid)
+            # Then user privileges
+            os.setuid(pw.pw_uid)
+            # Change working directory to the user's home
+            home_dir = pw.pw_dir
+            # if user's home doesn't exist, use /tmp
+            if not os.path.isdir(home_dir):
+                home_dir = '/tmp'
+            # Change working directory
+            os.chdir(home_dir)
+            # Update HOME and user env vars
+            env['HOME'] = pw.pw_dir
+            env['PWD'] = pw.pw_dir
+            env['USER'] = username
+            env['LOGNAME'] = username
+            env.pop('MAIL', None)
+            # exec host bash
+            args = ['--login', '-i']
+            os.execvpe('bash', args, env)
         else:
-            args = base_args + ['sh', '-i']
-        os.execvpe('docker', args, env)
+            base_args = ['docker', 'exec', '-i', '-t', container]
+            # Check if bash works
+            check = subprocess.call(
+                base_args + ['bash', '-c', 'exit 0'],
+                env=env,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            if check == 0:
+                args = base_args + ['bash', '--noprofile', '--norc', '-i']
+            else:
+                args = base_args + ['sh', '-i']
+            os.execvpe('docker', args, env)
     else:
         tty.setraw(master_fd)
+        if container == '__host__':
+            import termios
+            attrs = termios.tcgetattr(master_fd)
+            attrs[3] |= termios.ECHO
+            attrs[1] |= termios.OPOST | termios.ONLCR
+            termios.tcsetattr(master_fd, termios.TCSADRAIN, attrs)
+
         shells[sid] = (master_fd, pid)
         threading.Thread(target=read_and_emit, args=(master_fd, sid), daemon=True).start()
         emit('output', f"Connected to {container}\r\n")

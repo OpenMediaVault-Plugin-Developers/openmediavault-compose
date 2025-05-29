@@ -59,6 +59,7 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_key "/config/services/compose" "host" "0.0.0.0"
   omv_config_add_key "/config/services/compose" "port" "5000"
   omv_config_add_key "/config/services/compose" "debug" "0"
+  omv_config_add_key "/config/services/compose" "hostshell" "0"
   omv_config_add_node "/config/services/compose" "files"
   omv_config_add_node "/config/services/compose" "configs"
   omv_config_add_node "/config/services/compose" "dockerfiles"

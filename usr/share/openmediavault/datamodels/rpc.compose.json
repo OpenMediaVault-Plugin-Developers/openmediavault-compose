@@ -114,6 +114,10 @@
         "port": {
           "type": "integer",
           "required": true
+        },
+        "hostshell": {
+          "type": "boolean",
+          "required": true
         }
       }
     }

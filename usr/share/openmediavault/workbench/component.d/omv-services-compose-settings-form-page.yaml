@@ -206,6 +206,11 @@ data:
             label: _("Enable")
             value: false
             hint: _("User must be in dockerterm group to login.<br/>Service will be named CTerm in service status.")
+          - type: checkbox
+            name: hostshell
+            label: _("Host shell")
+            value: false
+            hint: _("Enable host shell option in container list.")
           - type: textInput
             name: host
             label: _("Host")
