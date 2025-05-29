@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        {% if containers %}
+        {% if containers or host_shell %}
             <ul class="container-list">
                 {% for container in containers %}
                 <li class="container-item">
