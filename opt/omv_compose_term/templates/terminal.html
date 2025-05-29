@@ -113,6 +113,7 @@
 
             // Terminal <-> Socket.io communication
             term.onData(data => socket.emit('terminal_input', { input: data, container }));
+            term.focus();
             socket.on('output', data => term.write(data));
             socket.on('terminal_exit', () => {
                 term.write('\r\n\x1b[1;31m[Session ended - press any key to return]\x1b[0m\r\n');
