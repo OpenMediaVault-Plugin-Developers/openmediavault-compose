@@ -1,3 +1,9 @@
+openmediavault-compose (7.5.3) UNRELEASED; urgency=medium
+
+  * Add host shell option
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 28 May 2025 18:28:48 -0500
+
 openmediavault-compose (7.5.2) stable; urgency=low
 
   * Add compose term service status
