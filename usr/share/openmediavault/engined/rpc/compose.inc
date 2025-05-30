@@ -2311,7 +2311,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         foreach ($data['Volumes'] as $volume) {
             $volumesAssoc[] = [
                 "name" => $volume['Name'],
-                "size" => $volume['Size'],
+                "size" => $this->convertToBytes($volume['Size']),
                 "mountpoint" => $volume['Mountpoint'],
                 "driver" => $volume['Driver']
             ];
