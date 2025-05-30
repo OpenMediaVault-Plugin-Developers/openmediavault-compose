@@ -1,3 +1,9 @@
+openmediavault-compose (7.5.4) UNRELEASED; urgency=medium
+
+  * Improve image in use detection
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 30 May 2025 09:34:51 -0500
+
 openmediavault-compose (7.5.3) stable; urgency=low
 
   * Add host shell option
