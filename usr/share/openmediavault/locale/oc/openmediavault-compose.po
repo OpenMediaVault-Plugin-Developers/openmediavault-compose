@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 08:34-0500\n"
+"POT-Creation-Date: 2025-05-28 19:31-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Occitan (post 1500) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/oc/)\n"
 "MIME-Version: 1.0\n"
@@ -344,6 +344,9 @@ msgstr ""
 msgid "Enable Docker repo ..."
 msgstr ""
 
+msgid "Enable host shell option in container list."
+msgstr ""
+
 msgid "Env Path"
 msgstr ""
 
@@ -401,6 +404,9 @@ msgid "Group of directories and files"
 msgstr ""
 
 msgid "Host"
+msgstr ""
+
+msgid "Host shell"
 msgstr ""
 
 msgid "ID"

@@ -4,8 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# 8824729be9983d825bb37f66c8de0642_fa12916, 2023
-# Rysiek Jurczy, 2023
+# Valentin Korenjak <valentin@korenjak.si>, 2025
 # 
 #, fuzzy
 msgid ""
@@ -14,133 +13,136 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-28 19:31-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: Rysiek Jurczy, 2023\n"
-"Language-Team: Polish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl/)\n"
+"Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
+"Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Language: sl_SI\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
 msgid "Action"
-msgstr "Działanie"
+msgstr "Akcija"
 
 msgid "Action type"
-msgstr "Rodzaj działania"
+msgstr "Vrsta akcije"
 
 msgid "Add"
 msgstr "Dodaj"
 
 msgid "Add example compose file"
-msgstr ""
+msgstr "Dodaj primer datoteke Compose"
 
 msgid "Add from Example"
-msgstr "Dodaj z przykładowych"
+msgstr "Dodaj na osnovi primera"
 
 msgid "Add from URL"
-msgstr "Dodaj z URL"
+msgstr "Dodaj iz URL naslova"
 
 msgid "Add..."
-msgstr ""
+msgstr "Dodaj ..."
 
 msgid "Adding an example compose file ..."
-msgstr ""
+msgstr "Dodajanje primera datoteke Compose ..."
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
-"Administrator - odczyt/zapis, Użytkownicy - brak dostępu, Inni - brak "
-"dostępu"
+"Administrator - branje/pisanje, Uporabniki - brez dostopa, Drugi - brez "
+"dostopa"
 
 msgid "Administrator - read/write, Users - read-only, Others - no access"
 msgstr ""
-"Administrator - odczyt/zapis, Użytkownicy - tylko odczyt, Inni - brak "
-"dostępu"
+"Administrator - branje/pisanje, Uporabniki - samo branje, Drugi - brez "
+"dostopa"
 
 msgid "Administrator - read/write, Users - read-only, Others - read-only"
 msgstr ""
-"Administrator - odczyt/zapis, Użytkownicy - tylko odczyt, Inni - tylko "
-"odczyt"
+"Administrator - branje/pisanje, Uporabniki - samo branje, Drugi - samo "
+"branje"
 
 msgid "Administrator - read/write, Users - read/write, Others - no access"
 msgstr ""
-"Administrator - odczyt/zapis, Użytkownicy - odczyt/zapis, Inni - brak "
-"dostępu"
+"Administrator - branje/pisanje, Uporabniki - branje/pisanje, Drugi - brez "
+"dostopa"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
-"Administrator - odczyt/zapis, Użytkownicy - odczyt/zapis, Inni - tylko "
-"odczyt"
+"Administrator - branje/pisanje, Uporabniki - branje/pisanje, Drugi - samo "
+"branje"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
 msgstr ""
+"Ste prepričani, da želite ustvariti nov git repozitorij? To bo izbrisalo vso"
+" zgodovino!"
 
 msgid "Are you sure you want to delete this backup?"
-msgstr ""
+msgstr "Ali ste prepričani, da želite izbrisati to varnostno kopijo?"
 
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Ste prepričani, da želite izbrisati?"
 
 msgid "Are you sure you want to reinstall?"
-msgstr "Czy na pewno chcesz przeinstalować?"
+msgstr "Ali ste prepričani, da želite ponovno namestiti?"
 
 msgid "Are you sure you want to restart?"
-msgstr "Czy na pewno chcesz uruchomić ponownie?"
+msgstr "Ste prepričani, da želite ponovno zagnati?"
 
 msgid "Are you sure you want to restore global.env from backup?"
 msgstr ""
+"Ali ste prepričani, da želite obnoviti global.env iz varnostne kopije?"
 
 msgid "Are you sure you want to stop all containers?"
-msgstr ""
+msgstr "Ste prepričani, da želite ustaviti vse zabojnike?"
 
 msgid "Are you sure you want to sync changes from the files?"
-msgstr ""
+msgstr "Ali ste prepričani, da želite sinhronizirati spremembe iz datotek?"
 
 msgid "Autocompose"
-msgstr "Konwertuj na Compose"
+msgstr "Autocompose"
 
 msgid "Aux address"
-msgstr "Adres AUX"
+msgstr "Pomožni naslov"
 
 msgid "Available"
-msgstr "Dostępne"
+msgstr "Na voljo"
 
 msgid "Backup"
-msgstr "Kopia zapasowa"
+msgstr "Varnostna kopija"
 
 msgid "Block In"
-msgstr "Wejścia blokowe"
+msgstr "Block In"
 
 msgid "Block Out"
-msgstr "Wyjścia blokowe"
+msgstr "Block Out"
 
 msgid "Body"
-msgstr ""
+msgstr "Telo"
 
 msgid "Build"
-msgstr "Kompilacja"
+msgstr "Gradnja"
 
 msgid "Build ..."
-msgstr ""
+msgstr "Gradnja ..."
 
 msgid "CPU %"
-msgstr "CPU %"
+msgstr "CPE %"
 
 msgid "CTerm"
-msgstr ""
+msgstr "CTerm"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "Predpomnilnik je bil izbrisan."
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "Predpomnilniški časi za zavihke"
 
 msgid "Changes have been synced from file."
-msgstr ""
+msgstr "Spremembe so bile sinhronizirane iz datoteke."
 
 msgid "Check compose file for errors ..."
-msgstr "Sprawdzanie pliku ompose pod kątem błędów ..."
+msgstr "Preverite napake v datoteki Compose ..."
 
 msgid ""
 "Choose which compose files to backup by filtering the compose name by this "
@@ -148,138 +150,138 @@ msgid ""
 " or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
 "multiple filters separated by commas."
 msgstr ""
-"Wybierz pliki Compose do kopii zapasowej filtrując wg. nazwy w tym "
-"polu.<br/>Filtr może być częściowym dopasowaniem z użyciem symbolu "
-"wieloznacznego (*). np. asd* lub *asd* oraz *asd<br/>Pozostaw puste lub użyj"
-" * dla wszystkich plików Compose.<br/> Dodaj wiele filtrów oddzielonych "
-"przecinkami."
+"S filtriranjem imena po tem polju izberite, katere datoteke Compose se bodo "
+"varnostno kopirale.<br/>Filter je lahko delno ujemanje z uporabo "
+"nadomestnega znaka (*), npr. asd* ali *asd* ali *asd<br/>Pustite prazno ali "
+"uporabite samo * za vse datoteke Compose.<br/>Dodajte več filtrov, ločenih z"
+" vejicami."
 
 msgid "Clear cache"
-msgstr ""
+msgstr "Izbriši predpomnilnik"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "Brisanje predpomnilnika ..."
 
 msgid "Command"
-msgstr "Komenda"
+msgstr "Ukaz"
 
 msgid "Compose"
 msgstr "Compose"
 
 msgid "Compose Backup"
-msgstr "Kopia Compose"
+msgstr "Compose varnostna kopija"
 
 msgid "Compose File"
-msgstr ""
+msgstr "Datoteka Compose"
 
 msgid "Compose Files"
-msgstr "Pliki Compose"
+msgstr "Datoteke Compose"
 
 msgid "Compose Restore"
-msgstr "Przywracanie Compose"
+msgstr "Obnovitev datoteke Compose"
 
 msgid "Compose Start"
-msgstr ""
+msgstr "Zaženi Compose"
 
 msgid "Compose Stop"
-msgstr ""
+msgstr "Ustavi Compose"
 
 msgid "Compose Update"
-msgstr "Utwórz aktualizację"
+msgstr "Posodobi Compose"
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr ""
-"Udostępniony folder plików Compose nie może być taki sam jak folder danych."
+"Deljena mapa datoteke Compose se mora razlikovati od deljene mape s podatki."
 
 msgid "Compose file to be associate imported files with"
-msgstr ""
+msgstr "Datoteka Compose, s katero boste povezali uvožene datoteke"
 
 msgid "Compose version"
-msgstr "Wersja Compose"
+msgstr "Verzija Compose-a"
 
 msgid "Conf"
-msgstr ""
+msgstr "Konf."
 
 msgid "Conf file"
-msgstr "Plik konfiguracyjny"
+msgstr "Konf. datoteka"
 
 msgid "Conf filename"
-msgstr "Nazwa pliku konfiguracyjnego"
+msgstr "Ime konf. datoteke"
 
 msgid "Conf filename cannot be"
-msgstr ""
+msgstr "Ime konf. datoteke ne more biti"
 
 msgid "Configs"
-msgstr ""
+msgstr "Nastavitve"
 
 msgid "Container"
-msgstr "Kontener"
+msgstr "Zabojnik"
 
 msgid "Container Exec Terminal service"
-msgstr ""
+msgstr "Storitev za izvajanje Exec konzole v zabojniku"
 
 msgid "Container state"
-msgstr ""
+msgstr "Stanje zabojnika"
 
 msgid "Containers"
-msgstr "Kontenery"
+msgstr "Zabojniki"
 
 msgid "Create"
-msgstr "Utwórz"
+msgstr "Ustvari"
 
 msgid "Create from URL"
-msgstr "Utw"
+msgstr "Ustvarjanje iz naslova URL"
 
 msgid "Create from example"
-msgstr "Utwórz z przykładowych"
+msgstr "Ustvari iz primera"
 
 msgid "Create new compose file from running container ..."
-msgstr "Tworzenie pliku compose z uruchomionego kontenera ..."
+msgstr "Ustvarjanje nove datoteke Compose iz delujočega zabojnika ..."
 
 msgid "Create new image tag ..."
-msgstr "Utwórz nowy tag obrazu..."
+msgstr "Ustvari novo oznako slike ..."
 
 msgid "Created"
-msgstr "Utworzono"
+msgstr "Ustvarjen"
 
 msgid "Created At"
-msgstr "Utworzono o"
+msgstr "Ustvarjeno na"
 
 msgid "Created config."
-msgstr ""
+msgstr "Ustvarjena konfiguracija."
 
 msgid "Created dockerfile."
-msgstr "Utworzono plik dockerfile."
+msgstr "Ustvarjena docker datoteka."
 
 msgid "Created file from url."
-msgstr "Utworzono plik z adresu URL."
+msgstr "Ustvarjena datoteka iz naslova url."
 
 msgid "Created file."
-msgstr "Utworzono plik."
+msgstr "Ustvarjena datoteka."
 
 msgid "Created network."
-msgstr "Utworzono sieć."
+msgstr "Ustvarjeno omrežje."
 
 msgid "Created scheduled job."
-msgstr "Utworzono zaplanowane zadanie."
+msgstr "Ustvarjeno načrtovano opravilo."
 
 msgid "Current"
-msgstr "Aktualnie"
+msgstr "Trenutni"
 
 msgid "Data"
-msgstr "Data"
+msgstr "Podatki"
 
 msgid "Date & Time"
-msgstr "Data i czas"
+msgstr "Datum in ura"
 
 msgid "Debug mode"
-msgstr ""
+msgstr "Način za odpravljanje napak"
 
 msgid "Delete"
-msgstr "Usuń"
+msgstr "Izbriši"
 
 msgid "Delete backup ..."
-msgstr ""
+msgstr "Izbriši varnostno kopijo ..."
 
 msgid "Description"
 msgstr "Opis"
@@ -288,146 +290,146 @@ msgid "Digest"
 msgstr "Digest"
 
 msgid "Directory does not exist!"
-msgstr ""
+msgstr "Mapa ne obstaja!"
 
 msgid "Displays information about containers in a grid."
-msgstr ""
+msgstr "Prikaže informacije o zabojnikih v mreži."
 
 msgid "Displays information about containers in a table."
-msgstr ""
+msgstr "Prikaže informacije o zabojnikih v tabeli."
 
 msgid "Docker"
 msgstr "Docker"
 
 msgid "Docker has been restarted."
-msgstr "Docker został zrestartowany"
+msgstr "Docker je bil ponovno zagnan."
 
 msgid "Docker is restarting ..."
-msgstr "Docker jest restartowany ..."
+msgstr "Docker se ponovno zaganja ..."
 
 msgid "Docker on OMV"
-msgstr "Docker w OMV"
+msgstr "Docker na OMV"
 
 msgid "Docker storage"
-msgstr "Pamięć Dockera"
+msgstr "Docker shramba"
 
 msgid "Docker version"
-msgstr "Wersja Dockera"
+msgstr "Verzija Docker-ja"
 
 msgid "Dockerfile"
 msgstr "Dockerfile"
 
 msgid "Dockerfiles"
-msgstr "Pliki Dockerfile"
+msgstr "Dockerfiles"
 
 msgid "Docs"
-msgstr "Dokumentacja"
+msgstr "Dokumentacija"
 
 msgid "Down"
-msgstr "Nieaktywne"
+msgstr "Down"
 
 msgid "Download log"
-msgstr ""
+msgstr "Prenos dnevnika"
 
 msgid "Download logs"
-msgstr ""
+msgstr "Prenos dnevnikov"
 
 msgid "Driver"
-msgstr "Sterownik"
+msgstr "Gonilnik"
 
 msgid "Edit"
-msgstr "Edytuj"
+msgstr "Uredi"
 
 msgid "Edit config."
-msgstr ""
+msgstr "Uredite konfiguracijo."
 
 msgid "Edit dockerfile."
-msgstr "Edycja Dockerfile."
+msgstr "Uredite docker datoteko."
 
 msgid "Edit file."
-msgstr "Edycja pliku."
+msgstr "Uredite datoteko."
 
 msgid "Edit global environment file"
-msgstr "Edycja pliku globalnego środowiska"
+msgstr "Uredi globalno okoljsko datoteko"
 
 msgid "Edit global environment variable file."
-msgstr "Edycja pliku globalnych zmiennych środowiskowych."
+msgstr "Uredite datoteko z globalnimi okoljskimi spremenljivkami."
 
 msgid "Edit scheduled job."
-msgstr "Edycja zaplanowanego zadania."
+msgstr "Uredite načrtovano opravilo."
 
 msgid "Enable"
-msgstr ""
+msgstr "Omogoči"
 
 msgid "Enable Docker repo"
-msgstr ""
+msgstr "Omogoči Docker skladišče"
 
 msgid "Enable Docker repo ..."
-msgstr ""
+msgstr "Omogočanje Docker skladišča ..."
 
 msgid "Enable host shell option in container list."
 msgstr ""
 
 msgid "Env Path"
-msgstr "Ścieżka środowiska"
+msgstr "Env Path"
 
 msgid "Environment"
-msgstr "Środowisko"
+msgstr "Okolje"
 
 msgid "Everyone - read/write"
-msgstr "Wszyscy - odczyt/zapis"
+msgstr "Vsi - branje/pisanje"
 
 msgid "Example"
-msgstr "Przykład"
+msgstr "Primer"
 
 msgid "Example compose file has been added."
-msgstr ""
+msgstr "Dodan je bil primer datoteke Compose."
 
 msgid "Excludes"
-msgstr ""
+msgstr "Izključitve"
 
 msgid "Execute scheduled job ..."
-msgstr "Wykonywanie zaplanowanego zadania ..."
+msgstr "Izvedba načrtovanega opravila ..."
 
 msgid "Failed"
-msgstr "Niepowodzenie"
+msgstr "Neuspešno"
 
 msgid "File"
-msgstr "Plik"
+msgstr "Datoteka"
 
 msgid "File date"
-msgstr "Data pliku"
+msgstr "Datum datoteke"
 
 msgid "Filename"
-msgstr ""
+msgstr "Ime datoteke"
 
 msgid "Files"
-msgstr "Pliki"
+msgstr "Datoteke"
 
 msgid "Filter"
-msgstr "Filtruj"
+msgstr "Filter"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
-"Zapis w formacie nazwa=IP. Przecinek oddziela wiele wpisów,<br/> np. mój-"
-"router=192.168.10.5,mój-nas=192.168.20.6"
+"Oblika je ime=ip. Več vnosov ločite z vejico.<br/>npr. my-"
+"router=192.168.10.5,my-nas=192.168.20.6"
 
 msgid "Gateway"
-msgstr "Brama"
+msgstr "Gateway"
 
 msgid "Global Environment"
-msgstr "Globalne zmienne"
+msgstr "Globalno okolje"
 
 msgid "Global environment variables"
-msgstr "Globalne zmienne środowiskowe"
+msgstr "Globalne spremenljivke okolja"
 
 msgid "Group of directories and files"
-msgstr "Grupa plików i folderów"
+msgstr "Skupina imenikov in datotek"
 
 msgid "Host"
-msgstr ""
+msgstr "Gostitelj"
 
 msgid "Host shell"
 msgstr ""
@@ -436,456 +438,467 @@ msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
-msgstr "Zakres IP"
+msgstr "Območje IP"
 
 msgid "IP to listen on. Use 0.0.0.0 for all IPs."
-msgstr ""
+msgstr "IP za poslušanje. Za vse IP-je uporabite 0.0.0.0."
 
 msgid "Image"
-msgstr "Obraz"
+msgstr "Slika"
 
 msgid "Images"
-msgstr "Obrazy"
+msgstr "Slike"
 
 msgid "Import"
-msgstr "Import"
+msgstr "Uvoz"
 
 msgid "Import config files from folders ..."
-msgstr ""
+msgstr "Uvoz konfiguracijskih datotek iz map ..."
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "Uvozite obstoječo datoteko Compose ..."
 
 msgid "Import existing compose folders ..."
-msgstr "Importowanie istniejących folderów Compose ..."
+msgstr "Uvoz obstoječih map Compose ..."
 
 msgid "Import one"
-msgstr ""
+msgstr "Uvozi eno"
 
 msgid "In Use"
-msgstr "W użyciu"
+msgstr "V uporabi"
 
 msgid "Initialize new git repo ..."
-msgstr ""
+msgstr "Inicializiraj nov git repozitorij ..."
 
 msgid "Inspect"
-msgstr "Inspekcja"
+msgstr "Razišči"
 
 msgid "Installed"
-msgstr "Zainstalowany"
+msgstr "Nameščen"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
-msgstr ""
-"Pozostaw puste, aby użyć niestandardowego pliku /etc/docker/daemon.json"
+msgstr "Pustite prazno, če želite uporabiti lasten /etc/docker/daemon.json"
 
 msgid "Location of backups"
-msgstr "Miejsce przechowywania kopii zapasowych"
+msgstr "Lokacija varnostnih kopij"
 
 msgid "Location of compose files"
-msgstr "Lokalizacja plików docker-compose"
+msgstr "Lokacija datotek Compose"
 
 msgid "Logged out."
-msgstr ""
+msgstr "Odjavljen."
 
 msgid "Logging out ..."
-msgstr ""
+msgstr "Odjava ..."
 
 msgid "Login"
-msgstr ""
+msgstr "Prijava"
 
 msgid "Login to docker repo ..."
-msgstr ""
+msgstr "Prijava v docker skladišče ..."
 
 msgid "Logout"
-msgstr ""
+msgstr "Odjava"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "Vzdrževanje"
 
 msgid "Max Size"
-msgstr "Maksymalny rozmiar"
+msgstr "Največja velikost"
 
 msgid "Mem %"
-msgstr "Pamięć %"
+msgstr "% pomnilnika"
 
 msgid "Mem Limit"
-msgstr "Limit pamięci"
+msgstr "Omejitev pomnilnika"
 
 msgid "Mem Usage"
-msgstr "Użycie pamięci"
+msgstr "Uporaba pomnilnika"
 
 msgid "Message"
-msgstr "Wiadomość"
+msgstr "Sporočilo"
 
 msgid "Mixed"
-msgstr "Zmieszane"
+msgstr "Mešan"
 
 msgid "Mountpoint"
-msgstr "Punkt montowania"
+msgstr "Točka priklopa"
 
 msgid "Mounts"
-msgstr "Punkty montowania"
+msgstr "Priklopi"
 
 msgid "Multiple exclusions should be comma separated."
-msgstr ""
+msgstr "Več izključitev mora biti ločenih z vejico."
 
 msgid "Name"
-msgstr "Nazwa"
+msgstr "Ime"
 
 msgid "Net In"
-msgstr "Śieć We"
+msgstr "Mreža vhod"
 
 msgid "Net Out"
-msgstr "Sieć Wy"
+msgstr "Mreža izhod"
 
 msgid "Network"
-msgstr "Sieć"
+msgstr "Omrežje"
 
 msgid "Networks"
-msgstr "Sieci"
+msgstr "Omrežja"
 
 msgid "No Image"
-msgstr "Brak obrazu"
+msgstr "Brez slike"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "Ni bila najdena nobena datoteka Compose!"
 
 msgid "No name specified!"
-msgstr ""
+msgstr "Brez navedbe imena!"
 
 msgid "Not installed"
-msgstr "Nie zainstalowano"
+msgstr "Ni nameščeno"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
-"Dozwolone są tylko znaki alfanumeryczne (a-zA-Z), podkreślenia (_), myślniki"
-" (-), przecinki (,) i gwiazdki (*)!"
+"Dovoljeni so samo alfanumerični znaki (a-zA-Z), podčrtaj (_), pomišljaj (-),"
+" vejice (,) in zvezdice (*)!"
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
-"Opcjonalne - lokalizacja trwałych danych kontenera<br/>Używane tylko do "
-"zastąpienia CHANGE_TO_COMPOSE_DATA_PATH w plikach compose i env tą ścieżką "
-"folderu współdzielonego."
+"Neobvezno - Lokacija trajnih podatkov zabojnika<br/>Za zamenjavo "
+"CHANGE_TO_COMPOSE_DATA_PATH v datotekah Compose in env s to skupno potjo do "
+"mape."
 
 msgid "Override"
-msgstr ""
+msgstr "Nadomeščanje"
 
 msgid "Override Path"
-msgstr ""
+msgstr "Pot nadomeščanja"
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
 msgstr ""
+"Pri odpiranju vrat v zavihkih Datoteke, Storitve in Zabojniki nadomeščajte "
+"ime gostitelja"
 
 msgid "Overrides"
-msgstr ""
+msgstr "Nadomeščanja"
 
 msgid "Owner of directories and files"
-msgstr "Właściciel katalogów i plików"
+msgstr "Lastnik map in datotek"
 
 msgid "PIDs"
-msgstr "PIDy"
+msgstr "PID-i"
 
 msgid "Parent network"
-msgstr "Sieć macierzysta"
+msgstr "Starševsko omrežje"
 
 msgid "Path"
-msgstr "Ścieżka"
+msgstr "Pot"
 
 msgid "Permissions of directories and files"
-msgstr "Uprawnienia katalogów i plików"
+msgstr "Dovoljenja za mape in datoteke"
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "Nastavite deljeno mapo za varnostne kopije."
 
 msgid "Please set shared folder for data on the Settings tab."
-msgstr ""
+msgstr "V zavihku Nastavitve nastavite deljeno mapo za podatke."
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "Nastavite deljeno mapo za shranjevanje datotek."
 
 msgid "Port"
-msgstr ""
+msgstr "Vrata"
 
 msgid "Port to listen on."
-msgstr ""
+msgstr "Vrata za poslušanje."
 
 msgid "Ports"
-msgstr "Porty"
+msgstr "Vrata"
 
 msgid "Project"
 msgstr "Projekt"
 
 msgid "Prune"
-msgstr "Przytnij"
+msgstr "Počisti"
 
 msgid "Pull and Build"
-msgstr "Ściągnij i zbuduj"
+msgstr "Potegni in zgradi"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "Potegni in zgradi ..."
 
 msgid "Push"
-msgstr "Wysyłanie"
+msgstr "Potisni"
 
 msgid "Push to Docker Hub ..."
-msgstr "Wysłanie do Dockera ..."
+msgstr "Potisni na Docker Hub"
 
 msgid "Reinstall Docker"
-msgstr "Przeinstaluj Docker"
+msgstr "Ponovno namesti Docker"
 
 msgid "Reinstall Docker ..."
-msgstr "Ponowna instalacja Docker ..."
+msgstr "Ponovno nameščanje Docker-ja ..."
 
 msgid "Repo"
-msgstr ""
+msgstr "Skladišče"
 
 msgid "Repos"
-msgstr ""
+msgstr "Skladišča"
 
 msgid "Repository"
-msgstr "Repozytorium"
+msgstr "Skladišče"
 
 msgid "Restart Docker"
-msgstr "Restartuj Docker"
+msgstr "Ponovno zaženi Docker"
 
 msgid "Restore"
-msgstr "Przywróć"
+msgstr "Obnovi"
 
 msgid "Restore Compose ..."
-msgstr "Przywracanie Compose ..."
+msgstr "Obnovitev Compose-a ..."
 
 msgid "Restore global.env"
-msgstr ""
+msgstr "Obnovi global.env"
 
 msgid "Restoring global.env from backup ..."
-msgstr ""
+msgstr "Obnavljanje global.env iz varnostne kopije ..."
 
 msgid "Run"
-msgstr "Uruchom"
+msgstr "Zaženi"
 
 msgid "Running For"
-msgstr "Działa od"
+msgstr "Izvajanje za"
 
 msgid "Schedule"
-msgstr "Harmonogram"
+msgstr "Urnik"
 
 msgid "Script"
-msgstr "Skrypt"
+msgstr "Skripta"
 
 msgid "Script filename"
-msgstr "Nazwa skryptu"
+msgstr "Ime skripte"
 
 msgid "Script filename cannot be"
-msgstr ""
+msgstr "Ime skripte ne more biti"
 
 msgid "Scripts"
-msgstr ""
+msgstr "Skripte"
 
 msgid "Select a group ..."
-msgstr "Wybierz grupę ..."
+msgstr "Izbira skupine ..."
 
 msgid "Select a user ..."
-msgstr "Wybierz użytkownika ..."
+msgstr "Izbira uporabnika ..."
 
 msgid "Service"
-msgstr "Usługa"
+msgstr "Storitev"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Ime storitve"
 
 msgid "Services"
-msgstr "Usługi"
+msgstr "Storitve"
 
 msgid "Settings"
-msgstr "Ustawienia"
+msgstr "Nastavitve"
 
 msgid "Shared folder"
-msgstr "Folder udostępniony"
+msgstr "Deljena mapa"
 
 msgid "Show all file changes ..."
-msgstr ""
+msgstr "Prikaz vseh sprememb datotek ..."
 
 msgid "Show all global.env changes ..."
-msgstr ""
+msgstr "Prikaz vseh sprememb datoteke global.env ..."
 
 msgid "Show commands"
-msgstr ""
+msgstr "Prikaži ukaze"
 
 msgid "Show config changes"
-msgstr ""
+msgstr "Prikaži spremembe konfiguracije"
 
 msgid "Show docker command for task in task dialog"
-msgstr ""
+msgstr "Prikaži ukaz docker za opravilo v pogovornem oknu opravila"
 
 msgid "Show environment file"
-msgstr ""
+msgstr "Prikaži datoteko okolja"
 
 msgid "Show override"
-msgstr ""
+msgstr "Prikaži nadomeščanja"
 
 msgid "Size"
-msgstr "Rozmiar"
+msgstr "Velikost"
 
 msgid "State"
-msgstr "Stan"
+msgstr "Stanje"
 
 msgid "Stats"
-msgstr "Statystyki"
+msgstr "Statistika"
 
 msgid "Status"
 msgstr "Status"
 
 msgid "Stopped"
-msgstr "Zatrzymano"
+msgstr "Ustavljen"
 
 msgid "Subnet"
-msgstr "Podsieć"
+msgstr "Podmreža"
 
 msgid "Sync changes from file"
-msgstr ""
+msgstr "Sinhroniziraj spremembe iz datoteke"
 
 msgid "Syncing changes from file ..."
-msgstr ""
+msgstr "Sinhronizacija sprememb iz datoteke ..."
 
 msgid "System"
-msgstr "System"
+msgstr "Sistem"
 
 msgid "Tag"
-msgstr "Tag"
+msgstr "Oznaka"
 
 msgid "Tags"
-msgstr "Tagi"
+msgstr "Oznake"
 
 msgid "Terminal Link"
-msgstr ""
+msgstr "Povezava za Terminal"
 
 msgid "The config file will be created in this compose file's directory."
-msgstr ""
+msgstr "Konfiguracijska datoteka bo ustvarjena v imeniku te datoteke Compose."
 
 msgid "The field should only contain * or a comma separated list of values."
-msgstr ""
+msgstr "Polje lahko vsebuje samo * ali seznam vrednosti, ločenih z vejico."
 
 msgid "This is the filename. This should not be a path."
-msgstr ""
+msgstr "To je ime datoteke. To ne sme biti pot."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
+"To bo uvozilo konfiguracijske datoteke iz izbrane mape.<br/>Ne bo uvozilo "
+"nobenih konfiguracijskih datotek, ki že obstajajo v vtičniku."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"To bo uvozilo eno datoteko Compose v izbrano mapo.<br/>Ne bo uvozilo "
+"datoteke Compose, ki že obstaja v vtičniku."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose configs that already exist in the plugin."
 msgstr ""
+"To bo uvozilo eno ali več datotek Compose v podmape.<br/>Ne bo uvozilo "
+"nobenih konfiguracij Compose, ki že obstajajo v vtičniku."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose files that already exist in the plugin."
 msgstr ""
+"To bo uvozilo eno ali več datotek Compose v podmape.<br/>Ne bo uvozilo "
+"nobenih datotek Compose, ki že obstajajo v vtičniku."
 
 msgid "Tools"
-msgstr ""
+msgstr "Orodja"
 
 msgid "URL"
 msgstr "URL"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "Ime gostitelja URL"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr ""
-"Jednostki w GB. Kopia zapasowa pominie woluminy większe niż ten rozmiar.\n"
-" <br/>Wartość 0 - bez ograniczeń."
+"Enote v GB. Varnostno kopiranje bo preskočilo zvezke, ki so večji od te "
+"velikosti.<br/>Nastavite na 0 za neomejeno."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "Enote v sekundah.<br/>Nastavite na 0, če ne želite predpomnjenja."
 
 msgid "Up"
 msgstr "Up"
 
 msgid "Uptime"
-msgstr ""
+msgstr "Uptime"
 
 msgid "User must be in dockerterm group to login."
-msgstr ""
+msgstr "Uporabnik mora biti v skupini dockerterm, da se lahko prijavi."
 
 msgid ""
 "User must be in dockerterm group to login.<br/>Service will be named CTerm "
 "in service status."
 msgstr ""
+"Uporabnik mora biti v skupini dockerterm, da se lahko prijavi.<br/>Storitev "
+"se bo v statusu storietv imenovala CTerm."
 
 msgid "Version"
-msgstr "Wersja"
+msgstr "Verzija"
 
 msgid "Virtual Size"
-msgstr "Wirtualny rozmiar"
+msgstr "Virtualna velikost"
 
 msgid "Volume"
-msgstr "Wolumin"
+msgstr "Zvezek"
 
 msgid "Volumes"
-msgstr "Woluminy"
+msgstr "Zvezki"
 
 msgid "and not running"
-msgstr "i nie działa"
+msgstr "in ne teče"
 
 msgid "and running"
-msgstr "i działa"
+msgstr "in teče"
 
 msgid "check"
-msgstr "sprawdź"
+msgstr "preveri"
 
 msgid "disabled"
-msgstr ""
+msgstr "onemogočen"
 
 msgid "docker compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker compose down --remove-orphans ..."
 
 msgid "docker compose down ..."
-msgstr ""
+msgstr "docker compose down ..."
 
 msgid "docker compose down all files..."
-msgstr ""
+msgstr "docker compose down all files..."
 
 msgid "docker compose file version"
-msgstr ""
+msgstr "docker compose file version"
 
 msgid "docker compose logs --follow ..."
-msgstr ""
+msgstr "docker compose logs --follow ..."
 
 msgid "docker compose logs ..."
-msgstr ""
+msgstr "docker compose logs ..."
 
 msgid "docker compose ps ..."
-msgstr ""
+msgstr "docker compose ps ..."
 
 msgid "docker compose pull ..."
-msgstr ""
+msgstr "docker compose pull ..."
 
 msgid "docker compose restart ..."
-msgstr ""
+msgstr "docker compose restart ..."
 
 msgid "docker compose stop ..."
-msgstr ""
+msgstr "docker compose stop ..."
 
 msgid "docker compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker compose up -d --remove-orphans ..."
 
 msgid "docker compose up -d ..."
-msgstr ""
+msgstr "docker compose up -d ..."
 
 msgid "docker container prune ..."
 msgstr "docker container prune ..."
@@ -933,49 +946,49 @@ msgid "docker volume rm ..."
 msgstr "docker volume rm ..."
 
 msgid "dockerfile build ..."
-msgstr "budowanie dockerfile ..."
+msgstr "dockerfile build ..."
 
 msgid "down"
 msgstr "down"
 
 msgid "down all"
-msgstr ""
+msgstr "down all"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "down and remove orphans"
 
 msgid "e.g. 172.20.0.0/16"
-msgstr "np. 172.20.0.0/16"
+msgstr "e.g. 172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr "np. 172.20.0.1"
+msgstr "e.g. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr "np. 172.20.10.128/25"
+msgstr "e.g. 172.20.10.128/25"
 
 msgid "file not found!"
-msgstr ""
+msgstr "file not found!"
 
 msgid "follow logs"
-msgstr "śledź logi"
+msgstr "follow logs"
 
 msgid "global.env has been restored from backup."
-msgstr ""
+msgstr "global.env has been restored from backup."
 
 msgid "init git repo"
-msgstr ""
+msgstr "init git repo"
 
 msgid "inspect"
-msgstr ""
+msgstr "inspect"
 
 msgid "logs"
-msgstr "logi"
+msgstr "logs"
 
 msgid "n/a"
 msgstr "n/a"
 
 msgid "omv-extras wiki"
-msgstr "wiki omv-extras"
+msgstr "omv-extras wiki"
 
 msgid "ps"
 msgstr "ps"
@@ -987,10 +1000,10 @@ msgid "restart"
 msgstr "restart"
 
 msgid "show file changes"
-msgstr ""
+msgstr "show file changes"
 
 msgid "show global.env changes"
-msgstr ""
+msgstr "show global.env changes"
 
 msgid "stop"
 msgstr "stop"
@@ -999,4 +1012,4 @@ msgid "up"
 msgstr "up"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "up and remove orphans"

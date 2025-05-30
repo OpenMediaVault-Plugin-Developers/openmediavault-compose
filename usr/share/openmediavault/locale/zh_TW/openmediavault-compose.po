@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 08:34-0500\n"
+"POT-Creation-Date: 2025-05-28 19:31-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -117,7 +117,7 @@ msgid "CPU %"
 msgstr "CPU %"
 
 msgid "CTerm"
-msgstr ""
+msgstr "CTerm"
 
 msgid "Cache has been cleared."
 msgstr "內存已經被清理。"
@@ -350,6 +350,9 @@ msgstr "啟用 Docker 影像庫"
 msgid "Enable Docker repo ..."
 msgstr "啟用 Docker 影像庫 ..."
 
+msgid "Enable host shell option in container list."
+msgstr "啟用容器列表中的主機指令殻選項。"
+
 msgid "Env Path"
 msgstr "Env 路徑"
 
@@ -409,6 +412,9 @@ msgstr "目錄和檔案的群組"
 
 msgid "Host"
 msgstr "主機"
+
+msgid "Host shell"
+msgstr "主機指令殼"
 
 msgid "ID"
 msgstr "ID"
@@ -797,7 +803,7 @@ msgstr "用户必須屬於 dockerterm 群組才能登入。"
 msgid ""
 "User must be in dockerterm group to login.<br/>Service will be named CTerm "
 "in service status."
-msgstr ""
+msgstr "用户必須屬於 dockerterm 群組才能登入。<br/>在服務狀態中，此服務將被稱為 CTerm。"
 
 msgid "Version"
 msgstr "版本"

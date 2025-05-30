@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 08:34-0500\n"
+"POT-Creation-Date: 2025-05-28 19:31-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2024\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -365,6 +365,9 @@ msgstr "Docker tároló engedélyezése"
 msgid "Enable Docker repo ..."
 msgstr "Docker tároló engedélyezése…"
 
+msgid "Enable host shell option in container list."
+msgstr ""
+
 msgid "Env Path"
 msgstr "Körny. útvonal"
 
@@ -424,6 +427,9 @@ msgid "Group of directories and files"
 msgstr "Mappák és fájlok csoportja"
 
 msgid "Host"
+msgstr ""
+
+msgid "Host shell"
 msgstr ""
 
 msgid "ID"

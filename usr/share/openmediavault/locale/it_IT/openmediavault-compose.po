@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Giovanni Scafora <scafora.giovanni@gmail.com>, 2025
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 08:34-0500\n"
+"POT-Creation-Date: 2025-05-28 19:31-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,114 +22,126 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "Action"
-msgstr ""
+msgstr "Azione"
 
 msgid "Action type"
-msgstr ""
+msgstr "Tipo di azione"
 
 msgid "Add"
-msgstr ""
+msgstr "Aggiungi"
 
 msgid "Add example compose file"
-msgstr ""
+msgstr "Aggiungi un esempio di file di composizione"
 
 msgid "Add from Example"
-msgstr ""
+msgstr "Aggiungi da esempio"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "Aggiungi da URL"
 
 msgid "Add..."
-msgstr ""
+msgstr "Aggiungi..."
 
 msgid "Adding an example compose file ..."
-msgstr ""
+msgstr "Sto aggiungendo un esempio di file di composizione ..."
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
+"Amministratore - lettura/scrittura, Utenti - nessun accesso, Altri - nessun "
+"accesso"
 
 msgid "Administrator - read/write, Users - read-only, Others - no access"
 msgstr ""
+"Amministratore - lettura/scrittura, Utenti - sola lettura, Altri - nessun "
+"accesso"
 
 msgid "Administrator - read/write, Users - read-only, Others - read-only"
 msgstr ""
+"Amministratore - lettura/scrittura, Utenti - sola lettura, Altri - sola "
+"lettura"
 
 msgid "Administrator - read/write, Users - read/write, Others - no access"
 msgstr ""
+"Amministratore - lettura/scrittura, Utenti - lettura/scrittura, Altri - "
+"nessun accesso"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
+"Amministratore - lettura/scrittura, Utenti - lettura/scrittura, Altri - sola"
+" lettura"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
 msgstr ""
+"Sei sicuro di voler creare un nuovo repo git? Questa operazione eliminerà "
+"tutto l'history!"
 
 msgid "Are you sure you want to delete this backup?"
-msgstr ""
+msgstr "Sei sicuro di voler eliminare questo backup?"
 
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Sei sicuro di voler eliminare?"
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "Sei sicuro di voler reinstallare?"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "Sei sicuro di voler riavviare?"
 
 msgid "Are you sure you want to restore global.env from backup?"
-msgstr ""
+msgstr "Sei sicuro di voler ripristinare global.env dal backup?"
 
 msgid "Are you sure you want to stop all containers?"
-msgstr ""
+msgstr "Sei sicuro di voler fermare tutti i container?"
 
 msgid "Are you sure you want to sync changes from the files?"
-msgstr ""
+msgstr "Vuoi davvero sincronizzare le modifiche dai file?"
 
 msgid "Autocompose"
-msgstr ""
+msgstr "Composizione automatica"
 
 msgid "Aux address"
-msgstr ""
+msgstr "Indirizzo ausiliario"
 
 msgid "Available"
-msgstr ""
+msgstr "Disponibile"
 
 msgid "Backup"
-msgstr ""
+msgstr "Backup"
 
 msgid "Block In"
-msgstr ""
+msgstr "Blocca l'ingresso"
 
 msgid "Block Out"
-msgstr ""
+msgstr "Blocca l'uscita"
 
 msgid "Body"
-msgstr ""
+msgstr "Corpo"
 
 msgid "Build"
-msgstr ""
+msgstr "Compila"
 
 msgid "Build ..."
-msgstr ""
+msgstr "Sto compilando ..."
 
 msgid "CPU %"
-msgstr ""
+msgstr "CPU %"
 
 msgid "CTerm"
-msgstr ""
+msgstr "CTerm"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "La cache è stata cancellata."
 
 msgid "Cache times for tabs"
 msgstr ""
 
 msgid "Changes have been synced from file."
-msgstr ""
+msgstr "Le modifiche sono state sincronizzate dal file."
 
 msgid "Check compose file for errors ..."
-msgstr ""
+msgstr "Sto controllando il file di composizione per eventuali errori ..."
 
 msgid ""
 "Choose which compose files to backup by filtering the compose name by this "
@@ -133,686 +149,731 @@ msgid ""
 " or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
 "multiple filters separated by commas."
 msgstr ""
+"Scegli quali file di composizione sottoporre a backup filtrando il nome "
+"della composizione tramite questo campo.<br/>Il filtro può essere una "
+"corrispondenza parziale con l'uso del carattere jolly (*). Ad esempio asd* o"
+" *asd* o *asd<br/>Lascia vuoto o usa solo * per tutte le "
+"composizioni.<br/>Aggiungi più filtri separati da virgole."
 
 msgid "Clear cache"
-msgstr ""
+msgstr "Cancella la cache"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "Sto cancellando la cache ..."
 
 msgid "Command"
-msgstr ""
+msgstr "Comando"
 
 msgid "Compose"
-msgstr ""
+msgstr "Compose"
 
 msgid "Compose Backup"
-msgstr ""
+msgstr "Backup di compose"
 
 msgid "Compose File"
-msgstr ""
+msgstr "File di compose"
 
 msgid "Compose Files"
-msgstr ""
+msgstr "File di compose"
 
 msgid "Compose Restore"
-msgstr ""
+msgstr "Ripristina compose"
 
 msgid "Compose Start"
-msgstr ""
+msgstr "Avvia compose"
 
 msgid "Compose Stop"
-msgstr ""
+msgstr "Ferma compose"
 
 msgid "Compose Update"
-msgstr ""
+msgstr "Aggiorna compose"
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr ""
+"La cartella condivisa del file di composizione deve essere diversa dalla "
+"cartella condivisa dei dati"
 
 msgid "Compose file to be associate imported files with"
-msgstr ""
+msgstr "File compose a cui associare i file importati"
 
 msgid "Compose version"
-msgstr ""
+msgstr "Versione di compose"
 
 msgid "Conf"
-msgstr ""
+msgstr "Configurazione"
 
 msgid "Conf file"
-msgstr ""
+msgstr "File di configurazione"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "Nome del file di configurazione"
 
 msgid "Conf filename cannot be"
-msgstr ""
+msgstr "Il nome del file di configurazione non può essere"
 
 msgid "Configs"
-msgstr ""
+msgstr "Configurazioni"
 
 msgid "Container"
-msgstr ""
+msgstr "Container"
 
 msgid "Container Exec Terminal service"
 msgstr ""
 
 msgid "Container state"
-msgstr ""
+msgstr "Stato del container"
 
 msgid "Containers"
-msgstr ""
+msgstr "Container"
 
 msgid "Create"
-msgstr ""
+msgstr "Crea"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "Crea da URL"
 
 msgid "Create from example"
-msgstr ""
+msgstr "Crea da esempio"
 
 msgid "Create new compose file from running container ..."
-msgstr ""
+msgstr "Crea un nuovo file di composizione dal contenitore in esecuzione ..."
 
 msgid "Create new image tag ..."
-msgstr ""
+msgstr "Crea un nuovo tag immagine ..."
 
 msgid "Created"
-msgstr ""
+msgstr "Creato"
 
 msgid "Created At"
-msgstr ""
+msgstr "Creato il"
 
 msgid "Created config."
-msgstr ""
+msgstr "La configurazione è stata creata."
 
 msgid "Created dockerfile."
-msgstr ""
+msgstr "Il dockerfile è stato creato."
 
 msgid "Created file from url."
-msgstr ""
+msgstr "Il file è stato creato dall'url."
 
 msgid "Created file."
-msgstr ""
+msgstr "Il file è stato creato."
 
 msgid "Created network."
-msgstr ""
+msgstr "La rete è stata creata."
 
 msgid "Created scheduled job."
-msgstr ""
+msgstr "Il lavoro pianificato è stato creato."
 
 msgid "Current"
-msgstr ""
+msgstr "Attuale"
 
 msgid "Data"
-msgstr ""
+msgstr "Data"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Data e orario"
 
 msgid "Debug mode"
-msgstr ""
+msgstr "Modalità di debug"
 
 msgid "Delete"
-msgstr ""
+msgstr "Elimina"
 
 msgid "Delete backup ..."
-msgstr ""
+msgstr "Sto eliminando il backup ..."
 
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 msgid "Digest"
-msgstr ""
+msgstr "Digest"
 
 msgid "Directory does not exist!"
-msgstr ""
+msgstr "La cartella non esiste!"
 
 msgid "Displays information about containers in a grid."
 msgstr ""
+"Visualizza le informazioni sui contenitori all'interno di una griglia."
 
 msgid "Displays information about containers in a table."
 msgstr ""
+"Visualizza le informazioni sui contenitori all'interno di una tabella."
 
 msgid "Docker"
-msgstr ""
+msgstr "Docker"
 
 msgid "Docker has been restarted."
-msgstr ""
+msgstr "Il docker è stato riavviato."
 
 msgid "Docker is restarting ..."
-msgstr ""
+msgstr "Il docker si sta riavviando ..."
 
 msgid "Docker on OMV"
-msgstr ""
+msgstr "Docker su OMV"
 
 msgid "Docker storage"
-msgstr ""
+msgstr "Archiviazione del docker"
 
 msgid "Docker version"
-msgstr ""
+msgstr "Versione di docker"
 
 msgid "Dockerfile"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Dockerfiles"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Docs"
-msgstr ""
+msgstr "Documenti"
 
 msgid "Down"
-msgstr ""
+msgstr "Giù"
 
 msgid "Download log"
-msgstr ""
+msgstr "Scarica il log"
 
 msgid "Download logs"
-msgstr ""
+msgstr "Scarica i log"
 
 msgid "Driver"
-msgstr ""
+msgstr "Driver"
 
 msgid "Edit"
-msgstr ""
+msgstr "Modifica"
 
 msgid "Edit config."
-msgstr ""
+msgstr "Modifica la configurazione."
 
 msgid "Edit dockerfile."
-msgstr ""
+msgstr "Modifica il dockerfile."
 
 msgid "Edit file."
-msgstr ""
+msgstr "Modifica il file."
 
 msgid "Edit global environment file"
-msgstr ""
+msgstr "Modifica il file dell'ambiente globale"
 
 msgid "Edit global environment variable file."
-msgstr ""
+msgstr "Modifica il file delle variabili di ambiente globali."
 
 msgid "Edit scheduled job."
-msgstr ""
+msgstr "Modifica il lavoro pianificato."
 
 msgid "Enable"
-msgstr ""
+msgstr "Abilita"
 
 msgid "Enable Docker repo"
-msgstr ""
+msgstr "Abilita il repo del docker"
 
 msgid "Enable Docker repo ..."
+msgstr "Sto abilitando il repo del docker ..."
+
+msgid "Enable host shell option in container list."
 msgstr ""
 
 msgid "Env Path"
-msgstr ""
+msgstr "Percorso di env"
 
 msgid "Environment"
-msgstr ""
+msgstr "Ambiente"
 
 msgid "Everyone - read/write"
-msgstr ""
+msgstr "Tutti - lettura/scrittura"
 
 msgid "Example"
-msgstr ""
+msgstr "Esempio"
 
 msgid "Example compose file has been added."
-msgstr ""
+msgstr "È stato aggiunto un file di composizione di esempio."
 
 msgid "Excludes"
-msgstr ""
+msgstr "Escludi"
 
 msgid "Execute scheduled job ..."
-msgstr ""
+msgstr "Sto eseguendo il lavoro pianificato ..."
 
 msgid "Failed"
-msgstr ""
+msgstr "Si è verificato un errore"
 
 msgid "File"
-msgstr ""
+msgstr "File"
 
 msgid "File date"
-msgstr ""
+msgstr "Data del file"
 
 msgid "Filename"
-msgstr ""
+msgstr "Nome del file"
 
 msgid "Files"
-msgstr ""
+msgstr "File"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
+"Il formato è nome=ip. Le voci multiple vanno separate da virgole.<br/>Ad "
+"esempio my-router=192.168.10.5, my-nas=192.168.20.6"
 
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 msgid "Global Environment"
-msgstr ""
+msgstr "Ambiente globale"
 
 msgid "Global environment variables"
-msgstr ""
+msgstr "Variabili di ambiente globali"
 
 msgid "Group of directories and files"
-msgstr ""
+msgstr "Gruppo di cartelle e file"
 
 msgid "Host"
+msgstr "Host"
+
+msgid "Host shell"
 msgstr ""
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP range"
-msgstr ""
+msgstr "Intervallo di IP"
 
 msgid "IP to listen on. Use 0.0.0.0 for all IPs."
-msgstr ""
+msgstr "IP su cui ascoltare. Usa 0.0.0.0 per tutti gli IP."
 
 msgid "Image"
-msgstr ""
+msgstr "Immagine"
 
 msgid "Images"
-msgstr ""
+msgstr "Immagini"
 
 msgid "Import"
-msgstr ""
+msgstr "Importa"
 
 msgid "Import config files from folders ..."
-msgstr ""
+msgstr "Sto importando i file di configurazione dalle cartelle ..."
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "Sto importando il file di composizione esistente ..."
 
 msgid "Import existing compose folders ..."
-msgstr ""
+msgstr "Sto importando le cartelle di composizione esistenti ..."
 
 msgid "Import one"
-msgstr ""
+msgstr "Importane uno"
 
 msgid "In Use"
-msgstr ""
+msgstr "In uso"
 
 msgid "Initialize new git repo ..."
-msgstr ""
+msgstr "Sto inizializzando il nuovo repository git ..."
 
 msgid "Inspect"
-msgstr ""
+msgstr "Ispeziona"
 
 msgid "Installed"
-msgstr ""
+msgstr "Installato"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
-msgstr ""
+msgstr "Lascia vuoto per utilizzare un /etc/docker/daemon.json personalizzato"
 
 msgid "Location of backups"
-msgstr ""
+msgstr "Posizione dei backup"
 
 msgid "Location of compose files"
-msgstr ""
+msgstr "Posizione dei file di composizione"
 
 msgid "Logged out."
-msgstr ""
+msgstr "Disconnesso."
 
 msgid "Logging out ..."
-msgstr ""
+msgstr "Disconnessione in corso ..."
 
 msgid "Login"
-msgstr ""
+msgstr "Accedi"
 
 msgid "Login to docker repo ..."
-msgstr ""
+msgstr "Accesso in corso al repository del docker ..."
 
 msgid "Logout"
-msgstr ""
+msgstr "Esci"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "Manutenzione"
 
 msgid "Max Size"
-msgstr ""
+msgstr "Dimensione massima"
 
 msgid "Mem %"
-msgstr ""
+msgstr "Mem %"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "Limite della memoria"
 
 msgid "Mem Usage"
-msgstr ""
+msgstr "Memoria utilizzata"
 
 msgid "Message"
-msgstr ""
+msgstr "Messaggio"
 
 msgid "Mixed"
 msgstr ""
 
 msgid "Mountpoint"
-msgstr ""
+msgstr "Mountpoint"
 
 msgid "Mounts"
-msgstr ""
+msgstr "Mount"
 
 msgid "Multiple exclusions should be comma separated."
-msgstr ""
+msgstr "Le esclusioni multiple devono essere separate da virgole."
 
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 msgid "Net In"
-msgstr ""
+msgstr "Ingresso della rete"
 
 msgid "Net Out"
-msgstr ""
+msgstr "Uscita della rete"
 
 msgid "Network"
-msgstr ""
+msgstr "Rete"
 
 msgid "Networks"
-msgstr ""
+msgstr "Reti"
 
 msgid "No Image"
-msgstr ""
+msgstr "Nessuna immagine"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "Nessun file di composizione trovato!"
 
 msgid "No name specified!"
-msgstr ""
+msgstr "Nessun nome specificato!"
 
 msgid "Not installed"
-msgstr ""
+msgstr "Non installato"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
+"Sono consentiti solo caratteri alfanumerici (a-zA-Z), caratteri di "
+"sottolineatura (_), trattini (-), virgole (,) e asterischi (*)!"
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
+"Facoltativo - Posizione dei dati del contenitore persistente<br/>Utilizzato "
+"solo per sostituire CHANGE_TO_COMPOSE_DATA_PATH nei file compose ed env con "
+"questo percorso di cartella condivisa."
 
 msgid "Override"
-msgstr ""
+msgstr "Sovrascrivi"
 
 msgid "Override Path"
-msgstr ""
+msgstr "Sovrascrivi percorso"
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
 msgstr ""
+"Sostituisci il nome dell'host quando apri le porte nelle schede File, "
+"Servizi e Contenitori"
 
 msgid "Overrides"
-msgstr ""
+msgstr "Sovrascrivi"
 
 msgid "Owner of directories and files"
-msgstr ""
+msgstr "Proprietario delle cartelle e dei file"
 
 msgid "PIDs"
-msgstr ""
+msgstr "PID"
 
 msgid "Parent network"
 msgstr ""
 
 msgid "Path"
-msgstr ""
+msgstr "Percorso"
 
 msgid "Permissions of directories and files"
-msgstr ""
+msgstr "Permessi delle cartelle e dei file"
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "Imposta una cartella condivisa per i backup."
 
 msgid "Please set shared folder for data on the Settings tab."
-msgstr ""
+msgstr "Imposta la cartella condivisa per i dati nella scheda Impostazioni."
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "Imposta una cartella condivisa per l'archiviazione dei file."
 
 msgid "Port"
-msgstr ""
+msgstr "Porta"
 
 msgid "Port to listen on."
-msgstr ""
+msgstr "Porta su cui ascoltare."
 
 msgid "Ports"
-msgstr ""
+msgstr "Porte"
 
 msgid "Project"
-msgstr ""
+msgstr "Progetto"
 
 msgid "Prune"
-msgstr ""
+msgstr "Rimuovi"
 
 msgid "Pull and Build"
-msgstr ""
+msgstr "Sincronizza e compila"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "Sincronizza e compila ..."
 
 msgid "Push"
-msgstr ""
+msgstr "Invia"
 
 msgid "Push to Docker Hub ..."
-msgstr ""
+msgstr "Sto inviando all'hub di docker ..."
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "Reinstalla docker"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "Sto reinstallando docker ..."
 
 msgid "Repo"
-msgstr ""
+msgstr "Repo"
 
 msgid "Repos"
-msgstr ""
+msgstr "Repo"
 
 msgid "Repository"
-msgstr ""
+msgstr "Repository"
 
 msgid "Restart Docker"
-msgstr ""
+msgstr "Riavvia docker"
 
 msgid "Restore"
-msgstr ""
+msgstr "Ripristina"
 
 msgid "Restore Compose ..."
-msgstr ""
+msgstr "Sto ripristinando compose ..."
 
 msgid "Restore global.env"
-msgstr ""
+msgstr "Ripristina global.env"
 
 msgid "Restoring global.env from backup ..."
-msgstr ""
+msgstr "Sto ripristinando global.env dal backup ..."
 
 msgid "Run"
-msgstr ""
+msgstr "Avvia"
 
 msgid "Running For"
-msgstr ""
+msgstr "Avvia per"
 
 msgid "Schedule"
-msgstr ""
+msgstr "Pianifica"
 
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 msgid "Script filename"
-msgstr ""
+msgstr "Nome del file dello script"
 
 msgid "Script filename cannot be"
-msgstr ""
+msgstr "Nome del file dello script non può essere"
 
 msgid "Scripts"
-msgstr ""
+msgstr "Script"
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "Seleziona un gruppo ..."
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "Seleziona un utente ..."
 
 msgid "Service"
-msgstr ""
+msgstr "Servizio"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Nome del servizio"
 
 msgid "Services"
-msgstr ""
+msgstr "Servizi"
 
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 msgid "Shared folder"
-msgstr ""
+msgstr "Cartella condivisa"
 
 msgid "Show all file changes ..."
-msgstr ""
+msgstr "Mostra tutte le modifiche al file ..."
 
 msgid "Show all global.env changes ..."
-msgstr ""
+msgstr "Mostra tutte le modifiche di global.env ..."
 
 msgid "Show commands"
-msgstr ""
+msgstr "Mostra comandi"
 
 msgid "Show config changes"
-msgstr ""
+msgstr "Mostra le modifiche alla configurazione"
 
 msgid "Show docker command for task in task dialog"
 msgstr ""
+"Mostra il comando docker per l'attività nella finestra di dialogo "
+"dell'attività"
 
 msgid "Show environment file"
-msgstr ""
+msgstr "Mostra il file dell'ambiente"
 
 msgid "Show override"
-msgstr ""
+msgstr "Mostra sovrascrittura"
 
 msgid "Size"
-msgstr ""
+msgstr "Dimensione"
 
 msgid "State"
-msgstr ""
+msgstr "Stato"
 
 msgid "Stats"
-msgstr ""
+msgstr "Statistiche"
 
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
 msgid "Stopped"
-msgstr ""
+msgstr "Fermato"
 
 msgid "Subnet"
-msgstr ""
+msgstr "Sottorete"
 
 msgid "Sync changes from file"
-msgstr ""
+msgstr "Sincronizza le modifiche dal file"
 
 msgid "Syncing changes from file ..."
-msgstr ""
+msgstr "Sto sincronizzando le modifiche dal file ..."
 
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
 msgid "Tags"
-msgstr ""
+msgstr "Tag"
 
 msgid "Terminal Link"
-msgstr ""
+msgstr "Collegamento terminale"
 
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
+"Il file di configurazione verrà creato nella cartella di questo file di "
+"composizione."
 
 msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
+"Il campo deve contenere solo * o un elenco di valori separati da virgole."
 
 msgid "This is the filename. This should not be a path."
-msgstr ""
+msgstr "Questo è il nome del file. Non dovrebbe essere un percorso."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
+"Verranno importati i file di configurazione dalla cartella "
+"selezionata.<br/>Non importerà alcun file di configurazione già esistente "
+"nel plugin."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"Verrà importato un file di composizione nella cartella selezionata.<br/>Non "
+"importerà un file di composizione già esistente nel plugin."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose configs that already exist in the plugin."
 msgstr ""
+"Verranno importati uno o più file di composizione in sottocartelle.<br/>Non "
+"importerà alcuna configurazione di composizione già esistente nel plugin."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose files that already exist in the plugin."
 msgstr ""
+"Verranno importati uno o più file di composizione in sottocartelle.<br/>Non "
+"importerà alcun file di composizione già esistente nel plugin."
 
 msgid "Tools"
-msgstr ""
+msgstr "Strumenti"
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "Nome host dell'URL"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr ""
+"Unità in GB. Il backup ignorerà i volumi più grandi di queste "
+"dimensioni.<br/>Imposta su 0 per illimitato."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr ""
+"Unità in secondi.<br/>Imposta su 0 per non effettuare alcuna memorizzazione "
+"nella cache."
 
 msgid "Up"
-msgstr ""
+msgstr "Su"
 
 msgid "Uptime"
-msgstr ""
+msgstr "Tempo di attività"
 
 msgid "User must be in dockerterm group to login."
 msgstr ""
+"Per effettuare l'accesso, l'utente deve appartenere al gruppo dockerterm."
 
 msgid ""
 "User must be in dockerterm group to login.<br/>Service will be named CTerm "
 "in service status."
 msgstr ""
+"Per effettuare l'accesso, l'utente deve appartenere al gruppo "
+"dockerterm.<br/>Nello stato di servizio il servizio sarà denominato CTerm."
 
 msgid "Version"
-msgstr ""
+msgstr "Versione"
 
 msgid "Virtual Size"
-msgstr ""
+msgstr "Dimensione virtuale"
 
 msgid "Volume"
-msgstr ""
+msgstr "Volume"
 
 msgid "Volumes"
-msgstr ""
+msgstr "Volumi"
 
 msgid "and not running"
-msgstr ""
+msgstr "e non avviato"
 
 msgid "and running"
-msgstr ""
+msgstr "e avviato"
 
 msgid "check"
-msgstr ""
+msgstr "controlla"
 
 msgid "disabled"
-msgstr ""
+msgstr "disabilitato"
 
 msgid "docker compose down --remove-orphans ..."
 msgstr ""
@@ -821,16 +882,16 @@ msgid "docker compose down ..."
 msgstr ""
 
 msgid "docker compose down all files..."
-msgstr ""
+msgstr "sto scaricando tutti i file di docker compose ..."
 
 msgid "docker compose file version"
-msgstr ""
+msgstr "Versione del file compose di docker"
 
 msgid "docker compose logs --follow ..."
 msgstr ""
 
 msgid "docker compose logs ..."
-msgstr ""
+msgstr "Log di docker compose ..."
 
 msgid "docker compose ps ..."
 msgstr ""
@@ -839,10 +900,10 @@ msgid "docker compose pull ..."
 msgstr ""
 
 msgid "docker compose restart ..."
-msgstr ""
+msgstr "sto riavviando docker compose ..."
 
 msgid "docker compose stop ..."
-msgstr ""
+msgstr "sto fermando docker compose ..."
 
 msgid "docker compose up -d --remove-orphans ..."
 msgstr ""
@@ -851,115 +912,115 @@ msgid "docker compose up -d ..."
 msgstr ""
 
 msgid "docker container prune ..."
-msgstr ""
+msgstr "sto rimuovendo il container di docker ..."
 
 msgid "docker image inspect ..."
-msgstr ""
+msgstr "sto ispezionando l'immagine di docker"
 
 msgid "docker image prune ..."
-msgstr ""
+msgstr "sto rimuovendo l'immagine di docker ..."
 
 msgid "docker image rm ..."
-msgstr ""
+msgstr "sto rimuovendo l'immagine di docker ..."
 
 msgid "docker inspect ..."
-msgstr ""
+msgstr "sto ispezionando il docker ..."
 
 msgid "docker logs --follow ..."
 msgstr ""
 
 msgid "docker logs ..."
-msgstr ""
+msgstr "Log di docker ..."
 
 msgid "docker network inspect ..."
-msgstr ""
+msgstr "Sto ispezionando la rete di docker ..."
 
 msgid "docker network prune ..."
-msgstr ""
+msgstr "sto rimuovendo la rete di docker ..."
 
 msgid "docker network rm ..."
-msgstr ""
+msgstr "sto rimuovendo la rete di docker ..."
 
 msgid "docker restart ..."
-msgstr ""
+msgstr "Sto riavviando docker ..."
 
 msgid "docker system prune ..."
-msgstr ""
+msgstr "sto rimuovendo il sistema di docker ..."
 
 msgid "docker volume inspect ..."
-msgstr ""
+msgstr "sto ispezionando il volume di docker ..."
 
 msgid "docker volume prune ..."
-msgstr ""
+msgstr "sto rimuovendo il volume di docker ..."
 
 msgid "docker volume rm ..."
-msgstr ""
+msgstr "sto rimuovendo il volume di docker ..."
 
 msgid "dockerfile build ..."
-msgstr ""
+msgstr "sto compilando il dockerfile ..."
 
 msgid "down"
-msgstr ""
+msgstr "giù"
 
 msgid "down all"
-msgstr ""
+msgstr "tutto giù"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "giù e rimuovi gli orfani"
 
 msgid "e.g. 172.20.0.0/16"
-msgstr ""
+msgstr "ad esempio 172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr ""
+msgstr "ad esempio 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr ""
+msgstr "ad esempio 172.20.10.128/25"
 
 msgid "file not found!"
-msgstr ""
+msgstr "Impossibile trovare il file!"
 
 msgid "follow logs"
-msgstr ""
+msgstr "segui i log"
 
 msgid "global.env has been restored from backup."
-msgstr ""
+msgstr "global.env è stato ripristinato dal backup."
 
 msgid "init git repo"
-msgstr ""
+msgstr "inizializza il repository git"
 
 msgid "inspect"
-msgstr ""
+msgstr "ispeziona"
 
 msgid "logs"
-msgstr ""
+msgstr "log"
 
 msgid "n/a"
-msgstr ""
+msgstr "non disponibile"
 
 msgid "omv-extras wiki"
-msgstr ""
+msgstr "wiki di omv-extras"
 
 msgid "ps"
-msgstr ""
+msgstr "ps"
 
 msgid "pull"
-msgstr ""
+msgstr "sincronizza"
 
 msgid "restart"
-msgstr ""
+msgstr "riavvia"
 
 msgid "show file changes"
-msgstr ""
+msgstr "mostra le modifiche al file"
 
 msgid "show global.env changes"
-msgstr ""
+msgstr "mostra le modifiche di global.env"
 
 msgid "stop"
-msgstr ""
+msgstr "ferma"
 
 msgid "up"
-msgstr ""
+msgstr "su"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "su e rimuovi gli orfani"
