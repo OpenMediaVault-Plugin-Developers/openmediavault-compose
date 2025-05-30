@@ -2512,7 +2512,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = 'container';
             $cmdArgs[] = 'ls';
             $cmdArgs[] = '--all';
-            $cmdArgs[] = '--format "{{ .Image }}"';
+            $cmdArgs[] = '--no-trunc';
+            $cmdArgs[] = '--quiet';
+            $cmdArgs[] = '| xargs -n1 docker inspect --format "{{.Image}}"';
             $cmd = new \OMV\System\Process($cmdArgs);
             $cmd->execute($containerImages, $exitStatus);
             $containerImages = array_filter($containerImages);
@@ -2520,6 +2522,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 file_put_contents($cacheFileContainers, json_encode($containerImages));
             }
         }
+        $containerImageSet = array_flip($containerImages);
         // Get images
         $output = [];
         if ($cacheTime > 0 && file_exists($cacheFileImages) &&
@@ -2532,6 +2535,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = 'ls';
             $cmdArgs[] = '--all';
             $cmdArgs[] = '--digests';
+            $cmdArgs[] = '--no-trunc';
             $cmdArgs[] = '--format "json"';
             $cmd = new \OMV\System\Process($cmdArgs);
             $cmd->setQuiet(true);
@@ -2544,24 +2548,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $imagesAssoc = [];
         foreach ($output as $image) {
             $imageJson = json_decode($image);
-            $inuse = false;
-            foreach ($containerImages as $img) {
-                $pos = strrpos($img, ':');
-                $repo = substr($img, 0, $pos);
-                $tag = substr($img, $pos + 1);
-                if ($img === $imageJson->ID) {
-                    $inuse = true;
-                    break;
-                }
-                if ($repo == $imageJson->Repository) {
-                    if (strlen($tag) > 0) {
-                        if ($tag == $imageJson->Tag) {
-                            $inuse = true;
-                            break;
-                        }
-                    }
-                }
-            }
+            $inuse = isset($containerImageSet[$imageJson->ID]);
             if ($skipStatus) {
                 $status = 'NA';
             } else {
