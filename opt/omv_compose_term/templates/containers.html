@@ -13,7 +13,7 @@
         <div class="header">
             <h1 class="title">
                 <i class="fab fa-docker"></i>
-                Docker Containers
+                Container Terminal
             </h1>
             <div class="header-actions">
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -25,13 +25,21 @@
                 </button>
             </div>
         </div>
-
         {% if containers or host_shell %}
             <ul class="container-list">
                 {% for container in containers %}
                 <li class="container-item">
-                    <a href="{{ url_for('terminal', container=container) }}" class="container-link">
-                        <span class="container-name">{{ container }}</span>
+                    <a href="{{ url_for('terminal', container=container.name) }}" class="container-link">
+                        <div class="container-info">
+                            <span class="container-name">{{ container.name }}</span>
+                            <span class="container-type {{ container.type }}">
+                                {% if container.type == 'docker' %}
+                                    <i class="fab fa-docker"></i>Docker
+                                {% elif container.type == 'lxc' %}
+                                    <i class="fas fa-cube"></i>LXC
+                                {% endif %}
+                            </span>
+                        </div>
                         <i class="fas fa-chevron-right container-arrow"></i>
                     </a>
                 </li>
@@ -39,7 +47,12 @@
                 {% if host_shell %}
                 <li class="container-item">
                     <a href="{{ url_for('terminal', container='__host__') }}" class="container-link">
-                        <span class="container-name">Host Shell</span>
+                        <div class="container-info">
+                            <span class="container-name">Host Shell</span>
+                            <span class="container-type host">
+                                <i class="fas fa-server"></i>Host
+                            </span>
+                        </div>
                         <i class="fas fa-chevron-right container-arrow"></i>
                     </a>
                 </li>
