@@ -110,6 +110,7 @@
 
             const socket = io();
             const container = "{{ container }}";
+            const containerType = "{{ container_type or 'docker' }}";
 
             // Terminal <-> Socket.io communication
             term.onData(data => socket.emit('terminal_input', { input: data, container }));
@@ -120,7 +121,7 @@
                 term.onKey(() => window.location.href = "{{ url_for('container_selection') }}");
             });
             socket.on('connect', () => socket.emit('start_terminal', {
-                container, termType: term.termType
+                container, container_type: containerType, termType: term.termType
             }));
         }
 
