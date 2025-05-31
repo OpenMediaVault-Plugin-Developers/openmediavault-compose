@@ -1,8 +1,8 @@
-openmediavault-compose (7.5.5) UNRELEASED; urgency=medium
+openmediavault-compose (7.5.5) stable; urgency=low
 
   * Add lxc container support to terminal
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 31 May 2025 10:02:45 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 31 May 2025 10:33:10 -0500
 
 openmediavault-compose (7.5.4) stable; urgency=low
 
