@@ -11,7 +11,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from flask_socketio import SocketIO, emit
 import logging
-import os, subprocess, pwd, grp, pty
+import os, subprocess, shutil, pwd, grp, pty
 import signal, sys, atexit
 import threading
 import configparser
@@ -100,6 +100,8 @@ def get_docker_containers():
         return []
 
 def get_lxc_containers():
+    if shutil.which("virsh") is None:
+        return []
     try:
         out = subprocess.check_output(
             "virsh -c lxc:/// list --state-running --name | grep -v '^$' | sort",
@@ -107,7 +109,7 @@ def get_lxc_containers():
         )
         containers = [n for n in out.decode().splitlines() if n.strip()]
         return [{'name': name.strip(), 'type': 'lxc'} for name in containers]
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, FileNotFoundError):
         return []
 
 def get_containers():
@@ -117,6 +119,8 @@ def get_containers():
     return containers
 
 def is_lxc_container(container_name):
+    if shutil.which("virsh") is None:
+        return False
     try:
         subprocess.check_output(
             f"virsh -c lxc:/// dominfo {container_name}",
@@ -124,7 +128,7 @@ def is_lxc_container(container_name):
             stderr=subprocess.DEVNULL
         )
         return True
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, FileNotFoundError):
         return False
 
 def is_docker_container(container_name):
