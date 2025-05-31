@@ -6,7 +6,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.1.0
+# version: 1.2.0
 
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from flask_socketio import SocketIO, emit
@@ -18,6 +18,7 @@ import configparser
 import PAM
 import termios, tty
 import fcntl, struct, termios
+import json
 
 # Load configuration
 cfg = configparser.ConfigParser()
@@ -90,12 +91,52 @@ def pam_authenticate(username, password):
     except Exception:
         return False
 
-def get_containers():
+def get_docker_containers():
     try:
         out = subprocess.check_output("docker container ls --format '{{.Names}}' | sort", shell=True)
-        return [n for n in out.decode().splitlines() if n]
+        containers = [n for n in out.decode().splitlines() if n]
+        return [{'name': name.strip(), 'type': 'docker'} for name in containers]
     except subprocess.CalledProcessError:
         return []
+
+def get_lxc_containers():
+    try:
+        out = subprocess.check_output(
+            "virsh -c lxc:/// list --state-running --name | grep -v '^$' | sort",
+            shell=True
+        )
+        containers = [n for n in out.decode().splitlines() if n.strip()]
+        return [{'name': name.strip(), 'type': 'lxc'} for name in containers]
+    except subprocess.CalledProcessError:
+        return []
+
+def get_containers():
+    containers = []
+    containers.extend(get_docker_containers())
+    containers.extend(get_lxc_containers())
+    return containers
+
+def is_lxc_container(container_name):
+    try:
+        subprocess.check_output(
+            f"virsh -c lxc:/// dominfo {container_name}",
+            shell=True,
+            stderr=subprocess.DEVNULL
+        )
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+def is_docker_container(container_name):
+    try:
+        subprocess.check_call(
+            ['docker', 'inspect', container_name],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        return True
+    except subprocess.CalledProcessError:
+        return False
 
 # Disable caching on all responses
 @app.after_request
@@ -153,12 +194,20 @@ def terminal(container):
                 host_shell=HOST_SHELL
             )
         else:
-            return render_template('terminal.html', container='__host__', host_shell=HOST_SHELL)
-    try:
-        subprocess.check_call(['docker', 'inspect', container], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return render_template('terminal.html', container=container, host_shell=HOST_SHELL)
-    except subprocess.CalledProcessError:
-        return render_template('containers.html', error=f"Container '{container}' not found", containers=get_containers(), host_shell=HOST_SHELL)
+            return render_template('terminal.html', container='__host__', container_type='host', host_shell=HOST_SHELL)
+
+    if is_docker_container(container):
+        return render_template('terminal.html', container=container, container_type='docker', host_shell=HOST_SHELL)
+
+    if is_lxc_container(container):
+        return render_template('terminal.html', container=container, container_type='lxc', host_shell=HOST_SHELL)
+
+    return render_template(
+        'containers.html',
+        error=f"Container '{container}' not found",
+        containers=get_containers(),
+        host_shell=HOST_SHELL
+    )
 
 # PTY read loop
 def read_and_emit(master_fd, sid):
@@ -200,6 +249,7 @@ def on_disconnect():
 @socketio.on('start_terminal')
 def start_terminal(data):
     container = data.get('container')
+    container_type = data.get('container_type', 'docker')
     sid = request.sid
     if container == '__host__' and not HOST_SHELL:
         emit('output', 'Error: Host shell is disabled\n')
@@ -239,6 +289,11 @@ def start_terminal(data):
             # exec host bash
             args = ['--login', '-i']
             os.execvpe('bash', args, env)
+
+        elif container_type == 'lxc':
+            args = ['virsh', '-c', 'lxc:///', 'console', container]
+            os.execvpe('virsh', args, env)
+
         else:
             base_args = ['docker', 'exec', '-i', '-t', container]
             # Check if bash works
@@ -256,7 +311,6 @@ def start_terminal(data):
     else:
         tty.setraw(master_fd)
         if container == '__host__':
-            import termios
             attrs = termios.tcgetattr(master_fd)
             attrs[3] |= termios.ECHO
             attrs[1] |= termios.OPOST | termios.ONLCR
@@ -264,7 +318,11 @@ def start_terminal(data):
 
         shells[sid] = (master_fd, pid)
         threading.Thread(target=read_and_emit, args=(master_fd, sid), daemon=True).start()
-        emit('output', f"Connected to {container}\r\n")
+
+        if container_type == 'lxc':
+            emit('output', f"Connected to LXC :: {container}\r\n")
+        else:
+            emit('output', f"Connected to Docker :: {container}\r\n")
 
 @socketio.on('terminal_input')
 def terminal_input(data):
@@ -276,7 +334,6 @@ def terminal_input(data):
         os.write(master_fd, inp.encode())
     else:
         emit('output', 'No shell session\n')
-        import signal
 
 @socketio.on('resize')
 def resize(data):
@@ -300,7 +357,7 @@ def on_close_terminal(data):
     if entry:
         master_fd, child_pid = entry
         try:
-            os.kill(pid, signal.SIGTERM)
+            os.kill(child_pid, signal.SIGTERM)
         except OSError:
             pass
         try:
