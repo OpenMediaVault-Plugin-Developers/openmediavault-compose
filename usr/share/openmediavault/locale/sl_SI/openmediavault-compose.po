@@ -121,7 +121,7 @@ msgid "Body"
 msgstr "Telo"
 
 msgid "Build"
-msgstr "Gradnja"
+msgstr "Zgradi"
 
 msgid "Build ..."
 msgstr "Gradnja ..."
@@ -212,7 +212,7 @@ msgid "Conf filename cannot be"
 msgstr "Ime konf. datoteke ne more biti"
 
 msgid "Configs"
-msgstr "Nastavitve"
+msgstr "Konfiguracije"
 
 msgid "Container"
 msgstr "Zabojnik"
@@ -242,10 +242,10 @@ msgid "Create new image tag ..."
 msgstr "Ustvari novo oznako slike ..."
 
 msgid "Created"
-msgstr "Ustvarjen"
+msgstr "Ustvarjeno"
 
 msgid "Created At"
-msgstr "Ustvarjeno na"
+msgstr "Ustvarjeno"
 
 msgid "Created config."
 msgstr "Ustvarjena konfiguracija."
@@ -368,10 +368,10 @@ msgid "Enable Docker repo ..."
 msgstr "Omogočanje Docker skladišča ..."
 
 msgid "Enable host shell option in container list."
-msgstr ""
+msgstr "Omogočite možnost gostiteljske lupine v seznamu zabojnikov."
 
 msgid "Env Path"
-msgstr "Env Path"
+msgstr "Pot za Env"
 
 msgid "Environment"
 msgstr "Okolje"
@@ -432,7 +432,7 @@ msgid "Host"
 msgstr "Gostitelj"
 
 msgid "Host shell"
-msgstr ""
+msgstr "Gostiteljska lupina"
 
 msgid "ID"
 msgstr "ID"
@@ -628,10 +628,10 @@ msgid "Prune"
 msgstr "Počisti"
 
 msgid "Pull and Build"
-msgstr "Potegni in zgradi"
+msgstr "Prenesi in zgradi"
 
 msgid "Pull and Build ..."
-msgstr "Potegni in zgradi ..."
+msgstr "Prenos in gradnja ..."
 
 msgid "Push"
 msgstr "Potisni"
@@ -673,7 +673,7 @@ msgid "Run"
 msgstr "Zaženi"
 
 msgid "Running For"
-msgstr "Izvajanje za"
+msgstr "Izvajan se od"
 
 msgid "Schedule"
 msgstr "Urnik"
@@ -769,7 +769,7 @@ msgid "Terminal Link"
 msgstr "Povezava za Terminal"
 
 msgid "The config file will be created in this compose file's directory."
-msgstr "Konfiguracijska datoteka bo ustvarjena v imeniku te datoteke Compose."
+msgstr "Konfiguracijska datoteka bo ustvarjena v imeniku datoteke Compose."
 
 msgid "The field should only contain * or a comma separated list of values."
 msgstr "Polje lahko vsebuje samo * ali seznam vrednosti, ločenih z vejico."
@@ -844,7 +844,7 @@ msgid "Version"
 msgstr "Verzija"
 
 msgid "Virtual Size"
-msgstr "Virtualna velikost"
+msgstr "Navidezna velikost"
 
 msgid "Volume"
 msgstr "Zvezek"
@@ -970,10 +970,10 @@ msgid "file not found!"
 msgstr "file not found!"
 
 msgid "follow logs"
-msgstr "follow logs"
+msgstr "Sledenje dnevnikom"
 
 msgid "global.env has been restored from backup."
-msgstr "global.env has been restored from backup."
+msgstr "Datoteka global.env je bila obnovljena iz varnostne kopije."
 
 msgid "init git repo"
 msgstr "init git repo"
@@ -982,7 +982,7 @@ msgid "inspect"
 msgstr "inspect"
 
 msgid "logs"
-msgstr "logs"
+msgstr "Dnevniki"
 
 msgid "n/a"
 msgstr "n/a"
@@ -1000,10 +1000,10 @@ msgid "restart"
 msgstr "restart"
 
 msgid "show file changes"
-msgstr "show file changes"
+msgstr "prikaži spremembe datoteke"
 
 msgid "show global.env changes"
-msgstr "show global.env changes"
+msgstr "prikaži spremembe datoteke global.env"
 
 msgid "stop"
 msgstr "stop"
