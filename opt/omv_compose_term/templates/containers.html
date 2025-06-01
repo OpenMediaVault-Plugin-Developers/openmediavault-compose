@@ -32,6 +32,8 @@
                     <a href="{{ url_for('terminal', container=container.name) }}" class="container-link">
                         <div class="container-info">
                             <span class="container-name">{{ container.name }}</span>
+                        </div>
+                        <div class="container-type-wrapper">
                             <span class="container-type {{ container.type }}">
                                 {% if container.type == 'docker' %}
                                     <i class="fab fa-docker"></i>Docker
@@ -39,8 +41,8 @@
                                     <i class="fas fa-cube"></i>LXC
                                 {% endif %}
                             </span>
+                            <i class="fas fa-chevron-right container-arrow"></i>
                         </div>
-                        <i class="fas fa-chevron-right container-arrow"></i>
                     </a>
                 </li>
                 {% endfor %}
