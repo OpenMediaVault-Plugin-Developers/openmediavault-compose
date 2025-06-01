@@ -1532,7 +1532,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->getComposePath($context);
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
-        $body = trim(file_get_contents($params['url']));
+        $body = $this->removeIllegal(file_get_contents($params['url']));
         $body = preg_replace('/^(\s*)(?!#)(env_file:)/m', '$1#${2}', $body);
         // set object values
         $object->set('name', $params['name']);
@@ -1946,9 +1946,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
         $envFile = sprintf("%s.env", $composeName);
         // Get file content
-        $composeContent = trim(file_get_contents($composeFile));
-        $envContent = trim(file_get_contents($envFile));
-        $overrideContent = trim(file_get_contents($overrideFile));
+        $composeContent = $this->removeIllegal(file_get_contents($composeFile));
+        $envContent = $this->removeIllegal(file_get_contents($envFile));
+        $overrideContent = $this->removeIllegal(file_get_contents($overrideFile));
         if ($dockerpath != '') {
             $composeContent = preg_replace('/'.str_replace('/','\/',$dockerpath).'/', 'CHANGE_TO_COMPOSE_DATA_PATH', $composeContent);
         }
@@ -1987,18 +1987,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     continue;
                 }
             }
-            $body = file_get_contents($bodyFile);
+            $body = $this->removeIllegal(file_get_contents($bodyFile));
             // get environment file if it exists
             $envFile = sprintf('%s/%s.env', $full, $dir);
             if (file_exists($envFile)) {
-                $env = file_get_contents($envFile);
+                $env = $this->removeIllegal(file_get_contents($envFile));
                 if ($env == false || is_null($env)) $env = '';
             } else {
                 $env = '';
             }
             $overrideFile = sprintf("%s/compose.override.yml", $full);
             if (file_exists($overrideFile)) {
-                $override = file_get_contents($overrideFile);
+                $override = $this->removeIllegal(file_get_contents($overrideFile));
                 if ($override == false || is_null($override)) $override = '';
             } else {
                 $override = '';
@@ -2040,7 +2040,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 throw new \OMV\ExecException(gettext("No compose file found!"));
             }
         }
-        $body = file_get_contents($bodyFile);
+        $body = $this->removeIllegal(file_get_contents($bodyFile));
         // get env (if exists)
         $envFile = sprintf('%s/%s.env', $path, $name);
         if (!file_exists($envFile)) {
@@ -2048,14 +2048,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         $env = '';
         if (file_exists($envFile)) {
-            $env = file_get_contents($envFile);
+            $env = $this->removeIllegal(file_get_contents($envFile));
             if ($env === false || $env === null) {
                 $env = '';
             }
         }
         $overrideFile = sprintf("%s/compose.override.yml", $path);
         if (file_exists($overrideFile)) {
-            $override = file_get_contents($overrideFile);
+            $override = $this->removeIllegal(file_get_contents($overrideFile));
             if ($override == false || is_null($override)) $override = '';
         } else {
             $override = '';
@@ -2107,7 +2107,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $object->set('name', $file);
             $object->set('description', 'imported ' . date("Y.m.d H:i"));
             $object->set('fileref', $fileref);
-            $object->set('body', file_get_contents($full));
+            $object->set('body', $this->removeIllegal(file_get_contents($full)));
             // Set the configuration object.
             try {
                 $db->assertIsUnique($object, 'name');
@@ -2116,6 +2116,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
             $db->set($object);
         }
+    }
+
+    private function removeIllegal(string $xmlString): string
+    {
+        // match anything NOT in the allowed XML 1.0 ranges
+        return trim(preg_replace('/[^\x09\x0A\x0D\x20-\x{D7FF}\x{E000}-\x{FFFD}]+/u', '', $xmlString));
     }
 
     public function getStats($params, $context)
