@@ -1,9 +1,9 @@
-openmediavault-compose (7.5.6) UNRELEASED; urgency=medium
+openmediavault-compose (7.5.6) stable; urgency=low
 
   * Improve terminal container list
   * Remove illegal characters from imported files
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 01 Jun 2025 08:35:16 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 01 Jun 2025 09:14:25 -0500
 
 openmediavault-compose (7.5.5) stable; urgency=low
 
