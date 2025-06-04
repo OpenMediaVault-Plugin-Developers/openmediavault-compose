@@ -1633,7 +1633,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     if ($cterm->get("enable") == 0) {
                         $url = gettext("disabled");
                     } else {
-                        $url = sprintf('<a href="%s/%s" target="_blank">exec terminal</a>',
+                        $url = sprintf('<a href="%s/%s/docker" target="_blank">exec terminal</a>',
                           $execurl, $imagej->Name);
                     }
                     $imagesAssoc[] = [
@@ -1801,7 +1801,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($cterm->get("enable") == 0) {
                 $url = gettext("disabled");
             } else {
-                $url = sprintf('<a href="%s/%s" target="_blank">exec terminal</a>',
+                $url = sprintf('<a href="%s/%s/docker" target="_blank">exec terminal</a>',
                   $execurl, $container->Names);
             }
             $cntAssoc[] = [
