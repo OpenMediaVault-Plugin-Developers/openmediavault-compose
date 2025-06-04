@@ -1,3 +1,9 @@
+openmediavault-compose (7.6) UNRELEASED; urgency=medium
+
+  * Move exec terminal to a separate plugin
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 03 Jun 2025 19:11:29 -0500
+
 openmediavault-compose (7.5.6) stable; urgency=low
 
   * Improve terminal container list

@@ -22,20 +22,6 @@ case "$1" in
 
         # clear cache
         find /var/cache/openmediavault/ -type f -name "compose_cache_*"
-
-        # create dockerterm group if it doesn't exist
-        if ! getent group dockerterm >/dev/null 2>&1; then
-            groupadd --system dockerterm
-        fi
-
-        # restart service if running
-        term="omv_compose_term.service"
-        if systemctl is-active --quiet "${term}"; then
-            # remove python cache
-            rm -rfv /opt/omv_compose_term/__pycache__
-            # restart service
-            systemctl restart "${term}"
-        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

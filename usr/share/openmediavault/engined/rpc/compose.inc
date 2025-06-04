@@ -280,7 +280,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     private function getExecUrl($context, $db, $fqdn)
     {
-        $settings = $db->get("conf.service.compose");
+        $settings = $db->get("conf.service.cterm");
         $port = $settings->get("port");
         $webadmin = $db->get("conf.webadmin");
         $protocol = boolval($webadmin->get("enablessl")) ? "https" : "http";
@@ -1454,9 +1454,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Download example list
-        $listUrl = sprintf("%s/%s/list.json", $this->baseUrl, $this->url);
-        $list = file_get_contents($listUrl);
-        $listJson = json_decode($list, true);
+        $cmdArgs = [];
+        $cmdArgs[] = 'wget';
+        $cmdArgs[] = '-4';
+        $cmdArgs[] = '-q';
+        $cmdArgs[] = '-O -';
+        $cmdArgs[] = sprintf("%s/%s/list.json", $this->baseUrl, $this->url);
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setQuiet(true);
+        $cmd->execute($list, $exitStatus);
+        if ($exitStatus !== 0) {
+            return [];
+        }
+        $listJson = json_decode(implode(PHP_EOL, $list), true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return [];
+        }
         // create list
         $objects = [];
         foreach ($listJson as $image) {
@@ -1560,6 +1573,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $sfpath = $this->getComposePath($context);
         $settings = $db->get("conf.service.compose");
+        $cterm = $db->get("conf.service.cterm");
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
         // get exec url
@@ -1616,7 +1630,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     foreach ($imagej->Publishers as $publisher) {
                         $ports[] = $this->getPort($context, $publisher, $fqdn);
                     }
-                    if ($settings->get("execenable") == 0) {
+                    if ($cterm->get("enable") == 0) {
                         $url = gettext("disabled");
                     } else {
                         $url = sprintf('<a href="%s/%s" target="_blank">exec terminal</a>',
@@ -1743,6 +1757,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         // get cache time
         $settings = $db->get("conf.service.compose");
+        $cterm = $db->get("conf.service.cterm");
         $cacheTime = $settings->get('cachetimecontainers');
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
@@ -1783,7 +1798,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $ports[] = $port;
                 }
             }
-            if ($settings->get("execenable") == 0) {
+            if ($cterm->get("enable") == 0) {
                 $url = gettext("disabled");
             } else {
                 $url = sprintf('<a href="%s/%s" target="_blank">exec terminal</a>',
