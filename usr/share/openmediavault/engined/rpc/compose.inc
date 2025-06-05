@@ -103,6 +103,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("doDockerCmd");
 
         $this->registerMethod("getContainers");
+        $this->registerMethod("getContainersTerm");
 
         $this->registerMethod("getVolumes");
         $this->registerMethod("getVolumesBg");
@@ -2292,6 +2293,45 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     'status' => $parts[2]
                 ];
             }
+        }
+        return ($objects);
+    }
+
+    public function getContainersTerm($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_EVERYONE]);
+        $db = \OMV\Config\Database::getInstance();
+        $cterm = $db->get("conf.service.cterm");
+        // get fqdn
+        $fqdn = $this->getUrlHostname($context);
+        // get exec url
+        $execurl = $this->getExecUrl($context, $db, $fqdn);
+        $objects = [];
+        // get containers and status if docker is running
+        $output = [];
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'container';
+        $cmdArgs[] = 'ls';
+        $cmdArgs[] = '--format "{{.Names}}"';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->execute($output, $exitStatus);
+        foreach ($output as $cnt) {
+            if (empty($cnt)) {
+                continue;
+            }
+                var_dump($cnt);
+            if ($cterm->get("enable") == 0) {
+                $url = gettext("disabled");
+            } else {
+                $url = sprintf('<a href="%s/%s/docker" target="_blank">link</a>', $execurl, $cnt);
+            }
+                var_dump($url);
+            $objects[] = [
+                'name' => $cnt,
+                'term' => $url
+            ];
         }
         return ($objects);
     }

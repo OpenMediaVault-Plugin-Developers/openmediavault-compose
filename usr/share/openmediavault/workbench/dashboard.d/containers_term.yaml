@@ -1,0 +1,26 @@
+version: "1.0"
+type: dashboard-widget
+data:
+  id: 10e100ae-41a9-11f0-bfdc-9378defeb859
+  title: _("Container Terminals")
+  description: _("Displays containers with a link to cterm exec terminal in a table.")
+  type: datatable
+  permissions:
+    role:
+    - admin
+    - user
+  datatable:
+    columns:
+    - name: _("Name")
+      prop: name
+      flexGrow: 1
+      sortable: true
+    - name: _("Terminal")
+      prop: term
+      sortable: true
+      flexGrow: 1
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getContainersTerm
