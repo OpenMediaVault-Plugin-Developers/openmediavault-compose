@@ -126,6 +126,42 @@ data:
                 stop:
                   hidden: true
       - type: iconButton
+        icon: mdi:download-network-outline
+        tooltip: _("pull image")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker image pull ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerImageCmd
+                params:
+                  id: "{{ _selected[0].repo }}"
+                  command: "pull"
+      - type: iconButton
+        icon: mdi:download-network
+        tooltip: _("pull image+tag")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker image pull ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doDockerImageCmd
+                params:
+                  id: "{{ _selected[0].repo }}:{{ _selected[0].tag }}"
+                  command: "pull"
+      - type: iconButton
         icon: mdi:tag-plus-outline
         tooltip: _("Tag")
         enabledConstraints:
