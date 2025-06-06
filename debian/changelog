@@ -1,3 +1,9 @@
+openmediavault-compose (7.6.1) stable; urgency=low
+
+  * Remove old integrated cterm config
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 06 Jun 2025 07:46:14 -0500
+
 openmediavault-compose (7.6) stable; urgency=low
 
   * Move exec terminal to a separate plugin
