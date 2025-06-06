@@ -121,25 +121,6 @@
     "showcmd": {
       "type": "boolean"
     },
-    "execenable": {
-      "type": "boolean"
-    },
-    "host": {
-      "type": "string",
-      "default": "0.0.0.0"
-    },
-    "port": {
-      "type": "integer",
-      "minimum": 1024,
-      "maximum": 65535,
-      "default": 5000
-    },
-    "debug": {
-      "type": "boolean"
-    },
-    "hostshell": {
-      "type": "boolean"
-    },
     "files": {
       "type": "object",
       "properties": {
