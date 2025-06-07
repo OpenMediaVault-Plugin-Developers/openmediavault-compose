@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-28 19:31-0500\n"
+"POT-Creation-Date: 2025-06-06 19:08-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/it/)\n"
@@ -217,7 +217,7 @@ msgstr "Configurazioni"
 msgid "Container"
 msgstr "Container"
 
-msgid "Container Exec Terminal service"
+msgid "Container Terminals"
 msgstr ""
 
 msgid "Container state"
@@ -274,9 +274,6 @@ msgstr "Data"
 msgid "Date & Time"
 msgstr "Data e orario"
 
-msgid "Debug mode"
-msgstr "Modalità di debug"
-
 msgid "Delete"
 msgstr "Elimina"
 
@@ -291,6 +288,9 @@ msgstr "Digest"
 
 msgid "Directory does not exist!"
 msgstr "La cartella non esiste!"
+
+msgid "Displays containers with a link to cterm exec terminal in a table."
+msgstr ""
 
 msgid "Displays information about containers in a grid."
 msgstr ""
@@ -360,17 +360,11 @@ msgstr "Modifica il file delle variabili di ambiente globali."
 msgid "Edit scheduled job."
 msgstr "Modifica il lavoro pianificato."
 
-msgid "Enable"
-msgstr "Abilita"
-
 msgid "Enable Docker repo"
 msgstr "Abilita il repo del docker"
 
 msgid "Enable Docker repo ..."
 msgstr "Sto abilitando il repo del docker ..."
-
-msgid "Enable host shell option in container list."
-msgstr ""
 
 msgid "Env Path"
 msgstr "Percorso di env"
@@ -380,9 +374,6 @@ msgstr "Ambiente"
 
 msgid "Everyone - read/write"
 msgstr "Tutti - lettura/scrittura"
-
-msgid "Example"
-msgstr "Esempio"
 
 msgid "Example compose file has been added."
 msgstr "È stato aggiunto un file di composizione di esempio."
@@ -430,20 +421,11 @@ msgstr "Variabili di ambiente globali"
 msgid "Group of directories and files"
 msgstr "Gruppo di cartelle e file"
 
-msgid "Host"
-msgstr "Host"
-
-msgid "Host shell"
-msgstr ""
-
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "Intervallo di IP"
-
-msgid "IP to listen on. Use 0.0.0.0 for all IPs."
-msgstr "IP su cui ascoltare. Usa 0.0.0.0 per tutti gli IP."
 
 msgid "Image"
 msgstr "Immagine"
@@ -614,12 +596,6 @@ msgstr "Imposta la cartella condivisa per i dati nella scheda Impostazioni."
 msgid "Please set shared folder for file storage."
 msgstr "Imposta una cartella condivisa per l'archiviazione dei file."
 
-msgid "Port"
-msgstr "Porta"
-
-msgid "Port to listen on."
-msgstr "Porta su cui ascoltare."
-
 msgid "Ports"
 msgstr "Porte"
 
@@ -769,6 +745,9 @@ msgstr "Tag"
 msgid "Tags"
 msgstr "Tag"
 
+msgid "Terminal"
+msgstr ""
+
 msgid "Terminal Link"
 msgstr "Collegamento terminale"
 
@@ -798,13 +777,6 @@ msgid ""
 msgstr ""
 "Verrà importato un file di composizione nella cartella selezionata.<br/>Non "
 "importerà un file di composizione già esistente nel plugin."
-
-msgid ""
-"This will import one or more compose files in subfolders.<br/>It will not "
-"import any compose configs that already exist in the plugin."
-msgstr ""
-"Verranno importati uno o più file di composizione in sottocartelle.<br/>Non "
-"importerà alcuna configurazione di composizione già esistente nel plugin."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
@@ -839,17 +811,6 @@ msgstr "Su"
 
 msgid "Uptime"
 msgstr "Tempo di attività"
-
-msgid "User must be in dockerterm group to login."
-msgstr ""
-"Per effettuare l'accesso, l'utente deve appartenere al gruppo dockerterm."
-
-msgid ""
-"User must be in dockerterm group to login.<br/>Service will be named CTerm "
-"in service status."
-msgstr ""
-"Per effettuare l'accesso, l'utente deve appartenere al gruppo "
-"dockerterm.<br/>Nello stato di servizio il servizio sarà denominato CTerm."
 
 msgid "Version"
 msgstr "Versione"
@@ -919,6 +880,9 @@ msgstr "sto ispezionando l'immagine di docker"
 
 msgid "docker image prune ..."
 msgstr "sto rimuovendo l'immagine di docker ..."
+
+msgid "docker image pull ..."
+msgstr ""
 
 msgid "docker image rm ..."
 msgstr "sto rimuovendo l'immagine di docker ..."
@@ -1006,6 +970,12 @@ msgstr "ps"
 
 msgid "pull"
 msgstr "sincronizza"
+
+msgid "pull image"
+msgstr ""
+
+msgid "pull image+tag"
+msgstr ""
 
 msgid "restart"
 msgstr "riavvia"

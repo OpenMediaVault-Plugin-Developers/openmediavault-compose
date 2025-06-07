@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-28 19:31-0500\n"
+"POT-Creation-Date: 2025-06-06 19:08-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Odai Alghamdi, 2023\n"
 "Language-Team: Arabic (Saudi Arabia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ar_SA/)\n"
@@ -198,7 +198,7 @@ msgstr ""
 msgid "Container"
 msgstr "حاوية"
 
-msgid "Container Exec Terminal service"
+msgid "Container Terminals"
 msgstr ""
 
 msgid "Container state"
@@ -255,9 +255,6 @@ msgstr "بيانات"
 msgid "Date & Time"
 msgstr "التاريخ والوقت"
 
-msgid "Debug mode"
-msgstr ""
-
 msgid "Delete"
 msgstr "حذف"
 
@@ -271,6 +268,9 @@ msgid "Digest"
 msgstr ""
 
 msgid "Directory does not exist!"
+msgstr ""
+
+msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
 
 msgid "Displays information about containers in a grid."
@@ -339,16 +339,10 @@ msgstr ""
 msgid "Edit scheduled job."
 msgstr ""
 
-msgid "Enable"
-msgstr ""
-
 msgid "Enable Docker repo"
 msgstr ""
 
 msgid "Enable Docker repo ..."
-msgstr ""
-
-msgid "Enable host shell option in container list."
 msgstr ""
 
 msgid "Env Path"
@@ -359,9 +353,6 @@ msgstr ""
 
 msgid "Everyone - read/write"
 msgstr ""
-
-msgid "Example"
-msgstr "مثال"
 
 msgid "Example compose file has been added."
 msgstr ""
@@ -407,19 +398,10 @@ msgstr ""
 msgid "Group of directories and files"
 msgstr ""
 
-msgid "Host"
-msgstr ""
-
-msgid "Host shell"
-msgstr ""
-
 msgid "ID"
 msgstr "الهوية"
 
 msgid "IP range"
-msgstr ""
-
-msgid "IP to listen on. Use 0.0.0.0 for all IPs."
 msgstr ""
 
 msgid "Image"
@@ -584,12 +566,6 @@ msgstr ""
 msgid "Please set shared folder for file storage."
 msgstr ""
 
-msgid "Port"
-msgstr ""
-
-msgid "Port to listen on."
-msgstr ""
-
 msgid "Ports"
 msgstr ""
 
@@ -737,6 +713,9 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
+msgid "Terminal"
+msgstr ""
+
 msgid "Terminal Link"
 msgstr ""
 
@@ -757,11 +736,6 @@ msgstr ""
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
-msgstr ""
-
-msgid ""
-"This will import one or more compose files in subfolders.<br/>It will not "
-"import any compose configs that already exist in the plugin."
 msgstr ""
 
 msgid ""
@@ -790,14 +764,6 @@ msgid "Up"
 msgstr "أعلى"
 
 msgid "Uptime"
-msgstr ""
-
-msgid "User must be in dockerterm group to login."
-msgstr ""
-
-msgid ""
-"User must be in dockerterm group to login.<br/>Service will be named CTerm "
-"in service status."
 msgstr ""
 
 msgid "Version"
@@ -867,6 +833,9 @@ msgid "docker image inspect ..."
 msgstr ""
 
 msgid "docker image prune ..."
+msgstr ""
+
+msgid "docker image pull ..."
 msgstr ""
 
 msgid "docker image rm ..."
@@ -954,6 +923,12 @@ msgid "ps"
 msgstr ""
 
 msgid "pull"
+msgstr ""
+
+msgid "pull image"
+msgstr ""
+
+msgid "pull image+tag"
 msgstr ""
 
 msgid "restart"

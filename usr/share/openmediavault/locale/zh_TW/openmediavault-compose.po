@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-28 19:31-0500\n"
+"POT-Creation-Date: 2025-06-06 19:08-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -200,8 +200,8 @@ msgstr "配置"
 msgid "Container"
 msgstr "容器"
 
-msgid "Container Exec Terminal service"
-msgstr "容器執行終端機服務"
+msgid "Container Terminals"
+msgstr ""
 
 msgid "Container state"
 msgstr "容器狀態"
@@ -257,9 +257,6 @@ msgstr "資料"
 msgid "Date & Time"
 msgstr "日期與時間"
 
-msgid "Debug mode"
-msgstr "偵錯模式"
-
 msgid "Delete"
 msgstr "刪除"
 
@@ -274,6 +271,9 @@ msgstr "摘要"
 
 msgid "Directory does not exist!"
 msgstr "檔案目錄不存在！"
+
+msgid "Displays containers with a link to cterm exec terminal in a table."
+msgstr ""
 
 msgid "Displays information about containers in a grid."
 msgstr "以網格顯示關於容器的資訊。"
@@ -341,17 +341,11 @@ msgstr "編輯全機環境變數檔案。"
 msgid "Edit scheduled job."
 msgstr "編輯預訂工作。"
 
-msgid "Enable"
-msgstr "啟用"
-
 msgid "Enable Docker repo"
 msgstr "啟用 Docker 影像庫"
 
 msgid "Enable Docker repo ..."
 msgstr "啟用 Docker 影像庫 ..."
-
-msgid "Enable host shell option in container list."
-msgstr "啟用容器列表中的主機指令殻選項。"
 
 msgid "Env Path"
 msgstr "Env 路徑"
@@ -361,9 +355,6 @@ msgstr "環境"
 
 msgid "Everyone - read/write"
 msgstr "全員 - 讀/寫"
-
-msgid "Example"
-msgstr "範例"
 
 msgid "Example compose file has been added."
 msgstr "範例 compose 檔案已被加入。"
@@ -410,20 +401,11 @@ msgstr "全機環境變數"
 msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
 
-msgid "Host"
-msgstr "主機"
-
-msgid "Host shell"
-msgstr "主機指令殼"
-
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "IP 範圍"
-
-msgid "IP to listen on. Use 0.0.0.0 for all IPs."
-msgstr "要監聽的 IP 地址。使用 0.0.0.0 來代表所有 IP 地址。"
 
 msgid "Image"
 msgstr "影像"
@@ -589,12 +571,6 @@ msgstr "請於設定分頁中設定資料的檔案夾。"
 msgid "Please set shared folder for file storage."
 msgstr "請設定檔案儲存用的共享檔案夾。"
 
-msgid "Port"
-msgstr "通訊埠"
-
-msgid "Port to listen on."
-msgstr "要監聽的通訊埠。"
-
 msgid "Ports"
 msgstr "連接埠"
 
@@ -742,6 +718,9 @@ msgstr "標籤"
 msgid "Tags"
 msgstr "標籤"
 
+msgid "Terminal"
+msgstr ""
+
 msgid "Terminal Link"
 msgstr "終端機連結"
 
@@ -763,11 +742,6 @@ msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr "這將導入一個位於所選檔案夾中的 compose 檔案。<br/>它將不會導入已經存在於插件中的 compose 檔案。"
-
-msgid ""
-"This will import one or more compose files in subfolders.<br/>It will not "
-"import any compose configs that already exist in the plugin."
-msgstr "這將匯入一個或多個位於子檔案夾中的 compose 檔案。<br/>它將不會導入任何已經存在於插件中的 compose 配置檔案。"
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
@@ -796,14 +770,6 @@ msgstr "起動"
 
 msgid "Uptime"
 msgstr "運作時間"
-
-msgid "User must be in dockerterm group to login."
-msgstr "用户必須屬於 dockerterm 群組才能登入。"
-
-msgid ""
-"User must be in dockerterm group to login.<br/>Service will be named CTerm "
-"in service status."
-msgstr "用户必須屬於 dockerterm 群組才能登入。<br/>在服務狀態中，此服務將被稱為 CTerm。"
 
 msgid "Version"
 msgstr "版本"
@@ -873,6 +839,9 @@ msgstr "docker image inspect ..."
 
 msgid "docker image prune ..."
 msgstr "docker image prune ..."
+
+msgid "docker image pull ..."
+msgstr ""
 
 msgid "docker image rm ..."
 msgstr "docker image rm ..."
@@ -960,6 +929,12 @@ msgstr "程序狀態"
 
 msgid "pull"
 msgstr "拉取"
+
+msgid "pull image"
+msgstr ""
+
+msgid "pull image+tag"
+msgstr ""
 
 msgid "restart"
 msgstr "重啟"

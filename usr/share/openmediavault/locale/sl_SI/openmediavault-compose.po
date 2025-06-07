@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-28 19:31-0500\n"
+"POT-Creation-Date: 2025-06-06 19:08-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
@@ -217,8 +217,8 @@ msgstr "Konfiguracije"
 msgid "Container"
 msgstr "Zabojnik"
 
-msgid "Container Exec Terminal service"
-msgstr "Storitev za izvajanje Exec konzole v zabojniku"
+msgid "Container Terminals"
+msgstr ""
 
 msgid "Container state"
 msgstr "Stanje zabojnika"
@@ -274,9 +274,6 @@ msgstr "Podatki"
 msgid "Date & Time"
 msgstr "Datum in ura"
 
-msgid "Debug mode"
-msgstr "Način za odpravljanje napak"
-
 msgid "Delete"
 msgstr "Izbriši"
 
@@ -291,6 +288,9 @@ msgstr "Digest"
 
 msgid "Directory does not exist!"
 msgstr "Mapa ne obstaja!"
+
+msgid "Displays containers with a link to cterm exec terminal in a table."
+msgstr ""
 
 msgid "Displays information about containers in a grid."
 msgstr "Prikaže informacije o zabojnikih v mreži."
@@ -358,17 +358,11 @@ msgstr "Uredite datoteko z globalnimi okoljskimi spremenljivkami."
 msgid "Edit scheduled job."
 msgstr "Uredite načrtovano opravilo."
 
-msgid "Enable"
-msgstr "Omogoči"
-
 msgid "Enable Docker repo"
 msgstr "Omogoči Docker skladišče"
 
 msgid "Enable Docker repo ..."
 msgstr "Omogočanje Docker skladišča ..."
-
-msgid "Enable host shell option in container list."
-msgstr "Omogočite možnost gostiteljske lupine v seznamu zabojnikov."
 
 msgid "Env Path"
 msgstr "Pot za Env"
@@ -378,9 +372,6 @@ msgstr "Okolje"
 
 msgid "Everyone - read/write"
 msgstr "Vsi - branje/pisanje"
-
-msgid "Example"
-msgstr "Primer"
 
 msgid "Example compose file has been added."
 msgstr "Dodan je bil primer datoteke Compose."
@@ -428,20 +419,11 @@ msgstr "Globalne spremenljivke okolja"
 msgid "Group of directories and files"
 msgstr "Skupina imenikov in datotek"
 
-msgid "Host"
-msgstr "Gostitelj"
-
-msgid "Host shell"
-msgstr "Gostiteljska lupina"
-
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "Območje IP"
-
-msgid "IP to listen on. Use 0.0.0.0 for all IPs."
-msgstr "IP za poslušanje. Za vse IP-je uporabite 0.0.0.0."
 
 msgid "Image"
 msgstr "Slika"
@@ -612,12 +594,6 @@ msgstr "V zavihku Nastavitve nastavite deljeno mapo za podatke."
 msgid "Please set shared folder for file storage."
 msgstr "Nastavite deljeno mapo za shranjevanje datotek."
 
-msgid "Port"
-msgstr "Vrata"
-
-msgid "Port to listen on."
-msgstr "Vrata za poslušanje."
-
 msgid "Ports"
 msgstr "Vrata"
 
@@ -765,6 +741,9 @@ msgstr "Oznaka"
 msgid "Tags"
 msgstr "Oznake"
 
+msgid "Terminal"
+msgstr ""
+
 msgid "Terminal Link"
 msgstr "Povezava za Terminal"
 
@@ -790,13 +769,6 @@ msgid ""
 msgstr ""
 "To bo uvozilo eno datoteko Compose v izbrano mapo.<br/>Ne bo uvozilo "
 "datoteke Compose, ki že obstaja v vtičniku."
-
-msgid ""
-"This will import one or more compose files in subfolders.<br/>It will not "
-"import any compose configs that already exist in the plugin."
-msgstr ""
-"To bo uvozilo eno ali več datotek Compose v podmape.<br/>Ne bo uvozilo "
-"nobenih konfiguracij Compose, ki že obstajajo v vtičniku."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
@@ -829,16 +801,6 @@ msgstr "Up"
 
 msgid "Uptime"
 msgstr "Uptime"
-
-msgid "User must be in dockerterm group to login."
-msgstr "Uporabnik mora biti v skupini dockerterm, da se lahko prijavi."
-
-msgid ""
-"User must be in dockerterm group to login.<br/>Service will be named CTerm "
-"in service status."
-msgstr ""
-"Uporabnik mora biti v skupini dockerterm, da se lahko prijavi.<br/>Storitev "
-"se bo v statusu storietv imenovala CTerm."
 
 msgid "Version"
 msgstr "Verzija"
@@ -908,6 +870,9 @@ msgstr "docker image inspect ..."
 
 msgid "docker image prune ..."
 msgstr "docker image prune ..."
+
+msgid "docker image pull ..."
+msgstr ""
 
 msgid "docker image rm ..."
 msgstr "docker image rm ..."
@@ -995,6 +960,12 @@ msgstr "ps"
 
 msgid "pull"
 msgstr "pull"
+
+msgid "pull image"
+msgstr ""
+
+msgid "pull image+tag"
+msgstr ""
 
 msgid "restart"
 msgstr "restart"
