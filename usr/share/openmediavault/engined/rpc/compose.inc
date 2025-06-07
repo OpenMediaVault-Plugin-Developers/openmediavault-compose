@@ -2575,7 +2575,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = '--all';
             $cmdArgs[] = '--no-trunc';
             $cmdArgs[] = '--quiet';
-            $cmdArgs[] = '| xargs -n1 docker inspect --format "{{.Image}}"';
+            $cmdArgs[] = '| xargs --no-run-if-empty -n1 docker inspect --format "{{.Image}}"';
             $cmd = new \OMV\System\Process($cmdArgs);
             $cmd->execute($containerImages, $exitStatus);
             $containerImages = array_filter($containerImages);
