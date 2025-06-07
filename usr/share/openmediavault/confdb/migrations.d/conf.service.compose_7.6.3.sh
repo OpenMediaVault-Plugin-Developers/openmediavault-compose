@@ -3,7 +3,7 @@
 grp="dockerterm"
 
 if getent group "${grp}" > /dev/null; then
-    groupdel "${grp}"
+    groupdel --force "${grp}"
 fi
 
 exit 0
