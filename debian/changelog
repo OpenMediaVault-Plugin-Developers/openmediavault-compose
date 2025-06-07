@@ -1,8 +1,8 @@
-openmediavault-compose (7.6.3) UNRELEASED; urgency=medium
+openmediavault-compose (7.6.3) stable; urgency=low
 
   * Remove dockerterm group
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 07 Jun 2025 09:01:31 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 07 Jun 2025 12:08:52 -0500
 
 openmediavault-compose (7.6.2) stable; urgency=low
 
