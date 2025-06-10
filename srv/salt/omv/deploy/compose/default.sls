@@ -18,7 +18,7 @@
 {% set dirpath = '/srv/salt' | path_join(tpldir) %}
 
 include:
-{% for file in salt['file.readdir'](dirpath) %}
+{% for file in salt['file.readdir'](dirpath) | sort %}
 {% if file not in ('.', '..', 'init.sls', 'default.sls') %}
 {% if file.endswith('.sls') %}
   - .{{ file | replace('.sls', '') }}
