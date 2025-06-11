@@ -1,3 +1,9 @@
+openmediavault-compose (7.6.4) stable; urgency=low
+
+  * Add auto-login to cterm urls
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 11 Jun 2025 09:10:08 -0500
+
 openmediavault-compose (7.6.3) stable; urgency=low
 
   * Remove dockerterm group
