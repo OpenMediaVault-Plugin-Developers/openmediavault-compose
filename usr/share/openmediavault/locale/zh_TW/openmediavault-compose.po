@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-06 19:08-0500\n"
+"POT-Creation-Date: 2025-06-11 09:08-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -201,7 +201,7 @@ msgid "Container"
 msgstr "容器"
 
 msgid "Container Terminals"
-msgstr ""
+msgstr "容器終端機"
 
 msgid "Container state"
 msgstr "容器狀態"
@@ -273,7 +273,7 @@ msgid "Directory does not exist!"
 msgstr "檔案目錄不存在！"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
-msgstr ""
+msgstr "在表格中顯示容器加上 cterm 執行終端機連結。"
 
 msgid "Displays information about containers in a grid."
 msgstr "以網格顯示關於容器的資訊。"
@@ -719,7 +719,7 @@ msgid "Tags"
 msgstr "標籤"
 
 msgid "Terminal"
-msgstr ""
+msgstr "終端機"
 
 msgid "Terminal Link"
 msgstr "終端機連結"
@@ -841,7 +841,7 @@ msgid "docker image prune ..."
 msgstr "docker image prune ..."
 
 msgid "docker image pull ..."
-msgstr ""
+msgstr "docker image pull ..."
 
 msgid "docker image rm ..."
 msgstr "docker image rm ..."
@@ -931,10 +931,10 @@ msgid "pull"
 msgstr "拉取"
 
 msgid "pull image"
-msgstr ""
+msgstr "拉取影像"
 
 msgid "pull image+tag"
-msgstr ""
+msgstr "拉取影像+標籤"
 
 msgid "restart"
 msgstr "重啟"
