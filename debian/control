@@ -10,7 +10,7 @@ Homepage: http://omv-extras.org/
 Package: openmediavault-compose
 Architecture: all
 Depends: openmediavault (>= 7.7.6),
-         openmediavault-cterm,
+         openmediavault-cterm (>= 7.8),
          openmediavault-omvextrasorg (>= 7),
          openmediavault-sharerootfs,
          python3-docker,
