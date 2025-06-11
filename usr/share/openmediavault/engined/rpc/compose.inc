@@ -1577,6 +1577,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cterm = $db->get("conf.service.cterm");
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
+        // hmac
+        $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
+        $hmac = hash_hmac('sha256', $context['username'], $secret);
         // get exec url
         $execurl = $this->getExecUrl($context, $db, $fqdn);
         // get cache time
@@ -1634,8 +1637,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     if ($cterm->get("enable") == 0) {
                         $url = gettext("disabled");
                     } else {
-                        $url = sprintf('<a href="%s/%s/docker" target="_blank">exec terminal</a>',
-                          $execurl, $imagej->Name);
+                        $url = sprintf('<a href="%s/%s/docker?user=%s&hmac=%s" target="_blank">link</a>',
+                          $execurl, $imagej->Name, $context['username'], $hmac);
                     }
                     $imagesAssoc[] = [
                         "name" => $imagej->Name,
@@ -1762,6 +1765,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cacheTime = $settings->get('cachetimecontainers');
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
+        // hmac
+        $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
+        $hmac = hash_hmac('sha256', $context['username'], $secret);
         // get exec url
         $execurl = $this->getExecUrl($context, $db, $fqdn);
         // Check if cache file exists and is not older than cache setting
@@ -1802,8 +1808,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($cterm->get("enable") == 0) {
                 $url = gettext("disabled");
             } else {
-                $url = sprintf('<a href="%s/%s/docker" target="_blank">exec terminal</a>',
-                  $execurl, $container->Names);
+                $url = sprintf('<a href="%s/%s/docker?user=%s&hmac=%s" target="_blank">link</a>',
+                  $execurl, $container->Names, $context['username'], $hmac);
             }
             $cntAssoc[] = [
                 "id" => $container->ID,
@@ -2308,6 +2314,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // get exec url
         $execurl = $this->getExecUrl($context, $db, $fqdn);
         $objects = [];
+        // hmac
+        $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
+        $hmac = hash_hmac('sha256', $context['username'], $secret);
         // get containers and status if docker is running
         $output = [];
         $cmdArgs = [];
@@ -2321,13 +2330,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if (empty($cnt)) {
                 continue;
             }
-                var_dump($cnt);
             if ($cterm->get("enable") == 0) {
                 $url = gettext("disabled");
             } else {
-                $url = sprintf('<a href="%s/%s/docker" target="_blank">link</a>', $execurl, $cnt);
+                $url = sprintf('<a href="%s/%s?user=%s&hmac=%s" target="_blank">link</a>',
+                  $execurl, $cnt, $context['username'], $hmac);
             }
-                var_dump($url);
             $objects[] = [
                 'name' => $cnt,
                 'term' => $url
