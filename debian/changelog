@@ -1,6 +1,6 @@
 openmediavault-compose (7.6.5) stable; urgency=low
 
-  * Update for cterm 7.8
+  * Update for cterm 7.8.1 (a mandatory requirement of this plugin)
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 12 Jun 2025 15:49:20 -0500
 
