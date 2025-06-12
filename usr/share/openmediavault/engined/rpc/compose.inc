@@ -1581,7 +1581,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // hmac
         $autouser = $cterm->get('autouser') ?: $context['username'];
         $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
-        $hmac = hash_hmac('sha256', $autouser, $secret);
+        $ts = sprintf('%s', microtime(true));
+        $userts = sprintf('%s:%s', $autouser, $ts);
+        $hmac = hash_hmac('sha256', $userts, $secret);
         // get exec url
         $execurl = $this->getExecUrl($context, $db, $fqdn);
         // get cache time
@@ -1639,8 +1641,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     if ($cterm->get("enable") == 0) {
                         $url = gettext("disabled");
                     } else {
-                        $url = sprintf('<a href="%s/%s/docker?user=%s&hmac=%s" target="_blank">link</a>',
-                          $execurl, $imagej->Name, $autouser, $hmac);
+                        $url = sprintf('<a href="%s/%s/docker?user=%s&hmac=%s&ts=%s" target="_blank">link</a>',
+                          $execurl, $imagej->Name, $autouser, $hmac, $ts);
                     }
                     $imagesAssoc[] = [
                         "name" => $imagej->Name,
@@ -1770,7 +1772,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // hmac
         $autouser = $cterm->get('autouser') ?: $context['username'];
         $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
-        $hmac = hash_hmac('sha256', $autouser, $secret);
+        $ts = sprintf('%s', microtime(true));
+        $userts = sprintf('%s:%s', $autouser, $ts);
+        $hmac = hash_hmac('sha256', $userts, $secret);
         // get exec url
         $execurl = $this->getExecUrl($context, $db, $fqdn);
         // Check if cache file exists and is not older than cache setting
@@ -1811,8 +1815,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($cterm->get("enable") == 0) {
                 $url = gettext("disabled");
             } else {
-                $url = sprintf('<a href="%s/%s/docker?user=%s&hmac=%s" target="_blank">link</a>',
-                  $execurl, $container->Names, $autouser, $hmac);
+                $url = sprintf('<a href="%s/%s/docker?user=%s&hmac=%s&ts=%s" target="_blank">link</a>',
+                  $execurl, $container->Names, $autouser, $hmac, $ts);
             }
             $cntAssoc[] = [
                 "id" => $container->ID,
@@ -2324,7 +2328,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $autouser = $context['username'];
         }
         $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
-        $hmac = hash_hmac('sha256', $autouser, $secret);
+        $ts = sprintf('%s', microtime(true));
+        $userts = sprintf('%s:%s', $autouser, $ts);
+        $hmac = hash_hmac('sha256', $userts, $secret);
         // get containers and status if docker is running
         $output = [];
         $cmdArgs = [];
@@ -2341,8 +2347,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             if ($cterm->get("enable") == 0) {
                 $url = gettext("disabled");
             } else {
-                $url = sprintf('<a href="%s/%s?user=%s&hmac=%s" target="_blank">link</a>',
-                  $execurl, $cnt, $autouser, $hmac);
+                $url = sprintf('<a href="%s/%s?user=%s&hmac=%s&ts=%s" target="_blank">link</a>',
+                  $execurl, $cnt, $autouser, $hmac, $ts);
             }
             $objects[] = [
                 'name' => $cnt,
