@@ -10,7 +10,7 @@ Homepage: http://omv-extras.org/
 Package: openmediavault-compose
 Architecture: all
 Depends: openmediavault (>= 7.7.6),
-         openmediavault-cterm (>= 7.8),
+         openmediavault-cterm (>= 7.8.1),
          openmediavault-omvextrasorg (>= 7),
          openmediavault-sharerootfs,
          python3-docker,
@@ -30,3 +30,5 @@ Description: OpenMediaVault compose plugin
  * Image Status Tracking: Monitor image statuses and relevant metrics.
  * Network Management: Create and manage Docker networks.
  * Log Viewing: View logs for your containers.
+ .
+ The openmediavault-cterm plugin is a mandatory requirement of this plugin.
