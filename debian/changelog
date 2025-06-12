@@ -1,3 +1,9 @@
+openmediavault-compose (7.6.6) stable; urgency=low
+
+  * Fix auto-login
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 12 Jun 2025 18:08:24 -0500
+
 openmediavault-compose (7.6.5) stable; urgency=low
 
   * Update for cterm 7.8.1 (a mandatory requirement of this plugin)
