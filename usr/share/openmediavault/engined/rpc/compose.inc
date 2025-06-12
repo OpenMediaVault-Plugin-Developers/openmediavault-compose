@@ -282,10 +282,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     private function getExecUrl($context, $db, $fqdn)
     {
         $settings = $db->get("conf.service.cterm");
+        $basepath = $settings->get("basepath");
         $port = $settings->get("port");
         $webadmin = $db->get("conf.webadmin");
         $protocol = boolval($webadmin->get("enablessl")) ? "https" : "http";
-        $url = sprintf('%s://%s:%d/terminal', $protocol, $fqdn, $port);
+        $url = sprintf('%s://%s:%d%s/terminal', $protocol, $fqdn, $port, $basepath);
         return ($url);
     }
 
