@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.2.1
+# version: 1.2.2
 
 export LC_ALL=C.UTF-8
 
@@ -108,6 +108,9 @@ if omv_isuuid "${uuid}"; then
 fi
 _log "Verbose :: ${verbose}"
 
+desc="$(omv_config_get "/config/services/compose/files/file[name='${compose}']/description")"
+_log "Description :: ${desc}"
+
 # Get the backup max size
 backupmaxsize=$(omv_config_get "/config/services/compose/backupmaxsize")
 if [ ${backupmaxsize} -lt 1 ]; then
@@ -176,6 +179,10 @@ mkdir -pv "${backupdir}"
 # update volume list
 vollist="${backupdir}/vol.list"
 echo "${i},${composepath}" > "${vollist}"
+
+# write description to file
+descPath="${backupdir}/omv_file_desc.txt"
+echo "${desc}" > "${descPath}"
 
 # save status
 status="$(mktemp)"

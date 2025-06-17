@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.2
+# version: 1.0.3
 
 . /usr/share/openmediavault/scripts/helper-functions
 
@@ -102,6 +102,7 @@ fi
 
 path="${backuppath}/${compose}"
 _log "path :: ${path}"
+
 echo
 vollist="${path}/vol.list"
 if [ -f "${vollist}" ]; then
@@ -155,6 +156,12 @@ else
     if [ -f "${ymlfile}" ]; then
       ymltxt=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' "${ymlfile}")
     fi
+    descpath="${path}/omv_file_desc.txt"
+    desc=""
+    if [ -f "${descpath}" ]; then
+        _log "description path :: ${descpath}"
+        desc=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' "${descpath}")
+    fi
     if [ -n "${ymltxt}" ]; then
       # create backup of omv database
       date="$(date +'%Y-%m-%d_%H-%M-%S')"
@@ -162,7 +169,7 @@ else
       # create database entry
       object="<uuid>$(uuid)</uuid>"
       object="${object}<name>${compose}</name>"
-      object="${object}<description></description>"
+      object="${object}<description>${desc}</description>"
       object="${object}<body>@@YAML_DATA@@</body>"
       object="${object}<env>@@ENV_DATA@@</env>"
       # add new entry to database
