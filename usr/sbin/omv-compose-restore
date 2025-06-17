@@ -147,14 +147,19 @@ else
     composepath="${path}/0/${compose}"
     envfile="${composepath}.env"
     ymlfile="${composepath}.yml"
+    ovrfile="${path}/0/compose.override.yml"
     envtxt=""
     ymltxt=""
+    ovrtxt=""
     # escape for xml
     if [ -f "${envfile}" ]; then
       envtxt=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' "${envfile}")
     fi
     if [ -f "${ymlfile}" ]; then
       ymltxt=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' "${ymlfile}")
+    fi
+    if [ -f "${ovrfile}" ]; then
+      ovrtxt=$(sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' "${ovrfile}")
     fi
     descpath="${path}/omv_file_desc.txt"
     desc=""
@@ -171,12 +176,15 @@ else
       object="${object}<name>${compose}</name>"
       object="${object}<description>${desc}</description>"
       object="${object}<body>@@YAML_DATA@@</body>"
+      object="${object}<showenv>0</showenv>"
       object="${object}<env>@@ENV_DATA@@</env>"
+      object="${object}<showoverride>0</showoverride>"
+      object="${object}<override>@@OVR_DATA@@</override>"
       # add new entry to database
       omv_config_add_node_data "${xpath}" "file" "${object}"
       # repalce temp variables with compose yaml and environment file
       omvdb=$(<"${OMV_CONFIG_FILE}")
-      omvdbmod=$(awk -v env="${envtxt}" -v yml="${ymltxt}" '{gsub(/@@ENV_DATA@@/, env); gsub(/@@YAML_DATA@@/, yml)} 1' <<< "${omvdb}")
+      omvdbmod=$(awk -v env="${envtxt}" -v yml="${ymltxt}" -v ovr="${ovrtxt}" '{gsub(/@@ENV_DATA@@/, env); gsub(/@@YAML_DATA@@/, yml); gsub(/@@OVR_DATA@@/, ovr)} 1' <<< "${omvdb}")
       echo "${omvdbmod}" > "${OMV_CONFIG_FILE}"
       # mark compose module dirty
       omv_module_set_dirty compose
