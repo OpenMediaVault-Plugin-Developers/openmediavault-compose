@@ -198,7 +198,6 @@ else
            1
           ' <<< "${omvdb}"
       )
-      #omvdbmod=$(awk -v env="${envtxt}" -v yml="${ymltxt}" -v ovr="${ovrtxt}" -v desc="${desctxt}" '{gsub(/@@DESC_DATA@@/, desc); gsub(/@@ENV_DATA@@/, env); gsub(/@@YAML_DATA@@/, yml); gsub(/@@OVR_DATA@@/, ovr)} 1' <<< "${omvdb}")
       echo "${omvdbmod}" > "${OMV_CONFIG_FILE}"
       # mark compose module dirty
       omv_module_set_dirty compose
