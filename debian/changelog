@@ -1,3 +1,11 @@
+openmediavault-compose (7.6.7) UNRELEASED; urgency=medium
+
+  * Add file description to backup and restore
+  * Restore override file if it exists
+  * Add missing database fields to restore
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 17 Jun 2025 18:54:45 -0500
+
 openmediavault-compose (7.6.6) stable; urgency=low
 
   * Fix auto-login
