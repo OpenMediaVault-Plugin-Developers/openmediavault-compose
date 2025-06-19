@@ -51,6 +51,7 @@ docker_compose_install_packages:
       - containerd.io: '>=1.7.21'
       - docker-ce-cli: '>=27.2.1'
       - docker-buildx-plugin: '>=0.16.2'
+      - openmediavault-cterm: '>= 7.8.5'
 
 docker_purged_packages:
   pkg.purged:

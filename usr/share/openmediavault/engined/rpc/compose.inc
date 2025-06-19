@@ -281,13 +281,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     private function getExecUrl($context, $db, $fqdn)
     {
-        $settings = $db->get("conf.service.cterm");
-        $basepath = $settings->get("basepath");
-        $port = $settings->get("port");
-        $webadmin = $db->get("conf.webadmin");
-        $protocol = boolval($webadmin->get("enablessl")) ? "https" : "http";
-        $url = sprintf('%s://%s:%d%s/terminal', $protocol, $fqdn, $port, $basepath);
-        return ($url);
+        try {
+            $settings = $db->get("conf.service.cterm");
+            $basepath = $settings->get("basepath");
+            $port = $settings->get("port");
+            $webadmin = $db->get("conf.webadmin");
+            $protocol = boolval($webadmin->get("enablessl")) ? "https" : "http";
+            return sprintf('%s://%s:%d%s/terminal', $protocol, $fqdn, $port, $basepath);
+        } catch (Exception $e) {
+            // cterm not installed
+            return "";
+        }
     }
 
     private function getHeader()
@@ -1575,17 +1579,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $sfpath = $this->getComposePath($context);
         $settings = $db->get("conf.service.compose");
-        $cterm = $db->get("conf.service.cterm");
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
-        // hmac
-        $autouser = $cterm->get('autouser') ?: $context['username'];
-        $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
-        $ts = sprintf('%s', microtime(true));
-        $userts = sprintf('%s:%s', $autouser, $ts);
-        $hmac = hash_hmac('sha256', $userts, $secret);
-        // get exec url
-        $execurl = $this->getExecUrl($context, $db, $fqdn);
+        // get cterm settings
+        try {
+            $cterm = $db->get("conf.service.cterm");
+            // hmac
+            $autouser = $cterm->get('autouser') ?: $context['username'];
+            $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
+            $ts = sprintf('%s', microtime(true));
+            $userts = sprintf('%s:%s', $autouser, $ts);
+            $hmac = hash_hmac('sha256', $userts, $secret);
+            // get exec url
+            $execurl = $this->getExecUrl($context, $db, $fqdn);
+        } catch (Exception $e) {
+            // cterm not installed
+            $cterm = false;
+        }
         // get cache time
         $cacheTime = $settings->get('cachetimeservices');
         // populate services
@@ -1638,7 +1648,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     foreach ($imagej->Publishers as $publisher) {
                         $ports[] = $this->getPort($context, $publisher, $fqdn);
                     }
-                    if ($cterm->get("enable") == 0) {
+                    if (!$cterm || ($cterm && $cterm->get("enable") == 0)) {
                         $url = gettext("disabled");
                     } else {
                         $url = sprintf('<a href="%s/%s/docker?user=%s&hmac=%s&ts=%s" target="_blank">link</a>',
@@ -1765,18 +1775,24 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         // get cache time
         $settings = $db->get("conf.service.compose");
-        $cterm = $db->get("conf.service.cterm");
-        $cacheTime = $settings->get('cachetimecontainers');
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
-        // hmac
-        $autouser = $cterm->get('autouser') ?: $context['username'];
-        $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
-        $ts = sprintf('%s', microtime(true));
-        $userts = sprintf('%s:%s', $autouser, $ts);
-        $hmac = hash_hmac('sha256', $userts, $secret);
-        // get exec url
-        $execurl = $this->getExecUrl($context, $db, $fqdn);
+        // get cterm settings
+        try {
+            $cterm = $db->get("conf.service.cterm");
+            // hmac
+            $autouser = $cterm->get('autouser') ?: $context['username'];
+            $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
+            $ts = sprintf('%s', microtime(true));
+            $userts = sprintf('%s:%s', $autouser, $ts);
+            $hmac = hash_hmac('sha256', $userts, $secret);
+            // get exec url
+            $execurl = $this->getExecUrl($context, $db, $fqdn);
+        } catch (Exception $e) {
+            // cterm not installed
+            $cterm = false;
+        }
+        $cacheTime = $settings->get('cachetimecontainers');
         // Check if cache file exists and is not older than cache setting
         if ($cacheTime > 0 && file_exists($this->cacheFileContainers)
           && (time() - filemtime($this->cacheFileContainers)) < $cacheTime) {
@@ -1812,7 +1828,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $ports[] = $port;
                 }
             }
-            if ($cterm->get("enable") == 0) {
+            if (!$cterm || ($cterm && $cterm->get("enable") == 0)) {
                 $url = gettext("disabled");
             } else {
                 $url = sprintf('<a href="%s/%s/docker?user=%s&hmac=%s&ts=%s" target="_blank">link</a>',
@@ -2315,22 +2331,28 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_EVERYONE]);
         $db = \OMV\Config\Database::getInstance();
-        $cterm = $db->get("conf.service.cterm");
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
-        // get exec url
-        $execurl = $this->getExecUrl($context, $db, $fqdn);
-        $objects = [];
-        // hmac
-        if ($context['role'] == OMV_ROLE_ADMINISTRATOR) {
+        // get cterm settings
+        try {
+            $cterm = $db->get("conf.service.cterm");
+            // hmac
+            if ($context['role'] == OMV_ROLE_ADMINISTRATOR) {
+                $autouser = $cterm->get('autouser') ?: $context['username'];
+            } else {
+                $autouser = $context['username'];
+            }
             $autouser = $cterm->get('autouser') ?: $context['username'];
-        } else {
-            $autouser = $context['username'];
+            $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
+            $ts = sprintf('%s', microtime(true));
+            $userts = sprintf('%s:%s', $autouser, $ts);
+            $hmac = hash_hmac('sha256', $userts, $secret);
+            // get exec url
+            $execurl = $this->getExecUrl($context, $db, $fqdn);
+        } catch (Exception $e) {
+            // cterm not installed
+            $cterm = false;
         }
-        $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
-        $ts = sprintf('%s', microtime(true));
-        $userts = sprintf('%s:%s', $autouser, $ts);
-        $hmac = hash_hmac('sha256', $userts, $secret);
         // get containers and status if docker is running
         $output = [];
         $cmdArgs = [];
@@ -2340,11 +2362,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = '--format "{{.Names}}"';
         $cmd = new \OMV\System\Process($cmdArgs);
         $cmd->execute($output, $exitStatus);
+        $objects = [];
         foreach ($output as $cnt) {
             if (empty($cnt)) {
                 continue;
             }
-            if ($cterm->get("enable") == 0) {
+            if (!$cterm || ($cterm && $cterm->get("enable") == 0)) {
                 $url = gettext("disabled");
             } else {
                 $url = sprintf('<a href="%s/%s?user=%s&hmac=%s&ts=%s" target="_blank">link</a>',

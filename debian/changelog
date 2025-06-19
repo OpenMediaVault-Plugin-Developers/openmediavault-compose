@@ -3,6 +3,9 @@ openmediavault-compose (7.6.7) UNRELEASED; urgency=medium
   * Add file description to backup and restore
   * Restore override file if it exists
   * Add missing database fields to restore
+  * Remove openmediavault-cterm as a hard dependency to prevent
+    people from removing this plugin when they uninstall cterm.
+    cterm will be installed by saltstack.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 17 Jun 2025 18:54:45 -0500
 

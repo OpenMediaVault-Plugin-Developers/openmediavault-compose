@@ -22,6 +22,14 @@ case "$1" in
 
         # clear cache
         find /var/cache/openmediavault/ -type f -name "compose_cache_*"
+
+        # mark dirty if cterm isn't installed
+        cterm=$(dpkg -l | awk '$2 == "openmediavault-cterm" { print $1 }')
+        if [ ! "${cterm}" = "ii" ]; then
+            echo "openmediavault-cterm is not installed."
+            echo "Marking compose saltstack module dirty."
+            omv_module_set_dirty compose
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
