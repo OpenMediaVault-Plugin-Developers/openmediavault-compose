@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.2.2
+# version: 1.3.0
 
 export LC_ALL=C.UTF-8
 
@@ -168,6 +168,12 @@ for service in "${services[@]}"; do
       done
     fi
   done
+
+  ymlBuild=$(${yq} ".services.${service}" "${yml}" | grep 'build:' | sed 's/^build:\s*//')
+  confBuild=$(${yq} eval ".services.${service}.build.context // \"\"" "${confout}")
+  if [ -n "${ymlBuild}" ]; then
+    serviceVolsMap+=("${confBuild}:${ymlBuild}")
+  fi
 done
 
 IFS=$OFS
