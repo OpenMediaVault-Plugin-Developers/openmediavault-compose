@@ -2651,26 +2651,52 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 file_put_contents($cacheFileImages, json_encode($output));
             }
         }
-        $imagesAssoc = [];
+        // group images with same name and tag
+        $grouped = [];
         foreach ($output as $image) {
             $imageJson = json_decode($image);
-            $inuse = isset($containerImageSet[$imageJson->ID]);
-            if ($skipStatus) {
-                $status = 'NA';
-            } else {
-                $status = $this->getImageStatus($imageJson->Repository, $imageJson->Tag, $imageJson->Digest);
+            $key = "{$imageJson->Repository}:{$imageJson->Tag}";
+            if (!isset($grouped[$key])) {
+                $grouped[$key] = [
+                    "repo" => $imageJson->Repository,
+                    "tag" => $imageJson->Tag,
+                    "digests_raw" => [],
+                    "ids_raw" => [],
+                    "inuse" => false,
+                    "createat" => $imageJson->CreatedAt,
+                    "createsince" => $imageJson->CreatedSince,
+                    "size" => 0,
+                    "virtualsize" => 0
+                ];
             }
+            $grouped[$key]['digests_raw'][] = $imageJson->Digest;
+            $grouped[$key]['ids_raw'][] = $imageJson->ID;
+            $grouped[$key]['inuse'] = $grouped[$key]['inuse'] || isset($containerImageSet[$imageJson->ID]);
+            // show largest size and virtualsize
+            $grouped[$key]['size'] = isset($grouped[$key]['size'])
+                ? max($grouped[$key]['size'], $this->convertToBytes($imageJson->Size))
+                : $this->convertToBytes($imageJson->Size);
+            $grouped[$key]['virtualsize'] = isset($grouped[$key]['virtualsize'])
+                ? max($grouped[$key]['virtualsize'], $this->convertToBytes($imageJson->VirtualSize))
+                : $this->convertToBytes($imageJson->VirtualSize);
+        }
+        // add image status, deduplicate id and digest, format multi-line entries
+        $imagesAssoc = [];
+        foreach ($grouped as $entry) {
+            $digest = $entry['digests_raw'][0] ?? '<none>';
+            $status = $skipStatus ? 'NA' :
+                $this->getImageStatus($entry['repo'], $entry['tag'], $digest);
             $imagesAssoc[] = [
-                "id" => $imageJson->ID,
-                "repo" => $imageJson->Repository,
-                "createat" => $imageJson->CreatedAt,
-                "createsince" => $imageJson->CreatedSince,
-                "size" => $this->convertToBytes($imageJson->Size),
-                "tag" => $imageJson->Tag,
-                "digest" => $imageJson->Digest,
+                "id" => implode('<br/>', array_unique($entry['ids_raw'])),
+                "repo" => $entry['repo'],
+                "createat" => $entry['createat'],
+                "createsince" => $entry['createsince'],
+                "size" => $entry['size'],
+                "tag" => $entry['tag'],
+                "digest" => implode('<br/>', array_unique($entry['digests_raw'])),
                 "status" => $status,
-                "virtualsize" => $this->convertToBytes($imageJson->VirtualSize),
-                "inuse" => $inuse
+                "virtualsize" => $entry['virtualsize'],
+                "inuse" => $entry['inuse']
             ];
         }
         // Filter the result.
