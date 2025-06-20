@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# songming <by@songming.me>, 2024
+# songming <by@songming.me>, 2025
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-06 19:08-0500\n"
+"POT-Creation-Date: 2025-06-11 09:08-0500\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: songming <by@songming.me>, 2024\n"
+"Last-Translator: songming <by@songming.me>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgid "Add"
 msgstr "添加"
 
 msgid "Add example compose file"
-msgstr ""
+msgstr "添加示例 compose 文件"
 
 msgid "Add from Example"
 msgstr "从模板添加"
@@ -40,10 +40,10 @@ msgid "Add from URL"
 msgstr "从 URL 添加"
 
 msgid "Add..."
-msgstr ""
+msgstr "添加 ..."
 
 msgid "Adding an example compose file ..."
-msgstr ""
+msgstr "添加 一个示例 compose 文件 ..."
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr "管理员 - 读/写，用户 - 无权限，其它 - 无权限"
@@ -63,13 +63,13 @@ msgstr "管理员 - 读/写，用户 - 读/写，其它 - 只读"
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
-msgstr ""
+msgstr "您确定要创建一个新 git 源吗？这将删除所有历史记录！"
 
 msgid "Are you sure you want to delete this backup?"
 msgstr "您确定要删除备份吗？"
 
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "您确定要删除吗？"
 
 msgid "Are you sure you want to reinstall?"
 msgstr "您确定要重装？"
@@ -78,10 +78,10 @@ msgid "Are you sure you want to restart?"
 msgstr "您确定要重启？"
 
 msgid "Are you sure you want to restore global.env from backup?"
-msgstr ""
+msgstr "您确定要从备份恢复 global.env 吗"
 
 msgid "Are you sure you want to stop all containers?"
-msgstr ""
+msgstr "您确定要停止所有容器吗？"
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "您确定要从文件同步变更吗？"
@@ -105,7 +105,7 @@ msgid "Block Out"
 msgstr "Block Out"
 
 msgid "Body"
-msgstr ""
+msgstr "Body"
 
 msgid "Build"
 msgstr "构建"
@@ -117,7 +117,7 @@ msgid "CPU %"
 msgstr "CPU %"
 
 msgid "CTerm"
-msgstr ""
+msgstr "CTerm"
 
 msgid "Cache has been cleared."
 msgstr "缓存已清除。"
@@ -156,7 +156,7 @@ msgid "Compose Backup"
 msgstr "Compose 备份"
 
 msgid "Compose File"
-msgstr ""
+msgstr "Compose 文件"
 
 msgid "Compose Files"
 msgstr "Compose 文件"
@@ -165,10 +165,10 @@ msgid "Compose Restore"
 msgstr "Compose 恢复"
 
 msgid "Compose Start"
-msgstr ""
+msgstr "开始 Compose"
 
 msgid "Compose Stop"
-msgstr ""
+msgstr "停止 Compose"
 
 msgid "Compose Update"
 msgstr "Compose 更新"
@@ -177,7 +177,7 @@ msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose 文件存储的共享文件夹必须与 data 存储共享文件夹不同"
 
 msgid "Compose file to be associate imported files with"
-msgstr ""
+msgstr "Compose 文件与导入的文件相关联"
 
 msgid "Compose version"
 msgstr "Compose 版本"
@@ -195,16 +195,16 @@ msgid "Conf filename cannot be"
 msgstr "配置文件名称不能是"
 
 msgid "Configs"
-msgstr ""
+msgstr "配置"
 
 msgid "Container"
 msgstr "Container"
 
 msgid "Container Terminals"
-msgstr ""
+msgstr "Container 终端"
 
 msgid "Container state"
-msgstr ""
+msgstr "Container 状态"
 
 msgid "Containers"
 msgstr "Containers"
@@ -231,7 +231,7 @@ msgid "Created At"
 msgstr "创建"
 
 msgid "Created config."
-msgstr ""
+msgstr "创建配置。"
 
 msgid "Created dockerfile."
 msgstr "已创建 dockerfile。"
@@ -273,13 +273,13 @@ msgid "Directory does not exist!"
 msgstr "目录不存在！"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
-msgstr ""
+msgstr "以表格形式显示带有链接到 cterm 终端的容器"
 
 msgid "Displays information about containers in a grid."
-msgstr ""
+msgstr "以网格形式显示容器信息。"
 
 msgid "Displays information about containers in a table."
-msgstr ""
+msgstr "以表格形式显示容器信息。"
 
 msgid "Docker"
 msgstr "Docker"
@@ -324,7 +324,7 @@ msgid "Edit"
 msgstr "编辑"
 
 msgid "Edit config."
-msgstr ""
+msgstr "编辑配置。"
 
 msgid "Edit dockerfile."
 msgstr "编辑 dockerfile。"
@@ -357,10 +357,10 @@ msgid "Everyone - read/write"
 msgstr "任何人 - 读/写"
 
 msgid "Example compose file has been added."
-msgstr ""
+msgstr "示例 compose 文件已添加。"
 
 msgid "Excludes"
-msgstr ""
+msgstr "不包括"
 
 msgid "Execute scheduled job ..."
 msgstr "执行计划任务 ..."
@@ -375,7 +375,7 @@ msgid "File date"
 msgstr "文件日期"
 
 msgid "Filename"
-msgstr ""
+msgstr "文件名"
 
 msgid "Files"
 msgstr "文件"
@@ -416,7 +416,7 @@ msgid "Import"
 msgstr "导入"
 
 msgid "Import config files from folders ..."
-msgstr ""
+msgstr "从文件夹导入配置文件 ..."
 
 msgid "Import existing compose file ..."
 msgstr "导入已存在的 compose 文件 ..."
@@ -431,7 +431,7 @@ msgid "In Use"
 msgstr "使用中"
 
 msgid "Initialize new git repo ..."
-msgstr ""
+msgstr "初始化新 git 源 ..."
 
 msgid "Inspect"
 msgstr "检查"
@@ -449,22 +449,22 @@ msgid "Location of compose files"
 msgstr "compose 文件位置"
 
 msgid "Logged out."
-msgstr ""
+msgstr "已注销。"
 
 msgid "Logging out ..."
-msgstr ""
+msgstr "注销中 ..."
 
 msgid "Login"
-msgstr ""
+msgstr "登录"
 
 msgid "Login to docker repo ..."
-msgstr ""
+msgstr "登录 docker 源 ..."
 
 msgid "Logout"
-msgstr ""
+msgstr "注销"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "维护"
 
 msgid "Max Size"
 msgstr "最大尺寸"
@@ -491,7 +491,7 @@ msgid "Mounts"
 msgstr "挂载"
 
 msgid "Multiple exclusions should be comma separated."
-msgstr ""
+msgstr "多个排除香应使用逗号分开。"
 
 msgid "Name"
 msgstr "名字"
@@ -598,10 +598,10 @@ msgid "Reinstall Docker ..."
 msgstr "重新安装 Docker ..."
 
 msgid "Repo"
-msgstr ""
+msgstr "源"
 
 msgid "Repos"
-msgstr ""
+msgstr "源"
 
 msgid "Repository"
 msgstr "源"
@@ -616,10 +616,10 @@ msgid "Restore Compose ..."
 msgstr "恢复 Compose ..."
 
 msgid "Restore global.env"
-msgstr ""
+msgstr "恢复 global.env"
 
 msgid "Restoring global.env from backup ..."
-msgstr ""
+msgstr "从备份恢复 global.env 中..."
 
 msgid "Run"
 msgstr "运行"
@@ -640,7 +640,7 @@ msgid "Script filename cannot be"
 msgstr "脚本文件名称不能是"
 
 msgid "Scripts"
-msgstr ""
+msgstr "脚本"
 
 msgid "Select a group ..."
 msgstr "选择一个组 ..."
@@ -664,16 +664,16 @@ msgid "Shared folder"
 msgstr "共享文件夹"
 
 msgid "Show all file changes ..."
-msgstr ""
+msgstr "显示所有文件变更 ..."
 
 msgid "Show all global.env changes ..."
-msgstr ""
+msgstr "显示所有 global.env 变更 ..."
 
 msgid "Show commands"
 msgstr "显示命令"
 
 msgid "Show config changes"
-msgstr ""
+msgstr "显示配置变更"
 
 msgid "Show docker command for task in task dialog"
 msgstr "在任务对话框中显示 docker 命令"
@@ -718,24 +718,24 @@ msgid "Tags"
 msgstr "标签"
 
 msgid "Terminal"
-msgstr ""
+msgstr "终端"
 
 msgid "Terminal Link"
-msgstr ""
+msgstr "终端链接"
 
 msgid "The config file will be created in this compose file's directory."
-msgstr ""
+msgstr "在这个 compose 文件目录会创建配置文件"
 
 msgid "The field should only contain * or a comma separated list of values."
 msgstr "该字段应该仅包含 * 或以逗号分隔的值。"
 
 msgid "This is the filename. This should not be a path."
-msgstr ""
+msgstr "这是文件名，而不是路径。"
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
-msgstr ""
+msgstr "这将会从选择文件夹导入配置文件。<br/>这不会导入在插件中已存在的任何配置文件。"
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
@@ -792,7 +792,7 @@ msgid "check"
 msgstr "检查"
 
 msgid "disabled"
-msgstr ""
+msgstr "停用"
 
 msgid "docker compose down --remove-orphans ..."
 msgstr "docker compose down --remove-orphans ..."
@@ -801,7 +801,7 @@ msgid "docker compose down ..."
 msgstr "docker compose down ..."
 
 msgid "docker compose down all files..."
-msgstr ""
+msgstr "docker compose 停止所有文件 ..."
 
 msgid "docker compose file version"
 msgstr "docker compose file version"
@@ -840,7 +840,7 @@ msgid "docker image prune ..."
 msgstr "docker 镜像修改 ..."
 
 msgid "docker image pull ..."
-msgstr ""
+msgstr "拉取 docker image ..."
 
 msgid "docker image rm ..."
 msgstr "删除 docker 镜像 ..."
@@ -885,7 +885,7 @@ msgid "down"
 msgstr "下线"
 
 msgid "down all"
-msgstr ""
+msgstr "停止所有"
 
 msgid "down and remove orphans"
 msgstr "下线并删除孤立容器"
@@ -900,19 +900,19 @@ msgid "e.g. 172.20.10.128/25"
 msgstr "如 172.20.10.128/25"
 
 msgid "file not found!"
-msgstr ""
+msgstr "文件未找到！"
 
 msgid "follow logs"
 msgstr "日志跟踪"
 
 msgid "global.env has been restored from backup."
-msgstr ""
+msgstr "global.env 已从备份恢复。"
 
 msgid "init git repo"
-msgstr ""
+msgstr "初始化 git 源"
 
 msgid "inspect"
-msgstr ""
+msgstr "检查"
 
 msgid "logs"
 msgstr "日志"
@@ -930,19 +930,19 @@ msgid "pull"
 msgstr "拉取"
 
 msgid "pull image"
-msgstr ""
+msgstr "拉取镜像"
 
 msgid "pull image+tag"
-msgstr ""
+msgstr "拉取镜像+标签"
 
 msgid "restart"
 msgstr "重启"
 
 msgid "show file changes"
-msgstr ""
+msgstr "显示文件变更"
 
 msgid "show global.env changes"
-msgstr ""
+msgstr "显示 global.env 变更"
 
 msgid "stop"
 msgstr "停止"
