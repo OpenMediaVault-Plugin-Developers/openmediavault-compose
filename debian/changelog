@@ -1,4 +1,4 @@
-openmediavault-compose (7.6.7) UNRELEASED; urgency=medium
+openmediavault-compose (7.6.7) stable; urgency=low
 
   * Add file description to backup and restore
   * Restore override file if it exists
@@ -8,7 +8,7 @@ openmediavault-compose (7.6.7) UNRELEASED; urgency=medium
     cterm will be installed by saltstack.
   * Backup build directory if exists in compose file.
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 17 Jun 2025 18:54:45 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 19 Jun 2025 19:28:32 -0500
 
 openmediavault-compose (7.6.6) stable; urgency=low
 
