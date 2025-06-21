@@ -1,3 +1,9 @@
+openmediavault-compose (7.6.9) UNRELEASED; urgency=medium
+
+  * Add docker image prune button to images tab
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 21 Jun 2025 08:32:08 -0500
+
 openmediavault-compose (7.6.8) stable; urgency=low
 
   * Group images with same name and tag
