@@ -1,3 +1,9 @@
+openmediavault-compose (7.6.8) stable; urgency=low
+
+  * Group images with same name and tag
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 21 Jun 2025 08:09:15 -0500
+
 openmediavault-compose (7.6.7) stable; urgency=low
 
   * Add file description to backup and restore
