@@ -1,6 +1,7 @@
 openmediavault-compose (7.6.9) UNRELEASED; urgency=medium
 
   * Add docker image prune button to images tab
+  * Improve image status
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 21 Jun 2025 08:32:08 -0500
 

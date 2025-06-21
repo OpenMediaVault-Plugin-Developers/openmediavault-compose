@@ -2683,9 +2683,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // add image status, deduplicate id and digest, format multi-line entries
         $imagesAssoc = [];
         foreach ($grouped as $entry) {
-            $digest = $entry['digests_raw'][0] ?? '<none>';
+            $digests = array_unique($entry['digests_raw']);
             $status = $skipStatus ? 'NA' :
-                $this->getImageStatus($entry['repo'], $entry['tag'], $digest);
+                $this->getImageStatus($entry['repo'], $entry['tag'], $digests);
             $imagesAssoc[] = [
                 "id" => implode('<br/>', array_unique($entry['ids_raw'])),
                 "repo" => $entry['repo'],
@@ -2693,7 +2693,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 "createsince" => $entry['createsince'],
                 "size" => $entry['size'],
                 "tag" => $entry['tag'],
-                "digest" => implode('<br/>', array_unique($entry['digests_raw'])),
+                "digest" => implode('<br/>', $digests),
                 "status" => $status,
                 "virtualsize" => $entry['virtualsize'],
                 "inuse" => $entry['inuse']
@@ -2704,16 +2704,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
-    private function getImageStatus($img, $tag, $digest)
+
+    private function getImageStatus($img, $tag, $digests)
     {
-        // return n/a if no digest or image name
-        if ($img == "<none>" || $tag == "<none>" || $digest == "<none>" ||
-            strlen($img) == 0 || strlen($tag) == 0 || strlen($digest) == 0) {
+        if ($img == "<none>" || $tag == "<none>" || empty($digests) ||
+            strlen($img) == 0 || strlen($tag) == 0) {
             return 'NA';
         }
-        // get cache time
+        // get database
         $db = \OMV\Config\Database::getInstance();
         $settings = $db->get("conf.service.compose");
+        // get cache time
         $cacheTime = $settings->get('cachetimeimages');
         $iname = sprintf('%s_%s', str_replace('/', '_', $img), $tag);
         $cacheFile = sprintf('%s_%s.json', $this->cacheFileImages, $iname);
@@ -2740,19 +2741,21 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 file_put_contents($cacheFile, json_encode($output));
             }
         }
-        $newest = '';
-        if ($exitStatus > 0) {
+        // determine status
+        if ($exitStatus > 0 || empty($output)) {
             return 'FAILED';
-        } else {
-            $newest = implode('', $output);
         }
-        if (!isset($newest) || $newest == '') {
+        $latestDigest = trim(implode('', $output));
+        if (empty($latestDigest)) {
             return 'FAILED';
-        } elseif ($digest != $newest) {
-            return 'AVAILABLE';
-        } else {
-            return 'CURRENT';
         }
+        // if any digest is current, return current
+        foreach ($digests as $digest) {
+            if ($digest === $latestDigest) {
+                return 'CURRENT';
+            }
+        }
+        return 'AVAILABLE';
     }
 
     public function getImagesBg($params, $context) {

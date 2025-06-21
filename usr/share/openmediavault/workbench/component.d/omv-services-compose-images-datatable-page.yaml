@@ -21,7 +21,7 @@ data:
     columns:
       - name: _("ID")
         prop: id
-        flexGrow: 1
+        flexGrow: 2
         sortable: true
         hidden: true
       - name: _("Repository")
