@@ -223,3 +223,17 @@ data:
                 params:
                   imgname: "{{ _selected[0].repo }}"
                   imgtag: "{{ _selected[0].tag }}"
+      - type: iconButton
+        icon: mdi:image-minus-outline
+        tooltip: _("Prune Images")
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker image prune ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doPrune
+                params:
+                  command: "image prune"
