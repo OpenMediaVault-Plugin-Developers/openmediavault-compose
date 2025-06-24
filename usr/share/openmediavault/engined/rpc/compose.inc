@@ -2707,8 +2707,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     private function getImageStatus($img, $tag, $digests)
     {
         if ($img == "<none>" || $tag == "<none>" || empty($digests) ||
-            strlen($img) == 0 || strlen($tag) == 0) ||
-            (count($digests) === 1 && $digests[0] == "<none>")) {
+            strlen($img) == 0 || strlen($tag) == 0) {
+            return 'NA';
+        }
+        $allNone = true;
+        foreach ($digests as $d) {
+            if ($d !== '<none>' && strlen($d) > 0) {
+                $allNone = false;
+                break;
+            }
+        }
+        if ($allNone) {
             return 'NA';
         }
         // get database
