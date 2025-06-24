@@ -2704,11 +2704,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
-
     private function getImageStatus($img, $tag, $digests)
     {
         if ($img == "<none>" || $tag == "<none>" || empty($digests) ||
-            strlen($img) == 0 || strlen($tag) == 0) {
+            strlen($img) == 0 || strlen($tag) == 0) ||
+            (count($digests) === 1 && $digests[0] == "<none>")) {
             return 'NA';
         }
         // get database
