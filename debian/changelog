@@ -1,3 +1,10 @@
+openmediavault-compose (7.6.10) stable; urgency=low
+
+  * Try to return NA for locally built images with any digest that is
+    none or empty
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 24 Jun 2025 11:52:51 -0500
+
 openmediavault-compose (7.6.9) stable; urgency=low
 
   * Add docker image prune button to images tab
