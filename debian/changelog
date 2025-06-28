@@ -1,3 +1,9 @@
+openmediavault-compose (7.6.11) stable; urgency=low
+
+  * Fix backup script for variable interpolation
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 28 Jun 2025 10:54:42 -0500
+
 openmediavault-compose (7.6.10) stable; urgency=low
 
   * Try to return NA for locally built images with any digest that is
