@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.3.0
+# version: 1.3.1
 
 export LC_ALL=C.UTF-8
 
@@ -31,10 +31,12 @@ _log()
 
 extractContPath() {
   local val="$1"
+   # Remove anything after a '#' (comment)
+  val="${val%%#*}"
+  # Remove everything through the last “}” (if there is one)
+  val="${val##*\}}"
   # Remove everything before the first colon
   val="${val#*:}"
-  # Remove anything after a '#' (comment)
-  val="${val%%#*}"
   # Remove everything after the next colon
   val="${val%%:*}"
   # Trim trailing whitespace
