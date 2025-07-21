@@ -746,7 +746,7 @@ msgid "Tags"
 msgstr "Tag"
 
 msgid "Terminal"
-msgstr ""
+msgstr "Terminale"
 
 msgid "Terminal Link"
 msgstr "Collegamento terminale"
