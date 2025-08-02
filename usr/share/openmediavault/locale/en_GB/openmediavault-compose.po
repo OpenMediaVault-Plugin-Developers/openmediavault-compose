@@ -119,7 +119,7 @@ msgid "CPU %"
 msgstr "CPU %"
 
 msgid "CTerm"
-msgstr ""
+msgstr "CTerm"
 
 msgid "Cache has been cleared."
 msgstr "Cache has been cleared."
@@ -205,7 +205,7 @@ msgid "Container"
 msgstr "Container"
 
 msgid "Container Terminals"
-msgstr ""
+msgstr "Container Terminals"
 
 msgid "Container state"
 msgstr "Container state"
@@ -277,7 +277,7 @@ msgid "Directory does not exist!"
 msgstr "Directory does not exist!"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
-msgstr ""
+msgstr "Displays containers with a link to cterm exec terminal in a table."
 
 msgid "Displays information about containers in a grid."
 msgstr "Displays information about containers in a grid."
@@ -728,10 +728,10 @@ msgid "Tags"
 msgstr "Tags"
 
 msgid "Terminal"
-msgstr ""
+msgstr "Terminal"
 
 msgid "Terminal Link"
-msgstr ""
+msgstr "Terminal Link"
 
 msgid "The config file will be created in this compose file's directory."
 msgstr "The config file will be created in this compose file's directory."
@@ -810,7 +810,7 @@ msgid "check"
 msgstr "check"
 
 msgid "disabled"
-msgstr ""
+msgstr "disabled"
 
 msgid "docker compose down --remove-orphans ..."
 msgstr "docker compose down --remove-orphans ..."
@@ -858,7 +858,7 @@ msgid "docker image prune ..."
 msgstr "docker image prune ..."
 
 msgid "docker image pull ..."
-msgstr ""
+msgstr "docker image pull ..."
 
 msgid "docker image rm ..."
 msgstr "docker image rm ..."
@@ -930,7 +930,7 @@ msgid "init git repo"
 msgstr "init git repo"
 
 msgid "inspect"
-msgstr ""
+msgstr "inspect"
 
 msgid "logs"
 msgstr "logs"
@@ -948,10 +948,10 @@ msgid "pull"
 msgstr "pull"
 
 msgid "pull image"
-msgstr ""
+msgstr "pull image"
 
 msgid "pull image+tag"
-msgstr ""
+msgstr "pull image+tag"
 
 msgid "restart"
 msgstr "restart"
