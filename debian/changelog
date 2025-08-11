@@ -1,3 +1,9 @@
+openmediavault-compose (7.6.13) stable; urgency=low
+
+  * Add env variable to remove cterm dependency
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 11 Aug 2025 07:33:04 -0500
+
 openmediavault-compose (7.6.12) stable; urgency=low
 
   * Remove old cterm file
