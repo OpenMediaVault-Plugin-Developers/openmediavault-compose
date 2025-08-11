@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
+{% set nocterm = salt['pillar.get']('default:OMV_NO_CTERM_DEPENDENCY', 'no') -%}
 
 # create daemon.json file if docker storage path is specified
 {% if config.dockerStorage | length > 1 %}
@@ -51,7 +52,9 @@ docker_compose_install_packages:
       - containerd.io: '>=1.7.21'
       - docker-ce-cli: '>=27.2.1'
       - docker-buildx-plugin: '>=0.16.2'
+{% if not nocterm | to_bool %}
       - openmediavault-cterm: '>= 7.8.5'
+{% endif %}
 
 docker_purged_packages:
   pkg.purged:
