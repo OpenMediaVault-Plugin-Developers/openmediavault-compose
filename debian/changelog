@@ -1,3 +1,9 @@
+openmediavault-compose (8.0) stable; urgency=low
+
+  * Update for omv 8.x
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 28 Sep 2025 09:31:40 -0500
+
 openmediavault-compose (7.6.13) stable; urgency=low
 
   * Add env variable to remove cterm dependency
