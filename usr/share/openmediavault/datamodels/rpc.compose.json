@@ -102,6 +102,10 @@
         "showcmd": {
           "type": "boolean",
           "required": true
+        },
+        "runconfig": {
+          "type": "boolean",
+          "required": true
         }
       }
     }

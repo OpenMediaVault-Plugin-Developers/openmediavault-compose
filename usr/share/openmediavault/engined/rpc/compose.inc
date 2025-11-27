@@ -674,6 +674,63 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return $db->getAssoc("conf.service.compose.file", $params['uuid']);
     }
 
+    private function checkFileSyntax($context, $yml1, $yml2, $env1)
+    {
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $runConfig = $settings->get('runconfig');
+
+        if ($runConfig == false) return true;
+
+        $sfpath = $this->getComposePath($context);
+        $globalEnvFile = sprintf("%s/global.env", $sfpath);
+
+        $tmpDir = sprintf('%s/compose_check_%s', sys_get_temp_dir(), bin2hex(random_bytes(4)));
+        mkdir($tmpDir, 0700, true);
+
+        $ymlFile1 = $tmpDir . '/test.yml';
+        $ymlFile2 = $tmpDir . '/test.override.yml';
+        $envFile1 = $tmpDir . '/test.env1';
+
+        $body = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $yml1);
+        $body = str_replace('CHANGE_TO_COMPOSE_NAME', $cname, $body);
+        $env = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $env1);
+        $env = str_replace('CHANGE_TO_COMPOSE_NAME', $cname, $env);
+        $override = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $yml2);
+
+        file_put_contents($ymlFile1, $body);
+        file_put_contents($ymlFile2, $override);
+        file_put_contents($envFile1, $env);
+
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'compose';
+        $cmdArgs[] = sprintf("--file '%s'", $ymlFile1);
+        $cmdArgs[] = sprintf("--file '%s'", $ymlFile2);
+        $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+        $cmdArgs[] = sprintf("--env-file '%s'", $envFile1);
+        $cmdArgs[] = 'config';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        $cmd->setRedirect2to1();
+        $cmdLine = $cmd->getCommandLine();
+        $failed = false;
+        $output = [];
+        if (0 !== $this->exec($cmdLine, $output)) {
+            $failed = true;
+        }
+
+        // Clean up temp files
+        @unlink($ymlFile1);
+        @unlink($ymlFile2);
+        @unlink($envFile1);
+        @rmdir($tmpDir);
+
+        if ($failed) {
+            throw new \OMV\Exception(implode(PHP_EOL, $output));
+        }
+        return true;
+    }
+
     public function setFile($params, $context)
     {
         // Validate the RPC caller context.
@@ -701,6 +758,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             // Check uniqueness - name
             $db->assertIsUnique($object, "name");
         }
+        // check syntax if enabled
+        $checkSyntax = $this->checkFileSyntax($context, $object->get('body'), $object->get('override'), $object->get('env'));
         // update database
         $db->set($object);
         // Apply changes immmediately

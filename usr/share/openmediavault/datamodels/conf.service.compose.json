@@ -121,6 +121,9 @@
     "showcmd": {
       "type": "boolean"
     },
+    "runconfig": {
+      "type": "boolean"
+    },
     "files": {
       "type": "object",
       "properties": {

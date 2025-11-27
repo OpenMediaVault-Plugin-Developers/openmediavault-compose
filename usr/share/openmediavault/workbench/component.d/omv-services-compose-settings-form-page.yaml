@@ -129,6 +129,12 @@ data:
         name: showcmd
         label: _("Show commands")
         hint: _("Show docker command for task in task dialog")
+        value: false
+      - type: checkbox
+        name: runconfig
+        label: _("Run config")
+        hint: _("Run docker compose config to automatically check syntax when saving file")
+        value: false
       - type: divider
         title: _("Cache times for tabs")
       - type: container
