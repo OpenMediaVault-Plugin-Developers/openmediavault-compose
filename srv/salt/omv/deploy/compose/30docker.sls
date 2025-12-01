@@ -33,6 +33,16 @@ configure_etc_docker_dir:
   file.serialize:
     - dataset:
         data-root: "{{ config.dockerStorage }}"
+        storage-driver: "overlay2"
+        {% if config.logmaxsize|int > 0 %}
+        log-driver: "json-file"
+        log-opts:
+          max-size: "{{ config.logmaxsize }}"
+          max-file: "3"
+        {% endif %}
+        {% if config.liverestore %}
+        live-restore: true
+        {% endif %}
     - serializer: json
     - user: root
     - group: root

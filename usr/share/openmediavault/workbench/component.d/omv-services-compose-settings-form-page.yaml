@@ -97,12 +97,45 @@ data:
           required: true
         hint: _("Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 for unlimited.")
       - type: divider
-        title: _("Docker")
-      - type: textInput
-        name: dockerStorage
-        label: _("Docker storage")
-        value: "/var/lib/docker"
-        hint: _("Leave blank to use a custom /etc/docker/daemon.json")
+        title: _("Docker config")
+      - type: container
+        fields:
+          - type: textInput
+            name: dockerStorage
+            label: _("Docker storage")
+            value: "/var/lib/docker"
+            hint: _("Leave blank to use a custom /etc/docker/daemon.json")
+          - type: numberInput
+            name: logmaxsize
+            label: _("Log file max size")
+            value: 50
+            validators:
+              min: 0
+              max: 65536
+              patternType: integer
+              required: true
+            hint: _("Units in MB. Set to 0 for unlimited.")
+            modifiers:
+              - type: disabled
+                constraint:
+                  operator: eq
+                  arg0:
+                    prop: dockerStorage
+                  arg1: ""
+          - type: checkbox
+            name: liverestore
+            label: _("Live restore")
+            hint: _("Keep containers running across Docker daemon updates")
+            value: true
+            modifiers:
+              - type: disabled
+                constraint:
+                  operator: eq
+                  arg0:
+                    prop: dockerStorage
+                  arg1: ""
+      - type: divider
+        title: _("Docker info")
       - type: textInput
         name: dockerStatus
         label: _("Status")

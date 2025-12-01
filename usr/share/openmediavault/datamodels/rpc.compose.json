@@ -67,6 +67,14 @@
           "type": "string",
           "required": false
         },
+        "logmaxsize": {
+          "type": "integer",
+          "required": true
+        },
+        "liverestore": {
+          "type": "boolean",
+          "required": true
+        },
         "urlHostname": {
           "type": "string",
           "required": true

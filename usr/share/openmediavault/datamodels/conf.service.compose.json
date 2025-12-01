@@ -72,6 +72,15 @@
       "type": "string",
       "default": "/var/lib/docker"
     },
+    "logmaxsize": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535,
+      "default": 50
+    },
+    "liverestore": {
+      "type": "boolean"
+    },
     "urlHostname": {
       "type": "string",
       "default": ""
