@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-11 09:08-0500\n"
+"POT-Creation-Date: 2025-12-01 21:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2025\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -117,9 +117,6 @@ msgstr "Build ..."
 
 msgid "CPU %"
 msgstr "CPU %"
-
-msgid "CTerm"
-msgstr "CTerm"
 
 msgid "Cache has been cleared."
 msgstr "Cache has been cleared."
@@ -285,11 +282,14 @@ msgstr "Displays information about containers in a grid."
 msgid "Displays information about containers in a table."
 msgstr "Displays information about containers in a table."
 
-msgid "Docker"
-msgstr "Docker"
+msgid "Docker config"
+msgstr ""
 
 msgid "Docker has been restarted."
 msgstr "Docker has been restarted."
+
+msgid "Docker info"
+msgstr ""
 
 msgid "Docker is restarting ..."
 msgstr "Docker is restarting ..."
@@ -445,14 +445,23 @@ msgstr "Inspect"
 msgid "Installed"
 msgstr "Installed"
 
+msgid "Keep containers running across Docker daemon updates"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Leave blank to use a custom /etc/docker/daemon.json"
+
+msgid "Live restore"
+msgstr ""
 
 msgid "Location of backups"
 msgstr "Location of backups"
 
 msgid "Location of compose files"
 msgstr "Location of compose files"
+
+msgid "Log file max size"
+msgstr ""
 
 msgid "Logged out."
 msgstr "Logged out."
@@ -589,6 +598,9 @@ msgstr "Project"
 msgid "Prune"
 msgstr "Prune"
 
+msgid "Prune Images"
+msgstr ""
+
 msgid "Pull and Build"
 msgstr "Pull and Build"
 
@@ -633,6 +645,13 @@ msgstr "Restoring global.env from backup ..."
 
 msgid "Run"
 msgstr "Run"
+
+msgid "Run config"
+msgstr ""
+
+msgid ""
+"Run docker compose config to automatically check syntax when saving file"
+msgstr ""
 
 msgid "Running For"
 msgstr "Running For"
@@ -778,6 +797,9 @@ msgid ""
 msgstr ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
+
+msgid "Units in MB. Set to 0 for unlimited."
+msgstr ""
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr "Units in seconds.<br/>Set to 0 for no caching."

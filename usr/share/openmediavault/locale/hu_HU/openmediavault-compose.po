@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-11 09:08-0500\n"
+"POT-Creation-Date: 2025-12-01 21:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2024\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -125,9 +125,6 @@ msgstr "Összeállítás…"
 
 msgid "CPU %"
 msgstr "CPU %"
-
-msgid "CTerm"
-msgstr ""
 
 msgid "Cache has been cleared."
 msgstr "Gyorsítótár törölve."
@@ -296,11 +293,14 @@ msgstr ""
 msgid "Displays information about containers in a table."
 msgstr ""
 
-msgid "Docker"
-msgstr "Docker"
+msgid "Docker config"
+msgstr ""
 
 msgid "Docker has been restarted."
 msgstr "A Docker újra lett indítva."
+
+msgid "Docker info"
+msgstr ""
 
 msgid "Docker is restarting ..."
 msgstr "A Docker újraindul…"
@@ -456,14 +456,23 @@ msgstr "Vizsgálat"
 msgid "Installed"
 msgstr "Telepítve"
 
+msgid "Keep containers running across Docker daemon updates"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Üresen hagyva egyéni /etc/docker/daemon.json alkalmazása."
+
+msgid "Live restore"
+msgstr ""
 
 msgid "Location of backups"
 msgstr "Biztonsági mentések helye"
 
 msgid "Location of compose files"
 msgstr "Összeállítás fájl helye"
+
+msgid "Log file max size"
+msgstr ""
 
 msgid "Logged out."
 msgstr "Kilépve."
@@ -602,6 +611,9 @@ msgstr "Projekt"
 msgid "Prune"
 msgstr "Tisztítás"
 
+msgid "Prune Images"
+msgstr ""
+
 msgid "Pull and Build"
 msgstr "Lekérés és összeállítás"
 
@@ -646,6 +658,13 @@ msgstr ""
 
 msgid "Run"
 msgstr "Futtatás"
+
+msgid "Run config"
+msgstr ""
+
+msgid ""
+"Run docker compose config to automatically check syntax when saving file"
+msgstr ""
 
 msgid "Running For"
 msgstr "Fut ennek"
@@ -794,6 +813,9 @@ msgid ""
 msgstr ""
 "Egységek GB-ban. A biztonsági mentés kihagyja az ennél nagyobb "
 "köteteket.<br/>0-ra állítva a méret korlátlan."
+
+msgid "Units in MB. Set to 0 for unlimited."
+msgstr ""
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr "Mértékegység: másodperc.<br/>0-ra állítva nincs gyorsítótárazás."

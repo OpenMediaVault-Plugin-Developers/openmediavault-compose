@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-11 09:08-0500\n"
+"POT-Creation-Date: 2025-12-01 21:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -115,9 +115,6 @@ msgstr "构建中 ..."
 
 msgid "CPU %"
 msgstr "CPU %"
-
-msgid "CTerm"
-msgstr "CTerm"
 
 msgid "Cache has been cleared."
 msgstr "缓存已清除。"
@@ -281,11 +278,14 @@ msgstr "以网格形式显示容器信息。"
 msgid "Displays information about containers in a table."
 msgstr "以表格形式显示容器信息。"
 
-msgid "Docker"
-msgstr "Docker"
+msgid "Docker config"
+msgstr ""
 
 msgid "Docker has been restarted."
 msgstr "Docker 已重启。"
+
+msgid "Docker info"
+msgstr ""
 
 msgid "Docker is restarting ..."
 msgstr "Docker 重启中 ..."
@@ -439,14 +439,23 @@ msgstr "检查"
 msgid "Installed"
 msgstr "已安装"
 
+msgid "Keep containers running across Docker daemon updates"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "留空则使用用户自定义 /etc/docker/daemon.json"
+
+msgid "Live restore"
+msgstr ""
 
 msgid "Location of backups"
 msgstr "备份位置"
 
 msgid "Location of compose files"
 msgstr "compose 文件位置"
+
+msgid "Log file max size"
+msgstr ""
 
 msgid "Logged out."
 msgstr "已注销。"
@@ -579,6 +588,9 @@ msgstr "工程"
 msgid "Prune"
 msgstr "删除"
 
+msgid "Prune Images"
+msgstr ""
+
 msgid "Pull and Build"
 msgstr "拉取并构建"
 
@@ -623,6 +635,13 @@ msgstr "从备份恢复 global.env 中..."
 
 msgid "Run"
 msgstr "运行"
+
+msgid "Run config"
+msgstr ""
+
+msgid ""
+"Run docker compose config to automatically check syntax when saving file"
+msgstr ""
 
 msgid "Running For"
 msgstr "运行"
@@ -760,6 +779,9 @@ msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr "单位GB，备份将跳过大于此大小的卷。<br/>设置为 0 表示无限制。"
+
+msgid "Units in MB. Set to 0 for unlimited."
+msgstr ""
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr "单位是秒。<br/>设为0表示不缓存。"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-11 09:08-0500\n"
+"POT-Creation-Date: 2025-12-01 21:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Marek Pavelka, 2024\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
@@ -118,9 +118,6 @@ msgstr "Sestavit…"
 
 msgid "CPU %"
 msgstr "% procesoru"
-
-msgid "CTerm"
-msgstr ""
 
 msgid "Cache has been cleared."
 msgstr "Mezipaměť byla vymazána."
@@ -287,11 +284,14 @@ msgstr ""
 msgid "Displays information about containers in a table."
 msgstr ""
 
-msgid "Docker"
-msgstr "Docker"
+msgid "Docker config"
+msgstr ""
 
 msgid "Docker has been restarted."
 msgstr "Docker byl restartován."
+
+msgid "Docker info"
+msgstr ""
 
 msgid "Docker is restarting ..."
 msgstr "Docker se restartuje…"
@@ -447,15 +447,24 @@ msgstr ""
 msgid "Installed"
 msgstr "Instalováno"
 
+msgid "Keep containers running across Docker daemon updates"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr ""
 "Ponechte prázdné pro použití vlastního souboru /etc/docker/daemon.json"
+
+msgid "Live restore"
+msgstr ""
 
 msgid "Location of backups"
 msgstr "Umístění zálohy"
 
 msgid "Location of compose files"
 msgstr "Umístění souborů compose"
+
+msgid "Log file max size"
+msgstr ""
 
 msgid "Logged out."
 msgstr ""
@@ -593,6 +602,9 @@ msgstr "Projekt"
 msgid "Prune"
 msgstr ""
 
+msgid "Prune Images"
+msgstr ""
+
 msgid "Pull and Build"
 msgstr ""
 
@@ -637,6 +649,13 @@ msgstr ""
 
 msgid "Run"
 msgstr "Spustit"
+
+msgid "Run config"
+msgstr ""
+
+msgid ""
+"Run docker compose config to automatically check syntax when saving file"
+msgstr ""
 
 msgid "Running For"
 msgstr "Spuštěno"
@@ -780,6 +799,9 @@ msgid ""
 msgstr ""
 "Jednotky v GB. Zálohování přeskočí svazky větší než tato velikost.<br/>Pro "
 "neomezenou velikost nastavte na 0."
+
+msgid "Units in MB. Set to 0 for unlimited."
+msgstr ""
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr "Jednotky v sekundách.<br/>Pro nepoužívání mezipaměti nastavte na 0."

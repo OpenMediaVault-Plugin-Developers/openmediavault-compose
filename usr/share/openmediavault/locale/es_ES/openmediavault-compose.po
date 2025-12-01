@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-11 09:08-0500\n"
+"POT-Creation-Date: 2025-12-01 21:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2024\n"
 "Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
@@ -123,9 +123,6 @@ msgstr "Build ..."
 
 msgid "CPU %"
 msgstr "CPU %"
-
-msgid "CTerm"
-msgstr ""
 
 msgid "Cache has been cleared."
 msgstr "La cache ha sido borrada"
@@ -293,11 +290,14 @@ msgstr ""
 msgid "Displays information about containers in a table."
 msgstr ""
 
-msgid "Docker"
-msgstr "Docker"
+msgid "Docker config"
+msgstr ""
 
 msgid "Docker has been restarted."
 msgstr "Docker ha sido reiniciado"
+
+msgid "Docker info"
+msgstr ""
 
 msgid "Docker is restarting ..."
 msgstr "Docker se está reiniciando..."
@@ -453,14 +453,23 @@ msgstr "Inspeccionar"
 msgid "Installed"
 msgstr "Instalado"
 
+msgid "Keep containers running across Docker daemon updates"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Dejar en blanco para usar /etc/docker/daemon.json personalizado"
+
+msgid "Live restore"
+msgstr ""
 
 msgid "Location of backups"
 msgstr "Ubicación del Backup."
 
 msgid "Location of compose files"
 msgstr "Ubicación de los archivos compose"
+
+msgid "Log file max size"
+msgstr ""
 
 msgid "Logged out."
 msgstr ""
@@ -599,6 +608,9 @@ msgstr "Proyecto"
 msgid "Prune"
 msgstr "Limpiar"
 
+msgid "Prune Images"
+msgstr ""
+
 msgid "Pull and Build"
 msgstr "Pull and Build"
 
@@ -643,6 +655,13 @@ msgstr ""
 
 msgid "Run"
 msgstr "ejecutandose"
+
+msgid "Run config"
+msgstr ""
+
+msgid ""
+"Run docker compose config to automatically check syntax when saving file"
+msgstr ""
 
 msgid "Running For"
 msgstr "Ejecutado por"
@@ -788,6 +807,9 @@ msgid ""
 msgstr ""
 "Unidades en GB. La copia de seguridad omitirá los volúmenes mayores que este"
 " tamaño. <br/>Establézcalo en 0 para un número ilimitado."
+
+msgid "Units in MB. Set to 0 for unlimited."
+msgstr ""
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr "Unidades en segundos. <br/>poner a 0 para no cachear."

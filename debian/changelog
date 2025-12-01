@@ -1,11 +1,11 @@
-openmediavault-compose (8.0.1) UNRELEASED; urgency=medium
+openmediavault-compose (8.0.1) stable; urgency=low
 
   * Check file syntax on save if enabled
   * Add docker log size field and enable rotation if greater than 0
   * Add live restore option to avoid restarting containers when docker is
     restarted/upgraded
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 26 Nov 2025 22:46:43 +0000
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 01 Dec 2025 21:47:28 +0000
 
 openmediavault-compose (8.0) stable; urgency=low
 
