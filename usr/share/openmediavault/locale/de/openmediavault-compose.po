@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-11 09:08-0500\n"
+"POT-Creation-Date: 2025-12-08 22:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>, 2025\n"
 "Language-Team: German (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de/)\n"
@@ -110,6 +110,9 @@ msgstr "Verfügbar"
 msgid "Backup"
 msgstr "Sichern"
 
+msgid "Backup shared folder must be different than docker shared folder"
+msgstr ""
+
 msgid "Block In"
 msgstr ""
 
@@ -127,9 +130,6 @@ msgstr ""
 
 msgid "CPU %"
 msgstr "CPU %"
-
-msgid "CTerm"
-msgstr ""
 
 msgid "Cache has been cleared."
 msgstr "Cache wurde geleert."
@@ -188,6 +188,9 @@ msgstr ""
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose-Datei-Ordner und data-Ornder müssen unterschiedlich sein"
+
+msgid "Compose file shared folder must be different than docker shared folder"
+msgstr ""
 
 msgid "Compose file to be associate imported files with"
 msgstr ""
@@ -267,6 +270,9 @@ msgstr "Aktuell"
 msgid "Data"
 msgstr "Daten"
 
+msgid "Data shared folder must be different than docker shared folder"
+msgstr ""
+
 msgid "Date & Time"
 msgstr "Datum & Zeit"
 
@@ -294,11 +300,14 @@ msgstr ""
 msgid "Displays information about containers in a table."
 msgstr ""
 
-msgid "Docker"
-msgstr "Docker"
+msgid "Docker config"
+msgstr ""
 
 msgid "Docker has been restarted."
 msgstr "Docker wurde neu gestartet."
+
+msgid "Docker info"
+msgstr ""
 
 msgid "Docker is restarting ..."
 msgstr "Docker wird neu gestartet ..."
@@ -454,16 +463,25 @@ msgstr "Untersuchen"
 msgid "Installed"
 msgstr "Installiert"
 
+msgid "Keep containers running across Docker daemon updates"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr ""
 "Leer lassen, um eine benutzerdefinierte Datei /etc/docker/daemon.json zu "
 "nutzen"
+
+msgid "Live restore"
+msgstr ""
 
 msgid "Location of backups"
 msgstr "Speicherort für Backups"
 
 msgid "Location of compose files"
 msgstr "Speicherort für compose-Dateien"
+
+msgid "Log file max size"
+msgstr ""
 
 msgid "Logged out."
 msgstr ""
@@ -553,6 +571,13 @@ msgstr ""
 "CHANGE_TO_COMPOSE_DATA_PATH in compose- und env-Dateien mit diesem Ordner zu"
 " ersetzen."
 
+msgid ""
+"Optional. If selected, the absolute path of this shared folder will be used "
+"to override the Docker storage field path when saved.  The Docker storage "
+"field path will not be overriden when this shared folder is set to None or "
+"when Docker storage field path is blank."
+msgstr ""
+
 msgid "Override"
 msgstr "Überschreiben"
 
@@ -599,6 +624,9 @@ msgstr "Projekt"
 msgid "Prune"
 msgstr ""
 
+msgid "Prune Images"
+msgstr ""
+
 msgid "Pull and Build"
 msgstr ""
 
@@ -643,6 +671,13 @@ msgstr ""
 
 msgid "Run"
 msgstr "Ausführen"
+
+msgid "Run config"
+msgstr ""
+
+msgid ""
+"Run docker compose config to automatically check syntax when saving file"
+msgstr ""
 
 msgid "Running For"
 msgstr ""
@@ -786,6 +821,9 @@ msgid ""
 msgstr ""
 "Angabe in GB. Größere Volumes als angegeben werden bei Backups "
 "übersprungen.</br>Für keine Begrenzung 0 eingeben."
+
+msgid "Units in MB. Set to 0 for unlimited."
+msgstr ""
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr "Eingabe in Sekunden. 0 entspricht \"no caching\""

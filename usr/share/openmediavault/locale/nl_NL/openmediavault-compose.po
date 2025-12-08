@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-01 21:47+0000\n"
+"POT-Creation-Date: 2025-12-08 22:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2025\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -110,6 +110,9 @@ msgstr "Beschikbaar"
 msgid "Backup"
 msgstr "Back-up"
 
+msgid "Backup shared folder must be different than docker shared folder"
+msgstr ""
+
 msgid "Block In"
 msgstr "Block In"
 
@@ -132,7 +135,7 @@ msgid "Cache has been cleared."
 msgstr "Cache is gewist."
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "Cache-tijden voor tabs"
 
 msgid "Changes have been synced from file."
 msgstr "Wijzigingen zijn gesynchroniseerd vanuit bestand."
@@ -146,6 +149,11 @@ msgid ""
 " or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
 "multiple filters separated by commas."
 msgstr ""
+"Kies welke compose-bestanden moeten worden geback-upt door de compose-naam "
+"te filteren met dit veld.<br/>Gebruik wildcards (*) voor een gedeeltelijke "
+"overeenkomst, bijv. asd* of *asd* of *asd<br/>Laat leeg of gebruik gewoon * "
+"voor alle compose-bestanden.<br/>Voeg meerdere filters toe gescheiden door "
+"komma's."
 
 msgid "Clear cache"
 msgstr "Cache wissen"
@@ -184,6 +192,9 @@ msgid "Compose file shared folder must be different than data shared folder"
 msgstr ""
 "Gedeelde map van het compose-bestand mag niet de gedeelde map voor gegevens "
 "zijn"
+
+msgid "Compose file shared folder must be different than docker shared folder"
+msgstr ""
 
 msgid "Compose file to be associate imported files with"
 msgstr ""
@@ -232,7 +243,7 @@ msgid "Create new compose file from running container ..."
 msgstr "Nieuw composebestand aanmaken vanuit actieve container…"
 
 msgid "Create new image tag ..."
-msgstr ""
+msgstr "Nieuwe image-tag aanmaken…"
 
 msgid "Created"
 msgstr "Aangemaakt"
@@ -264,6 +275,9 @@ msgstr "Huidig"
 msgid "Data"
 msgstr "Gegevens"
 
+msgid "Data shared folder must be different than docker shared folder"
+msgstr ""
+
 msgid "Date & Time"
 msgstr "Datum & Tijd"
 
@@ -293,13 +307,13 @@ msgid "Displays information about containers in a table."
 msgstr "Geeft informatie weer over containers in een tabel."
 
 msgid "Docker config"
-msgstr ""
+msgstr "Docker config"
 
 msgid "Docker has been restarted."
 msgstr "Docker is opnieuw opgestart."
 
 msgid "Docker info"
-msgstr ""
+msgstr "Docker info"
 
 msgid "Docker is restarting ..."
 msgstr "Docker start opnieuw op…"
@@ -456,13 +470,13 @@ msgid "Installed"
 msgstr "Geïnstalleerd"
 
 msgid "Keep containers running across Docker daemon updates"
-msgstr ""
+msgstr "Houd containers actief tijdens Docker-daemon-updates"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Leeglaten om een aangepaste /etc/docker/daemon.json te gebruiken"
 
 msgid "Live restore"
-msgstr ""
+msgstr "Live herstellen"
 
 msgid "Location of backups"
 msgstr "Locatie van back-ups"
@@ -471,7 +485,7 @@ msgid "Location of compose files"
 msgstr "Locatie van composebestanden"
 
 msgid "Log file max size"
-msgstr ""
+msgstr "Max. grootte logbestand"
 
 msgid "Logged out."
 msgstr "Uitgelogd."
@@ -498,16 +512,16 @@ msgid "Mem %"
 msgstr "Mem %"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "Mem Limit"
 
 msgid "Mem Usage"
-msgstr ""
+msgstr "Mem Usage"
 
 msgid "Message"
 msgstr "Bericht"
 
 msgid "Mixed"
-msgstr ""
+msgstr "Mixed"
 
 msgid "Mountpoint"
 msgstr "Aankoppelpunt"
@@ -549,11 +563,23 @@ msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
+"Alleen alfanumeriek (a-zA-Z), onderstrepingsteken (_), streepje (-), komma's"
+" (,) en asterisks (*) toegestaan!"
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
+msgstr ""
+"Optioneel - Locatie van persistente containergegevens<br/>Alleen gebruikt om"
+" CHANGE_TO_COMPOSE_DATA_PATH te vervangen bij het samenstellen en env-"
+"bestanden met dit gedeelde mappad."
+
+msgid ""
+"Optional. If selected, the absolute path of this shared folder will be used "
+"to override the Docker storage field path when saved.  The Docker storage "
+"field path will not be overriden when this shared folder is set to None or "
+"when Docker storage field path is blank."
 msgstr ""
 
 msgid "Override"
@@ -578,7 +604,7 @@ msgid "PIDs"
 msgstr "PID's"
 
 msgid "Parent network"
-msgstr ""
+msgstr "Bovenliggend netwerk"
 
 msgid "Path"
 msgstr "Pad"
@@ -605,19 +631,19 @@ msgid "Prune"
 msgstr "Snoeien"
 
 msgid "Prune Images"
-msgstr ""
+msgstr "Prune Images"
 
 msgid "Pull and Build"
-msgstr ""
+msgstr "Pull and Build"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "Pull and Build…"
 
 msgid "Push"
-msgstr ""
+msgstr "Push"
 
 msgid "Push to Docker Hub ..."
-msgstr ""
+msgstr "Push to Docker Hub ..."
 
 msgid "Reinstall Docker"
 msgstr "Docker opnieuw installeren"
@@ -653,11 +679,13 @@ msgid "Run"
 msgstr "Uitvoeren"
 
 msgid "Run config"
-msgstr ""
+msgstr "Config uitvoeren"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
+"Voer docker compose config uit om automatisch de syntaxis te controleren bij"
+" het opslaan van bestand"
 
 msgid "Running For"
 msgstr "Uitvoeren voor"
@@ -702,19 +730,19 @@ msgid "Show all file changes ..."
 msgstr "Alle bestandswijzigingen tonen…"
 
 msgid "Show all global.env changes ..."
-msgstr ""
+msgstr "Alle wijzigingen in global.env tonen…"
 
 msgid "Show commands"
 msgstr "Opdrachten tonen"
 
 msgid "Show config changes"
-msgstr ""
+msgstr "Wijzigingen in config tonen"
 
 msgid "Show docker command for task in task dialog"
-msgstr ""
+msgstr "Docker-opdracht voor taak tonen in taakdialoogvenster"
 
 msgid "Show environment file"
-msgstr ""
+msgstr "Omgevingsbestand tonen"
 
 msgid "Show override"
 msgstr "Overschrijving tonen"
@@ -738,10 +766,10 @@ msgid "Subnet"
 msgstr "Subnet"
 
 msgid "Sync changes from file"
-msgstr ""
+msgstr "Wijzigingen uit bestand synchroniseren"
 
 msgid "Syncing changes from file ..."
-msgstr ""
+msgstr "Wijzigingen uit bestand synchroniseren…"
 
 msgid "System"
 msgstr "Systeem"
@@ -760,27 +788,38 @@ msgstr "Terminal-link"
 
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
+"Het configuratiebestand wordt aangemaakt in de map van dit compose-bestand."
 
 msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
+"Het veld mag alleen * of een door komma's gescheiden lijst met waarden "
+"bevatten."
 
 msgid "This is the filename. This should not be a path."
-msgstr ""
+msgstr "Dit is de bestandsnaam. Dit mag geen pad zijn."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
+"Hiermee worden configuratiebestanden geïmporteerd vanuit de geselecteerde "
+"map.<br/>Het importeert geen configuratiebestanden die al in de plug-in "
+"bestaan."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"Hiermee wordt een compose-bestand geïmporteerd vanuit de geselecteerde "
+"map.<br/>Het importeert geen compose-bestand dat al in de plug-in bestaat."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose files that already exist in the plugin."
 msgstr ""
+"Hiermee worden een of meer compose-bestanden geïmporteerd vanuit de "
+"geselecteerde map.<br/>Het importeert geen compose-bestanden die al in de "
+"plug-in bestaan."
 
 msgid "Tools"
 msgstr "Hulpmiddelen"
@@ -795,12 +834,14 @@ msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr ""
+"Eenheden in GB. Back-up slaat volumes over die groter zijn dan deze "
+"grootte.<br/>Stel in op 0 voor onbeperkt."
 
 msgid "Units in MB. Set to 0 for unlimited."
-msgstr ""
+msgstr "Eenheden in MB. Stel in op 0 voor onbeperkt."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "Eenheden in seconden.<br/>Stel in op 0 voor geen caching."
 
 msgid "Up"
 msgstr "Up"
@@ -821,112 +862,112 @@ msgid "Volumes"
 msgstr "Volumes"
 
 msgid "and not running"
-msgstr "en niet actief"
+msgstr "and not running"
 
 msgid "and running"
-msgstr "en actief"
+msgstr "and running"
 
 msgid "check"
-msgstr "controleren"
+msgstr "check"
 
 msgid "disabled"
-msgstr "uitgeschakeld"
+msgstr "disabled"
 
 msgid "docker compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker compose down --remove-orphans ..."
 
 msgid "docker compose down ..."
-msgstr ""
+msgstr "docker compose down ..."
 
 msgid "docker compose down all files..."
-msgstr ""
+msgstr "docker compose down all files..."
 
 msgid "docker compose file version"
-msgstr "docker composebestandsversie"
+msgstr "docker compose file version"
 
 msgid "docker compose logs --follow ..."
-msgstr ""
+msgstr "docker compose logs --follow ..."
 
 msgid "docker compose logs ..."
-msgstr ""
+msgstr "docker compose logs ..."
 
 msgid "docker compose ps ..."
-msgstr ""
+msgstr "docker compose ps ..."
 
 msgid "docker compose pull ..."
-msgstr ""
+msgstr "docker compose pull ..."
 
 msgid "docker compose restart ..."
-msgstr ""
+msgstr "docker compose restart ..."
 
 msgid "docker compose stop ..."
-msgstr ""
+msgstr "docker compose stop ..."
 
 msgid "docker compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker compose up -d --remove-orphans ..."
 
 msgid "docker compose up -d ..."
-msgstr ""
+msgstr "docker compose up -d ..."
 
 msgid "docker container prune ..."
-msgstr ""
+msgstr "docker container prune ..."
 
 msgid "docker image inspect ..."
-msgstr ""
+msgstr "docker image inspect ..."
 
 msgid "docker image prune ..."
-msgstr ""
+msgstr "docker image prune ..."
 
 msgid "docker image pull ..."
-msgstr ""
+msgstr "docker image pull ..."
 
 msgid "docker image rm ..."
-msgstr ""
+msgstr "docker image rm ..."
 
 msgid "docker inspect ..."
-msgstr ""
+msgstr "docker inspect ..."
 
 msgid "docker logs --follow ..."
-msgstr ""
+msgstr "docker logs --follow ..."
 
 msgid "docker logs ..."
-msgstr ""
+msgstr "docker logs ..."
 
 msgid "docker network inspect ..."
-msgstr ""
+msgstr "docker network inspect ..."
 
 msgid "docker network prune ..."
-msgstr ""
+msgstr "docker network prune ..."
 
 msgid "docker network rm ..."
-msgstr ""
+msgstr "docker network rm ..."
 
 msgid "docker restart ..."
-msgstr ""
+msgstr "docker restart ..."
 
 msgid "docker system prune ..."
-msgstr ""
+msgstr "docker system prune ..."
 
 msgid "docker volume inspect ..."
-msgstr ""
+msgstr "docker volume inspect ..."
 
 msgid "docker volume prune ..."
-msgstr ""
+msgstr "docker volume prune ..."
 
 msgid "docker volume rm ..."
-msgstr ""
+msgstr "docker volume rm ..."
 
 msgid "dockerfile build ..."
-msgstr ""
+msgstr "dockerfile build ..."
 
 msgid "down"
 msgstr "down"
 
 msgid "down all"
-msgstr ""
+msgstr "down all"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "down and remove orphans"
 
 msgid "e.g. 172.20.0.0/16"
 msgstr "bijv. 172.20.0.0/16"
@@ -941,16 +982,16 @@ msgid "file not found!"
 msgstr "bestand niet gevonden!"
 
 msgid "follow logs"
-msgstr ""
+msgstr "logboeken bijhouden"
 
 msgid "global.env has been restored from backup."
-msgstr ""
+msgstr "global.env is hersteld vanuit back-up."
 
 msgid "init git repo"
-msgstr ""
+msgstr "init git repo"
 
 msgid "inspect"
-msgstr ""
+msgstr "inspecteren"
 
 msgid "logs"
 msgstr "logboeken"
@@ -965,28 +1006,28 @@ msgid "ps"
 msgstr "ps"
 
 msgid "pull"
-msgstr ""
+msgstr "pull"
 
 msgid "pull image"
-msgstr ""
+msgstr "pull image"
 
 msgid "pull image+tag"
-msgstr ""
+msgstr "pull image+tag"
 
 msgid "restart"
-msgstr ""
+msgstr "restart"
 
 msgid "show file changes"
-msgstr ""
+msgstr "bestandswijzigingen tonen"
 
 msgid "show global.env changes"
-msgstr ""
+msgstr "wijzigingen in global.env tonen"
 
 msgid "stop"
-msgstr ""
+msgstr "stop"
 
 msgid "up"
-msgstr ""
+msgstr "up"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "up en remove orphans"

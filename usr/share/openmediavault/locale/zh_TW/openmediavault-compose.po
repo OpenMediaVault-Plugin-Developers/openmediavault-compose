@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-01 21:47+0000\n"
+"POT-Creation-Date: 2025-12-08 22:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -98,6 +98,9 @@ msgstr "可用"
 msgid "Backup"
 msgstr "備份"
 
+msgid "Backup shared folder must be different than docker shared folder"
+msgstr ""
+
 msgid "Block In"
 msgstr "區塊讀入"
 
@@ -172,6 +175,9 @@ msgstr "Compose 更新"
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose 檔案的共享檔案夾必須不同於資料的共享檔案夾"
+
+msgid "Compose file shared folder must be different than docker shared folder"
+msgstr ""
 
 msgid "Compose file to be associate imported files with"
 msgstr "與要匯入檔案相關連的 compose 檔案"
@@ -250,6 +256,9 @@ msgstr "目前"
 
 msgid "Data"
 msgstr "資料"
+
+msgid "Data shared folder must be different than docker shared folder"
+msgstr ""
 
 msgid "Date & Time"
 msgstr "日期與時間"
@@ -542,6 +551,13 @@ msgid ""
 msgstr ""
 "選項 - 容器之持久性資料的位置<br/>此共享檔案夾路徑只被用來取代 compose 與 env 檔案內的 "
 "CHANGE_TO_COMPOSE_DATA_PATH 變數。"
+
+msgid ""
+"Optional. If selected, the absolute path of this shared folder will be used "
+"to override the Docker storage field path when saved.  The Docker storage "
+"field path will not be overriden when this shared folder is set to None or "
+"when Docker storage field path is blank."
+msgstr ""
 
 msgid "Override"
 msgstr "置換"

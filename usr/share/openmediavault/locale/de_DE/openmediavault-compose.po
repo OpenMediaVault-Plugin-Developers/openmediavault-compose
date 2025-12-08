@@ -4,10 +4,6 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Hansjörg Seipp, 2024
-# Johannes Hell, 2024
-# Ettore Atalan <atalanttore@googlemail.com>, 2024
-# Obi Wahn, 2025
 # Aaron Murray <aaronmurray27@gmail.com>, 2025
 # 
 #, fuzzy
@@ -15,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-01 21:47+0000\n"
+"POT-Creation-Date: 2025-12-08 22:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>, 2025\n"
-"Language-Team: German (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de/)\n"
+"Language-Team: German (Germany) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de_DE/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
+"Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Action"
@@ -110,6 +106,9 @@ msgstr "Verfügbar"
 msgid "Backup"
 msgstr "Sichern"
 
+msgid "Backup shared folder must be different than docker shared folder"
+msgstr ""
+
 msgid "Block In"
 msgstr ""
 
@@ -185,6 +184,9 @@ msgstr ""
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose-Datei-Ordner und data-Ornder müssen unterschiedlich sein"
+
+msgid "Compose file shared folder must be different than docker shared folder"
+msgstr ""
 
 msgid "Compose file to be associate imported files with"
 msgstr ""
@@ -263,6 +265,9 @@ msgstr "Aktuell"
 
 msgid "Data"
 msgstr "Daten"
+
+msgid "Data shared folder must be different than docker shared folder"
+msgstr ""
 
 msgid "Date & Time"
 msgstr "Datum & Zeit"
@@ -561,6 +566,13 @@ msgstr ""
 "Optional - Ort für fortbestehende Container-Daten. Wird nur benutzt, um "
 "CHANGE_TO_COMPOSE_DATA_PATH in compose- und env-Dateien mit diesem Ordner zu"
 " ersetzen."
+
+msgid ""
+"Optional. If selected, the absolute path of this shared folder will be used "
+"to override the Docker storage field path when saved.  The Docker storage "
+"field path will not be overriden when this shared folder is set to None or "
+"when Docker storage field path is blank."
+msgstr ""
 
 msgid "Override"
 msgstr "Überschreiben"

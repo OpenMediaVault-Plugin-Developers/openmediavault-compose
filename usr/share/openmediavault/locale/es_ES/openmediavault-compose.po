@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-01 21:47+0000\n"
+"POT-Creation-Date: 2025-12-08 22:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2024\n"
 "Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
@@ -106,6 +106,9 @@ msgstr "Disponible"
 msgid "Backup"
 msgstr "Backup"
 
+msgid "Backup shared folder must be different than docker shared folder"
+msgstr ""
+
 msgid "Block In"
 msgstr "Block In"
 
@@ -185,6 +188,9 @@ msgstr ""
 "La carpeta compartida del archivo Compose debe ser diferente de la carpeta "
 "compartida de datos"
 
+msgid "Compose file shared folder must be different than docker shared folder"
+msgstr ""
+
 msgid "Compose file to be associate imported files with"
 msgstr ""
 
@@ -262,6 +268,9 @@ msgstr "Actual"
 
 msgid "Data"
 msgstr "Datos"
+
+msgid "Data shared folder must be different than docker shared folder"
+msgstr ""
 
 msgid "Date & Time"
 msgstr "Fecha y Hora"
@@ -558,6 +567,13 @@ msgstr ""
 "Opcional: la ubicación de los datos del contenedor persistente <br/> solo se"
 " usa para sustituir CHANGE_TO_COMPOSE_DATA_PATH en archivos de compose y env"
 " con esta ruta de carpeta compartida."
+
+msgid ""
+"Optional. If selected, the absolute path of this shared folder will be used "
+"to override the Docker storage field path when saved.  The Docker storage "
+"field path will not be overriden when this shared folder is set to None or "
+"when Docker storage field path is blank."
+msgstr ""
 
 msgid "Override"
 msgstr "Anular"
