@@ -69,14 +69,10 @@ if ! omv_config_exists "/config/services/compose"; then
 fi
 
 # download yq
-version="v4.45.2"
+version="v4.49.2"
 bindir="/usr/local/bin"
 yq="${bindir}/yq"
 arch="$(dpkg --print-architecture)"
-case "${arch}" in
-  armhf) arch="arm" ;;
-  i386) arch="386" ;;
-esac
 repo_url=${OMV_EXTRAS_YQ_URL:-"https://github.com/mikefarah/yq/releases/download"}
 if [ ! -d "${bindir}" ]; then
   mkdir -p ${bindir}
@@ -98,26 +94,24 @@ chmod 755 ${yq}
 
 # download regctl
 arch="$(dpkg --print-architecture)"
-if [ "${arch}" = "amd64" ] || [ "${arch}" = "arm64" ]; then
-  version="v0.8.3"
-  bindir="/usr/local/bin"
-  regctl="${bindir}/regctl"
-  repo_url=${OMV_EXTRAS_REGCTL_URL:-"https://github.com/regclient/regclient/releases/download"}
-  if [ ! -f "${regctl}" ]; then
-    echo "Downloading regctl ..."
+version="v0.11.1"
+bindir="/usr/local/bin"
+regctl="${bindir}/regctl"
+repo_url=${OMV_EXTRAS_REGCTL_URL:-"https://github.com/regclient/regclient/releases/download"}
+if [ ! -f "${regctl}" ]; then
+  echo "Downloading regctl ..."
+  wget -O ${regctl} "${repo_url}/${version}/regctl-linux-${arch}"
+else
+  echo "Checking regctl version ..."
+  chmod 755 ${regctl}
+  regctlvers="$(${regctl} version | awk '$1 == "VCSTag:" { print $2 }')"
+  if [ ! "${version}" = "${regctlvers}" ]; then
     wget -O ${regctl} "${repo_url}/${version}/regctl-linux-${arch}"
   else
-    echo "Checking regctl version ..."
-    chmod 755 ${regctl}
-    regctlvers="$(${regctl} version | awk '$1 == "VCSTag:" { print $2 }')"
-    if [ ! "${version}" = "${regctlvers}" ]; then
-      wget -O ${regctl} "${repo_url}/${version}/regctl-linux-${arch}"
-    else
-      echo "Correct version of regctl installed - '${version}'"
-    fi
+    echo "Correct version of regctl installed - '${version}'"
   fi
-  chmod 755 ${regctl}
 fi
+chmod 755 ${regctl}
 
 # make sure log files exist to eliminate log viewer error
 for log in backup restore update; do
