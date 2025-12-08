@@ -2,6 +2,8 @@ openmediavault-compose (8.0.2) stable; urgency=low
 
   * Add shared folder selection for docker storage to avoid having to
     look up absolute path of shared folder
+  * Update to yq 4.49.2
+  * Update to regct 0.11.1
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 08 Dec 2025 23:34:05 +0000
 
