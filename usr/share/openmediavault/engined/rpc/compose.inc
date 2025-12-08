@@ -411,11 +411,24 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.set");
-        // Make sure compose file shared folder is not the same as data shared folder
-        if ($params['sharedfolderref'] != '' && $params['sharedfolderref'] == $params['datasharedfolderref']) {
-            throw new \OMV\ExecException(
-                gettext("Compose file shared folder must be different than data shared folder")
-            );
+        // Make sure shared folder are different than other shared folders
+        $checks = [[
+            'sharedfolderref', 'datasharedfolderref',
+            gettext("Compose file shared folder must be different than data shared folder")
+        ],[
+            'sharedfolderref', 'dockersharedfolderref',
+            gettext("Compose file shared folder must be different than docker shared folder")
+        ],[
+            'datasharedfolderref', 'dockersharedfolderref',
+            gettext("Data shared folder must be different than docker shared folder")
+        ],[
+            'backupsharedfolderref', 'dockersharedfolderref',
+            gettext("Backup shared folder must be different than docker shared folder")
+        ]];
+        foreach ($checks as [$left, $right, $message]) {
+            if ($params[$left] !== '' && $params[$left] === $params[$right]) {
+                throw new \OMV\ExecException($message);
+            }
         }
         // Get the existing configuration object.
         $db = \OMV\Config\Database::getInstance();
@@ -431,6 +444,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             default:    $perms = "600";
         }
         $params['fileperms'] = $perms;
+        // override the docker storage path with the absolute path of
+        // the docker sharedfolder if set
+        if ($params['dockerStorage'] != '') {
+            $sfref = $params['dockersharedfolderref'];
+            if (is_uuid($sfref)) {
+                $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+                $sfpath = rtrim($sfpath, '/');
+                $params['dockerStorage'] = $sfpath;
+            }
+        } else {
+            $params['dockersharedfolderref'] = '';
+        }
         $object->setAssoc($params);
         $db->set($object);
         // Remove useless properties from the object.

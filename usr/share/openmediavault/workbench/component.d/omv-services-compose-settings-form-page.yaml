@@ -105,6 +105,26 @@ data:
             label: _("Docker storage")
             value: "/var/lib/docker"
             hint: _("Leave blank to use a custom /etc/docker/daemon.json")
+          - type: select
+            name: dockersharedfolderref
+            label: _("Shared folder")
+            hint: _("Optional. If selected, the absolute path of this shared folder will be used to override the Docker storage field path when saved.  The Docker storage field path will not be overriden when this shared folder is set to None or when Docker storage field path is blank.")
+            valueField: uuid
+            textField: description
+            hasEmptyOption: true
+            value: ""
+            store:
+              proxy:
+                service: ShareMgmt
+                get:
+                  method: enumerateSharedFolders
+            modifiers:
+              - type: disabled
+                constraint:
+                  operator: eq
+                  arg0:
+                    prop: dockerStorage
+                  arg1: ""
           - type: numberInput
             name: logmaxsize
             label: _("Log file max size")
@@ -238,6 +258,9 @@ data:
               required: true
     buttons:
       - template: submit
+        execute:
+          type: url
+          url: "/services/compose"
       - template: cancel
         execute:
           type: url

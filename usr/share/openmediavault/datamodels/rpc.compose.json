@@ -67,6 +67,20 @@
           "type": "string",
           "required": false
         },
+        "dockersharedfolderref": {
+          "type": "string",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uuidv4"
+            },
+            {
+              "type": "string",
+              "maxLength": 0
+            }
+          ],
+          "required": true
+        },
         "logmaxsize": {
           "type": "integer",
           "required": true
