@@ -1,9 +1,9 @@
-openmediavault-compose (8.0.2) UNRELEASED; urgency=medium
+openmediavault-compose (8.0.2) stable; urgency=low
 
   * Add shared folder selection for docker storage to avoid having to
     look up absolute path of shared folder
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 08 Dec 2025 16:33:52 +0000
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 08 Dec 2025 23:34:05 +0000
 
 openmediavault-compose (8.0.1) stable; urgency=low
 
