@@ -37,7 +37,7 @@ configure_etc_docker_dir:
         {% if config.logmaxsize|int > 0 %}
         log-driver: "json-file"
         log-opts:
-          max-size: "{{ config.logmaxsize }}"
+          max-size: "{{ config.logmaxsize }}m"
           max-file: "3"
         {% endif %}
         {% if config.liverestore %}
