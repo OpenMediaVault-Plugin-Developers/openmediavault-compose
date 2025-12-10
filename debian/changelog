@@ -1,3 +1,9 @@
+openmediavault-compose (8.0.3) stable; urgency=low
+
+  * Add unit to max size
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 10 Dec 2025 22:14:19 +0000
+
 openmediavault-compose (8.0.2) stable; urgency=low
 
   * Add shared folder selection for docker storage to avoid having to

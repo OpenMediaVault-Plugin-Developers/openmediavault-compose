@@ -9,4 +9,3 @@ if ! omv_config_exists "/config/services/compose/dockersharedfolderref"; then
 fi
 
 exit 0
-
