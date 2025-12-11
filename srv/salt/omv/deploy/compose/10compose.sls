@@ -15,6 +15,42 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+{% set sf_list = salt['omv_conf.get']('conf.system.sharedfolder') %}
+{% set sfmap = {} %}
+{% for sf in sf_list %}
+  {% set name = sf.name %}
+  {% set uuid = sf.uuid %}
+  {% set path = salt['omv_conf.get_sharedfolder_path'](uuid).rstrip('/') %}
+  {% do sfmap.update({name: path}) %}
+{% endfor %}
+
+{% macro resolve_sf(body) -%}
+  {%- if not body %}
+    {{ "" }}
+  {%- else %}
+    {%- set ns = namespace(text=body) %}
+    {%- for name, path in sfmap.items() %}
+      {%- set placeholder = '${{ sf:"' ~ name ~ '" }}' %}
+      {%- set ns.text = ns.text | replace(placeholder, path) %}
+    {%- endfor %}
+    {{ ns.text }}
+  {%- endif %}
+{%- endmacro %}
+
+{% macro render_body(raw, name, datapath) -%}
+  {%- if not raw %}
+    {{ "" }}
+  {%- else %}
+    {%- set b = resolve_sf(raw) -%}
+    {%- set b = b | replace("CHANGE_TO_COMPOSE_NAME", name) -%}
+    {%- if datapath is not none and datapath|length > 0 -%}
+      {%- set b = b | replace("CHANGE_TO_COMPOSE_DATA_PATH", datapath) -%}
+    {%- endif -%}
+    {{ b }}
+  {%- endif %}
+{%- endmacro %}
+
+
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
 {% if config.sharedfolderref | length > 0 %}
 {% set sfpath = salt['omv_conf.get_sharedfolder_path'](config.sharedfolderref).rstrip('/') %}
@@ -40,6 +76,7 @@ configure_compose_file_dir_{{ file.name }}:
     - mode: "{{ config.mode }}"
     - makedirs: True
 
+{% set file_body = render_body(file.body, file.name, datapath) %}
 configure_compose_{{ file.name }}_file:
   file.managed:
     - name: '{{ composeFile }}'
@@ -48,11 +85,13 @@ configure_compose_{{ file.name }}_file:
     - context:
         file: {{ file | json }}
         datapath: {{ datapath }}
+        body: {{ file_body.strip() | json }}
     - template: jinja
     - user: "{{ config.composeowner }}"
     - group: "{{ config.composegroup }}"
     - mode: "{{ config.fileperms }}"
 
+{% set file_override = render_body(file.override, file.name, datapath) %}
 configure_compose_{{ file.name }}_override:
   file.managed:
     - name: '{{ overrideFile }}'
@@ -61,11 +100,13 @@ configure_compose_{{ file.name }}_override:
     - context:
         file: {{ file | json }}
         datapath: {{ datapath }}
+        body: {{ file_override.strip() | json }}
     - template: jinja
     - user: "{{ config.composeowner }}"
     - group: "{{ config.composegroup }}"
     - mode: "{{ config.fileperms }}"
 
+{% set file_env = render_body(file.env, file.name, datapath) %}
 configure_compose_env_{{ file.name }}_file:
   file.managed:
     - name: '{{ envFile }}'
@@ -74,6 +115,7 @@ configure_compose_env_{{ file.name }}_file:
     - context:
         file: {{ file | json }}
         datapath: {{ datapath }}
+        body: {{ file_env.strip() | json }}
     - template: jinja
     - user: "{{ config.composeowner }}"
     - group: "{{ config.composegroup }}"
@@ -82,6 +124,7 @@ configure_compose_env_{{ file.name }}_file:
 {%- for cnf in config.configs.config | selectattr("fileref", "equalto", file.uuid) %}
 
 {% set cnfFile = composeDir ~ '/' ~ cnf.name %}
+{% set cnf_body = resolve_sf(cnf.body) %}
 
 configure_compose_{{ file.name }}_config_{{ cnf.uuid }}:
   file.managed:
@@ -90,6 +133,7 @@ configure_compose_{{ file.name }}_config_{{ cnf.uuid }}:
       - salt://{{ tpldir }}/files/compose_cnf.j2
     - context:
         file: {{ cnf | json }}
+        body: {{ cnf_body | json }}
     - template: jinja
     - user: "{{ config.composeowner }}"
     - group: "{{ config.composegroup }}"

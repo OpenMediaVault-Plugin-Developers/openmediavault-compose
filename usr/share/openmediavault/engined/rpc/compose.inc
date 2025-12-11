@@ -358,6 +358,60 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
     }
 
+    private function getSharedfolderPathMap($context)
+    {
+        static $cache = null;
+        if ($cache !== null) {
+            return $cache;
+        }
+        $db = \OMV\Config\Database::getInstance();
+        $sfConfig = $db->get("conf.system.sharedfolder");
+        $map = [];
+        foreach ($sfConfig as $sf) {
+            $name = $sf->get('name');
+            $uuid = is_array($sf) ? $sf['uuid'] : $sf->get('uuid');
+            $path = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $uuid], $context);
+            if ($path === null) {
+                continue;
+            }
+            $map[$name] = rtrim($path, '/');
+        }
+        $cache = $map;
+        return $cache;
+    }
+
+    private function resolveSfPlaceholders($body, $context)
+    {
+        if ($body === null || $body === '') {
+            return '';
+        }
+        $sfmap = $this->getSharedfolderPathMap($context);
+        if (empty($sfmap)) {
+            return $body;
+        }
+        $result = $body;
+        foreach ($sfmap as $name => $path) {
+            $placeholder = '${{ sf:"' . $name . '" }}';
+            $result = str_replace($placeholder, $path, $result);
+        }
+        return $result;
+    }
+
+    private function renderBody($rawBody, $name, $datapath, $context)
+    {
+        if ($rawBody === null) {
+            $rawBody = '';
+        }
+        $body = $this->resolveSfPlaceholders($rawBody, $context);
+        if ($name !== '') {
+            $body = str_replace('CHANGE_TO_COMPOSE_NAME', $name, $body);
+        }
+        if ($datapath !== null && $datapath !== '') {
+            $body = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $body);
+        }
+        return $body;
+    }
+
 
     public function get($params, $context)
     {
@@ -717,11 +771,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $ymlFile2 = $tmpDir . '/test.override.yml';
         $envFile1 = $tmpDir . '/test.env1';
 
-        $body = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $yml1);
-        $body = str_replace('CHANGE_TO_COMPOSE_NAME', $cname, $body);
-        $env = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $env1);
-        $env = str_replace('CHANGE_TO_COMPOSE_NAME', $cname, $env);
-        $override = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $yml2);
+        $body = $this->renderBody($yml1, $cname, $datapath, $context);
+        $env = $this->renderBody($env1, $cname, $datapath, $context);
+        $override = $this->renderBody($yml2, $cname, $datapath, $context);
 
         file_put_contents($ymlFile1, $body);
         file_put_contents($ymlFile2, $override);
@@ -801,11 +853,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
                 $envFile = sprintf("%s.env", $composeName);
 
-                $body = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('body'));
-                $body = str_replace('CHANGE_TO_COMPOSE_NAME', $cname, $body);
-                $env = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('env'));
-                $env = str_replace('CHANGE_TO_COMPOSE_NAME', $cname, $env);
-                $override = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $object->get('override'));
+                $body = $this->renderBody($object->get('body'), $cname, $datapath, $context);
+                $env = $this->renderBody($object->get('env'), $cname, $datapath, $context);
+                $override = $this->renderBody($object->get('override'), $cname, $datapath, $context);
 
                 $dblEol = PHP_EOL . PHP_EOL;
                 $header = $this->getHeader();
