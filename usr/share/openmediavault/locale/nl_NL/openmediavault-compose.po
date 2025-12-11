@@ -112,6 +112,8 @@ msgstr "Back-up"
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
+"De gedeelde map voor backup moet een andere zijn dan de gedeelde map voor "
+"docker"
 
 msgid "Block In"
 msgstr "Block In"
@@ -195,6 +197,8 @@ msgstr ""
 
 msgid "Compose file shared folder must be different than docker shared folder"
 msgstr ""
+"De gedeelde map voor Compose-bestanden moet een andere zijn dan de gedeelde "
+"map voor docker"
 
 msgid "Compose file to be associate imported files with"
 msgstr ""
@@ -277,6 +281,8 @@ msgstr "Gegevens"
 
 msgid "Data shared folder must be different than docker shared folder"
 msgstr ""
+"De gedeelde map voor data moet een andere zijn dan de gedeelde map voor "
+"docker"
 
 msgid "Date & Time"
 msgstr "Datum & Tijd"
@@ -581,6 +587,11 @@ msgid ""
 "field path will not be overriden when this shared folder is set to None or "
 "when Docker storage field path is blank."
 msgstr ""
+"Optioneel. Indien geselecteerd, wordt het absolute pad van deze gedeelde map"
+" gebruikt om het Docker-opslagveldpad te overschrijven wanneer het wordt "
+"opgeslagen.  Het Docker-opslagveldpad wordt niet overschreven wanneer deze "
+"gedeelde map is ingesteld op Geen of wanneer het Docker-opslagveldpad leeg "
+"is."
 
 msgid "Override"
 msgstr "Overschrijven"
