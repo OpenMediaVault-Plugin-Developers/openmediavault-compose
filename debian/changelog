@@ -1,10 +1,10 @@
-openmediavault-compose (8.0.4) UNRELEASED; urgency=medium
+openmediavault-compose (8.0.4) stable; urgency=low
 
   * Add placeholder expansion for ${{ sf:"name" }} tokens, resolving them
     to the shared folder’s absolute path across compose, override, env, and
     config files.
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 11 Dec 2025 16:40:41 +0000
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 11 Dec 2025 22:20:21 +0000
 
 openmediavault-compose (8.0.3) stable; urgency=low
 
