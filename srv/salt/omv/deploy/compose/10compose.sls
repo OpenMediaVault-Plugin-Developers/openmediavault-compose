@@ -24,31 +24,100 @@
   {% do sfmap.update({name: path}) %}
 {% endfor %}
 
-{% macro resolve_sf(body) -%}
-  {%- if not body %}
-    {{ "" }}
-  {%- else %}
-    {%- set ns = namespace(text=body) %}
-    {%- for name, path in sfmap.items() %}
-      {%- set placeholder = '${{ sf:"' ~ name ~ '" }}' %}
-      {%- set ns.text = ns.text | replace(placeholder, path) %}
-    {%- endfor %}
-    {{ ns.text }}
-  {%- endif %}
-{%- endmacro %}
+{%- set uidmap = {} -%}
+{%- set uent = salt['user.getent']() -%}
 
-{% macro render_body(raw, name, datapath) -%}
-  {%- if not raw %}
+{%- for info in uent -%}
+  {%- if info is mapping -%}
+    {%- set uname = info.get('name') -%}
+    {%- set uid = info.get('uid') -%}
+    {%- if uname and uid is not none -%}
+      {%- do uidmap.update({(uname|string): (uid|string)}) -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- set gidmap = {} -%}
+{%- set gent = salt['group.getent']() -%}
+
+{%- for info in gent -%}
+  {%- if info is mapping -%}
+    {%- set gname = info.get('name') -%}
+    {%- set gid = info.get('gid') -%}
+    {%- if gname and gid is not none -%}
+      {%- do gidmap.update({(gname|string): (gid|string)}) -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- set timezone = salt['timezone.get_zone']() -%}
+
+{%- macro resolve_sf(body) -%}
+  {%- if not body -%}
     {{ "" }}
-  {%- else %}
+  {%- else -%}
+    {%- set ns = namespace(text=body) -%}
+    {%- for name, path in sfmap.items() -%}
+      {%- set placeholder = '${{ sf:"' ~ name ~ '" }}' -%}
+      {%- set ns.text = ns.text | replace(placeholder, path) -%}
+    {%- endfor -%}
+    {{ ns.text }}
+  {%- endif -%}
+{%- endmacro -%}
+
+{%- macro replace_uid_tokens(text) -%}
+  {%- set ns = namespace(out=text) -%}
+  {%- for part in ns.out.split('${{ uid:"') -%}
+    {%- if loop.first -%}{%- continue -%}{%- endif -%}
+    {%- set uname = part.split('" }}', 1)[0] if '" }}' in part else None -%}
+    {%- if uname -%}
+      {%- set uname = (uname|string).strip() -%}
+      {%- set uid = uidmap.get(uname) -%}
+      {%- if uid is not none -%}
+        {%- set ns.out = ns.out | replace('${{ uid:"' ~ uname ~ '" }}', uid|string) -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {{ ns.out }}
+{%- endmacro -%}
+
+{%- macro replace_gid_tokens(text) -%}
+  {%- set ns = namespace(out=text) -%}
+  {%- for part in ns.out.split('${{ gid:"') -%}
+    {%- if loop.first -%}{%- continue -%}{%- endif -%}
+    {%- set gname = part.split('" }}', 1)[0] if '" }}' in part else None -%}
+    {%- if gname -%}
+      {%- set gname = (gname|string).strip() -%}
+      {%- set gid = gidmap.get(gname) -%}
+      {%- if gid is not none -%}
+        {%- set ns.out = ns.out | replace('${{ gid:"' ~ gname ~ '" }}', gid|string) -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {{ ns.out }}
+{%- endmacro -%}
+
+{%- macro render_body(raw, name, datapath) -%}
+  {%- if not raw -%}
+    {{ "" }}
+  {%- else -%}
     {%- set b = resolve_sf(raw) -%}
     {%- set b = b | replace("CHANGE_TO_COMPOSE_NAME", name) -%}
     {%- if datapath is not none and datapath|length > 0 -%}
       {%- set b = b | replace("CHANGE_TO_COMPOSE_DATA_PATH", datapath) -%}
     {%- endif -%}
+    {%- if '${{ uid:"' in b -%}
+      {%- set b = replace_uid_tokens(b) -%}
+    {%- endif -%}
+    {%- if '${{ gid:"' in b -%}
+      {%- set b = replace_gid_tokens(b) -%}
+    {%- endif -%}
+    {%- if '${{ tz' in b -%}
+      {%- set b = b | replace('${{ tz }}', timezone) -%}
+    {%- endif -%}
     {{ b }}
-  {%- endif %}
-{%- endmacro %}
+  {%- endif -%}
+{%- endmacro -%}
 
 
 {% set config = salt['omv_conf.get']('conf.service.compose') %}

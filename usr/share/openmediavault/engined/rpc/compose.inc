@@ -397,6 +397,49 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return $result;
     }
 
+    private function getUidMap()
+    {
+        static $cache = null;
+        if ($cache !== null) {
+            return $cache;
+        }
+        $map = [];
+        foreach (file('/etc/passwd', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+            if ($line[0] === '#') {
+                continue;
+            }
+            [$name, , $uid] = explode(':', $line, 4);
+            $map[$name] = $uid;
+        }
+        return $cache = $map;
+    }
+
+    private function getGidMap()
+    {
+        static $cache = null;
+        if ($cache !== null) {
+            return $cache;
+        }
+        $map = [];
+        foreach (file('/etc/group', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+            if ($line[0] === '#') {
+                continue;
+            }
+            [$name, , $gid] = explode(':', $line, 4);
+            $map[$name] = $gid;
+        }
+        return $cache = $map;
+    }
+
+    private function getTimezone()
+    {
+        $tz = @file_get_contents('/etc/timezone');
+        if ($tz !== false && $tz !== '') {
+            return trim($tz);
+        }
+        return date_default_timezone_get();
+    }
+
     private function renderBody($rawBody, $name, $datapath, $context)
     {
         if ($rawBody === null) {
@@ -409,6 +452,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if ($datapath !== null && $datapath !== '') {
             $body = str_replace('CHANGE_TO_COMPOSE_DATA_PATH', $datapath, $body);
         }
+        foreach ($this->getUidMap() as $user => $uid) {
+            $body = str_replace('${{ uid:"' . $user . '" }}', $uid, $body);
+        }
+        foreach ($this->getGidMap() as $group => $gid) {
+            $body = str_replace('${{ gid:"' . $group . '" }}', $gid, $body);
+        }
+        $body = str_replace('${{ tz }}', $this->getTimezone(), $body);
         return $body;
     }
 
@@ -857,12 +907,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $env = $this->renderBody($object->get('env'), $cname, $datapath, $context);
                 $override = $this->renderBody($object->get('override'), $cname, $datapath, $context);
 
-                $dblEol = PHP_EOL . PHP_EOL;
+                $eol = PHP_EOL;
+                $eol2 = str_repeat($eol, 2);
+                $eol3 = str_repeat($eol, 3);
                 $header = $this->getHeader();
-                $desc = $object->get('description');
-                $header1 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, PHP_EOL);
-                $header2 = sprintf('%s# environment file for %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
-                $header3 = sprintf('%s# %s%s# %s%s', $header, $cname, PHP_EOL, $desc, $dblEol);
+                $desc   = $object->get('description');
+                $line1 = sprintf("# %s%s", $cname, $eol);
+                $line2 = sprintf("# %s", $desc);
+                $lineE = sprintf("# environment file for %s%s", $cname, $eol);
+                $header1 = $header . $line1 . $line2 . $eol2;
+                $header2 = $header . $lineE . $line2 . $eol3;
+                $header3 = $header . $line1 . $line2 . $eol3;
 
                 file_put_contents($composeFile, $header1 . $body . PHP_EOL);
                 file_put_contents($envFile, $header2 . $env);
