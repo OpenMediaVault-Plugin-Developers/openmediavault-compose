@@ -99,7 +99,7 @@ msgid "Backup"
 msgstr "備份"
 
 msgid "Backup shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "備份的共享檔案夾必須不同於 docker 的共享檔案夾"
 
 msgid "Block In"
 msgstr "區塊讀入"
@@ -177,7 +177,7 @@ msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose 檔案的共享檔案夾必須不同於資料的共享檔案夾"
 
 msgid "Compose file shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "Compose 檔案的共享檔案夾必須不同於 docker 的共享檔案夾"
 
 msgid "Compose file to be associate imported files with"
 msgstr "與要匯入檔案相關連的 compose 檔案"
@@ -225,7 +225,7 @@ msgid "Create new compose file from running container ..."
 msgstr "依據執行中的容器創建新的 compose 檔案 …"
 
 msgid "Create new image tag ..."
-msgstr "創建新的影像標籤 ..."
+msgstr "創建新的映像標籤 ..."
 
 msgid "Created"
 msgstr "建立"
@@ -258,7 +258,7 @@ msgid "Data"
 msgstr "資料"
 
 msgid "Data shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "資料檔案的共享檔案夾必須不同於 docker 的共享檔案夾"
 
 msgid "Date & Time"
 msgstr "日期與時間"
@@ -288,13 +288,13 @@ msgid "Displays information about containers in a table."
 msgstr "以表格顯示關於容器的資訊。"
 
 msgid "Docker config"
-msgstr ""
+msgstr "Docker 配置"
 
 msgid "Docker has been restarted."
 msgstr "Docker 已經被重新啟動。"
 
 msgid "Docker info"
-msgstr ""
+msgstr "Docker 資訊"
 
 msgid "Docker is restarting ..."
 msgstr "Docker 正在重新啟動中 …"
@@ -417,10 +417,10 @@ msgid "IP range"
 msgstr "IP 範圍"
 
 msgid "Image"
-msgstr "影像"
+msgstr "映像"
 
 msgid "Images"
-msgstr "影像"
+msgstr "映像"
 
 msgid "Import"
 msgstr "導入"
@@ -450,13 +450,13 @@ msgid "Installed"
 msgstr "已被安裝"
 
 msgid "Keep containers running across Docker daemon updates"
-msgstr ""
+msgstr "在 Docker 常駐程式更新期間保持容器運行"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "留空白則使用客製的 /etc/docker/daemon.json"
 
 msgid "Live restore"
-msgstr ""
+msgstr "即使恢復"
 
 msgid "Location of backups"
 msgstr "備份位置"
@@ -465,7 +465,7 @@ msgid "Location of compose files"
 msgstr "compose 檔案位置"
 
 msgid "Log file max size"
-msgstr ""
+msgstr "日誌檔的最大容量"
 
 msgid "Logged out."
 msgstr "已登出。"
@@ -528,7 +528,7 @@ msgid "Networks"
 msgstr "網路"
 
 msgid "No Image"
-msgstr "無影像"
+msgstr "無映像"
 
 msgid "No compose file found!"
 msgstr "找不到 compose 檔案！"
@@ -558,6 +558,8 @@ msgid ""
 "field path will not be overriden when this shared folder is set to None or "
 "when Docker storage field path is blank."
 msgstr ""
+"選用性。如果選用，這個共享檔案夾的絕對路徑將被用來置換存入時 Docker 儲存空間欄位的路徑。當這個共享檔案夾被設為 None 或 Docker "
+"儲存空間欄位的路徑是空白時，則 Docker 儲存空間欄位的路徑將不會被置換。"
 
 msgid "Override"
 msgstr "置換"
@@ -606,7 +608,7 @@ msgid "Prune"
 msgstr "修剪"
 
 msgid "Prune Images"
-msgstr ""
+msgstr "清理映象"
 
 msgid "Pull and Build"
 msgstr "拉取並建構"
@@ -654,11 +656,11 @@ msgid "Run"
 msgstr "執行"
 
 msgid "Run config"
-msgstr ""
+msgstr "執行配置"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
-msgstr ""
+msgstr "當儲存檔案時，執行 docker compose 配置，以自動檢查語法"
 
 msgid "Running For"
 msgstr "運行時間"
@@ -798,7 +800,7 @@ msgid ""
 msgstr "單位為 GB。備份將跳過大於此大小的儲存卷。<br/>設成 0 表示無限制。"
 
 msgid "Units in MB. Set to 0 for unlimited."
-msgstr ""
+msgstr "以 MB 為單位。設成 0 表示無限制。"
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr "以秒為單位。<br/>設定為 0 則不使用內存。"
@@ -969,10 +971,10 @@ msgid "pull"
 msgstr "拉取"
 
 msgid "pull image"
-msgstr "拉取影像"
+msgstr "拉取映像"
 
 msgid "pull image+tag"
-msgstr "拉取影像+標籤"
+msgstr "拉取映像+標籤"
 
 msgid "restart"
 msgstr "重啟"
