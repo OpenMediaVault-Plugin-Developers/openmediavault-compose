@@ -146,7 +146,7 @@ data:
             name: liverestore
             label: _("Live restore")
             hint: _("Keep containers running across Docker daemon updates")
-            value: true
+            value: false
             modifiers:
               - type: disabled
                 constraint:

@@ -13,7 +13,7 @@ if ! omv_config_exists "/config/services/compose/logmaxsize"; then
 fi
 
 if ! omv_config_exists "/config/services/compose/liverestore"; then
-  omv_config_add_key "/config/services/compose" "liverestore" "1"
+  omv_config_add_key "/config/services/compose" "liverestore" "0"
 fi
 
 omv_module_set_dirty compose
