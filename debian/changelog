@@ -1,3 +1,11 @@
+openmediavault-compose (8.0.6) UNRELEASED; urgency=medium
+
+  * Add placeholder expansion in global environment file
+  * Change liverestore default to off to match docker default.
+    liverestore causes problems with containers using s6 when enabled
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 15 Dec 2025 22:27:53 +0000
+
 openmediavault-compose (8.0.5) stable; urgency=low
 
   * Add placeholder expansion for user, group, and timezone tokens.
