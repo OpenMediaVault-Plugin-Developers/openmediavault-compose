@@ -216,14 +216,14 @@ configure_compose_{{ file.name }}_config_{{ cnf.uuid }}:
 
 {% if globalenv.enabled | to_bool %}
 
+{% set file_global = render_body(globalenv.globalenv, '', datapath) %}
 configure_compose_global_env_file:
   file.managed:
     - name: '{{ globalEnvFile }}'
     - source:
       - salt://{{ tpldir }}/files/global_env_yml.j2
     - context:
-        globalenv: {{ globalenv | json }}
-        datapath: {{ datapath }}
+        body: {{ file_global.strip() | json }}
     - template: jinja
     - user: "{{ config.composeowner }}"
     - group: "{{ config.composegroup }}"

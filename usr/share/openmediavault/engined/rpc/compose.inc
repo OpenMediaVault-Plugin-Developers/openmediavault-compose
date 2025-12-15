@@ -1021,7 +1021,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // write changes
         $sfpath = $this->getComposePath($context);
         $globalenv = sprintf('%s/global.env', $sfpath);
-        file_put_contents($globalenv, $params['globalenv'] . PHP_EOL);
+        $genvbody = $this->renderBody($params['globalenv'], '', '', $context);
+        file_put_contents($globalenv, $genvbody . PHP_EOL);
         // add and commit to git if repo exists
         $this->addAndCommit($context, ['global.env'], 'global.env');
         // Return the configuration object.
