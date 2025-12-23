@@ -9,15 +9,18 @@ Homepage: http://omv-extras.org/
 
 Package: openmediavault-compose
 Architecture: all
-Depends: openmediavault (>= 8),
+Depends: docker-ce | podman,
+         docker-compose-plugin,
+         containerd.io,
+         docker-ce-cli,
+         docker-buildx-plugin,
+         openmediavault (>= 8),
          openmediavault-omvextrasorg (>= 8),
          openmediavault-sharerootfs,
          python3-docker,
          python3-pretty-yaml,
          ${misc:Depends}
-Recommends: docker-ce (>= 28.4),
-            docker-compose-plugin (>= 2.39),
-            openmediavault-cterm (>= 8)
+Recommends: openmediavault-cterm (>= 8)
 Description: OpenMediaVault compose plugin
  This plugin enhances OpenMediaVault by providing a comprehensive solution for managing
  Docker containers and their resources. Key features include:

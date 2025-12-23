@@ -1,0 +1,27 @@
+#!/bin/sh
+set -e
+
+. /etc/default/openmediavault
+. /usr/share/openmediavault/scripts/helper-functions
+
+case "$1" in
+  install|upgrade)
+    xpath="/config/system/omvextras/docker"
+    docker="$(omv_config_get "${xpath}" 2>/dev/null || echo "")"
+    if [ "${docker}" != "1" ]; then
+      echo "Enabling the docker repo..."
+      omv_config_update "${xpath}" "1"
+      omv-aptclean repos
+    fi
+    ;;
+
+  abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+  *)
+    # Don't fail installs for unexpected args; dpkg may call scripts in edge cases
+    echo "preinst called with unsupported argument '$1' (ignored)" >&2
+    ;;
+esac
+
+exit 0
