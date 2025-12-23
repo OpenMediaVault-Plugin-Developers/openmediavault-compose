@@ -58,6 +58,7 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_key "/config/services/compose" "cachetimevolumes" "60"
   omv_config_add_key "/config/services/compose" "cachetimecontainers" "60"
   omv_config_add_key "/config/services/compose" "showcmd" "0"
+  omv_config_add_key "/config/services/compose" "podman" "0"
   omv_config_add_key "/config/services/compose" "runconfig" "0"
   omv_config_add_node "/config/services/compose" "files"
   omv_config_add_node "/config/services/compose" "configs"

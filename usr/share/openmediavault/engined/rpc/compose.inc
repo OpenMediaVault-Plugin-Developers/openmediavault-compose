@@ -30,6 +30,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     private $cacheFileVolumes = '/var/cache/openmediavault/compose_cache_volumes.json';
     private $cacheFileContainers = '/var/cache/openmediavault/compose_cache_containers.json';
     private $cacheImagesExampleList = '/var/www/openmediavault/assets/composeImages';
+    private $podmanSockPath = 'unix:///run/podman/podman.sock';
 
     public function getName()
     {
@@ -175,6 +176,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             unlink($this->cacheFileContainers);
         }
     }
+
     private function getComposePath($context)
     {
         // Get configuration data.
@@ -249,10 +251,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
-        // Get sharedfolder path
+        // get showcmd setting
         $settings = $db->get("conf.service.compose");
         $showCmd = $settings->get('showcmd');
+        // return showcmd value
         return (boolval($showCmd));
+    }
+
+    private function getPodman($context)
+    {
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        // get podman setting
+        $settings = $db->get("conf.service.compose");
+        $podman = $settings->get('podman');
+        // return podman value
+        return (boolval($podman));
     }
 
     private function getPort($context, $publisher, $fqdn)
@@ -470,25 +484,30 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose");
+        $podman = $this->getPodman($context);
         // Remove useless properties from the object.
         $object->remove("files");
         $object->remove("dockerfiles");
         $object->remove("globalenv");
-        // docker version
-        $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-ce" || $2 == "docker.io") { print $2 " " $3 }\'';
+        // docker/podman version
+        $cmdLine = sprintf(
+            'dpkg -l | awk \'$1 == "ii" && ($2 == "%s") { print $2 " " $3 }\'',
+            $podman ? 'podman' : 'docker-ce'
+        );
         $cmd = new \OMV\System\Process($cmdLine);
         $cmd->setQuiet(true);
         $output = [];
         $cmd->execute($output, $exitStatus);
         // compose version
-        $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-compose-plugin" || $2 == "docker-compose") { print $2 " " $3 }\'';
+        $cmdLine = 'dpkg -l | awk \'$1 == "ii" && ($2 == "docker-compose-plugin") { print $2 " " $3 }\'';
         $cmd = new \OMV\System\Process($cmdLine);
         $cmd->setQuiet(true);
-        $output2 = [];
         $cmd->execute($output2, $exitStatus);
+        var_dump($output2);
         if (!empty($output)) {
             // Get docker service status
-            $systemCtl = new \OMV\System\SystemCtl('docker');
+            $svc = $podman ? 'podman.socket' : 'docker';
+            $systemCtl = new \OMV\System\SystemCtl($svc);
             if ($systemCtl->isActive()) {
                 $running = gettext("and running");
             } else {
@@ -637,9 +656,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     public function restartDocker($params, $context)
     {
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.compose");
+        $podman = $this->getPodman($context);
+        $svc = $podman ? 'docker' : 'podman.socket';
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        $systemCtl = new \OMV\System\SystemCtl('docker');
+        $systemCtl = new \OMV\System\SystemCtl($svc);
         $systemCtl->restart();
     }
 
@@ -665,6 +689,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $settings = $db->get("conf.service.compose");
         $cacheTime = $settings->get('cachetimefiles');
+        $podman = $this->getPodman($context);
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
         // Add additional informations.
@@ -702,6 +727,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = '--all';
                 $cmdArgs[] = '--format "json"';
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setQuiet(true);
                 $cmd->execute($output, $exitStatus);
                 $output = array_filter($output);
@@ -838,6 +867,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = sprintf("--env-file '%s'", $envFile1);
         $cmdArgs[] = 'config';
         $cmd = new \OMV\System\Process($cmdArgs);
+        $podman = $this->getPodman($context);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $cmd->setRedirect2to1();
         $cmdLine = $cmd->getCommandLine();
         $failed = false;
@@ -968,6 +1002,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
         $cmdArgs[] = 'down';
         $cmd = new \OMV\System\Process($cmdArgs);
+        $podman = $this->getPodman($context);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $cmd->setQuiet(true);
         $cmd->execute($output, $exitStatus);
         // remove and commit to git if repo exists
@@ -1152,11 +1191,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $podman = $this->getPodman($context);
         $object = $db->get("conf.service.compose.file", $params['uuid']);
         $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($object, $params, $sfpath, $showCmd) {
+            use ($object, $params, $sfpath, $showCmd, $podman) {
                 $name = $params['name'];
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
@@ -1168,6 +1209,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = sprintf("--tag '%s'", $params['name']);
                 $cmdArgs[] = sprintf("'%s/%s/'", $sfpath, $name);
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
@@ -1183,10 +1228,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $sfpath, $showCmd) {
+            use ($params, $sfpath, $showCmd, $podman) {
                 // docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
@@ -1204,6 +1252,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs[] = $params['tgtimg'];
                 }
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
@@ -1219,6 +1271,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($params, $sfpath) {
@@ -1233,6 +1288,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs[] = $params['imgimg'];
                 }
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
@@ -1252,10 +1311,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
+        $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($object, $params, $sfpath, $showCmd) {
+            use ($object, $params, $sfpath, $showCmd, $podman) {
                 $cname = $object->get('name');
                 $composeDir = sprintf("%s/%s", $sfpath, $cname);
                 $composeName = sprintf("%s/%s", $composeDir, $cname);
@@ -1283,6 +1343,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 }
                 $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmd->setQuiet(true);
                 $cmdLine = $cmd->getCommandLine();
@@ -1306,10 +1370,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $objects = $db->get("conf.service.compose.file");
+        $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($objects, $sfpath, $showCmd) {
+            use ($objects, $sfpath, $showCmd, $podman) {
                 foreach ($objects as $objectk => &$objectv) {
                     // build filenames
                     $cname = $objectv->get('name');
@@ -1332,6 +1397,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
                     $cmdArgs[] = 'down';
                     $cmd = new \OMV\System\Process($cmdArgs);
+                    if ($podman) {
+                        $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                        $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                    }
                     $cmd->setRedirect2to1();
                     $cmd->setQuiet(true);
                     $cmdLine = $cmd->getCommandLine();
@@ -1459,6 +1528,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
         $cmdArgs[] = 'logs';
         $cmd = new \OMV\System\Process($cmdArgs);
+        $podman = $this->getPodman($context);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $cmd->setRedirect1toFile($tmpFilePath);
         $cmd->setRedirect2to1();
         $cmd->execute();
@@ -1481,14 +1555,19 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->clearCache('all');
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.doprune");
+        $podman = $this->getPodman($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $showCmd) {
+            use ($params, $showCmd, $podman) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = $params['command'];
                 $cmdArgs[] = '-f';
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
@@ -1767,6 +1846,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.getlist");
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
+        $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         $settings = $db->get("conf.service.compose");
         // get fqdn
@@ -1825,6 +1905,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs[] = '--all';
                     $cmdArgs[] = '--format "json"';
                     $cmd = new \OMV\System\Process($cmdArgs);
+                    if ($podman) {
+                        $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                        $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                    }
                     $cmd->setQuiet(true);
                     $cmd->execute($output, $exitStatus);
                     $output = array_filter($output);
@@ -1924,6 +2008,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Create a temporary file which will contain the content of the requested log file.
         $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
         // Execute the given command to get the log file content.
+        $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         $globalEnvFile = sprintf('%s/global.env', $sfpath);
         $cmdArgs = [];
@@ -1940,6 +2025,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = 'logs';
         $cmdArgs[] = $params['service'];
         $cmd = new \OMV\System\Process($cmdArgs);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $cmd->setRedirect1toFile($tmpFilePath);
         $cmd->setRedirect2to1();
         $cmd->execute();
@@ -1967,6 +2056,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $settings = $db->get("conf.service.compose");
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
+        $podman = $this->getPodman($context);
         // get cterm settings
         try {
             $cterm = $db->get("conf.service.cterm");
@@ -1998,6 +2088,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = '--no-trunc';
             $cmdArgs[] = '--format "json"';
             $cmd = new \OMV\System\Process($cmdArgs);
+            if ($podman) {
+                $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+            }
             $cmd->setQuiet(true);
             $cmd->execute($output, $exitStatus);
             if ($cacheTime > 0) {
@@ -2054,9 +2148,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // delete cache containers
         $this->clearCache('containers');
+        $podman = $this->getPodman($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $showCmd) {
+            use ($params, $showCmd, $podman) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = $params['command'];
@@ -2064,6 +2159,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = $params['id'];
                 $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
@@ -2084,12 +2183,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Create a temporary file which will contain the content of the requested log file.
         $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
         // Execute the given command to get the log file content.
+        $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'logs';
         $cmdArgs[] = $params['id'];
         $cmd = new \OMV\System\Process($cmdArgs);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $cmd->setRedirect1toFile($tmpFilePath);
         $cmd->setRedirect2to1();
         $cmd->execute();
@@ -2108,6 +2212,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $podman = $this->getPodman($context);
         // Get running containers
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
@@ -2115,6 +2220,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = 'ls';
         $cmdArgs[] = '--format "{{.Names}},{{.Image}}"';
         $cmd = new \OMV\System\Process($cmdArgs);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $output = [];
         $cmd->execute($output, $exitStatus);
         $objects = [];
@@ -2367,6 +2476,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $settings = $db->get("conf.service.compose");
         $cacheTime = $settings->get('cachetimestats');
+        $podman = $this->getPodman($context);
         // Check if cache file exists and is not older than cache setting
         if ($cacheTime > 0 && file_exists($this->cacheFileStats)
           && (time() - filemtime($this->cacheFileStats)) < $cacheTime) {
@@ -2380,6 +2490,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = '--no-stream';
             $cmdArgs[] = '--format "{{.ID}},{{.Name}},{{.CPUPerc}},{{.MemUsage}},{{.MemPerc}},{{.NetIO}},{{.BlockIO}},{{.PIDs}}"';
             $cmd = new \OMV\System\Process($cmdArgs);
+            if ($podman) {
+                $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+            }
             $output = [];
             $cmd->execute($output, $exitStatus);
             if ($cacheTime > 0) {
@@ -2449,9 +2563,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->clearCache('stats');
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.dodockercmd");
+        $podman = $this->getPodman($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $showCmd) {
+            use ($params, $showCmd, $podman) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = $params['cmd'];
@@ -2459,6 +2574,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = $params['id'];
                 $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
@@ -2476,9 +2595,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ['role' => OMV_ROLE_EVERYONE]);
         $objects = [];
         $status = '';
+        $podman = $this->getPodman($context);
+        $svc = 'docker';
+        $svcname = 'Docker';
+        $svcpath = '/lib/systemd/system/docker.service';
+        if ($podman) {
+            $svc = 'podman.socket';
+            $svcname = 'Podman';
+            $svcpath = '/lib/systemd/system/podman.socket';
+        }
         // check to see if docker is installed and running
-        if (file_exists("/lib/systemd/system/docker.service")) {
-            $systemCtl = new \OMV\System\SystemCtl("docker");
+        if (file_exists($svcpath)) {
+            $systemCtl = new \OMV\System\SystemCtl($svc);
             $running = $systemCtl->isActive();
             $status = $running ? gettext('running') : gettext('stopped');
         } else {
@@ -2488,7 +2616,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // get containers and status if docker is running
         $objects[] = [
             'image' => '',
-            'name' => 'Docker',
+            'name' => $svcname,
             'status' => $status
         ];
         if ($running) {
@@ -2500,6 +2628,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = '--all';
             $cmdArgs[] = '--format "{{.Image}},{{.Names}},{{.Status}}"';
             $cmd = new \OMV\System\Process($cmdArgs);
+            if ($podman) {
+                $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+            }
             $cmd->execute($output, $exitStatus);
             foreach ($output as $cnt) {
                 if (empty($cnt)) {
@@ -2551,6 +2683,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = 'ls';
         $cmdArgs[] = '--format "{{.Names}}"';
         $cmd = new \OMV\System\Process($cmdArgs);
+        $podman = $this->getPodman($context);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $cmd->execute($output, $exitStatus);
         $objects = [];
         foreach ($output as $cnt) {
@@ -2581,6 +2718,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // get cache time
         $settings = $db->get("conf.service.compose");
         $cacheTime = $settings->get('cachetimevolumes');
+        $podman = $this->getPodman($context);
         // Check if cache file exists and is not older than cache setting
         if ($cacheTime > 0 && file_exists($this->cacheFileVolumes) &&
           (time() - filemtime($this->cacheFileVolumes)) < $cacheTime) {
@@ -2594,6 +2732,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = '--verbose';
             $cmdArgs[] = '--format "json"';
             $cmd = new \OMV\System\Process($cmdArgs);
+            if ($podman) {
+                $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+            }
             $cmd->setQuiet(true);
             $output = [];
             $cmd->execute($output, $exitStatus);
@@ -2627,9 +2769,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // clear cache for volumes
         $this->clearCache('volumes');
+        $podman = $this->getPodman($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $showCmd) {
+            use ($params, $showCmd, $podman) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'volume';
@@ -2640,6 +2783,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 }
                 $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
@@ -2660,6 +2807,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $settings = $db->get("conf.service.compose");
         $cacheTime = $settings->get('cachetimenetworks');
+        $podman = $this->getPodman($context);
         // Check if cache file exists and is not older than cache setting
         $output = [];
         if ($cacheTime > 0 && file_exists($this->cacheFileNetworks) &&
@@ -2671,8 +2819,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = 'docker';
             $cmdArgs[] = 'network';
             $cmdArgs[] = 'ls';
-            $cmdArgs[] = '--format "json"';
+            if ($podman) {
+                $cmdArgs[] = '--format "{{json .}}"';
+            } else {
+                $cmdArgs[] = '--format "json"';
+            }
             $cmd = new \OMV\System\Process($cmdArgs);
+            if ($podman) {
+                $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+            }
             $cmd->setQuiet(true);
             $output = [];
             $cmd->execute($output, $exitStatus);
@@ -2681,12 +2837,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
         }
         $networksAssoc = [];
-        foreach ($output as $network) {
-            $networkJson = json_decode($network);
-            $networksAssoc[] = [
-                "name" => $networkJson->Name,
-                "driver" => $networkJson->Driver
-            ];
+        if ($podman) {
+            foreach ($output as $network) {
+                $networkJson = json_decode($network);
+                $networksAssoc[] = [
+                    "name" => $networkJson->name,
+                    "driver" => $networkJson->driver
+                ];
+            }
+        } else {
+            foreach ($output as $network) {
+                $networkJson = json_decode($network);
+                $networksAssoc[] = [
+                    "name" => $networkJson->Name,
+                    "driver" => $networkJson->Driver
+                ];
+            }
         }
         // Filter the result.
         return $this->applyFilter($networksAssoc, $params['start'], $params['limit'],
@@ -2721,9 +2887,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // clear cache for networks
         $this->clearCache('networks');
+        $podman = $this->getPodman($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $showCmd) {
+            use ($params, $showCmd, $podman) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'network';
@@ -2734,6 +2901,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 }
                 $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
@@ -2778,6 +2949,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         $cmdArgs[] = $params['name'];
         $cmd = new \OMV\System\Process($cmdArgs);
+        $podman = $this->getPodman($context);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $cmd->setRedirect2to1();
         $cmd->execute($output, $exitStatus);
         return $output;
@@ -2794,6 +2970,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // get cache time
         $db = \OMV\Config\Database::getInstance();
         $settings = $db->get("conf.service.compose");
+        $podman = $this->getPodman($context);
         $cacheTime = $settings->get('cachetimeimages');
         $cacheFileContainers = sprintf('%s_containers.json', $this->cacheFileImages);
         $cacheFileImages = sprintf('%s_images.json', $this->cacheFileImages);
@@ -2812,6 +2989,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = '--quiet';
             $cmdArgs[] = '| xargs --no-run-if-empty -n1 docker inspect --format "{{.Image}}"';
             $cmd = new \OMV\System\Process($cmdArgs);
+            if ($podman) {
+                $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+            }
             $cmd->execute($containerImages, $exitStatus);
             $containerImages = array_filter($containerImages);
             if ($cacheTime > 0) {
@@ -2832,8 +3013,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = '--all';
             $cmdArgs[] = '--digests';
             $cmdArgs[] = '--no-trunc';
-            $cmdArgs[] = '--format "json"';
+            if ($podman) {
+                $cmdArgs[] = '--format "{{json .}}"';
+            } else {
+                $cmdArgs[] = '--format "json"';
+            }
             $cmd = new \OMV\System\Process($cmdArgs);
+            if ($podman) {
+                $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+            }
             $cmd->setQuiet(true);
             $output = [];
             $cmd->execute($output, $exitStatus);
@@ -2845,11 +3034,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $grouped = [];
         foreach ($output as $image) {
             $imageJson = json_decode($image);
-            $key = "{$imageJson->Repository}:{$imageJson->Tag}";
+            $repo = $podman ? $imageJson->repository : $imageJson->Repository;
+            $tag = $podman ? $imageJson->tag : $imageJson->Tag;
+            $key = "{$repo}:{$tag}";
             if (!isset($grouped[$key])) {
                 $grouped[$key] = [
-                    "repo" => $imageJson->Repository,
-                    "tag" => $imageJson->Tag,
+                    "repo" => $repo,
+                    "tag" => $tag,
                     "digests_raw" => [],
                     "ids_raw" => [],
                     "inuse" => false,
@@ -2967,9 +3158,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // clear cache for images
         $this->clearCache('images');
+        $podman = $this->getPodman($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $showCmd) {
+            use ($params, $showCmd, $podman) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'image';
@@ -2980,6 +3172,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 }
                 $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
+                if ($podman) {
+                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                }
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
@@ -3211,8 +3407,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.job", $params['uuid']);
+        $podman = $this->getPodman($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($object, $params) {
+            use ($object, $params, $podman) {
                 $output = [];
                 if ($object->get('backup')) {
                     $cmdArgs = [];
@@ -3239,11 +3436,15 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 }
                 if ($object->get('prune')) {
                     $cmdArgs = [];
-                    $cmdArgs[] = '/usr/bin/docker';
+                    $cmdArgs[] = 'docker';
                     $cmdArgs[] = 'image';
                     $cmdArgs[] = 'prune';
                     $cmdArgs[] = '-f';
                     $cmd = new \OMV\System\Process($cmdArgs);
+                    if ($podman) {
+                        $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                        $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                    }
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
                     if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
@@ -3311,6 +3512,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = sprintf('--username %s', $params['username']);
         $cmdArgs[] = '--password-stdin';
         $cmd = new \OMV\System\Process($cmdArgs);
+        $podman = $this->getPodman($context);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $cmd->execute($output, $exitStatus);
     }
 
@@ -3323,6 +3529,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = 'logout';
         $cmdArgs[] = $params['repo'];
         $cmd = new \OMV\System\Process($cmdArgs);
+        $podman = $this->getPodman($context);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
         $cmd->execute($output, $exitStatus);
     }
 }

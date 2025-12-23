@@ -12,6 +12,8 @@
 
 export LC_ALL=C.UTF-8
 
+. /usr/share/openmediavault/scripts/helper-functions
+
 declare -i timeout=180
 declare -i i=0
 
@@ -25,7 +27,16 @@ _log()
   echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composeupdate] ${msg}" | tee -a ${logFile} >&2
 }
 
+# get podman setting
+podman=$(omv_config_get "/config/services/compose/podman")
+if [ "${podman}" == "1" ]]; then
+  export DOCKER_HOST="unix:///run/podman/podman.sock"
+else
+  unset DOCKER_HOST
+fi
+
 _log "Starting docker image prune ..."
+_log "podman :: ${podman}"
 
 while pgrep -f omv-compose-update -l > /dev/null; do
   _log "Update is running.  Waiting ... ${i}"

@@ -14,12 +14,80 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
-
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
 {% set nocterm = salt['pillar.get']('default:OMV_NO_CTERM_DEPENDENCY', 'no') -%}
+{% set use_podman = config.podman | to_bool %}
+{% set create_config = False %}
 
-# create daemon.json file if docker storage path is specified
 {% if config.dockerStorage | length > 1 %}
+
+docker_storage_dir:
+  file.directory:
+    - name: "{{ config.dockerStorage }}"
+    - user: root
+    - group: root
+    - mode: "0755"
+    - makedirs: True
+
+{% set create_config = True %}
+
+{% endif %}
+
+# install packages and create config file
+{% if use_podman %}
+
+podman_install_packages:
+  pkg.installed:
+    - pkgs:
+      - podman
+      - podman-docker
+      - docker-compose-plugin
+
+{% if create_config %}
+
+podman_storage_conf:
+  file.managed:
+    - name: /etc/containers/storage.conf
+    - user: root
+    - group: root
+    - mode: "0644"
+    - makedirs: True
+    - contents: |
+        # This file is managed by OpenMediaVault (compose plugin).
+        [storage]
+        driver = "overlay"
+        graphroot = "{{ config.dockerStorage }}"
+        runroot = "/run/containers/storage"
+
+podman_socket_restart_on_config_change:
+  service.running:
+    - name: podman.socket
+    - enable: True
+    - watch:
+      - file: podman_storage_conf
+
+{% endif %}
+
+/etc/containers/nodocker:
+  file.touch
+
+{% set waitConf = '/etc/systemd/system/podman.socket.d/waitAllMounts.conf' %}
+
+{% else %}
+
+docker_install_packages:
+  pkg.installed:
+    - pkgs:
+      - docker-ce
+      - docker-compose-plugin
+      - containerd.io
+      - docker-ce-cli
+      - docker-buildx-plugin
+{% if not nocterm | to_bool %}
+      - openmediavault-cterm
+{% endif %}
+
+{% if create_config %}
 
 configure_etc_docker_dir:
   file.directory:
@@ -48,32 +116,6 @@ configure_etc_docker_dir:
     - group: root
     - mode: "0600"
 
-{% endif %}
-
-docker_install_packages:
-  pkg.installed:
-    - pkgs:
-      - docker-ce: '>=27.2.1'
-
-docker_compose_install_packages:
-  pkg.installed:
-    - pkgs:
-      - docker-compose-plugin: '>=2.29.2'
-      - containerd.io: '>=1.7.21'
-      - docker-ce-cli: '>=27.2.1'
-      - docker-buildx-plugin: '>=0.16.2'
-{% if not nocterm | to_bool %}
-      - openmediavault-cterm: '>= 7.8.5'
-{% endif %}
-
-docker_purged_packages:
-  pkg.purged:
-    - pkgs:
-      - docker-compose
-      - docker.io
-
-{% if config.dockerStorage | length > 1 %}
-
 docker:
   service.running:
     - enable: True
@@ -82,8 +124,12 @@ docker:
 
 {% endif %}
 
-{% set mounts = salt['cmd.shell']('systemctl list-units --type=mount | awk \'$5 ~ "/srv" { printf "%s ",$1 }\'') %}
 {% set waitConf = '/etc/systemd/system/docker.service.d/waitAllMounts.conf' %}
+
+{% endif %}
+
+# create override file to wait for all storage
+{% set mounts = salt['cmd.shell']('systemctl list-units --type=mount | awk \'$5 ~ "/srv" { printf "%s ",$1 }\'') %}
 
 {{ waitConf }}:
   file.managed:
@@ -98,11 +144,3 @@ systemd_daemon_reload_docker:
     - name: systemctl daemon-reload
     - onchanges:
       - file: {{ waitConf }}
-
-create_usr_local_bin_dir:
-  file.directory:
-    - name: "/usr/local/bin"
-    - user: root
-    - group: root
-    - mode: "0755"
-    - makedirs: True

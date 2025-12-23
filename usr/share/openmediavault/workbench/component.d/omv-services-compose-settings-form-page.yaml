@@ -98,6 +98,10 @@ data:
         hint: _("Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 for unlimited.")
       - type: divider
         title: _("Docker config")
+      - type: checkbox
+        name: podman
+        label: _("Use podman")
+        value: false
       - type: container
         fields:
           - type: textInput

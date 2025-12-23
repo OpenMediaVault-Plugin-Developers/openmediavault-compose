@@ -27,8 +27,21 @@ class OMVModuleCompose extends \OMV\Engine\Module\ServiceAbstract
 
     public function getStatus()
     {
-        if (file_exists("/lib/systemd/system/docker.service")) {
-            $systemCtl = new \OMV\System\SystemCtl("docker");
+        $db = \OMV\Config\Database::getInstance();
+        $settings = $db->get("conf.service.compose");
+        $podman = $settings->get('podman');
+
+        $svc = 'docker';
+        $svcname = 'Docker';
+        $svcpath = '/lib/systemd/system/docker.service';
+        if ($podman) {
+            $svc = 'podman.socket';
+            $svcname = 'Podman';
+            $svcpath = '/lib/systemd/system/podman.socket';
+        }
+
+        if (file_exists($svcpath)) {
+            $systemCtl = new \OMV\System\SystemCtl($svc);
             $enabled = $systemCtl->isEnabled();
             $running = $systemCtl->isActive();
         } else {
@@ -36,8 +49,8 @@ class OMVModuleCompose extends \OMV\Engine\Module\ServiceAbstract
             $running = false;
         }
         return array(
-            "name" => "Docker",
-            "title" => "Docker",
+            "name" => $svcname,
+            "title" => $svcname,
             "enabled" => $enabled,
             "running" => $running
         );

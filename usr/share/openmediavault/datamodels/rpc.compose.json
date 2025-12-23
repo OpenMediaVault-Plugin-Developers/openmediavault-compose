@@ -125,6 +125,10 @@
           "type": "boolean",
           "required": true
         },
+        "podman": {
+          "type": "boolean",
+          "required": true
+        },
         "runconfig": {
           "type": "boolean",
           "required": true

@@ -143,6 +143,9 @@
     "showcmd": {
       "type": "boolean"
     },
+    "podman": {
+      "type": "boolean"
+    },
     "runconfig": {
       "type": "boolean"
     },
