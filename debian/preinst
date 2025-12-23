@@ -12,6 +12,7 @@ case "$1" in
       echo "Enabling the docker repo..."
       omv_config_update "${xpath}" "1"
       omv-aptclean repos
+      omv_module_set_dirty compose
     fi
     ;;
 
