@@ -89,6 +89,24 @@
           "type": "boolean",
           "required": true
         },
+        "podmanStorage": {
+          "type": "string",
+          "required": false
+        },
+        "podmansharedfolderref": {
+          "type": "string",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uuidv4"
+            },
+            {
+              "type": "string",
+              "maxLength": 0
+            }
+          ],
+          "required": true
+        },
         "urlHostname": {
           "type": "string",
           "required": true

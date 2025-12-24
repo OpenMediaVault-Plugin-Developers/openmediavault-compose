@@ -22,10 +22,17 @@ data:
         get:
           method: getContainers
       filters:
-        - operator: ne
+        - operator: and
           arg0:
-            prop: name
-          arg1: 'Docker'
+            operator: ne
+            arg0:
+              prop: name
+            arg1: 'Docker'
+          arg1:
+            operator: ne
+            arg0:
+              prop: name
+            arg1: 'Podman'
       sorters:
         - prop: name
           dir: asc

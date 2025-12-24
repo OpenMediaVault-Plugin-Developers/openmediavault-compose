@@ -49,6 +49,8 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_key "/config/services/compose" "dockersharedfolderref" ""
   omv_config_add_key "/config/services/compose" "logmaxsize" "50"
   omv_config_add_key "/config/services/compose" "liverestore" "0"
+  omv_config_add_key "/config/services/compose" "podmanStorage" "/var/lib/containers/storage"
+  omv_config_add_key "/config/services/compose" "podmansharedfolderref" ""
   omv_config_add_key "/config/services/compose" "urlHostname" ""
   omv_config_add_key "/config/services/compose" "cachetimefiles" "60"
   omv_config_add_key "/config/services/compose" "cachetimeservices" "60"

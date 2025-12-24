@@ -14,26 +14,30 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
+
 {% set config = salt['omv_conf.get']('conf.service.compose') %}
-{% set nocterm = salt['pillar.get']('default:OMV_NO_CTERM_DEPENDENCY', 'no') -%}
+{% set nocterm = salt['pillar.get']('default:OMV_NO_CTERM_DEPENDENCY', 'no') | to_bool %}
 {% set use_podman = config.podman | to_bool %}
-{% set create_config = False %}
+{% set storage_path = (config.podmanStorage if use_podman else config.dockerStorage) %}
+{% set create_config = (storage_path | default('') | length > 1) %}
 
-{% if config.dockerStorage | length > 1 %}
+{# systemd override file path based on runtime #}
+{% set waitConf = ('/etc/systemd/system/podman.socket.d/waitAllMounts.conf'
+                   if use_podman else
+                   '/etc/systemd/system/docker.service.d/waitAllMounts.conf') %}
 
-docker_storage_dir:
+{# ---- Storage dir (shared) ---- #}
+{% if create_config %}
+container_storage_dir:
   file.directory:
-    - name: "{{ config.dockerStorage }}"
+    - name: "{{ storage_path }}"
     - user: root
     - group: root
     - mode: "0755"
     - makedirs: True
-
-{% set create_config = True %}
-
 {% endif %}
 
-# install packages and create config file
+{# ---- Runtime-specific install + config ---- #}
 {% if use_podman %}
 
 podman_install_packages:
@@ -41,9 +45,9 @@ podman_install_packages:
     - pkgs:
       - podman
       - podman-docker
+      - aardvark-dns
 
 {% if create_config %}
-
 podman_storage_conf:
   file.managed:
     - name: /etc/containers/storage.conf
@@ -52,11 +56,11 @@ podman_storage_conf:
     - mode: "0644"
     - makedirs: True
     - contents: |
-        # This file is managed by OpenMediaVault (compose plugin).
         [storage]
         driver = "overlay"
-        graphroot = "{{ config.dockerStorage }}"
+        graphroot = "{{ storage_path }}"
         runroot = "/run/containers/storage"
+
 
 podman_socket_restart_on_config_change:
   service.running:
@@ -64,13 +68,10 @@ podman_socket_restart_on_config_change:
     - enable: True
     - watch:
       - file: podman_storage_conf
-
 {% endif %}
 
 /etc/containers/nodocker:
   file.touch
-
-{% set waitConf = '/etc/systemd/system/podman.socket.d/waitAllMounts.conf' %}
 
 {% else %}
 
@@ -82,7 +83,6 @@ docker_install_packages:
       - docker-ce-cli
 
 {% if create_config %}
-
 configure_etc_docker_dir:
   file.directory:
     - name: "/etc/docker"
@@ -94,7 +94,7 @@ configure_etc_docker_dir:
 /etc/docker/daemon.json:
   file.serialize:
     - dataset:
-        data-root: "{{ config.dockerStorage }}"
+        data-root: "{{ storage_path }}"
         storage-driver: "overlay2"
         {% if config.logmaxsize|int > 0 %}
         log-driver: "json-file"
@@ -115,29 +115,27 @@ docker:
     - enable: True
     - watch:
       - file: /etc/docker/daemon.json
+{% endif %}
 
 {% endif %}
 
-{% set waitConf = '/etc/systemd/system/docker.service.d/waitAllMounts.conf' %}
-
-{% endif %}
-
+{# ---- Common packages ---- #}
 common_install_packages:
   pkg.installed:
     - pkgs:
       - docker-compose-plugin
       - docker-buildx-plugin
-{% if not nocterm | to_bool %}
+      {% if not nocterm %}
       - openmediavault-cterm
-{% endif %}
+      {% endif %}
     - require:
-{% if use_podman %}
+      {% if use_podman %}
       - pkg: podman_install_packages
-{% else %}
+      {% else %}
       - pkg: docker_install_packages
-{% endif %}
+      {% endif %}
 
-# create override file to wait for all storage
+{# ---- Wait for /srv mounts override ---- #}
 {% set mounts = salt['cmd.shell']('systemctl list-units --type=mount | awk \'$5 ~ "/srv" { printf "%s ",$1 }\'') %}
 
 {{ waitConf }}:
@@ -148,7 +146,7 @@ common_install_packages:
     - mode: "0644"
     - makedirs: True
 
-systemd_daemon_reload_docker:
+systemd_daemon_reload:
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:

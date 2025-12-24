@@ -547,6 +547,15 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         ],[
             'backupsharedfolderref', 'dockersharedfolderref',
             gettext("Backup shared folder must be different than docker shared folder")
+        ],[
+            'sharedfolderref', 'podmansharedfolderref',
+            gettext("Compose file shared folder must be different than docker shared folder")
+        ],[
+            'datasharedfolderref', 'podmansharedfolderref',
+            gettext("Data shared folder must be different than docker shared folder")
+        ],[
+            'backupsharedfolderref', 'podmansharedfolderref',
+            gettext("Backup shared folder must be different than docker shared folder")
         ]];
         foreach ($checks as [$left, $right, $message]) {
             if ($params[$left] !== '' && $params[$left] === $params[$right]) {
@@ -578,6 +587,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
         } else {
             $params['dockersharedfolderref'] = '';
+        }
+        // override the podman storage path with the absolute path of
+        // the podman sharedfolder if set
+        if ($params['podmanStorage'] != '') {
+            $sfref = $params['podmansharedfolderref'];
+            if (is_uuid($sfref)) {
+                $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+                $sfpath = rtrim($sfpath, '/');
+                $params['podmanStorage'] = $sfpath;
+            }
+        } else {
+            $params['podmansharedfolderref'] = '';
         }
         $object->setAssoc($params);
         $db->set($object);
@@ -2198,15 +2219,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             } else {
                 $mountLines = [];
             }
-            $status = $container->Status ?? $container->status ?? '';
-            if ($status === '' && isset($container->State)) {
-                $status = $container->State;
-            }
-            if ($status === '' && isset($container->state)) {
-                $status = $container->state;
-            }
-            $created = $container->CreatedAt ?? $container->Created ?? $container->created ?? '';
-            $runningFor = $container->RunningFor ?? $container->running_for ?? $container->Running ?? '';
             if (!$cterm || ($cterm && $cterm->get("enable") == 0)) {
                 $url = gettext("disabled");
             } else {
@@ -2215,6 +2227,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $execurl, $name, $autouser, $hmac, $ts
                 );
             }
+            if ($podman) {
+                $created = $container->Created;
+                $state   = $container->state;
+                $status  = $container->status;
+                $running = $container->StartedAt;
+                $command = $container->command;
+                $network = $container->networks;
+            } else {
+                $created = $container->CreatedAt;
+                $state   = $container->State;
+                $status  = $container->Status;
+                $running = $container->RunningFor;
+                $command = $container->Command;
+                $network = $container->Networks;
+            }
+            var_dump($container);
             $cntAssoc[] = [
                 "id"      => $id,
                 "name"    => $name,
@@ -2223,11 +2251,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 "ports"   => implode('<br/>', $ports),
                 "mounts"  => implode('<br/>', $mountLines),
                 "created" => $created,
-                "state"   => $container->State ?? $container->state ?? '',
+                "state"   => $state,
                 "status"  => $status,
-                "running" => $runningFor,
-                "command" => $container->Command ?? $container->command ?? '',
-                "network" => $container->Networks ?? $container->networks ?? ''
+                "running" => $running,
+                "command" => $command,
+                "network" => $network
             ];
         }
         // Filter the result.
@@ -3131,14 +3159,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     "digests_raw" => [],
                     "ids_raw" => [],
                     "inuse" => false,
-                    "createat" => $imageJson->CreatedAt,
+                    "createat" => $imageJson->CreatedAt ?? $imageJson->Created,
                     "createsince" => $imageJson->CreatedSince,
                     "size" => 0,
                     "virtualsize" => 0
                 ];
             }
             $grouped[$key]['digests_raw'][] = $imageJson->Digest;
-            $grouped[$key]['ids_raw'][] = $imageJson->ID;
+            $grouped[$key]['ids_raw'][] = $imageJson->ID ?? $imageJson->Id;
             $grouped[$key]['inuse'] = $grouped[$key]['inuse'] || isset($containerImageSet[$imageJson->ID]);
             // show largest size and virtualsize
             $grouped[$key]['size'] = isset($grouped[$key]['size'])

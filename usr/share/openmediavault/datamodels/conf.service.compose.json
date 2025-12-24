@@ -94,6 +94,23 @@
     "liverestore": {
       "type": "boolean"
     },
+    "podmanStorage": {
+      "type": "string",
+      "default": "/var/lib/containers/storage"
+    },
+    "podmansharedfolderref": {
+      "type": "string",
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uuidv4"
+        },
+        {
+          "type": "string",
+          "maxLength": 0
+        }
+      ]
+    },
     "urlHostname": {
       "type": "string",
       "default": ""
