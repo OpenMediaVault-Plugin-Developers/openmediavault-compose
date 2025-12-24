@@ -41,7 +41,6 @@ podman_install_packages:
     - pkgs:
       - podman
       - podman-docker
-      - docker-compose-plugin
 
 {% if create_config %}
 
@@ -78,14 +77,9 @@ podman_socket_restart_on_config_change:
 docker_install_packages:
   pkg.installed:
     - pkgs:
-      - docker-ce
-      - docker-compose-plugin
       - containerd.io
+      - docker-ce
       - docker-ce-cli
-      - docker-buildx-plugin
-{% if not nocterm | to_bool %}
-      - openmediavault-cterm
-{% endif %}
 
 {% if create_config %}
 
@@ -126,6 +120,21 @@ docker:
 
 {% set waitConf = '/etc/systemd/system/docker.service.d/waitAllMounts.conf' %}
 
+{% endif %}
+
+common_install_packages:
+  pkg.installed:
+    - pkgs:
+      - docker-compose-plugin
+      - docker-buildx-plugin
+{% if not nocterm | to_bool %}
+      - openmediavault-cterm
+{% endif %}
+    - require:
+{% if use_podman %}
+      - pkg: podman_install_packages
+{% else %}
+      - pkg: docker_install_packages
 {% endif %}
 
 # create override file to wait for all storage

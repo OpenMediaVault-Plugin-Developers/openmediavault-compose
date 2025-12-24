@@ -584,6 +584,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Remove useless properties from the object.
         $object->remove("files");
         $object->remove("dockerfiles");
+        // delete all cache files
+        $this->clearCache('all');
         // Return the configuration object.
         return $object->getAssoc();
     }
