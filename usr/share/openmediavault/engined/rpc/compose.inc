@@ -2088,7 +2088,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = 'ls';
             $cmdArgs[] = '--all';
             $cmdArgs[] = '--no-trunc';
-            $cmdArgs[] = '--format "json"';
+            if ($podman) {
+                $cmdArgs[] = '--format "{{json .}}"';
+            } else {
+                $cmdArgs[] = '--format "json"';
+            }
             $cmd = new \OMV\System\Process($cmdArgs);
             if ($podman) {
                 $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
@@ -2101,38 +2105,129 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
         }
         $cntAssoc = [];
+
+        // docker --format json might return a JSON array in one line,
+        // while {{json .}} returns one JSON object per line.
+        // Normalize both into a flat list of container objects.
+        $containers = [];
         foreach ($output as $line) {
-            $container = json_decode($line);
-            $portList = explode(',', $container->Ports);
-            $mounts = explode(',', $container->Mounts);
-            $ports = [];
-            foreach ($portList as $port) {
-                $match = [];
-                if (preg_match('/:(.*?)->/', str_replace(':::', ':', $port), $match) == 1) {
-                    $ports[] = sprintf('<a href="http://%s:%s" target="_blank">%s</a>', $fqdn, $match[1], $port);
-                } else {
-                    $ports[] = $port;
-                }
+            $decoded = json_decode($line);
+            if ($decoded === null) {
+                continue;
             }
+            if (is_array($decoded)) {
+                foreach ($decoded as $item) {
+                    if (is_object($item)) {
+                        $containers[] = $item;
+                    }
+                }
+            } elseif (is_object($decoded)) {
+                $containers[] = $decoded;
+            }
+        }
+
+        $cntAssoc = [];
+        foreach ($containers as $container) {
+            $id   = $container->ID   ?? $container->Id   ?? '';
+            $name = $container->Names ?? $container->Name ?? $container->names ?? '';
+            $image = $container->Image ?? $container->image ?? '';
+            $ports = [];
+            $rawPorts = $container->Ports ?? $container->ports ?? null;
+
+            if (is_string($rawPorts)) {
+                $portList = array_filter(array_map('trim', explode(',', $rawPorts)));
+                foreach ($portList as $p) {
+                    $p = str_replace(':::', ':', $p);
+                    $match = [];
+                    if (preg_match('/:(\d+)->/', $p, $match) === 1) {
+                        $ports[] = sprintf('<a href="http://%s:%s" target="_blank">%s</a>', $fqdn, $match[1], $p);
+                    } else {
+                        $ports[] = $p;
+                    }
+                }
+            } elseif (is_array($rawPorts)) {
+                foreach ($rawPorts as $p) {
+                    if (is_object($p)) {
+                        $hostIp = $p->host_ip ?? $p->HostIp ?? $p->hostIP ?? '';
+                        $hostPort = $p->host_port ?? $p->HostPort ?? '';
+                        $containerPort = $p->container_port ?? $p->ContainerPort ?? '';
+                        $range = (int)($p->range ?? $p->Range ?? 1);
+                        $proto = $p->protocol ?? $p->Protocol ?? '';
+
+                        $hostLabel = ($hostIp !== '' ? $hostIp : '0.0.0.0');
+                        if ($hostPort !== '' && $containerPort !== '') {
+                            if ($range > 1) {
+                                $hostEnd = (int)$hostPort + $range - 1;
+                                $contEnd = (int)$containerPort + $range - 1;
+                                $label = sprintf('%s:%s-%s->%s-%s/%s', $hostLabel, $hostPort, $hostEnd, $containerPort, $contEnd, $proto);
+                                $ports[] = sprintf('<a href="http://%s:%s" target="_blank">%s</a>', $fqdn, $hostPort, $label);
+                            } else {
+                                $label = sprintf('%s:%s->%s/%s', $hostLabel, $hostPort, $containerPort, $proto);
+                                $ports[] = sprintf('<a href="http://%s:%s" target="_blank">%s</a>', $fqdn, $hostPort, $label);
+                            }
+                        } else {
+                            $ports[] = json_encode($p, JSON_UNESCAPED_SLASHES);
+                        }
+                    } else {
+                        $ports[] = is_string($p) ? $p : json_encode($p, JSON_UNESCAPED_SLASHES);
+                    }
+                }
+            } else {
+                $ports = [];
+            }
+
+            $mountLines = [];
+            $rawMounts = $container->Mounts ?? $container->mounts ?? null;
+
+            if (is_string($rawMounts)) {
+                $mountLines = array_filter(array_map('trim', explode(',', $rawMounts)));
+            } elseif (is_array($rawMounts)) {
+                foreach ($rawMounts as $m) {
+                    if (is_object($m)) {
+                        $src = $m->Source ?? $m->source ?? '';
+                        $dst = $m->Destination ?? $m->destination ?? '';
+                        if ($src !== '' || $dst !== '') {
+                            $mountLines[] = ($src !== '' && $dst !== '') ? sprintf('%s:%s', $src, $dst) : ($src ?: $dst);
+                        } else {
+                            $mountLines[] = json_encode($m, JSON_UNESCAPED_SLASHES);
+                        }
+                    } else {
+                        $mountLines[] = is_string($m) ? $m : json_encode($m, JSON_UNESCAPED_SLASHES);
+                    }
+                }
+            } else {
+                $mountLines = [];
+            }
+            $status = $container->Status ?? $container->status ?? '';
+            if ($status === '' && isset($container->State)) {
+                $status = $container->State;
+            }
+            if ($status === '' && isset($container->state)) {
+                $status = $container->state;
+            }
+            $created = $container->CreatedAt ?? $container->Created ?? $container->created ?? '';
+            $runningFor = $container->RunningFor ?? $container->running_for ?? $container->Running ?? '';
             if (!$cterm || ($cterm && $cterm->get("enable") == 0)) {
                 $url = gettext("disabled");
             } else {
-                $url = sprintf('<a href="%s/%s/docker?user=%s&hmac=%s&ts=%s" target="_blank">link</a>',
-                  $execurl, $container->Names, $autouser, $hmac, $ts);
+                $url = sprintf(
+                    '<a href="%s/%s/docker?user=%s&hmac=%s&ts=%s" target="_blank">link</a>',
+                    $execurl, $name, $autouser, $hmac, $ts
+                );
             }
             $cntAssoc[] = [
-                "id" => $container->ID,
-                "name" => $container->Names,
-                "image" => $container->Image,
+                "id"      => $id,
+                "name"    => $name,
+                "image"   => $image,
                 "execurl" => $url,
-                "ports" => implode('<br/>', $ports),
-                "mounts" => implode('<br/>', $mounts),
-                "created" => $container->CreatedAt,
-                "state" => $container->State,
-                "status" => $container->Status,
-                "running" => $container->RunningFor,
-                "command" => $container->Command,
-                "network" => $container->Networks
+                "ports"   => implode('<br/>', $ports),
+                "mounts"  => implode('<br/>', $mountLines),
+                "created" => $created,
+                "state"   => $container->State ?? $container->state ?? '',
+                "status"  => $status,
+                "running" => $runningFor,
+                "command" => $container->Command ?? $container->command ?? '',
+                "network" => $container->Networks ?? $container->networks ?? ''
             ];
         }
         // Filter the result.
@@ -2839,22 +2934,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
         }
         $networksAssoc = [];
-        if ($podman) {
-            foreach ($output as $network) {
-                $networkJson = json_decode($network);
-                $networksAssoc[] = [
-                    "name" => $networkJson->name,
-                    "driver" => $networkJson->driver
-                ];
-            }
-        } else {
-            foreach ($output as $network) {
-                $networkJson = json_decode($network);
-                $networksAssoc[] = [
-                    "name" => $networkJson->Name,
-                    "driver" => $networkJson->Driver
-                ];
-            }
+        foreach ($output as $network) {
+            $networkJson = json_decode($network);
+            $networksAssoc[] = [
+                "name" => $networkJson->Name ?? $networkJson->name,
+                "driver" => $networkJson->Driver ?? $networkJson->driver
+            ];
         }
         // Filter the result.
         return $this->applyFilter($networksAssoc, $params['start'], $params['limit'],
