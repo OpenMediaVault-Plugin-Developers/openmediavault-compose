@@ -60,7 +60,7 @@ _log "Docker storage :: ${dockerStorage}"
 # get podman setting
 podman=$(omv_config_get "/config/services/compose/podman")
 _log "podman :: ${podman}"
-if [ "${podman}" == "1" ]]; then
+if [[ "${podman}" == "1" ]]; then
   export DOCKER_HOST="unix:///run/podman/podman.sock"
 else
   unset DOCKER_HOST

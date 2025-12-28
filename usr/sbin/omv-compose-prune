@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# shellcheck disable=
+# shellcheck disable=SC1091
 #
 # Copyright (c) 2023-2025 openmediavault plugin developers
 #
@@ -29,7 +29,7 @@ _log()
 
 # get podman setting
 podman=$(omv_config_get "/config/services/compose/podman")
-if [ "${podman}" == "1" ]]; then
+if [[ "${podman}" == "1" ]]; then
   export DOCKER_HOST="unix:///run/podman/podman.sock"
 else
   unset DOCKER_HOST
