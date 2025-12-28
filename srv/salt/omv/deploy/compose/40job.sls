@@ -65,6 +65,18 @@ configure_compose_scheduled_start:
     - group: root
     - mode: 644
 
+configure_compose_scheduled_build:
+  file.managed:
+    - name: "/etc/cron.d/omv-compose-build"
+    - source:
+      - salt://{{ tpldir }}/files/build.j2
+    - template: jinja
+    - context:
+        jobs: {{ config | json }}
+    - user: root
+    - group: root
+    - mode: 644
+
 configure_compose_scheduled_stop:
   file.managed:
     - name: "/etc/cron.d/omv-compose-stop"

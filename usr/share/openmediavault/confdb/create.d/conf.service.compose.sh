@@ -117,7 +117,7 @@ fi
 chmod 755 ${regctl}
 
 # make sure log files exist to eliminate log viewer error
-for log in backup restore update; do
+for log in backup restore update build; do
   file="/var/log/omv-compose-${log}.log"
   if [ ! -f "${file}" ]; then
     touch ${file}

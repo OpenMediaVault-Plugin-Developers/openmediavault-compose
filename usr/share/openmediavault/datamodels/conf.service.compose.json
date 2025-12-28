@@ -311,6 +311,12 @@
               "filestop": {
                 "type": "boolean"
               },
+              "filebuild": {
+                "type": "boolean"
+              },
+              "filepull": {
+                "type": "boolean"
+              },
               "sendemail": {
                 "type": "boolean"
               },

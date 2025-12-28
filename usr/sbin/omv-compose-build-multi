@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# shellcheck disable=SC1091,SC2053,SC2086,SC2162
+#
+# Copyright (c) 2025 openmediavault plugin developers
+#
+# This file is licensed under the terms of the GNU General Public
+# License version 2. This program is licensed "as is" without any
+# warranty of any kind, whether express or implied.
+#
+# version: 0.0.1
+
+export LC_ALL=C.UTF-8
+
+declare -i count=0
+declare -i index=0
+
+. /usr/share/openmediavault/scripts/helper-functions
+
+filter="${1}"
+pull="${2}"
+
+if [[ "${filter}" == "*" ]]; then
+  filter=""
+elif [[ "${filter}" == *","* ]]; then
+  filter="@(${filter//,/|})"
+fi
+
+if [ "${pull}" = "1" ]; then
+  pull="1"
+else
+  pull="0"
+fi
+
+xpath="/config/services/compose/files/file"
+count=$(omv_config_get_count "${xpath}")
+index=1
+while [ ${index} -le ${count} ]; do
+  pos="${xpath}[position()=${index}]"
+  name=$(omv_config_get "${pos}/name")
+  if [ -n "${filter}" ] && [[ "${name}" != ${filter} ]]; then
+    index=$(( index + 1 ))
+    continue
+  fi
+  echo ${name}
+  omv-compose-build "${name}" "${pull}"
+  index=$(( index + 1 ))
+done;

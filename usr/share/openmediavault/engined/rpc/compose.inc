@@ -3431,6 +3431,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // set action visibility
         $result['maintenance'] = $result['backup'] || $result['update'] || $result['prune'];
         $result['cstate'] = $result['filestart'] || $result['filestop'];
+        $result['cbuild'] = $result['filebuild'] || $result['filepull'];
+        if ($result['filepull']) $result['filebuild'] = true;
         // Convert comma separated list into an array.
         $result['minute'] = explode(",", $result['minute']);
         $result['hour'] = explode(",", $result['hour']);
@@ -3446,22 +3448,40 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.setjob");
+        // set filepull if filebuild is set
+        if ($params['filepull']) $params['filebuild'] = true;
         // make checkboxes in hidden fields are set to false
-        if ($params['maintenance']) {
-            $params['filestart'] = false;
-            $params['filestop'] = false;
+        $modeKeys = ['maintenance', 'cstate', 'cbuild'];
+        $disableMap = [
+            'maintenance' => ['filestart', 'filestop', 'filebuild', 'filepull'],
+            'cstate' => ['backup', 'update', 'prune', 'filebuild', 'filepull'],
+            'cbuild' => ['backup', 'update', 'prune', 'filestart', 'filestop'],
+        ];
+        var_dump($params);
+        foreach ($disableMap as $mode => $disableKeys) {
+            if ($params[$mode]) {
+                foreach ($disableKeys as $k) {
+                    $params[$k] = false;
+                }
+                break;
+            }
         }
-        if ($params['cstate']) {
-            $params['backup'] = false;
-            $params['update'] = false;
-            $params['prune'] = false;
+        var_dump($params);
+        // remove mode flags
+        unset($params['maintenance'], $params['cstate'], $params['cbuild']);
+        // Require at least one action
+        $actionKeys = ['backup', 'update', 'prune', 'filestart', 'filestop', 'filebuild', 'filepull'];
+        $any = false;
+        foreach ($actionKeys as $k) {
+            if (!empty($params[$k])) {
+                $any = true;
+                break;
+            }
         }
-        unset($params['maintenance']);
-        unset($params['cstate']);
-        if (!$params['backup'] && !$params['update'] && !$params['prune'] &&
-            !$params['filestart'] && !$params['filestop']) {
+        if (!$any) {
             throw new \OMV\ExecException(gettext('You must select at least one action type!'));
         }
+        // make sure backup scripts exist if specified
         if ($params['backup']) {
             $params['prebackup'] = trim($params['prebackup']);
             $params['postbackup'] = trim($params['postbackup']);
@@ -3475,6 +3495,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['prebackup'] = '';
             $params['postbackup'] = '';
         }
+        // clean filter
         $params['filter'] = str_replace(['@','(',')',' '], '', $params['filter']);
         // clean excludes
         $excludes = explode(',', $params['excludes']);

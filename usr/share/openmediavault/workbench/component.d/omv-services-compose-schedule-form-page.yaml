@@ -42,31 +42,26 @@ data:
         hint: _("Multiple exclusions should be comma separated.")
       - type: divider
         title: _("Action type")
-      - type: checkbox
-        name: maintenance
-        label: _("Maintenance")
-        value: true
-        modifiers:
-          - type: unchecked
-            opposite: false
-            constraint:
-              operator: truthy
-              arg0:
-                prop: cstate
-      - type: checkbox
-        name: cstate
-        label: _("Container state")
-        value: false
-        modifiers:
-          - type: unchecked
-            opposite: false
-            constraint:
-              operator: truthy
-              arg0:
-                prop: maintenance
       - type: container
         modifiers:
         fields:
+          - type: checkbox
+            name: maintenance
+            label: _("Maintenance")
+            value: false
+            modifiers:
+              - type: unchecked
+                opposite: false
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cstate
+              - type: unchecked
+                opposite: false
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cbuild
           - type: checkbox
             name: backup
             label: _('Backup')
@@ -104,6 +99,23 @@ data:
         modifiers:
         fields:
           - type: checkbox
+            name: cstate
+            label: _("Container state")
+            value: false
+            modifiers:
+              - type: unchecked
+                opposite: false
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: maintenance
+              - type: unchecked
+                opposite: false
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cbuild
+          - type: checkbox
             name: filestart
             label: _('Start')
             value: false
@@ -135,6 +147,58 @@ data:
                   operator: truthy
                   arg0:
                     prop: cstate
+          - type: hidden
+            name: empty
+            value: false
+            submitValue: false
+      - type: container
+        modifiers:
+        fields:
+          - type: checkbox
+            name: cbuild
+            label: _("Build")
+            value: false
+            modifiers:
+              - type: unchecked
+                opposite: false
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: maintenance
+              - type: unchecked
+                opposite: false
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cstate
+          - type: checkbox
+            name: filebuild
+            label: _('Build')
+            value: false
+            hint: _('Run docker compose build')
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cbuild
+              - type: checked
+                opposite: false
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: filepull
+          - type: checkbox
+            name: filepull
+            label: _('Pull')
+            value: false
+            hint: _('Pull new images before build')
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cbuild
           - type: hidden
             name: empty
             value: false

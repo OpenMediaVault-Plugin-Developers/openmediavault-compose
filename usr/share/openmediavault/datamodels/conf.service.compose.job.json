@@ -48,6 +48,14 @@
       "type": "boolean",
       "default": false
     },
+    "filebuild": {
+      "type": "boolean",
+      "default": false
+    },
+    "filepull": {
+      "type": "boolean",
+      "default": false
+    },
     "sendemail": {
       "type": "boolean",
       "default": false

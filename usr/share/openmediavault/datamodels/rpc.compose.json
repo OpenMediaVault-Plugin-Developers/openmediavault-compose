@@ -493,6 +493,14 @@
           "type": "boolean",
           "required": true
         },
+        "filebuild": {
+          "type": "boolean",
+          "required": true
+        },
+        "filepull": {
+          "type": "boolean",
+          "required": true
+        },
         "sendemail": {
           "type": "boolean",
           "required": true
