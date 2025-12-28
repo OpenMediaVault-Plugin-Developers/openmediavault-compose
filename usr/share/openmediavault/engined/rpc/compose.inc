@@ -1585,7 +1585,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = $params['command'];
-                $cmdArgs[] = '-f';
+                $cmdArgs[] = '--force';
                 $cmd = new \OMV\System\Process($cmdArgs);
                 if ($podman) {
                     $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
@@ -3602,6 +3602,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-stop-multi';
                     $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setRedirect2to1();
+                    $cmdLine = $cmd->getCommandLine();
+                    if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                        throw new \OMV\ExecException($cmdLine, $output);
+                    }
+                }
+                if ($object->get('filebuild')) {
+                    $cmdArgs = [];
+                    $cmdArgs[] = '/usr/sbin/omv-compose-build-multi';
+                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmdArgs[] = (bool)$object->get('filepull') ? '1' : '0';
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();

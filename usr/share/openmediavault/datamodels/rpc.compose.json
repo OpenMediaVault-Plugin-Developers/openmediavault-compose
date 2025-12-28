@@ -408,6 +408,7 @@
           "enum": [
             "system prune",
             "image prune",
+            "image prune --all",
             "container prune",
             "volume prune",
             "network prune"

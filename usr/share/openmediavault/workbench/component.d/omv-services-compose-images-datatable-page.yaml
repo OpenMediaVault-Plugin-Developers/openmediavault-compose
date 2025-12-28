@@ -237,3 +237,17 @@ data:
                 method: doPrune
                 params:
                   command: "image prune"
+      - type: iconButton
+        icon: mdi:image-minus
+        tooltip: _("Prune Images - all dangling")
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("docker image prune --all ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doPrune
+                params:
+                  command: "image prune --all"
