@@ -1,11 +1,11 @@
-openmediavault-compose (8.1) UNRELEASED; urgency=medium
+openmediavault-compose (8.1) stable; urgency=low
 
-  * Support podman
+  * Support podman (experimental)
   * Enable docker repo on install
   * Add compose build job to Schedule tab
   * Add docker image prune --all button to Images tab
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 21 Dec 2025 16:43:38 +0000
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 29 Dec 2025 22:41:08 +0000
 
 openmediavault-compose (8.0.6) stable; urgency=low
 
