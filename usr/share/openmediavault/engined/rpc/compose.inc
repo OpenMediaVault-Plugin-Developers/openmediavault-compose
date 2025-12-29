@@ -3431,8 +3431,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // set action visibility
         $result['maintenance'] = $result['backup'] || $result['update'] || $result['prune'];
         $result['cstate'] = $result['filestart'] || $result['filestop'];
-        $result['cbuild'] = $result['filebuild'] || $result['filepull'];
-        if ($result['filepull']) $result['filebuild'] = true;
+        $result['cbuild'] = $result['filebuild'] || $result['filepull'] || $result['filenocache'];
+        if ($result['filepull'] || $result['filenocache']) $result['filebuild'] = true;
         // Convert comma separated list into an array.
         $result['minute'] = explode(",", $result['minute']);
         $result['hour'] = explode(",", $result['hour']);
@@ -3448,13 +3448,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.setjob");
-        // set filepull if filebuild is set
-        if ($params['filepull']) $params['filebuild'] = true;
+        // set filepull if filebuild or filenocache are set
+        if ($params['filepull'] || $result['filenoncache']) $params['filebuild'] = true;
         // make checkboxes in hidden fields are set to false
         $modeKeys = ['maintenance', 'cstate', 'cbuild'];
         $disableMap = [
-            'maintenance' => ['filestart', 'filestop', 'filebuild', 'filepull'],
-            'cstate' => ['backup', 'update', 'prune', 'filebuild', 'filepull'],
+            'maintenance' => ['filestart', 'filestop', 'filebuild', 'filepull', 'filenocache'],
+            'cstate' => ['backup', 'update', 'prune', 'filebuild', 'filepull', 'filenocache'],
             'cbuild' => ['backup', 'update', 'prune', 'filestart', 'filestop'],
         ];
         var_dump($params);
@@ -3470,7 +3470,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // remove mode flags
         unset($params['maintenance'], $params['cstate'], $params['cbuild']);
         // Require at least one action
-        $actionKeys = ['backup', 'update', 'prune', 'filestart', 'filestop', 'filebuild', 'filepull'];
+        $actionKeys = [
+            'backup', 'update', 'prune',
+            'filestart', 'filestop',
+            'filebuild', 'filepull', 'filenocache'
+        ];
         $any = false;
         foreach ($actionKeys as $k) {
             if (!empty($params[$k])) {
@@ -3614,6 +3618,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs[] = '/usr/sbin/omv-compose-build-multi';
                     $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
                     $cmdArgs[] = (bool)$object->get('filepull') ? '1' : '0';
+                    $cmdArgs[] = (bool)$object->get('filenocache') ? '1' : '0';
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();

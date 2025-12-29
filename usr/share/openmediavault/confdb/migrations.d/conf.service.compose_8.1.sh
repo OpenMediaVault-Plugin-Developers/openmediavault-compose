@@ -36,6 +36,10 @@ while [ ${index} -le ${count} ]; do
     omv_config_add_key "${pos}" "filepull" "0"
     status=1
   fi
+  if ! omv_config_exists "${pos}/filenocache"; then
+    omv_config_add_key "${pos}" "filenocache" "0"
+    status=1
+  fi
   index=$(( index + 1 ))
 done;
 

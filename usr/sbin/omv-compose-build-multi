@@ -19,6 +19,7 @@ declare -i index=0
 
 filter="${1}"
 pull="${2}"
+nocache="${3}"
 
 if [[ "${filter}" == "*" ]]; then
   filter=""
@@ -32,6 +33,12 @@ else
   pull="0"
 fi
 
+if [ "${nocache}" = "1" ]; then
+  nocache="1"
+else
+  nocache="0"
+fi
+
 xpath="/config/services/compose/files/file"
 count=$(omv_config_get_count "${xpath}")
 index=1
@@ -43,6 +50,6 @@ while [ ${index} -le ${count} ]; do
     continue
   fi
   echo ${name}
-  omv-compose-build "${name}" "${pull}"
+  omv-compose-build "${name}" "${pull}" "${nocache}"
   index=$(( index + 1 ))
 done;

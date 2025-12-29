@@ -38,6 +38,9 @@ _log "compose :: ${compose}"
 pull="${2}"
 _log "pull :: ${pull}"
 
+nocache="${2}"
+_log "nocache :: ${nocache}"
+
 # Get docker storage path
 dockerStorage=$(omv_config_get "/config/services/compose/dockerStorage")
 _log "Docker storage :: ${dockerStorage}"
@@ -103,8 +106,12 @@ if [ ${count} -gt 0 ]; then
 
   dockerComposeArgs+=("build")
   if [ "${pull}" = "1" ]; then
-    _log "will pull new images"
+    _log "will try to pull new images"
     dockerComposeArgs+=("--pull")
+  fi
+  if [ "${nocache}" = "1" ]; then
+    _log "will not use cache"
+    dockerComposeArgs+=("--no-cache")
   fi
 
   # run build

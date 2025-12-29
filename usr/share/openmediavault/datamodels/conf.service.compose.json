@@ -317,6 +317,9 @@
               "filepull": {
                 "type": "boolean"
               },
+              "filenocache": {
+                "type": "boolean"
+              },
               "sendemail": {
                 "type": "boolean"
               },

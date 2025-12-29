@@ -56,6 +56,10 @@
       "type": "boolean",
       "default": false
     },
+    "filenocache": {
+      "type": "boolean",
+      "default": false
+    },
     "sendemail": {
       "type": "boolean",
       "default": false

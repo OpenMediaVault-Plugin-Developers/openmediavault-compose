@@ -12,7 +12,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 {%- else -%}
 @{{ job.execution }}
 {%- endif -%}
-{{ separator }}root omv-compose-build-multi '{{ job.filter }}' '{{ job.filepull | to_bool | int }}'
+{{ separator }}root omv-compose-build-multi '{{ job.filter }}' '{{ job.filepull | to_bool | int }}' '{{ job.filenocache | to_bool | int }}'
 {%- if not job.sendemail | to_bool -%}
 {{ separator }}>/dev/null 2>&1
 {%- else -%}

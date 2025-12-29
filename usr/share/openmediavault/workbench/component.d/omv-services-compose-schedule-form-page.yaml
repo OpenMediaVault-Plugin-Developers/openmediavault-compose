@@ -192,17 +192,24 @@ data:
             name: filepull
             label: _('Pull')
             value: false
-            hint: _('Pull new images before build')
+            hint: _('Always attempt to pull a newer version of the image')
             modifiers:
               - type: visible
                 constraint:
                   operator: truthy
                   arg0:
                     prop: cbuild
-          - type: hidden
-            name: empty
+          - type: checkbox
+            name: filenocache
+            label: _('No cache')
             value: false
-            submitValue: false
+            hint: _('Do not use cache when building the image')
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cbuild
       - type: divider
         title: _("Scripts")
       - type: textInput

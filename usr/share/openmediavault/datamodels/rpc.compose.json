@@ -502,6 +502,10 @@
           "type": "boolean",
           "required": true
         },
+        "filenocache": {
+          "type": "boolean",
+          "required": true
+        },
         "sendemail": {
           "type": "boolean",
           "required": true

@@ -62,6 +62,12 @@ data:
         sortable: true
         cellTemplateName: checkIcon
         hidden: true
+      - name: _('No cache')
+        prop: filenocache
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: checkIcon
+        hidden: true
       - name: _('Verbose')
         prop: verbose
         flexGrow: 1
