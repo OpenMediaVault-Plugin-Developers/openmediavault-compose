@@ -622,9 +622,9 @@ data:
             icon: mdi:link-box
             execute:
               type: url
-              url: "/externalRedirect/https%3A%2F%2Fwiki.omv-extras.org%2Fdoku.php%3Fid%3Domv7%3Aomv7_plugins%3Adocker_compose"
+              url: "/externalRedirect/https%3A%2F%2Fwiki.omv-extras.org%2Fdoku.php%3Fid%3Domv78%3Aomv8_plugins%3Adocker_compose"
           - text: _("Docker on OMV")
             icon: mdi:docker
             execute:
               type: url
-              url: "/externalRedirect/https%3A%2F%2Fwiki.omv-extras.org%2Fdoku.php%3Fid%3Domv7%3Adocker_in_omv"
+              url: "/externalRedirect/https%3A%2F%2Fwiki.omv-extras.org%2Fdoku.php%3Fid%3Domv8%3Adocker_in_omv"
