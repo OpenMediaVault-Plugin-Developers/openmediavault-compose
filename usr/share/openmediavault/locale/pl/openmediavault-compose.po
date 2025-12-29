@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 22:45+0000\n"
+"POT-Creation-Date: 2025-12-29 22:59+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Rysiek Jurczy, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl/)\n"
@@ -468,6 +468,9 @@ msgstr "Zainstalowany"
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
 
+msgid "Leave blank to use a custom /etc/containers/storage.conf"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr ""
 "Pozostaw puste, aby użyć niestandardowego pliku /etc/docker/daemon.json"
@@ -579,6 +582,13 @@ msgid ""
 "when Docker storage field path is blank."
 msgstr ""
 
+msgid ""
+"Optional. If selected, the absolute path of this shared folder will be used "
+"to override the Podman storage field path when saved.  The Podman storage "
+"field path will not be overriden when this shared folder is set to None or "
+"when Podman storage field path is blank."
+msgstr ""
+
 msgid "Override"
 msgstr ""
 
@@ -616,6 +626,9 @@ msgstr ""
 msgid "Please set shared folder for file storage."
 msgstr ""
 
+msgid "Podman storage"
+msgstr ""
+
 msgid "Ports"
 msgstr "Porty"
 
@@ -626,6 +639,9 @@ msgid "Prune"
 msgstr "Przytnij"
 
 msgid "Prune Images"
+msgstr ""
+
+msgid "Prune Images - all dangling"
 msgstr ""
 
 msgid "Pull and Build"
@@ -831,6 +847,9 @@ msgstr "Up"
 msgid "Uptime"
 msgstr ""
 
+msgid "Use podman"
+msgstr ""
+
 msgid "Version"
 msgstr "Wersja"
 
@@ -896,6 +915,9 @@ msgstr "docker container prune ..."
 
 msgid "docker image inspect ..."
 msgstr "docker image inspect ..."
+
+msgid "docker image prune --all ..."
+msgstr ""
 
 msgid "docker image prune ..."
 msgstr "docker image prune ..."

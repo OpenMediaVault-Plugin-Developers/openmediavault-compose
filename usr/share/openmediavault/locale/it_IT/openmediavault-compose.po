@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 22:45+0000\n"
+"POT-Creation-Date: 2025-12-29 22:59+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2025\n"
 "Language-Team: Italian (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/it/)\n"
@@ -43,7 +43,7 @@ msgid "Add..."
 msgstr "Aggiungi..."
 
 msgid "Adding an example compose file ..."
-msgstr "Sto aggiungendo un esempio di file di composizione ..."
+msgstr "Sto aggiungendo un esempio di file di composizione..."
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
@@ -112,6 +112,8 @@ msgstr "Backup"
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
+"La cartella condivisa di backup deve essere diversa da quella condivisa di "
+"Docker"
 
 msgid "Block In"
 msgstr "Blocca l'ingresso"
@@ -126,7 +128,7 @@ msgid "Build"
 msgstr "Compila"
 
 msgid "Build ..."
-msgstr "Sto compilando ..."
+msgstr "Sto compilando..."
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -141,7 +143,7 @@ msgid "Changes have been synced from file."
 msgstr "Le modifiche sono state sincronizzate dal file."
 
 msgid "Check compose file for errors ..."
-msgstr "Sto controllando il file di composizione per eventuali errori ..."
+msgstr "Sto controllando il file di composizione per eventuali errori..."
 
 msgid ""
 "Choose which compose files to backup by filtering the compose name by this "
@@ -159,7 +161,7 @@ msgid "Clear cache"
 msgstr "Cancella la cache"
 
 msgid "Clearing cache ..."
-msgstr "Sto cancellando la cache ..."
+msgstr "Sto cancellando la cache..."
 
 msgid "Command"
 msgstr "Comando"
@@ -195,6 +197,8 @@ msgstr ""
 
 msgid "Compose file shared folder must be different than docker shared folder"
 msgstr ""
+"La cartella condivisa del file Compose deve essere diversa da quella "
+"condivisa di Docker"
 
 msgid "Compose file to be associate imported files with"
 msgstr "File compose a cui associare i file importati"
@@ -239,10 +243,10 @@ msgid "Create from example"
 msgstr "Crea da esempio"
 
 msgid "Create new compose file from running container ..."
-msgstr "Crea un nuovo file di composizione dal contenitore in esecuzione ..."
+msgstr "Crea un nuovo file di composizione dal contenitore in esecuzione..."
 
 msgid "Create new image tag ..."
-msgstr "Crea un nuovo tag immagine ..."
+msgstr "Crea un nuovo tag immagine..."
 
 msgid "Created"
 msgstr "Creato"
@@ -276,6 +280,8 @@ msgstr "Data"
 
 msgid "Data shared folder must be different than docker shared folder"
 msgstr ""
+"La cartella condivisa dei dati deve essere diversa da quella condivisa di "
+"Docker"
 
 msgid "Date & Time"
 msgstr "Data e orario"
@@ -284,7 +290,7 @@ msgid "Delete"
 msgstr "Elimina"
 
 msgid "Delete backup ..."
-msgstr "Sto eliminando il backup ..."
+msgstr "Sto eliminando il backup..."
 
 msgid "Description"
 msgstr "Descrizione"
@@ -309,16 +315,16 @@ msgstr ""
 "Visualizza le informazioni sui contenitori all'interno di una tabella."
 
 msgid "Docker config"
-msgstr ""
+msgstr "Configurazione Docker"
 
 msgid "Docker has been restarted."
 msgstr "Il docker è stato riavviato."
 
 msgid "Docker info"
-msgstr ""
+msgstr "Informazioni su Docker"
 
 msgid "Docker is restarting ..."
-msgstr "Il docker si sta riavviando ..."
+msgstr "Il docker si sta riavviando..."
 
 msgid "Docker on OMV"
 msgstr "Docker su OMV"
@@ -375,7 +381,7 @@ msgid "Enable Docker repo"
 msgstr "Abilita il repo del docker"
 
 msgid "Enable Docker repo ..."
-msgstr "Sto abilitando il repo del docker ..."
+msgstr "Sto abilitando il repo del docker..."
 
 msgid "Env Path"
 msgstr "Percorso di env"
@@ -393,7 +399,7 @@ msgid "Excludes"
 msgstr "Escludi"
 
 msgid "Execute scheduled job ..."
-msgstr "Sto eseguendo il lavoro pianificato ..."
+msgstr "Sto eseguendo il lavoro pianificato..."
 
 msgid "Failed"
 msgstr "Si è verificato un errore"
@@ -448,13 +454,13 @@ msgid "Import"
 msgstr "Importa"
 
 msgid "Import config files from folders ..."
-msgstr "Sto importando i file di configurazione dalle cartelle ..."
+msgstr "Sto importando i file di configurazione dalle cartelle..."
 
 msgid "Import existing compose file ..."
-msgstr "Sto importando il file di composizione esistente ..."
+msgstr "Sto importando il file di composizione esistente..."
 
 msgid "Import existing compose folders ..."
-msgstr "Sto importando le cartelle di composizione esistenti ..."
+msgstr "Sto importando le cartelle di composizione esistenti..."
 
 msgid "Import one"
 msgstr "Importane uno"
@@ -463,7 +469,7 @@ msgid "In Use"
 msgstr "In uso"
 
 msgid "Initialize new git repo ..."
-msgstr "Sto inizializzando il nuovo repository git ..."
+msgstr "Sto inizializzando il nuovo repository git..."
 
 msgid "Inspect"
 msgstr "Ispeziona"
@@ -473,12 +479,17 @@ msgstr "Installato"
 
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
+"Mantieni i container in esecuzione durante gli aggiornamenti del demone "
+"Docker"
+
+msgid "Leave blank to use a custom /etc/containers/storage.conf"
+msgstr ""
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Lascia vuoto per utilizzare un /etc/docker/daemon.json personalizzato"
 
 msgid "Live restore"
-msgstr ""
+msgstr "Ripristino live"
 
 msgid "Location of backups"
 msgstr "Posizione dei backup"
@@ -487,19 +498,19 @@ msgid "Location of compose files"
 msgstr "Posizione dei file di composizione"
 
 msgid "Log file max size"
-msgstr ""
+msgstr "Dimensione massima del file di log"
 
 msgid "Logged out."
 msgstr "Disconnesso."
 
 msgid "Logging out ..."
-msgstr "Disconnessione in corso ..."
+msgstr "Disconnessione in corso..."
 
 msgid "Login"
 msgstr "Accedi"
 
 msgid "Login to docker repo ..."
-msgstr "Accesso in corso al repository del docker ..."
+msgstr "Accesso in corso al repository del docker..."
 
 msgid "Logout"
 msgstr "Esci"
@@ -583,6 +594,19 @@ msgid ""
 "field path will not be overriden when this shared folder is set to None or "
 "when Docker storage field path is blank."
 msgstr ""
+"Facoltativo. Se selezionata, il percorso assoluto di questa cartella "
+"condivisa verrà utilizzato per sovrascrivere il percorso del campo di "
+"archiviazione Docker al momento del salvataggio. Il percorso del campo di "
+"archiviazione Docker non verrà sovrascritto, se questa cartella condivisa è "
+"impostata su Nessuno o se il percorso del campo di archiviazione Docker è "
+"vuoto."
+
+msgid ""
+"Optional. If selected, the absolute path of this shared folder will be used "
+"to override the Podman storage field path when saved.  The Podman storage "
+"field path will not be overriden when this shared folder is set to None or "
+"when Podman storage field path is blank."
+msgstr ""
 
 msgid "Override"
 msgstr "Sovrascrivi"
@@ -623,6 +647,9 @@ msgstr "Imposta la cartella condivisa per i dati nella scheda Impostazioni."
 msgid "Please set shared folder for file storage."
 msgstr "Imposta una cartella condivisa per l'archiviazione dei file."
 
+msgid "Podman storage"
+msgstr ""
+
 msgid "Ports"
 msgstr "Porte"
 
@@ -633,25 +660,28 @@ msgid "Prune"
 msgstr "Rimuovi"
 
 msgid "Prune Images"
+msgstr "Elimina le immagini inutilizzate"
+
+msgid "Prune Images - all dangling"
 msgstr ""
 
 msgid "Pull and Build"
 msgstr "Sincronizza e compila"
 
 msgid "Pull and Build ..."
-msgstr "Sincronizza e compila ..."
+msgstr "Sincronizza e compila..."
 
 msgid "Push"
 msgstr "Invia"
 
 msgid "Push to Docker Hub ..."
-msgstr "Sto inviando all'hub di docker ..."
+msgstr "Sto inviando all'hub di docker..."
 
 msgid "Reinstall Docker"
 msgstr "Reinstalla docker"
 
 msgid "Reinstall Docker ..."
-msgstr "Sto reinstallando docker ..."
+msgstr "Sto reinstallando docker..."
 
 msgid "Repo"
 msgstr "Repo"
@@ -669,23 +699,25 @@ msgid "Restore"
 msgstr "Ripristina"
 
 msgid "Restore Compose ..."
-msgstr "Sto ripristinando compose ..."
+msgstr "Sto ripristinando compose..."
 
 msgid "Restore global.env"
 msgstr "Ripristina global.env"
 
 msgid "Restoring global.env from backup ..."
-msgstr "Sto ripristinando global.env dal backup ..."
+msgstr "Sto ripristinando global.env dal backup..."
 
 msgid "Run"
 msgstr "Avvia"
 
 msgid "Run config"
-msgstr ""
+msgstr "Configurazione di esecuzione"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
+"Esegui docker compose config per verificare automaticamente la sintassi al "
+"salvataggio del file"
 
 msgid "Running For"
 msgstr "Avvia per"
@@ -706,10 +738,10 @@ msgid "Scripts"
 msgstr "Script"
 
 msgid "Select a group ..."
-msgstr "Seleziona un gruppo ..."
+msgstr "Seleziona un gruppo..."
 
 msgid "Select a user ..."
-msgstr "Seleziona un utente ..."
+msgstr "Seleziona un utente..."
 
 msgid "Service"
 msgstr "Servizio"
@@ -727,10 +759,10 @@ msgid "Shared folder"
 msgstr "Cartella condivisa"
 
 msgid "Show all file changes ..."
-msgstr "Mostra tutte le modifiche al file ..."
+msgstr "Mostra tutte le modifiche al file..."
 
 msgid "Show all global.env changes ..."
-msgstr "Mostra tutte le modifiche di global.env ..."
+msgstr "Mostra tutte le modifiche di global.env..."
 
 msgid "Show commands"
 msgstr "Mostra comandi"
@@ -771,7 +803,7 @@ msgid "Sync changes from file"
 msgstr "Sincronizza le modifiche dal file"
 
 msgid "Syncing changes from file ..."
-msgstr "Sto sincronizzando le modifiche dal file ..."
+msgstr "Sto sincronizzando le modifiche dal file..."
 
 msgid "System"
 msgstr "Sistema"
@@ -839,7 +871,7 @@ msgstr ""
 "dimensioni.<br/>Imposta su 0 per illimitato."
 
 msgid "Units in MB. Set to 0 for unlimited."
-msgstr ""
+msgstr "Unità in MB. Impostare a 0 per illimitato."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr ""
@@ -851,6 +883,9 @@ msgstr "Su"
 
 msgid "Uptime"
 msgstr "Tempo di attività"
+
+msgid "Use podman"
+msgstr ""
 
 msgid "Version"
 msgstr "Versione"
@@ -892,7 +927,7 @@ msgid "docker compose logs --follow ..."
 msgstr "log di docker compose --segui..."
 
 msgid "docker compose logs ..."
-msgstr "Log di docker compose ..."
+msgstr "Log di docker compose..."
 
 msgid "docker compose ps ..."
 msgstr "stato dei container docker compose..."
@@ -901,10 +936,10 @@ msgid "docker compose pull ..."
 msgstr "scarica immagini docker compose..."
 
 msgid "docker compose restart ..."
-msgstr "sto riavviando docker compose ..."
+msgstr "sto riavviando docker compose..."
 
 msgid "docker compose stop ..."
-msgstr "sto fermando docker compose ..."
+msgstr "sto fermando docker compose..."
 
 msgid "docker compose up -d --remove-orphans ..."
 msgstr "avvia docker compose in background --rimuovi orfani..."
@@ -913,10 +948,13 @@ msgid "docker compose up -d ..."
 msgstr "avvia docker compose in background..."
 
 msgid "docker container prune ..."
-msgstr "sto rimuovendo il container di docker ..."
+msgstr "sto rimuovendo il container di docker..."
 
 msgid "docker image inspect ..."
 msgstr "sto ispezionando l'immagine di docker"
+
+msgid "docker image prune --all ..."
+msgstr ""
 
 msgid "docker image prune ..."
 msgstr "sto rimuovendo l'immagine di docker ..."
@@ -925,43 +963,43 @@ msgid "docker image pull ..."
 msgstr "scarica immagine docker..."
 
 msgid "docker image rm ..."
-msgstr "sto rimuovendo l'immagine di docker ..."
+msgstr "sto rimuovendo l'immagine di docker..."
 
 msgid "docker inspect ..."
-msgstr "sto ispezionando il docker ..."
+msgstr "sto ispezionando il docker..."
 
 msgid "docker logs --follow ..."
 msgstr "log docker --segui..."
 
 msgid "docker logs ..."
-msgstr "Log di docker ..."
+msgstr "Log di docker..."
 
 msgid "docker network inspect ..."
-msgstr "Sto ispezionando la rete di docker ..."
+msgstr "Sto ispezionando la rete di docker..."
 
 msgid "docker network prune ..."
-msgstr "sto rimuovendo la rete di docker ..."
+msgstr "sto rimuovendo la rete di docker..."
 
 msgid "docker network rm ..."
-msgstr "sto rimuovendo la rete di docker ..."
+msgstr "sto rimuovendo la rete di docker..."
 
 msgid "docker restart ..."
-msgstr "Sto riavviando docker ..."
+msgstr "Sto riavviando docker..."
 
 msgid "docker system prune ..."
-msgstr "sto rimuovendo il sistema di docker ..."
+msgstr "sto rimuovendo il sistema di docker..."
 
 msgid "docker volume inspect ..."
-msgstr "sto ispezionando il volume di docker ..."
+msgstr "sto ispezionando il volume di docker..."
 
 msgid "docker volume prune ..."
-msgstr "sto rimuovendo il volume di docker ..."
+msgstr "sto rimuovendo il volume di docker..."
 
 msgid "docker volume rm ..."
-msgstr "sto rimuovendo il volume di docker ..."
+msgstr "sto rimuovendo il volume di docker..."
 
 msgid "dockerfile build ..."
-msgstr "sto compilando il dockerfile ..."
+msgstr "sto compilando il dockerfile..."
 
 msgid "down"
 msgstr "giù"

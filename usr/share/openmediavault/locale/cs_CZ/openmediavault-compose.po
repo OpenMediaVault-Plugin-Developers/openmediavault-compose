@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 22:45+0000\n"
+"POT-Creation-Date: 2025-12-29 22:59+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Marek Pavelka, 2024\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
@@ -459,6 +459,9 @@ msgstr "Instalováno"
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
 
+msgid "Leave blank to use a custom /etc/containers/storage.conf"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr ""
 "Ponechte prázdné pro použití vlastního souboru /etc/docker/daemon.json"
@@ -570,6 +573,13 @@ msgid ""
 "when Docker storage field path is blank."
 msgstr ""
 
+msgid ""
+"Optional. If selected, the absolute path of this shared folder will be used "
+"to override the Podman storage field path when saved.  The Podman storage "
+"field path will not be overriden when this shared folder is set to None or "
+"when Podman storage field path is blank."
+msgstr ""
+
 msgid "Override"
 msgstr ""
 
@@ -609,6 +619,9 @@ msgstr "Nastavte sdílenou složku pro data na kartě Nastavení."
 msgid "Please set shared folder for file storage."
 msgstr "Nastavte sdílenou složku pro ukládání souborů."
 
+msgid "Podman storage"
+msgstr ""
+
 msgid "Ports"
 msgstr "Porty"
 
@@ -619,6 +632,9 @@ msgid "Prune"
 msgstr ""
 
 msgid "Prune Images"
+msgstr ""
+
+msgid "Prune Images - all dangling"
 msgstr ""
 
 msgid "Pull and Build"
@@ -828,6 +844,9 @@ msgstr ""
 msgid "Uptime"
 msgstr "Doba provozu"
 
+msgid "Use podman"
+msgstr ""
+
 msgid "Version"
 msgstr "Verze"
 
@@ -892,6 +911,9 @@ msgid "docker container prune ..."
 msgstr ""
 
 msgid "docker image inspect ..."
+msgstr ""
+
+msgid "docker image prune --all ..."
 msgstr ""
 
 msgid "docker image prune ..."

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-08 22:45+0000\n"
+"POT-Creation-Date: 2025-12-29 22:59+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -99,7 +99,7 @@ msgid "Backup"
 msgstr "备份"
 
 msgid "Backup shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "备份存储的共享文件夹必须和 docker 存储的共享文件夹不同"
 
 msgid "Block In"
 msgstr "Block In"
@@ -177,7 +177,7 @@ msgid "Compose file shared folder must be different than data shared folder"
 msgstr "Compose 文件存储的共享文件夹必须与 data 存储共享文件夹不同"
 
 msgid "Compose file shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "Compose 文件存储的共享文件夹必须和 docker 存储的文件夹不同"
 
 msgid "Compose file to be associate imported files with"
 msgstr "Compose 文件与导入的文件相关联"
@@ -258,7 +258,7 @@ msgid "Data"
 msgstr "Data"
 
 msgid "Data shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "数据存储共享文件夹必须和 docker 存储共享文件夹不同"
 
 msgid "Date & Time"
 msgstr "日期&时间"
@@ -288,13 +288,13 @@ msgid "Displays information about containers in a table."
 msgstr "以表格形式显示容器信息。"
 
 msgid "Docker config"
-msgstr ""
+msgstr "Docker 配置"
 
 msgid "Docker has been restarted."
 msgstr "Docker 已重启。"
 
 msgid "Docker info"
-msgstr ""
+msgstr "Docker 信息"
 
 msgid "Docker is restarting ..."
 msgstr "Docker 重启中 ..."
@@ -449,13 +449,16 @@ msgid "Installed"
 msgstr "已安装"
 
 msgid "Keep containers running across Docker daemon updates"
+msgstr "在 Docker 守护进程升级时保持容器运行"
+
+msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr ""
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "留空则使用用户自定义 /etc/docker/daemon.json"
 
 msgid "Live restore"
-msgstr ""
+msgstr "实时恢复"
 
 msgid "Location of backups"
 msgstr "备份位置"
@@ -464,7 +467,7 @@ msgid "Location of compose files"
 msgstr "compose 文件位置"
 
 msgid "Log file max size"
-msgstr ""
+msgstr "日子文件最大容量"
 
 msgid "Logged out."
 msgstr "已注销。"
@@ -557,6 +560,15 @@ msgid ""
 "field path will not be overriden when this shared folder is set to None or "
 "when Docker storage field path is blank."
 msgstr ""
+"可选项。如果选择，保存后将使用此共享文件夹的绝对路径来覆盖 Docker 存储路径。当此共享文件夹设置为“无”或 Docker "
+"存储路径为空时，Docker 存储路径将不会被覆盖。"
+
+msgid ""
+"Optional. If selected, the absolute path of this shared folder will be used "
+"to override the Podman storage field path when saved.  The Podman storage "
+"field path will not be overriden when this shared folder is set to None or "
+"when Podman storage field path is blank."
+msgstr ""
 
 msgid "Override"
 msgstr "覆盖"
@@ -595,6 +607,9 @@ msgstr "请设置共享文件夹用于数据存储。"
 msgid "Please set shared folder for file storage."
 msgstr "请设置共享文件夹用于文件存储。"
 
+msgid "Podman storage"
+msgstr ""
+
 msgid "Ports"
 msgstr "端口"
 
@@ -605,6 +620,9 @@ msgid "Prune"
 msgstr "删除"
 
 msgid "Prune Images"
+msgstr "清理镜像"
+
+msgid "Prune Images - all dangling"
 msgstr ""
 
 msgid "Pull and Build"
@@ -653,11 +671,11 @@ msgid "Run"
 msgstr "运行"
 
 msgid "Run config"
-msgstr ""
+msgstr "运行配置"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
-msgstr ""
+msgstr "保存文件时运行 docker compose 配置以自动检查语法"
 
 msgid "Running For"
 msgstr "运行"
@@ -797,7 +815,7 @@ msgid ""
 msgstr "单位GB，备份将跳过大于此大小的卷。<br/>设置为 0 表示无限制。"
 
 msgid "Units in MB. Set to 0 for unlimited."
-msgstr ""
+msgstr "单位是 MB，设置 0 表示无限制。"
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
 msgstr "单位是秒。<br/>设为0表示不缓存。"
@@ -807,6 +825,9 @@ msgstr "上线"
 
 msgid "Uptime"
 msgstr "上线时间"
+
+msgid "Use podman"
+msgstr ""
 
 msgid "Version"
 msgstr "版本"
@@ -873,6 +894,9 @@ msgstr "docker container 修改..."
 
 msgid "docker image inspect ..."
 msgstr "docker 镜像检查 ..."
+
+msgid "docker image prune --all ..."
+msgstr ""
 
 msgid "docker image prune ..."
 msgstr "docker 镜像修改 ..."
