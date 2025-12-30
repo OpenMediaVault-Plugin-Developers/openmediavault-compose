@@ -479,7 +479,7 @@ msgid "Keep containers running across Docker daemon updates"
 msgstr "Houd containers actief tijdens Docker-daemon-updates"
 
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
-msgstr ""
+msgstr "Laat leeg om een aangepaste /etc/containers/storage.conf te gebruiken"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Leeglaten om een aangepaste /etc/docker/daemon.json te gebruiken"
@@ -602,6 +602,11 @@ msgid ""
 "field path will not be overriden when this shared folder is set to None or "
 "when Podman storage field path is blank."
 msgstr ""
+"Optioneel. Indien geselecteerd, wordt het absolute pad van deze gedeelde map"
+" gebruikt om het Podman-opslagveldpad te overschrijven wanneer het wordt "
+"opgeslagen.  Het Podman-opslagveldpad wordt niet overschreven wanneer deze "
+"gedeelde map is ingesteld op Geen of wanneer het Podman-opslagveldpad leeg "
+"is."
 
 msgid "Override"
 msgstr "Overschrijven"
@@ -643,7 +648,7 @@ msgid "Please set shared folder for file storage."
 msgstr "Stel een gedeelde map in voor de opslag van bestanden."
 
 msgid "Podman storage"
-msgstr ""
+msgstr "Podman-opslag"
 
 msgid "Ports"
 msgstr "Poorten"
@@ -658,7 +663,7 @@ msgid "Prune Images"
 msgstr "Prune Images"
 
 msgid "Prune Images - all dangling"
-msgstr ""
+msgstr "Prune Images - all dangling"
 
 msgid "Pull and Build"
 msgstr "Pull and Build"
@@ -877,7 +882,7 @@ msgid "Uptime"
 msgstr "Uptime"
 
 msgid "Use podman"
-msgstr ""
+msgstr "Podman gebruiken"
 
 msgid "Version"
 msgstr "Versie"
@@ -946,7 +951,7 @@ msgid "docker image inspect ..."
 msgstr "docker image inspect ..."
 
 msgid "docker image prune --all ..."
-msgstr ""
+msgstr "docker image prune --all ..."
 
 msgid "docker image prune ..."
 msgstr "docker image prune ..."
