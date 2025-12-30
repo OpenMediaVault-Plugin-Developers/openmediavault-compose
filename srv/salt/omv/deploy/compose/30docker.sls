@@ -95,7 +95,12 @@ configure_etc_docker_dir:
   file.serialize:
     - dataset:
         data-root: "{{ storage_path }}"
+        {% if config.containerdImageStore %}
+        features:
+          containerd-snapshotter: true
+        {% else %}
         storage-driver: "overlay2"
+        {% endif %}
         {% if config.logmaxsize|int > 0 %}
         log-driver: "json-file"
         log-opts:
@@ -104,6 +109,9 @@ configure_etc_docker_dir:
         {% endif %}
         {% if config.liverestore %}
         live-restore: true
+        {% endif %}
+        {% if config.disableIpv6 %}
+        ipv6: false
         {% endif %}
     - serializer: json
     - user: root

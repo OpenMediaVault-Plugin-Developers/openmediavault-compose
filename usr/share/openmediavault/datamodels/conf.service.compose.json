@@ -94,6 +94,12 @@
     "liverestore": {
       "type": "boolean"
     },
+    "containerdImageStore": {
+      "type": "boolean"
+    },
+    "disableIpv6": {
+      "type": "boolean"
+    },
     "podmanStorage": {
       "type": "string",
       "default": "/var/lib/containers/storage"

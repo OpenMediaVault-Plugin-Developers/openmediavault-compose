@@ -168,10 +168,58 @@ data:
                   operator: falsy
                   arg0:
                     prop: podman
+      - type: container
+        modifiers:
+          - type: disabled
+            constraint:
+              operator: eq
+              arg0:
+                prop: dockerStorage
+              arg1: ""
+          - type: visible
+            constraint:
+              operator: falsy
+              arg0:
+                prop: podman
+        fields:
           - type: checkbox
             name: liverestore
             label: _("Live restore")
             hint: _("Keep containers running across Docker daemon updates")
+            value: false
+            modifiers:
+              - type: disabled
+                constraint:
+                  operator: eq
+                  arg0:
+                    prop: dockerStorage
+                  arg1: ""
+              - type: visible
+                constraint:
+                  operator: falsy
+                  arg0:
+                    prop: podman
+          - type: checkbox
+            name: containerdImageStore
+            label: _("Use containerd image store as storage backend")
+            hint: _("Warning: Enabling this setting requires all images to be pulled/build again! See https://docs.docker.com/engine/storage/containerd/ for more information about what this setting does.")
+            value: false
+            modifiers:
+              - type: disabled
+                constraint:
+                  operator: eq
+                  arg0:
+                    prop: dockerStorage
+                  arg1: ""
+              - type: visible
+                constraint:
+                  operator: falsy
+                  arg0:
+                    prop: podman
+          - type: checkbox
+            name: disableIpv6
+            label: _("Disable IPv6 support")
+            hint: _("This setting disables IPv6 support for all Docker containers")
             value: false
             modifiers:
               - type: disabled

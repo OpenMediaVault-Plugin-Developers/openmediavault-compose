@@ -89,6 +89,14 @@
           "type": "boolean",
           "required": true
         },
+        "containerdImageStore": {
+          "type": "boolean",
+          "required": true
+        },
+        "disableIpv6": {
+          "type": "boolean",
+          "required": true
+        },
         "podmanStorage": {
           "type": "string",
           "required": false
