@@ -202,7 +202,7 @@ data:
           - type: checkbox
             name: containerdImageStore
             label: _("Use containerd image store as storage backend")
-            hint: _("Warning: Enabling this setting requires all images to be pulled/build again! See https://docs.docker.com/engine/storage/containerd/ for more information about what this setting does.")
+            hint: _("Enabling this setting requires all images to be pulled/build again! See https://docs.docker.com/engine/storage/containerd/ for more information about what this setting does.")
             value: false
             modifiers:
               - type: disabled
