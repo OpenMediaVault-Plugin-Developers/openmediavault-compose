@@ -683,7 +683,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose");
         $podman = $this->getPodman($context);
-        $svc = $podman ? 'docker' : 'podman.socket';
+        $svc = $podman ? 'podman.socket' : 'docker';
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         $systemCtl = new \OMV\System\SystemCtl($svc);
