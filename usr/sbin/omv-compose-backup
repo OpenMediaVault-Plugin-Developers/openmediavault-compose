@@ -2,7 +2,7 @@
 #
 # shellcheck disable=SC1091,SC2086,SC2181,SC2207
 #
-# Copyright (c) 2023-2025 openmediavault plugin developers
+# Copyright (c) 2023-2026 openmediavault plugin developers
 #
 # This file is licensed under the terms of the GNU General Public
 # License version 2. This program is licensed "as is" without any
