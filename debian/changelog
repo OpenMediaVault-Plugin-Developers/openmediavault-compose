@@ -1,3 +1,10 @@
+openmediavault-compose (8.1.2) stable; urgency=low
+
+  * Fix backup comment for named volumes
+  * Other optimizations in backup script
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 10 Jan 2026 01:39:30 +0000
+
 openmediavault-compose (8.1.1) stable; urgency=low
 
   * Fix docker restart button
