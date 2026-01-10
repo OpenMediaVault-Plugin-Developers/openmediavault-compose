@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.3.1
+# version: 1.4.0
 
 export LC_ALL=C.UTF-8
 
@@ -18,6 +18,8 @@ declare -i force=0
 declare -i verbose=1
 declare -i i=0
 declare -i j=0
+
+declare -A seen_paths=()
 
 # logging location
 logDir="/var/log/"
@@ -42,6 +44,10 @@ extractContPath() {
   # Trim trailing whitespace
   val="${val%"${val##*[![:space:]]}"}"
   echo "${val}"
+}
+
+normalize_path() {
+  printf '%s' "${1%/}";
 }
 
 compose="${1}"
@@ -147,7 +153,7 @@ dockerComposeArgs+=("--env-file" "${env}")
 # run docker compose config
 confout="$(mktemp)"
 docker compose "${dockerComposeArgs[@]}" config --output "${confout}"
-if [ $? -gt 0 ] || [ -z "${confout}" ]; then
+if [ $? -ne 0 ] || [ ! -s "${confout}" ]; then
   _log "Failed to run docker compose config.  Exiting..."
   exit 17
 fi
@@ -217,7 +223,7 @@ wait_for_compose_to_exit() {
   while [ $attempt -lt $max_attempts ]; do
     current_status=$(docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | contains(\"${yml}\")) | .Status")
 
-    if grep -q "exited" <(echo "${current_status}"); then
+    if [[ "${current_status}" == *exited* ]]; then
       _log "compose stopped: ${current_status}"
       return 0
     fi
@@ -241,11 +247,23 @@ fi
 
 # copy yml and env files and other files that use a relative path
 voldir="${backupdir}/${i}"
-mkdir -pv "${voldir}"
-cp -v "${yml}" "${ovr}" "${env}" "${voldir}/"
+if [[ ! -d "${voldir}" ]]; then
+  _log "Create ${voldir} ..."
+  mkdir -p -- "${voldir}"
+fi
+_log "Copy compose file(s) to ${voldir} ..."
+for f in "${yml}" "${env}" "${ovr}"; do
+  [[ -f "${f}" ]] || continue
+  _log "Copying ${f} ..."
+  cp -a -- "${f}" "${voldir}/"
+done
+
+# initialize seen paths array
+seen_paths["$(normalize_path "${composepath}")"]=1
 
 # loop through volumes
 for vol in "${serviceVolsMap[@]}"; do
+  force=0
   _log "Volume :: ${vol}"
   hostpath="${vol%%:*}"
   hostpath="${hostpath//\'/}"
@@ -257,6 +275,10 @@ for vol in "${serviceVolsMap[@]}"; do
     cmt="${vol##*#}"
   fi
   _log "path comment :: ${cmt}"
+  if [[ "${cmt}" == *"BACKUP"* ]]; then
+    _log "Forcing for BACKUP comment :: ${vol}"
+    force=1
+  fi
   # check for paths to skip or force
   if [[ "${cmt}" == *"SKIP_BACKUP"* ]]; then
     _log "Skipping for SKIP_BACKUP comment :: ${vol}"
@@ -272,7 +294,7 @@ for vol in "${serviceVolsMap[@]}"; do
     continue
   elif [[ "${hostpath}" != *"/"* ]]; then
     _log "Named volume :: ${hostpath}"
-    fullvolname=$(docker compose "${dockerComposeArgs[@]}" config 2>/dev/null | yq ".volumes.${hostpath}.name")
+    fullvolname="$(${yq} -r ".volumes.${hostpath}.name // \"\"" "${confout}" 2>/dev/null)"
     if [ -z "${fullvolname}" ]; then
       _log "Failed to retrieve full volume name. Skipping"
       continue
@@ -288,12 +310,8 @@ for vol in "${serviceVolsMap[@]}"; do
       continue
     fi
     _log "Named volume path :: ${hostpath}"
-  elif [[ "${cmt}" == *"BACKUP"* ]]; then
-    _log "Forcing for BACKUP comment :: ${vol}"
-    force=1
   else
     _log "Backup host path :: ${hostpath}"
-    force=0
   fi
   if [ ! -f "${hostpath}" ] && [ ! -d "${hostpath}" ]; then
     if [ -e "${hostpath}" ]; then
@@ -313,44 +331,45 @@ for vol in "${serviceVolsMap[@]}"; do
       continue;
     fi
   fi
-  if cut -d"," -f2 "${vollist}" | sed 's#/$##' | grep -Fqx "${hostpath%/}"; then
+  # check if path is already in list
+  norm="$(normalize_path "${hostpath}")"
+  if [[ -n "${seen_paths[${norm}]}" ]]; then
     _log "Duplicate volume path '${hostpath}' - skipping..."
-  else
-    ((i++))
-    # rsync to numbered subdirectory
-    voldir="${backupdir}/${i}"
-    mkdir -pv "${voldir}"
-    _log "Backup to :: ${voldir}"
-    if [ ${verbose} -eq 0 ]; then
-      args=(-ar)
-    else
-      args=(-avr)
-    fi
-    args+=(--delete)
-    if [ -d "${hostpath}" ]; then
-      hostpath="${hostpath}/"
-      if [ "${force}" -ne 1 ]; then
-        args+=(--exclude="*.qcow2")
-      fi
-    fi
-
-    # check for exclusions
-    if omv_isuuid "${uuid}"; then
-      exclusions="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/excludes")"
-      if [ -n "${exclusions}" ]; then
-        IFS=',' read -r -a exclude_array <<< "${exclusions}"
-        for item in "${exclude_array[@]}"; do
-          _log "exclude: ${item}"
-          args+=(--exclude="${item}")
-        done
-      fi
-    fi
-
-    # add volume list entry
-    echo "${i},${hostpath}" >> "${vollist}"
-    # rsync
-    rsync "${args[@]}" "${hostpath}" "${voldir}"
+    continue
   fi
+  # rsync to numbered subdirectory
+  ((i++))
+  voldir="${backupdir}/${i}"
+  mkdir -pv "${voldir}"
+  _log "Backup to :: ${voldir}"
+  if [ ${verbose} -eq 0 ]; then
+    args=(-ar)
+  else
+    args=(-avr)
+  fi
+  args+=(--delete)
+  if [ -d "${hostpath}" ]; then
+    hostpath="${hostpath}/"
+    if [ "${force}" -ne 1 ]; then
+      args+=(--exclude="*.qcow2")
+    fi
+  fi
+  # check for exclusions
+  if omv_isuuid "${uuid}"; then
+    exclusions="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/excludes")"
+    if [ -n "${exclusions}" ]; then
+      IFS=',' read -r -a exclude_array <<< "${exclusions}"
+      for item in "${exclude_array[@]}"; do
+        _log "exclude: ${item}"
+        args+=(--exclude="${item}")
+      done
+    fi
+  fi
+  # add volume list entry
+  echo "${i},${hostpath}" >> "${vollist}"
+  seen_paths["${norm}"]=1
+  # rsync
+  rsync "${args[@]}" "${hostpath}" "${voldir}"
   echo
 done
 
