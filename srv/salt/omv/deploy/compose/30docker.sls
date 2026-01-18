@@ -73,13 +73,21 @@ podman_socket_restart_on_config_change:
 /etc/containers/nodocker:
   file.touch
 
-podman_docker_profile_enable:
+podman_docker_profile_sh_enable:
   file.rename:
     - source: /etc/profile.d/podman-docker.sh.disabled
     - name: /etc/profile.d/podman-docker.sh
     - force: True
     - onlyif:
       - test -f /etc/profile.d/podman-docker.sh.disabled
+
+podman_docker_profile_csh_enable:
+  file.rename:
+    - source: /etc/profile.d/podman-docker.csh.disabled
+    - name: /etc/profile.d/podman-docker.csh
+    - force: True
+    - onlyif:
+      - test -f /etc/profile.d/podman-docker.csh.disabled
 
 {% else %}
 
@@ -125,13 +133,21 @@ docker:
       - file: /etc/docker/daemon.json
 {% endif %}
 
-podman_docker_profile_disable:
+podman_docker_profile_sh_disable:
   file.rename:
     - source: /etc/profile.d/podman-docker.sh
     - name: /etc/profile.d/podman-docker.sh.disabled
     - force: True
     - onlyif:
       - test -f /etc/profile.d/podman-docker.sh
+
+podman_docker_profile_csh_disable:
+  file.rename:
+    - source: /etc/profile.d/podman-docker.csh
+    - name: /etc/profile.d/podman-docker.csh.disabled
+    - force: True
+    - onlyif:
+      - test -f /etc/profile.d/podman-docker.csh
 
 {% endif %}
 
