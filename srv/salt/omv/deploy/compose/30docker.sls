@@ -73,6 +73,14 @@ podman_socket_restart_on_config_change:
 /etc/containers/nodocker:
   file.touch
 
+podman_docker_profile_enable:
+  file.rename:
+    - source: /etc/profile.d/podman-docker.sh.disabled
+    - name: /etc/profile.d/podman-docker.sh
+    - force: True
+    - onlyif:
+      - test -f /etc/profile.d/podman-docker.sh.disabled
+
 {% else %}
 
 docker_install_packages:
@@ -116,6 +124,14 @@ docker:
     - watch:
       - file: /etc/docker/daemon.json
 {% endif %}
+
+podman_docker_profile_disable:
+  file.rename:
+    - source: /etc/profile.d/podman-docker.sh
+    - name: /etc/profile.d/podman-docker.sh.disabled
+    - force: True
+    - onlyif:
+      - test -f /etc/profile.d/podman-docker.sh
 
 {% endif %}
 
