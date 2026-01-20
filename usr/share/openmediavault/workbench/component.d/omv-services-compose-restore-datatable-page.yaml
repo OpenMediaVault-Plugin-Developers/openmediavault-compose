@@ -31,7 +31,7 @@ data:
     actions:
       - type: iconButton
         tooltip: _("Restore")
-        icon: mdi:restore
+        icon: "restore"
         enabledConstraints:
           minSelected: 1
           maxSelected: 1
@@ -60,7 +60,7 @@ data:
             progressMessage: _("Restoring global.env from backup ...")
             successNotification: _("global.env has been restored from backup.")
       - type: iconButton
-        icon: mdi:delete
+        icon: "delete"
         tooltip: _("Delete")
         confirmationDialogConfig:
           template: confirmation-danger

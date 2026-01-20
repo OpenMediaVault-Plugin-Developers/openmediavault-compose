@@ -35,7 +35,7 @@ data:
         sortable: true
     actions:
       - type: iconButton
-        icon: mdi:plus-box
+        icon: "add"
         tooltip: _("Add example compose file")
         enabledConstraints:
           minSelected: 1

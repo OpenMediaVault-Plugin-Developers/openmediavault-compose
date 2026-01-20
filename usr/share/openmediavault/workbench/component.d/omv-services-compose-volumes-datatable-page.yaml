@@ -39,7 +39,7 @@ data:
         sortable: true
     actions:
       - type: iconButton
-        icon: mdi:delete
+        icon: "delete"
         tooltip: _("Delete")
         enabledConstraints:
           minSelected: 1

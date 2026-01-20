@@ -33,7 +33,7 @@ data:
           type: url
           url: "/services/compose/networks/create"
       - type: iconButton
-        icon: mdi:delete
+        icon: "delete"
         tooltip: _("Delete")
         enabledConstraints:
           minSelected: 1
