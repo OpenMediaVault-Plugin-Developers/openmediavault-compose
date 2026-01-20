@@ -120,7 +120,7 @@ data:
                   envpath: "{{ _selected[0].envpath }}"
                   overridepath: "{{ _selected[0].overridepath }}"
       - type: iconButton
-        icon: mdi:stop
+        icon: "stop"
         tooltip: _("stop")
         enabledConstraints:
           minSelected: 1
@@ -249,7 +249,7 @@ data:
                   envpath: "{{ _selected[0].envpath }}"
                   overridepath: "{{ _selected[0].overridepath }}"
       - type: iconButton
-        icon: mdi:download
+        icon: "download"
         tooltip: _("Download log")
         enabledConstraints:
           minSelected: 1

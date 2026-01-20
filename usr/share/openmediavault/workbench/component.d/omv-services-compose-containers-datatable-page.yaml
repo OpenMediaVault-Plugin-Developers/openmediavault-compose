@@ -150,7 +150,7 @@ data:
                   command2: "--follow"
                   id: "{{ _selected[0].id }}"
       - type: iconButton
-        icon: mdi:download
+        icon: "download"
         tooltip: _("Download log")
         enabledConstraints:
           minSelected: 1

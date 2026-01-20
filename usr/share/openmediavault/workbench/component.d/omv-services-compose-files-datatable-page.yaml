@@ -280,7 +280,7 @@ data:
                   uuid: "{{ _selected[0].uuid }}"
                   command: "up -d"
       - type: iconButton
-        icon: mdi:stop
+        icon: "stop"
         tooltip: _("stop")
         enabledConstraints:
           minSelected: 1
@@ -467,7 +467,7 @@ data:
                       command: "logs"
                       command2: "--follow"
           - text: _("Download logs")
-            icon: mdi:download
+            icon: "download"
             enabledConstraints:
               minSelected: 1
               maxSelected: 1
