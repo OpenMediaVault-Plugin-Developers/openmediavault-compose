@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 22:59+0000\n"
+"POT-Creation-Date: 2026-01-21 23:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -255,6 +255,12 @@ msgid "Delete"
 msgstr ""
 
 msgid "Delete backup ..."
+msgstr ""
+
+msgid "Delete complete."
+msgstr ""
+
+msgid "Deleting images ..."
 msgstr ""
 
 msgid "Description"
@@ -599,6 +605,12 @@ msgstr ""
 msgid "Pull and Build ..."
 msgstr ""
 
+msgid "Pull complete."
+msgstr ""
+
+msgid "Pulling images ..."
+msgstr ""
+
 msgid "Push"
 msgstr ""
 
@@ -863,9 +875,6 @@ msgstr ""
 msgid "docker image pull ..."
 msgstr ""
 
-msgid "docker image rm ..."
-msgstr ""
-
 msgid "docker inspect ..."
 msgstr ""
 
@@ -954,6 +963,9 @@ msgid "pull image"
 msgstr ""
 
 msgid "pull image+tag"
+msgstr ""
+
+msgid "pull multiple image"
 msgstr ""
 
 msgid "restart"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 22:59+0000\n"
+"POT-Creation-Date: 2026-01-21 23:27+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Rysiek Jurczy, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl/)\n"
@@ -282,6 +282,12 @@ msgid "Delete"
 msgstr "Usuń"
 
 msgid "Delete backup ..."
+msgstr ""
+
+msgid "Delete complete."
+msgstr ""
+
+msgid "Deleting images ..."
 msgstr ""
 
 msgid "Description"
@@ -650,6 +656,12 @@ msgstr "Ściągnij i zbuduj"
 msgid "Pull and Build ..."
 msgstr ""
 
+msgid "Pull complete."
+msgstr ""
+
+msgid "Pulling images ..."
+msgstr ""
+
 msgid "Push"
 msgstr "Wysyłanie"
 
@@ -925,9 +937,6 @@ msgstr "docker image prune ..."
 msgid "docker image pull ..."
 msgstr ""
 
-msgid "docker image rm ..."
-msgstr "docker image rm ..."
-
 msgid "docker inspect ..."
 msgstr "docker inspect ..."
 
@@ -1016,6 +1025,9 @@ msgid "pull image"
 msgstr ""
 
 msgid "pull image+tag"
+msgstr ""
+
+msgid "pull multiple image"
 msgstr ""
 
 msgid "restart"

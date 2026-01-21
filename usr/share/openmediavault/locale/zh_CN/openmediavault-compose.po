@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 22:59+0000\n"
+"POT-Creation-Date: 2026-01-21 23:27+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -268,6 +268,12 @@ msgstr "删除"
 
 msgid "Delete backup ..."
 msgstr "删除备份 ..."
+
+msgid "Delete complete."
+msgstr ""
+
+msgid "Deleting images ..."
+msgstr ""
 
 msgid "Description"
 msgstr "描述"
@@ -631,6 +637,12 @@ msgstr "拉取并构建"
 msgid "Pull and Build ..."
 msgstr "拉取构建中 ..."
 
+msgid "Pull complete."
+msgstr ""
+
+msgid "Pulling images ..."
+msgstr ""
+
 msgid "Push"
 msgstr "推送"
 
@@ -904,9 +916,6 @@ msgstr "docker 镜像修改 ..."
 msgid "docker image pull ..."
 msgstr "拉取 docker image ..."
 
-msgid "docker image rm ..."
-msgstr "删除 docker 镜像 ..."
-
 msgid "docker inspect ..."
 msgstr "docker 检查 ..."
 
@@ -996,6 +1005,9 @@ msgstr "拉取镜像"
 
 msgid "pull image+tag"
 msgstr "拉取镜像+标签"
+
+msgid "pull multiple image"
+msgstr ""
 
 msgid "restart"
 msgstr "重启"
