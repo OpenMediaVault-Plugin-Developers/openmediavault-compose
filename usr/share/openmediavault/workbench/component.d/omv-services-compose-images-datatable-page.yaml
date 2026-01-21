@@ -8,6 +8,7 @@ data:
     hasSearchField: true
     remoteSorting: true
     rowId: id
+    selectionType: multi
     stateId: c2e1baf6-0a19-11ee-9a0a-1bbcfb3e6ead
     sorters:
       - dir: asc
@@ -89,21 +90,17 @@ data:
       - type: iconButton
         icon: "delete"
         tooltip: _("Delete")
-        enabledConstraints:
-          minSelected: 1
-          maxSelected: 1
         execute:
-          type: taskDialog
-          taskDialog:
-            config:
-              title: _("docker image rm ...")
-              startOnInit: true
-              request:
-                service: Compose
-                method: doDockerImageCmd
-                params:
-                  id: "{{ _selected[0].id }}"
-                  command: "rm"
+          type: request
+          request:
+            service: Compose
+            method: doDockerImageCmd
+            params:
+              id: "{{ id }}"
+              command: "rm"
+            task: true
+            progressMessage: _("Deleting images ...")
+            successNotification: _("Delete complete.")
       - type: iconButton
         icon: mdi:magnify
         tooltip: _("Inspect")
@@ -143,6 +140,20 @@ data:
                 params:
                   id: "{{ _selected[0].repo }}"
                   command: "pull"
+      - type: iconButton
+        icon: mdi:download-box-outline
+        tooltip: _("pull multiple image")
+        execute:
+          type: request
+          request:
+            service: Compose
+            method: doDockerImageCmd
+            params:
+              id: "{{ repo }}"
+              command: "pull"
+            task: true
+            progressMessage: _("Pulling images ...")
+            successNotification: _("Pull complete.")
       - type: iconButton
         icon: mdi:download-network
         tooltip: _("pull image+tag")

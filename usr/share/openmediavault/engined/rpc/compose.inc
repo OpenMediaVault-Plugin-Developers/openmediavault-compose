@@ -1331,6 +1331,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // clear cache for files
         $this->clearCache('files');
+        $this->clearCache('images');
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
