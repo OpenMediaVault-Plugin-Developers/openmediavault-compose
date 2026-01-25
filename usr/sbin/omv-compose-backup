@@ -328,7 +328,7 @@ for vol in "${serviceVolsMap[@]}"; do
     _log "Folder size :: ${foldersize} bytes"
     if [ ${foldersize} -gt ${backupmax} ] && [ ${force} -eq 0 ]; then
       _log "Folder size greater than max backup size.  Skipping..."
-      continue;
+      continue
     fi
   fi
   # check if path is already in list
