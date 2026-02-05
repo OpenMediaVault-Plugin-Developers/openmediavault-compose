@@ -28,6 +28,11 @@ data:
         prop: time
         flexGrow: 1
         sortable: true
+      - name: _('Is Latest')
+        prop: islatest
+        flexGrow: 1
+        sortable: true
+        cellTemplateName: checkIcon
     actions:
       - type: iconButton
         tooltip: _("Restore")
@@ -46,6 +51,7 @@ data:
                 method: doRestore
                 params:
                   backup: "{{ _selected[0].backup }}"
+                  time: "{{ _selected[0].time }}"
       - type: iconButton
         tooltip: _("Restore global.env")
         icon: mdi:file-restore-outline

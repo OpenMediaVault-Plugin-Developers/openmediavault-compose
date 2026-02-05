@@ -9,7 +9,8 @@ Homepage: http://omv-extras.org/
 
 Package: openmediavault-compose
 Architecture: all
-depends: openmediavault (>= 8),
+depends: borgbackup,
+         openmediavault (>= 8),
          openmediavault-omvextrasorg (>= 8),
          openmediavault-sharerootfs,
          python3-docker,

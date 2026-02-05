@@ -1,3 +1,9 @@
+openmediavault-compose (8.1.3) UNRELEASED; urgency=medium
+
+  * add borgbackup backend option to backup/restore
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 27 Jan 2026 15:27:50 +0000
+
 openmediavault-compose (8.1.2) stable; urgency=low
 
   * Fix backup comment for named volumes

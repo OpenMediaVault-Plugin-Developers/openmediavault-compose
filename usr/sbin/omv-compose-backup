@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.4.0
+# version: 1.5.0
 
 export LC_ALL=C.UTF-8
 
@@ -50,6 +50,134 @@ normalize_path() {
   printf '%s' "${1%/}";
 }
 
+rebuild_history_and_sizes() {
+  local compose="$1"
+  local repo="$2"
+  local hist="$3"
+
+  local tmp_names tmp_hist tmp_sizes
+  tmp_names="$(mktemp)"
+  tmp_hist="$(mktemp)"
+  tmp_sizes="$(mktemp)"
+
+  # 1) Get current archive names
+  if ! borg list --json "$repo" | jq -r '.archives[].name' > "$tmp_names"; then
+    _log "WARN: borg list failed; not rebuilding vol.list.history"
+    rm -f "$tmp_names" "$tmp_hist" "$tmp_sizes"
+    return 0
+  fi
+
+  # 2) Rebuild archive lines: ts,volnum,borg,archive
+  awk -v c="$compose" '
+    function trim(s){ gsub(/\r/,"",s); gsub(/^[ \t]+|[ \t]+$/,"",s); return s }
+    {
+      name = trim($0)
+      pat = "^" c "-v([0-9]+)-([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})$"
+      if (match(name, pat, m)) {
+        vol = m[1]
+        ts  = m[2]
+        print ts "," vol ",borg," name
+      }
+    }
+  ' "$tmp_names" | sort -t, -k1,1 -k2,2n > "$tmp_hist"
+
+  # 3) Compute per-timestamp bytes by summing an archive metric
+  # Choose metric: deduplicated_size (default) or original_size or compressed_size.
+  local metric="${OMV_COMPOSE_BORG_SIZE_METRIC:-deduplicated_size}"
+  _log "Recomputing repo_bytes using metric :: ${metric}"
+
+  # For each archive, fetch stats and emit: ts,size
+  while IFS= read -r arch; do
+    # Extract timestamp from name: compose-vN-<ts>
+    ts="${arch##*-v}"
+    ts="${ts#*[0-9]-}"  # remove "<N>-"
+    # Now ts should be YYYY-MM-DD_HH-MM-SS
+
+    # Pull the size metric from borg info --json
+    # Borg versions differ slightly; try a couple paths.
+    sz="$(borg info --json "${repo}::${arch}" 2>/dev/null | jq -r .archives[0].stats.original_size 2>/dev/null)"
+    # If missing/unparsable, treat as 0
+    if ! [[ "${sz}" =~ ^[0-9]+$ ]]; then
+      sz=0
+    fi
+    printf '%s,%s\n' "$ts" "$sz"
+  done < <(cut -d, -f4 "$tmp_hist") \
+    | awk -F',' '{ sum[$1]+=$2 } END { for (t in sum) print t ",repo_bytes," sum[t] }' \
+    | sort -t, -k1,1 > "$tmp_sizes"
+
+  # 4) Write final history file: archive lines + repo_bytes lines
+  cat "$tmp_hist" "$tmp_sizes" > "${hist}.new"
+  mv -f "${hist}.new" "$hist"
+
+  rm -f "$tmp_names" "$tmp_hist" "$tmp_sizes"
+  _log "Rebuilt vol.list.history and recomputed repo_bytes :: ${hist}"
+}
+
+prune_keep_last_runs() {
+  local compose="$1"
+  local repo="$2"
+  local keep_runs="${3:-7}"
+
+  # Get all archive names in this repo
+  mapfile -t all_archives < <(borg list --json "$repo" | jq -r '.archives[].name' | tr -d '\r')
+
+  # Extract unique timestamps for this compose (based on name format)
+  # Example: cloudcmd-v1-2026-01-27_16-53-21  -> 2026-01-27_16-53-21
+  mapfile -t all_ts < <(
+    printf '%s\n' "${all_archives[@]}" \
+      | awk -v c="$compose" '
+          BEGIN { pat="^" c "-v[0-9]+-([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})$" }
+          {
+            if (match($0, pat, m)) print m[1]
+          }' \
+      | sort -u
+  )
+
+  local total_ts="${#all_ts[@]}"
+  if [ "$total_ts" -le "$keep_runs" ]; then
+    _log "Prune (runs): found ${total_ts} run(s); <= keep_runs=${keep_runs}. Nothing to prune."
+    return 0
+  fi
+
+  # Keep newest N timestamps (lexicographic sort works for this format)
+  mapfile -t keep_ts < <(printf '%s\n' "${all_ts[@]}" | sort -r | head -n "$keep_runs")
+
+  # Build a lookup set for timestamps to keep (awk-friendly)
+  local keep_file
+  keep_file="$(mktemp)"
+  printf '%s\n' "${keep_ts[@]}" > "$keep_file"
+
+  # Determine archives to delete = those whose timestamp is NOT in keep set
+  mapfile -t delete_archives < <(
+    printf '%s\n' "${all_archives[@]}" \
+      | awk -v c="$compose" -v kf="$keep_file" '
+          BEGIN {
+            while ((getline t < kf) > 0) keep[t]=1
+            close(kf)
+            pat="^" c "-v[0-9]+-([0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2})$"
+          }
+          {
+            if (match($0, pat, m)) {
+              ts=m[1]
+              if (!keep[ts]) print $0
+            }
+          }'
+  )
+  rm -f "$keep_file"
+
+  if [ "${#delete_archives[@]}" -eq 0 ]; then
+    _log "Prune (runs): nothing matched for deletion."
+    return 0
+  fi
+
+  _log "Prune (runs): keeping ${keep_runs} run(s); deleting ${#delete_archives[@]} archive(s)."
+
+  # Delete archives in one borg command (pass names as args)
+  # Note: borg delete accepts multiple archive names after the repo path.
+  borg delete -v --list "$repo" "${delete_archives[@]}"
+}
+
+
 compose="${1}"
 uuid="${2}"
 if [ -z "${compose}" ]; then
@@ -58,6 +186,23 @@ if [ -z "${compose}" ]; then
 fi
 _log "compose :: ${compose}"
 _log "uuid :: ${uuid}"
+
+# Backup backend
+backupbackend="$(omv_config_get "/config/services/compose/backupbackend")"
+_log "Backup backend :: ${backupbackend}"
+
+# Borg settings
+export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
+borg_encryption="${OMV_COMPOSE_BORG_ENCRYPTION:-none}"
+borg_compression="${OMV_COMPOSE_BORG_COMPRESSION:-zstd,6}"
+borg_extra_args="${OMV_COMPOSE_BORG_EXTRA_ARGS:-}"
+borg_keep="${OMV_COMPOSE_BORG_KEEP:-7}"
+
+# Use a single timestamp for the whole run when borg is enabled so snapshots group cleanly.
+backup_ts_run=""
+if [ "${backupbackend}" = "borg" ]; then
+  backup_ts_run="$(date +'%Y-%m-%d_%H-%M-%S')"
+fi
 
 # Get docker storage path
 dockerStorage=$(omv_config_get "/config/services/compose/dockerStorage")
@@ -198,10 +343,34 @@ IFS=$OFS
 # create backup subdirectory
 backupdir="${backuppath}/${compose}"
 mkdir -pv "${backupdir}"
+borgrepo="${backupdir}/borgrepo"
+
+if [ "${backupbackend}" = "borg" ]; then
+  if [ ! -d "${borgrepo}" ]; then
+    _log "Initializing borg repo :: ${borgrepo}"
+    mkdir -p -- "${borgrepo}"
+    borg init --encryption="${borg_encryption}" "${borgrepo}" || {
+      _log "Failed to initialize borg repo. Exiting..."
+      exit 19
+    }
+  else
+    # quick sanity check
+    if ! borg info "${borgrepo}"; then
+      _log "Existing borg repo not valid :: ${borgrepo}. Exiting..."
+      exit 20
+    fi
+  fi
+fi
 
 # update volume list
 vollist="${backupdir}/vol.list"
 echo "${i},${composepath}" > "${vollist}"
+
+# borg snapshot history (append-only). Format: ts,volnum,borg,archive
+vollisthist="${backupdir}/vol.list.history"
+if [ "${backupbackend}" = "borg" ]; then
+  touch "${vollisthist}"
+fi
 
 # write description to file
 descPath="${backupdir}/omv_file_desc.txt"
@@ -339,38 +508,93 @@ for vol in "${serviceVolsMap[@]}"; do
   fi
   # rsync to numbered subdirectory
   ((i++))
-  voldir="${backupdir}/${i}"
-  mkdir -pv "${voldir}"
-  _log "Backup to :: ${voldir}"
-  if [ ${verbose} -eq 0 ]; then
-    args=(-ar)
+  if [ "${backupbackend}" = "borg" ]; then
+    # store each volume as a borg archive in ${backupdir}/borgrepo and
+    # record the archive name in vol.list.
+
+    if [ -d "${hostpath}" ]; then
+      hostpath="${hostpath}/"
+    fi
+
+    backup_ts="${backup_ts_run}"
+    archive="${compose}-v${i}-${backup_ts}"
+    _log "Borg archive :: ${archive}"
+
+    borg_args=(--compression "${borg_compression}")
+    if [ ${verbose} -ne 0 ]; then
+      borg_args+=(--stats)
+    fi
+    if [ -n "${borg_extra_args}" ]; then
+      borg_args+=(${borg_extra_args})
+    fi
+    if [[ "${hostpath}" == */ ]] && [ "${force}" -ne 1 ]; then
+      borg_args+=(--exclude "*.qcow2")
+    fi
+    if omv_isuuid "${uuid}"; then
+      exclusions="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/excludes")"
+      if [ -n "${exclusions}" ]; then
+        IFS=',' read -r -a exclude_array <<< "${exclusions}"
+        for item in "${exclude_array[@]}"; do
+          _log "exclude: ${item}"
+          borg_args+=(--exclude "${item}")
+        done
+      fi
+    fi
+
+    # add volume list entry
+    echo "${i},${hostpath},borg,${archive}" >> "${vollist}"
+    echo "${backup_ts_run},${i},borg,${archive}" >> "${vollisthist}"
+    seen_paths["${norm}"]=1
+    # borgbackup
+    src="${hostpath%/}"
+    basedir="$(dirname "${src}")"
+    item="$(basename "${src}")"
+    (
+      cd -- "${basedir}" || exit 1
+      _log "Create archive ..."
+      borg create "${borg_args[@]}" "${borgrepo}::${archive}" "${item}"
+    )
+    _log "Prune old archive ..."
+    prune_keep_last_runs "${compose}" "${borgrepo}" "${borg_keep}"
+
+    _log "Rebuild history ..."
+    rebuild_history_and_sizes "${compose}" "${borgrepo}" "${vollisthist}"
+    echo
   else
-    args=(-avr)
-  fi
-  args+=(--delete)
-  if [ -d "${hostpath}" ]; then
-    hostpath="${hostpath}/"
-    if [ "${force}" -ne 1 ]; then
-      args+=(--exclude="*.qcow2")
+    # rsync to numbered subdirectory
+    voldir="${backupdir}/${i}"
+    mkdir -pv "${voldir}"
+    _log "Backup to :: ${voldir}"
+    if [ ${verbose} -eq 0 ]; then
+      args=(-ar)
+    else
+      args=(-avr)
     fi
-  fi
-  # check for exclusions
-  if omv_isuuid "${uuid}"; then
-    exclusions="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/excludes")"
-    if [ -n "${exclusions}" ]; then
-      IFS=',' read -r -a exclude_array <<< "${exclusions}"
-      for item in "${exclude_array[@]}"; do
-        _log "exclude: ${item}"
-        args+=(--exclude="${item}")
-      done
+    args+=(--delete)
+    if [ -d "${hostpath}" ]; then
+      hostpath="${hostpath}/"
+      if [ "${force}" -ne 1 ]; then
+        args+=(--exclude="*.qcow2")
+      fi
     fi
+    # check for exclusions
+    if omv_isuuid "${uuid}"; then
+      exclusions="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/excludes")"
+      if [ -n "${exclusions}" ]; then
+        IFS=',' read -r -a exclude_array <<< "${exclusions}"
+        for item in "${exclude_array[@]}"; do
+          _log "exclude: ${item}"
+          args+=(--exclude="${item}")
+        done
+      fi
+    fi
+    # add volume list entry
+    echo "${i},${hostpath}" >> "${vollist}"
+    seen_paths["${norm}"]=1
+    # rsync
+    rsync "${args[@]}" "${hostpath}" "${voldir}"
+    echo
   fi
-  # add volume list entry
-  echo "${i},${hostpath}" >> "${vollist}"
-  seen_paths["${norm}"]=1
-  # rsync
-  rsync "${args[@]}" "${hostpath}" "${voldir}"
-  echo
 done
 
 # remove extra directories from a previous backup
@@ -396,6 +620,12 @@ spaceused="${backupdir}/space.used"
 backupsize=$(du --summarize --bytes "${backupdir}" | awk '{ print $1 }')
 _log "Backup size :: ${backupsize} bytes"
 echo ${backupsize} > "${spaceused}"
+
+if [ "${backupbackend}" = "borg" ] && [ -n "${backup_ts_run}" ]; then
+  # Record repo size per snapshot timestamp (ts,repo_bytes,<bytes>)
+  # Use backupsize you already computed (or du on "${borgrepo}" if you prefer)
+  echo #"${backup_ts_run},repo_bytes,${backupsize}" >> "${vollisthist}"
+fi
 
 # remove temp files
 rm -f "${confout}" "${status}"

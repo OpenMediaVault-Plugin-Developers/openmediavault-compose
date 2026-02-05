@@ -3305,48 +3305,125 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     public function getRestoreList($params, $context)
     {
-        // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
-        // get backup list from list file
+
         $sfpath = $this->getBackupPath($context);
         $dirs = array_diff(scandir($sfpath), ["..", "."]);
         $objects = [];
-        foreach($dirs as $dir) {
+
+        foreach ($dirs as $dir) {
             $volList = sprintf("%s/%s/vol.list", $sfpath, $dir);
-            if (file_exists($volList)) {
-                $spaceUsed = sprintf("%s/%s/space.used", $sfpath, $dir);
-                $backupSize = -1;
-                if (file_exists($spaceUsed)) {
-                    $backupSize = file_get_contents($spaceUsed);
+            if (!file_exists($volList)) {
+                continue;
+            }
+
+            // Default size fallback (compose-level)
+            $spaceUsed = sprintf("%s/%s/space.used", $sfpath, $dir);
+            $backupSizeDefault = -1;
+            if (file_exists($spaceUsed)) {
+                $backupSizeDefault = (int) trim((string) file_get_contents($spaceUsed));
+            }
+
+            $history = sprintf("%s/%s/vol.list.history", $sfpath, $dir);
+            $timestamps = [];
+            $repoBytesByTs = [];
+
+            if (file_exists($history)) {
+                $lines = @file($history, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                if (is_array($lines) && count($lines) > 0) {
+
+                    $tsSet = [];
+
+                    foreach ($lines as $ln) {
+                        // Two supported formats:
+                        //  1) ts,volnum,borg,archive
+                        //  2) ts,repo_bytes,<bytes>
+                        $parts = explode(",", $ln);
+
+                        if (count($parts) >= 3 && trim($parts[1]) === "repo_bytes") {
+                            $ts = trim($parts[0]);
+                            $bytes = (int) trim($parts[2]);
+                            if ($ts !== "") {
+                                $repoBytesByTs[$ts] = $bytes;
+                            }
+                            continue;
+                        }
+
+                        if (count($parts) >= 4) {
+                            $ts = trim($parts[0]);
+                            $backend = trim($parts[2]);
+                            if ($ts === "" || $backend !== "borg") {
+                                continue;
+                            }
+                            $tsSet[$ts] = true;
+                        }
+                    }
+
+                    if (count($tsSet) > 0) {
+                        $timestamps = array_keys($tsSet);
+                        rsort($timestamps, SORT_STRING); // newest first
+                    }
                 }
+            }
+
+            if (count($timestamps) > 0) {
+                // History-driven list (prevents duplicate "latest" row)
+                $first = true;
+                foreach ($timestamps as $ts) {
+                    $display = str_replace("_", " ", $ts);
+                    $display = preg_replace('/(\d{2})-(\d{2})-(\d{2})$/', '$1:$2:$3', $display);
+
+                    $size = $backupSizeDefault;
+                    if (array_key_exists($ts, $repoBytesByTs)) {
+                        $size = $repoBytesByTs[$ts];
+                    }
+
+                    $objects[] = [
+                        'backup'     => $dir,
+                        'backupsize' => $size,
+                        'time'       => $display,
+                        'snapshot'   => $ts,
+                        'islatest'   => $first,
+                    ];
+                    $first = false;
+                }
+            } else {
+                // No usable history => legacy behavior
+                $latestTime = date("Y-m-d H:i:s", filemtime($volList));
                 $objects[] = [
-                    'backup' => $dir,
-                    'backupsize' => $backupSize,
-                    'time' => date("Y-m-d H:i:s", filemtime($volList))
+                    'backup'     => $dir,
+                    'backupsize' => $backupSizeDefault,
+                    'time'       => $latestTime,
+                    'snapshot'   => '',     // empty = latest
+                    'islatest'   => true,
                 ];
             }
         }
-        return ($objects);
+
+        return $objects;
     }
 
     public function doRestore($params, $context)
     {
-        // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params) {
-                $cmdArgs = [];
-                $cmdArgs[] = '/usr/sbin/omv-compose-restore';
-                $cmdArgs[] = sprintf("'%s'", $params['backup']);
-                $cmd = new \OMV\System\Process($cmdArgs);
-                $cmd->setRedirect2to1();
-                $cmdLine = $cmd->getCommandLine();
-                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
-                    throw new \OMV\ExecException($cmdLine, $output);
-                }
-                return $output;
+          use ($params) {
+            $cmdArgs = [];
+            $cmdArgs[] = '/usr/sbin/omv-compose-restore';
+            $cmdArgs[] = sprintf("'%s'", $params['backup']);
+            if (!empty($params['time'])) {
+                $ts = str_replace(" ", "_", $params['time']);
+                $ts = str_replace(":", "-", $ts);
+                $cmdArgs[] = sprintf("--at '%s'", $ts);
             }
-        );
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->setRedirect2to1();
+            $cmdLine = $cmd->getCommandLine();
+            if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                throw new \OMV\ExecException($cmdLine, $output);
+            }
+            return $output;
+        });
     }
 
     public function restoreGlobalEnv($params, $context)

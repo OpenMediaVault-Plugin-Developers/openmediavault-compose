@@ -96,6 +96,14 @@ data:
           patternType: integer
           required: true
         hint: _("Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 for unlimited.")
+      - type: select
+        name: backupbackend
+        label: _("Backend")
+        value: "rsync"
+        store:
+          data:
+            - "borg"
+            - "rsync"
       - type: divider
         title: _("Docker config")
       - type: checkbox

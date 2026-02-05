@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 1.0.3
+# version: 1.1.0
 
 . /usr/share/openmediavault/scripts/helper-functions
 
@@ -30,6 +30,21 @@ if [ -z "${compose}" ]; then
   exit 10
 fi
 _log "compose :: ${compose}"
+
+# Optional: restore borg archives from a specific snapshot timestamp (YYYY-MM-DD_HH-MM-SS)
+snapshot_at=""
+shift || true
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --at)
+      snapshot_at="$2"
+      shift 2 || true
+      ;;
+    *)
+      shift || true
+      ;;
+  esac
+done
 
 # Get docker storage path
 dockerStorage=$(omv_config_get "/config/services/compose/dockerStorage")
@@ -73,6 +88,9 @@ fi
 backuppath="${backuppath/%\/}"
 _log "Backup path :: ${backuppath}"
 
+if [ -n "${snapshot_at}" ]; then
+  _log "Snapshot timestamp :: ${snapshot_at}"
+fi
 # set path for yml and env files
 composepath="${sfpath}/${compose}"
 env="${composepath}/${compose}.env"
@@ -115,25 +133,82 @@ _log "path :: ${path}"
 echo
 vollist="${path}/vol.list"
 if [ -f "${vollist}" ]; then
-  while read -r line; do
-    volnum="${line%%,*}"
-    volpath="${line#*,}"
-    args=(-avr)
-    if [[ ! "${volpath}" == */ ]]; then
-      volpath="$(dirname "${volpath}")"
-    else
-      args+=(--delete)
-    fi
-    src="${path}/${volnum}/"
+  borgrepo="${path}/borgrepo"
+  # If --at is set, load per-volnum archive selection from vol.list.history
+  declare -A hist_archive=()
+  if [ -n "${snapshot_at}" ] && [ -f "${path}/vol.list.history" ]; then
+    while IFS=',' read -r ts hvol backend_h harch; do
+      [ -z "${ts}" ] && continue
+      [ "${ts}" = "${snapshot_at}" ] || continue
+      [ "${backend_h}" = "borg" ] || continue
+      hist_archive["${hvol}"]="${harch}"
+    done < "${path}/vol.list.history"
+    _log "Snapshot requested :: ${snapshot_at}"
+  fi
+  while IFS=',' read -r volnum volpath backend archive; do
+    # skip empty lines
+    [ -z "${volnum}" ] && continue
+
+    # compose files (directory 0) keep original behavior
     if [ ${volnum} -eq 0 ]; then
+      if [[ ! "${volpath}" == */ ]]; then
+        volpath="$(dirname "${volpath}")"
+      fi
+      src="${path}/${volnum}/"
       volpath="${volpath}/${compose}/"
       volpath="${volpath//\/\//\/}"
-    fi
-    _log "Source :: ${src}"
-    _log "Dest :: ${volpath}"
-    if [ ${volnum} -eq 0 ]; then
+      _log "Source :: ${src}"
+      _log "Dest :: ${volpath}"
       cp -v "${src}/${compose}.yml" "${src}/compose.override.yml" "${src}/${compose}.env" "${volpath}"
+      continue
+    fi
+
+    # If vol.list includes extended borg fields: volnum,path,borg,archive
+    if [ "${backend}" = "borg" ]; then
+      if [ ! -d "${borgrepo}" ]; then
+        _log "Borg repo not found :: ${borgrepo}. Exiting..."
+        exit 16
+      fi
+
+      # Restore destination path behavior mirrors original rsync branch:
+      # - for files (no trailing / in vol.list), restore into dirname()
+      # - for dirs (trailing /), restore the directory itself.
+      dest_raw="${volpath}"
+      if [[ ! "${dest_raw}" == */ ]]; then
+        dest_dir="$(dirname "${dest_raw}")"
+        item="$(basename "${dest_raw}")"
+        # mimic rsync overwriting a single file by removing it first
+        rm -f -- "${dest_dir}/${item}"
+      else
+        dest_target="${dest_raw%/}"
+        dest_dir="$(dirname "${dest_target}")"
+        item="$(basename "${dest_target}")"
+        # Ensure delete behavior similar to rsync --delete by removing the target first
+        rm -rf -- "${dest_target}"
+      fi
+      mkdir -p -- "${dest_dir}"
+
+      _log "Borg repo :: ${borgrepo}"
+      if [ -n "${snapshot_at}" ] && [ -n "${hist_archive[${volnum}]}" ]; then
+        archive="${hist_archive[${volnum}]}"
+      fi
+      _log "Borg archive :: ${archive}"
+      _log "Dest :: ${dest_dir}"
+      (
+        cd -- "${dest_dir}" || exit 1
+        borg extract "${borgrepo}::${archive}"
+      )
     else
+      # rsync restore
+      args=(-avr)
+      if [[ ! "${volpath}" == */ ]]; then
+        volpath="$(dirname "${volpath}")"
+      else
+        args+=(--delete)
+      fi
+      src="${path}/${volnum}/"
+      _log "Source :: ${src}"
+      _log "Dest :: ${volpath}"
       rsync "${args[@]}" "${src}" "${volpath}"
     fi
   done < "${vollist}"

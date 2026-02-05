@@ -63,6 +63,14 @@
           "type": "integer",
           "required": true
         },
+        "backupbackend": {
+          "type": "string",
+          "enum": [
+            "borg",
+            "rsync"
+          ],
+          "required": true
+        },
         "dockerStorage": {
           "type": "string",
           "required": false

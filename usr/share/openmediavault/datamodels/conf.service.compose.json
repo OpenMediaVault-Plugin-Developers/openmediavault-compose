@@ -68,6 +68,14 @@
       "maximum": 65535,
       "default": 1
     },
+    "backupbackend": {
+      "type": "string",
+      "enum": [
+        "borg",
+        "rsync"
+      ],
+      "default": "rsync"
+    },
     "dockerStorage": {
       "type": "string",
       "default": "/var/lib/docker"
