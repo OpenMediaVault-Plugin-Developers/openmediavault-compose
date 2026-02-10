@@ -96,14 +96,32 @@ data:
           patternType: integer
           required: true
         hint: _("Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 for unlimited.")
-      - type: select
-        name: backupbackend
-        label: _("Backend")
-        value: "rsync"
-        store:
-          data:
-            - "borg"
-            - "rsync"
+      - type: container
+        fields:
+          - type: select
+            name: backupbackend
+            label: _("Backend")
+            value: "rsync"
+            store:
+              data:
+                - "borg"
+                - "rsync"
+          - type: numberInput
+            name: borgkeep
+            label: _("Borg keep")
+            value: 7
+            validators:
+              min: 0
+              max: 999
+              patternType: integer
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: eq
+                  arg0:
+                    prop: backupbackend
+                  arg1: "borg"
+            hint: _("Number of Borg backups to keep.")
       - type: divider
         title: _("Docker config")
       - type: checkbox

@@ -189,6 +189,7 @@ _log "uuid :: ${uuid}"
 
 # Backup backend
 backupbackend="$(omv_config_get "/config/services/compose/backupbackend")"
+borg_keep="$(omv_config_get "/config/services/compose/borgkeep")"
 _log "Backup backend :: ${backupbackend}"
 
 # Borg settings
@@ -196,12 +197,15 @@ export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
 borg_encryption="${OMV_COMPOSE_BORG_ENCRYPTION:-none}"
 borg_compression="${OMV_COMPOSE_BORG_COMPRESSION:-zstd,6}"
 borg_extra_args="${OMV_COMPOSE_BORG_EXTRA_ARGS:-}"
-borg_keep="${OMV_COMPOSE_BORG_KEEP:-7}"
 
 # Use a single timestamp for the whole run when borg is enabled so snapshots group cleanly.
 backup_ts_run=""
 if [ "${backupbackend}" = "borg" ]; then
   backup_ts_run="$(date +'%Y-%m-%d_%H-%M-%S')"
+  _log "Borg keep :: ${borg_keep}"
+  _log "Borg encryption :: ${borg_encryption}"
+  _log "Borg compression :: ${borg_compression}"
+  _log "Borg extra args :: ${borg_extra_args}"
 fi
 
 # Get docker storage path

@@ -71,6 +71,10 @@
           ],
           "required": true
         },
+        "borgkeep": {
+          "type": "integer",
+          "required": true
+        },
         "dockerStorage": {
           "type": "string",
           "required": false
