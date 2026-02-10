@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 23:27+0000\n"
+"POT-Creation-Date: 2026-02-10 23:30+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Language-Team: Dutch (Belgium) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl_BE/)\n"
 "MIME-Version: 1.0\n"
@@ -91,6 +91,9 @@ msgstr ""
 msgid "Available"
 msgstr ""
 
+msgid "Backend"
+msgstr ""
+
 msgid "Backup"
 msgstr ""
 
@@ -104,6 +107,9 @@ msgid "Block Out"
 msgstr ""
 
 msgid "Body"
+msgstr ""
+
+msgid "Borg keep"
 msgstr ""
 
 msgid "Build"
@@ -448,6 +454,9 @@ msgstr ""
 msgid "Installed"
 msgstr ""
 
+msgid "Internal network"
+msgstr ""
+
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
 
@@ -539,6 +548,9 @@ msgid "No name specified!"
 msgstr ""
 
 msgid "Not installed"
+msgstr ""
+
+msgid "Number of Borg backups to keep."
 msgstr ""
 
 msgid ""
@@ -667,6 +679,11 @@ msgid "Restore global.env"
 msgstr ""
 
 msgid "Restoring global.env from backup ..."
+msgstr ""
+
+msgid ""
+"Restrict external access. Containers can talk to each other, but the network"
+" is not reachable from outside the host."
 msgstr ""
 
 msgid "Run"

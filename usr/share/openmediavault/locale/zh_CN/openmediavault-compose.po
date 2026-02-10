@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 23:27+0000\n"
+"POT-Creation-Date: 2026-02-10 23:30+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2025\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -95,6 +95,9 @@ msgstr "排除地址"
 msgid "Available"
 msgstr "可用"
 
+msgid "Backend"
+msgstr ""
+
 msgid "Backup"
 msgstr "备份"
 
@@ -109,6 +112,9 @@ msgstr "Block Out"
 
 msgid "Body"
 msgstr "Body"
+
+msgid "Borg keep"
+msgstr ""
 
 msgid "Build"
 msgstr "构建"
@@ -454,6 +460,9 @@ msgstr "检查"
 msgid "Installed"
 msgstr "已安装"
 
+msgid "Internal network"
+msgstr ""
+
 msgid "Keep containers running across Docker daemon updates"
 msgstr "在 Docker 守护进程升级时保持容器运行"
 
@@ -546,6 +555,9 @@ msgstr "未指定名称！"
 
 msgid "Not installed"
 msgstr "未安装"
+
+msgid "Number of Borg backups to keep."
+msgstr ""
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -678,6 +690,11 @@ msgstr "恢复 global.env"
 
 msgid "Restoring global.env from backup ..."
 msgstr "从备份恢复 global.env 中..."
+
+msgid ""
+"Restrict external access. Containers can talk to each other, but the network"
+" is not reachable from outside the host."
+msgstr ""
 
 msgid "Run"
 msgstr "运行"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 23:27+0000\n"
+"POT-Creation-Date: 2026-02-10 23:30+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2026\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -97,6 +97,9 @@ msgstr "Aux address"
 msgid "Available"
 msgstr "Available"
 
+msgid "Backend"
+msgstr ""
+
 msgid "Backup"
 msgstr "Backup"
 
@@ -111,6 +114,9 @@ msgstr "Block Out"
 
 msgid "Body"
 msgstr "Body"
+
+msgid "Borg keep"
+msgstr ""
 
 msgid "Build"
 msgstr "Build"
@@ -275,10 +281,10 @@ msgid "Delete backup ..."
 msgstr "Delete backup ..."
 
 msgid "Delete complete."
-msgstr ""
+msgstr "Delete complete."
 
 msgid "Deleting images ..."
-msgstr ""
+msgstr "Deleting images ..."
 
 msgid "Description"
 msgstr "Description"
@@ -461,6 +467,9 @@ msgstr "Inspect"
 msgid "Installed"
 msgstr "Installed"
 
+msgid "Internal network"
+msgstr ""
+
 msgid "Keep containers running across Docker daemon updates"
 msgstr "Keep containers running across Docker daemon updates"
 
@@ -553,6 +562,9 @@ msgstr "No name specified!"
 
 msgid "Not installed"
 msgstr "Not installed"
+
+msgid "Number of Borg backups to keep."
+msgstr ""
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -655,10 +667,10 @@ msgid "Pull and Build ..."
 msgstr "Pull and Build ..."
 
 msgid "Pull complete."
-msgstr ""
+msgstr "Pull complete."
 
 msgid "Pulling images ..."
-msgstr ""
+msgstr "Pulling images ..."
 
 msgid "Push"
 msgstr "Push"
@@ -695,6 +707,11 @@ msgstr "Restore global.env"
 
 msgid "Restoring global.env from backup ..."
 msgstr "Restoring global.env from backup ..."
+
+msgid ""
+"Restrict external access. Containers can talk to each other, but the network"
+" is not reachable from outside the host."
+msgstr ""
 
 msgid "Run"
 msgstr "Run"
@@ -1033,7 +1050,7 @@ msgid "pull image+tag"
 msgstr "pull image+tag"
 
 msgid "pull multiple image"
-msgstr ""
+msgstr "pull multiple image"
 
 msgid "restart"
 msgstr "restart"

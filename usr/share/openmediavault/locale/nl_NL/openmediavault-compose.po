@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Stephan Paternotte <stephan@paternottes.net>, 2025
+# Stephan Paternotte <stephan@paternottes.net>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 23:27+0000\n"
+"POT-Creation-Date: 2026-02-10 23:30+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2025\n"
+"Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -107,6 +107,9 @@ msgstr "Alt. adres"
 msgid "Available"
 msgstr "Beschikbaar"
 
+msgid "Backend"
+msgstr "Back-end"
+
 msgid "Backup"
 msgstr "Back-up"
 
@@ -123,6 +126,9 @@ msgstr "Block Out"
 
 msgid "Body"
 msgstr "Body"
+
+msgid "Borg keep"
+msgstr ""
 
 msgid "Build"
 msgstr "Build"
@@ -294,10 +300,10 @@ msgid "Delete backup ..."
 msgstr "Back-up verwijderen…"
 
 msgid "Delete complete."
-msgstr ""
+msgstr "Verwijdering voltooid."
 
 msgid "Deleting images ..."
-msgstr ""
+msgstr "Images verwijderen…"
 
 msgid "Description"
 msgstr "Beschrijving"
@@ -481,6 +487,9 @@ msgstr "Inspecteren"
 msgid "Installed"
 msgstr "Geïnstalleerd"
 
+msgid "Internal network"
+msgstr "Intern netwerk"
+
 msgid "Keep containers running across Docker daemon updates"
 msgstr "Houd containers actief tijdens Docker-daemon-updates"
 
@@ -573,6 +582,9 @@ msgstr "Geen naam opgegeven!"
 
 msgid "Not installed"
 msgstr "Niet geïnstalleerd"
+
+msgid "Number of Borg backups to keep."
+msgstr ""
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -678,10 +690,10 @@ msgid "Pull and Build ..."
 msgstr "Pull and Build…"
 
 msgid "Pull complete."
-msgstr ""
+msgstr "Pull voltooid."
 
 msgid "Pulling images ..."
-msgstr ""
+msgstr "Pull images…"
 
 msgid "Push"
 msgstr "Push"
@@ -718,6 +730,13 @@ msgstr "Global.env herstellen"
 
 msgid "Restoring global.env from backup ..."
 msgstr "Global.env herstellen van back-up…"
+
+msgid ""
+"Restrict external access. Containers can talk to each other, but the network"
+" is not reachable from outside the host."
+msgstr ""
+"Externe toegang beperken. Containers kunnen met elkaar communiceren, maar "
+"het netwerk is van buitenaf niet bereikbaar vanaf de host."
 
 msgid "Run"
 msgstr "Uitvoeren"
@@ -1062,7 +1081,7 @@ msgid "pull image+tag"
 msgstr "pull image+tag"
 
 msgid "pull multiple image"
-msgstr ""
+msgstr "Pull meerdere images"
 
 msgid "restart"
 msgstr "restart"

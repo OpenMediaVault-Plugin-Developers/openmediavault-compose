@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# kochin <kochinc@outlook.com>, 2025
+# kochin <kochinc@outlook.com>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-21 23:27+0000\n"
+"POT-Creation-Date: 2026-02-10 23:30+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: kochin <kochinc@outlook.com>, 2025\n"
+"Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,6 +95,9 @@ msgstr "輔助地址"
 msgid "Available"
 msgstr "可用"
 
+msgid "Backend"
+msgstr ""
+
 msgid "Backup"
 msgstr "備份"
 
@@ -109,6 +112,9 @@ msgstr "區塊寫出"
 
 msgid "Body"
 msgstr "內容主體"
+
+msgid "Borg keep"
+msgstr ""
 
 msgid "Build"
 msgstr "建構"
@@ -270,10 +276,10 @@ msgid "Delete backup ..."
 msgstr "刪除備份 ..."
 
 msgid "Delete complete."
-msgstr ""
+msgstr "删除完畢。"
 
 msgid "Deleting images ..."
-msgstr ""
+msgstr "删除映像中 ..."
 
 msgid "Description"
 msgstr "敘述"
@@ -455,6 +461,9 @@ msgstr "檢驗"
 msgid "Installed"
 msgstr "已被安裝"
 
+msgid "Internal network"
+msgstr ""
+
 msgid "Keep containers running across Docker daemon updates"
 msgstr "在 Docker 常駐程式更新期間保持容器運行"
 
@@ -547,6 +556,9 @@ msgstr "未指定名稱！"
 
 msgid "Not installed"
 msgstr "未被安裝"
+
+msgid "Number of Borg backups to keep."
+msgstr ""
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -641,10 +653,10 @@ msgid "Pull and Build ..."
 msgstr "拉取並建構 ..."
 
 msgid "Pull complete."
-msgstr ""
+msgstr "拉取完畢。"
 
 msgid "Pulling images ..."
-msgstr ""
+msgstr "拉取映像中 ..."
 
 msgid "Push"
 msgstr "推送"
@@ -681,6 +693,11 @@ msgstr "復原 global.env"
 
 msgid "Restoring global.env from backup ..."
 msgstr "從備份復原 global.env 中 ..."
+
+msgid ""
+"Restrict external access. Containers can talk to each other, but the network"
+" is not reachable from outside the host."
+msgstr ""
 
 msgid "Run"
 msgstr "執行"
@@ -1010,7 +1027,7 @@ msgid "pull image+tag"
 msgstr "拉取映像+標籤"
 
 msgid "pull multiple image"
-msgstr ""
+msgstr "拉取多個映像"
 
 msgid "restart"
 msgstr "重啟"
