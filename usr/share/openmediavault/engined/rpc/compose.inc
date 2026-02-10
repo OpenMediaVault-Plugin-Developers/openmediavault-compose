@@ -3039,12 +3039,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // clear cache for networks
         $this->clearCache('networks');
         $driver = $params['driver'];
+        $internal = !empty($params['internal']);
         // Get networks
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'network';
         $cmdArgs[] = 'create';
         $cmdArgs[] = sprintf("--driver %s", $driver);
+        if ($internal && in_array($driver, ['bridge', 'overlay'], true)) {
+            $cmdArgs[] = '--internal';
+        }
         if ($driver == 'macvlan') {
             $cmdArgs[] = sprintf("--opt parent=%s", $params['parentnetwork']);
         }

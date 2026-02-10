@@ -43,6 +43,18 @@ data:
               arg0:
                 prop: driver
               arg1: "macvlan"
+      - type: checkbox
+        name: internal
+        label: _("Internal network")
+        value: false
+        hint: _("Restrict external access. Containers can talk to each other, but the network is not reachable from outside the host.")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: in
+              arg0:
+                prop: driver
+              arg1: ["bridge","overlay"]
       - type: container
         fields:
           - type: textInput
