@@ -1,3 +1,9 @@
+openmediavault-compose (8.1.4) UNRELEASED; urgency=medium
+
+  * Add borg encryption option to backup settings
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 15 Feb 2026 20:08:55 +0000
+
 openmediavault-compose (8.1.3) stable; urgency=low
 
   * add borgbackup backend option to backup/restore
