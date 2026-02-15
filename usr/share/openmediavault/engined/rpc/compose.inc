@@ -503,7 +503,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmd = new \OMV\System\Process($cmdLine);
         $cmd->setQuiet(true);
         $cmd->execute($output2, $exitStatus);
-        var_dump($output2);
         if (!empty($output)) {
             // Get docker service status
             $svc = $podman ? 'podman.socket' : 'docker';
@@ -2243,7 +2242,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $command = $container->Command;
                 $network = $container->Networks;
             }
-            var_dump($container);
             $cntAssoc[] = [
                 "id"      => $id,
                 "name"    => $name,
@@ -3539,7 +3537,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             'cstate' => ['backup', 'update', 'prune', 'filebuild', 'filepull', 'filenocache'],
             'cbuild' => ['backup', 'update', 'prune', 'filestart', 'filestop'],
         ];
-        var_dump($params);
         foreach ($disableMap as $mode => $disableKeys) {
             if ($params[$mode]) {
                 foreach ($disableKeys as $k) {
@@ -3548,7 +3545,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 break;
             }
         }
-        var_dump($params);
         // remove mode flags
         unset($params['maintenance'], $params['cstate'], $params['cbuild']);
         // Require at least one action
