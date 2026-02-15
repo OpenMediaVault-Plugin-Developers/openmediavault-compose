@@ -194,7 +194,11 @@ _log "Backup backend :: ${backupbackend}"
 
 # Borg settings
 export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
-borg_encryption="${OMV_COMPOSE_BORG_ENCRYPTION:-none}"
+borg_encryption="$(omv_config_get "/config/services/compose/borgencryption")"
+borg_passphrase="$(omv_config_get "/config/services/compose/borgpassphrase")"
+if [ "${borg_encryption}" != "none" ] && [ -n "${borg_passphrase}" ]; then
+  export BORG_PASSPHRASE="${borg_passphrase}"
+fi
 borg_compression="${OMV_COMPOSE_BORG_COMPRESSION:-zstd,6}"
 borg_extra_args="${OMV_COMPOSE_BORG_EXTRA_ARGS:-}"
 

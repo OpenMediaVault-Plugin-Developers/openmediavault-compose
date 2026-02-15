@@ -75,6 +75,18 @@
           "type": "integer",
           "required": true
         },
+        "borgencryption": {
+          "type": "string",
+          "enum": [
+            "none",
+            "repokey"
+          ],
+          "required": true
+        },
+        "borgpassphrase": {
+          "type": "string",
+          "required": true
+        },
         "dockerStorage": {
           "type": "string",
           "required": false

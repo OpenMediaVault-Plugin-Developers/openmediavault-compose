@@ -47,6 +47,8 @@ if ! omv_config_exists "/config/services/compose"; then
   omv_config_add_key "/config/services/compose" "backupmaxsize" "1"
   omv_config_add_key "/config/services/compose" "backupbackend" "rsync"
   omv_config_add_key "/config/services/compose" "borgkeep" "7"
+  omv_config_add_key "/config/services/compose" "borgencryption" "none"
+  omv_config_add_key "/config/services/compose" "borgpassphrase" ""
   omv_config_add_key "/config/services/compose" "dockerStorage" "${dockerPath}"
   omv_config_add_key "/config/services/compose" "dockersharedfolderref" ""
   omv_config_add_key "/config/services/compose" "logmaxsize" "50"

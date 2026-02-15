@@ -82,6 +82,18 @@
       "maximum": 999,
       "default": 7
     },
+    "borgencryption": {
+      "type": "string",
+      "enum": [
+        "none",
+        "repokey"
+      ],
+      "default": "none"
+    },
+    "borgpassphrase": {
+      "type": "string",
+      "default": ""
+    },
     "dockerStorage": {
       "type": "string",
       "default": "/var/lib/docker"

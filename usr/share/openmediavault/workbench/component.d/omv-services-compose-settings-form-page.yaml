@@ -122,6 +122,43 @@ data:
                     prop: backupbackend
                   arg1: "borg"
             hint: _("Number of Borg backups to keep.")
+          - type: select
+            name: borgencryption
+            label: _("Borg encryption")
+            value: "none"
+            store:
+              data:
+                - - "none"
+                  - _("None")
+                - - "repokey"
+                  - _("repokey")
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: eq
+                  arg0:
+                    prop: backupbackend
+                  arg1: "borg"
+            hint: _("Encryption mode for Borg repository. Changing this requires re-initializing the repo.")
+          - type: passwordInput
+            name: borgpassphrase
+            label: _("Borg passphrase")
+            value: ""
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: and
+                  arg0:
+                    operator: eq
+                    arg0:
+                      prop: backupbackend
+                    arg1: "borg"
+                  arg1:
+                    operator: ne
+                    arg0:
+                      prop: borgencryption
+                    arg1: "none"
+            hint: _("Passphrase for Borg encryption.")
       - type: divider
         title: _("Docker config")
       - type: checkbox

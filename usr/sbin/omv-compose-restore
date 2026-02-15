@@ -59,6 +59,14 @@ else
   unset DOCKER_HOST
 fi
 
+# Borg settings
+export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
+borg_encryption="$(omv_config_get "/config/services/compose/borgencryption")"
+borg_passphrase="$(omv_config_get "/config/services/compose/borgpassphrase")"
+if [ "${borg_encryption}" != "none" ] && [ -n "${borg_passphrase}" ]; then
+  export BORG_PASSPHRASE="${borg_passphrase}"
+fi
+
 # Get the shared folder reference and path
 sfref=$(omv_config_get "/config/services/compose/sharedfolderref")
 if ! omv_isuuid "${sfref}"; then
