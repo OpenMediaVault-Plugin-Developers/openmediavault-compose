@@ -1,6 +1,10 @@
 openmediavault-compose (8.1.4) UNRELEASED; urgency=medium
 
   * Add borg encryption option to backup settings
+  * Add command line script to sync files to the database
+  * Add automatic symlink creation for compose.yml and .env
+    pointing to stack-specific name.yml and name.env files
+    to improve CLI compatibility and tool integration.
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 15 Feb 2026 20:08:55 +0000
 

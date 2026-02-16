@@ -134,8 +134,10 @@
 {% for file in config.files.file %}
 {% set composeDir = sfpath ~ '/' ~ file.name %}
 {% set composeFile = composeDir ~ '/' ~ file.name ~ '.yml' %}
+{% set composeSymlink = composeDir ~ '/compose.yml' %}
 {% set overrideFile = composeDir ~ '/compose.override.yml' %}
 {% set envFile = composeDir ~ '/' ~ file.name ~ '.env' %}
+{% set envSymlink = composeDir ~ '/.env' %}
 
 configure_compose_file_dir_{{ file.name }}:
   file.directory:
@@ -159,6 +161,11 @@ configure_compose_{{ file.name }}_file:
     - user: "{{ config.composeowner }}"
     - group: "{{ config.composegroup }}"
     - mode: "{{ config.fileperms }}"
+
+configure_compose_{{ file.name }}_symlink:
+  file.symlink:
+    - name: '{{ composeSymlink }}'
+    - target: '{{ composeFile }}'
 
 {% set file_override = render_body(file.override, file.name, datapath) %}
 configure_compose_{{ file.name }}_override:
@@ -189,6 +196,11 @@ configure_compose_env_{{ file.name }}_file:
     - user: "{{ config.composeowner }}"
     - group: "{{ config.composegroup }}"
     - mode: "{{ config.fileperms }}"
+
+configure_compose_env_{{ file.name }}_symlink:
+  file.symlink:
+    - name: '{{ envSymlink }}'
+    - target: '{{ envFile }}'
 
 {%- for cnf in config.configs.config | selectattr("fileref", "equalto", file.uuid) %}
 
