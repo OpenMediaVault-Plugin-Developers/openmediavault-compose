@@ -96,7 +96,7 @@ msgid "Available"
 msgstr "可用"
 
 msgid "Backend"
-msgstr ""
+msgstr "後端"
 
 msgid "Backup"
 msgstr "備份"
@@ -114,7 +114,7 @@ msgid "Body"
 msgstr "內容主體"
 
 msgid "Borg keep"
-msgstr ""
+msgstr "Borg 保留"
 
 msgid "Build"
 msgstr "建構"
@@ -462,7 +462,7 @@ msgid "Installed"
 msgstr "已被安裝"
 
 msgid "Internal network"
-msgstr ""
+msgstr "内部網路"
 
 msgid "Keep containers running across Docker daemon updates"
 msgstr "在 Docker 常駐程式更新期間保持容器運行"
@@ -558,7 +558,7 @@ msgid "Not installed"
 msgstr "未被安裝"
 
 msgid "Number of Borg backups to keep."
-msgstr ""
+msgstr "要保留的 Borg 備份數目。"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -697,7 +697,7 @@ msgstr "從備份復原 global.env 中 ..."
 msgid ""
 "Restrict external access. Containers can talk to each other, but the network"
 " is not reachable from outside the host."
-msgstr ""
+msgstr "限制外部存取。容器之間可以相互對話，但無法從主機外部進入網路。"
 
 msgid "Run"
 msgstr "執行"

@@ -128,7 +128,7 @@ msgid "Body"
 msgstr "Body"
 
 msgid "Borg keep"
-msgstr ""
+msgstr "Borg behouden"
 
 msgid "Build"
 msgstr "Build"
@@ -584,7 +584,7 @@ msgid "Not installed"
 msgstr "Niet geïnstalleerd"
 
 msgid "Number of Borg backups to keep."
-msgstr ""
+msgstr "Aantal te behouden Borg back-ups."
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
