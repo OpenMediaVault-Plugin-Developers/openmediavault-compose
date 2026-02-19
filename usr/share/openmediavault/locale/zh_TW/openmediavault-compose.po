@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 23:30+0000\n"
+"POT-Creation-Date: 2026-02-19 22:32+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -60,6 +60,17 @@ msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 無法取用"
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 唯讀"
 
+msgid "Always attempt to pull a newer version of the image"
+msgstr ""
+
+msgid ""
+"An email message with the command output (if any produced) is send to the "
+"user who performs the job."
+msgstr ""
+
+msgid "April"
+msgstr ""
+
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
@@ -86,6 +97,12 @@ msgstr "您確定要停止全部的容器嗎？"
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "您確定要從檔案同步變更嗎？"
 
+msgid "At reboot"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "自動compose"
 
@@ -101,6 +118,12 @@ msgstr "後端"
 msgid "Backup"
 msgstr "備份"
 
+msgid "Backup Time"
+msgstr ""
+
+msgid "Backup container data."
+msgstr ""
+
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr "備份的共享檔案夾必須不同於 docker 的共享檔案夾"
 
@@ -113,8 +136,14 @@ msgstr "區塊寫出"
 msgid "Body"
 msgstr "內容主體"
 
+msgid "Borg encryption"
+msgstr ""
+
 msgid "Borg keep"
 msgstr "Borg 保留"
+
+msgid "Borg passphrase"
+msgstr ""
 
 msgid "Build"
 msgstr "建構"
@@ -130,6 +159,9 @@ msgstr "內存已經被清理。"
 
 msgid "Cache times for tabs"
 msgstr "分頁的內存時限"
+
+msgid "Certain date"
+msgstr ""
 
 msgid "Changes have been synced from file."
 msgstr "變更已經從檔案同步進來。"
@@ -154,6 +186,9 @@ msgstr "清理內存中 …"
 
 msgid "Command"
 msgstr "指令"
+
+msgid "Comment"
+msgstr ""
 
 msgid "Compose"
 msgstr "Compose"
@@ -260,6 +295,15 @@ msgstr "已建立預訂工作。"
 msgid "Current"
 msgstr "目前"
 
+msgid "Current repository"
+msgstr ""
+
+msgid "Current tag"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid "Data"
 msgstr "資料"
 
@@ -268,6 +312,15 @@ msgstr "資料檔案的共享檔案夾必須不同於 docker 的共享檔案夾"
 
 msgid "Date & Time"
 msgstr "日期與時間"
+
+msgid "Day of month"
+msgstr ""
+
+msgid "Day of week"
+msgstr ""
+
+msgid "December"
+msgstr ""
 
 msgid "Delete"
 msgstr "刪除"
@@ -298,6 +351,9 @@ msgstr "以網格顯示關於容器的資訊。"
 
 msgid "Displays information about containers in a table."
 msgstr "以表格顯示關於容器的資訊。"
+
+msgid "Do not use cache when building the image"
+msgstr ""
 
 msgid "Docker config"
 msgstr "Docker 配置"
@@ -368,11 +424,28 @@ msgstr "啟用 Docker 影像庫"
 msgid "Enable Docker repo ..."
 msgstr "啟用 Docker 影像庫 ..."
 
+msgid "Enabled"
+msgstr ""
+
+msgid ""
+"Encryption mode for Borg repository. Changing this requires re-initializing "
+"the repo."
+msgstr ""
+
 msgid "Env Path"
 msgstr "Env 路徑"
 
 msgid "Environment"
 msgstr "環境"
+
+msgid "Every N day of month"
+msgstr ""
+
+msgid "Every N hour"
+msgstr ""
+
+msgid "Every N minute"
+msgstr ""
 
 msgid "Everyone - read/write"
 msgstr "全員 - 讀/寫"
@@ -389,11 +462,17 @@ msgstr "執行預訂工作 …"
 msgid "Failed"
 msgstr "失敗"
 
+msgid "February"
+msgstr ""
+
 msgid "File"
 msgstr "檔案"
 
 msgid "File date"
 msgstr "檔案日期"
+
+msgid "File excludes"
+msgstr ""
 
 msgid "Filename"
 msgstr "檔案名稱"
@@ -410,6 +489,9 @@ msgid ""
 msgstr ""
 "格式為 name=ip。多個項目則以逗號分開。<br/>例如：my-router=192.168.10.5,my-nas=192.168.20.6"
 
+msgid "Friday"
+msgstr ""
+
 msgid "Gateway"
 msgstr "閘道器"
 
@@ -422,14 +504,26 @@ msgstr "全機環境變數"
 msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
 
+msgid "Hour"
+msgstr ""
+
+msgid "Hourly"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "IP 範圍"
 
+msgid "If checked, backup rsync command will include the verbose flag."
+msgstr ""
+
 msgid "Image"
 msgstr "映像"
+
+msgid "Image ID"
+msgstr ""
 
 msgid "Images"
 msgstr "映像"
@@ -463,6 +557,18 @@ msgstr "已被安裝"
 
 msgid "Internal network"
 msgstr "内部網路"
+
+msgid "Is Latest"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
 
 msgid "Keep containers running across Docker daemon updates"
 msgstr "在 Docker 常駐程式更新期間保持容器運行"
@@ -503,8 +609,14 @@ msgstr "登出"
 msgid "Maintenance"
 msgstr "維護"
 
+msgid "March"
+msgstr ""
+
 msgid "Max Size"
 msgstr "最大大小"
+
+msgid "May"
+msgstr ""
 
 msgid "Mem %"
 msgstr "記憶 %"
@@ -518,8 +630,20 @@ msgstr "記憶使用"
 msgid "Message"
 msgstr "訊息"
 
+msgid "Minute"
+msgstr ""
+
 msgid "Mixed"
 msgstr "混合"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Month"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
 
 msgid "Mountpoint"
 msgstr "掛載點"
@@ -548,17 +672,29 @@ msgstr "網路"
 msgid "No Image"
 msgstr "無映像"
 
+msgid "No cache"
+msgstr ""
+
 msgid "No compose file found!"
 msgstr "找不到 compose 檔案！"
 
 msgid "No name specified!"
 msgstr "未指定名稱！"
 
+msgid "None"
+msgstr ""
+
 msgid "Not installed"
 msgstr "未被安裝"
 
+msgid "November"
+msgstr ""
+
 msgid "Number of Borg backups to keep."
 msgstr "要保留的 Borg 備份數目。"
+
+msgid "October"
+msgstr ""
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -613,8 +749,20 @@ msgstr "PIDs"
 msgid "Parent network"
 msgstr "上層網路"
 
+msgid "Passphrase for Borg encryption."
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Path"
 msgstr "路徑"
+
+msgid "Path to script that will be executed after backup"
+msgstr ""
+
+msgid "Path to script that will be executed before backup"
+msgstr ""
 
 msgid "Permissions of directories and files"
 msgstr "目錄和檔案的權限"
@@ -634,6 +782,12 @@ msgstr "Podman 儲存庫"
 msgid "Ports"
 msgstr "連接埠"
 
+msgid "Post-backup script"
+msgstr ""
+
+msgid "Pre-backup script"
+msgstr ""
+
 msgid "Project"
 msgstr "專案"
 
@@ -645,6 +799,14 @@ msgstr "清理映象"
 
 msgid "Prune Images - all dangling"
 msgstr "清理映象 - 全部懸空映象"
+
+msgid ""
+"Prune all dangling images.<br/>Does not use filter. Will run docker image "
+"prune -f"
+msgstr ""
+
+msgid "Pull"
+msgstr ""
 
 msgid "Pull and Build"
 msgstr "拉取並建構"
@@ -705,6 +867,9 @@ msgstr "執行"
 msgid "Run config"
 msgstr "執行配置"
 
+msgid "Run docker compose build"
+msgstr ""
+
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr "當儲存檔案時，執行 docker compose 配置，以自動檢查語法"
@@ -712,8 +877,14 @@ msgstr "當儲存檔案時，執行 docker compose 配置，以自動檢查語�
 msgid "Running For"
 msgstr "運行時間"
 
+msgid "Saturday"
+msgstr ""
+
 msgid "Schedule"
 msgstr "預訂"
+
+msgid "Scheduling"
+msgstr ""
 
 msgid "Script"
 msgstr "腳本程式"
@@ -732,6 +903,12 @@ msgstr "選擇一個群組 …"
 
 msgid "Select a user ..."
 msgstr "選擇一個用戶 …"
+
+msgid "Send command output via email"
+msgstr ""
+
+msgid "September"
+msgstr ""
 
 msgid "Service"
 msgstr "服務"
@@ -772,6 +949,12 @@ msgstr "顯示置換"
 msgid "Size"
 msgstr "大小"
 
+msgid "Start"
+msgstr ""
+
+msgid "Start all compose files"
+msgstr ""
+
 msgid "State"
 msgstr "狀態"
 
@@ -781,11 +964,20 @@ msgstr "統計"
 msgid "Status"
 msgstr "狀況"
 
+msgid "Stop"
+msgstr ""
+
+msgid "Stop all compose files"
+msgstr ""
+
 msgid "Stopped"
 msgstr "已停止"
 
 msgid "Subnet"
 msgstr "子網路"
+
+msgid "Sunday"
+msgstr ""
 
 msgid "Sync changes from file"
 msgstr "從檔案同步變更"
@@ -801,6 +993,15 @@ msgstr "標籤"
 
 msgid "Tags"
 msgstr "標籤"
+
+msgid "Target repo"
+msgstr ""
+
+msgid "Target repository"
+msgstr ""
+
+msgid "Target tag"
+msgstr ""
 
 msgid "Terminal"
 msgstr "終端機"
@@ -832,8 +1033,17 @@ msgid ""
 "import any compose files that already exist in the plugin."
 msgstr "這將導入一個或多個位於子檔案夾中的 compose 檔案。<br/>它將不會導入任何已經存在於插件中的 compose 檔案。"
 
+msgid "Thursday"
+msgstr ""
+
+msgid "Time of execution"
+msgstr ""
+
 msgid "Tools"
 msgstr "工具"
+
+msgid "Tuesday"
+msgstr ""
 
 msgid "URL"
 msgstr "URL"
@@ -855,11 +1065,25 @@ msgstr "以秒為單位。<br/>設定為 0 則不使用內存。"
 msgid "Up"
 msgstr "起動"
 
+msgid "Update"
+msgstr ""
+
+msgid ""
+"Update all images in compose file. Will recreate containers after update if "
+"running.<br/>Update will always run after backup if backup is enabled."
+msgstr ""
+
 msgid "Uptime"
 msgstr "運作時間"
 
 msgid "Use podman"
 msgstr "使用 podman"
+
+msgid "Username"
+msgstr ""
+
+msgid "Verbose"
+msgstr ""
 
 msgid "Version"
 msgstr "版本"
@@ -872,6 +1096,15 @@ msgstr "儲存卷"
 
 msgid "Volumes"
 msgstr "儲存卷"
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Yearly"
+msgstr ""
 
 msgid "and not running"
 msgstr "且未執行中"
@@ -1028,6 +1261,9 @@ msgstr "拉取映像+標籤"
 
 msgid "pull multiple image"
 msgstr "拉取多個映像"
+
+msgid "repokey"
+msgstr ""
 
 msgid "restart"
 msgstr "重啟"

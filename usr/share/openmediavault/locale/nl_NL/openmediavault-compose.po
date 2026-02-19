@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 23:30+0000\n"
+"POT-Creation-Date: 2026-02-19 22:32+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -70,6 +70,17 @@ msgstr ""
 "Beheerder - lezen/schrijven, Gebruikers - lezen/schrijven, Anderen - alleen-"
 "lezen"
 
+msgid "Always attempt to pull a newer version of the image"
+msgstr ""
+
+msgid ""
+"An email message with the command output (if any produced) is send to the "
+"user who performs the job."
+msgstr ""
+
+msgid "April"
+msgstr ""
+
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
@@ -98,6 +109,12 @@ msgstr "Weet u zeker dat u alle containers wilt stoppen?"
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Weet u zeker dat u wijzigingen in de bestanden wilt synchroniseren?"
 
+msgid "At reboot"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "Autocompose"
 
@@ -113,6 +130,12 @@ msgstr "Back-end"
 msgid "Backup"
 msgstr "Back-up"
 
+msgid "Backup Time"
+msgstr ""
+
+msgid "Backup container data."
+msgstr ""
+
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 "De gedeelde map voor backup moet een andere zijn dan de gedeelde map voor "
@@ -127,8 +150,14 @@ msgstr "Block Out"
 msgid "Body"
 msgstr "Body"
 
+msgid "Borg encryption"
+msgstr ""
+
 msgid "Borg keep"
 msgstr "Borg behouden"
+
+msgid "Borg passphrase"
+msgstr ""
 
 msgid "Build"
 msgstr "Build"
@@ -144,6 +173,9 @@ msgstr "Cache is gewist."
 
 msgid "Cache times for tabs"
 msgstr "Cache-tijden voor tabs"
+
+msgid "Certain date"
+msgstr ""
 
 msgid "Changes have been synced from file."
 msgstr "Wijzigingen zijn gesynchroniseerd vanuit bestand."
@@ -171,6 +203,9 @@ msgstr "Cache wissen…"
 
 msgid "Command"
 msgstr "Opdracht"
+
+msgid "Comment"
+msgstr ""
 
 msgid "Compose"
 msgstr "Compose"
@@ -282,6 +317,15 @@ msgstr "Geplande taak aangemaakt."
 msgid "Current"
 msgstr "Huidig"
 
+msgid "Current repository"
+msgstr ""
+
+msgid "Current tag"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid "Data"
 msgstr "Gegevens"
 
@@ -292,6 +336,15 @@ msgstr ""
 
 msgid "Date & Time"
 msgstr "Datum & Tijd"
+
+msgid "Day of month"
+msgstr ""
+
+msgid "Day of week"
+msgstr ""
+
+msgid "December"
+msgstr ""
 
 msgid "Delete"
 msgstr "Verwijderen"
@@ -323,6 +376,9 @@ msgstr "Geeft informatie weer over containers in een raster."
 
 msgid "Displays information about containers in a table."
 msgstr "Geeft informatie weer over containers in een tabel."
+
+msgid "Do not use cache when building the image"
+msgstr ""
 
 msgid "Docker config"
 msgstr "Docker config"
@@ -393,11 +449,28 @@ msgstr "Docker repo inschakelen"
 msgid "Enable Docker repo ..."
 msgstr "Docker repo inschakelen…"
 
+msgid "Enabled"
+msgstr ""
+
+msgid ""
+"Encryption mode for Borg repository. Changing this requires re-initializing "
+"the repo."
+msgstr ""
+
 msgid "Env Path"
 msgstr "Omg.-pad"
 
 msgid "Environment"
 msgstr "Omgeving"
+
+msgid "Every N day of month"
+msgstr ""
+
+msgid "Every N hour"
+msgstr ""
+
+msgid "Every N minute"
+msgstr ""
 
 msgid "Everyone - read/write"
 msgstr "Iedereen - lezen/schrijven"
@@ -414,11 +487,17 @@ msgstr "Geplande taak uitvoeren…"
 msgid "Failed"
 msgstr "Mislukt"
 
+msgid "February"
+msgstr ""
+
 msgid "File"
 msgstr "Bestand"
 
 msgid "File date"
 msgstr "Bestandsdatum"
+
+msgid "File excludes"
+msgstr ""
 
 msgid "Filename"
 msgstr "Bestandsnaam"
@@ -436,6 +515,9 @@ msgstr ""
 "Formaat is naam=ip. Komma-gescheiden waarden.<br/>bijv. mijn-"
 "router=192.168.10.5,mijn-nas=192.168.20.6"
 
+msgid "Friday"
+msgstr ""
+
 msgid "Gateway"
 msgstr "Gateway"
 
@@ -448,14 +530,26 @@ msgstr "Globale omgevingsvariabelen"
 msgid "Group of directories and files"
 msgstr "Groep mappen en bestanden"
 
+msgid "Hour"
+msgstr ""
+
+msgid "Hourly"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "IP-bereik"
 
+msgid "If checked, backup rsync command will include the verbose flag."
+msgstr ""
+
 msgid "Image"
 msgstr "Image"
+
+msgid "Image ID"
+msgstr ""
 
 msgid "Images"
 msgstr "Images"
@@ -489,6 +583,18 @@ msgstr "Geïnstalleerd"
 
 msgid "Internal network"
 msgstr "Intern netwerk"
+
+msgid "Is Latest"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
+msgstr ""
 
 msgid "Keep containers running across Docker daemon updates"
 msgstr "Houd containers actief tijdens Docker-daemon-updates"
@@ -529,8 +635,14 @@ msgstr "Uitloggen"
 msgid "Maintenance"
 msgstr "Onderhoud"
 
+msgid "March"
+msgstr ""
+
 msgid "Max Size"
 msgstr "Max. grootte"
+
+msgid "May"
+msgstr ""
 
 msgid "Mem %"
 msgstr "Mem %"
@@ -544,8 +656,20 @@ msgstr "Mem Usage"
 msgid "Message"
 msgstr "Bericht"
 
+msgid "Minute"
+msgstr ""
+
 msgid "Mixed"
 msgstr "Mixed"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Month"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
 
 msgid "Mountpoint"
 msgstr "Aankoppelpunt"
@@ -574,17 +698,29 @@ msgstr "Netwerken"
 msgid "No Image"
 msgstr "Geen image"
 
+msgid "No cache"
+msgstr ""
+
 msgid "No compose file found!"
 msgstr "Geen composebestand gevonden!"
 
 msgid "No name specified!"
 msgstr "Geen naam opgegeven!"
 
+msgid "None"
+msgstr ""
+
 msgid "Not installed"
 msgstr "Niet geïnstalleerd"
 
+msgid "November"
+msgstr ""
+
 msgid "Number of Borg backups to keep."
 msgstr "Aantal te behouden Borg back-ups."
+
+msgid "October"
+msgstr ""
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -650,8 +786,20 @@ msgstr "PID's"
 msgid "Parent network"
 msgstr "Bovenliggend netwerk"
 
+msgid "Passphrase for Borg encryption."
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Path"
 msgstr "Pad"
+
+msgid "Path to script that will be executed after backup"
+msgstr ""
+
+msgid "Path to script that will be executed before backup"
+msgstr ""
 
 msgid "Permissions of directories and files"
 msgstr "Machtigingen van mappen en bestanden"
@@ -671,6 +819,12 @@ msgstr "Podman-opslag"
 msgid "Ports"
 msgstr "Poorten"
 
+msgid "Post-backup script"
+msgstr ""
+
+msgid "Pre-backup script"
+msgstr ""
+
 msgid "Project"
 msgstr "Project"
 
@@ -682,6 +836,14 @@ msgstr "Prune Images"
 
 msgid "Prune Images - all dangling"
 msgstr "Prune Images - all dangling"
+
+msgid ""
+"Prune all dangling images.<br/>Does not use filter. Will run docker image "
+"prune -f"
+msgstr ""
+
+msgid "Pull"
+msgstr ""
 
 msgid "Pull and Build"
 msgstr "Pull and Build"
@@ -744,6 +906,9 @@ msgstr "Uitvoeren"
 msgid "Run config"
 msgstr "Config uitvoeren"
 
+msgid "Run docker compose build"
+msgstr ""
+
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
@@ -753,8 +918,14 @@ msgstr ""
 msgid "Running For"
 msgstr "Uitvoeren voor"
 
+msgid "Saturday"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Planning"
+
+msgid "Scheduling"
+msgstr ""
 
 msgid "Script"
 msgstr "Script"
@@ -773,6 +944,12 @@ msgstr "Selecteer een groep…"
 
 msgid "Select a user ..."
 msgstr "Selecteer een gebruiker…"
+
+msgid "Send command output via email"
+msgstr ""
+
+msgid "September"
+msgstr ""
 
 msgid "Service"
 msgstr "Dienst"
@@ -813,6 +990,12 @@ msgstr "Overschrijving tonen"
 msgid "Size"
 msgstr "Grootte"
 
+msgid "Start"
+msgstr ""
+
+msgid "Start all compose files"
+msgstr ""
+
 msgid "State"
 msgstr "Toestand"
 
@@ -822,11 +1005,20 @@ msgstr "Stats"
 msgid "Status"
 msgstr "Status"
 
+msgid "Stop"
+msgstr ""
+
+msgid "Stop all compose files"
+msgstr ""
+
 msgid "Stopped"
 msgstr "Gestopt"
 
 msgid "Subnet"
 msgstr "Subnet"
+
+msgid "Sunday"
+msgstr ""
 
 msgid "Sync changes from file"
 msgstr "Wijzigingen uit bestand synchroniseren"
@@ -842,6 +1034,15 @@ msgstr "Label"
 
 msgid "Tags"
 msgstr "Labels"
+
+msgid "Target repo"
+msgstr ""
+
+msgid "Target repository"
+msgstr ""
+
+msgid "Target tag"
+msgstr ""
 
 msgid "Terminal"
 msgstr "Terminal"
@@ -884,8 +1085,17 @@ msgstr ""
 "geselecteerde map.<br/>Het importeert geen compose-bestanden die al in de "
 "plug-in bestaan."
 
+msgid "Thursday"
+msgstr ""
+
+msgid "Time of execution"
+msgstr ""
+
 msgid "Tools"
 msgstr "Hulpmiddelen"
+
+msgid "Tuesday"
+msgstr ""
 
 msgid "URL"
 msgstr "URL"
@@ -909,11 +1119,25 @@ msgstr "Eenheden in seconden.<br/>Stel in op 0 voor geen caching."
 msgid "Up"
 msgstr "Up"
 
+msgid "Update"
+msgstr ""
+
+msgid ""
+"Update all images in compose file. Will recreate containers after update if "
+"running.<br/>Update will always run after backup if backup is enabled."
+msgstr ""
+
 msgid "Uptime"
 msgstr "Uptime"
 
 msgid "Use podman"
 msgstr "Podman gebruiken"
+
+msgid "Username"
+msgstr ""
+
+msgid "Verbose"
+msgstr ""
 
 msgid "Version"
 msgstr "Versie"
@@ -926,6 +1150,15 @@ msgstr "Volume"
 
 msgid "Volumes"
 msgstr "Volumes"
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Yearly"
+msgstr ""
 
 msgid "and not running"
 msgstr "and not running"
@@ -1082,6 +1315,9 @@ msgstr "pull image+tag"
 
 msgid "pull multiple image"
 msgstr "Pull meerdere images"
+
+msgid "repokey"
+msgstr ""
 
 msgid "restart"
 msgstr "restart"

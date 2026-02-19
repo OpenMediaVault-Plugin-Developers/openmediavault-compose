@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 23:30+0000\n"
+"POT-Creation-Date: 2026-02-19 22:32+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: 8824729be9983d825bb37f66c8de0642_fa12916, 2024\n"
 "Language-Team: Polish (Poland) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl_PL/)\n"
@@ -71,6 +71,17 @@ msgstr ""
 "Administrator - odczyt/zapis, Użytkownicy - odczyt/zapis, Inni - tylko "
 "odczyt"
 
+msgid "Always attempt to pull a newer version of the image"
+msgstr ""
+
+msgid ""
+"An email message with the command output (if any produced) is send to the "
+"user who performs the job."
+msgstr ""
+
+msgid "April"
+msgstr ""
+
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
@@ -97,6 +108,12 @@ msgstr ""
 msgid "Are you sure you want to sync changes from the files?"
 msgstr ""
 
+msgid "At reboot"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "Konwertuj na Compose"
 
@@ -112,6 +129,12 @@ msgstr ""
 msgid "Backup"
 msgstr "Kopia zapasowa"
 
+msgid "Backup Time"
+msgstr ""
+
+msgid "Backup container data."
+msgstr ""
+
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 
@@ -124,7 +147,13 @@ msgstr "Zapis"
 msgid "Body"
 msgstr ""
 
+msgid "Borg encryption"
+msgstr ""
+
 msgid "Borg keep"
+msgstr ""
+
+msgid "Borg passphrase"
 msgstr ""
 
 msgid "Build"
@@ -140,6 +169,9 @@ msgid "Cache has been cleared."
 msgstr ""
 
 msgid "Cache times for tabs"
+msgstr ""
+
+msgid "Certain date"
 msgstr ""
 
 msgid "Changes have been synced from file."
@@ -168,6 +200,9 @@ msgstr ""
 
 msgid "Command"
 msgstr "Komenda"
+
+msgid "Comment"
+msgstr ""
 
 msgid "Compose"
 msgstr "Compose"
@@ -275,6 +310,15 @@ msgstr "Utworzono zaplanowane zadanie."
 msgid "Current"
 msgstr "Aktualnie"
 
+msgid "Current repository"
+msgstr ""
+
+msgid "Current tag"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid "Data"
 msgstr "Data"
 
@@ -283,6 +327,15 @@ msgstr ""
 
 msgid "Date & Time"
 msgstr "Data i czas"
+
+msgid "Day of month"
+msgstr ""
+
+msgid "Day of week"
+msgstr ""
+
+msgid "December"
+msgstr ""
 
 msgid "Delete"
 msgstr "Usuń"
@@ -312,6 +365,9 @@ msgid "Displays information about containers in a grid."
 msgstr ""
 
 msgid "Displays information about containers in a table."
+msgstr ""
+
+msgid "Do not use cache when building the image"
 msgstr ""
 
 msgid "Docker config"
@@ -383,11 +439,28 @@ msgstr ""
 msgid "Enable Docker repo ..."
 msgstr ""
 
+msgid "Enabled"
+msgstr ""
+
+msgid ""
+"Encryption mode for Borg repository. Changing this requires re-initializing "
+"the repo."
+msgstr ""
+
 msgid "Env Path"
 msgstr "Ścieżka środowiska"
 
 msgid "Environment"
 msgstr "Zmienne środowiskowe"
+
+msgid "Every N day of month"
+msgstr ""
+
+msgid "Every N hour"
+msgstr ""
+
+msgid "Every N minute"
+msgstr ""
 
 msgid "Everyone - read/write"
 msgstr "Wszyscy - odczyt/zapis"
@@ -404,11 +477,17 @@ msgstr "Wykonywanie zaplanowanego zadania ..."
 msgid "Failed"
 msgstr "Niepowodzenie"
 
+msgid "February"
+msgstr ""
+
 msgid "File"
 msgstr "Plik"
 
 msgid "File date"
 msgstr "Data pliku"
+
+msgid "File excludes"
+msgstr ""
 
 msgid "Filename"
 msgstr ""
@@ -426,6 +505,9 @@ msgstr ""
 "Zapis w formacie nazwa=IP. Przecinek oddziela wiele wpisów,<br/> np. mój-"
 "router=192.168.10.5,mój-nas=192.168.20.6"
 
+msgid "Friday"
+msgstr ""
+
 msgid "Gateway"
 msgstr "Brama"
 
@@ -438,14 +520,26 @@ msgstr "Globalne zmienne środowiskowe"
 msgid "Group of directories and files"
 msgstr "Grupa plików i folderów"
 
+msgid "Hour"
+msgstr ""
+
+msgid "Hourly"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "Zakres IP"
 
+msgid "If checked, backup rsync command will include the verbose flag."
+msgstr ""
+
 msgid "Image"
 msgstr "Obraz"
+
+msgid "Image ID"
+msgstr ""
 
 msgid "Images"
 msgstr "Obrazy"
@@ -478,6 +572,18 @@ msgid "Installed"
 msgstr "Zainstalowany"
 
 msgid "Internal network"
+msgstr ""
+
+msgid "Is Latest"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
 msgstr ""
 
 msgid "Keep containers running across Docker daemon updates"
@@ -520,8 +626,14 @@ msgstr ""
 msgid "Maintenance"
 msgstr ""
 
+msgid "March"
+msgstr ""
+
 msgid "Max Size"
 msgstr "Maksymalny rozmiar"
+
+msgid "May"
+msgstr ""
 
 msgid "Mem %"
 msgstr "Pamięć %"
@@ -535,8 +647,20 @@ msgstr "Użycie pamięci"
 msgid "Message"
 msgstr "Wiadomość"
 
+msgid "Minute"
+msgstr ""
+
 msgid "Mixed"
 msgstr "Zmieszane"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Month"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
 
 msgid "Mountpoint"
 msgstr "Punkt montowania"
@@ -565,16 +689,28 @@ msgstr "Sieci"
 msgid "No Image"
 msgstr "Brak obrazu"
 
+msgid "No cache"
+msgstr ""
+
 msgid "No compose file found!"
 msgstr ""
 
 msgid "No name specified!"
 msgstr ""
 
+msgid "None"
+msgstr ""
+
 msgid "Not installed"
 msgstr "Nie zainstalowano"
 
+msgid "November"
+msgstr ""
+
 msgid "Number of Borg backups to keep."
+msgstr ""
+
+msgid "October"
 msgstr ""
 
 msgid ""
@@ -629,8 +765,20 @@ msgstr "PIDy"
 msgid "Parent network"
 msgstr "Sieć macierzysta"
 
+msgid "Passphrase for Borg encryption."
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Path"
 msgstr "Ścieżka"
+
+msgid "Path to script that will be executed after backup"
+msgstr ""
+
+msgid "Path to script that will be executed before backup"
+msgstr ""
 
 msgid "Permissions of directories and files"
 msgstr "Uprawnienia katalogów i plików"
@@ -650,6 +798,12 @@ msgstr ""
 msgid "Ports"
 msgstr "Porty"
 
+msgid "Post-backup script"
+msgstr ""
+
+msgid "Pre-backup script"
+msgstr ""
+
 msgid "Project"
 msgstr "Projekt"
 
@@ -660,6 +814,14 @@ msgid "Prune Images"
 msgstr ""
 
 msgid "Prune Images - all dangling"
+msgstr ""
+
+msgid ""
+"Prune all dangling images.<br/>Does not use filter. Will run docker image "
+"prune -f"
+msgstr ""
+
+msgid "Pull"
 msgstr ""
 
 msgid "Pull and Build"
@@ -721,6 +883,9 @@ msgstr "Uruchom"
 msgid "Run config"
 msgstr ""
 
+msgid "Run docker compose build"
+msgstr ""
+
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
@@ -728,8 +893,14 @@ msgstr ""
 msgid "Running For"
 msgstr "Działa od"
 
+msgid "Saturday"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Harmonogram"
+
+msgid "Scheduling"
+msgstr ""
 
 msgid "Script"
 msgstr "Skrypt"
@@ -748,6 +919,12 @@ msgstr "Wybierz grupę ..."
 
 msgid "Select a user ..."
 msgstr "Wybierz użytkownika ..."
+
+msgid "Send command output via email"
+msgstr ""
+
+msgid "September"
+msgstr ""
 
 msgid "Service"
 msgstr "Usługa"
@@ -788,6 +965,12 @@ msgstr ""
 msgid "Size"
 msgstr "Rozmiar"
 
+msgid "Start"
+msgstr ""
+
+msgid "Start all compose files"
+msgstr ""
+
 msgid "State"
 msgstr "Stan"
 
@@ -797,11 +980,20 @@ msgstr "Statystyki"
 msgid "Status"
 msgstr "Status"
 
+msgid "Stop"
+msgstr ""
+
+msgid "Stop all compose files"
+msgstr ""
+
 msgid "Stopped"
 msgstr "Zatrzymano"
 
 msgid "Subnet"
 msgstr "Podsieć"
+
+msgid "Sunday"
+msgstr ""
 
 msgid "Sync changes from file"
 msgstr ""
@@ -817,6 +1009,15 @@ msgstr "Tag"
 
 msgid "Tags"
 msgstr "Tagi"
+
+msgid "Target repo"
+msgstr ""
+
+msgid "Target repository"
+msgstr ""
+
+msgid "Target tag"
+msgstr ""
 
 msgid "Terminal"
 msgstr ""
@@ -848,7 +1049,16 @@ msgid ""
 "import any compose files that already exist in the plugin."
 msgstr ""
 
+msgid "Thursday"
+msgstr ""
+
+msgid "Time of execution"
+msgstr ""
+
 msgid "Tools"
+msgstr ""
+
+msgid "Tuesday"
 msgstr ""
 
 msgid "URL"
@@ -873,10 +1083,24 @@ msgstr ""
 msgid "Up"
 msgstr "Działa"
 
+msgid "Update"
+msgstr ""
+
+msgid ""
+"Update all images in compose file. Will recreate containers after update if "
+"running.<br/>Update will always run after backup if backup is enabled."
+msgstr ""
+
 msgid "Uptime"
 msgstr ""
 
 msgid "Use podman"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Verbose"
 msgstr ""
 
 msgid "Version"
@@ -890,6 +1114,15 @@ msgstr "Wolumin"
 
 msgid "Volumes"
 msgstr "Woluminy"
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Yearly"
+msgstr ""
 
 msgid "and not running"
 msgstr "i nie działa"
@@ -1045,6 +1278,9 @@ msgid "pull image+tag"
 msgstr ""
 
 msgid "pull multiple image"
+msgstr ""
+
+msgid "repokey"
 msgstr ""
 
 msgid "restart"

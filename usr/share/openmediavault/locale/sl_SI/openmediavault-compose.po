@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 23:30+0000\n"
+"POT-Creation-Date: 2026-02-19 22:32+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
@@ -70,6 +70,17 @@ msgstr ""
 "Administrator - branje/pisanje, Uporabniki - branje/pisanje, Drugi - samo "
 "branje"
 
+msgid "Always attempt to pull a newer version of the image"
+msgstr ""
+
+msgid ""
+"An email message with the command output (if any produced) is send to the "
+"user who performs the job."
+msgstr ""
+
+msgid "April"
+msgstr ""
+
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
@@ -99,6 +110,12 @@ msgstr "Ste prepričani, da želite ustaviti vse zabojnike?"
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Ali ste prepričani, da želite sinhronizirati spremembe iz datotek?"
 
+msgid "At reboot"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "Autocompose"
 
@@ -114,6 +131,12 @@ msgstr ""
 msgid "Backup"
 msgstr "Varnostna kopija"
 
+msgid "Backup Time"
+msgstr ""
+
+msgid "Backup container data."
+msgstr ""
+
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 
@@ -126,7 +149,13 @@ msgstr "Block Out"
 msgid "Body"
 msgstr "Telo"
 
+msgid "Borg encryption"
+msgstr ""
+
 msgid "Borg keep"
+msgstr ""
+
+msgid "Borg passphrase"
 msgstr ""
 
 msgid "Build"
@@ -143,6 +172,9 @@ msgstr "Predpomnilnik je bil izbrisan."
 
 msgid "Cache times for tabs"
 msgstr "Predpomnilniški časi za zavihke"
+
+msgid "Certain date"
+msgstr ""
 
 msgid "Changes have been synced from file."
 msgstr "Spremembe so bile sinhronizirane iz datoteke."
@@ -170,6 +202,9 @@ msgstr "Brisanje predpomnilnika ..."
 
 msgid "Command"
 msgstr "Ukaz"
+
+msgid "Comment"
+msgstr ""
 
 msgid "Compose"
 msgstr "Compose"
@@ -277,6 +312,15 @@ msgstr "Ustvarjeno načrtovano opravilo."
 msgid "Current"
 msgstr "Trenutni"
 
+msgid "Current repository"
+msgstr ""
+
+msgid "Current tag"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid "Data"
 msgstr "Podatki"
 
@@ -285,6 +329,15 @@ msgstr ""
 
 msgid "Date & Time"
 msgstr "Datum in ura"
+
+msgid "Day of month"
+msgstr ""
+
+msgid "Day of week"
+msgstr ""
+
+msgid "December"
+msgstr ""
 
 msgid "Delete"
 msgstr "Izbriši"
@@ -315,6 +368,9 @@ msgstr "Prikaže informacije o zabojnikih v mreži."
 
 msgid "Displays information about containers in a table."
 msgstr "Prikaže informacije o zabojnikih v tabeli."
+
+msgid "Do not use cache when building the image"
+msgstr ""
 
 msgid "Docker config"
 msgstr ""
@@ -385,11 +441,28 @@ msgstr "Omogoči Docker skladišče"
 msgid "Enable Docker repo ..."
 msgstr "Omogočanje Docker skladišča ..."
 
+msgid "Enabled"
+msgstr ""
+
+msgid ""
+"Encryption mode for Borg repository. Changing this requires re-initializing "
+"the repo."
+msgstr ""
+
 msgid "Env Path"
 msgstr "Pot za Env"
 
 msgid "Environment"
 msgstr "Okolje"
+
+msgid "Every N day of month"
+msgstr ""
+
+msgid "Every N hour"
+msgstr ""
+
+msgid "Every N minute"
+msgstr ""
 
 msgid "Everyone - read/write"
 msgstr "Vsi - branje/pisanje"
@@ -406,11 +479,17 @@ msgstr "Izvedba načrtovanega opravila ..."
 msgid "Failed"
 msgstr "Neuspešno"
 
+msgid "February"
+msgstr ""
+
 msgid "File"
 msgstr "Datoteka"
 
 msgid "File date"
 msgstr "Datum datoteke"
+
+msgid "File excludes"
+msgstr ""
 
 msgid "Filename"
 msgstr "Ime datoteke"
@@ -428,6 +507,9 @@ msgstr ""
 "Oblika je ime=ip. Več vnosov ločite z vejico.<br/>npr. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 
+msgid "Friday"
+msgstr ""
+
 msgid "Gateway"
 msgstr "Gateway"
 
@@ -440,14 +522,26 @@ msgstr "Globalne spremenljivke okolja"
 msgid "Group of directories and files"
 msgstr "Skupina imenikov in datotek"
 
+msgid "Hour"
+msgstr ""
+
+msgid "Hourly"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "Območje IP"
 
+msgid "If checked, backup rsync command will include the verbose flag."
+msgstr ""
+
 msgid "Image"
 msgstr "Slika"
+
+msgid "Image ID"
+msgstr ""
 
 msgid "Images"
 msgstr "Slike"
@@ -480,6 +574,18 @@ msgid "Installed"
 msgstr "Nameščen"
 
 msgid "Internal network"
+msgstr ""
+
+msgid "Is Latest"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
 msgstr ""
 
 msgid "Keep containers running across Docker daemon updates"
@@ -521,8 +627,14 @@ msgstr "Odjava"
 msgid "Maintenance"
 msgstr "Vzdrževanje"
 
+msgid "March"
+msgstr ""
+
 msgid "Max Size"
 msgstr "Največja velikost"
+
+msgid "May"
+msgstr ""
 
 msgid "Mem %"
 msgstr "% pomnilnika"
@@ -536,8 +648,20 @@ msgstr "Uporaba pomnilnika"
 msgid "Message"
 msgstr "Sporočilo"
 
+msgid "Minute"
+msgstr ""
+
 msgid "Mixed"
 msgstr "Mešan"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Month"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
 
 msgid "Mountpoint"
 msgstr "Točka priklopa"
@@ -566,16 +690,28 @@ msgstr "Omrežja"
 msgid "No Image"
 msgstr "Brez slike"
 
+msgid "No cache"
+msgstr ""
+
 msgid "No compose file found!"
 msgstr "Ni bila najdena nobena datoteka Compose!"
 
 msgid "No name specified!"
 msgstr "Brez navedbe imena!"
 
+msgid "None"
+msgstr ""
+
 msgid "Not installed"
 msgstr "Ni nameščeno"
 
+msgid "November"
+msgstr ""
+
 msgid "Number of Borg backups to keep."
+msgstr ""
+
+msgid "October"
 msgstr ""
 
 msgid ""
@@ -632,8 +768,20 @@ msgstr "PID-i"
 msgid "Parent network"
 msgstr "Starševsko omrežje"
 
+msgid "Passphrase for Borg encryption."
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Path"
 msgstr "Pot"
+
+msgid "Path to script that will be executed after backup"
+msgstr ""
+
+msgid "Path to script that will be executed before backup"
+msgstr ""
 
 msgid "Permissions of directories and files"
 msgstr "Dovoljenja za mape in datoteke"
@@ -653,6 +801,12 @@ msgstr ""
 msgid "Ports"
 msgstr "Vrata"
 
+msgid "Post-backup script"
+msgstr ""
+
+msgid "Pre-backup script"
+msgstr ""
+
 msgid "Project"
 msgstr "Projekt"
 
@@ -663,6 +817,14 @@ msgid "Prune Images"
 msgstr ""
 
 msgid "Prune Images - all dangling"
+msgstr ""
+
+msgid ""
+"Prune all dangling images.<br/>Does not use filter. Will run docker image "
+"prune -f"
+msgstr ""
+
+msgid "Pull"
 msgstr ""
 
 msgid "Pull and Build"
@@ -724,6 +886,9 @@ msgstr "Zaženi"
 msgid "Run config"
 msgstr ""
 
+msgid "Run docker compose build"
+msgstr ""
+
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
@@ -731,8 +896,14 @@ msgstr ""
 msgid "Running For"
 msgstr "Izvajan se od"
 
+msgid "Saturday"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Urnik"
+
+msgid "Scheduling"
+msgstr ""
 
 msgid "Script"
 msgstr "Skripta"
@@ -751,6 +922,12 @@ msgstr "Izbira skupine ..."
 
 msgid "Select a user ..."
 msgstr "Izbira uporabnika ..."
+
+msgid "Send command output via email"
+msgstr ""
+
+msgid "September"
+msgstr ""
 
 msgid "Service"
 msgstr "Storitev"
@@ -791,6 +968,12 @@ msgstr "Prikaži nadomeščanja"
 msgid "Size"
 msgstr "Velikost"
 
+msgid "Start"
+msgstr ""
+
+msgid "Start all compose files"
+msgstr ""
+
 msgid "State"
 msgstr "Stanje"
 
@@ -800,11 +983,20 @@ msgstr "Statistika"
 msgid "Status"
 msgstr "Status"
 
+msgid "Stop"
+msgstr ""
+
+msgid "Stop all compose files"
+msgstr ""
+
 msgid "Stopped"
 msgstr "Ustavljen"
 
 msgid "Subnet"
 msgstr "Podmreža"
+
+msgid "Sunday"
+msgstr ""
 
 msgid "Sync changes from file"
 msgstr "Sinhroniziraj spremembe iz datoteke"
@@ -820,6 +1012,15 @@ msgstr "Oznaka"
 
 msgid "Tags"
 msgstr "Oznake"
+
+msgid "Target repo"
+msgstr ""
+
+msgid "Target repository"
+msgstr ""
+
+msgid "Target tag"
+msgstr ""
 
 msgid "Terminal"
 msgstr ""
@@ -857,8 +1058,17 @@ msgstr ""
 "To bo uvozilo eno ali več datotek Compose v podmape.<br/>Ne bo uvozilo "
 "nobenih datotek Compose, ki že obstajajo v vtičniku."
 
+msgid "Thursday"
+msgstr ""
+
+msgid "Time of execution"
+msgstr ""
+
 msgid "Tools"
 msgstr "Orodja"
+
+msgid "Tuesday"
+msgstr ""
 
 msgid "URL"
 msgstr "URL"
@@ -882,10 +1092,24 @@ msgstr "Enote v sekundah.<br/>Nastavite na 0, če ne želite predpomnjenja."
 msgid "Up"
 msgstr "Up"
 
+msgid "Update"
+msgstr ""
+
+msgid ""
+"Update all images in compose file. Will recreate containers after update if "
+"running.<br/>Update will always run after backup if backup is enabled."
+msgstr ""
+
 msgid "Uptime"
 msgstr "Uptime"
 
 msgid "Use podman"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Verbose"
 msgstr ""
 
 msgid "Version"
@@ -899,6 +1123,15 @@ msgstr "Zvezek"
 
 msgid "Volumes"
 msgstr "Zvezki"
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Yearly"
+msgstr ""
 
 msgid "and not running"
 msgstr "in ne teče"
@@ -1054,6 +1287,9 @@ msgid "pull image+tag"
 msgstr ""
 
 msgid "pull multiple image"
+msgstr ""
+
+msgid "repokey"
 msgstr ""
 
 msgid "restart"

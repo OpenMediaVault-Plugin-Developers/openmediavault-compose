@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 23:30+0000\n"
+"POT-Creation-Date: 2026-02-19 22:32+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2025\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -70,6 +70,17 @@ msgstr ""
 "Adminisztrátor – olvasás/írás, Felhasználók – olvasás/írás, Mások – csak "
 "olvasás"
 
+msgid "Always attempt to pull a newer version of the image"
+msgstr ""
+
+msgid ""
+"An email message with the command output (if any produced) is send to the "
+"user who performs the job."
+msgstr ""
+
+msgid "April"
+msgstr ""
+
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
@@ -96,6 +107,12 @@ msgstr ""
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Biztosan szinkronizálni szeretné a fájlok változásait?"
 
+msgid "At reboot"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "Automatikus összeállítás"
 
@@ -111,6 +128,12 @@ msgstr ""
 msgid "Backup"
 msgstr "Biztonsági mentés"
 
+msgid "Backup Time"
+msgstr ""
+
+msgid "Backup container data."
+msgstr ""
+
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 
@@ -123,7 +146,13 @@ msgstr "Blokk ki"
 msgid "Body"
 msgstr "Törzs"
 
+msgid "Borg encryption"
+msgstr ""
+
 msgid "Borg keep"
+msgstr ""
+
+msgid "Borg passphrase"
 msgstr ""
 
 msgid "Build"
@@ -140,6 +169,9 @@ msgstr "Gyorsítótár törölve."
 
 msgid "Cache times for tabs"
 msgstr "Lapok gyorsítótárazásának ideje"
+
+msgid "Certain date"
+msgstr ""
 
 msgid "Changes have been synced from file."
 msgstr "A változások szinkronizálásra kerültek a fájlból."
@@ -167,6 +199,9 @@ msgstr "Gyorsítótár törlése…"
 
 msgid "Command"
 msgstr "Parancs"
+
+msgid "Comment"
+msgstr ""
 
 msgid "Compose"
 msgstr "Compose"
@@ -275,6 +310,15 @@ msgstr "Ütemezett feladat létrehozva."
 msgid "Current"
 msgstr "Jelenlegi"
 
+msgid "Current repository"
+msgstr ""
+
+msgid "Current tag"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid "Data"
 msgstr "Adat"
 
@@ -283,6 +327,15 @@ msgstr ""
 
 msgid "Date & Time"
 msgstr "Dátum és idő"
+
+msgid "Day of month"
+msgstr ""
+
+msgid "Day of week"
+msgstr ""
+
+msgid "December"
+msgstr ""
 
 msgid "Delete"
 msgstr "Törlés"
@@ -312,6 +365,9 @@ msgid "Displays information about containers in a grid."
 msgstr ""
 
 msgid "Displays information about containers in a table."
+msgstr ""
+
+msgid "Do not use cache when building the image"
 msgstr ""
 
 msgid "Docker config"
@@ -383,11 +439,28 @@ msgstr "Docker tároló engedélyezése"
 msgid "Enable Docker repo ..."
 msgstr "Docker tároló engedélyezése…"
 
+msgid "Enabled"
+msgstr ""
+
+msgid ""
+"Encryption mode for Borg repository. Changing this requires re-initializing "
+"the repo."
+msgstr ""
+
 msgid "Env Path"
 msgstr "Körny. útvonal"
 
 msgid "Environment"
 msgstr "Környezet"
+
+msgid "Every N day of month"
+msgstr ""
+
+msgid "Every N hour"
+msgstr ""
+
+msgid "Every N minute"
+msgstr ""
 
 msgid "Everyone - read/write"
 msgstr "Mindenki – olvasás/írás"
@@ -404,11 +477,17 @@ msgstr "Ütemezett feladat futtatása…"
 msgid "Failed"
 msgstr "Sikertelen"
 
+msgid "February"
+msgstr ""
+
 msgid "File"
 msgstr "Fájl"
 
 msgid "File date"
 msgstr "Adatfájl"
+
+msgid "File excludes"
+msgstr ""
 
 msgid "Filename"
 msgstr "Fájlnév"
@@ -426,6 +505,9 @@ msgstr ""
 "A formátum: „name=ip”. Több bejegyzést vesszővel lehet elválasztani,<br/>pl."
 " „my-router=192.168.10.5,my-nas=192.168.20.6”."
 
+msgid "Friday"
+msgstr ""
+
 msgid "Gateway"
 msgstr "Átjáró"
 
@@ -438,14 +520,26 @@ msgstr "Globális környezeti változó"
 msgid "Group of directories and files"
 msgstr "Mappák és fájlok csoportja"
 
+msgid "Hour"
+msgstr ""
+
+msgid "Hourly"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "IP-tartomány"
 
+msgid "If checked, backup rsync command will include the verbose flag."
+msgstr ""
+
 msgid "Image"
 msgstr "Lemezkép"
+
+msgid "Image ID"
+msgstr ""
 
 msgid "Images"
 msgstr "Lemezképek"
@@ -478,6 +572,18 @@ msgid "Installed"
 msgstr "Telepítve"
 
 msgid "Internal network"
+msgstr ""
+
+msgid "Is Latest"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
 msgstr ""
 
 msgid "Keep containers running across Docker daemon updates"
@@ -519,8 +625,14 @@ msgstr "Kilépés"
 msgid "Maintenance"
 msgstr ""
 
+msgid "March"
+msgstr ""
+
 msgid "Max Size"
 msgstr "Maximális méret"
+
+msgid "May"
+msgstr ""
 
 msgid "Mem %"
 msgstr "Memória %"
@@ -534,8 +646,20 @@ msgstr "Használt memória"
 msgid "Message"
 msgstr "Üzenet"
 
+msgid "Minute"
+msgstr ""
+
 msgid "Mixed"
 msgstr "Kevert"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Month"
+msgstr ""
+
+msgid "Monthly"
+msgstr ""
 
 msgid "Mountpoint"
 msgstr "Csatolási pont"
@@ -564,16 +688,28 @@ msgstr "Hálózatok"
 msgid "No Image"
 msgstr "Nincs lemezkép"
 
+msgid "No cache"
+msgstr ""
+
 msgid "No compose file found!"
 msgstr "Nem található összeállítás fájl!"
 
 msgid "No name specified!"
 msgstr "Nem lett név megadva!"
 
+msgid "None"
+msgstr ""
+
 msgid "Not installed"
 msgstr "Nincs telepítve"
 
+msgid "November"
+msgstr ""
+
 msgid "Number of Borg backups to keep."
+msgstr ""
+
+msgid "October"
 msgstr ""
 
 msgid ""
@@ -630,8 +766,20 @@ msgstr "PID-ek"
 msgid "Parent network"
 msgstr "Szülő hálózat"
 
+msgid "Passphrase for Borg encryption."
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Path"
 msgstr "Útvonal"
+
+msgid "Path to script that will be executed after backup"
+msgstr ""
+
+msgid "Path to script that will be executed before backup"
+msgstr ""
 
 msgid "Permissions of directories and files"
 msgstr "Mappák és fájlok jogosultságai"
@@ -652,6 +800,12 @@ msgstr ""
 msgid "Ports"
 msgstr "Portok"
 
+msgid "Post-backup script"
+msgstr ""
+
+msgid "Pre-backup script"
+msgstr ""
+
 msgid "Project"
 msgstr "Projekt"
 
@@ -662,6 +816,14 @@ msgid "Prune Images"
 msgstr ""
 
 msgid "Prune Images - all dangling"
+msgstr ""
+
+msgid ""
+"Prune all dangling images.<br/>Does not use filter. Will run docker image "
+"prune -f"
+msgstr ""
+
+msgid "Pull"
 msgstr ""
 
 msgid "Pull and Build"
@@ -723,6 +885,9 @@ msgstr "Futtatás"
 msgid "Run config"
 msgstr ""
 
+msgid "Run docker compose build"
+msgstr ""
+
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
@@ -730,8 +895,14 @@ msgstr ""
 msgid "Running For"
 msgstr "Fut ennek"
 
+msgid "Saturday"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Ütemezés"
+
+msgid "Scheduling"
+msgstr ""
 
 msgid "Script"
 msgstr "Parancsfájl"
@@ -750,6 +921,12 @@ msgstr "Csoport kiválasztása…"
 
 msgid "Select a user ..."
 msgstr "Felhasználó kiválasztása…"
+
+msgid "Send command output via email"
+msgstr ""
+
+msgid "September"
+msgstr ""
 
 msgid "Service"
 msgstr "Szolgáltatás"
@@ -791,6 +968,12 @@ msgstr "Felülbírálás megjelenítése"
 msgid "Size"
 msgstr "Méret"
 
+msgid "Start"
+msgstr ""
+
+msgid "Start all compose files"
+msgstr ""
+
 msgid "State"
 msgstr "Állapot"
 
@@ -800,11 +983,20 @@ msgstr "Statisztikák"
 msgid "Status"
 msgstr "Státusz"
 
+msgid "Stop"
+msgstr ""
+
+msgid "Stop all compose files"
+msgstr ""
+
 msgid "Stopped"
 msgstr "Leállítva"
 
 msgid "Subnet"
 msgstr "Alhálózat"
+
+msgid "Sunday"
+msgstr ""
 
 msgid "Sync changes from file"
 msgstr "Módosítások szinkronizálása fájlból"
@@ -820,6 +1012,15 @@ msgstr "Címke"
 
 msgid "Tags"
 msgstr "Címkék"
+
+msgid "Target repo"
+msgstr ""
+
+msgid "Target repository"
+msgstr ""
+
+msgid "Target tag"
+msgstr ""
 
 msgid "Terminal"
 msgstr ""
@@ -859,8 +1060,17 @@ msgstr ""
 "mappában.<br/>Nem importál olyan összeállítás fájlokat, amelyek már léteznek"
 " a bővítményben."
 
+msgid "Thursday"
+msgstr ""
+
+msgid "Time of execution"
+msgstr ""
+
 msgid "Tools"
 msgstr "Eszközök"
+
+msgid "Tuesday"
+msgstr ""
 
 msgid "URL"
 msgstr "URL"
@@ -884,10 +1094,24 @@ msgstr "Mértékegység: másodperc.<br/>0-ra állítva nincs gyorsítótárazá
 msgid "Up"
 msgstr "Fel"
 
+msgid "Update"
+msgstr ""
+
+msgid ""
+"Update all images in compose file. Will recreate containers after update if "
+"running.<br/>Update will always run after backup if backup is enabled."
+msgstr ""
+
 msgid "Uptime"
 msgstr "Üzemidő"
 
 msgid "Use podman"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Verbose"
 msgstr ""
 
 msgid "Version"
@@ -901,6 +1125,15 @@ msgstr "Kötet"
 
 msgid "Volumes"
 msgstr "Kötetek"
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Yearly"
+msgstr ""
 
 msgid "and not running"
 msgstr "és nem fut"
@@ -1056,6 +1289,9 @@ msgid "pull image+tag"
 msgstr ""
 
 msgid "pull multiple image"
+msgstr ""
+
+msgid "repokey"
 msgstr ""
 
 msgid "restart"

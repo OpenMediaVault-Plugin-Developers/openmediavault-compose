@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 23:30+0000\n"
+"POT-Creation-Date: 2026-02-19 22:32+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Marek Pavelka, 2024\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
@@ -63,6 +63,17 @@ msgstr ""
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "Správce – čtení/zápis, Uživatelé – čtení/zápis, Ostatní – pouze čtení"
 
+msgid "Always attempt to pull a newer version of the image"
+msgstr ""
+
+msgid ""
+"An email message with the command output (if any produced) is send to the "
+"user who performs the job."
+msgstr ""
+
+msgid "April"
+msgstr ""
+
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
@@ -89,6 +100,12 @@ msgstr ""
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Opravdu chcete synchronizovat změny ze souborů?"
 
+msgid "At reboot"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "Autocompose"
 
@@ -104,6 +121,12 @@ msgstr ""
 msgid "Backup"
 msgstr "Záloha"
 
+msgid "Backup Time"
+msgstr ""
+
+msgid "Backup container data."
+msgstr ""
+
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 
@@ -116,7 +139,13 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
+msgid "Borg encryption"
+msgstr ""
+
 msgid "Borg keep"
+msgstr ""
+
+msgid "Borg passphrase"
 msgstr ""
 
 msgid "Build"
@@ -133,6 +162,9 @@ msgstr "Mezipaměť byla vymazána."
 
 msgid "Cache times for tabs"
 msgstr "Doba uložení karet do mezipaměti"
+
+msgid "Certain date"
+msgstr ""
 
 msgid "Changes have been synced from file."
 msgstr "Změny byly synchronizovány ze souboru."
@@ -160,6 +192,9 @@ msgstr "Mazání mezipaměti…"
 
 msgid "Command"
 msgstr "Příkaz"
+
+msgid "Comment"
+msgstr ""
 
 msgid "Compose"
 msgstr "Compose"
@@ -266,6 +301,15 @@ msgstr "Vytvořena naplánovaná úloha."
 msgid "Current"
 msgstr "Aktuální"
 
+msgid "Current repository"
+msgstr ""
+
+msgid "Current tag"
+msgstr ""
+
+msgid "Daily"
+msgstr ""
+
 msgid "Data"
 msgstr "Data"
 
@@ -274,6 +318,15 @@ msgstr ""
 
 msgid "Date & Time"
 msgstr "Datum a čas"
+
+msgid "Day of month"
+msgstr ""
+
+msgid "Day of week"
+msgstr ""
+
+msgid "December"
+msgstr ""
 
 msgid "Delete"
 msgstr "Odstranit"
@@ -303,6 +356,9 @@ msgid "Displays information about containers in a grid."
 msgstr ""
 
 msgid "Displays information about containers in a table."
+msgstr ""
+
+msgid "Do not use cache when building the image"
 msgstr ""
 
 msgid "Docker config"
@@ -374,11 +430,28 @@ msgstr ""
 msgid "Enable Docker repo ..."
 msgstr ""
 
+msgid "Enabled"
+msgstr ""
+
+msgid ""
+"Encryption mode for Borg repository. Changing this requires re-initializing "
+"the repo."
+msgstr ""
+
 msgid "Env Path"
 msgstr "Cesta k env"
 
 msgid "Environment"
 msgstr "Prostředí"
+
+msgid "Every N day of month"
+msgstr ""
+
+msgid "Every N hour"
+msgstr ""
+
+msgid "Every N minute"
+msgstr ""
 
 msgid "Everyone - read/write"
 msgstr "Kdokoliv – čtení/zápis"
@@ -395,11 +468,17 @@ msgstr "Spustit naplánovanou úlohu…"
 msgid "Failed"
 msgstr ""
 
+msgid "February"
+msgstr ""
+
 msgid "File"
 msgstr "Soubor"
 
 msgid "File date"
 msgstr "Datum souboru"
+
+msgid "File excludes"
+msgstr ""
 
 msgid "Filename"
 msgstr ""
@@ -417,6 +496,9 @@ msgstr ""
 "Formát je nazev=ip. Více položek oddělte čárkou.<br/>Např. muj-"
 "router=192.168.10.5,muj-nas=192.168.20.6"
 
+msgid "Friday"
+msgstr ""
+
 msgid "Gateway"
 msgstr "Brána"
 
@@ -429,14 +511,26 @@ msgstr "Globální proměnné prostředí"
 msgid "Group of directories and files"
 msgstr "Skupina adresářů a souborů"
 
+msgid "Hour"
+msgstr ""
+
+msgid "Hourly"
+msgstr ""
+
 msgid "ID"
 msgstr "ID"
 
 msgid "IP range"
 msgstr "Rozsah IP adres"
 
+msgid "If checked, backup rsync command will include the verbose flag."
+msgstr ""
+
 msgid "Image"
 msgstr "Obraz"
+
+msgid "Image ID"
+msgstr ""
 
 msgid "Images"
 msgstr "Obrazy"
@@ -469,6 +563,18 @@ msgid "Installed"
 msgstr "Instalováno"
 
 msgid "Internal network"
+msgstr ""
+
+msgid "Is Latest"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "June"
 msgstr ""
 
 msgid "Keep containers running across Docker daemon updates"
@@ -511,8 +617,14 @@ msgstr ""
 msgid "Maintenance"
 msgstr ""
 
+msgid "March"
+msgstr ""
+
 msgid "Max Size"
 msgstr "Maximální velikost"
+
+msgid "May"
+msgstr ""
 
 msgid "Mem %"
 msgstr "% paměti"
@@ -526,7 +638,19 @@ msgstr "Využití paměti"
 msgid "Message"
 msgstr "Zpráva"
 
+msgid "Minute"
+msgstr ""
+
 msgid "Mixed"
+msgstr ""
+
+msgid "Monday"
+msgstr ""
+
+msgid "Month"
+msgstr ""
+
+msgid "Monthly"
 msgstr ""
 
 msgid "Mountpoint"
@@ -556,16 +680,28 @@ msgstr "Sítě"
 msgid "No Image"
 msgstr "Žádný obraz"
 
+msgid "No cache"
+msgstr ""
+
 msgid "No compose file found!"
 msgstr "Nebyl nalezen žádný soubor compose!"
 
 msgid "No name specified!"
 msgstr "Nebyl zadán žádný název!"
 
+msgid "None"
+msgstr ""
+
 msgid "Not installed"
 msgstr "Neinstalováno"
 
+msgid "November"
+msgstr ""
+
 msgid "Number of Borg backups to keep."
+msgstr ""
+
+msgid "October"
 msgstr ""
 
 msgid ""
@@ -622,8 +758,20 @@ msgstr "PID"
 msgid "Parent network"
 msgstr "Nadřazená síť"
 
+msgid "Passphrase for Borg encryption."
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
 msgid "Path"
 msgstr "Cesta"
+
+msgid "Path to script that will be executed after backup"
+msgstr ""
+
+msgid "Path to script that will be executed before backup"
+msgstr ""
 
 msgid "Permissions of directories and files"
 msgstr "Oprávnění adresářů a souborů"
@@ -643,6 +791,12 @@ msgstr ""
 msgid "Ports"
 msgstr "Porty"
 
+msgid "Post-backup script"
+msgstr ""
+
+msgid "Pre-backup script"
+msgstr ""
+
 msgid "Project"
 msgstr "Projekt"
 
@@ -653,6 +807,14 @@ msgid "Prune Images"
 msgstr ""
 
 msgid "Prune Images - all dangling"
+msgstr ""
+
+msgid ""
+"Prune all dangling images.<br/>Does not use filter. Will run docker image "
+"prune -f"
+msgstr ""
+
+msgid "Pull"
 msgstr ""
 
 msgid "Pull and Build"
@@ -714,6 +876,9 @@ msgstr "Spustit"
 msgid "Run config"
 msgstr ""
 
+msgid "Run docker compose build"
+msgstr ""
+
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
@@ -721,8 +886,14 @@ msgstr ""
 msgid "Running For"
 msgstr "Spuštěno"
 
+msgid "Saturday"
+msgstr ""
+
 msgid "Schedule"
 msgstr "Plán"
+
+msgid "Scheduling"
+msgstr ""
 
 msgid "Script"
 msgstr "Skript"
@@ -741,6 +912,12 @@ msgstr "Vyberte skupinu…"
 
 msgid "Select a user ..."
 msgstr "Vyberte uživatele…"
+
+msgid "Send command output via email"
+msgstr ""
+
+msgid "September"
+msgstr ""
 
 msgid "Service"
 msgstr "Služba"
@@ -781,6 +958,12 @@ msgstr ""
 msgid "Size"
 msgstr "Velikost"
 
+msgid "Start"
+msgstr ""
+
+msgid "Start all compose files"
+msgstr ""
+
 msgid "State"
 msgstr "Stav"
 
@@ -790,11 +973,20 @@ msgstr "Statistiky"
 msgid "Status"
 msgstr "Stav"
 
+msgid "Stop"
+msgstr ""
+
+msgid "Stop all compose files"
+msgstr ""
+
 msgid "Stopped"
 msgstr "Zastaveno"
 
 msgid "Subnet"
 msgstr "Podsíť"
+
+msgid "Sunday"
+msgstr ""
 
 msgid "Sync changes from file"
 msgstr "Synchronizovat změny ze souboru"
@@ -810,6 +1002,15 @@ msgstr "Štítek"
 
 msgid "Tags"
 msgstr "Štítky"
+
+msgid "Target repo"
+msgstr ""
+
+msgid "Target repository"
+msgstr ""
+
+msgid "Target tag"
+msgstr ""
 
 msgid "Terminal"
 msgstr ""
@@ -845,8 +1046,17 @@ msgstr ""
 "Toto importuje jeden nebo více souborů compose do podsložek.<br/>Neimportují"
 " se žádné soubory compose, které již v zásuvném modulu existují."
 
+msgid "Thursday"
+msgstr ""
+
+msgid "Time of execution"
+msgstr ""
+
 msgid "Tools"
 msgstr "Nástroje"
+
+msgid "Tuesday"
+msgstr ""
 
 msgid "URL"
 msgstr "Adresa URL"
@@ -870,10 +1080,24 @@ msgstr "Jednotky v sekundách.<br/>Pro nepoužívání mezipaměti nastavte na 0
 msgid "Up"
 msgstr ""
 
+msgid "Update"
+msgstr ""
+
+msgid ""
+"Update all images in compose file. Will recreate containers after update if "
+"running.<br/>Update will always run after backup if backup is enabled."
+msgstr ""
+
 msgid "Uptime"
 msgstr "Doba provozu"
 
 msgid "Use podman"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Verbose"
 msgstr ""
 
 msgid "Version"
@@ -887,6 +1111,15 @@ msgstr "Svazek"
 
 msgid "Volumes"
 msgstr "Svazky"
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Weekly"
+msgstr ""
+
+msgid "Yearly"
+msgstr ""
 
 msgid "and not running"
 msgstr "a není spuštěno"
@@ -1042,6 +1275,9 @@ msgid "pull image+tag"
 msgstr ""
 
 msgid "pull multiple image"
+msgstr ""
+
+msgid "repokey"
 msgstr ""
 
 msgid "restart"
