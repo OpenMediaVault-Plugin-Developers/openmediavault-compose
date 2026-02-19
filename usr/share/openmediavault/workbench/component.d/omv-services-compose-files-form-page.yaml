@@ -18,7 +18,7 @@ data:
         name: name
         label: _("Name")
         value: ""
-        disabled: '{{ _routeConfig.data.editing | toboolean }}'
+        disabled: "{{ _routeConfig.data.editing | toboolean }}"
         validators:
           required: true
       - type: textInput

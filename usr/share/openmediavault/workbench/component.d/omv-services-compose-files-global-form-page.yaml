@@ -13,7 +13,7 @@ data:
     fields:
       - type: checkbox
         name: enabled
-        label: _('Enabled')
+        label: _("Enabled")
         value: true
       - type: codeEditor
         name: globalenv

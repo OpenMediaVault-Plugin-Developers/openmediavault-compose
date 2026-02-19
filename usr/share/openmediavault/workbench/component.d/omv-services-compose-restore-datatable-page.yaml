@@ -14,7 +14,7 @@ data:
         get:
           method: getRestoreList
     columns:
-      - name: _('Backup')
+      - name: _("Backup")
         prop: backup
         flexGrow: 1
         sortable: true
@@ -24,11 +24,11 @@ data:
         sortable: true
         cellTemplateName: template
         cellTemplateConfig: '{{ backupsize | tobytes | binaryunit | notavailable("-") }}'
-      - name: _('Backup Time')
+      - name: _("Backup Time")
         prop: time
         flexGrow: 1
         sortable: true
-      - name: _('Is Latest')
+      - name: _("Is Latest")
         prop: islatest
         flexGrow: 1
         sortable: true

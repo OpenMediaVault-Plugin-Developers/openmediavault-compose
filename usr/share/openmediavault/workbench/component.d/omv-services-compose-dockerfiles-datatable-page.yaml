@@ -101,24 +101,24 @@ data:
             fields:
               - type: textInput
                 name: repo
-                label: _('Repository')
-                value: '{{ _selected[0].name }}'
+                label: _("Repository")
+                value: "{{ _selected[0].name }}"
               - type: textInput
                 name: tag
-                label: _('Tag')
-                value: ''
+                label: _("Tag")
+                value: ""
               - type: hidden
                 name: srcid
-                label: _('Image ID')
-                value: ''
+                label: _("Image ID")
+                value: ""
               - type: textInput
                 name: tgtimg
-                label: _('Target repo')
-                value: ''
+                label: _("Target repo")
+                value: ""
               - type: textInput
                 name: tgttag
-                label: _('Target tag')
-                value: ''
+                label: _("Target tag")
+                value: ""
             buttons:
               submit:
                 text: _("Tag")

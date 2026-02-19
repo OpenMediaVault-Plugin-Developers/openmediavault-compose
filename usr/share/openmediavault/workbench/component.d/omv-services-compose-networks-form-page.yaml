@@ -29,7 +29,7 @@ data:
       - type: textInput
         name: parentnetwork
         label: _("Parent network")
-        value: ''
+        value: ""
         suggestions: true
         store:
           proxy:

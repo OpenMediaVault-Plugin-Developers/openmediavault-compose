@@ -33,16 +33,16 @@ data:
             fields:
               - type: textInput
                 name: url
-                label: _('URL')
-                value: ''
+                label: _("URL")
+                value: ""
               - type: textInput
                 name: username
-                label: _('Username')
-                value: ''
+                label: _("Username")
+                value: ""
               - type: passwordInput
                 name: passwd
-                label: _('Password')
-                value: ''
+                label: _("Password")
+                value: ""
             buttons:
               submit:
                 text: _("Login")

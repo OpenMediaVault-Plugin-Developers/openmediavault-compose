@@ -34,7 +34,7 @@ data:
         sortable: true
         cellTemplateName: progressBar
         cellTemplateConfig:
-          text: '{{ cpu | tofixed(2) }}'
+          text: "{{ cpu | tofixed(2) }}"
       - name: _("Mem Usage")
         prop: memuse
         flexGrow: 1
@@ -52,7 +52,7 @@ data:
         flexGrow: 1
         sortable: true
         cellTemplateName: template
-        cellTemplateConfig: '{{ mem | tofixed(2) }}'
+        cellTemplateConfig: "{{ mem | tofixed(2) }}"
       - name: _("Net In")
         prop: netin
         flexGrow: 1

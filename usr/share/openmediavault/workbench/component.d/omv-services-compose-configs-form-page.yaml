@@ -18,7 +18,7 @@ data:
         name: name
         label: _("Filename")
         value: ""
-        disabled: '{{ _routeConfig.data.editing | toboolean }}'
+        disabled: "{{ _routeConfig.data.editing | toboolean }}"
         validators:
           required: true
         hint: _("This is the filename. This should not be a path.")
@@ -28,7 +28,7 @@ data:
         value: ""
       - type: select
         name: fileref
-        label: _('Compose File')
+        label: _("Compose File")
         textField: name
         valueField: uuid
         store:

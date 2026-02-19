@@ -70,7 +70,7 @@ data:
                     dirRefIdField: rootfsref
                   - type: select
                     name: fileref
-                    label: _('Compose File')
+                    label: _("Compose File")
                     textField: name
                     valueField: uuid
                     store:

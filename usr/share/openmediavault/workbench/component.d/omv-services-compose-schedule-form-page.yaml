@@ -18,17 +18,17 @@ data:
         title: _("Settings")
       - type: checkbox
         name: enable
-        label: _('Enabled')
+        label: _("Enabled")
         value: true
       - type: textInput
         name: filter
-        label: _('Filter')
-        value: ''
+        label: _("Filter")
+        value: ""
         suggestions: true
         hint: _("Choose which compose files to backup by filtering the compose name by this field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd* or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add multiple filters separated by commas.")
         validators:
           pattern:
-            pattern: '^[a-zA-Z0-9_,\-*]*$'
+            pattern: "^[a-zA-Z0-9_,\-*]*$"
             errorData: _("Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and asterisks (*) allowed!")
         store:
           proxy:
@@ -37,8 +37,8 @@ data:
               method: getFileListSuggest
       - type: textInput
         name: excludes
-        label: _('File excludes')
-        value: ''
+        label: _("File excludes")
+        value: ""
         hint: _("Multiple exclusions should be comma separated.")
       - type: divider
         title: _("Action type")
@@ -64,9 +64,9 @@ data:
                     prop: cbuild
           - type: checkbox
             name: backup
-            label: _('Backup')
+            label: _("Backup")
             value: true
-            hint: _('Backup container data.')
+            hint: _("Backup container data.")
             modifiers:
               - type: visible
                 constraint:
@@ -75,9 +75,9 @@ data:
                     prop: maintenance
           - type: checkbox
             name: update
-            label: _('Update')
+            label: _("Update")
             value: false
-            hint: _('Update all images in compose file. Will recreate containers after update if running.<br/>Update will always run after backup if backup is enabled.')
+            hint: _("Update all images in compose file. Will recreate containers after update if running.<br/>Update will always run after backup if backup is enabled.")
             modifiers:
               - type: visible
                 constraint:
@@ -86,9 +86,9 @@ data:
                     prop: maintenance
           - type: checkbox
             name: prune
-            label: _('Prune')
+            label: _("Prune")
             value: false
-            hint: _('Prune all dangling images.<br/>Does not use filter. Will run docker image prune -f')
+            hint: _("Prune all dangling images.<br/>Does not use filter. Will run docker image prune -f")
             modifiers:
               - type: visible
                 constraint:
@@ -117,9 +117,9 @@ data:
                     prop: cbuild
           - type: checkbox
             name: filestart
-            label: _('Start')
+            label: _("Start")
             value: false
-            hint: _('Start all compose files')
+            hint: _("Start all compose files")
             modifiers:
               - type: unchecked
                 constraint:
@@ -133,9 +133,9 @@ data:
                     prop: cstate
           - type: checkbox
             name: filestop
-            label: _('Stop')
+            label: _("Stop")
             value: false
-            hint: _('Stop all compose files')
+            hint: _("Stop all compose files")
             modifiers:
               - type: unchecked
                 constraint:
@@ -173,9 +173,9 @@ data:
                     prop: cstate
           - type: checkbox
             name: filebuild
-            label: _('Build')
+            label: _("Build")
             value: false
-            hint: _('Run docker compose build')
+            hint: _("Run docker compose build")
             modifiers:
               - type: visible
                 constraint:
@@ -190,9 +190,9 @@ data:
                     prop: filepull
           - type: checkbox
             name: filepull
-            label: _('Pull')
+            label: _("Pull")
             value: false
-            hint: _('Always attempt to pull a newer version of the image')
+            hint: _("Always attempt to pull a newer version of the image")
             modifiers:
               - type: visible
                 constraint:
@@ -201,9 +201,9 @@ data:
                     prop: cbuild
           - type: checkbox
             name: filenocache
-            label: _('No cache')
+            label: _("No cache")
             value: false
-            hint: _('Do not use cache when building the image')
+            hint: _("Do not use cache when building the image")
             modifiers:
               - type: visible
                 constraint:
@@ -214,9 +214,9 @@ data:
         title: _("Scripts")
       - type: textInput
         name: prebackup
-        label: _('Pre-backup script')
-        value: ''
-        hint: _('Path to script that will be executed before backup')
+        label: _("Pre-backup script")
+        value: ""
+        hint: _("Path to script that will be executed before backup")
         modifiers:
           - type: visible
             constraint:
@@ -231,9 +231,9 @@ data:
                   prop: backup
       - type: textInput
         name: postbackup
-        label: _('Post-backup script')
-        value: ''
-        hint: _('Path to script that will be executed after backup')
+        label: _("Post-backup script")
+        value: ""
+        hint: _("Path to script that will be executed after backup")
         modifiers:
           - type: visible
             constraint:
@@ -250,22 +250,22 @@ data:
         title: _("Schedule")
       - type: select
         name: execution
-        label: _('Time of execution')
-        value: 'weekly'
+        label: _("Time of execution")
+        value: "weekly"
         store:
           data:
-            - ['exactly', _('Certain date')]
-            - ['hourly', _('Hourly')]
-            - ['daily', _('Daily')]
-            - ['weekly', _('Weekly')]
-            - ['monthly', _('Monthly')]
-            - ['yearly', _('Yearly')]
-            - ['reboot', _('At reboot')]
+            - ["exactly", _("Certain date")]
+            - ["hourly", _("Hourly")]
+            - ["daily", _("Daily")]
+            - ["weekly", _("Weekly")]
+            - ["monthly", _("Monthly")]
+            - ["yearly", _("Yearly")]
+            - ["reboot", _("At reboot")]
       - type: container
         fields:
           - type: select
             name: minute
-            label: _('Minute')
+            label: _("Minute")
             value:
               - '{{ moment("H:mm:ss") | split(":") | get(1) }}'
             multiple: true
@@ -281,76 +281,76 @@ data:
                 operator: eq
                 arg0:
                   prop: execution
-                arg1: 'exactly'
+                arg1: "exactly"
               pattern:
                 pattern: "^(\\*|(([0-9]|[1-5][0-9]),)*([0-9]|[1-5][0-9]))$"
                 errorData: _("The field should only contain * or a comma separated list of values.")
             store:
               data:
-                - ['*', '*']
-                - ['0', '0']
-                - ['1', '1']
-                - ['2', '2']
-                - ['3', '3']
-                - ['4', '4']
-                - ['5', '5']
-                - ['6', '6']
-                - ['7', '7']
-                - ['8', '8']
-                - ['9', '9']
-                - ['10', '10']
-                - ['11', '11']
-                - ['12', '12']
-                - ['13', '13']
-                - ['14', '14']
-                - ['15', '15']
-                - ['16', '16']
-                - ['17', '17']
-                - ['18', '18']
-                - ['19', '19']
-                - ['20', '20']
-                - ['21', '21']
-                - ['22', '22']
-                - ['23', '23']
-                - ['24', '24']
-                - ['25', '25']
-                - ['26', '26']
-                - ['27', '27']
-                - ['28', '28']
-                - ['29', '29']
-                - ['30', '30']
-                - ['31', '31']
-                - ['32', '32']
-                - ['33', '33']
-                - ['34', '34']
-                - ['35', '35']
-                - ['36', '36']
-                - ['37', '37']
-                - ['38', '38']
-                - ['39', '39']
-                - ['40', '40']
-                - ['41', '41']
-                - ['42', '42']
-                - ['43', '43']
-                - ['44', '44']
-                - ['45', '45']
-                - ['46', '46']
-                - ['47', '47']
-                - ['48', '48']
-                - ['49', '49']
-                - ['50', '50']
-                - ['51', '51']
-                - ['52', '52']
-                - ['53', '53']
-                - ['54', '54']
-                - ['55', '55']
-                - ['56', '56']
-                - ['57', '57']
-                - ['58', '58']
-                - ['59', '59']
+                - ["*", "*"]
+                - ["0", "0"]
+                - ["1", "1"]
+                - ["2", "2"]
+                - ["3", "3"]
+                - ["4", "4"]
+                - ["5", "5"]
+                - ["6", "6"]
+                - ["7", "7"]
+                - ["8", "8"]
+                - ["9", "9"]
+                - ["10", "10"]
+                - ["11", "11"]
+                - ["12", "12"]
+                - ["13", "13"]
+                - ["14", "14"]
+                - ["15", "15"]
+                - ["16", "16"]
+                - ["17", "17"]
+                - ["18", "18"]
+                - ["19", "19"]
+                - ["20", "20"]
+                - ["21", "21"]
+                - ["22", "22"]
+                - ["23", "23"]
+                - ["24", "24"]
+                - ["25", "25"]
+                - ["26", "26"]
+                - ["27", "27"]
+                - ["28", "28"]
+                - ["29", "29"]
+                - ["30", "30"]
+                - ["31", "31"]
+                - ["32", "32"]
+                - ["33", "33"]
+                - ["34", "34"]
+                - ["35", "35"]
+                - ["36", "36"]
+                - ["37", "37"]
+                - ["38", "38"]
+                - ["39", "39"]
+                - ["40", "40"]
+                - ["41", "41"]
+                - ["42", "42"]
+                - ["43", "43"]
+                - ["44", "44"]
+                - ["45", "45"]
+                - ["46", "46"]
+                - ["47", "47"]
+                - ["48", "48"]
+                - ["49", "49"]
+                - ["50", "50"]
+                - ["51", "51"]
+                - ["52", "52"]
+                - ["53", "53"]
+                - ["54", "54"]
+                - ["55", "55"]
+                - ["56", "56"]
+                - ["57", "57"]
+                - ["58", "58"]
+                - ["59", "59"]
           - type: checkbox
             name: everynminute
-            label: _('Every N minute')
+            label: _("Every N minute")
             value: false
             modifiers:
               - type: disabled
@@ -360,9 +360,9 @@ data:
                     operator: ne
                     arg0:
                       prop: execution
-                    arg1: 'exactly'
+                    arg1: "exactly"
                   arg1:
-                    operator: '>'
+                    operator: ">"
                     arg0:
                       operator: length
                       arg0:
@@ -371,7 +371,7 @@ data:
               - type: unchecked
                 opposite: false
                 constraint:
-                  operator: '>'
+                  operator: ">"
                   arg0:
                     operator: length
                     arg0:
@@ -381,7 +381,7 @@ data:
         fields:
           - type: select
             name: hour
-            label: _('Hour')
+            label: _("Hour")
             value:
               - '{{ moment("H:mm:ss") | split(":") | get(0) }}'
             multiple: true
@@ -391,46 +391,46 @@ data:
                   operator: ne
                   arg0:
                     prop: execution
-                  arg1: 'exactly'
+                  arg1: "exactly"
             validators:
               requiredIf:
                 operator: eq
                 arg0:
                   prop: execution
-                arg1: 'exactly'
+                arg1: "exactly"
               pattern:
                 pattern: "^(\\*|(([0-9]|1[0-9]|2[0-3]),)*([0-9]|1[0-9]|2[0-3]))$"
                 errorData: _("The field should only contain * or a comma separated list of values.")
             store:
               data:
-                - ['*', '*']
-                - ['0', '0']
-                - ['1', '1']
-                - ['2', '2']
-                - ['3', '3']
-                - ['4', '4']
-                - ['5', '5']
-                - ['6', '6']
-                - ['7', '7']
-                - ['8', '8']
-                - ['9', '9']
-                - ['10', '10']
-                - ['11', '11']
-                - ['12', '12']
-                - ['13', '13']
-                - ['14', '14']
-                - ['15', '15']
-                - ['16', '16']
-                - ['17', '17']
-                - ['18', '18']
-                - ['19', '19']
-                - ['20', '20']
-                - ['21', '21']
-                - ['22', '22']
-                - ['23', '23']
+                - ["*", "*"]
+                - ["0", "0"]
+                - ["1", "1"]
+                - ["2", "2"]
+                - ["3", "3"]
+                - ["4", "4"]
+                - ["5", "5"]
+                - ["6", "6"]
+                - ["7", "7"]
+                - ["8", "8"]
+                - ["9", "9"]
+                - ["10", "10"]
+                - ["11", "11"]
+                - ["12", "12"]
+                - ["13", "13"]
+                - ["14", "14"]
+                - ["15", "15"]
+                - ["16", "16"]
+                - ["17", "17"]
+                - ["18", "18"]
+                - ["19", "19"]
+                - ["20", "20"]
+                - ["21", "21"]
+                - ["22", "22"]
+                - ["23", "23"]
           - type: checkbox
             name: everynhour
-            label: _('Every N hour')
+            label: _("Every N hour")
             value: false
             modifiers:
               - type: disabled
@@ -440,9 +440,9 @@ data:
                     operator: ne
                     arg0:
                       prop: execution
-                    arg1: 'exactly'
+                    arg1: "exactly"
                   arg1:
-                    operator: '>'
+                    operator: ">"
                     arg0:
                       operator: length
                       arg0:
@@ -451,7 +451,7 @@ data:
               - type: unchecked
                 opposite: false
                 constraint:
-                  operator: '>'
+                  operator: ">"
                   arg0:
                     operator: length
                     arg0:
@@ -461,9 +461,9 @@ data:
         fields:
           - type: select
             name: dayofmonth
-            label: _('Day of month')
+            label: _("Day of month")
             value:
-              - '*'
+              - "*"
             multiple: true
             modifiers:
               - type: disabled
@@ -471,53 +471,53 @@ data:
                   operator: ne
                   arg0:
                     prop: execution
-                  arg1: 'exactly'
+                  arg1: "exactly"
             validators:
               requiredIf:
                 operator: eq
                 arg0:
                   prop: execution
-                arg1: 'exactly'
+                arg1: "exactly"
               pattern:
                 pattern: "^(\\*|(([1-9]|[12][0-9]|3[01]),)*([1-9]|[12][0-9]|3[01]))$"
                 errorData: _("The field should only contain * or a comma separated list of values.")
             store:
               data:
-                - ['*', '*']
-                - ['1', '1']
-                - ['2', '2']
-                - ['3', '3']
-                - ['4', '4']
-                - ['5', '5']
-                - ['6', '6']
-                - ['7', '7']
-                - ['8', '8']
-                - ['9', '9']
-                - ['10', '10']
-                - ['11', '11']
-                - ['12', '12']
-                - ['13', '13']
-                - ['14', '14']
-                - ['15', '15']
-                - ['16', '16']
-                - ['17', '17']
-                - ['18', '18']
-                - ['19', '19']
-                - ['20', '20']
-                - ['21', '21']
-                - ['22', '22']
-                - ['23', '23']
-                - ['24', '24']
-                - ['25', '25']
-                - ['26', '26']
-                - ['27', '27']
-                - ['28', '28']
-                - ['29', '29']
-                - ['30', '30']
-                - ['31', '31']
+                - ["*", "*"]
+                - ["1", "1"]
+                - ["2", "2"]
+                - ["3", "3"]
+                - ["4", "4"]
+                - ["5", "5"]
+                - ["6", "6"]
+                - ["7", "7"]
+                - ["8", "8"]
+                - ["9", "9"]
+                - ["10", "10"]
+                - ["11", "11"]
+                - ["12", "12"]
+                - ["13", "13"]
+                - ["14", "14"]
+                - ["15", "15"]
+                - ["16", "16"]
+                - ["17", "17"]
+                - ["18", "18"]
+                - ["19", "19"]
+                - ["20", "20"]
+                - ["21", "21"]
+                - ["22", "22"]
+                - ["23", "23"]
+                - ["24", "24"]
+                - ["25", "25"]
+                - ["26", "26"]
+                - ["27", "27"]
+                - ["28", "28"]
+                - ["29", "29"]
+                - ["30", "30"]
+                - ["31", "31"]
           - type: checkbox
             name: everyndayofmonth
-            label: _('Every N day of month')
+            label: _("Every N day of month")
             value: false
             modifiers:
               - type: disabled
@@ -527,9 +527,9 @@ data:
                     operator: ne
                     arg0:
                       prop: execution
-                    arg1: 'exactly'
+                    arg1: "exactly"
                   arg1:
-                    operator: '>'
+                    operator: ">"
                     arg0:
                       operator: length
                       arg0:
@@ -538,7 +538,7 @@ data:
               - type: unchecked
                 opposite: false
                 constraint:
-                  operator: '>'
+                  operator: ">"
                   arg0:
                     operator: length
                     arg0:
@@ -546,9 +546,9 @@ data:
                   arg1: 1
       - type: select
         name: month
-        label: _('Month')
+        label: _("Month")
         value:
-          - '*'
+          - "*"
         multiple: true
         modifiers:
           - type: disabled
@@ -561,31 +561,31 @@ data:
           requiredIf:
             operator: eq
             arg0:
-              prop: 'execution'
-            arg1: 'exactly'
+              prop: "execution"
+            arg1: "exactly"
           pattern:
             pattern: "^(\\*|(([1-9]|1[0-2]),)*([1-9]|1[0-2]))$"
             errorData: _("The field should only contain * or a comma separated list of values.")
         store:
           data:
-            - ['*', '*']
-            - ['1', _('January')]
-            - ['2', _('February')]
-            - ['3', _('March')]
-            - ['4', _('April')]
-            - ['5', _('May')]
-            - ['6', _('June')]
-            - ['7', _('July')]
-            - ['8', _('August')]
-            - ['9', _('September')]
-            - ['10', _('October')]
-            - ['11', _('November')]
-            - ['12', _('December')]
+            - ["*", "*"]
+            - ["1", _("January")]
+            - ["2", _("February")]
+            - ["3", _("March")]
+            - ["4", _("April")]
+            - ["5", _("May")]
+            - ["6", _("June")]
+            - ["7", _("July")]
+            - ["8", _("August")]
+            - ["9", _("September")]
+            - ["10", _("October")]
+            - ["11", _("November")]
+            - ["12", _("December")]
       - type: select
         name: dayofweek
-        label: _('Day of week')
+        label: _("Day of week")
         value:
-          - '*'
+          - "*"
         multiple: true
         modifiers:
           - type: disabled
@@ -593,40 +593,40 @@ data:
               operator: ne
               arg0:
                 prop: execution
-              arg1: 'exactly'
+              arg1: "exactly"
         validators:
           requiredIf:
             operator: eq
             arg0:
               prop: execution
-            arg1: 'exactly'
+            arg1: "exactly"
           pattern:
             pattern: "^(\\*|([1-7],)*[1-7])$"
             errorData: _("The field should only contain * or a comma separated list of values.")
         store:
           data:
-            - ['*', '*']
-            - ['1', _('Monday')]
-            - ['2', _('Tuesday')]
-            - ['3', _('Wednesday')]
-            - ['4', _('Thursday')]
-            - ['5', _('Friday')]
-            - ['6', _('Saturday')]
-            - ['7', _('Sunday')]
+            - ["*", "*"]
+            - ["1", _("Monday")]
+            - ["2", _("Tuesday")]
+            - ["3", _("Wednesday")]
+            - ["4", _("Thursday")]
+            - ["5", _("Friday")]
+            - ["6", _("Saturday")]
+            - ["7", _("Sunday")]
       - type: checkbox
         name: sendemail
-        label: _('Send command output via email')
+        label: _("Send command output via email")
         value: false
-        hint: _('An email message with the command output (if any produced) is send to the user who performs the job.')
+        hint: _("An email message with the command output (if any produced) is send to the user who performs the job.")
       - type: checkbox
         name: verbose
-        label: _('Verbose')
+        label: _("Verbose")
         value: true
-        hint: _('If checked, backup rsync command will include the verbose flag.')
+        hint: _("If checked, backup rsync command will include the verbose flag.")
       - type: textInput
         name: comment
-        label: _('Comment')
-        value: ''
+        label: _("Comment")
+        value: ""
     buttons:
       - template: submit
         execute:

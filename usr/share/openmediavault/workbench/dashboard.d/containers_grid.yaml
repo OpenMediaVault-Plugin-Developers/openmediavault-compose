@@ -12,10 +12,10 @@ data:
     - user
   grid:
     item:
-      content: '{{ name }}'
+      content: "{{ name }}"
       tooltip: '{% if status|slice(0,3) == "Up " %}{{ "Running" | translate }}{% else %}{{ "Not running" | translate }}{% endif %}'
       class: 'omv-text-center omv-text-nowrap {% if status|slice(0,3) == "Up " %}omv-background-color-pair-success{% else %}omv-background-color-pair-error{% endif %}'
-      contentClass: 'omv-text-truncate'
+      contentClass: "omv-text-truncate"
     store:
       proxy:
         service: Compose
@@ -27,12 +27,12 @@ data:
             operator: ne
             arg0:
               prop: name
-            arg1: 'Docker'
+            arg1: "Docker"
           arg1:
             operator: ne
             arg0:
               prop: name
-            arg1: 'Podman'
+            arg1: "Podman"
       sorters:
         - prop: name
           dir: asc

@@ -81,7 +81,7 @@ data:
         sortable: true
         hidden: true
         cellTemplateName: localeDateTime
-      - name: _('Build')
+      - name: _("Build")
         prop: build
         flexGrow: 1
         sortable: true

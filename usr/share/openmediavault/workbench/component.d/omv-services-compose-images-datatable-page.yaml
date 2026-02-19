@@ -185,30 +185,30 @@ data:
             fields:
               - type: textInput
                 name: repo
-                label: _('Current repository')
-                value: '{{ _selected[0].repo }}'
+                label: _("Current repository")
+                value: "{{ _selected[0].repo }}"
                 disabled: true
               - type: textInput
                 name: tag
-                label: _('Current tag')
-                value: '{{ _selected[0].tag }}'
+                label: _("Current tag")
+                value: "{{ _selected[0].tag }}"
                 disabled: true
               - type: hidden
                 name: srcid
-                value: '{{ _selected[0].id }}'
+                value: "{{ _selected[0].id }}"
               - type: textInput
                 name: srcid_visible
-                label: _('Image ID')
-                value: '{{ _selected[0].id }}'
+                label: _("Image ID")
+                value: "{{ _selected[0].id }}"
                 disabled: true
               - type: textInput
                 name: tgtimg
-                label: _('Target repository')
-                value: '{{ _selected[0].repo }}'
+                label: _("Target repository")
+                value: "{{ _selected[0].repo }}"
               - type: textInput
                 name: tgttag
-                label: _('Target tag')
-                value: ''
+                label: _("Target tag")
+                value: ""
             buttons:
               submit:
                 text: _("Tag")
