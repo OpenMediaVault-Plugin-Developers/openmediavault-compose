@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# songming <by@songming.me>, 2025
+# songming <by@songming.me>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 22:32+0000\n"
+"POT-Creation-Date: 2026-02-19 22:36+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: songming <by@songming.me>, 2025\n"
+"Last-Translator: songming <by@songming.me>, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,15 +61,15 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理员 - 读/写，用户 - 读/写，其它 - 只读"
 
 msgid "Always attempt to pull a newer version of the image"
-msgstr ""
+msgstr "始终尝试拉取最新的镜像版本"
 
 msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
-msgstr ""
+msgstr "包含命令输出（如果有生成的话）的电子邮件将发送给执行该任务的用户。"
 
 msgid "April"
-msgstr ""
+msgstr "4月"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
@@ -98,10 +98,10 @@ msgid "Are you sure you want to sync changes from the files?"
 msgstr "您确定要从文件同步变更吗？"
 
 msgid "At reboot"
-msgstr ""
+msgstr "重启时"
 
 msgid "August"
-msgstr ""
+msgstr "8月"
 
 msgid "Autocompose"
 msgstr "Autocompose"
@@ -113,16 +113,16 @@ msgid "Available"
 msgstr "可用"
 
 msgid "Backend"
-msgstr ""
+msgstr "后端"
 
 msgid "Backup"
 msgstr "备份"
 
 msgid "Backup Time"
-msgstr ""
+msgstr "备份时间"
 
 msgid "Backup container data."
-msgstr ""
+msgstr "备份容器数据。"
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr "备份存储的共享文件夹必须和 docker 存储的共享文件夹不同"
@@ -137,13 +137,13 @@ msgid "Body"
 msgstr "Body"
 
 msgid "Borg encryption"
-msgstr ""
+msgstr "Borg 加密"
 
 msgid "Borg keep"
-msgstr ""
+msgstr "Borg 保留"
 
 msgid "Borg passphrase"
-msgstr ""
+msgstr "Borg 密钥"
 
 msgid "Build"
 msgstr "构建"
@@ -161,7 +161,7 @@ msgid "Cache times for tabs"
 msgstr "标签页缓存时间"
 
 msgid "Certain date"
-msgstr ""
+msgstr "某个日期"
 
 msgid "Changes have been synced from file."
 msgstr "已从文件同步变更。"
@@ -188,7 +188,7 @@ msgid "Command"
 msgstr "命令"
 
 msgid "Comment"
-msgstr ""
+msgstr "评论"
 
 msgid "Compose"
 msgstr "Compose"
@@ -296,16 +296,16 @@ msgid "Current"
 msgstr "目前"
 
 msgid "Current repository"
-msgstr ""
+msgstr "当前源"
 
 msgid "Current tag"
-msgstr ""
+msgstr "当前标签"
 
 msgid "Daily"
-msgstr ""
+msgstr "每日"
 
 msgid "Data"
-msgstr "Data"
+msgstr "数据"
 
 msgid "Data shared folder must be different than docker shared folder"
 msgstr "数据存储共享文件夹必须和 docker 存储共享文件夹不同"
@@ -314,13 +314,13 @@ msgid "Date & Time"
 msgstr "日期&时间"
 
 msgid "Day of month"
-msgstr ""
+msgstr "每月第几天"
 
 msgid "Day of week"
-msgstr ""
+msgstr "每周第几天"
 
 msgid "December"
-msgstr ""
+msgstr "十二月"
 
 msgid "Delete"
 msgstr "删除"
@@ -329,10 +329,10 @@ msgid "Delete backup ..."
 msgstr "删除备份 ..."
 
 msgid "Delete complete."
-msgstr ""
+msgstr "删除完成。"
 
 msgid "Deleting images ..."
-msgstr ""
+msgstr "删除镜像中 ..."
 
 msgid "Description"
 msgstr "描述"
@@ -353,7 +353,7 @@ msgid "Displays information about containers in a table."
 msgstr "以表格形式显示容器信息。"
 
 msgid "Do not use cache when building the image"
-msgstr ""
+msgstr "编译镜像时不使用缓存"
 
 msgid "Docker config"
 msgstr "Docker 配置"
@@ -425,12 +425,12 @@ msgid "Enable Docker repo ..."
 msgstr "启用 Docker 源 ..."
 
 msgid "Enabled"
-msgstr ""
+msgstr "启用"
 
 msgid ""
 "Encryption mode for Borg repository. Changing this requires re-initializing "
 "the repo."
-msgstr ""
+msgstr "Borg 源的加密模式。更改此设置需要重新初始化源。"
 
 msgid "Env Path"
 msgstr "Env 路径"
@@ -439,13 +439,13 @@ msgid "Environment"
 msgstr "环境"
 
 msgid "Every N day of month"
-msgstr ""
+msgstr "每月第 N 天"
 
 msgid "Every N hour"
-msgstr ""
+msgstr "每 N 小时"
 
 msgid "Every N minute"
-msgstr ""
+msgstr "每 N 分钟"
 
 msgid "Everyone - read/write"
 msgstr "任何人 - 读/写"
@@ -463,7 +463,7 @@ msgid "Failed"
 msgstr "失败"
 
 msgid "February"
-msgstr ""
+msgstr "二月"
 
 msgid "File"
 msgstr "文件"
@@ -472,7 +472,7 @@ msgid "File date"
 msgstr "文件日期"
 
 msgid "File excludes"
-msgstr ""
+msgstr "排除文件"
 
 msgid "Filename"
 msgstr "文件名"
@@ -489,7 +489,7 @@ msgid ""
 msgstr "格式为 名字=ip，如有多条用逗号分割，<br/>如my-router=192.168.10.5,my-nas=192.168.20.6"
 
 msgid "Friday"
-msgstr ""
+msgstr "星期五"
 
 msgid "Gateway"
 msgstr "网关"
@@ -504,10 +504,10 @@ msgid "Group of directories and files"
 msgstr "文件和文件夹所属组"
 
 msgid "Hour"
-msgstr ""
+msgstr "小时"
 
 msgid "Hourly"
-msgstr ""
+msgstr "每小时"
 
 msgid "ID"
 msgstr "ID"
@@ -516,13 +516,13 @@ msgid "IP range"
 msgstr "IP 范围"
 
 msgid "If checked, backup rsync command will include the verbose flag."
-msgstr ""
+msgstr "如果选中，rsync 备份命令将包括详细标志。"
 
 msgid "Image"
 msgstr "镜像"
 
 msgid "Image ID"
-msgstr ""
+msgstr "镜像 ID"
 
 msgid "Images"
 msgstr "镜像"
@@ -555,28 +555,28 @@ msgid "Installed"
 msgstr "已安装"
 
 msgid "Internal network"
-msgstr ""
+msgstr "内部网络"
 
 msgid "Is Latest"
-msgstr ""
+msgstr "是最新的"
 
 msgid "January"
-msgstr ""
+msgstr "一月"
 
 msgid "July"
-msgstr ""
+msgstr "七月"
 
 msgid "June"
-msgstr ""
+msgstr "六月"
 
 msgid "Keep containers running across Docker daemon updates"
 msgstr "在 Docker 守护进程升级时保持容器运行"
 
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
-msgstr ""
+msgstr "留空以使用自定义文件 /etc/containers/storage.conf"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
-msgstr "留空则使用用户自定义 /etc/docker/daemon.json"
+msgstr "留空则使用用户自定义文件 /etc/docker/daemon.json"
 
 msgid "Live restore"
 msgstr "实时恢复"
@@ -609,13 +609,13 @@ msgid "Maintenance"
 msgstr "维护"
 
 msgid "March"
-msgstr ""
+msgstr "三月"
 
 msgid "Max Size"
 msgstr "最大尺寸"
 
 msgid "May"
-msgstr ""
+msgstr "五月"
 
 msgid "Mem %"
 msgstr "内存 %"
@@ -630,19 +630,19 @@ msgid "Message"
 msgstr "消息"
 
 msgid "Minute"
-msgstr ""
+msgstr "分钟"
 
 msgid "Mixed"
 msgstr "混合"
 
 msgid "Monday"
-msgstr ""
+msgstr "星期一"
 
 msgid "Month"
-msgstr ""
+msgstr "月"
 
 msgid "Monthly"
-msgstr ""
+msgstr "每月"
 
 msgid "Mountpoint"
 msgstr "挂载点"
@@ -672,7 +672,7 @@ msgid "No Image"
 msgstr "无镜像"
 
 msgid "No cache"
-msgstr ""
+msgstr "无缓存"
 
 msgid "No compose file found!"
 msgstr "未找到 compose 文件！"
@@ -681,19 +681,19 @@ msgid "No name specified!"
 msgstr "未指定名称！"
 
 msgid "None"
-msgstr ""
+msgstr "无"
 
 msgid "Not installed"
 msgstr "未安装"
 
 msgid "November"
-msgstr ""
+msgstr "十一月"
 
 msgid "Number of Borg backups to keep."
-msgstr ""
+msgstr "Borg 备份保留数量。"
 
 msgid "October"
-msgstr ""
+msgstr "十月"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -723,6 +723,8 @@ msgid ""
 "field path will not be overriden when this shared folder is set to None or "
 "when Podman storage field path is blank."
 msgstr ""
+"可选项。如果选择，将使用此共享文件夹的绝对路径来覆盖保存时的 Podman 存储字段路径。当此共享文件夹设置为“无”或 Podman "
+"存储字段路径为空时，Podman 存储字段路径不会被覆盖。"
 
 msgid "Override"
 msgstr "覆盖"
@@ -747,19 +749,19 @@ msgid "Parent network"
 msgstr "父网络"
 
 msgid "Passphrase for Borg encryption."
-msgstr ""
+msgstr "Borg 加密的密钥。"
 
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 msgid "Path"
 msgstr "路径"
 
 msgid "Path to script that will be executed after backup"
-msgstr ""
+msgstr "备份后将执行的脚本路径"
 
 msgid "Path to script that will be executed before backup"
-msgstr ""
+msgstr "备份前将执行的脚本路径"
 
 msgid "Permissions of directories and files"
 msgstr "文件及文件夹的权限"
@@ -774,16 +776,16 @@ msgid "Please set shared folder for file storage."
 msgstr "请设置共享文件夹用于文件存储。"
 
 msgid "Podman storage"
-msgstr ""
+msgstr "Podman 存储"
 
 msgid "Ports"
 msgstr "端口"
 
 msgid "Post-backup script"
-msgstr ""
+msgstr "备份后脚本"
 
 msgid "Pre-backup script"
-msgstr ""
+msgstr "备份前脚本"
 
 msgid "Project"
 msgstr "工程"
@@ -795,15 +797,15 @@ msgid "Prune Images"
 msgstr "清理镜像"
 
 msgid "Prune Images - all dangling"
-msgstr ""
+msgstr "清理镜像 - 所有虚悬镜像"
 
 msgid ""
 "Prune all dangling images.<br/>Does not use filter. Will run docker image "
 "prune -f"
-msgstr ""
+msgstr "清理所有未使用的镜像。<br/>不使用过滤器。将运行 docker image prune -f"
 
 msgid "Pull"
-msgstr ""
+msgstr "拉取"
 
 msgid "Pull and Build"
 msgstr "拉取并构建"
@@ -812,10 +814,10 @@ msgid "Pull and Build ..."
 msgstr "拉取构建中 ..."
 
 msgid "Pull complete."
-msgstr ""
+msgstr "拉取完成。"
 
 msgid "Pulling images ..."
-msgstr ""
+msgstr "拉取镜像中 ..."
 
 msgid "Push"
 msgstr "推送"
@@ -856,7 +858,7 @@ msgstr "从备份恢复 global.env 中..."
 msgid ""
 "Restrict external access. Containers can talk to each other, but the network"
 " is not reachable from outside the host."
-msgstr ""
+msgstr "限制外部访问。容器可以相互通信，但网络无法从主机外部访问。"
 
 msgid "Run"
 msgstr "运行"
@@ -865,7 +867,7 @@ msgid "Run config"
 msgstr "运行配置"
 
 msgid "Run docker compose build"
-msgstr ""
+msgstr "运行 docker compose 构建"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
@@ -875,13 +877,13 @@ msgid "Running For"
 msgstr "运行"
 
 msgid "Saturday"
-msgstr ""
+msgstr "星期六"
 
 msgid "Schedule"
 msgstr "计划"
 
 msgid "Scheduling"
-msgstr ""
+msgstr "计划"
 
 msgid "Script"
 msgstr "脚本"
@@ -902,10 +904,10 @@ msgid "Select a user ..."
 msgstr "选择一个用户 ..."
 
 msgid "Send command output via email"
-msgstr ""
+msgstr "通过电子邮件发送命令输出"
 
 msgid "September"
-msgstr ""
+msgstr "九月"
 
 msgid "Service"
 msgstr "服务"
@@ -947,10 +949,10 @@ msgid "Size"
 msgstr "尺寸"
 
 msgid "Start"
-msgstr ""
+msgstr "开始"
 
 msgid "Start all compose files"
-msgstr ""
+msgstr "开始所有 compose 文件"
 
 msgid "State"
 msgstr "状态"
@@ -962,10 +964,10 @@ msgid "Status"
 msgstr "状态"
 
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 msgid "Stop all compose files"
-msgstr ""
+msgstr "停止所有 compose 文件"
 
 msgid "Stopped"
 msgstr "停止"
@@ -974,7 +976,7 @@ msgid "Subnet"
 msgstr "子网"
 
 msgid "Sunday"
-msgstr ""
+msgstr "星期天"
 
 msgid "Sync changes from file"
 msgstr "从文件同步变更"
@@ -992,13 +994,13 @@ msgid "Tags"
 msgstr "标签"
 
 msgid "Target repo"
-msgstr ""
+msgstr "目标源"
 
 msgid "Target repository"
-msgstr ""
+msgstr "目标源"
 
 msgid "Target tag"
-msgstr ""
+msgstr "目标标签"
 
 msgid "Terminal"
 msgstr "终端"
@@ -1031,16 +1033,16 @@ msgid ""
 msgstr "这将从选中文件夹导入一个或多个 compose 文件。<br/>它不会导入插件中已存在的任何  compose 文件"
 
 msgid "Thursday"
-msgstr ""
+msgstr "星期四"
 
 msgid "Time of execution"
-msgstr ""
+msgstr "执行时间"
 
 msgid "Tools"
 msgstr "工具"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "星期二"
 
 msgid "URL"
 msgstr "URL"
@@ -1063,24 +1065,24 @@ msgid "Up"
 msgstr "上线"
 
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 msgid ""
 "Update all images in compose file. Will recreate containers after update if "
 "running.<br/>Update will always run after backup if backup is enabled."
-msgstr ""
+msgstr "更新 compose 文件中的所有镜像。如果容器正在运行，更新后将重新创建容器。<br/>如果启用了备份，更新将始终在备份之后进行。"
 
 msgid "Uptime"
 msgstr "上线时间"
 
 msgid "Use podman"
-msgstr ""
+msgstr "使用 podman"
 
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 msgid "Verbose"
-msgstr ""
+msgstr "详细输出"
 
 msgid "Version"
 msgstr "版本"
@@ -1095,13 +1097,13 @@ msgid "Volumes"
 msgstr "卷"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "星期三"
 
 msgid "Weekly"
-msgstr ""
+msgstr "每周"
 
 msgid "Yearly"
-msgstr ""
+msgstr "每年"
 
 msgid "and not running"
 msgstr "未运行"
@@ -1158,7 +1160,7 @@ msgid "docker image inspect ..."
 msgstr "docker 镜像检查 ..."
 
 msgid "docker image prune --all ..."
-msgstr ""
+msgstr "docker image prune --all ..."
 
 msgid "docker image prune ..."
 msgstr "docker 镜像修改 ..."
@@ -1257,10 +1259,10 @@ msgid "pull image+tag"
 msgstr "拉取镜像+标签"
 
 msgid "pull multiple image"
-msgstr ""
+msgstr "拉取多个镜像"
 
 msgid "repokey"
-msgstr ""
+msgstr "源密钥"
 
 msgid "restart"
 msgstr "重启"

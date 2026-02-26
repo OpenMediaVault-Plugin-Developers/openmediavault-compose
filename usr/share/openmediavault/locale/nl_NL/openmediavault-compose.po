@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 22:32+0000\n"
+"POT-Creation-Date: 2026-02-19 22:36+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -71,15 +71,17 @@ msgstr ""
 "lezen"
 
 msgid "Always attempt to pull a newer version of the image"
-msgstr ""
+msgstr "Probeer altijd een nieuwere versie van de image op te halen"
 
 msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
 msgstr ""
+"Een e-mailbericht met de uitvoer van de opdracht (indien geproduceerd) wordt"
+" verzonden naar de gebruiker die de taak uitvoert."
 
 msgid "April"
-msgstr ""
+msgstr "April"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
@@ -110,10 +112,10 @@ msgid "Are you sure you want to sync changes from the files?"
 msgstr "Weet u zeker dat u wijzigingen in de bestanden wilt synchroniseren?"
 
 msgid "At reboot"
-msgstr ""
+msgstr "Bij opnieuw starten"
 
 msgid "August"
-msgstr ""
+msgstr "Augustus"
 
 msgid "Autocompose"
 msgstr "Autocompose"
@@ -131,10 +133,10 @@ msgid "Backup"
 msgstr "Back-up"
 
 msgid "Backup Time"
-msgstr ""
+msgstr "Back-uptijd"
 
 msgid "Backup container data."
-msgstr ""
+msgstr "Containergegevens back-uppen."
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
@@ -151,13 +153,13 @@ msgid "Body"
 msgstr "Body"
 
 msgid "Borg encryption"
-msgstr ""
+msgstr "Borg versleuteling"
 
 msgid "Borg keep"
 msgstr "Borg behouden"
 
 msgid "Borg passphrase"
-msgstr ""
+msgstr "Borg wachtwoordzin"
 
 msgid "Build"
 msgstr "Build"
@@ -175,7 +177,7 @@ msgid "Cache times for tabs"
 msgstr "Cache-tijden voor tabs"
 
 msgid "Certain date"
-msgstr ""
+msgstr "Specifieke datum"
 
 msgid "Changes have been synced from file."
 msgstr "Wijzigingen zijn gesynchroniseerd vanuit bestand."
@@ -205,7 +207,7 @@ msgid "Command"
 msgstr "Opdracht"
 
 msgid "Comment"
-msgstr ""
+msgstr "Opmerking"
 
 msgid "Compose"
 msgstr "Compose"
@@ -318,13 +320,13 @@ msgid "Current"
 msgstr "Huidig"
 
 msgid "Current repository"
-msgstr ""
+msgstr "Huidige opslagplaats"
 
 msgid "Current tag"
-msgstr ""
+msgstr "Huidige label"
 
 msgid "Daily"
-msgstr ""
+msgstr "Dagelijks"
 
 msgid "Data"
 msgstr "Gegevens"
@@ -338,13 +340,13 @@ msgid "Date & Time"
 msgstr "Datum & Tijd"
 
 msgid "Day of month"
-msgstr ""
+msgstr "Dag van maand"
 
 msgid "Day of week"
-msgstr ""
+msgstr "Dag van week"
 
 msgid "December"
-msgstr ""
+msgstr "December"
 
 msgid "Delete"
 msgstr "Verwijderen"
@@ -378,7 +380,7 @@ msgid "Displays information about containers in a table."
 msgstr "Geeft informatie weer over containers in een tabel."
 
 msgid "Do not use cache when building the image"
-msgstr ""
+msgstr "Geen tijdelijke opslag gebruiken bij het bouwen van de image"
 
 msgid "Docker config"
 msgstr "Docker config"
@@ -450,12 +452,14 @@ msgid "Enable Docker repo ..."
 msgstr "Docker repo inschakelen…"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Ingeschakeld"
 
 msgid ""
 "Encryption mode for Borg repository. Changing this requires re-initializing "
 "the repo."
 msgstr ""
+"Versleutelingsmodus voor Borg-opslagplaats. Om dit te veranderen, moet de "
+"repo opnieuw worden geïnitieerd."
 
 msgid "Env Path"
 msgstr "Omg.-pad"
@@ -464,13 +468,13 @@ msgid "Environment"
 msgstr "Omgeving"
 
 msgid "Every N day of month"
-msgstr ""
+msgstr "Elke dag N van de maand"
 
 msgid "Every N hour"
-msgstr ""
+msgstr "Elk N uur"
 
 msgid "Every N minute"
-msgstr ""
+msgstr "Elke N minuten"
 
 msgid "Everyone - read/write"
 msgstr "Iedereen - lezen/schrijven"
@@ -488,7 +492,7 @@ msgid "Failed"
 msgstr "Mislukt"
 
 msgid "February"
-msgstr ""
+msgstr "Februari"
 
 msgid "File"
 msgstr "Bestand"
@@ -497,7 +501,7 @@ msgid "File date"
 msgstr "Bestandsdatum"
 
 msgid "File excludes"
-msgstr ""
+msgstr "Uitgesloten bestanden"
 
 msgid "Filename"
 msgstr "Bestandsnaam"
@@ -516,7 +520,7 @@ msgstr ""
 "router=192.168.10.5,mijn-nas=192.168.20.6"
 
 msgid "Friday"
-msgstr ""
+msgstr "Vrijdag"
 
 msgid "Gateway"
 msgstr "Gateway"
@@ -531,10 +535,10 @@ msgid "Group of directories and files"
 msgstr "Groep mappen en bestanden"
 
 msgid "Hour"
-msgstr ""
+msgstr "Uur"
 
 msgid "Hourly"
-msgstr ""
+msgstr "Elk uur"
 
 msgid "ID"
 msgstr "ID"
@@ -544,12 +548,14 @@ msgstr "IP-bereik"
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
+"Indien aangevinkt, wordt de rsync-back-up opdracht uitgevoerd met de vlag "
+"'uitgebreid'."
 
 msgid "Image"
 msgstr "Image"
 
 msgid "Image ID"
-msgstr ""
+msgstr "Image-ID"
 
 msgid "Images"
 msgstr "Images"
@@ -585,16 +591,16 @@ msgid "Internal network"
 msgstr "Intern netwerk"
 
 msgid "Is Latest"
-msgstr ""
+msgstr "Is Laatste"
 
 msgid "January"
-msgstr ""
+msgstr "Januari"
 
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 msgid "June"
-msgstr ""
+msgstr "Juni"
 
 msgid "Keep containers running across Docker daemon updates"
 msgstr "Houd containers actief tijdens Docker-daemon-updates"
@@ -636,13 +642,13 @@ msgid "Maintenance"
 msgstr "Onderhoud"
 
 msgid "March"
-msgstr ""
+msgstr "Maart"
 
 msgid "Max Size"
 msgstr "Max. grootte"
 
 msgid "May"
-msgstr ""
+msgstr "Mei"
 
 msgid "Mem %"
 msgstr "Mem %"
@@ -657,19 +663,19 @@ msgid "Message"
 msgstr "Bericht"
 
 msgid "Minute"
-msgstr ""
+msgstr "Muniit"
 
 msgid "Mixed"
 msgstr "Mixed"
 
 msgid "Monday"
-msgstr ""
+msgstr "Maandag"
 
 msgid "Month"
-msgstr ""
+msgstr "Maand"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Maandelijks"
 
 msgid "Mountpoint"
 msgstr "Aankoppelpunt"
@@ -699,7 +705,7 @@ msgid "No Image"
 msgstr "Geen image"
 
 msgid "No cache"
-msgstr ""
+msgstr "Geen tijdelijke opslag"
 
 msgid "No compose file found!"
 msgstr "Geen composebestand gevonden!"
@@ -708,19 +714,19 @@ msgid "No name specified!"
 msgstr "Geen naam opgegeven!"
 
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 msgid "Not installed"
 msgstr "Niet geïnstalleerd"
 
 msgid "November"
-msgstr ""
+msgstr "November"
 
 msgid "Number of Borg backups to keep."
 msgstr "Aantal te behouden Borg back-ups."
 
 msgid "October"
-msgstr ""
+msgstr "Oktober"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -787,19 +793,19 @@ msgid "Parent network"
 msgstr "Bovenliggend netwerk"
 
 msgid "Passphrase for Borg encryption."
-msgstr ""
+msgstr "Wachtwoordzin voor Borg-versleuteling."
 
 msgid "Password"
-msgstr ""
+msgstr "Wachtwoord"
 
 msgid "Path"
 msgstr "Pad"
 
 msgid "Path to script that will be executed after backup"
-msgstr ""
+msgstr "Pad naar script dat na back-up wordt uitgevoerd"
 
 msgid "Path to script that will be executed before backup"
-msgstr ""
+msgstr "Pad naar script dat wordt uitgevoerd voor de back-up."
 
 msgid "Permissions of directories and files"
 msgstr "Machtigingen van mappen en bestanden"
@@ -820,10 +826,10 @@ msgid "Ports"
 msgstr "Poorten"
 
 msgid "Post-backup script"
-msgstr ""
+msgstr "Post-backup script"
 
 msgid "Pre-backup script"
-msgstr ""
+msgstr "Pre-backup script"
 
 msgid "Project"
 msgstr "Project"
@@ -841,9 +847,11 @@ msgid ""
 "Prune all dangling images.<br/>Does not use filter. Will run docker image "
 "prune -f"
 msgstr ""
+"Alle resterende images verwijderen.<br/>Gebruikt geen filter. Zal 'docker "
+"image prune - f' uitvoeren"
 
 msgid "Pull"
-msgstr ""
+msgstr "Ophalen"
 
 msgid "Pull and Build"
 msgstr "Pull and Build"
@@ -907,7 +915,7 @@ msgid "Run config"
 msgstr "Config uitvoeren"
 
 msgid "Run docker compose build"
-msgstr ""
+msgstr "Docker compose build uitvoeren"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
@@ -919,13 +927,13 @@ msgid "Running For"
 msgstr "Uitvoeren voor"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Zaterdag"
 
 msgid "Schedule"
 msgstr "Planning"
 
 msgid "Scheduling"
-msgstr ""
+msgstr "Plannen"
 
 msgid "Script"
 msgstr "Script"
@@ -946,10 +954,10 @@ msgid "Select a user ..."
 msgstr "Selecteer een gebruiker…"
 
 msgid "Send command output via email"
-msgstr ""
+msgstr "Uitvoer van opdracht versturen via e-mail"
 
 msgid "September"
-msgstr ""
+msgstr "September"
 
 msgid "Service"
 msgstr "Dienst"
@@ -991,10 +999,10 @@ msgid "Size"
 msgstr "Grootte"
 
 msgid "Start"
-msgstr ""
+msgstr "Starten"
 
 msgid "Start all compose files"
-msgstr ""
+msgstr "Alle compose-bestanden starten"
 
 msgid "State"
 msgstr "Toestand"
@@ -1006,10 +1014,10 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Stop"
-msgstr ""
+msgstr "Stoppen"
 
 msgid "Stop all compose files"
-msgstr ""
+msgstr "Alle compose-bestanden stoppen"
 
 msgid "Stopped"
 msgstr "Gestopt"
@@ -1018,7 +1026,7 @@ msgid "Subnet"
 msgstr "Subnet"
 
 msgid "Sunday"
-msgstr ""
+msgstr "Zondag"
 
 msgid "Sync changes from file"
 msgstr "Wijzigingen uit bestand synchroniseren"
@@ -1036,13 +1044,13 @@ msgid "Tags"
 msgstr "Labels"
 
 msgid "Target repo"
-msgstr ""
+msgstr "Doel opslag"
 
 msgid "Target repository"
-msgstr ""
+msgstr "Doel opslagplaats"
 
 msgid "Target tag"
-msgstr ""
+msgstr "Doel label"
 
 msgid "Terminal"
 msgstr "Terminal"
@@ -1086,16 +1094,16 @@ msgstr ""
 "plug-in bestaan."
 
 msgid "Thursday"
-msgstr ""
+msgstr "Donderdag"
 
 msgid "Time of execution"
-msgstr ""
+msgstr "Moment van uitvoering"
 
 msgid "Tools"
 msgstr "Hulpmiddelen"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Dinsdag"
 
 msgid "URL"
 msgstr "URL"
@@ -1120,12 +1128,15 @@ msgid "Up"
 msgstr "Up"
 
 msgid "Update"
-msgstr ""
+msgstr "Bijwerken"
 
 msgid ""
 "Update all images in compose file. Will recreate containers after update if "
 "running.<br/>Update will always run after backup if backup is enabled."
 msgstr ""
+"Alle images in het compose-bestand bijwerken. Zal containers na update "
+"opnieuw maken als deze actief zijn.<br/>Update wordt altijd uitgevoerd na "
+"back-up als back-up is ingeschakeld."
 
 msgid "Uptime"
 msgstr "Uptime"
@@ -1134,10 +1145,10 @@ msgid "Use podman"
 msgstr "Podman gebruiken"
 
 msgid "Username"
-msgstr ""
+msgstr "Gebruikersnaam"
 
 msgid "Verbose"
-msgstr ""
+msgstr "Uitgebreid"
 
 msgid "Version"
 msgstr "Versie"
@@ -1152,13 +1163,13 @@ msgid "Volumes"
 msgstr "Volumes"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Woensdag"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Wekelijks"
 
 msgid "Yearly"
-msgstr ""
+msgstr "Jaarlijks"
 
 msgid "and not running"
 msgstr "and not running"
@@ -1317,7 +1328,7 @@ msgid "pull multiple image"
 msgstr "Pull meerdere images"
 
 msgid "repokey"
-msgstr ""
+msgstr "repokey"
 
 msgid "restart"
 msgstr "restart"
