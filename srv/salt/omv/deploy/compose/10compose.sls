@@ -243,7 +243,6 @@ configure_compose_global_env_file:
 
 {% else %}
 
-{% set datapath = "" %}
 remove_compose_global_env_file:
   file.absent:
     - name: '{{ globalEnvFile }}'
