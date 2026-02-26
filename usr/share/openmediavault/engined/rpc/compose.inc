@@ -1010,6 +1010,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $composeFile = sprintf("%s.yml", $composeName);
         $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
         $envFile = sprintf("%s.env", $composeName);
+        $composeLink = sprintf("%s/compose.yml", $composeDir);
+        $envLink = sprintf("%s/.env", $composeDir);
+        $globalEnvFile = sprintf("%s/global.env", $sfpath);
         // stop container(s) if running
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
@@ -1038,16 +1041,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $files[] = sprintf("%s/compose.override.yml", $cname);
         $this->removeAndCommit($context, $files, $cname);
         // remove files
-        if (file_exists($composeFile)) {
-            unlink($composeFile);
+        $files = [$composeFile, $envFile, $overrideFile, $composeLink, $envLink];
+        foreach ($files as $f) {
+            if (file_exists($f) || is_link($f)) {
+                unlink($f);
+            }
         }
-        if (file_exists($envFile)) {
-            unlink($envFile);
-        }
-        if (file_exists($overrideFile)) {
-            unlink($overrideFile);
-        }
-        if (file_exists($composeDir)) {
+        // remove dir if empty
+        if (is_dir($composeDir)) {
             rmdir($composeDir);
         }
         // delete database entry
