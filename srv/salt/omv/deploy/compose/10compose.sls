@@ -162,10 +162,16 @@ configure_compose_{{ file.name }}_file:
     - group: "{{ config.composegroup }}"
     - mode: "{{ config.fileperms }}"
 
+{% if config.createsymlinks | to_bool %}
 configure_compose_{{ file.name }}_symlink:
   file.symlink:
     - name: '{{ composeSymlink }}'
     - target: '{{ composeFile }}'
+{% else %}
+remove_compose_{{ file.name }}_symlink:
+  file.absent:
+    - name: '{{ composeSymlink }}'
+{% endif %}
 
 {% set file_override = render_body(file.override, file.name, datapath) %}
 configure_compose_{{ file.name }}_override:
@@ -197,10 +203,16 @@ configure_compose_env_{{ file.name }}_file:
     - group: "{{ config.composegroup }}"
     - mode: "{{ config.fileperms }}"
 
+{% if config.createsymlinks | to_bool %}
 configure_compose_env_{{ file.name }}_symlink:
   file.symlink:
     - name: '{{ envSymlink }}'
     - target: '{{ envFile }}'
+{% else %}
+remove_compose_env_{{ file.name }}_symlink:
+  file.absent:
+    - name: '{{ envSymlink }}'
+{% endif %}
 
 {%- for cnf in config.configs.config | selectattr("fileref", "equalto", file.uuid) %}
 

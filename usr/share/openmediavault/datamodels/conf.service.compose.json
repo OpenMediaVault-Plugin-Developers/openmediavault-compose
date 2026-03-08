@@ -192,6 +192,10 @@
     "runconfig": {
       "type": "boolean"
     },
+    "createsymlinks": {
+      "type": "boolean",
+      "default": true
+    },
     "files": {
       "type": "object",
       "properties": {

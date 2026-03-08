@@ -113,6 +113,10 @@
           "type": "boolean",
           "required": true
         },
+        "createsymlinks": {
+          "type": "boolean",
+          "required": true
+        },
         "podmanStorage": {
           "type": "string",
           "required": false

@@ -326,6 +326,11 @@ data:
         label: _("Run config")
         hint: _("Run docker compose config to automatically check syntax when saving file")
         value: false
+      - type: checkbox
+        name: createsymlinks
+        label: _("Create symlinks")
+        hint: _("Create .env and compose.yml symlinks")
+        value: true
       - type: divider
         title: _("Cache times for tabs")
       - type: container
