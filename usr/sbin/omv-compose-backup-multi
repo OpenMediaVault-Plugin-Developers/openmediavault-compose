@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.2.0
+# version: 0.3.0
 
 . /usr/share/openmediavault/scripts/helper-functions
 
@@ -17,6 +17,8 @@ export LC_ALL=C.UTF-8
 declare -i count=0
 declare -i index=0
 
+email_mode=""
+email_comment=""
 filter=""
 postbackup=""
 prebackup=""
@@ -42,6 +44,14 @@ while [[ $# -gt 0 ]]; do
     -u)
       uuid="$2"
       _log "uuid :: ${uuid}"
+      shift 2
+      ;;
+    -e)
+      email_mode="$2"
+      shift 2
+      ;;
+    -c)
+      email_comment="$2"
       shift 2
       ;;
     -h)
@@ -80,6 +90,24 @@ if [[ "${filter}" == "*" ]]; then
 elif [[ "${filter}" == *","* ]]; then
   filter="@(${filter//,/|})"
 fi
+
+tmpfile=""
+if [ -n "${email_mode}" ]; then
+  tmpfile=$(mktemp)
+  exec > "${tmpfile}" 2>&1
+fi
+
+_send_email() {
+  local rc="$1"
+  if [ -n "${tmpfile}" ] && [ -f "${tmpfile}" ]; then
+    if [ "${email_mode}" = "always" ] || { [ "${email_mode}" = "onerror" ] && [ "${rc}" -ne 0 ]; }; then
+      mail -E -s "Cron${email_comment:+ - ${email_comment}}" -a "From: Cron Daemon <root>" root < "${tmpfile}" > /dev/null 2>&1
+    fi
+    rm -f "${tmpfile}"
+  fi
+}
+trap '_send_email $?' EXIT
+
 _log "filter :: ${filter}"
 
 if omv_isuuid "${uuid}"; then
@@ -136,6 +164,7 @@ if [ -f "${globalenv}" ]; then
   cp -pv "${globalenv}" "${backuppath}/"
 fi
 
+overall_rc=0
 xpath="/config/services/compose/files/file"
 count=$(omv_config_get_count "${xpath}")
 index=1
@@ -147,9 +176,9 @@ while [ ${index} -le ${count} ]; do
     continue
   fi
   echo ${name}
-  omv-compose-backup "${name}" "${uuid:+${uuid}}"
+  omv-compose-backup "${name}" "${uuid:+${uuid}}" || overall_rc=$?
   index=$(( index + 1 ))
-done;
+done
 
 # execute post-backup
 if [ -f "${postbackup}" ] && [ -x "${postbackup}" ]; then
@@ -161,3 +190,5 @@ else
     _log "post-backup script not found."
   fi
 fi
+
+exit "${overall_rc}"

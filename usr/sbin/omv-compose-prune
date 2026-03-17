@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.0.1
+# version: 0.1.0
 
 export LC_ALL=C.UTF-8
 
@@ -16,6 +16,17 @@ export LC_ALL=C.UTF-8
 
 declare -i timeout=180
 declare -i i=0
+
+email_mode=""
+email_comment=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -e) email_mode="$2"; shift 2 ;;
+    -c) email_comment="$2"; shift 2 ;;
+    *)  shift ;;
+  esac
+done
 
 # logging location
 logDir="/var/log/"
@@ -26,6 +37,23 @@ _log()
   msg=${1}
   echo "[$(date +'%Y-%m-%d %H:%M:%S%z')] [composeupdate] ${msg}" | tee -a ${logFile} >&2
 }
+
+tmpfile=""
+if [ -n "${email_mode}" ]; then
+  tmpfile=$(mktemp)
+  exec > "${tmpfile}" 2>&1
+fi
+
+_send_email() {
+  local rc="$1"
+  if [ -n "${tmpfile}" ] && [ -f "${tmpfile}" ]; then
+    if [ "${email_mode}" = "always" ] || { [ "${email_mode}" = "onerror" ] && [ "${rc}" -ne 0 ]; }; then
+      mail -E -s "Cron${email_comment:+ - ${email_comment}}" -a "From: Cron Daemon <root>" root < "${tmpfile}" > /dev/null 2>&1
+    fi
+    rm -f "${tmpfile}"
+  fi
+}
+trap '_send_email $?' EXIT
 
 # get podman setting
 podman=$(omv_config_get "/config/services/compose/podman")

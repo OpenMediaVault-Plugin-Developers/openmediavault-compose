@@ -353,6 +353,9 @@
               "sendemail": {
                 "type": "boolean"
               },
+              "emailonerror": {
+                "type": "boolean"
+              },
               "verbose": {
                 "type": "boolean"
               },

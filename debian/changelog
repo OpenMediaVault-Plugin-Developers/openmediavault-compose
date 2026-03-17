@@ -1,3 +1,10 @@
+openmediavault-compose (8.1.6) stable; urgency=low
+
+  * Allow disabling creation of compose files and environment file
+    symlinks
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 17 Mar 2026 23:25:25 +0000
+
 openmediavault-compose (8.1.5) stable; urgency=low
 
   * Use double quotes instead of single quotes for translation parser

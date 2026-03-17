@@ -8,7 +8,7 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.0.1
+# version: 0.1.0
 
 export LC_ALL=C.UTF-8
 
@@ -17,9 +17,21 @@ declare -i index=0
 
 . /usr/share/openmediavault/scripts/helper-functions
 
-filter="${1}"
-pull="${2}"
-nocache="${3}"
+email_mode=""
+email_comment=""
+args=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -e) email_mode="$2"; shift 2 ;;
+    -c) email_comment="$2"; shift 2 ;;
+    *)  args+=("$1"); shift ;;
+  esac
+done
+
+filter="${args[0]}"
+pull="${args[1]}"
+nocache="${args[2]}"
 
 if [[ "${filter}" == "*" ]]; then
   filter=""
@@ -39,6 +51,24 @@ else
   nocache="0"
 fi
 
+tmpfile=""
+if [ -n "${email_mode}" ]; then
+  tmpfile=$(mktemp)
+  exec > "${tmpfile}" 2>&1
+fi
+
+_send_email() {
+  local rc="$1"
+  if [ -n "${tmpfile}" ] && [ -f "${tmpfile}" ]; then
+    if [ "${email_mode}" = "always" ] || { [ "${email_mode}" = "onerror" ] && [ "${rc}" -ne 0 ]; }; then
+      mail -E -s "Cron${email_comment:+ - ${email_comment}}" -a "From: Cron Daemon <root>" root < "${tmpfile}" > /dev/null 2>&1
+    fi
+    rm -f "${tmpfile}"
+  fi
+}
+trap '_send_email $?' EXIT
+
+overall_rc=0
 xpath="/config/services/compose/files/file"
 count=$(omv_config_get_count "${xpath}")
 index=1
@@ -50,6 +80,8 @@ while [ ${index} -le ${count} ]; do
     continue
   fi
   echo ${name}
-  omv-compose-build "${name}" "${pull}" "${nocache}"
+  omv-compose-build "${name}" "${pull}" "${nocache}" || overall_rc=$?
   index=$(( index + 1 ))
-done;
+done
+
+exit "${overall_rc}"

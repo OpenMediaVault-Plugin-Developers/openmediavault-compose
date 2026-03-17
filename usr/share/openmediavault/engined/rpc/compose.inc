@@ -3655,15 +3655,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 }
                 if ($object->get('prune')) {
                     $cmdArgs = [];
-                    $cmdArgs[] = 'docker';
-                    $cmdArgs[] = 'image';
-                    $cmdArgs[] = 'prune';
-                    $cmdArgs[] = '-f';
+                    $cmdArgs[] = '/usr/sbin/omv-compose-prune';
                     $cmd = new \OMV\System\Process($cmdArgs);
-                    if ($podman) {
-                        $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-                        $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-                    }
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
                     if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {

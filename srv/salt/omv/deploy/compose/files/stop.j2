@@ -13,9 +13,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 @{{ job.execution }}
 {%- endif -%}
 {{ separator }}root omv-compose-stop-multi '{{ job.filter }}'
-{%- if not job.sendemail | to_bool -%}
+{%- if job.sendemail | to_bool %} -e {{ 'onerror' if job.emailonerror | to_bool else 'always' }}{% if job.comment | length > 0 %} -c "{{ job.comment | replace('\n', ' ') }}"{% endif %}{% endif -%}
 {{ separator }}>/dev/null 2>&1
-{%- else -%}
-{{ separator }}2>&1 | mail -E -s "Cron{{ ' - ' ~ job.comment | replace('\n', ' ') if job.comment | length > 0 else '' }}" -a "From: Cron Daemon <root>" root >/dev/null 2>&1
-{%- endif -%}
 {%- endfor -%}

@@ -538,6 +538,10 @@
           "type": "boolean",
           "required": true
         },
+        "emailonerror": {
+          "type": "boolean",
+          "required": true
+        },
         "verbose": {
           "type": "boolean",
           "required": true
