@@ -1723,25 +1723,25 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // get compose file
         $object = $db->get("conf.service.compose.config", $params['uuid']);
         $fileref = $object->get('fileref');
+        $cnfName = $object->get('name');
         try {
             $file = $db->get('conf.service.compose.file', $fileref);
+            $composeName = $file->get('name');
+            $composeDir = sprintf("%s/%s", $sfpath, $composeName);
+            // Delete the configuration object.
+            $cnfPath = sprintf("%s/%s", $composeDir, $cnfName);
+            // remove and commit to git if repo exists
+            $confPath = sprintf('%s/%s', $composeName, $cnfName);
+            $this->removeAndCommit($context, [$confPath], $cnfName);
+            // remove file
+            if (file_exists($cnfPath)) {
+                unlink($cnfPath);
+            }
+            if (file_exists($composeDir)) {
+                rmdir($composeDir);
+            }
         } catch (Exception $e) {
-            return;
-        }
-        $composeName = $file->get('name');
-        $composeDir = sprintf("%s/%s", $sfpath, $composeName);
-        // Delete the configuration object.
-        $cnfName = $object->get('name');
-        $cnfPath = sprintf("%s/%s", $composeDir, $cnfName);
-        // remove and commit to git if repo exists
-        $confPath = sprintf('%s/%s', $composeName, $cnfName);
-        $this->removeAndCommit($context, [$confPath], $cnfName);
-        // remove file
-        if (file_exists($cnfPath)) {
-            unlink($cnfPath);
-        }
-        if (file_exists($composeDir)) {
-            rmdir($composeDir);
+            // Parent compose file is gone (orphaned config) — still remove from DB.
         }
         $db->delete($object);
         // Return the deleted configuration object.
