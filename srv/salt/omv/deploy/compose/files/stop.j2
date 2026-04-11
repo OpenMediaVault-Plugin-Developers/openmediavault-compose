@@ -12,7 +12,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 {%- else -%}
 @{{ job.execution }}
 {%- endif -%}
-{{ separator }}root omv-compose-stop-multi '{{ job.filter }}'
+{{ separator }}root omv-compose-stop-multi -f '{{ job.filter }}' -u '{{ job.uuid }}'
 {%- if job.sendemail | to_bool %} -e {{ 'onerror' if job.emailonerror | to_bool else 'always' }}{% if job.comment | length > 0 %} -c "{{ job.comment | replace('\n', ' ') }}"{% endif %}{% endif -%}
 {{ separator }}>/dev/null 2>&1
 {%- endfor -%}

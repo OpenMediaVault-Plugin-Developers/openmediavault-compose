@@ -3647,7 +3647,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($object->get('update')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-update-multi';
-                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
@@ -3668,7 +3669,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($object->get('filestart')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-start-multi';
-                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
@@ -3679,7 +3681,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($object->get('filestop')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-stop-multi';
-                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
@@ -3690,7 +3693,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($object->get('filebuild')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-build-multi';
-                    $cmdArgs[] = sprintf("'%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
+                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
                     $cmdArgs[] = (bool)$object->get('filepull') ? '1' : '0';
                     $cmdArgs[] = (bool)$object->get('filenocache') ? '1' : '0';
                     $cmd = new \OMV\System\Process($cmdArgs);
