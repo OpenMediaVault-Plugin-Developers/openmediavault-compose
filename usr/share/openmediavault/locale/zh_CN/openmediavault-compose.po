@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 22:36+0000\n"
+"POT-Creation-Date: 2026-04-11 13:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -170,13 +170,11 @@ msgid "Check compose file for errors ..."
 msgstr "检查 compose 文件错误 ..."
 
 msgid ""
-"Choose which compose files to backup by filtering the compose name by this "
-"field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd*"
-" or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
-"multiple filters separated by commas."
+"Choose which compose files to include in this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. web* or *cloud* or *app<br/>Leave "
+"blank or use just * to include all compose files.<br/>Separate multiple "
+"patterns with commas."
 msgstr ""
-"通过此字段筛选要备份的 compose 文件名。<br/>筛选可以是使用通配符 （*） 。例如 asd* 或 *asd* 或 "
-"*asd<br/>留空或仅使用 * 表示所有compose 。<br/>添加多个筛选可使用以逗号分隔筛选条件。"
 
 msgid "Clear cache"
 msgstr "清除缓存"
@@ -256,6 +254,9 @@ msgstr "Containers"
 msgid "Create"
 msgstr "创建"
 
+msgid "Create .env and compose.yml symlinks"
+msgstr ""
+
 msgid "Create from URL"
 msgstr "从 URL 创建"
 
@@ -267,6 +268,9 @@ msgstr "从允许的 container 创建新的 compose"
 
 msgid "Create new image tag ..."
 msgstr "创建新镜像标签 ..."
+
+msgid "Create symlinks"
+msgstr ""
 
 msgid "Created"
 msgstr "已创建"
@@ -418,6 +422,9 @@ msgstr "编辑全局环境变量文件。"
 msgid "Edit scheduled job."
 msgstr "编辑计划任务。"
 
+msgid "Email on error"
+msgstr ""
+
 msgid "Enable Docker repo"
 msgstr "启用 Docker 源"
 
@@ -453,6 +460,24 @@ msgstr "任何人 - 读/写"
 msgid "Example compose file has been added."
 msgstr "示例 compose 文件已添加。"
 
+msgid ""
+"Exclude file or directory paths from within the backed-up volumes (passed as"
+" rsync/borg --exclude patterns).<br/>This does NOT exclude compose files "
+"from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, "
+"cache/<br/>Separate multiple patterns with commas."
+msgstr ""
+
+msgid "Exclude filter"
+msgstr ""
+
+msgid ""
+"Exclude specific compose files from this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. nextcloud or *cloud* or "
+"private*<br/>Separate multiple patterns with commas.<br/>Exclusions are "
+"applied after the filter, so you can use * in Filter and exclude specific "
+"files here."
+msgstr ""
+
 msgid "Excludes"
 msgstr "不包括"
 
@@ -470,9 +495,6 @@ msgstr "文件"
 
 msgid "File date"
 msgstr "文件日期"
-
-msgid "File excludes"
-msgstr "排除文件"
 
 msgid "Filename"
 msgstr "文件名"
@@ -650,9 +672,6 @@ msgstr "挂载点"
 msgid "Mounts"
 msgstr "挂载"
 
-msgid "Multiple exclusions should be comma separated."
-msgstr "多个排除香应使用逗号分开。"
-
 msgid "Name"
 msgstr "名字"
 
@@ -699,6 +718,9 @@ msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr "仅允许使用字母数字 （a-zA-Z）、下划线 （_）、短划线 （-）、逗号 （，） 和星号 （*）！"
+
+msgid "Only send an email if the job exits with an error."
+msgstr ""
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
@@ -906,6 +928,12 @@ msgstr "选择一个用户 ..."
 msgid "Send command output via email"
 msgstr "通过电子邮件发送命令输出"
 
+msgid "Send email"
+msgstr ""
+
+msgid "Send email on error only"
+msgstr ""
+
 msgid "September"
 msgstr "九月"
 
@@ -1092,6 +1120,9 @@ msgstr "虚拟大小"
 
 msgid "Volume"
 msgstr "卷"
+
+msgid "Volume path excludes"
+msgstr ""
 
 msgid "Volumes"
 msgstr "卷"

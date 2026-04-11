@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 22:32+0000\n"
+"POT-Creation-Date: 2026-04-11 13:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2026\n"
 "Language-Team: Italian (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/it/)\n"
@@ -184,16 +184,11 @@ msgid "Check compose file for errors ..."
 msgstr "Sto controllando il file di composizione per eventuali errori..."
 
 msgid ""
-"Choose which compose files to backup by filtering the compose name by this "
-"field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd*"
-" or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
-"multiple filters separated by commas."
+"Choose which compose files to include in this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. web* or *cloud* or *app<br/>Leave "
+"blank or use just * to include all compose files.<br/>Separate multiple "
+"patterns with commas."
 msgstr ""
-"Scegli quali file di composizione sottoporre a backup filtrando il nome "
-"della composizione tramite questo campo.<br/>Il filtro può essere una "
-"corrispondenza parziale con l'uso del carattere jolly (*). Ad esempio asd* o"
-" *asd* o *asd<br/>Lascia vuoto o usa solo * per tutte le "
-"composizioni.<br/>Aggiungi più filtri separati da virgole."
 
 msgid "Clear cache"
 msgstr "Cancella la cache"
@@ -277,6 +272,9 @@ msgstr "Container"
 msgid "Create"
 msgstr "Crea"
 
+msgid "Create .env and compose.yml symlinks"
+msgstr ""
+
 msgid "Create from URL"
 msgstr "Crea da URL"
 
@@ -288,6 +286,9 @@ msgstr "Crea un nuovo file di composizione dal contenitore in esecuzione..."
 
 msgid "Create new image tag ..."
 msgstr "Crea un nuovo tag immagine..."
+
+msgid "Create symlinks"
+msgstr ""
 
 msgid "Created"
 msgstr "Creato"
@@ -445,6 +446,9 @@ msgstr "Modifica il file delle variabili di ambiente globali."
 msgid "Edit scheduled job."
 msgstr "Modifica il lavoro pianificato."
 
+msgid "Email on error"
+msgstr ""
+
 msgid "Enable Docker repo"
 msgstr "Abilita il repo del docker"
 
@@ -480,6 +484,24 @@ msgstr "Tutti - lettura/scrittura"
 msgid "Example compose file has been added."
 msgstr "È stato aggiunto un file di composizione di esempio."
 
+msgid ""
+"Exclude file or directory paths from within the backed-up volumes (passed as"
+" rsync/borg --exclude patterns).<br/>This does NOT exclude compose files "
+"from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, "
+"cache/<br/>Separate multiple patterns with commas."
+msgstr ""
+
+msgid "Exclude filter"
+msgstr ""
+
+msgid ""
+"Exclude specific compose files from this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. nextcloud or *cloud* or "
+"private*<br/>Separate multiple patterns with commas.<br/>Exclusions are "
+"applied after the filter, so you can use * in Filter and exclude specific "
+"files here."
+msgstr ""
+
 msgid "Excludes"
 msgstr "Escludi"
 
@@ -497,9 +519,6 @@ msgstr "File"
 
 msgid "File date"
 msgstr "Data del file"
-
-msgid "File excludes"
-msgstr ""
 
 msgid "Filename"
 msgstr "Nome del file"
@@ -682,9 +701,6 @@ msgstr "Mountpoint"
 msgid "Mounts"
 msgstr "Mount"
 
-msgid "Multiple exclusions should be comma separated."
-msgstr "Le esclusioni multiple devono essere separate da virgole."
-
 msgid "Name"
 msgstr "Nome"
 
@@ -733,6 +749,9 @@ msgid ""
 msgstr ""
 "Sono consentiti solo caratteri alfanumerici (a-zA-Z), caratteri di "
 "sottolineatura (_), trattini (-), virgole (,) e asterischi (*)!"
+
+msgid "Only send an email if the job exits with an error."
+msgstr ""
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
@@ -954,6 +973,12 @@ msgstr "Seleziona un utente..."
 msgid "Send command output via email"
 msgstr ""
 
+msgid "Send email"
+msgstr ""
+
+msgid "Send email on error only"
+msgstr ""
+
 msgid "September"
 msgstr ""
 
@@ -1156,6 +1181,9 @@ msgstr "Dimensione virtuale"
 
 msgid "Volume"
 msgstr "Volume"
+
+msgid "Volume path excludes"
+msgstr ""
 
 msgid "Volumes"
 msgstr "Volumi"

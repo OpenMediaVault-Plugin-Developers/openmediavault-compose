@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Gyuris Gellért <jobel@ujevangelizacio.hu>, 2025
+# Gyuris Gellért <jobel@ujevangelizacio.hu>, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 22:32+0000\n"
+"POT-Creation-Date: 2026-04-11 13:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2025\n"
+"Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2026\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,20 +71,24 @@ msgstr ""
 "olvasás"
 
 msgid "Always attempt to pull a newer version of the image"
-msgstr ""
+msgstr "Mindig próbáljon meg egy újabb lemezkép verziót letölteni."
 
 msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
 msgstr ""
+"A parancs kimenete (ha van ilyen) e-mail üzenetként elküldésre kerül a "
+"feladatot végrehajtó felhasználónak."
 
 msgid "April"
-msgstr ""
+msgstr "Április"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
 msgstr ""
+"Biztosan új git tárolót szeretne létrehozni? Ezzel az összes előzmény "
+"törlődik!"
 
 msgid "Are you sure you want to delete this backup?"
 msgstr "Valóban törölni szeretné ezt a biztonsági másolatot?"
@@ -100,18 +104,20 @@ msgstr "Valóban újra szeretné indítani?"
 
 msgid "Are you sure you want to restore global.env from backup?"
 msgstr ""
+"Biztosan vissza szeretné állítani a global.env fájlt a biztonsági "
+"másolatból?"
 
 msgid "Are you sure you want to stop all containers?"
-msgstr ""
+msgstr "Biztosan le akarja állítani az összes konténert?"
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Biztosan szinkronizálni szeretné a fájlok változásait?"
 
 msgid "At reboot"
-msgstr ""
+msgstr "Újraindításkor"
 
 msgid "August"
-msgstr ""
+msgstr "Augusztus"
 
 msgid "Autocompose"
 msgstr "Automatikus összeállítás"
@@ -123,19 +129,21 @@ msgid "Available"
 msgstr "Elérhető"
 
 msgid "Backend"
-msgstr ""
+msgstr "Háttérrendszer"
 
 msgid "Backup"
 msgstr "Biztonsági mentés"
 
 msgid "Backup Time"
-msgstr ""
+msgstr "Biztonsági mentés ideje"
 
 msgid "Backup container data."
-msgstr ""
+msgstr "Konténeradatok biztonsági mentése."
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
+"A biztonsági másolatot tartalmazó megosztott mappa nem lehet azonos a docker"
+" megosztott mappájával."
 
 msgid "Block In"
 msgstr "Blokk be"
@@ -147,13 +155,13 @@ msgid "Body"
 msgstr "Törzs"
 
 msgid "Borg encryption"
-msgstr ""
+msgstr "Borg titkosítás"
 
 msgid "Borg keep"
-msgstr ""
+msgstr "Borg megőrzés"
 
 msgid "Borg passphrase"
-msgstr ""
+msgstr "Borg jelszó"
 
 msgid "Build"
 msgstr "Összeállítás"
@@ -171,7 +179,7 @@ msgid "Cache times for tabs"
 msgstr "Lapok gyorsítótárazásának ideje"
 
 msgid "Certain date"
-msgstr ""
+msgstr "Bizonyos dátum"
 
 msgid "Changes have been synced from file."
 msgstr "A változások szinkronizálásra kerültek a fájlból."
@@ -180,16 +188,11 @@ msgid "Check compose file for errors ..."
 msgstr "Összeállító fájl hibaellenőrzése…"
 
 msgid ""
-"Choose which compose files to backup by filtering the compose name by this "
-"field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd*"
-" or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
-"multiple filters separated by commas."
+"Choose which compose files to include in this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. web* or *cloud* or *app<br/>Leave "
+"blank or use just * to include all compose files.<br/>Separate multiple "
+"patterns with commas."
 msgstr ""
-"Válassza ki, hogy mely összeállítási fájlokról kíván biztonsági mentést "
-"készíteni a összeállítás nevére való szűrésével ebben a mezőben.<br/>A szűrő"
-" lehet részleges egyezés a helyettesítő karakter (*) használatával. pl. "
-"„asd*” vagy „*asd*” vagy „*asd”.<br/>Üresen hagyva, vagy csak *-ot használva"
-" az összes megjelenik.<br/>Több szűrőt vesszővel lehet elválasztani."
 
 msgid "Clear cache"
 msgstr "Gyorsítótár törlése"
@@ -201,7 +204,7 @@ msgid "Command"
 msgstr "Parancs"
 
 msgid "Comment"
-msgstr ""
+msgstr "Megjegyzés"
 
 msgid "Compose"
 msgstr "Compose"
@@ -219,10 +222,10 @@ msgid "Compose Restore"
 msgstr "Összeállítás visszaálítása"
 
 msgid "Compose Start"
-msgstr ""
+msgstr "Összeállítás indítása"
 
 msgid "Compose Stop"
-msgstr ""
+msgstr "Összeállítás leállítása"
 
 msgid "Compose Update"
 msgstr "Összeállítás frisstése"
@@ -234,6 +237,8 @@ msgstr ""
 
 msgid "Compose file shared folder must be different than docker shared folder"
 msgstr ""
+"Az összeállítási fájl megosztott mappának különböznie kell a docker "
+"megosztott mappájától."
 
 msgid "Compose file to be associate imported files with"
 msgstr "Az importált fájlokkal társítandó Compose fájl"
@@ -260,16 +265,19 @@ msgid "Container"
 msgstr "Konténer"
 
 msgid "Container Terminals"
-msgstr ""
+msgstr "Konténer terminálok"
 
 msgid "Container state"
-msgstr ""
+msgstr "Kontérner állapot"
 
 msgid "Containers"
 msgstr "Konténerek"
 
 msgid "Create"
 msgstr "Létrehozás"
+
+msgid "Create .env and compose.yml symlinks"
+msgstr ".env és compose.yml szimbolikus linkek létehozása"
 
 msgid "Create from URL"
 msgstr "Létrehozás URL-ből"
@@ -282,6 +290,9 @@ msgstr "Új összeállítási fájl létrehozása a futó konténerből…"
 
 msgid "Create new image tag ..."
 msgstr "Új lemezképcímke készítése…"
+
+msgid "Create symlinks"
+msgstr "Szimbolikus linkek létrehozása"
 
 msgid "Created"
 msgstr "Létrehozva"
@@ -311,31 +322,33 @@ msgid "Current"
 msgstr "Jelenlegi"
 
 msgid "Current repository"
-msgstr ""
+msgstr "Jelenlegi tároló"
 
 msgid "Current tag"
-msgstr ""
+msgstr "Jelenlegi címke"
 
 msgid "Daily"
-msgstr ""
+msgstr "Napi"
 
 msgid "Data"
 msgstr "Adat"
 
 msgid "Data shared folder must be different than docker shared folder"
 msgstr ""
+"Az adatokat tartalmazó megosztott mappa nem lehet azonos a docker megosztott"
+" mappájával."
 
 msgid "Date & Time"
 msgstr "Dátum és idő"
 
 msgid "Day of month"
-msgstr ""
+msgstr "Hónap napja"
 
 msgid "Day of week"
-msgstr ""
+msgstr "Hét napja"
 
 msgid "December"
-msgstr ""
+msgstr "December"
 
 msgid "Delete"
 msgstr "Törlés"
@@ -344,10 +357,10 @@ msgid "Delete backup ..."
 msgstr "Biztonsági másolat törlése…"
 
 msgid "Delete complete."
-msgstr ""
+msgstr "A törlés befejeződött."
 
 msgid "Deleting images ..."
-msgstr ""
+msgstr "Lemezképek törlése…"
 
 msgid "Description"
 msgstr "Leírás"
@@ -360,24 +373,27 @@ msgstr "A mappa nem létezik!"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
+"Táblázatban jeleníti meg a konténereket, a cterm végrehajtó terminálra "
+"mutató linkkel."
 
 msgid "Displays information about containers in a grid."
 msgstr ""
+"Rácsos elrendezésben jeleníti meg a konténerekre vonatkozó információkat."
 
 msgid "Displays information about containers in a table."
-msgstr ""
+msgstr "Táblázatban jeleníti meg a konténerekre vonatkozó információkat."
 
 msgid "Do not use cache when building the image"
-msgstr ""
+msgstr "Gyorsítótár mellőzése lemezkép összeállításakor"
 
 msgid "Docker config"
-msgstr ""
+msgstr "Docker beállítás"
 
 msgid "Docker has been restarted."
 msgstr "A Docker újra lett indítva."
 
 msgid "Docker info"
-msgstr ""
+msgstr "Docker információk"
 
 msgid "Docker is restarting ..."
 msgstr "A Docker újraindul…"
@@ -433,6 +449,9 @@ msgstr "A globális környezeti változókat tartalmazó fájl szerkesztése."
 msgid "Edit scheduled job."
 msgstr "Ütemezett feladat szerkesztése."
 
+msgid "Email on error"
+msgstr "E-mail hiba esetén"
+
 msgid "Enable Docker repo"
 msgstr "Docker tároló engedélyezése"
 
@@ -440,7 +459,7 @@ msgid "Enable Docker repo ..."
 msgstr "Docker tároló engedélyezése…"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Engedélyezve"
 
 msgid ""
 "Encryption mode for Borg repository. Changing this requires re-initializing "
@@ -454,18 +473,36 @@ msgid "Environment"
 msgstr "Környezet"
 
 msgid "Every N day of month"
-msgstr ""
+msgstr "A hónap minden N. napján"
 
 msgid "Every N hour"
-msgstr ""
+msgstr "Minden N órában"
 
 msgid "Every N minute"
-msgstr ""
+msgstr "Minden N órában"
 
 msgid "Everyone - read/write"
 msgstr "Mindenki – olvasás/írás"
 
 msgid "Example compose file has been added."
+msgstr ""
+
+msgid ""
+"Exclude file or directory paths from within the backed-up volumes (passed as"
+" rsync/borg --exclude patterns).<br/>This does NOT exclude compose files "
+"from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, "
+"cache/<br/>Separate multiple patterns with commas."
+msgstr ""
+
+msgid "Exclude filter"
+msgstr ""
+
+msgid ""
+"Exclude specific compose files from this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. nextcloud or *cloud* or "
+"private*<br/>Separate multiple patterns with commas.<br/>Exclusions are "
+"applied after the filter, so you can use * in Filter and exclude specific "
+"files here."
 msgstr ""
 
 msgid "Excludes"
@@ -478,16 +515,13 @@ msgid "Failed"
 msgstr "Sikertelen"
 
 msgid "February"
-msgstr ""
+msgstr "Február"
 
 msgid "File"
 msgstr "Fájl"
 
 msgid "File date"
 msgstr "Adatfájl"
-
-msgid "File excludes"
-msgstr ""
 
 msgid "Filename"
 msgstr "Fájlnév"
@@ -506,7 +540,7 @@ msgstr ""
 " „my-router=192.168.10.5,my-nas=192.168.20.6”."
 
 msgid "Friday"
-msgstr ""
+msgstr "Péntek"
 
 msgid "Gateway"
 msgstr "Átjáró"
@@ -521,10 +555,10 @@ msgid "Group of directories and files"
 msgstr "Mappák és fájlok csoportja"
 
 msgid "Hour"
-msgstr ""
+msgstr "Óra"
 
 msgid "Hourly"
-msgstr ""
+msgstr "Óránként"
 
 msgid "ID"
 msgstr "ID"
@@ -539,7 +573,7 @@ msgid "Image"
 msgstr "Lemezkép"
 
 msgid "Image ID"
-msgstr ""
+msgstr "Lemezkép-azonosító"
 
 msgid "Images"
 msgstr "Lemezképek"
@@ -563,7 +597,7 @@ msgid "In Use"
 msgstr "Alkalmazva"
 
 msgid "Initialize new git repo ..."
-msgstr ""
+msgstr "Új git-tároló inicializálása…"
 
 msgid "Inspect"
 msgstr "Vizsgálat"
@@ -572,19 +606,19 @@ msgid "Installed"
 msgstr "Telepítve"
 
 msgid "Internal network"
-msgstr ""
+msgstr "Belső hálózat"
 
 msgid "Is Latest"
-msgstr ""
+msgstr "Legfrissebb"
 
 msgid "January"
-msgstr ""
+msgstr "január"
 
 msgid "July"
-msgstr ""
+msgstr "július"
 
 msgid "June"
-msgstr ""
+msgstr "június"
 
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
@@ -605,7 +639,7 @@ msgid "Location of compose files"
 msgstr "Összeállítás fájl helye"
 
 msgid "Log file max size"
-msgstr ""
+msgstr "Naplófájl maximális mérete"
 
 msgid "Logged out."
 msgstr "Kilépve."
@@ -623,16 +657,16 @@ msgid "Logout"
 msgstr "Kilépés"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "Karbantartás"
 
 msgid "March"
-msgstr ""
+msgstr "március"
 
 msgid "Max Size"
 msgstr "Maximális méret"
 
 msgid "May"
-msgstr ""
+msgstr "május"
 
 msgid "Mem %"
 msgstr "Memória %"
@@ -647,28 +681,25 @@ msgid "Message"
 msgstr "Üzenet"
 
 msgid "Minute"
-msgstr ""
+msgstr "Perc"
 
 msgid "Mixed"
 msgstr "Kevert"
 
 msgid "Monday"
-msgstr ""
+msgstr "hétfő"
 
 msgid "Month"
-msgstr ""
+msgstr "Hónap"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Havi"
 
 msgid "Mountpoint"
 msgstr "Csatolási pont"
 
 msgid "Mounts"
 msgstr "Csatolási pontok"
-
-msgid "Multiple exclusions should be comma separated."
-msgstr "Több kizárást vesszővel kell elválasztani."
 
 msgid "Name"
 msgstr "Név"
@@ -689,7 +720,7 @@ msgid "No Image"
 msgstr "Nincs lemezkép"
 
 msgid "No cache"
-msgstr ""
+msgstr "Nincs gyorsítótár"
 
 msgid "No compose file found!"
 msgstr "Nem található összeállítás fájl!"
@@ -698,19 +729,19 @@ msgid "No name specified!"
 msgstr "Nem lett név megadva!"
 
 msgid "None"
-msgstr ""
+msgstr "Nincs"
 
 msgid "Not installed"
 msgstr "Nincs telepítve"
 
 msgid "November"
-msgstr ""
+msgstr "november"
 
 msgid "Number of Borg backups to keep."
-msgstr ""
+msgstr "Megőrzendő Borg-biztonsági másolatok száma."
 
 msgid "October"
-msgstr ""
+msgstr "október"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -718,6 +749,9 @@ msgid ""
 msgstr ""
 "Csak alfanumerikus (a-zA-Z), aláhúzás (_), kötőjel (-), vessző (,) és "
 "csillag (*) engedélyezett!"
+
+msgid "Only send an email if the job exits with an error."
+msgstr "E-mail küldése csak a feladat hibaüzenettel zárulása esetén."
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
@@ -770,7 +804,7 @@ msgid "Passphrase for Borg encryption."
 msgstr ""
 
 msgid "Password"
-msgstr ""
+msgstr "Jelszó"
 
 msgid "Path"
 msgstr "Útvonal"
@@ -801,10 +835,10 @@ msgid "Ports"
 msgstr "Portok"
 
 msgid "Post-backup script"
-msgstr ""
+msgstr "Biztonsági mentés utáni parancsfájl"
 
 msgid "Pre-backup script"
-msgstr ""
+msgstr "Biztonsági mentés előtti parancsfájl"
 
 msgid "Project"
 msgstr "Projekt"
@@ -813,18 +847,20 @@ msgid "Prune"
 msgstr "Tisztítás"
 
 msgid "Prune Images"
-msgstr ""
+msgstr "Lemezképek ritkítása"
 
 msgid "Prune Images - all dangling"
-msgstr ""
+msgstr "Lemezképek ritkítása – összes felesleges"
 
 msgid ""
 "Prune all dangling images.<br/>Does not use filter. Will run docker image "
 "prune -f"
 msgstr ""
+"Minden felesleges lemezkép eltávolítása.<br/> Szűrő használata nélkül. A "
+"következő parancsot futtatja: docker image prune -f"
 
 msgid "Pull"
-msgstr ""
+msgstr "Lekérés"
 
 msgid "Pull and Build"
 msgstr "Lekérés és összeállítás"
@@ -833,10 +869,10 @@ msgid "Pull and Build ..."
 msgstr "Lekérés és összeállítás…"
 
 msgid "Pull complete."
-msgstr ""
+msgstr "A lekérés befejeződött."
 
 msgid "Pulling images ..."
-msgstr ""
+msgstr "Lemezképek lekérése…"
 
 msgid "Push"
 msgstr "Felküldés"
@@ -869,10 +905,10 @@ msgid "Restore Compose ..."
 msgstr "Összeállítás visszaállítása…"
 
 msgid "Restore global.env"
-msgstr ""
+msgstr "global.env visszaállítása"
 
 msgid "Restoring global.env from backup ..."
-msgstr ""
+msgstr "global.env fájl visszaállítása a biztonsági másolatból…"
 
 msgid ""
 "Restrict external access. Containers can talk to each other, but the network"
@@ -896,13 +932,13 @@ msgid "Running For"
 msgstr "Fut ennek"
 
 msgid "Saturday"
-msgstr ""
+msgstr "szombat"
 
 msgid "Schedule"
 msgstr "Ütemezés"
 
 msgid "Scheduling"
-msgstr ""
+msgstr "Ütemezés"
 
 msgid "Script"
 msgstr "Parancsfájl"
@@ -914,7 +950,7 @@ msgid "Script filename cannot be"
 msgstr "Parancssoros fájl nem lehet"
 
 msgid "Scripts"
-msgstr ""
+msgstr "Parancsfájlok"
 
 msgid "Select a group ..."
 msgstr "Csoport kiválasztása…"
@@ -925,8 +961,14 @@ msgstr "Felhasználó kiválasztása…"
 msgid "Send command output via email"
 msgstr ""
 
-msgid "September"
+msgid "Send email"
+msgstr "E-mail küldése"
+
+msgid "Send email on error only"
 msgstr ""
+
+msgid "September"
+msgstr "szeptember"
 
 msgid "Service"
 msgstr "Szolgáltatás"
@@ -969,10 +1011,10 @@ msgid "Size"
 msgstr "Méret"
 
 msgid "Start"
-msgstr ""
+msgstr "Indítás"
 
 msgid "Start all compose files"
-msgstr ""
+msgstr "Összes összeállítás fájl elindítása"
 
 msgid "State"
 msgstr "Állapot"
@@ -984,10 +1026,10 @@ msgid "Status"
 msgstr "Státusz"
 
 msgid "Stop"
-msgstr ""
+msgstr "Leállítás"
 
 msgid "Stop all compose files"
-msgstr ""
+msgstr "Összes összeállítás fájl leállítása"
 
 msgid "Stopped"
 msgstr "Leállítva"
@@ -996,7 +1038,7 @@ msgid "Subnet"
 msgstr "Alhálózat"
 
 msgid "Sunday"
-msgstr ""
+msgstr "vasárnap"
 
 msgid "Sync changes from file"
 msgstr "Módosítások szinkronizálása fájlból"
@@ -1014,19 +1056,19 @@ msgid "Tags"
 msgstr "Címkék"
 
 msgid "Target repo"
-msgstr ""
+msgstr "Cél tároló"
 
 msgid "Target repository"
-msgstr ""
+msgstr "Cél tároló"
 
 msgid "Target tag"
-msgstr ""
+msgstr "Cél címke"
 
 msgid "Terminal"
-msgstr ""
+msgstr "Terminál"
 
 msgid "Terminal Link"
-msgstr ""
+msgstr "Terminál hivatkozás"
 
 msgid "The config file will be created in this compose file's directory."
 msgstr "A konfigurációs fájl az összeállítási fájl könyvtárában jön létre."
@@ -1061,7 +1103,7 @@ msgstr ""
 " a bővítményben."
 
 msgid "Thursday"
-msgstr ""
+msgstr "csütörtök"
 
 msgid "Time of execution"
 msgstr ""
@@ -1070,7 +1112,7 @@ msgid "Tools"
 msgstr "Eszközök"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "kedd"
 
 msgid "URL"
 msgstr "URL"
@@ -1095,7 +1137,7 @@ msgid "Up"
 msgstr "Fel"
 
 msgid "Update"
-msgstr ""
+msgstr "Frissítés"
 
 msgid ""
 "Update all images in compose file. Will recreate containers after update if "
@@ -1109,10 +1151,10 @@ msgid "Use podman"
 msgstr ""
 
 msgid "Username"
-msgstr ""
+msgstr "Felhasználónév"
 
 msgid "Verbose"
-msgstr ""
+msgstr "Részletes"
 
 msgid "Version"
 msgstr "Verzió"
@@ -1123,17 +1165,20 @@ msgstr "Virtuális méret"
 msgid "Volume"
 msgstr "Kötet"
 
+msgid "Volume path excludes"
+msgstr ""
+
 msgid "Volumes"
 msgstr "Kötetek"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "szerda"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Heti"
 
 msgid "Yearly"
-msgstr ""
+msgstr "Éves"
 
 msgid "and not running"
 msgstr "és nem fut"
@@ -1148,40 +1193,40 @@ msgid "disabled"
 msgstr ""
 
 msgid "docker compose down --remove-orphans ..."
-msgstr "docker compose down --remove-orphans ..."
+msgstr "docker compose down --remove-orphans …"
 
 msgid "docker compose down ..."
-msgstr "docker compose down ..."
+msgstr "docker compose down …"
 
 msgid "docker compose down all files..."
-msgstr ""
+msgstr "docker compose down all files …"
 
 msgid "docker compose file version"
 msgstr "docker compose file version"
 
 msgid "docker compose logs --follow ..."
-msgstr "docker compose logs --follow ..."
+msgstr "docker compose logs --follow …"
 
 msgid "docker compose logs ..."
-msgstr "docker compose logs ..."
+msgstr "docker compose logs …"
 
 msgid "docker compose ps ..."
-msgstr "docker compose ps ..."
+msgstr "docker compose ps …"
 
 msgid "docker compose pull ..."
-msgstr "docker compose pull ..."
+msgstr "docker compose pull …"
 
 msgid "docker compose restart ..."
-msgstr "docker compose restart ..."
+msgstr "docker compose restart …"
 
 msgid "docker compose stop ..."
-msgstr "docker compose stop ..."
+msgstr "docker compose stop …"
 
 msgid "docker compose up -d --remove-orphans ..."
-msgstr "docker compose up -d --remove-orphans ..."
+msgstr "docker compose up -d --remove-orphans …"
 
 msgid "docker compose up -d ..."
-msgstr "docker compose up -d ..."
+msgstr "docker compose up -d …"
 
 msgid "docker container prune ..."
 msgstr "docker container prune…"
@@ -1190,13 +1235,13 @@ msgid "docker image inspect ..."
 msgstr "docker image inspect…"
 
 msgid "docker image prune --all ..."
-msgstr ""
+msgstr "docker image prune --all …"
 
 msgid "docker image prune ..."
 msgstr "docker image prune…"
 
 msgid "docker image pull ..."
-msgstr ""
+msgstr "docker image pull …"
 
 msgid "docker inspect ..."
 msgstr "docker inspect…"
@@ -1238,7 +1283,7 @@ msgid "down"
 msgstr "le"
 
 msgid "down all"
-msgstr ""
+msgstr "összes letöltése"
 
 msgid "down and remove orphans"
 msgstr "le és árvák eltávolítása"
@@ -1253,7 +1298,7 @@ msgid "e.g. 172.20.10.128/25"
 msgstr "pl. 172.20.10.128/25"
 
 msgid "file not found!"
-msgstr ""
+msgstr "fájl nem található!"
 
 msgid "follow logs"
 msgstr "naplók követése"
@@ -1262,10 +1307,10 @@ msgid "global.env has been restored from backup."
 msgstr ""
 
 msgid "init git repo"
-msgstr ""
+msgstr "git tároló inicializálása"
 
 msgid "inspect"
-msgstr ""
+msgstr "megvizsgálás"
 
 msgid "logs"
 msgstr "naplók"
@@ -1283,25 +1328,25 @@ msgid "pull"
 msgstr "lekérés"
 
 msgid "pull image"
-msgstr ""
+msgstr "lemezkép lekérése"
 
 msgid "pull image+tag"
-msgstr ""
+msgstr "lemezkép+címke lekérése"
 
 msgid "pull multiple image"
-msgstr ""
+msgstr "több lemezkép lekérése"
 
 msgid "repokey"
-msgstr ""
+msgstr "tárolókulcs"
 
 msgid "restart"
 msgstr "újraindítás"
 
 msgid "show file changes"
-msgstr ""
+msgstr "fájl változásainak megjelenítése"
 
 msgid "show global.env changes"
-msgstr ""
+msgstr "global.env változásainak megjelenítése"
 
 msgid "stop"
 msgstr "leállítás"

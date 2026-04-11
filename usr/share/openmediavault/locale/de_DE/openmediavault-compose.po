@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 22:32+0000\n"
+"POT-Creation-Date: 2026-04-11 13:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>, 2025\n"
 "Language-Team: German (Germany) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de_DE/)\n"
@@ -178,14 +178,11 @@ msgid "Check compose file for errors ..."
 msgstr "Prüfe compose-Datei auf Fehler ..."
 
 msgid ""
-"Choose which compose files to backup by filtering the compose name by this "
-"field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd*"
-" or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
-"multiple filters separated by commas."
+"Choose which compose files to include in this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. web* or *cloud* or *app<br/>Leave "
+"blank or use just * to include all compose files.<br/>Separate multiple "
+"patterns with commas."
 msgstr ""
-"Wähle compose-Dateien für backup. Filter können wildcards (*) enthalten, "
-"z.B. asd* oder *asd* oder *asd. Leeres Feld  oder * zeigt alle compose-"
-"Dateien. Mehrere Filter werden durch Kommas getrennt."
 
 msgid "Clear cache"
 msgstr "Cache leeren"
@@ -265,6 +262,9 @@ msgstr "Container"
 msgid "Create"
 msgstr "Erstellen"
 
+msgid "Create .env and compose.yml symlinks"
+msgstr ""
+
 msgid "Create from URL"
 msgstr "Von URL erstellen"
 
@@ -276,6 +276,9 @@ msgstr "Erzeuge eine neue Compose-Datei von einem laufenden Container..."
 
 msgid "Create new image tag ..."
 msgstr "Erzeuge neues docker-image Schlagwort ..."
+
+msgid "Create symlinks"
+msgstr ""
 
 msgid "Created"
 msgstr "Erstellt"
@@ -427,6 +430,9 @@ msgstr "Globale Umgebungsvariablendatei bearbeiten."
 msgid "Edit scheduled job."
 msgstr "Geplante Aufgabe bearbeiten."
 
+msgid "Email on error"
+msgstr ""
+
 msgid "Enable Docker repo"
 msgstr ""
 
@@ -462,6 +468,24 @@ msgstr "Jeder - lesen/schreiben"
 msgid "Example compose file has been added."
 msgstr ""
 
+msgid ""
+"Exclude file or directory paths from within the backed-up volumes (passed as"
+" rsync/borg --exclude patterns).<br/>This does NOT exclude compose files "
+"from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, "
+"cache/<br/>Separate multiple patterns with commas."
+msgstr ""
+
+msgid "Exclude filter"
+msgstr ""
+
+msgid ""
+"Exclude specific compose files from this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. nextcloud or *cloud* or "
+"private*<br/>Separate multiple patterns with commas.<br/>Exclusions are "
+"applied after the filter, so you can use * in Filter and exclude specific "
+"files here."
+msgstr ""
+
 msgid "Excludes"
 msgstr ""
 
@@ -479,9 +503,6 @@ msgstr "Datei"
 
 msgid "File date"
 msgstr "Dateidatum"
-
-msgid "File excludes"
-msgstr ""
 
 msgid "Filename"
 msgstr ""
@@ -663,9 +684,6 @@ msgstr "Einhängepunkt"
 msgid "Mounts"
 msgstr "Einhängungen"
 
-msgid "Multiple exclusions should be comma separated."
-msgstr ""
-
 msgid "Name"
 msgstr "Name"
 
@@ -714,6 +732,9 @@ msgid ""
 msgstr ""
 "Nur alphanumerische Zeichen(a-z,A-Z), Unterstrich (_), Bindestrich (-), "
 "Komma (,), oder Stern (*) erlaubt!"
+
+msgid "Only send an email if the job exits with an error."
+msgstr ""
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
@@ -918,6 +939,12 @@ msgstr "Benutzer auswählen ..."
 msgid "Send command output via email"
 msgstr ""
 
+msgid "Send email"
+msgstr ""
+
+msgid "Send email on error only"
+msgstr ""
+
 msgid "September"
 msgstr ""
 
@@ -1109,6 +1136,9 @@ msgid "Virtual Size"
 msgstr "Virtuelle Größe"
 
 msgid "Volume"
+msgstr ""
+
+msgid "Volume path excludes"
 msgstr ""
 
 msgid "Volumes"

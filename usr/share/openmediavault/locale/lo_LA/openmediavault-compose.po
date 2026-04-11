@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# bounkirdni_2025, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 22:32+0000\n"
+"POT-Creation-Date: 2026-04-11 13:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: bounkirdni_2025, 2026\n"
 "Language-Team: Lao (Laos) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/lo_LA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,687 +22,722 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Action"
-msgstr ""
+msgstr "ການດຳເນີນການ"
 
 msgid "Action type"
-msgstr ""
+msgstr "ປະເພດການດຳເນີນການ"
 
 msgid "Add"
-msgstr ""
+msgstr "ເພີ່ມ"
 
 msgid "Add example compose file"
-msgstr ""
+msgstr "ເພີ່ມຕົວຢ່າງໄຟລ໌ຄອມໂພສ (Compose file)"
 
 msgid "Add from Example"
-msgstr ""
+msgstr "ເພີ່ມຈາກຕົວຢ່າງ"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "ເພີ່ມຈາກ URL"
 
 msgid "Add..."
-msgstr ""
+msgstr "ເພີ່ມ..."
 
 msgid "Adding an example compose file ..."
-msgstr ""
+msgstr "ກຳລັງເພີ່ມຕົວຢ່າງໄຟລ໌ຄອມໂພສ..."
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
+"ຜູ້ດູແລ - ອ່ານ/ຂຽນ, ຜູ້ໃຊ້ - ບໍ່ມີສິດເຂົ້າເຖິງ, ອື່ນໆ - ບໍ່ມີສິດເຂົ້າເຖິງ"
 
 msgid "Administrator - read/write, Users - read-only, Others - no access"
-msgstr ""
+msgstr "ຜູ້ດູແລ - ອ່ານ/ຂຽນ, ຜູ້ໃຊ້ - ອ່ານຢ່າງດຽວ, ອື່ນໆ - ບໍ່ມີສິດເຂົ້າເຖິງ"
 
 msgid "Administrator - read/write, Users - read-only, Others - read-only"
-msgstr ""
+msgstr "ຜູ້ດູແລ - ອ່ານ/ຂຽນ, ຜູ້ໃຊ້ - ອ່ານຢ່າງດຽວ, ອື່ນໆ - ອ່ານຢ່າງດຽວ"
 
 msgid "Administrator - read/write, Users - read/write, Others - no access"
-msgstr ""
+msgstr "ຜູ້ດູແລ - ອ່ານ/ຂຽນ, ຜູ້ໃຊ້ - ອ່ານ/ຂຽນ, ອື່ນໆ - ບໍ່ມີສິດເຂົ້າເຖິງ"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
-msgstr ""
+msgstr "ຜູ້ດູແລ - ອ່ານ/ຂຽນ, ຜູ້ໃຊ້ - ອ່ານ/ຂຽນ, ອື່ນໆ - ອ່ານຢ່າງດຽວ"
 
 msgid "Always attempt to pull a newer version of the image"
-msgstr ""
+msgstr "ພະຍາຍາມດຶງເອົາອິເມຈ (Image) ເວີຊັນໃໝ່ກວ່າສະເໝີ"
 
 msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
 msgstr ""
+"ຂໍ້ຄວາມອີເມລທີ່ມີຜົນການເຮັດວຽກຂອງຄຳສັ່ງ (ຖ້າມີ) "
+"ຈະຖືກສົ່ງໄປຫາຜູ້ໃຊ້ທີ່ດຳເນີນການ."
 
 msgid "April"
-msgstr ""
+msgstr "ເມສາ"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
-msgstr ""
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການສ້າງ git repo ໃໝ່? ການກະທຳນີ້ຈະລຶບປະຫວັດທັງໝົດ!"
 
 msgid "Are you sure you want to delete this backup?"
-msgstr ""
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບການສຳຮອງຂໍ້ມູນນີ້?"
 
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບ?"
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການຕິດຕັ້ງໃໝ່?"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການເລີ່ມລະບົບໃໝ່?"
 
 msgid "Are you sure you want to restore global.env from backup?"
-msgstr ""
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການກູ້ຄືນ global.env ຈາກການສຳຮອງຂໍ້ມູນ?"
 
 msgid "Are you sure you want to stop all containers?"
-msgstr ""
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການຢຸດຄອນເທນເນີທັງໝົດ?"
 
 msgid "Are you sure you want to sync changes from the files?"
-msgstr ""
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການຊິງຄ໌ (Sync) ການປ່ຽນແປງຈາກໄຟລ໌?"
 
 msgid "At reboot"
-msgstr ""
+msgstr "ເມື່ອເລີ່ມລະບົບໃໝ່"
 
 msgid "August"
-msgstr ""
+msgstr "ສິງຫາ"
 
 msgid "Autocompose"
-msgstr ""
+msgstr "ສ້າງຄອມໂພສອັດຕະໂນມັດ"
 
 msgid "Aux address"
-msgstr ""
+msgstr "ທີ່ຢູ່ເສີມ (Aux address)"
 
 msgid "Available"
-msgstr ""
+msgstr "ພ້ອມໃຊ້ງານ"
 
 msgid "Backend"
-msgstr ""
+msgstr "ລະບົບເບື້ອງຫຼັງ (Backend)"
 
 msgid "Backup"
-msgstr ""
+msgstr "ສຳຮອງຂໍ້ມູນ"
 
 msgid "Backup Time"
-msgstr ""
+msgstr "ເວລາສຳຮອງຂໍ້ມູນ"
 
 msgid "Backup container data."
-msgstr ""
+msgstr "ສຳຮອງຂໍ້ມູນຄອນເທນເນີ."
 
 msgid "Backup shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "ໂຟນເດີສຳຮອງຂໍ້ມູນທີ່ແບ່ງປັນຕ້ອງແຕກຕ່າງຈາກໂຟນເດີ Docker"
 
 msgid "Block In"
-msgstr ""
+msgstr "ບລັອກຂາເຂົ້າ"
 
 msgid "Block Out"
-msgstr ""
+msgstr "ບລັອກຂາອອກ"
 
 msgid "Body"
-msgstr ""
+msgstr "ເນື້ອຫາ"
 
 msgid "Borg encryption"
-msgstr ""
+msgstr "ການເຂົ້າລະຫັດ Borg"
 
 msgid "Borg keep"
-msgstr ""
+msgstr "ຈຳນວນທີ່ Borg ຈະເກັບໄວ້"
 
 msgid "Borg passphrase"
-msgstr ""
+msgstr "ລະຫັດຜ່ານ Borg"
 
 msgid "Build"
-msgstr ""
+msgstr "ສ້າງ (Build)"
 
 msgid "Build ..."
-msgstr ""
+msgstr "ກຳລັງສ້າງ (Build) ..."
 
 msgid "CPU %"
-msgstr ""
+msgstr "ເປີເຊັນ CPU"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "ລຶບແຄດ (Cache) ຮຽບຮ້ອຍແລ້ວ."
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "ເວລາເກັບແຄດສຳລັບແທັບ"
 
 msgid "Certain date"
-msgstr ""
+msgstr "ວັນທີທີ່ກຳນົດ"
 
 msgid "Changes have been synced from file."
-msgstr ""
+msgstr "ຊິງຄ໌ການປ່ຽນແປງຈາກໄຟລ໌ຮຽບຮ້ອຍແລ້ວ."
 
 msgid "Check compose file for errors ..."
-msgstr ""
+msgstr "ກວດສອບຂໍ້ຜິດພາດໃນໄຟລ໌ຄອມໂພສ ..."
 
 msgid ""
-"Choose which compose files to backup by filtering the compose name by this "
-"field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd*"
-" or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
-"multiple filters separated by commas."
+"Choose which compose files to include in this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. web* or *cloud* or *app<br/>Leave "
+"blank or use just * to include all compose files.<br/>Separate multiple "
+"patterns with commas."
 msgstr ""
 
 msgid "Clear cache"
-msgstr ""
+msgstr "ລຶບແຄດ"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "ກຳລັງລຶບແຄດ ..."
 
 msgid "Command"
-msgstr ""
+msgstr "ຄຳສັ່ງ"
 
 msgid "Comment"
-msgstr ""
+msgstr "ຄຳອະທິບາຍ"
 
 msgid "Compose"
-msgstr ""
+msgstr "ຄອມໂພສ (Compose)"
 
 msgid "Compose Backup"
-msgstr ""
+msgstr "ສຳຮອງຂໍ້ມູນຄອມໂພສ"
 
 msgid "Compose File"
-msgstr ""
+msgstr "ໄຟລ໌ຄອມໂພສ"
 
 msgid "Compose Files"
-msgstr ""
+msgstr "ໄຟລ໌ຄອມໂພສທັງໝົດ"
 
 msgid "Compose Restore"
-msgstr ""
+msgstr "ກູ້ຄືນຄອມໂພສ"
 
 msgid "Compose Start"
-msgstr ""
+msgstr "ເລີ່ມຄອມໂພສ"
 
 msgid "Compose Stop"
-msgstr ""
+msgstr "ຢຸດຄອມໂພສ"
 
 msgid "Compose Update"
-msgstr ""
+msgstr "ອັບເດດຄອມໂພສ"
 
 msgid "Compose file shared folder must be different than data shared folder"
-msgstr ""
+msgstr "ໂຟນເດີໄຟລ໌ຄອມໂພສຕ້ອງແຕກຕ່າງຈາກໂຟນເດີຂໍ້ມູນ (Data)"
 
 msgid "Compose file shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "ໂຟນເດີໄຟລ໌ຄອມໂພສຕ້ອງແຕກຕ່າງຈາກໂຟນເດີ Docker"
 
 msgid "Compose file to be associate imported files with"
-msgstr ""
+msgstr "ໄຟລ໌ຄອມໂພສທີ່ຈະໃຊ້ເຊື່ອມໂຍງກັບໄຟລ໌ທີ່ນຳເຂົ້າ"
 
 msgid "Compose version"
-msgstr ""
+msgstr "ເວີຊັນຄອມໂພສ"
 
 msgid "Conf"
-msgstr ""
+msgstr "ຕັ້ງຄ່າ (Conf)"
 
 msgid "Conf file"
-msgstr ""
+msgstr "ໄຟລ໌ຕັ້ງຄ່າ"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "ຊື່ໄຟລ໌ຕັ້ງຄ່າ"
 
 msgid "Conf filename cannot be"
-msgstr ""
+msgstr "ຊື່ໄຟລ໌ຕັ້ງຄ່າບໍ່ສາມາດເປັນ"
 
 msgid "Configs"
-msgstr ""
+msgstr "ການຕັ້ງຄ່າທັງໝົດ"
 
 msgid "Container"
-msgstr ""
+msgstr "ຄອນເທນເນີ"
 
 msgid "Container Terminals"
-msgstr ""
+msgstr "ເທີມິນອລຂອງຄອນເທນເນີ"
 
 msgid "Container state"
-msgstr ""
+msgstr "ສະຖານະຄອນເທນເນີ"
 
 msgid "Containers"
-msgstr ""
+msgstr "ຄອນເທນເນີທັງໝົດ"
 
 msgid "Create"
-msgstr ""
+msgstr "ສ້າງ"
+
+msgid "Create .env and compose.yml symlinks"
+msgstr "ສ້າງ Symlink ສຳລັບ .env ແລະ compose.yml"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "ສ້າງຈາກ URL"
 
 msgid "Create from example"
-msgstr ""
+msgstr "ສ້າງຈາກຕົວຢ່າງ"
 
 msgid "Create new compose file from running container ..."
-msgstr ""
+msgstr "ສ້າງໄຟລ໌ຄອມໂພສໃໝ່ຈາກຄອນເທນເນີທີ່ກຳລັງເຮັດວຽກ ..."
 
 msgid "Create new image tag ..."
-msgstr ""
+msgstr "ສ້າງແທັກ (Tag) ອິເມຈໃໝ່ ..."
+
+msgid "Create symlinks"
+msgstr "ສ້າງ Symlink"
 
 msgid "Created"
-msgstr ""
+msgstr "ສ້າງແລ້ວເມື່ອ"
 
 msgid "Created At"
-msgstr ""
+msgstr "ສ້າງຂຶ້ນເມື່ອ"
 
 msgid "Created config."
-msgstr ""
+msgstr "ສ້າງການຕັ້ງຄ່າຮຽບຮ້ອຍ."
 
 msgid "Created dockerfile."
-msgstr ""
+msgstr "ສ້າງ Dockerfile ຮຽບຮ້ອຍ."
 
 msgid "Created file from url."
-msgstr ""
+msgstr "ສ້າງໄຟລ໌ຈາກ URL ຮຽບຮ້ອຍ."
 
 msgid "Created file."
-msgstr ""
+msgstr "ສ້າງໄຟລ໌ຮຽບຮ້ອຍ."
 
 msgid "Created network."
-msgstr ""
+msgstr "ສ້າງເຄືອຂ່າຍຮຽບຮ້ອຍ."
 
 msgid "Created scheduled job."
-msgstr ""
+msgstr "ສ້າງງານທີ່ກຳນົດເວລາຮຽບຮ້ອຍ."
 
 msgid "Current"
-msgstr ""
+msgstr "ປັດຈຸບັນ"
 
 msgid "Current repository"
-msgstr ""
+msgstr "Repository ປັດຈຸບັນ"
 
 msgid "Current tag"
-msgstr ""
+msgstr "ແທັກປັດຈຸບັນ"
 
 msgid "Daily"
-msgstr ""
+msgstr "ລາຍວັນ"
 
 msgid "Data"
-msgstr ""
+msgstr "ຂໍ້ມູນ"
 
 msgid "Data shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "ໂຟນເດີຂໍ້ມູນທີ່ແບ່ງປັນຕ້ອງແຕກຕ່າງຈາກໂຟນເດີ Docker"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "ວັນທີ ແລະ ເວລາ"
 
 msgid "Day of month"
-msgstr ""
+msgstr "ມື້ຂອງເດືອນ"
 
 msgid "Day of week"
-msgstr ""
+msgstr "ມື້ຂອງອາທິດ"
 
 msgid "December"
-msgstr ""
+msgstr "ທັນວາ"
 
 msgid "Delete"
-msgstr ""
+msgstr "ລຶບ"
 
 msgid "Delete backup ..."
-msgstr ""
+msgstr "ກຳລັງລຶບການສຳຮອງຂໍ້ມູນ ..."
 
 msgid "Delete complete."
-msgstr ""
+msgstr "ລຶບສຳເລັດ."
 
 msgid "Deleting images ..."
-msgstr ""
+msgstr "ກຳລັງລຶບອິເມຈ ..."
 
 msgid "Description"
-msgstr ""
+msgstr "ຄຳອະທິບາຍ"
 
 msgid "Digest"
-msgstr ""
+msgstr "ໄດເຈສ (Digest)"
 
 msgid "Directory does not exist!"
-msgstr ""
+msgstr "ບໍ່ມີໄດເຣັກທໍຣີນີ້!"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
-msgstr ""
+msgstr "ສະແດງຄອນເທນເນີພ້ອມລິ້ງໄປຫາເທີມິນອລ (Terminal) ໃນຮູບແບບຕາຕະລາງ."
 
 msgid "Displays information about containers in a grid."
-msgstr ""
+msgstr "ສະແດງຂໍ້ມູນກ່ຽວກັບຄອນເທນເນີໃນຮູບແບບຕາຕະລາງກິດ (Grid)."
 
 msgid "Displays information about containers in a table."
-msgstr ""
+msgstr "ສະແດງຂໍ້ມູນກ່ຽວກັບຄອນເທນເນີໃນຮູບແບບຕາຕະລາງ."
 
 msgid "Do not use cache when building the image"
-msgstr ""
+msgstr "ບໍ່ໃຊ້ແຄດໃນເວລາສ້າງ (Build) ອິເມຈ"
 
 msgid "Docker config"
-msgstr ""
+msgstr "ການຕັ້ງຄ່າ Docker"
 
 msgid "Docker has been restarted."
-msgstr ""
+msgstr "ເລີ່ມລະບົບ Docker ໃໝ່ຮຽບຮ້ອຍແລ້ວ."
 
 msgid "Docker info"
-msgstr ""
+msgstr "ຂໍ້ມູນ Docker"
 
 msgid "Docker is restarting ..."
-msgstr ""
+msgstr "Docker ກຳລັງເລີ່ມລະບົບໃໝ່ ..."
 
 msgid "Docker on OMV"
-msgstr ""
+msgstr "Docker ໃນ OMV"
 
 msgid "Docker storage"
-msgstr ""
+msgstr "ບ່ອນເກັບຂໍ້ມູນ Docker"
 
 msgid "Docker version"
-msgstr ""
+msgstr "ເວີຊັນ Docker"
 
 msgid "Dockerfile"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Dockerfiles"
-msgstr ""
+msgstr "Dockerfiles ທັງໝົດ"
 
 msgid "Docs"
-msgstr ""
+msgstr "ເອກະສານ"
 
 msgid "Down"
-msgstr ""
+msgstr "ປິດ (Down)"
 
 msgid "Download log"
-msgstr ""
+msgstr "ດາວໂຫລດລັອກ (Log)"
 
 msgid "Download logs"
-msgstr ""
+msgstr "ດາວໂຫລດລັອກທັງໝົດ"
 
 msgid "Driver"
-msgstr ""
+msgstr "ໄດເວີ (Driver)"
 
 msgid "Edit"
-msgstr ""
+msgstr "ແກ້ໄຂ"
 
 msgid "Edit config."
-msgstr ""
+msgstr "ແກ້ໄຂການຕັ້ງຄ່າ."
 
 msgid "Edit dockerfile."
-msgstr ""
+msgstr "ແກ້ໄຂ Dockerfile."
 
 msgid "Edit file."
-msgstr ""
+msgstr "ແກ້ໄຂໄຟລ໌."
 
 msgid "Edit global environment file"
-msgstr ""
+msgstr "ແກ້ໄຂໄຟລ໌ສະພາບແວດລ້ອມສາກົນ (Global Environment)"
 
 msgid "Edit global environment variable file."
-msgstr ""
+msgstr "ແກ້ໄຂໄຟລ໌ຕົວປ່ຽນສະພາບແວດລ້ອມສາກົນ."
 
 msgid "Edit scheduled job."
-msgstr ""
+msgstr "ແກ້ໄຂງານທີ່ກຳນົດເວລາ."
+
+msgid "Email on error"
+msgstr "ສົ່ງອີເມລເມື່ອມີຂໍ້ຜິດພາດ"
 
 msgid "Enable Docker repo"
-msgstr ""
+msgstr "ເປີດໃຊ້ Docker repo"
 
 msgid "Enable Docker repo ..."
-msgstr ""
+msgstr "ກຳລັງເປີດໃຊ້ Docker repo ..."
 
 msgid "Enabled"
-msgstr ""
+msgstr "ເປີດໃຊ້ງານ"
 
 msgid ""
 "Encryption mode for Borg repository. Changing this requires re-initializing "
 "the repo."
 msgstr ""
+"ໂໝດການເຂົ້າລະຫັດສຳລັບ Borg repository. ການປ່ຽນແປງນີ້ຕ້ອງໄດ້ເລີ່ມລະບົບ "
+"(Initialize) repo ໃໝ່."
 
 msgid "Env Path"
-msgstr ""
+msgstr "ເສັ້ນທາງ Env"
 
 msgid "Environment"
-msgstr ""
+msgstr "ສະພາບແວດລ້ອມ (Environment)"
 
 msgid "Every N day of month"
-msgstr ""
+msgstr "ທຸກໆ N ມື້ຂອງເດືອນ"
 
 msgid "Every N hour"
-msgstr ""
+msgstr "ທຸກໆ N ຊົ່ວໂມງ"
 
 msgid "Every N minute"
-msgstr ""
+msgstr "ທຸກໆ N ນາທີ"
 
 msgid "Everyone - read/write"
-msgstr ""
+msgstr "ທຸກຄົນ - ອ່ານ/ຂຽນ"
 
 msgid "Example compose file has been added."
+msgstr "ເພີ່ມຕົວຢ່າງໄຟລ໌ຄອມໂພສຮຽບຮ້ອຍແລ້ວ."
+
+msgid ""
+"Exclude file or directory paths from within the backed-up volumes (passed as"
+" rsync/borg --exclude patterns).<br/>This does NOT exclude compose files "
+"from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, "
+"cache/<br/>Separate multiple patterns with commas."
+msgstr ""
+
+msgid "Exclude filter"
+msgstr ""
+
+msgid ""
+"Exclude specific compose files from this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. nextcloud or *cloud* or "
+"private*<br/>Separate multiple patterns with commas.<br/>Exclusions are "
+"applied after the filter, so you can use * in Filter and exclude specific "
+"files here."
 msgstr ""
 
 msgid "Excludes"
-msgstr ""
+msgstr "ຍົກເວັ້ນ"
 
 msgid "Execute scheduled job ..."
-msgstr ""
+msgstr "ກຳລັງດຳເນີນງານທີ່ກຳນົດເວລາ ..."
 
 msgid "Failed"
-msgstr ""
+msgstr "ລົ້ມເຫຼວ"
 
 msgid "February"
-msgstr ""
+msgstr "ກຸມພາ"
 
 msgid "File"
-msgstr ""
+msgstr "ໄຟລ໌"
 
 msgid "File date"
-msgstr ""
-
-msgid "File excludes"
-msgstr ""
+msgstr "ວັນທີຂອງໄຟລ໌"
 
 msgid "Filename"
-msgstr ""
+msgstr "ຊື່ໄຟລ໌"
 
 msgid "Files"
-msgstr ""
+msgstr "ໄຟລ໌ທັງໝົດ"
 
 msgid "Filter"
-msgstr ""
+msgstr "ກັ່ນຕອງ"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
+"ຮູບແບບແມ່ນ name=ip. ໃສ່ຫຼາຍຕົວໄດ້ໂດຍຂັ້ນດ້ວຍຈຸດ.<br/>ຕົວຢ່າງ my-"
+"router=192.168.10.5,my-nas=192.168.20.6"
 
 msgid "Friday"
-msgstr ""
+msgstr "ວັນສຸກ"
 
 msgid "Gateway"
-msgstr ""
+msgstr "ເກດເວ (Gateway)"
 
 msgid "Global Environment"
-msgstr ""
+msgstr "ສະພາບແວດລ້ອມສາກົນ"
 
 msgid "Global environment variables"
-msgstr ""
+msgstr "ຕົວປ່ຽນສະພາບແວດລ້ອມສາກົນ"
 
 msgid "Group of directories and files"
-msgstr ""
+msgstr "ກຸ່ມຂອງໄດເຣັກທໍຣີ ແລະ ໄຟລ໌"
 
 msgid "Hour"
-msgstr ""
+msgstr "ຊົ່ວໂມງ"
 
 msgid "Hourly"
-msgstr ""
+msgstr "ທຸກຊົ່ວໂມງ"
 
 msgid "ID"
-msgstr ""
+msgstr "ໄອດີ (ID)"
 
 msgid "IP range"
-msgstr ""
+msgstr "ຊ່ວງ IP"
 
 msgid "If checked, backup rsync command will include the verbose flag."
-msgstr ""
+msgstr "ຖ້າເລືອກ, ຄຳສັ່ງສຳຮອງຂໍ້ມູນ rsync ຈະສະແດງລາຍລະອຽດການເຮັດວຽກ."
 
 msgid "Image"
-msgstr ""
+msgstr "ອິເມຈ (Image)"
 
 msgid "Image ID"
-msgstr ""
+msgstr "ໄອດີອິເມຈ"
 
 msgid "Images"
-msgstr ""
+msgstr "ອິເມຈທັງໝົດ"
 
 msgid "Import"
-msgstr ""
+msgstr "ນຳເຂົ້າ"
 
 msgid "Import config files from folders ..."
-msgstr ""
+msgstr "ນຳເຂົ້າໄຟລ໌ຕັ້ງຄ່າຈາກໂຟນເດີ ..."
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "ນຳເຂົ້າໄຟລ໌ຄອມໂພສທີ່ມີຢູ່ ..."
 
 msgid "Import existing compose folders ..."
-msgstr ""
+msgstr "ນຳເຂົ້າໂຟນເດີຄອມໂພສທີ່ມີຢູ່ ..."
 
 msgid "Import one"
-msgstr ""
+msgstr "ນຳເຂົ້າອັນດຽວ"
 
 msgid "In Use"
-msgstr ""
+msgstr "ກຳລັງໃຊ້ງານ"
 
 msgid "Initialize new git repo ..."
-msgstr ""
+msgstr "ກຳລັງເລີ່ມຕົ້ນ git repo ໃໝ່ ..."
 
 msgid "Inspect"
-msgstr ""
+msgstr "ກວດສອບລາຍລະອຽດ (Inspect)"
 
 msgid "Installed"
-msgstr ""
+msgstr "ຕິດຕັ້ງແລ້ວ"
 
 msgid "Internal network"
-msgstr ""
+msgstr "ເຄືອຂ່າຍພາຍໃນ"
 
 msgid "Is Latest"
-msgstr ""
+msgstr "ແມ່ນເວີຊັນຫຼ້າສຸດ"
 
 msgid "January"
-msgstr ""
+msgstr "ມັງກອນ"
 
 msgid "July"
-msgstr ""
+msgstr "ກໍລະກົດ"
 
 msgid "June"
-msgstr ""
+msgstr "ມິຖຸນາ"
 
 msgid "Keep containers running across Docker daemon updates"
-msgstr ""
+msgstr "ໃຫ້ຄອນເທນເນີເຮັດວຽກຕໍ່ເນື່ອງໃນລະຫວ່າງການອັບເດດ Docker daemon"
 
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
-msgstr ""
+msgstr "ປ່ອຍຫວ່າງໄວ້ເພື່ອໃຊ້ /etc/containers/storage.conf ທີ່ກຳນົດເອງ"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
-msgstr ""
+msgstr "ປ່ອຍຫວ່າງໄວ້ເພື່ອໃຊ້ /etc/docker/daemon.json ທີ່ກຳນົດເອງ"
 
 msgid "Live restore"
-msgstr ""
+msgstr "ກູ້ຄືນແບບສົດ (Live restore)"
 
 msgid "Location of backups"
-msgstr ""
+msgstr "ບ່ອນເກັບໄຟລ໌ສຳຮອງຂໍ້ມູນ"
 
 msgid "Location of compose files"
-msgstr ""
+msgstr "ບ່ອນເກັບໄຟລ໌ຄອມໂພສ"
 
 msgid "Log file max size"
-msgstr ""
+msgstr "ຂະໜາດສູງສຸດຂອງໄຟລ໌ລັອກ"
 
 msgid "Logged out."
-msgstr ""
+msgstr "ອອກຈາກລະບົບແລ້ວ."
 
 msgid "Logging out ..."
-msgstr ""
+msgstr "ກຳລັງອອກຈາກລະບົບ ..."
 
 msgid "Login"
-msgstr ""
+msgstr "ເຂົ້າສູ່ລະບົບ"
 
 msgid "Login to docker repo ..."
-msgstr ""
+msgstr "ກຳລັງເຂົ້າສູ່ລະບົບ docker repo ..."
 
 msgid "Logout"
-msgstr ""
+msgstr "ອອກຈາກລະບົບ"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "ບຳລຸງຮັກສາ"
 
 msgid "March"
-msgstr ""
+msgstr "ມີນາ"
 
 msgid "Max Size"
-msgstr ""
+msgstr "ຂະໜາດສູງສຸດ"
 
 msgid "May"
-msgstr ""
+msgstr "ພຶດສະພາ"
 
 msgid "Mem %"
-msgstr ""
+msgstr "ເປີເຊັນ ໜ່ວຍຄວາມຈຳ"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "ຂີດຈຳກັດ ໜ່ວຍຄວາມຈຳ"
 
 msgid "Mem Usage"
-msgstr ""
+msgstr "ການໃຊ້ ໜ່ວຍຄວາມຈຳ"
 
 msgid "Message"
-msgstr ""
+msgstr "ຂໍ້ຄວາມ"
 
 msgid "Minute"
-msgstr ""
+msgstr "ນາທີ"
 
 msgid "Mixed"
-msgstr ""
+msgstr "ປະສົມ"
 
 msgid "Monday"
-msgstr ""
+msgstr "ວັນຈັນ"
 
 msgid "Month"
-msgstr ""
+msgstr "ເດືອນ"
 
 msgid "Monthly"
-msgstr ""
+msgstr "ລາຍເດືອນ"
 
 msgid "Mountpoint"
-msgstr ""
+msgstr "ຈຸດເຊື່ອມຕໍ່ (Mountpoint)"
 
 msgid "Mounts"
-msgstr ""
-
-msgid "Multiple exclusions should be comma separated."
-msgstr ""
+msgstr "ການເຊື່ອມຕໍ່ (Mounts)"
 
 msgid "Name"
-msgstr ""
+msgstr "ຊື່"
 
 msgid "Net In"
-msgstr ""
+msgstr "ເຄືອຂ່າຍຂາເຂົ້າ"
 
 msgid "Net Out"
-msgstr ""
+msgstr "ເຄືອຂ່າຍຂາອອກ"
 
 msgid "Network"
-msgstr ""
+msgstr "ເຄືອຂ່າຍ"
 
 msgid "Networks"
-msgstr ""
+msgstr "ເຄືອຂ່າຍທັງໝົດ"
 
 msgid "No Image"
-msgstr ""
+msgstr "ບໍ່ມີອິເມຈ"
 
 msgid "No cache"
-msgstr ""
+msgstr "ບໍ່ໃຊ້ແຄດ"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "ບໍ່ພົບໄຟລ໌ຄອມໂພສ!"
 
 msgid "No name specified!"
-msgstr ""
+msgstr "ບໍ່ໄດ້ລະບຸຊື່!"
 
 msgid "None"
-msgstr ""
+msgstr "ບໍ່ມີ"
 
 msgid "Not installed"
-msgstr ""
+msgstr "ບໍ່ໄດ້ຕິດຕັ້ງ"
 
 msgid "November"
-msgstr ""
+msgstr "ພະຈິກ"
 
 msgid "Number of Borg backups to keep."
-msgstr ""
+msgstr "ຈຳນວນການສຳຮອງຂໍ້ມູນ Borg ທີ່ຈະເກັບໄວ້."
 
 msgid "October"
-msgstr ""
+msgstr "ຕຸລາ"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
+"ອະນຸຍາດສະເພາະຕົວອັກສອນ (a-zA-Z), ຕົວເລກ, ຂີດກ້ອງ (_), ຂີດຕໍ່ (-), ຈຸດ (,) "
+"ແລະ ດອກຈັນ (*) ເທົ່ານັ້ນ!"
+
+msgid "Only send an email if the job exits with an error."
+msgstr "ສົ່ງອີເມລສະເພາະເມື່ອວຽກສິ້ນສຸດດ້ວຍຂໍ້ຜິດພາດເທົ່ານັ້ນ."
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
+"ທາງເລືອກ - ບ່ອນເກັບຂໍ້ມູນຖາວອນຂອງຄອນເທນເນີ<br/>ໃຊ້ເພື່ອແທນທີ່ "
+"CHANGE_TO_COMPOSE_DATA_PATH ໃນໄຟລ໌ຄອມໂພສ ແລະ env ດ້ວຍເສັ້ນທາງໂຟນເດີນີ້."
 
 msgid ""
 "Optional. If selected, the absolute path of this shared folder will be used "
@@ -706,6 +745,9 @@ msgid ""
 "field path will not be overriden when this shared folder is set to None or "
 "when Docker storage field path is blank."
 msgstr ""
+"ທາງເລືອກ. ຖ້າເລືອກ, ເສັ້ນທາງເຕັມຂອງໂຟນເດີນີ້ຈະຖືກໃຊ້ແທນທີ່ບ່ອນເກັບຂໍ້ມູນ "
+"Docker. ຈະບໍ່ມີການແທນທີ່ຖ້າຕັ້ງຄ່າເປັນ 'ບໍ່ມີ' ຫຼື ບ່ອນເກັບຂໍ້ມູນ Docker "
+"ຫວ່າງຢູ່."
 
 msgid ""
 "Optional. If selected, the absolute path of this shared folder will be used "
@@ -713,559 +755,586 @@ msgid ""
 "field path will not be overriden when this shared folder is set to None or "
 "when Podman storage field path is blank."
 msgstr ""
+"ທາງເລືອກ. ຖ້າເລືອກ, ເສັ້ນທາງເຕັມຂອງໂຟນເດີນີ້ຈະຖືກໃຊ້ແທນທີ່ບ່ອນເກັບຂໍ້ມູນ "
+"Podman. ຈະບໍ່ມີການແທນທີ່ຖ້າຕັ້ງຄ່າເປັນ 'ບໍ່ມີ' ຫຼື ບ່ອນເກັບຂໍ້ມູນ Podman "
+"ຫວ່າງຢູ່."
 
 msgid "Override"
-msgstr ""
+msgstr "ແທນທີ່ (Override)"
 
 msgid "Override Path"
-msgstr ""
+msgstr "ເສັ້ນທາງແທັນທີ່"
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
 msgstr ""
+"ແທນທີ່ຊື່ໂຮສ (Hostname) ເມື່ອເປີດພອດໃນແທັບ ໄຟລ໌, ບໍລິການ ແລະ ຄອນເທນເນີ"
 
 msgid "Overrides"
-msgstr ""
+msgstr "ການແທນທີ່ທັງໝົດ"
 
 msgid "Owner of directories and files"
-msgstr ""
+msgstr "ເຈົ້າຂອງໄດເຣັກທໍຣີ ແລະ ໄຟລ໌"
 
 msgid "PIDs"
-msgstr ""
+msgstr "PIDs"
 
 msgid "Parent network"
-msgstr ""
+msgstr "ເຄືອຂ່າຍຫຼັກ (Parent network)"
 
 msgid "Passphrase for Borg encryption."
-msgstr ""
+msgstr "ລະຫັດຜ່ານສຳລັບການເຂົ້າລະຫັດ Borg."
 
 msgid "Password"
-msgstr ""
+msgstr "ລະຫັດຜ່ານ"
 
 msgid "Path"
-msgstr ""
+msgstr "ເສັ້ນທາງ (Path)"
 
 msgid "Path to script that will be executed after backup"
-msgstr ""
+msgstr "ເສັ້ນທາງໄປຫາສະຄຣິບທີ່ຈະເຮັດວຽກຫຼັງການສຳຮອງຂໍ້ມູນ"
 
 msgid "Path to script that will be executed before backup"
-msgstr ""
+msgstr "ເສັ້ນທາງໄປຫາສະຄຣິບທີ່ຈະເຮັດວຽກກ່ອນການສຳຮອງຂໍ້ມູນ"
 
 msgid "Permissions of directories and files"
-msgstr ""
+msgstr "ສິດການເຂົ້າເຖິງຂອງໄດເຣັກທໍຣີ ແລະ ໄຟລ໌"
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "ກະລຸນາຕັ້ງຄ່າໂຟນເດີແບ່ງປັນສຳລັບການສຳຮອງຂໍ້ມູນ."
 
 msgid "Please set shared folder for data on the Settings tab."
-msgstr ""
+msgstr "ກະລຸນາຕັ້ງຄ່າໂຟນເດີແບ່ງປັນສຳລັບຂໍ້ມູນໃນແທັບການຕັ້ງຄ່າ."
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "ກະລຸນາຕັ້ງຄ່າໂຟນເດີແບ່ງປັນສຳລັບການເກັບໄຟລ໌."
 
 msgid "Podman storage"
-msgstr ""
+msgstr "ບ່ອນເກັບຂໍ້ມູນ Podman"
 
 msgid "Ports"
-msgstr ""
+msgstr "ພອດ (Ports)"
 
 msgid "Post-backup script"
-msgstr ""
+msgstr "ສະຄຣິບຫຼັງການສຳຮອງຂໍ້ມູນ"
 
 msgid "Pre-backup script"
-msgstr ""
+msgstr "ສະຄຣິບກ່ອນການສຳຮອງຂໍ້ມູນ"
 
 msgid "Project"
-msgstr ""
+msgstr "ໂປຣເຈັກ"
 
 msgid "Prune"
-msgstr ""
+msgstr "ລຶບສ່ວນເກີນ (Prune)"
 
 msgid "Prune Images"
-msgstr ""
+msgstr "ລຶບອິເມຈທີ່ບໍ່ໄດ້ໃຊ້"
 
 msgid "Prune Images - all dangling"
-msgstr ""
+msgstr "ລຶບອິເມຈທີ່ບໍ່ໄດ້ໃຊ້ - ທັງໝົດທີ່ຄ້າງຢູ່"
 
 msgid ""
 "Prune all dangling images.<br/>Does not use filter. Will run docker image "
 "prune -f"
 msgstr ""
+"ລຶບອິເມຈທີ່ຄ້າງຢູ່ທັງໝົດ.<br/>ບໍ່ມີການກັ່ນຕອງ. ຈະດຳເນີນຄຳສັ່ງ docker image "
+"prune -f"
 
 msgid "Pull"
-msgstr ""
+msgstr "ດຶງຂໍ້ມູນ (Pull)"
 
 msgid "Pull and Build"
-msgstr ""
+msgstr "ດຶງຂໍ້ມູນ ແລະ ສ້າງ (Build)"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "ກຳລັງດຶງຂໍ້ມູນ ແລະ ສ້າງ ..."
 
 msgid "Pull complete."
-msgstr ""
+msgstr "ດຶງຂໍ້ມູນສຳເລັດ."
 
 msgid "Pulling images ..."
-msgstr ""
+msgstr "ກຳລັງດຶງອິເມຈ ..."
 
 msgid "Push"
-msgstr ""
+msgstr "ສົ່ງຂໍ້ມູນ (Push)"
 
 msgid "Push to Docker Hub ..."
-msgstr ""
+msgstr "ກຳລັງສົ່ງໄປຫາ Docker Hub ..."
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "ຕິດຕັ້ງ Docker ໃໝ່"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "ກຳລັງຕິດຕັ້ງ Docker ໃໝ່ ..."
 
 msgid "Repo"
-msgstr ""
+msgstr "Repo"
 
 msgid "Repos"
-msgstr ""
+msgstr "Repos ທັງໝົດ"
 
 msgid "Repository"
-msgstr ""
+msgstr "Repository"
 
 msgid "Restart Docker"
-msgstr ""
+msgstr "ເລີ່ມລະບົບ Docker ໃໝ່"
 
 msgid "Restore"
-msgstr ""
+msgstr "ກູ້ຄືນ"
 
 msgid "Restore Compose ..."
-msgstr ""
+msgstr "ກຳລັງກູ້ຄືນຄອມໂພສ ..."
 
 msgid "Restore global.env"
-msgstr ""
+msgstr "ກູ້ຄືນ global.env"
 
 msgid "Restoring global.env from backup ..."
-msgstr ""
+msgstr "ກຳລັງກູ້ຄືນ global.env ຈາກການສຳຮອງຂໍ້ມູນ ..."
 
 msgid ""
 "Restrict external access. Containers can talk to each other, but the network"
 " is not reachable from outside the host."
 msgstr ""
+"ຈຳກັດການເຂົ້າເຖິງຈາກພາຍນອກ. ຄອນເທນເນີສາມາດລົມກັນໄດ້, "
+"ແຕ່ເຄືອຂ່າຍບໍ່ສາມາດເຂົ້າເຖິງໄດ້ຈາກພາຍນອກໂຮສ."
 
 msgid "Run"
-msgstr ""
+msgstr "ເຮັດວຽກ (Run)"
 
 msgid "Run config"
-msgstr ""
+msgstr "ໃຊ້ການຕັ້ງຄ່າ"
 
 msgid "Run docker compose build"
-msgstr ""
+msgstr "ດຳເນີນການ docker compose build"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
+"ດຳເນີນການ docker compose config ເພື່ອກວດສອບໄວຍາກອນອັດຕະໂນມັດເມື່ອບັນທຶກໄຟລ໌"
 
 msgid "Running For"
-msgstr ""
+msgstr "ເຮັດວຽກມາແລ້ວ"
 
 msgid "Saturday"
-msgstr ""
+msgstr "ວັນເສົາ"
 
 msgid "Schedule"
-msgstr ""
+msgstr "ຕາຕະລາງເວລາ"
 
 msgid "Scheduling"
-msgstr ""
+msgstr "ການກຳນົດເວລາ"
 
 msgid "Script"
-msgstr ""
+msgstr "ສະຄຣິບ"
 
 msgid "Script filename"
-msgstr ""
+msgstr "ຊື່ໄຟລ໌ສະຄຣິບ"
 
 msgid "Script filename cannot be"
-msgstr ""
+msgstr "ຊື່ໄຟລ໌ສະຄຣິບບໍ່ສາມາດເປັນ"
 
 msgid "Scripts"
-msgstr ""
+msgstr "ສະຄຣິບທັງໝົດ"
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "ເລືອກກຸ່ມ ..."
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "ເລືອກຜູ້ໃຊ້ ..."
 
 msgid "Send command output via email"
-msgstr ""
+msgstr "ສົ່ງຜົນການເຮັດວຽກຂອງຄຳສັ່ງຜ່ານອີເມລ"
+
+msgid "Send email"
+msgstr "ສົ່ງອີເມລ"
+
+msgid "Send email on error only"
+msgstr "ສົ່ງອີເມລສະເພາະເມື່ອມີຂໍ້ຜິດພາດເທົ່ານັ້ນ"
 
 msgid "September"
-msgstr ""
+msgstr "ກັນຍາ"
 
 msgid "Service"
-msgstr ""
+msgstr "ບໍລິການ (Service)"
 
 msgid "Service Name"
-msgstr ""
+msgstr "ຊື່ບໍລິການ"
 
 msgid "Services"
-msgstr ""
+msgstr "ບໍລິການທັງໝົດ"
 
 msgid "Settings"
-msgstr ""
+msgstr "ການຕັ້ງຄ່າ"
 
 msgid "Shared folder"
-msgstr ""
+msgstr "ໂຟນເດີແບ່ງປັນ"
 
 msgid "Show all file changes ..."
-msgstr ""
+msgstr "ສະແດງການປ່ຽນແປງຂອງໄຟລ໌ທັງໝົດ ..."
 
 msgid "Show all global.env changes ..."
-msgstr ""
+msgstr "ສະແດງການປ່ຽນແປງຂອງ global.env ທັງໝົດ ..."
 
 msgid "Show commands"
-msgstr ""
+msgstr "ສະແດງຄຳສັ່ງ"
 
 msgid "Show config changes"
-msgstr ""
+msgstr "ສະແດງການປ່ຽນແປງການຕັ້ງຄ່າ"
 
 msgid "Show docker command for task in task dialog"
-msgstr ""
+msgstr "ສະແດງຄຳສັ່ງ docker ສຳລັບວຽກໃນກ່ອງໂຕ້ຕອບວຽກ"
 
 msgid "Show environment file"
-msgstr ""
+msgstr "ສະແດງໄຟລ໌ສະພາບແວດລ້ອມ"
 
 msgid "Show override"
-msgstr ""
+msgstr "ສະແດງການແທນທີ່"
 
 msgid "Size"
-msgstr ""
+msgstr "ຂະໜາດ"
 
 msgid "Start"
-msgstr ""
+msgstr "ເລີ່ມ"
 
 msgid "Start all compose files"
-msgstr ""
+msgstr "ເລີ່ມໄຟລ໌ຄອມໂພສທັງໝົດ"
 
 msgid "State"
-msgstr ""
+msgstr "ສະຖານະ"
 
 msgid "Stats"
-msgstr ""
+msgstr "ສະຖິຕິ"
 
 msgid "Status"
-msgstr ""
+msgstr "ສະຖານະ"
 
 msgid "Stop"
-msgstr ""
+msgstr "ຢຸດ"
 
 msgid "Stop all compose files"
-msgstr ""
+msgstr "ຢຸດໄຟລ໌ຄອມໂພສທັງໝົດ"
 
 msgid "Stopped"
-msgstr ""
+msgstr "ຢຸດແລ້ວ"
 
 msgid "Subnet"
-msgstr ""
+msgstr "ຊັບເນັດ (Subnet)"
 
 msgid "Sunday"
-msgstr ""
+msgstr "ວັນອາທິດ"
 
 msgid "Sync changes from file"
-msgstr ""
+msgstr "ຊິງຄ໌ການປ່ຽນແປງຈາກໄຟລ໌"
 
 msgid "Syncing changes from file ..."
-msgstr ""
+msgstr "ກຳລັງຊິງຄ໌ການປ່ຽນແປງຈາກໄຟລ໌ ..."
 
 msgid "System"
-msgstr ""
+msgstr "ລະບົບ"
 
 msgid "Tag"
-msgstr ""
+msgstr "ແທັກ (Tag)"
 
 msgid "Tags"
-msgstr ""
+msgstr "ແທັກທັງໝົດ"
 
 msgid "Target repo"
-msgstr ""
+msgstr "Repo ປາຍທາງ"
 
 msgid "Target repository"
-msgstr ""
+msgstr "Repository ປາຍທາງ"
 
 msgid "Target tag"
-msgstr ""
+msgstr "ແທັກປາຍທາງ"
 
 msgid "Terminal"
-msgstr ""
+msgstr "ເທີມິນອລ (Terminal)"
 
 msgid "Terminal Link"
-msgstr ""
+msgstr "ລິ້ງເທີມິນອລ"
 
 msgid "The config file will be created in this compose file's directory."
-msgstr ""
+msgstr "ໄຟລ໌ຕັ້ງຄ່າຈະຖືກສ້າງຂຶ້ນໃນໄດເຣັກທໍຣີຂອງໄຟລ໌ຄອມໂພສນີ້."
 
 msgid "The field should only contain * or a comma separated list of values."
-msgstr ""
+msgstr "ຊ່ອງນີ້ຄວນມີພຽງ * ຫຼື ລາຍການທີ່ຂັ້ນດ້ວຍຈຸດເທົ່ານັ້ນ."
 
 msgid "This is the filename. This should not be a path."
-msgstr ""
+msgstr "ນີ້ແມ່ນຊື່ໄຟລ໌. ບໍ່ຄວນເປັນເສັ້ນທາງ (Path)."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
+"ສິ່ງນີ້ຈະນຳເຂົ້າໄຟລ໌ຕັ້ງຄ່າຈາກໂຟນເດີທີ່ເລືອກ.<br/>ຈະບໍ່ນຳເຂົ້າໄຟລ໌ທີ່ມີຢູ່ແລ້ວໃນປລັກອິນ."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"ສິ່ງນີ້ຈະນຳເຂົ້າໄຟລ໌ຄອມໂພສອັນດຽວໃນໂຟນເດີທີ່ເລືອກ.<br/>ຈະບໍ່ນຳເຂົ້າໄຟລ໌ທີ່ມີຢູ່ແລ້ວໃນປລັກອິນ."
 
 msgid ""
 "This will import one or more compose files in subfolders.<br/>It will not "
 "import any compose files that already exist in the plugin."
 msgstr ""
+"ສິ່ງນີ້ຈະນຳເຂົ້າໄຟລ໌ຄອມໂພສໜຶ່ງ ຫຼື "
+"ຫຼາຍໄຟລ໌ໃນໂຟນເດີຍ່ອຍ.<br/>ຈະບໍ່ນຳເຂົ້າໄຟລ໌ທີ່ມີຢູ່ແລ້ວໃນປລັກອິນ."
 
 msgid "Thursday"
-msgstr ""
+msgstr "ວັນພະຫັດ"
 
 msgid "Time of execution"
-msgstr ""
+msgstr "ເວລາທີ່ດຳເນີນການ"
 
 msgid "Tools"
-msgstr ""
+msgstr "ເຄື່ອງມື"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "ວັນອັງຄານ"
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "ຊື່ໂຮສຂອງ URL"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr ""
+"ຫົວໜ່ວຍເປັນ GB. ການສຳຮອງຂໍ້ມູນຈະຂ້າມວໍລຸມ (Volume) "
+"ທີ່ມີຂະໜາດໃຫຍ່ກວ່ານີ້.<br/>ຕັ້ງເປັນ 0 ເພື່ອບໍ່ຈຳກັດ."
 
 msgid "Units in MB. Set to 0 for unlimited."
-msgstr ""
+msgstr "ຫົວໜ່ວຍເປັນ MB. ຕັ້ງເປັນ 0 ເພື່ອບໍ່ຈຳກັດ."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "ຫົວໜ່ວຍເປັນ ວິນາທີ.<br/>ຕັ້ງເປັນ 0 ເພື່ອບໍ່ໃຊ້ແຄດ."
 
 msgid "Up"
-msgstr ""
+msgstr "ເປີດ (Up)"
 
 msgid "Update"
-msgstr ""
+msgstr "ອັບເດດ"
 
 msgid ""
 "Update all images in compose file. Will recreate containers after update if "
 "running.<br/>Update will always run after backup if backup is enabled."
 msgstr ""
+"ອັບເດດອິເມຈທັງໝົດໃນໄຟລ໌ຄອມໂພສ. "
+"ຈະສ້າງຄອນເທນເນີໃໝ່ຫຼັງການອັບເດດຖ້າກຳລັງເຮັດວຽກຢູ່.<br/>ການອັບເດດຈະເຮັດວຽກຫຼັງການສຳຮອງຂໍ້ມູນສະເໝີ"
+" ຖ້າເປີດໃຊ້ການສຳຮອງຂໍ້ມູນ."
 
 msgid "Uptime"
-msgstr ""
+msgstr "ໄລຍະເວລາເຮັດວຽກ"
 
 msgid "Use podman"
-msgstr ""
+msgstr "ໃຊ້ podman"
 
 msgid "Username"
-msgstr ""
+msgstr "ຊື່ຜູ້ໃຊ້"
 
 msgid "Verbose"
-msgstr ""
+msgstr "ສະແດງລາຍລະອຽດ (Verbose)"
 
 msgid "Version"
-msgstr ""
+msgstr "ເວີຊັນ"
 
 msgid "Virtual Size"
-msgstr ""
+msgstr "ຂະໜາດສະເມືອນ"
 
 msgid "Volume"
+msgstr "ວໍລຸມ (Volume)"
+
+msgid "Volume path excludes"
 msgstr ""
 
 msgid "Volumes"
-msgstr ""
+msgstr "ວໍລຸມທັງໝົດ"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "ວັນພຸດ"
 
 msgid "Weekly"
-msgstr ""
+msgstr "ລາຍອາທິດ"
 
 msgid "Yearly"
-msgstr ""
+msgstr "ລາຍປີ"
 
 msgid "and not running"
-msgstr ""
+msgstr "ແລະ ບໍ່ໄດ້ເຮັດວຽກ"
 
 msgid "and running"
-msgstr ""
+msgstr "ແລະ ກຳລັງເຮັດວຽກ"
 
 msgid "check"
-msgstr ""
+msgstr "ກວດສອບ"
 
 msgid "disabled"
-msgstr ""
+msgstr "ປິດໃຊ້ງານ"
 
 msgid "docker compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker compose down --remove-orphans ..."
 
 msgid "docker compose down ..."
-msgstr ""
+msgstr "docker compose down ..."
 
 msgid "docker compose down all files..."
-msgstr ""
+msgstr "docker compose down ໄຟລ໌ທັງໝົດ..."
 
 msgid "docker compose file version"
-msgstr ""
+msgstr "ເວີຊັນໄຟລ໌ docker compose"
 
 msgid "docker compose logs --follow ..."
-msgstr ""
+msgstr "docker compose logs --follow ..."
 
 msgid "docker compose logs ..."
-msgstr ""
+msgstr "docker compose logs ..."
 
 msgid "docker compose ps ..."
-msgstr ""
+msgstr "docker compose ps ..."
 
 msgid "docker compose pull ..."
-msgstr ""
+msgstr "docker compose pull ..."
 
 msgid "docker compose restart ..."
-msgstr ""
+msgstr "docker compose restart ..."
 
 msgid "docker compose stop ..."
-msgstr ""
+msgstr "docker compose stop ..."
 
 msgid "docker compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker compose up -d --remove-orphans ..."
 
 msgid "docker compose up -d ..."
-msgstr ""
+msgstr "docker compose up -d ..."
 
 msgid "docker container prune ..."
-msgstr ""
+msgstr "docker container prune ..."
 
 msgid "docker image inspect ..."
-msgstr ""
+msgstr "docker image inspect ..."
 
 msgid "docker image prune --all ..."
-msgstr ""
+msgstr "docker image prune --all ..."
 
 msgid "docker image prune ..."
-msgstr ""
+msgstr "docker image prune ..."
 
 msgid "docker image pull ..."
-msgstr ""
+msgstr "docker image pull ..."
 
 msgid "docker inspect ..."
-msgstr ""
+msgstr "docker inspect ..."
 
 msgid "docker logs --follow ..."
-msgstr ""
+msgstr "docker logs --follow ..."
 
 msgid "docker logs ..."
-msgstr ""
+msgstr "docker logs ..."
 
 msgid "docker network inspect ..."
-msgstr ""
+msgstr "docker network inspect ..."
 
 msgid "docker network prune ..."
-msgstr ""
+msgstr "docker network prune ..."
 
 msgid "docker network rm ..."
-msgstr ""
+msgstr "docker network rm ..."
 
 msgid "docker restart ..."
-msgstr ""
+msgstr "docker restart ..."
 
 msgid "docker system prune ..."
-msgstr ""
+msgstr "docker system prune ..."
 
 msgid "docker volume inspect ..."
-msgstr ""
+msgstr "docker volume inspect ..."
 
 msgid "docker volume prune ..."
-msgstr ""
+msgstr "docker volume prune ..."
 
 msgid "docker volume rm ..."
-msgstr ""
+msgstr "docker volume rm ..."
 
 msgid "dockerfile build ..."
-msgstr ""
+msgstr "dockerfile build ..."
 
 msgid "down"
-msgstr ""
+msgstr "ປິດ (down)"
 
 msgid "down all"
-msgstr ""
+msgstr "ປິດທັງໝົດ"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "ປິດ ແລະ ລຶບອັນທີ່ບໍ່ກ່ຽວຂ້ອງ"
 
 msgid "e.g. 172.20.0.0/16"
-msgstr ""
+msgstr "ຕົວຢ່າງ 172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr ""
+msgstr "ຕົວຢ່າງ 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr ""
+msgstr "ຕົວຢ່າງ 172.20.10.128/25"
 
 msgid "file not found!"
-msgstr ""
+msgstr "ບໍ່ພົບໄຟລ໌!"
 
 msgid "follow logs"
-msgstr ""
+msgstr "ຕິດຕາມລັອກ (follow logs)"
 
 msgid "global.env has been restored from backup."
-msgstr ""
+msgstr "ກູ້ຄືນ global.env ຈາກການສຳຮອງຂໍ້ມູນຮຽບຮ້ອຍ."
 
 msgid "init git repo"
-msgstr ""
+msgstr "ເລີ່ມ git repo"
 
 msgid "inspect"
-msgstr ""
+msgstr "ກວດສອບ"
 
 msgid "logs"
-msgstr ""
+msgstr "ລັອກ (logs)"
 
 msgid "n/a"
-msgstr ""
+msgstr "ບໍ່ມີຂໍ້ມູນ"
 
 msgid "omv-extras wiki"
-msgstr ""
+msgstr "omv-extras wiki"
 
 msgid "ps"
-msgstr ""
+msgstr "ps"
 
 msgid "pull"
-msgstr ""
+msgstr "ດຶງຂໍ້ມູນ"
 
 msgid "pull image"
-msgstr ""
+msgstr "ດຶງອິເມຈ"
 
 msgid "pull image+tag"
-msgstr ""
+msgstr "ດຶງອິເມຈ+ແທັກ"
 
 msgid "pull multiple image"
-msgstr ""
+msgstr "ດຶງຫຼາຍອິເມຈ"
 
 msgid "repokey"
-msgstr ""
+msgstr "repokey"
 
 msgid "restart"
-msgstr ""
+msgstr "ເລີ່ມໃໝ່"
 
 msgid "show file changes"
-msgstr ""
+msgstr "ສະແດງການປ່ຽນແປງໄຟລ໌"
 
 msgid "show global.env changes"
-msgstr ""
+msgstr "ສະແດງການປ່ຽນແປງ global.env"
 
 msgid "stop"
-msgstr ""
+msgstr "ຢຸດ"
 
 msgid "up"
-msgstr ""
+msgstr "ເປີດ (up)"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "ເປີດ ແລະ ລຶບອັນທີ່ບໍ່ກ່ຽວຂ້ອງ"

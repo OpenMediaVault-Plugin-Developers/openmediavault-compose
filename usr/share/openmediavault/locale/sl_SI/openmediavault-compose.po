@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 22:32+0000\n"
+"POT-Creation-Date: 2026-04-11 13:45+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
@@ -183,16 +183,11 @@ msgid "Check compose file for errors ..."
 msgstr "Preverite napake v datoteki Compose ..."
 
 msgid ""
-"Choose which compose files to backup by filtering the compose name by this "
-"field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd*"
-" or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add "
-"multiple filters separated by commas."
+"Choose which compose files to include in this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. web* or *cloud* or *app<br/>Leave "
+"blank or use just * to include all compose files.<br/>Separate multiple "
+"patterns with commas."
 msgstr ""
-"S filtriranjem imena po tem polju izberite, katere datoteke Compose se bodo "
-"varnostno kopirale.<br/>Filter je lahko delno ujemanje z uporabo "
-"nadomestnega znaka (*), npr. asd* ali *asd* ali *asd<br/>Pustite prazno ali "
-"uporabite samo * za vse datoteke Compose.<br/>Dodajte več filtrov, ločenih z"
-" vejicami."
 
 msgid "Clear cache"
 msgstr "Izbriši predpomnilnik"
@@ -273,6 +268,9 @@ msgstr "Zabojniki"
 msgid "Create"
 msgstr "Ustvari"
 
+msgid "Create .env and compose.yml symlinks"
+msgstr ""
+
 msgid "Create from URL"
 msgstr "Ustvarjanje iz naslova URL"
 
@@ -284,6 +282,9 @@ msgstr "Ustvarjanje nove datoteke Compose iz delujočega zabojnika ..."
 
 msgid "Create new image tag ..."
 msgstr "Ustvari novo oznako slike ..."
+
+msgid "Create symlinks"
+msgstr ""
 
 msgid "Created"
 msgstr "Ustvarjeno"
@@ -435,6 +436,9 @@ msgstr "Uredite datoteko z globalnimi okoljskimi spremenljivkami."
 msgid "Edit scheduled job."
 msgstr "Uredite načrtovano opravilo."
 
+msgid "Email on error"
+msgstr ""
+
 msgid "Enable Docker repo"
 msgstr "Omogoči Docker skladišče"
 
@@ -470,6 +474,24 @@ msgstr "Vsi - branje/pisanje"
 msgid "Example compose file has been added."
 msgstr "Dodan je bil primer datoteke Compose."
 
+msgid ""
+"Exclude file or directory paths from within the backed-up volumes (passed as"
+" rsync/borg --exclude patterns).<br/>This does NOT exclude compose files "
+"from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, "
+"cache/<br/>Separate multiple patterns with commas."
+msgstr ""
+
+msgid "Exclude filter"
+msgstr ""
+
+msgid ""
+"Exclude specific compose files from this job by matching the compose "
+"name.<br/>Supports wildcards (*). e.g. nextcloud or *cloud* or "
+"private*<br/>Separate multiple patterns with commas.<br/>Exclusions are "
+"applied after the filter, so you can use * in Filter and exclude specific "
+"files here."
+msgstr ""
+
 msgid "Excludes"
 msgstr "Izključitve"
 
@@ -487,9 +509,6 @@ msgstr "Datoteka"
 
 msgid "File date"
 msgstr "Datum datoteke"
-
-msgid "File excludes"
-msgstr ""
 
 msgid "Filename"
 msgstr "Ime datoteke"
@@ -669,9 +688,6 @@ msgstr "Točka priklopa"
 msgid "Mounts"
 msgstr "Priklopi"
 
-msgid "Multiple exclusions should be comma separated."
-msgstr "Več izključitev mora biti ločenih z vejico."
-
 msgid "Name"
 msgstr "Ime"
 
@@ -720,6 +736,9 @@ msgid ""
 msgstr ""
 "Dovoljeni so samo alfanumerični znaki (a-zA-Z), podčrtaj (_), pomišljaj (-),"
 " vejice (,) in zvezdice (*)!"
+
+msgid "Only send an email if the job exits with an error."
+msgstr ""
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
@@ -926,6 +945,12 @@ msgstr "Izbira uporabnika ..."
 msgid "Send command output via email"
 msgstr ""
 
+msgid "Send email"
+msgstr ""
+
+msgid "Send email on error only"
+msgstr ""
+
 msgid "September"
 msgstr ""
 
@@ -1120,6 +1145,9 @@ msgstr "Navidezna velikost"
 
 msgid "Volume"
 msgstr "Zvezek"
+
+msgid "Volume path excludes"
+msgstr ""
 
 msgid "Volumes"
 msgstr "Zvezki"
