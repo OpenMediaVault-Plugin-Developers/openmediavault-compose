@@ -1,3 +1,10 @@
+openmediavault-compose (8.1.8) stable; urgency=low
+
+  * Apply exclude filter to all scheduled job actions (backup, update,
+    start, stop, build) including manual runs from the UI
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 11 Apr 2026 14:09:45 +0000
+
 openmediavault-compose (8.1.7) stable; urgency=low
 
   * Add exclude filter to scheduled jobs to skip specific compose files
