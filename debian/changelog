@@ -1,3 +1,12 @@
+openmediavault-compose (8.1.7) stable; urgency=low
+
+  * Add exclude filter to scheduled jobs to skip specific compose files
+    from backup by name (supports wildcards and comma-separated list)
+  * Improve schedule form hints to clarify the difference between compose
+    file exclusions and volume path excludes (rsync/borg patterns)
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 11 Apr 2026 13:39:19 +0000
+
 openmediavault-compose (8.1.6) stable; urgency=low
 
   * Allow disabling creation of compose files and environment file
