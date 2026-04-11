@@ -549,6 +549,9 @@
         "comment": {
           "type": "string"
         },
+        "excludefilter": {
+          "type": "string"
+        },
         "execution": {
           "type": "string",
           "enum": [

@@ -80,6 +80,10 @@
       "type": "string",
       "default": ""
     },
+    "excludefilter": {
+      "type": "string",
+      "default": ""
+    },
     "execution": {
       "type": "string",
       "enum": [

@@ -3580,6 +3580,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // clean filter
         $params['filter'] = str_replace(['@','(',')',' '], '', $params['filter']);
+        // clean excludefilter
+        $params['excludefilter'] = str_replace(['@','(',')',' '], '', $params['excludefilter'] ?? '');
         // clean excludes
         $excludes = explode(',', $params['excludes']);
         $excludest = array_map('trim', $excludes);

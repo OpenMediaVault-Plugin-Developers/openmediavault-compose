@@ -26,6 +26,10 @@ data:
         prop: excludes
         flexGrow: 1
         hidden: true
+      - name: _("Exclude filter")
+        prop: excludefilter
+        flexGrow: 1
+        hidden: true
       - name: _("Backup")
         prop: backup
         flexGrow: 1

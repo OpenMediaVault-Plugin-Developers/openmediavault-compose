@@ -91,6 +91,14 @@ elif [[ "${filter}" == *","* ]]; then
   filter="@(${filter//,/|})"
 fi
 
+excludefilter=""
+if omv_isuuid "${uuid}"; then
+  excludefilter="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/excludefilter")"
+fi
+if [[ "${excludefilter}" == *","* ]]; then
+  excludefilter="@(${excludefilter//,/|})"
+fi
+
 tmpfile=""
 if [ -n "${email_mode}" ]; then
   tmpfile=$(mktemp)
@@ -109,6 +117,7 @@ _send_email() {
 trap '_send_email $?' EXIT
 
 _log "filter :: ${filter}"
+_log "excludefilter :: ${excludefilter}"
 
 if omv_isuuid "${uuid}"; then
   job="/config/services/compose/jobs/job[uuid='${uuid}']"
@@ -172,6 +181,11 @@ while [ ${index} -le ${count} ]; do
   pos="${xpath}[position()=${index}]"
   name=$(omv_config_get "${pos}/name")
   if [ -n "${filter}" ] && [[ "${name}" != ${filter} ]]; then
+    index=$(( index + 1 ))
+    continue
+  fi
+  if [ -n "${excludefilter}" ] && [[ "${name}" == ${excludefilter} ]]; then
+    _log "Skipping '${name}' - matched exclude filter"
     index=$(( index + 1 ))
     continue
   fi

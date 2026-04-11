@@ -25,7 +25,22 @@ data:
         label: _("Filter")
         value: ""
         suggestions: true
-        hint: _("Choose which compose files to backup by filtering the compose name by this field.<br/>Filter can be a partial match with use of wildcard (*). e.g. asd* or *asd* or *asd<br/>Leave blank or use just * for all compose.<br/>Add multiple filters separated by commas.")
+        hint: _("Choose which compose files to include in this job by matching the compose name.<br/>Supports wildcards (*). e.g. web* or *cloud* or *app<br/>Leave blank or use just * to include all compose files.<br/>Separate multiple patterns with commas.")
+        validators:
+          pattern:
+            pattern: '^[a-zA-Z0-9_,\-*]*$'
+            errorData: _("Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and asterisks (*) allowed!")
+        store:
+          proxy:
+            service: Compose
+            get:
+              method: getFileListSuggest
+      - type: textInput
+        name: excludefilter
+        label: _("Exclude filter")
+        value: ""
+        suggestions: true
+        hint: _("Exclude specific compose files from this job by matching the compose name.<br/>Supports wildcards (*). e.g. nextcloud or *cloud* or private*<br/>Separate multiple patterns with commas.<br/>Exclusions are applied after the filter, so you can use * in Filter and exclude specific files here.")
         validators:
           pattern:
             pattern: '^[a-zA-Z0-9_,\-*]*$'
@@ -37,9 +52,9 @@ data:
               method: getFileListSuggest
       - type: textInput
         name: excludes
-        label: _("File excludes")
+        label: _("Volume path excludes")
         value: ""
-        hint: _("Multiple exclusions should be comma separated.")
+        hint: _("Exclude file or directory paths from within the backed-up volumes (passed as rsync/borg --exclude patterns).<br/>This does NOT exclude compose files from the job — use Exclude filter above for that.<br/>Examples: *.log, tmp/*, cache/<br/>Separate multiple patterns with commas.")
       - type: divider
         title: _("Action type")
       - type: container
