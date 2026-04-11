@@ -190,7 +190,8 @@
       "properties": {
         "name": {
           "type": "string",
-          "required": true
+          "required": true,
+          "minLength": 1
         },
         "description": {
           "type": "string",
@@ -227,7 +228,8 @@
       "properties": {
         "name": {
           "type": "string",
-          "required": true
+          "required": true,
+          "minLength": 1
         },
         "description": {
           "type": "string",
@@ -269,7 +271,8 @@
       "properties": {
         "name": {
           "type": "string",
-          "required": true
+          "required": true,
+          "minLength": 1
         },
         "description": {
           "type": "string",
