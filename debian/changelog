@@ -4,6 +4,8 @@ openmediavault-compose (8.1.7) stable; urgency=low
     from backup by name (supports wildcards and comma-separated list)
   * Improve schedule form hints to clarify the difference between compose
     file exclusions and volume path excludes (rsync/borg patterns)
+  * Use yq 4.52.5
+  * Use regctl 0.11.2
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 11 Apr 2026 13:39:19 +0000
 
