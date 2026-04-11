@@ -54,7 +54,7 @@ data:
         name: excludes
         label: _("Volume path excludes")
         value: ""
-        hint: _("Exclude file or directory paths from within the backed-up volumes (passed as rsync/borg --exclude patterns).<br/>This does NOT exclude compose files from the job — use Exclude filter above for that.<br/>Examples: *.log, tmp/*, cache/<br/>Separate multiple patterns with commas.")
+        hint: _("Exclude file or directory paths from within the backed-up volumes (passed as rsync/borg --exclude patterns).<br/>This does NOT exclude compose files from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, cache/<br/>Separate multiple patterns with commas.")
       - type: divider
         title: _("Action type")
       - type: container

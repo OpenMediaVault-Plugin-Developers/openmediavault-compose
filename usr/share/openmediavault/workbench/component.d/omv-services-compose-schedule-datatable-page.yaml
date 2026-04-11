@@ -22,13 +22,15 @@ data:
         prop: filter
         flexGrow: 1
         sortable: true
-      - name: _("Excludes")
-        prop: excludes
-        flexGrow: 1
-        hidden: true
       - name: _("Exclude filter")
         prop: excludefilter
         flexGrow: 1
+        sortable: true
+        hidden: true
+      - name: _("Excludes")
+        prop: excludes
+        flexGrow: 1
+        sortable: true
         hidden: true
       - name: _("Backup")
         prop: backup
