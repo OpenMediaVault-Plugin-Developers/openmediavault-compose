@@ -77,7 +77,7 @@ if ! omv_config_exists "/config/services/compose"; then
 fi
 
 # download yq
-version="v4.49.2"
+version="v4.52.5"
 bindir="/usr/local/bin"
 yq="${bindir}/yq"
 arch="$(dpkg --print-architecture)"
@@ -102,7 +102,7 @@ chmod 755 ${yq}
 
 # download regctl
 arch="$(dpkg --print-architecture)"
-version="v0.11.1"
+version="v0.11.2"
 bindir="/usr/local/bin"
 regctl="${bindir}/regctl"
 repo_url=${OMV_EXTRAS_REGCTL_URL:-"https://github.com/regclient/regclient/releases/download"}
