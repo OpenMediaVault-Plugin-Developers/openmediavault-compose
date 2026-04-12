@@ -468,7 +468,7 @@ msgid ""
 msgstr ""
 
 msgid "Exclude filter"
-msgstr ""
+msgstr "排除式過濾"
 
 msgid ""
 "Exclude specific compose files from this job by matching the compose "
@@ -1123,7 +1123,7 @@ msgid "Volume"
 msgstr "儲存卷"
 
 msgid "Volume path excludes"
-msgstr ""
+msgstr "儲存卷路徑排除"
 
 msgid "Volumes"
 msgstr "儲存卷"
