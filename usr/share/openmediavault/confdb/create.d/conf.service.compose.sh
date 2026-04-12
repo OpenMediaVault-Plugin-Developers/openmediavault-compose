@@ -87,13 +87,15 @@ if [ ! -d "${bindir}" ]; then
 fi
 if [ ! -f "${yq}" ]; then
   echo "Downloading yq ..."
-  wget -O ${yq} "${repo_url}/${version}/yq_linux_${arch}"
+  tmpfile="$(mktemp)"
+  wget -O "${tmpfile}" "${repo_url}/${version}/yq_linux_${arch}" && mv "${tmpfile}" "${yq}" || rm -f "${tmpfile}"
 else
   echo "Checking yq version ..."
   chmod 755 ${yq}
   yqvers="$(${yq} -V | awk '{ print $4 }')"
   if [ ! "${version}" = "${yqvers}" ]; then
-    wget -O ${yq} "${repo_url}/${version}/yq_linux_${arch}"
+    tmpfile="$(mktemp)"
+    wget -O "${tmpfile}" "${repo_url}/${version}/yq_linux_${arch}" && mv "${tmpfile}" "${yq}" || rm -f "${tmpfile}"
   else
     echo "Correct version of yq installed - '${version}'"
   fi
@@ -108,13 +110,15 @@ regctl="${bindir}/regctl"
 repo_url=${OMV_EXTRAS_REGCTL_URL:-"https://github.com/regclient/regclient/releases/download"}
 if [ ! -f "${regctl}" ]; then
   echo "Downloading regctl ..."
-  wget -O ${regctl} "${repo_url}/${version}/regctl-linux-${arch}"
+  tmpfile="$(mktemp)"
+  wget -O "${tmpfile}" "${repo_url}/${version}/regctl-linux-${arch}" && mv "${tmpfile}" "${regctl}" || rm -f "${tmpfile}"
 else
   echo "Checking regctl version ..."
   chmod 755 ${regctl}
   regctlvers="$(${regctl} version | awk '$1 == "VCSTag:" { print $2 }')"
   if [ ! "${version}" = "${regctlvers}" ]; then
-    wget -O ${regctl} "${repo_url}/${version}/regctl-linux-${arch}"
+    tmpfile="$(mktemp)"
+    wget -O "${tmpfile}" "${repo_url}/${version}/regctl-linux-${arch}" && mv "${tmpfile}" "${regctl}" || rm -f "${tmpfile}"
   else
     echo "Correct version of regctl installed - '${version}'"
   fi

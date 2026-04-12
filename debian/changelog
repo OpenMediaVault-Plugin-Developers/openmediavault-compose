@@ -1,3 +1,9 @@
+openmediavault-compose (8.1.9) UNRELEASED; urgency=medium
+
+  * Improve regctl and yq update
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 12 Apr 2026 13:37:06 +0000
+
 openmediavault-compose (8.1.8) stable; urgency=low
 
   * Apply exclude filter to all scheduled job actions (backup, update,
