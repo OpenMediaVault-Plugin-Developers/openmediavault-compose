@@ -38,10 +38,12 @@ if [[ -z "${filter}" ]]; then
   filter="${args[0]}"
   pull="${args[1]}"
   nocache="${args[2]}"
+  prunebuilder="${args[3]}"
 else
-  # new-style: filter via -f flag, remaining positional args are pull nocache
+  # new-style: filter via -f flag, remaining positional args are pull nocache prunebuilder
   pull="${args[0]}"
   nocache="${args[1]}"
+  prunebuilder="${args[2]}"
 fi
 
 if [[ "${filter}" == "*" ]]; then
@@ -68,6 +70,12 @@ if [ "${nocache}" = "1" ]; then
   nocache="1"
 else
   nocache="0"
+fi
+
+if [ "${prunebuilder}" = "1" ]; then
+  prunebuilder="1"
+else
+  prunebuilder="0"
 fi
 
 tmpfile=""
@@ -106,5 +114,9 @@ while [ ${index} -le ${count} ]; do
   omv-compose-build "${name}" "${pull}" "${nocache}" || overall_rc=$?
   index=$(( index + 1 ))
 done
+
+if [ "${prunebuilder}" = "1" ]; then
+  omv-compose-prunebuilder || overall_rc=$?
+fi
 
 exit "${overall_rc}"

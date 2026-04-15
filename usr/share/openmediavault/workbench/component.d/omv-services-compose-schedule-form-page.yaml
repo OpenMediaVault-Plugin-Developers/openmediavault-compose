@@ -225,6 +225,17 @@ data:
                   operator: truthy
                   arg0:
                     prop: cbuild
+          - type: checkbox
+            name: fileprunebuilder
+            label: _("Prune builder cache")
+            value: false
+            hint: _("Prune the Docker build cache after building. Runs docker builder prune -f. Applies system-wide, not filtered by compose file.")
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: cbuild
       - type: divider
         title: _("Scripts")
       - type: textInput

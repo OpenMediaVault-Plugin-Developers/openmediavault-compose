@@ -350,6 +350,9 @@
               "filenocache": {
                 "type": "boolean"
               },
+              "fileprunebuilder": {
+                "type": "boolean"
+              },
               "sendemail": {
                 "type": "boolean"
               },

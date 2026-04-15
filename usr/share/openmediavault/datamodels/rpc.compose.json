@@ -537,6 +537,10 @@
           "type": "boolean",
           "required": true
         },
+        "fileprunebuilder": {
+          "type": "boolean",
+          "required": true
+        },
         "sendemail": {
           "type": "boolean",
           "required": true

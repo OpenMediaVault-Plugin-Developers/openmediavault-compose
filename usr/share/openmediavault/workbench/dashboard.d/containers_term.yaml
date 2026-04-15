@@ -19,6 +19,7 @@ data:
       prop: term
       sortable: true
       flexGrow: 1
+      cellTemplateName: htmlContent
     store:
       proxy:
         service: Compose

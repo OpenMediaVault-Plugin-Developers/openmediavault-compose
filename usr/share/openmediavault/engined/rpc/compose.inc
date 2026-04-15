@@ -3512,7 +3512,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // set action visibility
         $result['maintenance'] = $result['backup'] || $result['update'] || $result['prune'];
         $result['cstate'] = $result['filestart'] || $result['filestop'];
-        $result['cbuild'] = $result['filebuild'] || $result['filepull'] || $result['filenocache'];
+        $result['cbuild'] = $result['filebuild'] || $result['filepull'] || $result['filenocache'] || $result['fileprunebuilder'];
         if ($result['filepull'] || $result['filenocache']) $result['filebuild'] = true;
         // Convert comma separated list into an array.
         $result['minute'] = explode(",", $result['minute']);
@@ -3534,8 +3534,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // make checkboxes in hidden fields are set to false
         $modeKeys = ['maintenance', 'cstate', 'cbuild'];
         $disableMap = [
-            'maintenance' => ['filestart', 'filestop', 'filebuild', 'filepull', 'filenocache'],
-            'cstate' => ['backup', 'update', 'prune', 'filebuild', 'filepull', 'filenocache'],
+            'maintenance' => ['filestart', 'filestop', 'filebuild', 'filepull', 'filenocache', 'fileprunebuilder'],
+            'cstate' => ['backup', 'update', 'prune', 'filebuild', 'filepull', 'filenocache', 'fileprunebuilder'],
             'cbuild' => ['backup', 'update', 'prune', 'filestart', 'filestop'],
         ];
         foreach ($disableMap as $mode => $disableKeys) {
@@ -3552,7 +3552,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $actionKeys = [
             'backup', 'update', 'prune',
             'filestart', 'filestop',
-            'filebuild', 'filepull', 'filenocache'
+            'filebuild', 'filepull', 'filenocache', 'fileprunebuilder'
         ];
         $any = false;
         foreach ($actionKeys as $k) {
@@ -3697,6 +3697,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
                     $cmdArgs[] = (bool)$object->get('filepull') ? '1' : '0';
                     $cmdArgs[] = (bool)$object->get('filenocache') ? '1' : '0';
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    $cmd->setRedirect2to1();
+                    $cmdLine = $cmd->getCommandLine();
+                    if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                        throw new \OMV\ExecException($cmdLine, $output);
+                    }
+                }
+                if ($object->get('fileprunebuilder')) {
+                    $cmdArgs = [];
+                    $cmdArgs[] = '/usr/sbin/omv-compose-prunebuilder';
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
