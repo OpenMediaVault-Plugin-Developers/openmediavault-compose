@@ -38,7 +38,7 @@ _log "compose :: ${compose}"
 pull="${2}"
 _log "pull :: ${pull}"
 
-nocache="${2}"
+nocache="${3}"
 _log "nocache :: ${nocache}"
 
 # Get docker storage path
