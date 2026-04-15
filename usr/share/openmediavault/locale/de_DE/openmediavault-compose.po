@@ -4,6 +4,10 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
+# Hansjörg Seipp, 2024
+# Johannes Hell, 2024
+# Ettore Atalan <atalanttore@googlemail.com>, 2024
+# Obi Wahn, 2025
 # Aaron Murray <aaronmurray27@gmail.com>, 2025
 # 
 #, fuzzy
@@ -11,14 +15,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 13:27+0000\n"
+"POT-Creation-Date: 2026-04-15 22:48+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>, 2025\n"
-"Language-Team: German (Germany) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de_DE/)\n"
+"Language-Team: German (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Action"
@@ -745,20 +749,6 @@ msgstr ""
 "CHANGE_TO_COMPOSE_DATA_PATH in compose- und env-Dateien mit diesem Ordner zu"
 " ersetzen."
 
-msgid ""
-"Optional. If selected, the absolute path of this shared folder will be used "
-"to override the Docker storage field path when saved.  The Docker storage "
-"field path will not be overriden when this shared folder is set to None or "
-"when Docker storage field path is blank."
-msgstr ""
-
-msgid ""
-"Optional. If selected, the absolute path of this shared folder will be used "
-"to override the Podman storage field path when saved.  The Podman storage "
-"field path will not be overriden when this shared folder is set to None or "
-"when Podman storage field path is blank."
-msgstr ""
-
 msgid "Override"
 msgstr "Überschreiben"
 
@@ -941,6 +931,16 @@ msgstr ""
 msgid "Select a group ..."
 msgstr "Gruppe auswählen ..."
 
+msgid ""
+"Select a shared folder to set the Docker storage path. Uncheck to enter a "
+"path manually."
+msgstr ""
+
+msgid ""
+"Select a shared folder to set the Podman storage path. Uncheck to enter a "
+"path manually."
+msgstr ""
+
 msgid "Select a user ..."
 msgstr "Benutzer auswählen ..."
 
@@ -1055,6 +1055,16 @@ msgstr ""
 msgid "Terminal Link"
 msgstr ""
 
+msgid ""
+"The absolute path of the selected shared folder will be used as the Docker "
+"storage path when saved."
+msgstr ""
+
+msgid ""
+"The absolute path of the selected shared folder will be used as the Podman "
+"storage path when saved."
+msgstr ""
+
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
 
@@ -1129,6 +1139,9 @@ msgid "Uptime"
 msgstr ""
 
 msgid "Use podman"
+msgstr ""
+
+msgid "Use shared folder"
 msgstr ""
 
 msgid "Username"

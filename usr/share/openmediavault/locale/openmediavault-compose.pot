@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 15:30+0000\n"
+"POT-Creation-Date: 2026-04-15 22:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -698,12 +698,6 @@ msgstr ""
 msgid "Optional - Location of persistent container data<br/>Only used to substitute CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared folder path."
 msgstr ""
 
-msgid "Optional. If selected, the absolute path of this shared folder will be used to override the Docker storage field path when saved.  The Docker storage field path will not be overriden when this shared folder is set to None or when Docker storage field path is blank."
-msgstr ""
-
-msgid "Optional. If selected, the absolute path of this shared folder will be used to override the Podman storage field path when saved.  The Podman storage field path will not be overriden when this shared folder is set to None or when Podman storage field path is blank."
-msgstr ""
-
 msgid "Override"
 msgstr ""
 
@@ -878,6 +872,12 @@ msgstr ""
 msgid "Select a group ..."
 msgstr ""
 
+msgid "Select a shared folder to set the Docker storage path. Uncheck to enter a path manually."
+msgstr ""
+
+msgid "Select a shared folder to set the Podman storage path. Uncheck to enter a path manually."
+msgstr ""
+
 msgid "Select a user ..."
 msgstr ""
 
@@ -992,6 +992,12 @@ msgstr ""
 msgid "Terminal Link"
 msgstr ""
 
+msgid "The absolute path of the selected shared folder will be used as the Docker storage path when saved."
+msgstr ""
+
+msgid "The absolute path of the selected shared folder will be used as the Podman storage path when saved."
+msgstr ""
+
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
 
@@ -1050,6 +1056,9 @@ msgid "Uptime"
 msgstr ""
 
 msgid "Use podman"
+msgstr ""
+
+msgid "Use shared folder"
 msgstr ""
 
 msgid "Username"
