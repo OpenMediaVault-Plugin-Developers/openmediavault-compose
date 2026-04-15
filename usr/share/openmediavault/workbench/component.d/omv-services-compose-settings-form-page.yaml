@@ -173,12 +173,29 @@ data:
               arg0:
                 prop: podman
         fields:
+          - type: checkbox
+            name: dockerusesharedfolder
+            label: _("Use shared folder")
+            hint: _("Select a shared folder to set the Docker storage path. Uncheck to enter a path manually.")
+            value: false
+            submitValue: false
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: falsy
+                  arg0:
+                    prop: podman
           - type: textInput
             name: dockerStorage
             label: _("Docker storage")
             value: "/var/lib/docker"
             hint: _("Leave blank to use a custom /etc/docker/daemon.json")
             modifiers:
+              - type: disabled
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: dockerusesharedfolder
               - type: visible
                 constraint:
                   operator: falsy
@@ -187,7 +204,7 @@ data:
           - type: select
             name: dockersharedfolderref
             label: _("Shared folder")
-            hint: _("Optional. If selected, the absolute path of this shared folder will be used to override the Docker storage field path when saved.  The Docker storage field path will not be overriden when this shared folder is set to None or when Docker storage field path is blank.")
+            hint: _("The absolute path of the selected shared folder will be used as the Docker storage path when saved.")
             valueField: uuid
             textField: description
             hasEmptyOption: true
@@ -200,10 +217,9 @@ data:
             modifiers:
               - type: disabled
                 constraint:
-                  operator: eq
+                  operator: falsy
                   arg0:
-                    prop: dockerStorage
-                  arg1: ""
+                    prop: dockerusesharedfolder
               - type: visible
                 constraint:
                   operator: falsy
@@ -222,10 +238,16 @@ data:
             modifiers:
               - type: disabled
                 constraint:
-                  operator: eq
+                  operator: and
                   arg0:
-                    prop: dockerStorage
-                  arg1: ""
+                    operator: eq
+                    arg0:
+                      prop: dockerStorage
+                    arg1: ""
+                  arg1:
+                    operator: falsy
+                    arg0:
+                      prop: dockerusesharedfolder
               - type: visible
                 constraint:
                   operator: falsy
@@ -239,10 +261,16 @@ data:
             modifiers:
               - type: disabled
                 constraint:
-                  operator: eq
+                  operator: and
                   arg0:
-                    prop: dockerStorage
-                  arg1: ""
+                    operator: eq
+                    arg0:
+                      prop: dockerStorage
+                    arg1: ""
+                  arg1:
+                    operator: falsy
+                    arg0:
+                      prop: dockerusesharedfolder
               - type: visible
                 constraint:
                   operator: falsy
@@ -256,12 +284,29 @@ data:
               arg0:
                 prop: podman
         fields:
+          - type: checkbox
+            name: podmanusesharedfolder
+            label: _("Use shared folder")
+            hint: _("Select a shared folder to set the Podman storage path. Uncheck to enter a path manually.")
+            value: false
+            submitValue: false
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: podman
           - type: textInput
             name: podmanStorage
             label: _("Podman storage")
             value: "/var/lib/containers/storage"
             hint: _("Leave blank to use a custom /etc/containers/storage.conf")
             modifiers:
+              - type: disabled
+                constraint:
+                  operator: truthy
+                  arg0:
+                    prop: podmanusesharedfolder
               - type: visible
                 constraint:
                   operator: truthy
@@ -270,7 +315,7 @@ data:
           - type: select
             name: podmansharedfolderref
             label: _("Shared folder")
-            hint: _("Optional. If selected, the absolute path of this shared folder will be used to override the Podman storage field path when saved.  The Podman storage field path will not be overriden when this shared folder is set to None or when Podman storage field path is blank.")
+            hint: _("The absolute path of the selected shared folder will be used as the Podman storage path when saved.")
             valueField: uuid
             textField: description
             hasEmptyOption: true
@@ -283,10 +328,9 @@ data:
             modifiers:
               - type: disabled
                 constraint:
-                  operator: eq
+                  operator: falsy
                   arg0:
-                    prop: podmanStorage
-                  arg1: ""
+                    prop: podmanusesharedfolder
               - type: visible
                 constraint:
                   operator: truthy

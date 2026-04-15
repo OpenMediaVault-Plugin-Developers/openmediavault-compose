@@ -577,28 +577,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $params['fileperms'] = $perms;
         // override the docker storage path with the absolute path of
         // the docker sharedfolder if set
-        if ($params['dockerStorage'] != '') {
-            $sfref = $params['dockersharedfolderref'];
-            if (is_uuid($sfref)) {
-                $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
-                $sfpath = rtrim($sfpath, '/');
-                $params['dockerStorage'] = $sfpath;
-            }
-        } else {
-            $params['dockersharedfolderref'] = '';
+        $sfref = $params['dockersharedfolderref'];
+        if (is_uuid($sfref)) {
+            $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+            $sfpath = rtrim($sfpath, '/');
+            $params['dockerStorage'] = $sfpath;
         }
+        $params['dockersharedfolderref'] = '';
         // override the podman storage path with the absolute path of
         // the podman sharedfolder if set
-        if ($params['podmanStorage'] != '') {
-            $sfref = $params['podmansharedfolderref'];
-            if (is_uuid($sfref)) {
-                $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
-                $sfpath = rtrim($sfpath, '/');
-                $params['podmanStorage'] = $sfpath;
-            }
-        } else {
-            $params['podmansharedfolderref'] = '';
+        $sfref = $params['podmansharedfolderref'];
+        if (is_uuid($sfref)) {
+            $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+            $sfpath = rtrim($sfpath, '/');
+            $params['podmanStorage'] = $sfpath;
         }
+        $params['podmansharedfolderref'] = '';
         $object->setAssoc($params);
         $db->set($object);
         // Remove useless properties from the object.
