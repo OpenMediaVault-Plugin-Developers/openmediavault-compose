@@ -27,6 +27,11 @@ data:
         prop: driver
         flexGrow: 1
         sortable: true
+      - name: _("Containers")
+        prop: containers
+        flexGrow: 2
+        cellTemplateName: template
+        cellTemplateConfig: "{% for c in containers %}• {{ c }}{% if not loop.last %}<br>{% endif %}{% endfor %}"
     actions:
       - template: create
         execute:

@@ -2966,9 +2966,58 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $networkJson = json_decode($network);
             $networksAssoc[] = [
                 "name" => $networkJson->Name ?? $networkJson->name,
-                "driver" => $networkJson->Driver ?? $networkJson->driver
+                "driver" => $networkJson->Driver ?? $networkJson->driver,
+                "containers" => []
             ];
         }
+        // Build network -> containers map.
+        // Use the containers cache if warm; otherwise run docker ps directly.
+        $networkContainers = [];
+        $containerLines = [];
+        if (file_exists($this->cacheFileContainers)) {
+            $containerLines = json_decode(file_get_contents($this->cacheFileContainers), true) ?? [];
+        } else {
+            $psArgs = ['docker', 'container', 'ls', '--all', '--no-trunc'];
+            if ($podman) {
+                $psArgs[] = '--format "{{json .}}"';
+            } else {
+                $psArgs[] = '--format "json"';
+            }
+            $psCmd = new \OMV\System\Process($psArgs);
+            if ($podman) {
+                $psCmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                $psCmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+            }
+            $psCmd->setQuiet(true);
+            $psCmd->execute($containerLines, $psExitStatus);
+        }
+        $containers = [];
+        foreach ($containerLines as $line) {
+            $decoded = json_decode($line);
+            if ($decoded === null) continue;
+            if (is_array($decoded)) {
+                foreach ($decoded as $item) {
+                    if (is_object($item)) $containers[] = $item;
+                }
+            } elseif (is_object($decoded)) {
+                $containers[] = $decoded;
+            }
+        }
+        foreach ($containers as $container) {
+            $cname = $container->Names ?? $container->Name ?? $container->names ?? '';
+            $nets = $container->Networks ?? $container->networks ?? '';
+            if (is_string($nets) && $nets !== '') {
+                foreach (array_map('trim', explode(',', $nets)) as $net) {
+                    if ($net !== '') {
+                        $networkContainers[$net][] = $cname;
+                    }
+                }
+            }
+        }
+        foreach ($networksAssoc as &$network) {
+            $network['containers'] = $networkContainers[$network['name']] ?? [];
+        }
+        unset($network);
         // Filter the result.
         return $this->applyFilter($networksAssoc, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir'], $params['search']);
