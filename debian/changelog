@@ -1,8 +1,8 @@
-openmediavault-compose (8.1.12) UNRELEASED; urgency=medium
+openmediavault-compose (8.1.12) stable; urgency=low
 
   * Add checkboxes to select path or sharedfolder
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 15 Apr 2026 22:47:51 +0000
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 15 Apr 2026 22:50:30 +0000
 
 openmediavault-compose (8.1.11) stable; urgency=low
 
