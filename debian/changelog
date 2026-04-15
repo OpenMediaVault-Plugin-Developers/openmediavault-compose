@@ -1,3 +1,11 @@
+openmediavault-compose (8.1.10) stable; urgency=low
+
+  * Add prune builder cache option to scheduled job build action
+  * Replace individual action columns in schedule datatable with grouped
+    Maintenance, Container state, and Build columns
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 15 Apr 2026 13:27:18 +0000
+
 openmediavault-compose (8.1.9) stable; urgency=low
 
   * Improve regctl and yq update
