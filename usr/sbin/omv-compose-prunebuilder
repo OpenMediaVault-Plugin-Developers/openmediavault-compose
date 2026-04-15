@@ -63,7 +63,7 @@ fi
 _log "Starting docker builder prune ..."
 _log "podman :: ${podman}"
 
-docker builder prune -f | tee -a ${logFile} >&2
+docker builder prune -f -a | tee -a ${logFile} >&2
 
 _log "Done."
 
