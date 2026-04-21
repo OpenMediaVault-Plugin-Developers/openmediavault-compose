@@ -99,6 +99,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
         $this->registerMethod("importConfig");
         $this->registerMethod("importDockerfile");
+        $this->registerMethod("importPortainerStacks");
 
         $this->registerMethod("getStats");
         $this->registerMethod("getStatsBg");
@@ -2580,6 +2581,126 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
             $db->set($object);
         }
+    }
+
+    public function importPortainerStacks($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, "rpc.compose.importportainerstacks");
+        $portainerUrl = rtrim($params['url'], '/');
+        $apiKey = trim($params['apikey'] ?? '');
+        $username = trim($params['username'] ?? '');
+        $password = trim($params['password'] ?? '');
+        $sslverify = $params['sslverify'] ?? true;
+        // Determine auth token — API key takes precedence over username/password.
+        if (!empty($apiKey)) {
+            $authHeader = "X-API-Key: $apiKey\r\n";
+        } elseif (!empty($username)) {
+            $jwt = $this->portainerLogin($portainerUrl, $username, $password, $sslverify);
+            $authHeader = "Authorization: Bearer $jwt\r\n";
+        } else {
+            throw new \OMV\Exception(gettext("Provide either an API key or a username and password."));
+        }
+        // Fetch stack list and import each compose stack.
+        $stacks = $this->portainerGet($portainerUrl . '/api/stacks', $authHeader, $sslverify);
+        if (!is_array($stacks)) {
+            throw new \OMV\Exception(gettext("Unexpected response from Portainer API."));
+        }
+        $db = \OMV\Config\Database::getInstance();
+        $imported = 0;
+        foreach ($stacks as $stack) {
+            // Type 2 = standalone compose stack; skip swarm (1) and kubernetes (3).
+            if (($stack['Type'] ?? 0) !== 2) {
+                continue;
+            }
+            $name = $stack['Name'] ?? '';
+            if (empty($name)) {
+                continue;
+            }
+            $fileData = $this->portainerGet(
+                $portainerUrl . '/api/stacks/' . $stack['Id'] . '/file',
+                $authHeader,
+                $sslverify
+            );
+            $body = $fileData['StackFileContent'] ?? '';
+            if (empty($body)) {
+                continue;
+            }
+            // Convert Portainer env array [{"name":...,"value":...}] to KEY=VALUE lines.
+            $env = '';
+            if (!empty($stack['Env']) && is_array($stack['Env'])) {
+                $lines = [];
+                foreach ($stack['Env'] as $e) {
+                    if (!empty($e['name'])) {
+                        $lines[] = $e['name'] . '=' . ($e['value'] ?? '');
+                    }
+                }
+                $env = implode(PHP_EOL, $lines);
+            }
+            $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+            $object->set('name', $name);
+            $object->set('description', 'imported from Portainer ' . date("Y.m.d H:i"));
+            $object->set('body', $this->removeIllegal($body));
+            $object->set('env', $this->removeIllegal($env));
+            $object->set('override', '');
+            try {
+                $db->assertIsUnique($object, 'name');
+            } catch (Exception $e) {
+                continue;
+            }
+            $db->set($object);
+            $imported++;
+        }
+        $this->clearCache('files');
+        return $imported;
+    }
+
+    private function portainerLogin(string $url, string $username, string $password, bool $sslverify): string
+    {
+        $payload = json_encode(['Username' => $username, 'Password' => $password]);
+        $context = stream_context_create([
+            'http' => [
+                'method'        => 'POST',
+                'header'        => "Content-Type: application/json\r\nContent-Length: " . strlen($payload) . "\r\n",
+                'content'       => $payload,
+                'timeout'       => 10,
+                'ignore_errors' => true,
+            ],
+            'ssl' => ['verify_peer' => $sslverify, 'verify_peer_name' => $sslverify],
+        ]);
+        $response = @file_get_contents($url . '/api/auth', false, $context);
+        if ($response === false) {
+            throw new \OMV\Exception(sprintf(gettext("Could not connect to Portainer at %s."), $url));
+        }
+        $data = json_decode($response, true);
+        if (empty($data['jwt'])) {
+            throw new \OMV\Exception(gettext("Portainer authentication failed. Check your credentials."));
+        }
+        return $data['jwt'];
+    }
+
+    private function portainerGet(string $url, string $authHeader, bool $sslverify): array
+    {
+        $context = stream_context_create([
+            'http' => [
+                'method'        => 'GET',
+                'header'        => "Content-Type: application/json\r\n" . $authHeader,
+                'timeout'       => 10,
+                'ignore_errors' => true,
+            ],
+            'ssl' => ['verify_peer' => $sslverify, 'verify_peer_name' => $sslverify],
+        ]);
+        $response = @file_get_contents($url, false, $context);
+        if ($response === false) {
+            throw new \OMV\Exception(sprintf(gettext("Portainer API request failed: %s"), $url));
+        }
+        $data = json_decode($response, true);
+        if (!is_array($data)) {
+            throw new \OMV\Exception(sprintf(gettext("Invalid JSON response from Portainer: %s"), $url));
+        }
+        return $data;
     }
 
     public function importDockerfile($params, $context)

@@ -214,6 +214,54 @@ data:
                       request:
                         service: Compose
                         method: importExistingOne
+          - text: _("Import from Portainer")
+            icon: mdi:alpha-p-box-outline
+            execute:
+              type: formDialog
+              formDialog:
+                title: _("Import stacks from Portainer ...")
+                fields:
+                  - type: hint
+                    hintType: info
+                    text: _("Imports all standalone compose stacks from Portainer. Stacks already present in the plugin are skipped. Swarm stacks are not imported.")
+                  - type: textInput
+                    name: url
+                    label: _("Portainer URL")
+                    value: "https://portainer:9443"
+                    hint: _("Base URL of your Portainer instance, e.g. https://192.168.1.10:9443")
+                    validators:
+                      required: true
+                  - type: divider
+                    title: _("Authentication — fill in one of the two options below")
+                  - type: textInput
+                    name: apikey
+                    label: _("API Key")
+                    value: ""
+                    hint: _("Recommended. Generate one in Portainer under Account Settings → Access tokens.")
+                  - type: textInput
+                    name: username
+                    label: _("Username")
+                    value: ""
+                    hint: _("Used only if no API key is provided.")
+                  - type: passwordInput
+                    name: password
+                    label: _("Password")
+                    value: ""
+                  - type: checkbox
+                    name: sslverify
+                    label: _("Verify SSL certificate")
+                    value: true
+                    hint: _("Disable if Portainer uses a self-signed certificate.")
+                buttons:
+                  submit:
+                    text: _("Import")
+                    execute:
+                      type: request
+                      request:
+                        service: Compose
+                        method: importPortainerStacks
+                        progressMessage: _("Importing stacks from Portainer ...")
+                        successNotification: _("Portainer stacks imported successfully.")
           - text: _("Sync changes from file")
             icon: mdi:file-sync-outline
             confirmationDialogConfig:

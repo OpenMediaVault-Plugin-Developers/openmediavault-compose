@@ -681,5 +681,34 @@
         }
       }
     }
+  },
+  {
+    "type": "rpc",
+    "id": "rpc.compose.importportainerstacks",
+    "params": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "required": true
+        },
+        "apikey": {
+          "type": "string",
+          "required": false
+        },
+        "username": {
+          "type": "string",
+          "required": false
+        },
+        "password": {
+          "type": "string",
+          "required": false
+        },
+        "sslverify": {
+          "type": "boolean",
+          "required": false
+        }
+      }
+    }
   }
 ]
