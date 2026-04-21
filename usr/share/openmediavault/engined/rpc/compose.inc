@@ -98,6 +98,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("importExistingOne");
 
         $this->registerMethod("importConfig");
+        $this->registerMethod("importDockerfile");
 
         $this->registerMethod("getStats");
         $this->registerMethod("getStatsBg");
@@ -2572,6 +2573,46 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $object->set('fileref', $fileref);
             $object->set('body', $this->removeIllegal(file_get_contents($full)));
             // Set the configuration object.
+            try {
+                $db->assertIsUnique($object, 'name');
+            } catch (Exception $e) {
+                continue;
+            }
+            $db->set($object);
+        }
+    }
+
+    public function importDockerfile($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Verify that shared folder is set
+        $sfpath = $this->getComposePath($context);
+        // Get the configuration object.
+        $db = \OMV\Config\Database::getInstance();
+        // fix path
+        $path = $params['path'];
+        $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
+        // scan for subdirectories containing a Dockerfile
+        $dirs = array_diff(scandir($path), ["..", "."]);
+        foreach ($dirs as $dir) {
+            $full = sprintf('%s/%s', $path, $dir);
+            if (!is_dir($full)) {
+                continue;
+            }
+            $dockerFile = sprintf('%s/Dockerfile', $full);
+            if (!file_exists($dockerFile)) {
+                continue;
+            }
+            $object = new \OMV\Config\ConfigObject("conf.service.compose.dockerfile");
+            $object->set('name', $dir);
+            $object->set('description', 'imported ' . date("Y.m.d H:i"));
+            $object->set('body', $this->removeIllegal(file_get_contents($dockerFile)));
+            $object->set('script', '');
+            $object->set('scriptfile', '');
+            $object->set('conf', '');
+            $object->set('conffile', '');
+            // skip if a dockerfile with this name already exists
             try {
                 $db->assertIsUnique($object, 'name');
             } catch (Exception $e) {
