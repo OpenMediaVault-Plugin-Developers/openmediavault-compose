@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 22:48+0000\n"
+"POT-Creation-Date: 2026-04-21 15:19+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl_SI\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+
+msgid "API Key"
+msgstr ""
 
 msgid "Action"
 msgstr "Akcija"
@@ -116,6 +119,9 @@ msgstr ""
 msgid "August"
 msgstr ""
 
+msgid "Authentication — fill in one of the two options below"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "Autocompose"
 
@@ -138,6 +144,9 @@ msgid "Backup container data."
 msgstr ""
 
 msgid "Backup shared folder must be different than docker shared folder"
+msgstr ""
+
+msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 msgstr ""
 
 msgid "Block In"
@@ -265,6 +274,9 @@ msgstr "Stanje zabojnika"
 msgid "Containers"
 msgstr "Zabojniki"
 
+msgid "Could not connect to Portainer at %s."
+msgstr ""
+
 msgid "Create"
 msgstr "Ustvari"
 
@@ -360,6 +372,9 @@ msgstr "Digest"
 
 msgid "Directory does not exist!"
 msgstr "Mapa ne obstaja!"
+
+msgid "Disable if Portainer uses a self-signed certificate."
+msgstr ""
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
@@ -568,6 +583,9 @@ msgstr "Slike"
 msgid "Import"
 msgstr "Uvoz"
 
+msgid "Import Dockerfiles from folders ..."
+msgstr ""
+
 msgid "Import config files from folders ..."
 msgstr "Uvoz konfiguracijskih datotek iz map ..."
 
@@ -577,8 +595,22 @@ msgstr "Uvozite obstoječo datoteko Compose ..."
 msgid "Import existing compose folders ..."
 msgstr "Uvoz obstoječih map Compose ..."
 
+msgid "Import from Portainer"
+msgstr ""
+
 msgid "Import one"
 msgstr "Uvozi eno"
+
+msgid "Import stacks from Portainer ..."
+msgstr ""
+
+msgid "Importing stacks from Portainer ..."
+msgstr ""
+
+msgid ""
+"Imports all standalone compose stacks from Portainer. Stacks already present"
+" in the plugin are skipped. Swarm stacks are not imported."
+msgstr ""
 
 msgid "In Use"
 msgstr "V uporabi"
@@ -593,6 +625,9 @@ msgid "Installed"
 msgstr "Nameščen"
 
 msgid "Internal network"
+msgstr ""
+
+msgid "Invalid JSON response from Portainer: %s"
 msgstr ""
 
 msgid "Is Latest"
@@ -803,6 +838,18 @@ msgstr "Nastavite deljeno mapo za shranjevanje datotek."
 msgid "Podman storage"
 msgstr ""
 
+msgid "Portainer API request failed: %s"
+msgstr ""
+
+msgid "Portainer URL"
+msgstr ""
+
+msgid "Portainer authentication failed. Check your credentials."
+msgstr ""
+
+msgid "Portainer stacks imported successfully."
+msgstr ""
+
 msgid "Ports"
 msgstr "Vrata"
 
@@ -814,6 +861,9 @@ msgstr ""
 
 msgid "Project"
 msgstr "Projekt"
+
+msgid "Provide either an API key or a username and password."
+msgstr ""
 
 msgid "Prune"
 msgstr "Počisti"
@@ -857,6 +907,11 @@ msgstr "Potisni"
 
 msgid "Push to Docker Hub ..."
 msgstr "Potisni na Docker Hub"
+
+msgid ""
+"Recommended. Generate one in Portainer under Account Settings → Access "
+"tokens."
+msgstr ""
 
 msgid "Reinstall Docker"
 msgstr "Ponovno namesti Docker"
@@ -1077,6 +1132,12 @@ msgid "This is the filename. This should not be a path."
 msgstr "To je ime datoteke. To ne sme biti pot."
 
 msgid ""
+"This will import Dockerfiles found in subfolders of the selected "
+"path.<br/>It will not import any Dockerfiles that already exist in the "
+"plugin."
+msgstr ""
+
+msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
@@ -1115,6 +1176,9 @@ msgstr "URL"
 msgid "URL hostname"
 msgstr "Ime gostitelja URL"
 
+msgid "Unexpected response from Portainer API."
+msgstr ""
+
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
@@ -1148,10 +1212,16 @@ msgstr ""
 msgid "Use shared folder"
 msgstr ""
 
+msgid "Used only if no API key is provided."
+msgstr ""
+
 msgid "Username"
 msgstr ""
 
 msgid "Verbose"
+msgstr ""
+
+msgid "Verify SSL certificate"
 msgstr ""
 
 msgid "Version"

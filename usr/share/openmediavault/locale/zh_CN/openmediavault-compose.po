@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 22:48+0000\n"
+"POT-Creation-Date: 2026-04-21 15:19+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: songming <by@songming.me>, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "API Key"
+msgstr ""
 
 msgid "Action"
 msgstr "动作"
@@ -103,6 +106,9 @@ msgstr "重启时"
 msgid "August"
 msgstr "8月"
 
+msgid "Authentication — fill in one of the two options below"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "Autocompose"
 
@@ -126,6 +132,9 @@ msgstr "备份容器数据。"
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr "备份存储的共享文件夹必须和 docker 存储的共享文件夹不同"
+
+msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
+msgstr ""
 
 msgid "Block In"
 msgstr "Block In"
@@ -251,6 +260,9 @@ msgstr "Container 状态"
 msgid "Containers"
 msgstr "Containers"
 
+msgid "Could not connect to Portainer at %s."
+msgstr ""
+
 msgid "Create"
 msgstr "创建"
 
@@ -346,6 +358,9 @@ msgstr "摘要"
 
 msgid "Directory does not exist!"
 msgstr "目录不存在！"
+
+msgid "Disable if Portainer uses a self-signed certificate."
+msgstr ""
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr "以表格形式显示带有链接到 cterm 终端的容器"
@@ -552,6 +567,9 @@ msgstr "镜像"
 msgid "Import"
 msgstr "导入"
 
+msgid "Import Dockerfiles from folders ..."
+msgstr ""
+
 msgid "Import config files from folders ..."
 msgstr "从文件夹导入配置文件 ..."
 
@@ -561,8 +579,22 @@ msgstr "导入已存在的 compose 文件 ..."
 msgid "Import existing compose folders ..."
 msgstr "导入现有 compose 文件夹 ..."
 
+msgid "Import from Portainer"
+msgstr ""
+
 msgid "Import one"
 msgstr "导入一个"
+
+msgid "Import stacks from Portainer ..."
+msgstr ""
+
+msgid "Importing stacks from Portainer ..."
+msgstr ""
+
+msgid ""
+"Imports all standalone compose stacks from Portainer. Stacks already present"
+" in the plugin are skipped. Swarm stacks are not imported."
+msgstr ""
 
 msgid "In Use"
 msgstr "使用中"
@@ -578,6 +610,9 @@ msgstr "已安装"
 
 msgid "Internal network"
 msgstr "内部网络"
+
+msgid "Invalid JSON response from Portainer: %s"
+msgstr ""
 
 msgid "Is Latest"
 msgstr "是最新的"
@@ -782,6 +817,18 @@ msgstr "请设置共享文件夹用于文件存储。"
 msgid "Podman storage"
 msgstr "Podman 存储"
 
+msgid "Portainer API request failed: %s"
+msgstr ""
+
+msgid "Portainer URL"
+msgstr ""
+
+msgid "Portainer authentication failed. Check your credentials."
+msgstr ""
+
+msgid "Portainer stacks imported successfully."
+msgstr ""
+
 msgid "Ports"
 msgstr "端口"
 
@@ -793,6 +840,9 @@ msgstr "备份前脚本"
 
 msgid "Project"
 msgstr "工程"
+
+msgid "Provide either an API key or a username and password."
+msgstr ""
 
 msgid "Prune"
 msgstr "删除"
@@ -836,6 +886,11 @@ msgstr "推送"
 
 msgid "Push to Docker Hub ..."
 msgstr "推送到 Docker Hub ..."
+
+msgid ""
+"Recommended. Generate one in Portainer under Account Settings → Access "
+"tokens."
+msgstr ""
 
 msgid "Reinstall Docker"
 msgstr "重新安装 Docker"
@@ -1056,6 +1111,12 @@ msgid "This is the filename. This should not be a path."
 msgstr "这是文件名，而不是路径。"
 
 msgid ""
+"This will import Dockerfiles found in subfolders of the selected "
+"path.<br/>It will not import any Dockerfiles that already exist in the "
+"plugin."
+msgstr ""
+
+msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr "这将会从选择文件夹导入配置文件。<br/>这不会导入在插件中已存在的任何配置文件。"
@@ -1088,6 +1149,9 @@ msgstr "URL"
 msgid "URL hostname"
 msgstr "URL 主机名"
 
+msgid "Unexpected response from Portainer API."
+msgstr ""
+
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
@@ -1119,11 +1183,17 @@ msgstr "使用 podman"
 msgid "Use shared folder"
 msgstr ""
 
+msgid "Used only if no API key is provided."
+msgstr ""
+
 msgid "Username"
 msgstr "用户名"
 
 msgid "Verbose"
 msgstr "详细输出"
+
+msgid "Verify SSL certificate"
+msgstr ""
 
 msgid "Version"
 msgstr "版本"

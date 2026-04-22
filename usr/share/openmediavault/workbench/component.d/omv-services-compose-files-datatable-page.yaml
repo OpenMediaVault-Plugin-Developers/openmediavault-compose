@@ -227,7 +227,7 @@ data:
                   - type: textInput
                     name: url
                     label: _("Portainer URL")
-                    value: "https://portainer:9443"
+                    value: "https://localhost:9443"
                     hint: _("Base URL of your Portainer instance, e.g. https://192.168.1.10:9443")
                     validators:
                       required: true

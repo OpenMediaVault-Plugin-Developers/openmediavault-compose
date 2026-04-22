@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 22:48+0000\n"
+"POT-Creation-Date: 2026-04-21 15:19+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2026\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "API Key"
+msgstr ""
 
 msgid "Action"
 msgstr "Művelet"
@@ -119,6 +122,9 @@ msgstr "Újraindításkor"
 msgid "August"
 msgstr "Augusztus"
 
+msgid "Authentication — fill in one of the two options below"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "Automatikus összeállítás"
 
@@ -144,6 +150,9 @@ msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 "A biztonsági másolatot tartalmazó megosztott mappa nem lehet azonos a docker"
 " megosztott mappájával."
+
+msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
+msgstr ""
 
 msgid "Block In"
 msgstr "Blokk be"
@@ -273,6 +282,9 @@ msgstr "Kontérner állapot"
 msgid "Containers"
 msgstr "Konténerek"
 
+msgid "Could not connect to Portainer at %s."
+msgstr ""
+
 msgid "Create"
 msgstr "Létrehozás"
 
@@ -370,6 +382,9 @@ msgstr "Kivonat"
 
 msgid "Directory does not exist!"
 msgstr "A mappa nem létezik!"
+
+msgid "Disable if Portainer uses a self-signed certificate."
+msgstr ""
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
@@ -581,6 +596,9 @@ msgstr "Lemezképek"
 msgid "Import"
 msgstr "Importálás"
 
+msgid "Import Dockerfiles from folders ..."
+msgstr ""
+
 msgid "Import config files from folders ..."
 msgstr "Beállítás fájlok importálása mappákból…"
 
@@ -590,8 +608,22 @@ msgstr "Meglévő összeállítás fájl importálása…"
 msgid "Import existing compose folders ..."
 msgstr "Meglévő összeállítás mappák importálása…"
 
+msgid "Import from Portainer"
+msgstr ""
+
 msgid "Import one"
 msgstr "Egy importálása"
+
+msgid "Import stacks from Portainer ..."
+msgstr ""
+
+msgid "Importing stacks from Portainer ..."
+msgstr ""
+
+msgid ""
+"Imports all standalone compose stacks from Portainer. Stacks already present"
+" in the plugin are skipped. Swarm stacks are not imported."
+msgstr ""
 
 msgid "In Use"
 msgstr "Alkalmazva"
@@ -607,6 +639,9 @@ msgstr "Telepítve"
 
 msgid "Internal network"
 msgstr "Belső hálózat"
+
+msgid "Invalid JSON response from Portainer: %s"
+msgstr ""
 
 msgid "Is Latest"
 msgstr "Legfrissebb"
@@ -817,6 +852,18 @@ msgstr "Kérjük, állítson be megosztott mappát a fájlok tárolására."
 msgid "Podman storage"
 msgstr ""
 
+msgid "Portainer API request failed: %s"
+msgstr ""
+
+msgid "Portainer URL"
+msgstr ""
+
+msgid "Portainer authentication failed. Check your credentials."
+msgstr ""
+
+msgid "Portainer stacks imported successfully."
+msgstr ""
+
 msgid "Ports"
 msgstr "Portok"
 
@@ -828,6 +875,9 @@ msgstr "Biztonsági mentés előtti parancsfájl"
 
 msgid "Project"
 msgstr "Projekt"
+
+msgid "Provide either an API key or a username and password."
+msgstr ""
 
 msgid "Prune"
 msgstr "Tisztítás"
@@ -873,6 +923,11 @@ msgstr "Felküldés"
 
 msgid "Push to Docker Hub ..."
 msgstr "Felküldés a Docker Hub-ba…"
+
+msgid ""
+"Recommended. Generate one in Portainer under Account Settings → Access "
+"tokens."
+msgstr ""
 
 msgid "Reinstall Docker"
 msgstr "Docker újratelepítése"
@@ -1095,6 +1150,12 @@ msgid "This is the filename. This should not be a path."
 msgstr "Ez a fájl neve. Ez nem lehet elérési útvonal."
 
 msgid ""
+"This will import Dockerfiles found in subfolders of the selected "
+"path.<br/>It will not import any Dockerfiles that already exist in the "
+"plugin."
+msgstr ""
+
+msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
@@ -1134,6 +1195,9 @@ msgstr "URL"
 msgid "URL hostname"
 msgstr "URL kiszolgálónév"
 
+msgid "Unexpected response from Portainer API."
+msgstr ""
+
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
@@ -1167,11 +1231,17 @@ msgstr ""
 msgid "Use shared folder"
 msgstr ""
 
+msgid "Used only if no API key is provided."
+msgstr ""
+
 msgid "Username"
 msgstr "Felhasználónév"
 
 msgid "Verbose"
 msgstr "Részletes"
+
+msgid "Verify SSL certificate"
+msgstr ""
 
 msgid "Version"
 msgstr "Verzió"

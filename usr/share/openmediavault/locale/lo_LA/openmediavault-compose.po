@@ -4,22 +4,25 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# bounkirdni_2025, 2026
+# BoneNI, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 22:48+0000\n"
+"POT-Creation-Date: 2026-04-21 15:19+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: bounkirdni_2025, 2026\n"
+"Last-Translator: BoneNI, 2026\n"
 "Language-Team: Lao (Laos) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/lo_LA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: lo_LA\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "API Key"
+msgstr ""
 
 msgid "Action"
 msgstr "ການດຳເນີນການ"
@@ -106,6 +109,9 @@ msgstr "ເມື່ອເລີ່ມລະບົບໃໝ່"
 msgid "August"
 msgstr "ສິງຫາ"
 
+msgid "Authentication — fill in one of the two options below"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "ສ້າງຄອມໂພສອັດຕະໂນມັດ"
 
@@ -129,6 +135,9 @@ msgstr "ສຳຮອງຂໍ້ມູນຄອນເທນເນີ."
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr "ໂຟນເດີສຳຮອງຂໍ້ມູນທີ່ແບ່ງປັນຕ້ອງແຕກຕ່າງຈາກໂຟນເດີ Docker"
+
+msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
+msgstr ""
 
 msgid "Block In"
 msgstr "ບລັອກຂາເຂົ້າ"
@@ -254,6 +263,9 @@ msgstr "ສະຖານະຄອນເທນເນີ"
 msgid "Containers"
 msgstr "ຄອນເທນເນີທັງໝົດ"
 
+msgid "Could not connect to Portainer at %s."
+msgstr ""
+
 msgid "Create"
 msgstr "ສ້າງ"
 
@@ -349,6 +361,9 @@ msgstr "ໄດເຈສ (Digest)"
 
 msgid "Directory does not exist!"
 msgstr "ບໍ່ມີໄດເຣັກທໍຣີນີ້!"
+
+msgid "Disable if Portainer uses a self-signed certificate."
+msgstr ""
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr "ສະແດງຄອນເທນເນີພ້ອມລິ້ງໄປຫາເທີມິນອລ (Terminal) ໃນຮູບແບບຕາຕະລາງ."
@@ -559,6 +574,9 @@ msgstr "ອິເມຈທັງໝົດ"
 msgid "Import"
 msgstr "ນຳເຂົ້າ"
 
+msgid "Import Dockerfiles from folders ..."
+msgstr ""
+
 msgid "Import config files from folders ..."
 msgstr "ນຳເຂົ້າໄຟລ໌ຕັ້ງຄ່າຈາກໂຟນເດີ ..."
 
@@ -568,8 +586,22 @@ msgstr "ນຳເຂົ້າໄຟລ໌ຄອມໂພສທີ່ມີຢູ
 msgid "Import existing compose folders ..."
 msgstr "ນຳເຂົ້າໂຟນເດີຄອມໂພສທີ່ມີຢູ່ ..."
 
+msgid "Import from Portainer"
+msgstr ""
+
 msgid "Import one"
 msgstr "ນຳເຂົ້າອັນດຽວ"
+
+msgid "Import stacks from Portainer ..."
+msgstr ""
+
+msgid "Importing stacks from Portainer ..."
+msgstr ""
+
+msgid ""
+"Imports all standalone compose stacks from Portainer. Stacks already present"
+" in the plugin are skipped. Swarm stacks are not imported."
+msgstr ""
 
 msgid "In Use"
 msgstr "ກຳລັງໃຊ້ງານ"
@@ -585,6 +617,9 @@ msgstr "ຕິດຕັ້ງແລ້ວ"
 
 msgid "Internal network"
 msgstr "ເຄືອຂ່າຍພາຍໃນ"
+
+msgid "Invalid JSON response from Portainer: %s"
+msgstr ""
 
 msgid "Is Latest"
 msgstr "ແມ່ນເວີຊັນຫຼ້າສຸດ"
@@ -792,6 +827,18 @@ msgstr "ກະລຸນາຕັ້ງຄ່າໂຟນເດີແບ່ງປ
 msgid "Podman storage"
 msgstr "ບ່ອນເກັບຂໍ້ມູນ Podman"
 
+msgid "Portainer API request failed: %s"
+msgstr ""
+
+msgid "Portainer URL"
+msgstr ""
+
+msgid "Portainer authentication failed. Check your credentials."
+msgstr ""
+
+msgid "Portainer stacks imported successfully."
+msgstr ""
+
 msgid "Ports"
 msgstr "ພອດ (Ports)"
 
@@ -803,6 +850,9 @@ msgstr "ສະຄຣິບກ່ອນການສຳຮອງຂໍ້ມູນ
 
 msgid "Project"
 msgstr "ໂປຣເຈັກ"
+
+msgid "Provide either an API key or a username and password."
+msgstr ""
 
 msgid "Prune"
 msgstr "ລຶບສ່ວນເກີນ (Prune)"
@@ -848,6 +898,11 @@ msgstr "ສົ່ງຂໍ້ມູນ (Push)"
 
 msgid "Push to Docker Hub ..."
 msgstr "ກຳລັງສົ່ງໄປຫາ Docker Hub ..."
+
+msgid ""
+"Recommended. Generate one in Portainer under Account Settings → Access "
+"tokens."
+msgstr ""
 
 msgid "Reinstall Docker"
 msgstr "ຕິດຕັ້ງ Docker ໃໝ່"
@@ -1071,6 +1126,12 @@ msgid "This is the filename. This should not be a path."
 msgstr "ນີ້ແມ່ນຊື່ໄຟລ໌. ບໍ່ຄວນເປັນເສັ້ນທາງ (Path)."
 
 msgid ""
+"This will import Dockerfiles found in subfolders of the selected "
+"path.<br/>It will not import any Dockerfiles that already exist in the "
+"plugin."
+msgstr ""
+
+msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
@@ -1106,6 +1167,9 @@ msgstr "URL"
 
 msgid "URL hostname"
 msgstr "ຊື່ໂຮສຂອງ URL"
+
+msgid "Unexpected response from Portainer API."
+msgstr ""
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -1143,11 +1207,17 @@ msgstr "ໃຊ້ podman"
 msgid "Use shared folder"
 msgstr ""
 
+msgid "Used only if no API key is provided."
+msgstr ""
+
 msgid "Username"
 msgstr "ຊື່ຜູ້ໃຊ້"
 
 msgid "Verbose"
 msgstr "ສະແດງລາຍລະອຽດ (Verbose)"
+
+msgid "Verify SSL certificate"
+msgstr ""
 
 msgid "Version"
 msgstr "ເວີຊັນ"

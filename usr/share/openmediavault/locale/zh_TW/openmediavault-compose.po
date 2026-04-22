@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 22:48+0000\n"
+"POT-Creation-Date: 2026-04-21 15:19+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "API Key"
+msgstr ""
 
 msgid "Action"
 msgstr "動作"
@@ -61,7 +64,7 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 唯讀"
 
 msgid "Always attempt to pull a newer version of the image"
-msgstr "總是嘗試著拉取較新版的映象"
+msgstr "總是嘗試著拉取較新版的映像"
 
 msgid ""
 "An email message with the command output (if any produced) is send to the "
@@ -103,6 +106,9 @@ msgstr "重新啟動時"
 msgid "August"
 msgstr "八月"
 
+msgid "Authentication — fill in one of the two options below"
+msgstr ""
+
 msgid "Autocompose"
 msgstr "自動 compose"
 
@@ -126,6 +132,9 @@ msgstr "備份容器資料。"
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr "備份的共享檔案夾必須不同於 docker 的共享檔案夾"
+
+msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
+msgstr ""
 
 msgid "Block In"
 msgstr "區塊讀入"
@@ -155,10 +164,10 @@ msgid "CPU %"
 msgstr "CPU %"
 
 msgid "Cache has been cleared."
-msgstr "內存已經被清理。"
+msgstr "快取已經被清理。"
 
 msgid "Cache times for tabs"
-msgstr "分頁的內存時限"
+msgstr "分頁的快取時限"
 
 msgid "Certain date"
 msgstr "某個日期"
@@ -179,10 +188,10 @@ msgstr ""
 " *app<br/>留空白或僅用 * 來包含所有 compose 檔案。<br/>以逗號分隔多個型樣。"
 
 msgid "Clear cache"
-msgstr "清理內存"
+msgstr "清理快取"
 
 msgid "Clearing cache ..."
-msgstr "清理內存中 …"
+msgstr "清理快取中 …"
 
 msgid "Command"
 msgstr "指令"
@@ -252,6 +261,9 @@ msgstr "容器狀態"
 
 msgid "Containers"
 msgstr "容器"
+
+msgid "Could not connect to Portainer at %s."
+msgstr ""
 
 msgid "Create"
 msgstr "創建"
@@ -349,6 +361,9 @@ msgstr "摘要"
 msgid "Directory does not exist!"
 msgstr "檔案目錄不存在！"
 
+msgid "Disable if Portainer uses a self-signed certificate."
+msgstr ""
+
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr "在表格中顯示容器加上 cterm 執行終端機連結。"
 
@@ -359,7 +374,7 @@ msgid "Displays information about containers in a table."
 msgstr "以表格顯示關於容器的資訊。"
 
 msgid "Do not use cache when building the image"
-msgstr "建構映像時不使用内存"
+msgstr "建構映像時不使用快取"
 
 msgid "Docker config"
 msgstr "Docker 配置"
@@ -559,6 +574,9 @@ msgstr "映像"
 msgid "Import"
 msgstr "匯入"
 
+msgid "Import Dockerfiles from folders ..."
+msgstr ""
+
 msgid "Import config files from folders ..."
 msgstr "從檔案夾匯入配置檔案 ..."
 
@@ -568,8 +586,22 @@ msgstr "匯入現存 compose 檔案 ..."
 msgid "Import existing compose folders ..."
 msgstr "匯入現存 compose 檔案夾 ..."
 
+msgid "Import from Portainer"
+msgstr ""
+
 msgid "Import one"
 msgstr "匯入一個"
+
+msgid "Import stacks from Portainer ..."
+msgstr ""
+
+msgid "Importing stacks from Portainer ..."
+msgstr ""
+
+msgid ""
+"Imports all standalone compose stacks from Portainer. Stacks already present"
+" in the plugin are skipped. Swarm stacks are not imported."
+msgstr ""
 
 msgid "In Use"
 msgstr "使用中"
@@ -585,6 +617,9 @@ msgstr "已被安裝"
 
 msgid "Internal network"
 msgstr "内部網路"
+
+msgid "Invalid JSON response from Portainer: %s"
+msgstr ""
 
 msgid "Is Latest"
 msgstr "是最新"
@@ -698,7 +733,7 @@ msgid "No Image"
 msgstr "無映像"
 
 msgid "No cache"
-msgstr "無内存"
+msgstr "無快取"
 
 msgid "No compose file found!"
 msgstr "找不到 compose 檔案！"
@@ -789,6 +824,18 @@ msgstr "請設定檔案儲存用的共享檔案夾。"
 msgid "Podman storage"
 msgstr "Podman 儲存庫"
 
+msgid "Portainer API request failed: %s"
+msgstr ""
+
+msgid "Portainer URL"
+msgstr ""
+
+msgid "Portainer authentication failed. Check your credentials."
+msgstr ""
+
+msgid "Portainer stacks imported successfully."
+msgstr ""
+
 msgid "Ports"
 msgstr "連接埠"
 
@@ -801,27 +848,31 @@ msgstr "備份前腳本程式"
 msgid "Project"
 msgstr "專案"
 
+msgid "Provide either an API key or a username and password."
+msgstr ""
+
 msgid "Prune"
-msgstr "清理"
+msgstr "修剪"
 
 msgid "Prune Images"
-msgstr "清理映象"
+msgstr "修剪映像"
 
 msgid "Prune Images - all dangling"
-msgstr "清理映象 - 全部懸空映象"
+msgstr "修剪映像 - 全部懸空映像"
 
 msgid ""
 "Prune all dangling images.<br/>Does not use filter. Will run docker image "
 "prune -f"
-msgstr "清理全部懸空映象<br/>不使用篩選器。將執行 docker image prune -f"
+msgstr "修剪全部懸空映像<br/>不使用篩選器。將執行 docker image prune -f"
 
 msgid "Prune builder cache"
-msgstr ""
+msgstr "修剪建構器快取"
 
 msgid ""
 "Prune the Docker build cache after building. Runs docker builder prune -f. "
 "Applies system-wide, not filtered by compose file."
 msgstr ""
+"建構完成後，修剪 Docker 建構快取。執行 docker builder prune -f。應用於整個系統，不以 compose 檔案來篩選。"
 
 msgid "Pull"
 msgstr "拉取"
@@ -843,6 +894,11 @@ msgstr "推送"
 
 msgid "Push to Docker Hub ..."
 msgstr "推送到 Docker Hub ..."
+
+msgid ""
+"Recommended. Generate one in Portainer under Account Settings → Access "
+"tokens."
+msgstr ""
 
 msgid "Reinstall Docker"
 msgstr "重新安裝 Docker"
@@ -922,12 +978,12 @@ msgstr "選擇一個群組 …"
 msgid ""
 "Select a shared folder to set the Docker storage path. Uncheck to enter a "
 "path manually."
-msgstr ""
+msgstr "選擇一個共享檔案夾作為 Docker 的儲存路徑。去除勾選則以手動輸入一個路徑。"
 
 msgid ""
 "Select a shared folder to set the Podman storage path. Uncheck to enter a "
 "path manually."
-msgstr ""
+msgstr "選擇一個共享檔案夾作為 Podman 的儲存路徑。去除勾選則以手動輸入一個路徑。"
 
 msgid "Select a user ..."
 msgstr "選擇一個用戶 …"
@@ -1046,12 +1102,12 @@ msgstr "終端機連結"
 msgid ""
 "The absolute path of the selected shared folder will be used as the Docker "
 "storage path when saved."
-msgstr ""
+msgstr "一旦存入後，所選共享檔案夾的絕對路徑會被用來作為 Docker 儲存路徑。"
 
 msgid ""
 "The absolute path of the selected shared folder will be used as the Podman "
 "storage path when saved."
-msgstr ""
+msgstr "一旦存入後，所選共享檔案夾的絕對路徑會被用來作為 Podman 儲存路徑。"
 
 msgid "The config file will be created in this compose file's directory."
 msgstr "配置檔案將被建立於此 compse 檔案所在的目錄中。"
@@ -1061,6 +1117,12 @@ msgstr "此欄位應該只含有 * 或一個以逗號分隔的數值列表。"
 
 msgid "This is the filename. This should not be a path."
 msgstr "這是檔案名稱，不可以是一個路徑。"
+
+msgid ""
+"This will import Dockerfiles found in subfolders of the selected "
+"path.<br/>It will not import any Dockerfiles that already exist in the "
+"plugin."
+msgstr ""
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
@@ -1095,6 +1157,9 @@ msgstr "URL"
 msgid "URL hostname"
 msgstr "URL 主機名稱"
 
+msgid "Unexpected response from Portainer API."
+msgstr ""
+
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
@@ -1115,7 +1180,7 @@ msgstr "更新"
 msgid ""
 "Update all images in compose file. Will recreate containers after update if "
 "running.<br/>Update will always run after backup if backup is enabled."
-msgstr "更新 compose 檔案內全部的映象。若容器執行中，更新後將重新創建該容器。<br/>若啟用了備份，則在備份後都會執行更新。"
+msgstr "更新 compose 檔案內全部的映像。若容器執行中，更新後將重新創建該容器。<br/>若啟用了備份，則在備份後都會執行更新。"
 
 msgid "Uptime"
 msgstr "運作時間"
@@ -1124,6 +1189,9 @@ msgid "Use podman"
 msgstr "使用 podman"
 
 msgid "Use shared folder"
+msgstr "使用共享檔案夾"
+
+msgid "Used only if no API key is provided."
 msgstr ""
 
 msgid "Username"
@@ -1131,6 +1199,9 @@ msgstr "用戶名稱"
 
 msgid "Verbose"
 msgstr "詳盡"
+
+msgid "Verify SSL certificate"
+msgstr ""
 
 msgid "Version"
 msgstr "版本"

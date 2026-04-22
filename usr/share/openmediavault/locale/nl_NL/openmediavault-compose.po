@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-15 22:48+0000\n"
+"POT-Creation-Date: 2026-04-21 15:19+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "API Key"
+msgstr "API-sleutel"
 
 msgid "Action"
 msgstr "Actie"
@@ -117,6 +120,9 @@ msgstr "Bij opnieuw starten"
 msgid "August"
 msgstr "Augustus"
 
+msgid "Authentication — fill in one of the two options below"
+msgstr "Authenticatie — vul een van de twee onderstaande opties in"
+
 msgid "Autocompose"
 msgstr "Autocompose"
 
@@ -142,6 +148,9 @@ msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 "De gedeelde map voor backup moet een andere zijn dan de gedeelde map voor "
 "docker"
+
+msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
+msgstr "Basis-URL van uw Portainer-instantie, bijv. https://192.168.1.10:9443"
 
 msgid "Block In"
 msgstr "Block In"
@@ -277,6 +286,9 @@ msgstr "Container-status"
 msgid "Containers"
 msgstr "Containers"
 
+msgid "Could not connect to Portainer at %s."
+msgstr "Kan geen verbinding maken met Portainer op %s."
+
 msgid "Create"
 msgstr "Aanmaken"
 
@@ -374,6 +386,9 @@ msgstr "Samenvatting"
 
 msgid "Directory does not exist!"
 msgstr "Map bestaat niet!"
+
+msgid "Disable if Portainer uses a self-signed certificate."
+msgstr "Uitschakelen als Portainer een zelfondertekend certificaat gebruikt."
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
@@ -596,6 +611,9 @@ msgstr "Images"
 msgid "Import"
 msgstr "Importeren"
 
+msgid "Import Dockerfiles from folders ..."
+msgstr "Dockerbestanden importeren uit mappen…"
+
 msgid "Import config files from folders ..."
 msgstr "Config-bestanden importeren uit mappen…"
 
@@ -605,8 +623,25 @@ msgstr "Bestaand composebestand importeren…"
 msgid "Import existing compose folders ..."
 msgstr "Bestaande compose-mappen importeren…"
 
+msgid "Import from Portainer"
+msgstr "Importeren van Portainer"
+
 msgid "Import one"
 msgstr "Eén importeren"
+
+msgid "Import stacks from Portainer ..."
+msgstr "Stacks importeren van Portainer…"
+
+msgid "Importing stacks from Portainer ..."
+msgstr "Stacks importeren van Portainer…"
+
+msgid ""
+"Imports all standalone compose stacks from Portainer. Stacks already present"
+" in the plugin are skipped. Swarm stacks are not imported."
+msgstr ""
+"Importeert alle standalone compose stacks van Portainer. Stacks die al "
+"aanwezig zijn in de plugin worden overgeslagen. Swarm stacks worden niet "
+"geïmporteerd."
 
 msgid "In Use"
 msgstr "In gebruik"
@@ -622,6 +657,9 @@ msgstr "Geïnstalleerd"
 
 msgid "Internal network"
 msgstr "Intern netwerk"
+
+msgid "Invalid JSON response from Portainer: %s"
+msgstr "Ongeldig JSON-antwoord van Portainer: %s"
 
 msgid "Is Latest"
 msgstr "Is Laatste"
@@ -831,6 +869,18 @@ msgstr "Stel een gedeelde map in voor de opslag van bestanden."
 msgid "Podman storage"
 msgstr "Podman-opslag"
 
+msgid "Portainer API request failed: %s"
+msgstr "Portainer API-verzoek mislukt: %s"
+
+msgid "Portainer URL"
+msgstr "Portainer-URL"
+
+msgid "Portainer authentication failed. Check your credentials."
+msgstr "Authenticatie van portainer is mislukt. Controleer uw inloggegevens."
+
+msgid "Portainer stacks imported successfully."
+msgstr "Portainer stacks met succes geïmporteerd."
+
 msgid "Ports"
 msgstr "Poorten"
 
@@ -842,6 +892,9 @@ msgstr "Pre-backup script"
 
 msgid "Project"
 msgstr "Project"
+
+msgid "Provide either an API key or a username and password."
+msgstr "Geef een API-sleutel of een gebruikersnaam en wachtwoord op."
 
 msgid "Prune"
 msgstr "Snoeien"
@@ -889,6 +942,13 @@ msgstr "Push"
 
 msgid "Push to Docker Hub ..."
 msgstr "Push to Docker Hub ..."
+
+msgid ""
+"Recommended. Generate one in Portainer under Account Settings → Access "
+"tokens."
+msgstr ""
+"Aanbevolen. Genereer er een in Portainer onder Accountinstellingen → "
+"Toegangstokens."
 
 msgid "Reinstall Docker"
 msgstr "Docker opnieuw installeren"
@@ -973,11 +1033,15 @@ msgid ""
 "Select a shared folder to set the Docker storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Selecteer een gedeelde map om het Docker-opslagpad in te stellen. Verwijder "
+"het vinkje om een pad handmatig in te voeren."
 
 msgid ""
 "Select a shared folder to set the Podman storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Selecteer een gedeelde map om het Podman-opslagpad in te stellen. Verwijder "
+"het vinkje om een pad handmatig in te voeren."
 
 msgid "Select a user ..."
 msgstr "Selecteer een gebruiker…"
@@ -1097,11 +1161,15 @@ msgid ""
 "The absolute path of the selected shared folder will be used as the Docker "
 "storage path when saved."
 msgstr ""
+"Het absolute pad van de geselecteerde gedeelde map wordt gebruikt als het "
+"Docker-opslagpad wanneer het wordt opgeslagen."
 
 msgid ""
 "The absolute path of the selected shared folder will be used as the Podman "
 "storage path when saved."
 msgstr ""
+"Het absolute pad van de geselecteerde gedeelde map wordt gebruikt als het "
+"Podman-opslagpad wanneer het wordt opgeslagen."
 
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
@@ -1114,6 +1182,15 @@ msgstr ""
 
 msgid "This is the filename. This should not be a path."
 msgstr "Dit is de bestandsnaam. Dit mag geen pad zijn."
+
+msgid ""
+"This will import Dockerfiles found in subfolders of the selected "
+"path.<br/>It will not import any Dockerfiles that already exist in the "
+"plugin."
+msgstr ""
+"Dit zal Dockerbestanden importeren die gevonden worden in submappen van het "
+"geselecteerde pad.<br/>Het zal geen Dockerbestanden importeren die al "
+"bestaan in de plugin."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
@@ -1155,6 +1232,9 @@ msgstr "URL"
 msgid "URL hostname"
 msgstr "URL hostnaam"
 
+msgid "Unexpected response from Portainer API."
+msgstr "Onverwachte reactie van Portainer-API."
+
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
@@ -1189,13 +1269,19 @@ msgid "Use podman"
 msgstr "Podman gebruiken"
 
 msgid "Use shared folder"
-msgstr ""
+msgstr "Gedeelde map gebruiken"
+
+msgid "Used only if no API key is provided."
+msgstr "Alleen gebruikt als er geen API-sleutel is opgegeven."
 
 msgid "Username"
 msgstr "Gebruikersnaam"
 
 msgid "Verbose"
 msgstr "Uitgebreid"
+
+msgid "Verify SSL certificate"
+msgstr "SSL-certificaat verifiëren"
 
 msgid "Version"
 msgstr "Versie"
