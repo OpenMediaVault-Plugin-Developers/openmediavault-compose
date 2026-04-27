@@ -4036,6 +4036,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmd->execute($output, $exitStatus);
     }
 
+    private function isResolvedPort($hostPort) {
+        // Accept plain integers and integer ranges (e.g. 8080 or 8000-8010).
+        // Reject env var references like ${REDIS_PORT} or ${HTTP_PORT:-8080}.
+        return preg_match('/^\d+(-\d+)?$/', $hostPort) === 1;
+    }
+
     private function parsePortEntry($portEntry, $filename, $svcName) {
         if (is_array($portEntry)) {
             // Long form: {target: 80, published: 8080, protocol: tcp}
@@ -4043,6 +4049,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $hostPort = isset($portEntry['published']) ? (string)$portEntry['published'] : '';
             $protocol = isset($portEntry['protocol']) ? (string)$portEntry['protocol'] : 'tcp';
             if ($hostPort === '' || $hostPort === '0') return null;
+            if (!$this->isResolvedPort($hostPort)) return null;
             return [
                 'id' => sprintf('%s:%s:%s:%s', $filename, $svcName, $hostPort, $protocol),
                 'file' => $filename,
@@ -4081,6 +4088,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
 
         if ($hostPort === '' || $hostPort === '0') return null;
+        if (!$this->isResolvedPort($hostPort)) return null;
 
         return [
             'id' => sprintf('%s:%s:%s:%s', $filename, $svcName, $hostPort, $protocol),
