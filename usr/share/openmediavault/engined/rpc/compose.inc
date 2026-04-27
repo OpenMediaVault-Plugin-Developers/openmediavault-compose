@@ -136,6 +136,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod('getRepoList');
         $this->registerMethod('repoLogin');
         $this->registerMethod('repoLogout');
+
+        $this->registerMethod('getUsedPorts');
+        $this->registerMethod('getUsedPortsBg');
+        $this->registerMethod('doFindFreePorts');
     }
 
     private function clearCache($file)
@@ -454,6 +458,51 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             return trim($tz);
         }
         return date_default_timezone_get();
+    }
+
+    private function resolveNfpPlaceholders($body)
+    {
+        if (strpos($body, '${{ nfp:') === false) {
+            return $body;
+        }
+
+        // Collect all numeric host ports from every stored compose file body.
+        $db = \OMV\Config\Database::getInstance();
+        $usedPorts = [];
+        foreach ($db->get("conf.service.compose.file") as $objectv) {
+            foreach ($this->parseComposePorts($objectv->get('body'), '') as $port) {
+                $hp = $port['host_port'];
+                if (strpos($hp, '-') !== false) {
+                    [$rs, $re] = explode('-', $hp, 2);
+                    if (is_numeric($rs) && is_numeric($re)) {
+                        for ($p = intval($rs); $p <= intval($re) && $p <= 65535; $p++) {
+                            $usedPorts[$p] = true;
+                        }
+                    }
+                } elseif (is_numeric($hp)) {
+                    $usedPorts[intval($hp)] = true;
+                }
+            }
+        }
+
+        // Ports claimed by earlier ${{ nfp: N }} tags within this same render pass.
+        $claimed = [];
+
+        return preg_replace_callback(
+            '/\$\{\{\s*nfp:\s*(\d+)\s*\}\}/',
+            function ($matches) use (&$usedPorts, &$claimed) {
+                $port = max(1, min(65534, intval($matches[1])));
+                while ($port <= 65535) {
+                    if (!isset($usedPorts[$port]) && !isset($claimed[$port])) {
+                        $claimed[$port] = true;
+                        return (string)$port;
+                    }
+                    $port++;
+                }
+                return $matches[0]; // no free port found, leave placeholder intact
+            },
+            $body
+        );
     }
 
     private function renderBody($rawBody, $name, $datapath, $context)
@@ -928,6 +977,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 );
             }
         }
+        // Resolve ${{ nfp: N }} placeholders before storing so the assigned
+        // port is locked in and does not shift on subsequent saves.
+        $params['body'] = $this->resolveNfpPlaceholders($params['body']);
+        $params['override'] = $this->resolveNfpPlaceholders($params['override'] ?? '');
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $object->setAssoc($params);
@@ -3981,5 +4034,154 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
         }
         $cmd->execute($output, $exitStatus);
+    }
+
+    private function parsePortEntry($portEntry, $filename, $svcName) {
+        if (is_array($portEntry)) {
+            // Long form: {target: 80, published: 8080, protocol: tcp}
+            $containerPort = isset($portEntry['target']) ? (string)$portEntry['target'] : '';
+            $hostPort = isset($portEntry['published']) ? (string)$portEntry['published'] : '';
+            $protocol = isset($portEntry['protocol']) ? (string)$portEntry['protocol'] : 'tcp';
+            if ($hostPort === '' || $hostPort === '0') return null;
+            return [
+                'id' => sprintf('%s:%s:%s:%s', $filename, $svcName, $hostPort, $protocol),
+                'file' => $filename,
+                'service' => $svcName,
+                'host_port' => $hostPort,
+                'container_port' => $containerPort,
+                'protocol' => $protocol,
+            ];
+        }
+
+        $portStr = trim((string)$portEntry);
+
+        // Extract protocol suffix
+        $protocol = 'tcp';
+        if (($slashPos = strrpos($portStr, '/')) !== false) {
+            $protocol = substr($portStr, $slashPos + 1);
+            $portStr = substr($portStr, 0, $slashPos);
+        }
+
+        // Split by colon: HOST:CONTAINER or IP:HOST:CONTAINER
+        $parts = explode(':', $portStr);
+        $numParts = count($parts);
+
+        if ($numParts === 1) {
+            // Container-only port, no host binding
+            return null;
+        } elseif ($numParts === 2) {
+            $hostPort = $parts[0];
+            $containerPort = $parts[1];
+        } elseif ($numParts === 3) {
+            // IP:HOST:CONTAINER
+            $hostPort = $parts[1];
+            $containerPort = $parts[2];
+        } else {
+            return null;
+        }
+
+        if ($hostPort === '' || $hostPort === '0') return null;
+
+        return [
+            'id' => sprintf('%s:%s:%s:%s', $filename, $svcName, $hostPort, $protocol),
+            'file' => $filename,
+            'service' => $svcName,
+            'host_port' => $hostPort,
+            'container_port' => $containerPort,
+            'protocol' => $protocol,
+        ];
+    }
+
+    private function parseComposePorts($body, $filename) {
+        $results = [];
+        if (!function_exists('yaml_parse')) return $results;
+
+        $parsed = @yaml_parse($body);
+        if (!is_array($parsed) || !isset($parsed['services']) || !is_array($parsed['services'])) {
+            return $results;
+        }
+
+        foreach ($parsed['services'] as $svcName => $svcConfig) {
+            if (!is_array($svcConfig) || !isset($svcConfig['ports'])) continue;
+            foreach ($svcConfig['ports'] as $portEntry) {
+                $record = $this->parsePortEntry($portEntry, $filename, (string)$svcName);
+                if ($record !== null) {
+                    $results[] = $record;
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    public function getUsedPorts($params, $context) {
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodParams($params, "rpc.common.getlist");
+
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->get("conf.service.compose.file");
+
+        $results = [];
+        foreach ($objects as $objectv) {
+            $name = $objectv->get('name');
+            $body = $objectv->get('body');
+            foreach ($this->parseComposePorts($body, $name) as $port) {
+                $results[] = $port;
+            }
+        }
+
+        return $this->applyFilter($results, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir'], $params['search']);
+    }
+
+    public function getUsedPortsBg($params, $context) {
+        return $this->callMethodBg("getUsedPorts", $params, $context);
+    }
+
+    public function doFindFreePorts($params, $context) {
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $startPort = max(1, min(65534, intval($params['startPort'] ?? 1024)));
+
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->get("conf.service.compose.file");
+        $usedPorts = [];
+
+        foreach ($objects as $objectv) {
+            foreach ($this->parseComposePorts($objectv->get('body'), '') as $port) {
+                $hp = $port['host_port'];
+                if (strpos($hp, '-') !== false) {
+                    [$rangeStart, $rangeEnd] = explode('-', $hp, 2);
+                    if (is_numeric($rangeStart) && is_numeric($rangeEnd)) {
+                        for ($p = intval($rangeStart); $p <= intval($rangeEnd) && $p <= 65535; $p++) {
+                            $usedPorts[$p] = true;
+                        }
+                    }
+                } elseif (is_numeric($hp)) {
+                    $usedPorts[intval($hp)] = true;
+                }
+            }
+        }
+
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($startPort, $usedPorts) {
+                $suggestions = [];
+                $port = $startPort;
+                while (count($suggestions) < 20 && $port <= 65535) {
+                    if (!isset($usedPorts[$port])) {
+                        $suggestions[] = $port;
+                    }
+                    $port++;
+                }
+                $output = sprintf("Suggested free host ports starting from %d:\n\n", $startPort);
+                foreach ($suggestions as $p) {
+                    $output .= sprintf("  %d\n", $p);
+                }
+                if (empty($suggestions)) {
+                    $output .= "  No free ports found in range.\n";
+                }
+                file_put_contents($bgOutputFilename, $output, FILE_APPEND);
+                return [];
+            }
+        );
     }
 }

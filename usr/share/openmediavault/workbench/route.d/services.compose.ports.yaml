@@ -1,0 +1,6 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/compose/ports"
+  title: _("Ports")
+  component: omv-services-compose-ports-datatable-page

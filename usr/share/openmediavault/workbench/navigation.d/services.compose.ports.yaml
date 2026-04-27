@@ -1,0 +1,8 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.compose.ports"
+  text: _("Ports")
+  position: 35
+  icon: mdi:ethernet-cable
+  url: "/services/compose/ports"

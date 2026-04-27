@@ -1,0 +1,76 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-ports-datatable-page
+  type: datatablePage
+  config:
+    autoReload: false
+    hasSearchField: true
+    remoteSorting: true
+    rowId: id
+    stateId: a3f1c2d4-8e7b-4a9c-b2f5-1d6e3a7c8b9f
+    sorters:
+      - dir: asc
+        prop: host_port
+    store:
+      proxy:
+        service: Compose
+        get:
+          method: getUsedPortsBg
+          task: true
+    columns:
+      - name: _("File")
+        prop: file
+        flexGrow: 2
+        sortable: true
+      - name: _("Service")
+        prop: service
+        flexGrow: 2
+        sortable: true
+      - name: _("Host Port")
+        prop: host_port
+        flexGrow: 1
+        sortable: true
+      - name: _("Container Port")
+        prop: container_port
+        flexGrow: 1
+        sortable: true
+      - name: _("Protocol")
+        prop: protocol
+        flexGrow: 1
+        sortable: true
+    actions:
+      - type: iconButton
+        icon: mdi:magnify-plus-outline
+        tooltip: _("Suggest free ports")
+        execute:
+          type: formDialog
+          formDialog:
+            title: _("Suggest free host ports ...")
+            fields:
+              - type: numberInput
+                name: startPort
+                label: _("Starting port")
+                value: 1024
+                hint: _("Find the next 20 free host ports at or above this number.")
+                validators:
+                  required: true
+                  min: 1
+                  max: 65534
+            buttons:
+              submit:
+                text: _("Search")
+                execute:
+                  type: taskDialog
+                  taskDialog:
+                    config:
+                      title: _("Suggested free host ports ...")
+                      startOnInit: true
+                      request:
+                        service: Compose
+                        method: doFindFreePorts
+                        params:
+                          startPort: "{{ startPort }}"
+                      buttons:
+                        stop:
+                          hidden: true

@@ -684,6 +684,21 @@
   },
   {
     "type": "rpc",
+    "id": "rpc.compose.dofindports",
+    "params": {
+      "type": "object",
+      "properties": {
+        "startPort": {
+          "type": "integer",
+          "required": true,
+          "minimum": 1,
+          "maximum": 65534
+        }
+      }
+    }
+  },
+  {
+    "type": "rpc",
     "id": "rpc.compose.importportainerstacks",
     "params": {
       "type": "object",
