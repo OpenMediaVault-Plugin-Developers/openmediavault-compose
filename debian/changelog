@@ -1,4 +1,4 @@
-openmediavault-compose (8.1.14) UNRELEASED; urgency=medium
+openmediavault-compose (8.1.14) stable; urgency=low
 
   * Add Ports tab showing all host ports mapped across compose files with
     service and container port details, sortable by port number
@@ -7,7 +7,7 @@ openmediavault-compose (8.1.14) UNRELEASED; urgency=medium
   * Add ${{ nfp: N }} substitution — resolves to the next free host port at
     or above N when a file is saved, locking the assigned port in the database
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 27 Apr 2026 12:32:38 +0000
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 27 Apr 2026 12:48:44 +0000
 
 openmediavault-compose (8.1.13) stable; urgency=low
 
