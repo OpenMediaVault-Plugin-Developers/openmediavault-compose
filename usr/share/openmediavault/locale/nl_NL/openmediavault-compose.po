@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-21 15:19+0000\n"
+"POT-Creation-Date: 2026-04-27 12:49+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -276,6 +276,9 @@ msgstr "Configuraties"
 
 msgid "Container"
 msgstr "Container"
+
+msgid "Container Port"
+msgstr ""
 
 msgid "Container Terminals"
 msgstr "Container-terminals"
@@ -560,6 +563,9 @@ msgstr "Bestanden"
 msgid "Filter"
 msgstr "Filter"
 
+msgid "Find the next 20 free host ports at or above this number."
+msgstr ""
+
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
@@ -581,6 +587,9 @@ msgstr "Globale omgevingsvariabelen"
 
 msgid "Group of directories and files"
 msgstr "Groep mappen en bestanden"
+
+msgid "Host Port"
+msgstr ""
 
 msgid "Hour"
 msgstr "Uur"
@@ -893,6 +902,9 @@ msgstr "Pre-backup script"
 msgid "Project"
 msgstr "Project"
 
+msgid "Protocol"
+msgstr ""
+
 msgid "Provide either an API key or a username and password."
 msgstr "Geef een API-sleutel of een gebruikersnaam en wachtwoord op."
 
@@ -1026,6 +1038,9 @@ msgstr "Script bestandsnaam mag niet zijn"
 msgid "Scripts"
 msgstr "Scripts"
 
+msgid "Search"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "Selecteer een groep…"
 
@@ -1103,6 +1118,9 @@ msgstr "Starten"
 msgid "Start all compose files"
 msgstr "Alle compose-bestanden starten"
 
+msgid "Starting port"
+msgstr ""
+
 msgid "State"
 msgstr "Toestand"
 
@@ -1123,6 +1141,15 @@ msgstr "Gestopt"
 
 msgid "Subnet"
 msgstr "Subnet"
+
+msgid "Suggest free host ports ..."
+msgstr ""
+
+msgid "Suggest free ports"
+msgstr ""
+
+msgid "Suggested free host ports ..."
+msgstr ""
 
 msgid "Sunday"
 msgstr "Zondag"

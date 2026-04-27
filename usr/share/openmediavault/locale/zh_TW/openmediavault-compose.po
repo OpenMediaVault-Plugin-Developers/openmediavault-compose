@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-21 15:19+0000\n"
+"POT-Creation-Date: 2026-04-27 12:49+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "API Key"
-msgstr ""
+msgstr "API 金鑰"
 
 msgid "Action"
 msgstr "動作"
@@ -107,7 +107,7 @@ msgid "August"
 msgstr "八月"
 
 msgid "Authentication — fill in one of the two options below"
-msgstr ""
+msgstr "鑑認 - 填入以下兩者選項中的一個"
 
 msgid "Autocompose"
 msgstr "自動 compose"
@@ -134,7 +134,7 @@ msgid "Backup shared folder must be different than docker shared folder"
 msgstr "備份的共享檔案夾必須不同於 docker 的共享檔案夾"
 
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
-msgstr ""
+msgstr "您的 Portainer 實例的基底 URL，例如：https://192.168.1.10:9443"
 
 msgid "Block In"
 msgstr "區塊讀入"
@@ -253,6 +253,9 @@ msgstr "配置"
 msgid "Container"
 msgstr "容器"
 
+msgid "Container Port"
+msgstr ""
+
 msgid "Container Terminals"
 msgstr "容器終端機"
 
@@ -263,7 +266,7 @@ msgid "Containers"
 msgstr "容器"
 
 msgid "Could not connect to Portainer at %s."
-msgstr ""
+msgstr "無法連接到 Portainer 於 %s。"
 
 msgid "Create"
 msgstr "創建"
@@ -362,7 +365,7 @@ msgid "Directory does not exist!"
 msgstr "檔案目錄不存在！"
 
 msgid "Disable if Portainer uses a self-signed certificate."
-msgstr ""
+msgstr "若 Portainer 使用自我簽署憑證則停用。"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr "在表格中顯示容器加上 cterm 執行終端機連結。"
@@ -526,6 +529,9 @@ msgstr "檔案"
 msgid "Filter"
 msgstr "篩選"
 
+msgid "Find the next 20 free host ports at or above this number."
+msgstr ""
+
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
@@ -546,6 +552,9 @@ msgstr "全機環境變數"
 
 msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
+
+msgid "Host Port"
+msgstr ""
 
 msgid "Hour"
 msgstr "時"
@@ -575,7 +584,7 @@ msgid "Import"
 msgstr "匯入"
 
 msgid "Import Dockerfiles from folders ..."
-msgstr ""
+msgstr "從檔案夾匯入Dockerfiles ..."
 
 msgid "Import config files from folders ..."
 msgstr "從檔案夾匯入配置檔案 ..."
@@ -587,21 +596,21 @@ msgid "Import existing compose folders ..."
 msgstr "匯入現存 compose 檔案夾 ..."
 
 msgid "Import from Portainer"
-msgstr ""
+msgstr "從 Portainer 匯入"
 
 msgid "Import one"
 msgstr "匯入一個"
 
 msgid "Import stacks from Portainer ..."
-msgstr ""
+msgstr "從 Portainer 匯入配置堆疊 ..."
 
 msgid "Importing stacks from Portainer ..."
-msgstr ""
+msgstr "從 Portainer 匯入配置堆疊中 ..."
 
 msgid ""
 "Imports all standalone compose stacks from Portainer. Stacks already present"
 " in the plugin are skipped. Swarm stacks are not imported."
-msgstr ""
+msgstr "從 Portainer 匯入所有獨立的 compose 堆疊。已經存在於插件中的堆疊會被跳過。Swarm 堆疊不會被匯入。"
 
 msgid "In Use"
 msgstr "使用中"
@@ -619,7 +628,7 @@ msgid "Internal network"
 msgstr "内部網路"
 
 msgid "Invalid JSON response from Portainer: %s"
-msgstr ""
+msgstr "從 Portainer 回應的無效 JSON：%s"
 
 msgid "Is Latest"
 msgstr "是最新"
@@ -825,16 +834,16 @@ msgid "Podman storage"
 msgstr "Podman 儲存庫"
 
 msgid "Portainer API request failed: %s"
-msgstr ""
+msgstr "Portainer API 請求失敗：%s"
 
 msgid "Portainer URL"
-msgstr ""
+msgstr "Portainer URL"
 
 msgid "Portainer authentication failed. Check your credentials."
-msgstr ""
+msgstr "Portainer 鑑認失敗。請檢查您的驗證資訊。"
 
 msgid "Portainer stacks imported successfully."
-msgstr ""
+msgstr "Portainer 配置堆疊匯入成功。"
 
 msgid "Ports"
 msgstr "連接埠"
@@ -848,8 +857,11 @@ msgstr "備份前腳本程式"
 msgid "Project"
 msgstr "專案"
 
-msgid "Provide either an API key or a username and password."
+msgid "Protocol"
 msgstr ""
+
+msgid "Provide either an API key or a username and password."
+msgstr "請提供 API 金鑰或用戶名稱及密碼。"
 
 msgid "Prune"
 msgstr "修剪"
@@ -898,7 +910,7 @@ msgstr "推送到 Docker Hub ..."
 msgid ""
 "Recommended. Generate one in Portainer under Account Settings → Access "
 "tokens."
-msgstr ""
+msgstr "推薦使用。請於 Portainer 內 Account Settings → Access tokens 下產生一份。"
 
 msgid "Reinstall Docker"
 msgstr "重新安裝 Docker"
@@ -971,6 +983,9 @@ msgstr "腳本程式檔案名稱不能是"
 
 msgid "Scripts"
 msgstr "腳本程式"
+
+msgid "Search"
+msgstr ""
 
 msgid "Select a group ..."
 msgstr "選擇一個群組 …"
@@ -1045,6 +1060,9 @@ msgstr "啟動"
 msgid "Start all compose files"
 msgstr "啟動全部 compse 檔案"
 
+msgid "Starting port"
+msgstr ""
+
 msgid "State"
 msgstr "狀態"
 
@@ -1065,6 +1083,15 @@ msgstr "已停止"
 
 msgid "Subnet"
 msgstr "子網路"
+
+msgid "Suggest free host ports ..."
+msgstr ""
+
+msgid "Suggest free ports"
+msgstr ""
+
+msgid "Suggested free host ports ..."
+msgstr ""
 
 msgid "Sunday"
 msgstr "週日"
@@ -1122,7 +1149,7 @@ msgid ""
 "This will import Dockerfiles found in subfolders of the selected "
 "path.<br/>It will not import any Dockerfiles that already exist in the "
 "plugin."
-msgstr ""
+msgstr "這將匯入所選路徑子檔案夾中的 Dockerfile。<br/>它將不會匯入已經存在於插件內的任何 Dockerfiles。"
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
@@ -1158,7 +1185,7 @@ msgid "URL hostname"
 msgstr "URL 主機名稱"
 
 msgid "Unexpected response from Portainer API."
-msgstr ""
+msgstr "Portainer API 傳回意外回應。"
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -1192,7 +1219,7 @@ msgid "Use shared folder"
 msgstr "使用共享檔案夾"
 
 msgid "Used only if no API key is provided."
-msgstr ""
+msgstr "只有在沒提供 API 金鑰時使用。"
 
 msgid "Username"
 msgstr "用戶名稱"
@@ -1201,7 +1228,7 @@ msgid "Verbose"
 msgstr "詳盡"
 
 msgid "Verify SSL certificate"
-msgstr ""
+msgstr "驗證 SSL 憑證"
 
 msgid "Version"
 msgstr "版本"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-21 15:19+0000\n"
+"POT-Creation-Date: 2026-04-27 12:49+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2026\n"
 "Language-Team: Italian (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/it/)\n"
@@ -268,6 +268,9 @@ msgstr "Configurazioni"
 
 msgid "Container"
 msgstr "Container"
+
+msgid "Container Port"
+msgstr ""
 
 msgid "Container Terminals"
 msgstr "Terminali dei container"
@@ -544,6 +547,9 @@ msgstr "File"
 msgid "Filter"
 msgstr "Filtro"
 
+msgid "Find the next 20 free host ports at or above this number."
+msgstr ""
+
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
@@ -565,6 +571,9 @@ msgstr "Variabili di ambiente globali"
 
 msgid "Group of directories and files"
 msgstr "Gruppo di cartelle e file"
+
+msgid "Host Port"
+msgstr ""
 
 msgid "Hour"
 msgstr ""
@@ -875,6 +884,9 @@ msgstr ""
 msgid "Project"
 msgstr "Progetto"
 
+msgid "Protocol"
+msgstr ""
+
 msgid "Provide either an API key or a username and password."
 msgstr ""
 
@@ -1002,6 +1014,9 @@ msgstr "Nome del file dello script non può essere"
 msgid "Scripts"
 msgstr "Script"
 
+msgid "Search"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "Seleziona un gruppo..."
 
@@ -1077,6 +1092,9 @@ msgstr ""
 msgid "Start all compose files"
 msgstr ""
 
+msgid "Starting port"
+msgstr ""
+
 msgid "State"
 msgstr "Stato"
 
@@ -1097,6 +1115,15 @@ msgstr "Fermato"
 
 msgid "Subnet"
 msgstr "Sottorete"
+
+msgid "Suggest free host ports ..."
+msgstr ""
+
+msgid "Suggest free ports"
+msgstr ""
+
+msgid "Suggested free host ports ..."
+msgstr ""
 
 msgid "Sunday"
 msgstr ""

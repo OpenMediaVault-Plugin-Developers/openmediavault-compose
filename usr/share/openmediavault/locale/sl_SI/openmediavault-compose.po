@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-21 15:19+0000\n"
+"POT-Creation-Date: 2026-04-27 12:49+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
@@ -264,6 +264,9 @@ msgstr "Konfiguracije"
 
 msgid "Container"
 msgstr "Zabojnik"
+
+msgid "Container Port"
+msgstr ""
 
 msgid "Container Terminals"
 msgstr ""
@@ -534,6 +537,9 @@ msgstr "Datoteke"
 msgid "Filter"
 msgstr "Filter"
 
+msgid "Find the next 20 free host ports at or above this number."
+msgstr ""
+
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
@@ -555,6 +561,9 @@ msgstr "Globalne spremenljivke okolja"
 
 msgid "Group of directories and files"
 msgstr "Skupina imenikov in datotek"
+
+msgid "Host Port"
+msgstr ""
 
 msgid "Hour"
 msgstr ""
@@ -862,6 +871,9 @@ msgstr ""
 msgid "Project"
 msgstr "Projekt"
 
+msgid "Protocol"
+msgstr ""
+
 msgid "Provide either an API key or a username and password."
 msgstr ""
 
@@ -985,6 +997,9 @@ msgstr "Ime skripte ne more biti"
 msgid "Scripts"
 msgstr "Skripte"
 
+msgid "Search"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "Izbira skupine ..."
 
@@ -1058,6 +1073,9 @@ msgstr ""
 msgid "Start all compose files"
 msgstr ""
 
+msgid "Starting port"
+msgstr ""
+
 msgid "State"
 msgstr "Stanje"
 
@@ -1078,6 +1096,15 @@ msgstr "Ustavljen"
 
 msgid "Subnet"
 msgstr "Podmreža"
+
+msgid "Suggest free host ports ..."
+msgstr ""
+
+msgid "Suggest free ports"
+msgstr ""
+
+msgid "Suggested free host ports ..."
+msgstr ""
 
 msgid "Sunday"
 msgstr ""

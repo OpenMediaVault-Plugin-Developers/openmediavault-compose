@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-21 15:19+0000\n"
+"POT-Creation-Date: 2026-04-27 12:49+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2026\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "API Key"
-msgstr ""
+msgstr "API Key"
 
 msgid "Action"
 msgstr "Action"
@@ -111,7 +111,7 @@ msgid "August"
 msgstr "August"
 
 msgid "Authentication — fill in one of the two options below"
-msgstr ""
+msgstr "Authentication — fill in one of the two options below"
 
 msgid "Autocompose"
 msgstr "Autocompose"
@@ -138,7 +138,7 @@ msgid "Backup shared folder must be different than docker shared folder"
 msgstr "Backup shared folder must be different than Docker shared folder"
 
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
-msgstr ""
+msgstr "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 
 msgid "Block In"
 msgstr "Block In"
@@ -260,6 +260,9 @@ msgstr "Configs"
 msgid "Container"
 msgstr "Container"
 
+msgid "Container Port"
+msgstr ""
+
 msgid "Container Terminals"
 msgstr "Container Terminals"
 
@@ -270,7 +273,7 @@ msgid "Containers"
 msgstr "Containers"
 
 msgid "Could not connect to Portainer at %s."
-msgstr ""
+msgstr "Could not connect to Portainer at %s."
 
 msgid "Create"
 msgstr "Create"
@@ -369,7 +372,7 @@ msgid "Directory does not exist!"
 msgstr "Directory does not exist!"
 
 msgid "Disable if Portainer uses a self-signed certificate."
-msgstr ""
+msgstr "Disable if Portainer uses a self-signed certificate."
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr "Displays containers with a link to cterm exec terminal in a table."
@@ -540,6 +543,9 @@ msgstr "Files"
 msgid "Filter"
 msgstr "Filter"
 
+msgid "Find the next 20 free host ports at or above this number."
+msgstr ""
+
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
@@ -561,6 +567,9 @@ msgstr "Global environment variables"
 
 msgid "Group of directories and files"
 msgstr "Group of directories and files"
+
+msgid "Host Port"
+msgstr ""
 
 msgid "Hour"
 msgstr "Hour"
@@ -590,7 +599,7 @@ msgid "Import"
 msgstr "Import"
 
 msgid "Import Dockerfiles from folders ..."
-msgstr ""
+msgstr "Import Dockerfiles from folders ..."
 
 msgid "Import config files from folders ..."
 msgstr "Import config files from folders ..."
@@ -602,21 +611,23 @@ msgid "Import existing compose folders ..."
 msgstr "Import existing compose folders ..."
 
 msgid "Import from Portainer"
-msgstr ""
+msgstr "Import from Portainer"
 
 msgid "Import one"
 msgstr "Import one"
 
 msgid "Import stacks from Portainer ..."
-msgstr ""
+msgstr "Import stacks from Portainer ..."
 
 msgid "Importing stacks from Portainer ..."
-msgstr ""
+msgstr "Importing stacks from Portainer ..."
 
 msgid ""
 "Imports all standalone compose stacks from Portainer. Stacks already present"
 " in the plugin are skipped. Swarm stacks are not imported."
 msgstr ""
+"Imports all standalone compose stacks from Portainer. Stacks already present"
+" in the plugin are skipped. Swarm stacks are not imported."
 
 msgid "In Use"
 msgstr "In Use"
@@ -634,7 +645,7 @@ msgid "Internal network"
 msgstr "Internal network"
 
 msgid "Invalid JSON response from Portainer: %s"
-msgstr ""
+msgstr "Invalid JSON response from Portainer: %s"
 
 msgid "Is Latest"
 msgstr "Is Latest"
@@ -844,16 +855,16 @@ msgid "Podman storage"
 msgstr "Podman storage"
 
 msgid "Portainer API request failed: %s"
-msgstr ""
+msgstr "Portainer API request failed: %s"
 
 msgid "Portainer URL"
-msgstr ""
+msgstr "Portainer URL"
 
 msgid "Portainer authentication failed. Check your credentials."
-msgstr ""
+msgstr "Portainer authentication failed. Check your credentials."
 
 msgid "Portainer stacks imported successfully."
-msgstr ""
+msgstr "Portainer stacks imported successfully."
 
 msgid "Ports"
 msgstr "Ports"
@@ -867,8 +878,11 @@ msgstr "Pre-backup script"
 msgid "Project"
 msgstr "Project"
 
-msgid "Provide either an API key or a username and password."
+msgid "Protocol"
 msgstr ""
+
+msgid "Provide either an API key or a username and password."
+msgstr "Provide either an API key or a username and password."
 
 msgid "Prune"
 msgstr "Prune"
@@ -887,12 +901,14 @@ msgstr ""
 "prune -f"
 
 msgid "Prune builder cache"
-msgstr ""
+msgstr "Prune builder cache"
 
 msgid ""
 "Prune the Docker build cache after building. Runs docker builder prune -f. "
 "Applies system-wide, not filtered by compose file."
 msgstr ""
+"Prune the Docker build cache after building. Runs docker builder prune -f. "
+"Applies system-wide, not filtered by compose file."
 
 msgid "Pull"
 msgstr "Pull"
@@ -919,6 +935,8 @@ msgid ""
 "Recommended. Generate one in Portainer under Account Settings → Access "
 "tokens."
 msgstr ""
+"Recommended. Generate one in Portainer under Account Settings → Access "
+"tokens."
 
 msgid "Reinstall Docker"
 msgstr "Reinstall Docker"
@@ -995,6 +1013,9 @@ msgstr "Script filename cannot be"
 msgid "Scripts"
 msgstr "Scripts"
 
+msgid "Search"
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "Select a group ..."
 
@@ -1002,11 +1023,15 @@ msgid ""
 "Select a shared folder to set the Docker storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Select a shared folder to set the Docker storage path. Uncheck to enter a "
+"path manually."
 
 msgid ""
 "Select a shared folder to set the Podman storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Select a shared folder to set the Podman storage path. Uncheck to enter a "
+"path manually."
 
 msgid "Select a user ..."
 msgstr "Select a user ..."
@@ -1068,6 +1093,9 @@ msgstr "Start"
 msgid "Start all compose files"
 msgstr "Start all compose files"
 
+msgid "Starting port"
+msgstr ""
+
 msgid "State"
 msgstr "State"
 
@@ -1088,6 +1116,15 @@ msgstr "Stopped"
 
 msgid "Subnet"
 msgstr "Subnet"
+
+msgid "Suggest free host ports ..."
+msgstr ""
+
+msgid "Suggest free ports"
+msgstr ""
+
+msgid "Suggested free host ports ..."
+msgstr ""
 
 msgid "Sunday"
 msgstr "Sunday"
@@ -1126,11 +1163,15 @@ msgid ""
 "The absolute path of the selected shared folder will be used as the Docker "
 "storage path when saved."
 msgstr ""
+"The absolute path of the selected shared folder will be used as the Docker "
+"storage path when saved."
 
 msgid ""
 "The absolute path of the selected shared folder will be used as the Podman "
 "storage path when saved."
 msgstr ""
+"The absolute path of the selected shared folder will be used as the Podman "
+"storage path when saved."
 
 msgid "The config file will be created in this compose file's directory."
 msgstr "The config file will be created in this compose file's directory."
@@ -1146,6 +1187,9 @@ msgid ""
 "path.<br/>It will not import any Dockerfiles that already exist in the "
 "plugin."
 msgstr ""
+"This will import Dockerfiles found in subfolders of the selected "
+"path.<br/>It will not import any Dockerfiles that already exist in the "
+"plugin."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
@@ -1187,7 +1231,7 @@ msgid "URL hostname"
 msgstr "URL hostname"
 
 msgid "Unexpected response from Portainer API."
-msgstr ""
+msgstr "Unexpected response from Portainer API."
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -1222,10 +1266,10 @@ msgid "Use podman"
 msgstr "Use podman"
 
 msgid "Use shared folder"
-msgstr ""
+msgstr "Use shared folder"
 
 msgid "Used only if no API key is provided."
-msgstr ""
+msgstr "Used only if no API key is provided."
 
 msgid "Username"
 msgstr "Username"
@@ -1234,7 +1278,7 @@ msgid "Verbose"
 msgstr "Verbose"
 
 msgid "Verify SSL certificate"
-msgstr ""
+msgstr "Verify SSL certificate"
 
 msgid "Version"
 msgstr "Version"
