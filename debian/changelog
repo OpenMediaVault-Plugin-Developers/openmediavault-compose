@@ -1,3 +1,12 @@
+openmediavault-compose (8.1.15) stable; urgency=low
+
+  * Improve waitAllMounts systemd override
+  * Add start delay setting (0-300s) in Settings tab that writes a
+    sleep drop-in for docker.service or podman.service, helping
+    systems with slow storage that miss the mount window at boot
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 29 Apr 2026 00:00:00 +0000
+
 openmediavault-compose (8.1.14) stable; urgency=low
 
   * Add Ports tab showing all host ports mapped across compose files with

@@ -189,6 +189,12 @@
     "podman": {
       "type": "boolean"
     },
+    "dockerdelay": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 300,
+      "default": 0
+    },
     "runconfig": {
       "type": "boolean"
     },

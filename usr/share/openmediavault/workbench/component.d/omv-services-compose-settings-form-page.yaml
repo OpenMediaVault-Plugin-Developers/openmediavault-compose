@@ -336,6 +336,16 @@ data:
                   operator: truthy
                   arg0:
                     prop: podman
+      - type: numberInput
+        name: dockerdelay
+        label: _("Start delay")
+        value: 0
+        validators:
+          min: 0
+          max: 300
+          patternType: integer
+          required: true
+        hint: _("Seconds to wait before starting Docker/Podman on boot. Use this if containers fail to start because storage is not ready in time.")
       - type: divider
         title: _("Docker info")
       - type: textInput

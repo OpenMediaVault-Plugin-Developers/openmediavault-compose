@@ -21,10 +21,13 @@
 {% set storage_path = (config.podmanStorage if use_podman else config.dockerStorage) %}
 {% set create_config = (storage_path | default('') | length > 1) %}
 
-{# systemd override file path based on runtime #}
+{# systemd override file paths based on runtime #}
 {% set waitConf = ('/etc/systemd/system/podman.socket.d/waitAllMounts.conf'
                    if use_podman else
                    '/etc/systemd/system/docker.service.d/waitAllMounts.conf') %}
+{% set delayConf = ('/etc/systemd/system/podman.service.d/startDelay.conf'
+                    if use_podman else
+                    '/etc/systemd/system/docker.service.d/startDelay.conf') %}
 
 {# ---- Storage dir (shared) ---- #}
 {% if create_config %}
@@ -168,7 +171,7 @@ common_install_packages:
       {% endif %}
 
 {# ---- Wait for /srv mounts override ---- #}
-{% set mounts = salt['cmd.shell']('systemctl list-units --type=mount | awk \'$5 ~ "/srv" { printf "%s ",$1 }\'') %}
+{% set mounts = salt['cmd.shell']('systemctl list-unit-files --type=mount | awk \'$1 ~ /^srv-/ { print $1 }\' | sort | paste -sd\' \'') %}
 
 {{ waitConf }}:
   file.managed:
@@ -178,8 +181,22 @@ common_install_packages:
     - mode: "0644"
     - makedirs: True
 
+{% if config.dockerdelay | int > 0 %}
+{{ delayConf }}:
+  file.managed:
+    - contents: |
+        [Service]
+        ExecStartPre=/bin/sleep {{ config.dockerdelay }}
+    - mode: "0644"
+    - makedirs: True
+{% else %}
+{{ delayConf }}:
+  file.absent
+{% endif %}
+
 systemd_daemon_reload:
   cmd.run:
     - name: systemctl daemon-reload
     - onchanges:
       - file: {{ waitConf }}
+      - file: {{ delayConf }}
