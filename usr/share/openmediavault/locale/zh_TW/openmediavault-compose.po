@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 12:49+0000\n"
+"POT-Creation-Date: 2026-05-10 12:40+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -254,7 +254,7 @@ msgid "Container"
 msgstr "容器"
 
 msgid "Container Port"
-msgstr ""
+msgstr "容器連接埠"
 
 msgid "Container Terminals"
 msgstr "容器終端機"
@@ -530,7 +530,7 @@ msgid "Filter"
 msgstr "篩選"
 
 msgid "Find the next 20 free host ports at or above this number."
-msgstr ""
+msgstr "找出位於這個號碼或以上的 20 個未用連接埠。"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
@@ -554,7 +554,7 @@ msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
 
 msgid "Host Port"
-msgstr ""
+msgstr "主機連接埠"
 
 msgid "Hour"
 msgstr "時"
@@ -858,7 +858,7 @@ msgid "Project"
 msgstr "專案"
 
 msgid "Protocol"
-msgstr ""
+msgstr "通訊協定"
 
 msgid "Provide either an API key or a username and password."
 msgstr "請提供 API 金鑰或用戶名稱及密碼。"
@@ -985,7 +985,12 @@ msgid "Scripts"
 msgstr "腳本程式"
 
 msgid "Search"
-msgstr ""
+msgstr "搜尋"
+
+msgid ""
+"Seconds to wait before starting Docker/Podman on boot. Use this if "
+"containers fail to start because storage is not ready in time."
+msgstr "開機後等待的秒數，然後才啟動 Docker/Podman。如果容器因為儲存器無法及時備妥而啟動失敗，則使用此功能。"
 
 msgid "Select a group ..."
 msgstr "選擇一個群組 …"
@@ -1060,8 +1065,11 @@ msgstr "啟動"
 msgid "Start all compose files"
 msgstr "啟動全部 compse 檔案"
 
+msgid "Start delay"
+msgstr "啟動延遲"
+
 msgid "Starting port"
-msgstr ""
+msgstr "起始連接埠"
 
 msgid "State"
 msgstr "狀態"
@@ -1085,13 +1093,13 @@ msgid "Subnet"
 msgstr "子網路"
 
 msgid "Suggest free host ports ..."
-msgstr ""
+msgstr "建議未用的主機連接埠 ..."
 
 msgid "Suggest free ports"
-msgstr ""
+msgstr "建議未用連接埠"
 
 msgid "Suggested free host ports ..."
-msgstr ""
+msgstr "建議的未用主機連接埠 ..."
 
 msgid "Sunday"
 msgstr "週日"
@@ -1171,6 +1179,9 @@ msgstr "週四"
 
 msgid "Time of execution"
 msgstr "執行時間"
+
+msgid "Timeout"
+msgstr ""
 
 msgid "Tools"
 msgstr "工具"

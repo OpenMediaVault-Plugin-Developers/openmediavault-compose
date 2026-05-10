@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 12:49+0000\n"
+"POT-Creation-Date: 2026-05-10 12:40+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Marek Pavelka, 2024\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
@@ -990,6 +990,11 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+msgid ""
+"Seconds to wait before starting Docker/Podman on boot. Use this if "
+"containers fail to start because storage is not ready in time."
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "Vyberte skupinu…"
 
@@ -1061,6 +1066,9 @@ msgid "Start"
 msgstr ""
 
 msgid "Start all compose files"
+msgstr ""
+
+msgid "Start delay"
 msgstr ""
 
 msgid "Starting port"
@@ -1177,6 +1185,9 @@ msgid "Thursday"
 msgstr ""
 
 msgid "Time of execution"
+msgstr ""
+
+msgid "Timeout"
 msgstr ""
 
 msgid "Tools"

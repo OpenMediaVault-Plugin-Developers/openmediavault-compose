@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 12:49+0000\n"
+"POT-Creation-Date: 2026-05-10 12:40+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -278,7 +278,7 @@ msgid "Container"
 msgstr "Container"
 
 msgid "Container Port"
-msgstr ""
+msgstr "Containerpoort"
 
 msgid "Container Terminals"
 msgstr "Container-terminals"
@@ -564,7 +564,7 @@ msgid "Filter"
 msgstr "Filter"
 
 msgid "Find the next 20 free host ports at or above this number."
-msgstr ""
+msgstr "Vind de volgende 20 gratis hostpoorten op of boven dit nummer."
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
@@ -589,7 +589,7 @@ msgid "Group of directories and files"
 msgstr "Groep mappen en bestanden"
 
 msgid "Host Port"
-msgstr ""
+msgstr "Hostpoort"
 
 msgid "Hour"
 msgstr "Uur"
@@ -903,7 +903,7 @@ msgid "Project"
 msgstr "Project"
 
 msgid "Protocol"
-msgstr ""
+msgstr "Protocol"
 
 msgid "Provide either an API key or a username and password."
 msgstr "Geef een API-sleutel of een gebruikersnaam en wachtwoord op."
@@ -1039,7 +1039,14 @@ msgid "Scripts"
 msgstr "Scripts"
 
 msgid "Search"
+msgstr "Zoeken"
+
+msgid ""
+"Seconds to wait before starting Docker/Podman on boot. Use this if "
+"containers fail to start because storage is not ready in time."
 msgstr ""
+"Seconden om te wachten voordat Docker/Podman opstart. Gebruik dit als "
+"containers niet starten omdat de opslag niet op tijd klaar is."
 
 msgid "Select a group ..."
 msgstr "Selecteer een groep…"
@@ -1118,8 +1125,11 @@ msgstr "Starten"
 msgid "Start all compose files"
 msgstr "Alle compose-bestanden starten"
 
+msgid "Start delay"
+msgstr "Opstartvertraging"
+
 msgid "Starting port"
-msgstr ""
+msgstr "Start-poort"
 
 msgid "State"
 msgstr "Toestand"
@@ -1143,13 +1153,13 @@ msgid "Subnet"
 msgstr "Subnet"
 
 msgid "Suggest free host ports ..."
-msgstr ""
+msgstr "Vrije Host-poorten voorstellen…"
 
 msgid "Suggest free ports"
-msgstr ""
+msgstr "Vrije poorten voorstellen"
 
 msgid "Suggested free host ports ..."
-msgstr ""
+msgstr "Vrije Host-poorten voorgesteld…"
 
 msgid "Sunday"
 msgstr "Zondag"
@@ -1246,6 +1256,9 @@ msgstr "Donderdag"
 
 msgid "Time of execution"
 msgstr "Moment van uitvoering"
+
+msgid "Timeout"
+msgstr ""
 
 msgid "Tools"
 msgstr "Hulpmiddelen"

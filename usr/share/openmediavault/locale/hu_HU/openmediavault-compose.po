@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 12:49+0000\n"
+"POT-Creation-Date: 2026-05-10 12:40+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2026\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -1016,6 +1016,11 @@ msgstr "Parancsfájlok"
 msgid "Search"
 msgstr ""
 
+msgid ""
+"Seconds to wait before starting Docker/Podman on boot. Use this if "
+"containers fail to start because storage is not ready in time."
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "Csoport kiválasztása…"
 
@@ -1089,6 +1094,9 @@ msgstr "Indítás"
 
 msgid "Start all compose files"
 msgstr "Összes összeállítás fájl elindítása"
+
+msgid "Start delay"
+msgstr ""
 
 msgid "Starting port"
 msgstr ""
@@ -1208,6 +1216,9 @@ msgid "Thursday"
 msgstr "csütörtök"
 
 msgid "Time of execution"
+msgstr ""
+
+msgid "Timeout"
 msgstr ""
 
 msgid "Tools"

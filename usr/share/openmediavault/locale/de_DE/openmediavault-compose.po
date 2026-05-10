@@ -4,6 +4,10 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
+# Hansjörg Seipp, 2024
+# Johannes Hell, 2024
+# Ettore Atalan <atalanttore@googlemail.com>, 2024
+# Obi Wahn, 2025
 # Aaron Murray <aaronmurray27@gmail.com>, 2025
 # 
 #, fuzzy
@@ -11,14 +15,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-27 12:49+0000\n"
+"POT-Creation-Date: 2026-05-10 12:40+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>, 2025\n"
-"Language-Team: German (Germany) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de_DE/)\n"
+"Language-Team: German (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "API Key"
@@ -994,6 +998,11 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
+msgid ""
+"Seconds to wait before starting Docker/Podman on boot. Use this if "
+"containers fail to start because storage is not ready in time."
+msgstr ""
+
 msgid "Select a group ..."
 msgstr "Gruppe auswählen ..."
 
@@ -1065,6 +1074,9 @@ msgid "Start"
 msgstr ""
 
 msgid "Start all compose files"
+msgstr ""
+
+msgid "Start delay"
 msgstr ""
 
 msgid "Starting port"
@@ -1181,6 +1193,9 @@ msgid "Thursday"
 msgstr ""
 
 msgid "Time of execution"
+msgstr ""
+
+msgid "Timeout"
 msgstr ""
 
 msgid "Tools"
