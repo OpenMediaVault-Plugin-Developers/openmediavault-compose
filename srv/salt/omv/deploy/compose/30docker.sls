@@ -178,6 +178,7 @@ common_install_packages:
     - contents: |
         [Unit]
         After=local-fs.target {{ mounts }}
+        Wants=local-fs.target {{ mounts }}
     - mode: "0644"
     - makedirs: True
 
