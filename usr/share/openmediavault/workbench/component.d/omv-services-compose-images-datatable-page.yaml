@@ -81,6 +81,9 @@ data:
             FAILED:
               value: _("Failed")
               class: omv-background-color-pair-red
+            TIMEOUT:
+              value: _("Timeout")
+              class: omv-background-color-pair-red
       - name: _("In Use")
         prop: inuse
         flexGrow: 1

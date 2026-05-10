@@ -3462,6 +3462,44 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['sortfield'], $params['sortdir'], $params['search']);
     }
 
+    private function execWithTimeout(string $cmdLine, array &$output, int $timeout): int
+    {
+        $process = proc_open($cmdLine, [0 => ['pipe', 'r'], 1 => ['pipe', 'w']], $pipes);
+        if (!is_resource($process)) {
+            return 1;
+        }
+        fclose($pipes[0]);
+        stream_set_blocking($pipes[1], false);
+        $stdout = '';
+        $deadline = microtime(true) + $timeout;
+        $timedOut = false;
+        while (true) {
+            $status = proc_get_status($process);
+            $stdout .= fread($pipes[1], 8192);
+            if (!$status['running']) {
+                $exitStatus = $status['exitcode'];
+                break;
+            }
+            if (microtime(true) >= $deadline) {
+                proc_terminate($process, 9);
+                $exitStatus = 124;
+                $timedOut = true;
+                break;
+            }
+            usleep(50000);
+        }
+        if (!$timedOut) {
+            $stdout .= stream_get_contents($pipes[1]);
+        }
+        fclose($pipes[1]);
+        proc_close($process);
+        if (!empty($stdout)) {
+            $lines = explode("\n", rtrim($stdout, "\n"));
+            array_push($output, ...$lines);
+        }
+        return $exitStatus;
+    }
+
     private function getImageStatus($img, $tag, $digests)
     {
         if ($img == "<none>" || $tag == "<none>" || empty($digests) ||
@@ -3502,13 +3540,15 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
             $output = [];
             $cmd = new \OMV\System\Process($this->regctl, $cmdArgs);
-            $cmd->setQuiet(true);
-            $cmd->execute($output, $exitStatus);
+            $exitStatus = $this->execWithTimeout($cmd->getCommandLine(), $output, 10);
             if ($cacheTime > 0) {
                 file_put_contents($cacheFile, json_encode($output));
             }
         }
         // determine status
+        if ($exitStatus === 124) {
+            return 'TIMEOUT';
+        }
         if ($exitStatus > 0 || empty($output)) {
             return 'FAILED';
         }
