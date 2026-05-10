@@ -1,3 +1,12 @@
+openmediavault-compose (8.1.16) stable; urgency=low
+
+  * Improve waitAllMounts systemd override to use Wants= so systemd
+    actively attempts /srv mounts before starting docker/podman
+  * Show Timeout status in images datatable when registry check
+    exceeds the timeout
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 10 May 2026 00:00:00 +0000
+
 openmediavault-compose (8.1.15) stable; urgency=low
 
   * Improve waitAllMounts systemd override
