@@ -234,6 +234,90 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return ($sfpath);
     }
 
+    // Probes the shared folder for capabilities required by Docker, Compose, and
+    // saltstack. Uses live filesystem tests rather than a type allowlist so that
+    // any incompatible mount (CIFS, exFAT, read-only NFS, etc.) is caught.
+    private function assertSharedFolderCompatible($sfref, $label, $context)
+    {
+        if (!is_uuid($sfref)) {
+            return;
+        }
+        $path = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+        $path = rtrim($path, '/');
+        // Detect filesystem type for informative error messages.
+        $cmdOutput = [];
+        exec(sprintf('findmnt --noheadings --output FSTYPE --target %s 2>/dev/null',
+            escapeshellarg($path)), $cmdOutput);
+        $fstype = !empty($cmdOutput) ? trim($cmdOutput[0]) : gettext('unknown');
+        // Test: write access. tempnam() falls back to /tmp silently when the
+        // target is not writable (e.g. server-side read-only NFS), so we use
+        // touch() directly to ensure the file is created in the actual folder.
+        $tmpFile = $path . '/.omv_compat_' . uniqid('', true);
+        if (!@touch($tmpFile)) {
+            throw new \OMV\ExecException(sprintf(
+                gettext("The shared folder selected for '%s' (%s filesystem) is not writable. Verify the filesystem is mounted read-write."),
+                $label, $fstype
+            ));
+        }
+        $tmpLink = $tmpFile . '_link';
+        $tmpHard = $tmpFile . '_hard';
+        $tmpFifo = $tmpFile . '_fifo';
+        $fh = null;
+        try {
+            // Test: file permissions — use 0640 so a filesystem that silently
+            // ignores chmod (CIFS, exFAT) produces a mismatch.
+            chmod($tmpFile, 0640);
+            clearstatcache(true, $tmpFile);
+            if ((fileperms($tmpFile) & 0777) !== 0640) {
+                throw new \OMV\ExecException(sprintf(
+                    gettext("The shared folder selected for '%s' (%s filesystem) does not support Linux file permissions, which are required by this plugin."),
+                    $label, $fstype
+                ));
+            }
+            // Test: symbolic links — required by Docker and many container apps.
+            if (!@symlink($tmpFile, $tmpLink)) {
+                throw new \OMV\ExecException(sprintf(
+                    gettext("The shared folder selected for '%s' (%s filesystem) does not support symbolic links, which are required by Docker and container applications."),
+                    $label, $fstype
+                ));
+            }
+            // Test: hard links — used by some container applications and storage backends.
+            if (!@link($tmpFile, $tmpHard)) {
+                throw new \OMV\ExecException(sprintf(
+                    gettext("The shared folder selected for '%s' (%s filesystem) does not support hard links, which are required by some container applications."),
+                    $label, $fstype
+                ));
+            }
+            // Test: named pipes (FIFOs) — used for IPC by databases and other containers.
+            if (!posix_mkfifo($tmpFifo, 0600)) {
+                throw new \OMV\ExecException(sprintf(
+                    gettext("The shared folder selected for '%s' (%s filesystem) does not support named pipes (FIFOs), which are required by some container applications."),
+                    $label, $fstype
+                ));
+            }
+            // Test: file locking — required by Compose and many container applications.
+            $fh = fopen($tmpFile, 'r+');
+            if ($fh === false || !flock($fh, LOCK_EX | LOCK_NB)) {
+                throw new \OMV\ExecException(sprintf(
+                    gettext("The shared folder selected for '%s' (%s filesystem) does not support file locking, which is required by Compose and many container applications."),
+                    $label, $fstype
+                ));
+            }
+            flock($fh, LOCK_UN);
+            fclose($fh);
+            $fh = null;
+        } finally {
+            if ($fh !== null) {
+                flock($fh, LOCK_UN);
+                fclose($fh);
+            }
+            @unlink($tmpLink);
+            @unlink($tmpHard);
+            @unlink($tmpFifo);
+            @unlink($tmpFile);
+        }
+    }
+
     private function getUrlHostname($context)
     {
         // Get configuration data.
@@ -614,6 +698,17 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // Get the existing configuration object.
         $db = \OMV\Config\Database::getInstance();
+        // Validate that all selected shared folders are on compatible filesystems.
+        $sfCompatChecks = [
+            'sharedfolderref'       => gettext("Compose file storage"),
+            'datasharedfolderref'   => gettext("Data storage"),
+            'backupsharedfolderref' => gettext("Backup storage"),
+            'dockersharedfolderref' => gettext("Docker storage"),
+            'podmansharedfolderref' => gettext("Podman storage"),
+        ];
+        foreach ($sfCompatChecks as $field => $label) {
+            $this->assertSharedFolderCompatible($params[$field], $label, $context);
+        }
         $object = $db->get("conf.service.compose");
         $perms = "";
         switch ($params['mode']) {
