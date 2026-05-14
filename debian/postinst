@@ -13,6 +13,13 @@ case "$1" in
         # remove cache files
         rm -f /var/cache/openmediavault/compose_cache_*
 
+        # remove misplaced podman.socket drop-in (moved to podman.service.d)
+        if [ -f /etc/systemd/system/podman.socket.d/waitAllMounts.conf ]; then
+            rm -f /etc/systemd/system/podman.socket.d/waitAllMounts.conf
+            rmdir --ignore-fail-on-non-empty /etc/systemd/system/podman.socket.d/ 2>/dev/null || true
+            omv_module_set_dirty compose
+        fi
+
         # Initialize and migrate configuration database.
         echo "Updating configuration database ..."
         omv-confdbadm create "conf.service.compose"

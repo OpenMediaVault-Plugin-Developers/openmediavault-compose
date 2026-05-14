@@ -22,12 +22,13 @@
 {% set create_config = (storage_path | default('') | length > 1) %}
 
 {# systemd override file paths based on runtime #}
-{% set waitConf = ('/etc/systemd/system/podman.socket.d/waitAllMounts.conf'
+{% set waitConf = ('/etc/systemd/system/podman.service.d/waitAllMounts.conf'
                    if use_podman else
                    '/etc/systemd/system/docker.service.d/waitAllMounts.conf') %}
 {% set delayConf = ('/etc/systemd/system/podman.service.d/startDelay.conf'
                     if use_podman else
                     '/etc/systemd/system/docker.service.d/startDelay.conf') %}
+{% set restartWaitConf = '/etc/systemd/system/podman-restart.service.d/waitAllMounts.conf' %}
 
 {# ---- Storage dir (shared) ---- #}
 {% if create_config %}
@@ -71,7 +72,12 @@ podman_socket_restart_on_config_change:
     - enable: True
     - watch:
       - file: podman_storage_conf
+
 {% endif %}
+
+podman_restart_service_enable:
+  service.enabled:
+    - name: podman-restart.service
 
 /etc/containers/nodocker:
   file.touch
@@ -182,6 +188,20 @@ common_install_packages:
     - mode: "0644"
     - makedirs: True
 
+{% if use_podman %}
+{{ restartWaitConf }}:
+  file.managed:
+    - contents: |
+        [Unit]
+        After=local-fs.target {{ mounts }}
+        Wants=local-fs.target {{ mounts }}
+    - mode: "0644"
+    - makedirs: True
+{% else %}
+{{ restartWaitConf }}:
+  file.absent
+{% endif %}
+
 {% if config.dockerdelay | int > 0 %}
 {{ delayConf }}:
   file.managed:
@@ -201,3 +221,4 @@ systemd_daemon_reload:
     - onchanges:
       - file: {{ waitConf }}
       - file: {{ delayConf }}
+      - file: {{ restartWaitConf }}
