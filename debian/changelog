@@ -1,3 +1,11 @@
+openmediavault-compose (8.1.17) stable; urgency=low
+
+  * Make sure podman starts on boot
+  * Make sure podman-restart is enabled to restart containers using
+    restart: always
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 14 May 2026 11:10:47 +0000
+
 openmediavault-compose (8.1.16) stable; urgency=low
 
   * Improve waitAllMounts systemd override to use Wants= so systemd
