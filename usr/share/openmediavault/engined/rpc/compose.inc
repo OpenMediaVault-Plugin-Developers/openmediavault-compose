@@ -2585,6 +2585,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $path = $params['path'];
         $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
+        // If the user entered a file path, use its parent directory
+        if (!is_dir($path)) {
+            $path = dirname($path);
+        }
         $dirs = array_diff(scandir($path), ["..", "."]);
         foreach ($dirs as $dir) {
             $full = sprintf('%s/%s', $path, $dir);
@@ -2592,13 +2596,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 continue;
             }
             $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
-            // get compose file
-            $bodyFile = sprintf('%s/%s.yml', $full, $dir);
-            if (!file_exists($bodyFile)) {
-                $bodyFile = sprintf('%s/docker-compose.yml', $full);
-                if (!file_exists($bodyFile)) {
-                    continue;
+            // get compose file — check candidates in priority order
+            $candidates = [
+                sprintf('%s/%s.yml', $full, $dir),
+                sprintf('%s/compose.yml', $full),
+                sprintf('%s/compose.yaml', $full),
+                sprintf('%s/docker-compose.yml', $full),
+                sprintf('%s/docker-compose.yaml', $full),
+            ];
+            $bodyFile = null;
+            foreach ($candidates as $candidate) {
+                if (file_exists($candidate)) {
+                    $bodyFile = $candidate;
+                    break;
                 }
+            }
+            if ($bodyFile === null) {
+                continue;
             }
             $body = $this->removeIllegal(file_get_contents($bodyFile));
             // get environment file if it exists
@@ -2641,17 +2655,31 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $path = $params['path'];
         $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
+        // If the user entered a file path, use its parent directory
+        if (!is_dir($path)) {
+            $path = dirname($path);
+        }
         if (!is_dir($path)) {
             throw new \OMV\ExecException($path . ' does not exist!');
         }
         $name = basename(rtrim($path, '/'));
-        // get body
-        $bodyFile = sprintf('%s/%s.yml', $path, $name);
-        if (!file_exists($bodyFile)) {
-            $bodyFile = sprintf('%s/docker-compose.yml', $path);
-            if (!file_exists($bodyFile)) {
-                throw new \OMV\ExecException(gettext("No compose file found!"));
+        // get body — check candidates in priority order
+        $candidates = [
+            sprintf('%s/%s.yml', $path, $name),
+            sprintf('%s/compose.yml', $path),
+            sprintf('%s/compose.yaml', $path),
+            sprintf('%s/docker-compose.yml', $path),
+            sprintf('%s/docker-compose.yaml', $path),
+        ];
+        $bodyFile = null;
+        foreach ($candidates as $candidate) {
+            if (file_exists($candidate)) {
+                $bodyFile = $candidate;
+                break;
             }
+        }
+        if ($bodyFile === null) {
+            throw new \OMV\ExecException(gettext("No compose file found!"));
         }
         $body = $this->removeIllegal(file_get_contents($bodyFile));
         // get env (if exists)
