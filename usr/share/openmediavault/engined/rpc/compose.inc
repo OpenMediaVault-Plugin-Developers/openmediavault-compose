@@ -103,6 +103,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("importConfig");
         $this->registerMethod("importDockerfile");
         $this->registerMethod("importPortainerStacks");
+        $this->registerMethod("doImportPortainerStacks");
 
         $this->registerMethod("getStats");
         $this->registerMethod("getStatsBg");
@@ -3082,6 +3083,114 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         $this->clearCache('files');
         return $imported;
+    }
+
+    public function doImportPortainerStacks($params, $context)
+    {
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // sslverify arrives as a string ("true"/"false") when called from a
+        // taskDialog, so coerce it explicitly rather than relying on schema validation.
+        $portainerUrl = rtrim($params['url'], '/');
+        $apiKey       = trim($params['apikey'] ?? '');
+        $username     = trim($params['username'] ?? '');
+        $password     = trim($params['password'] ?? '');
+        $sslverify    = filter_var($params['sslverify'] ?? true, FILTER_VALIDATE_BOOLEAN);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($portainerUrl, $apiKey, $username, $password, $sslverify) {
+                file_put_contents($bgOutputFilename,
+                    "Connecting to Portainer: $portainerUrl\n\n", FILE_APPEND);
+                if (!empty($apiKey)) {
+                    $authHeader = "X-API-Key: $apiKey\r\n";
+                } elseif (!empty($username)) {
+                    try {
+                        $jwt = $this->portainerLogin($portainerUrl, $username, $password, $sslverify);
+                    } catch (Exception $e) {
+                        file_put_contents($bgOutputFilename,
+                            "Error: " . $e->getMessage() . "\n", FILE_APPEND);
+                        return;
+                    }
+                    $authHeader = "Authorization: Bearer $jwt\r\n";
+                } else {
+                    file_put_contents($bgOutputFilename,
+                        "Error: Provide either an API key or a username and password.\n", FILE_APPEND);
+                    return;
+                }
+                try {
+                    $stacks = $this->portainerGet($portainerUrl . '/api/stacks', $authHeader, $sslverify);
+                } catch (Exception $e) {
+                    file_put_contents($bgOutputFilename,
+                        "Error: " . $e->getMessage() . "\n", FILE_APPEND);
+                    return;
+                }
+                if (!is_array($stacks)) {
+                    file_put_contents($bgOutputFilename,
+                        "Error: Unexpected response from Portainer API.\n", FILE_APPEND);
+                    return;
+                }
+                $db = \OMV\Config\Database::getInstance();
+                $imported = 0;
+                $skipped  = 0;
+                foreach ($stacks as $stack) {
+                    if (($stack['Type'] ?? 0) !== 2) {
+                        continue;
+                    }
+                    $name = $stack['Name'] ?? '';
+                    if (empty($name)) {
+                        continue;
+                    }
+                    try {
+                        $fileData = $this->portainerGet(
+                            $portainerUrl . '/api/stacks/' . $stack['Id'] . '/file',
+                            $authHeader,
+                            $sslverify
+                        );
+                    } catch (Exception $e) {
+                        file_put_contents($bgOutputFilename,
+                            "  Error fetching $name: " . $e->getMessage() . "\n", FILE_APPEND);
+                        continue;
+                    }
+                    $body = $fileData['StackFileContent'] ?? '';
+                    if (empty($body)) {
+                        continue;
+                    }
+                    $env = '';
+                    if (!empty($stack['Env']) && is_array($stack['Env'])) {
+                        $lines = [];
+                        foreach ($stack['Env'] as $e) {
+                            if (!empty($e['name'])) {
+                                $lines[] = $e['name'] . '=' . ($e['value'] ?? '');
+                            }
+                        }
+                        $env = implode(PHP_EOL, $lines);
+                    }
+                    $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+                    $object->set('name', $name);
+                    $object->set('description', 'imported from Portainer ' . date("Y.m.d H:i"));
+                    $object->set('body', $this->removeIllegal($body));
+                    $object->set('env', $this->removeIllegal($env));
+                    $object->set('override', '');
+                    $tempObj = new \OMV\Config\ConfigObject("conf.service.compose.file");
+                    $tempObj->set('name', $name);
+                    try {
+                        $db->assertIsUnique($tempObj, 'name');
+                    } catch (Exception $e) {
+                        file_put_contents($bgOutputFilename,
+                            "  Skipping (already exists): $name\n", FILE_APPEND);
+                        $skipped++;
+                        continue;
+                    }
+                    $db->set($object);
+                    file_put_contents($bgOutputFilename,
+                        "  Imported: $name\n", FILE_APPEND);
+                    $imported++;
+                }
+                $this->clearCache('files');
+                file_put_contents($bgOutputFilename, sprintf(
+                    "\nDone. %d imported, %d skipped (already exist).\n",
+                    $imported, $skipped
+                ), FILE_APPEND);
+            }
+        );
     }
 
     private function portainerLogin(string $url, string $username, string $password, bool $sslverify): string
