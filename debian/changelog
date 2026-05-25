@@ -1,3 +1,31 @@
+openmediavault-compose (8.1.18) stable; urgency=low
+
+  * Smarter import: now finds compose.yml and compose.yaml files in
+    addition to docker-compose.yml, so modern compose setups are
+    detected automatically
+  * Smarter import: if you accidentally select a file instead of a
+    folder in the path chooser, the plugin now figures out the right
+    folder and continues without an error
+  * Smarter import: folders are now searched inside subfolders too
+    (up to 4 levels deep), so you don't have to navigate into each
+    subfolder manually
+  * Smarter import: when importing, the description is automatically
+    filled in from the README.md in the same folder (if one exists),
+    instead of just saying "imported 2026.05.24"
+  * New "Preview Import" button lets you see exactly what would be
+    imported and which would be skipped (because they already
+    exist) before actually importing anything
+  * Import now shows a live progress log as it runs and a summary at
+    the end (e.g. "3 imported, 1 skipped"), instead of finishing
+    silently
+  * "Import one" now shows a live progress log instead of a silent
+    error when the file already exists in the plugin
+  * "Import from Portainer" now shows a live progress log as it imports
+    each stack, and a summary at the end (e.g. "3 imported, 1 skipped"),
+    instead of finishing silently
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 25 May 2026 01:02:58 +0000
+
 openmediavault-compose (8.1.17) stable; urgency=low
 
   * Make sure podman starts on boot
