@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 12:40+0000\n"
+"POT-Creation-Date: 2026-05-25 13:09+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2026\n"
 "Language-Team: Italian (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/it/)\n"
@@ -147,6 +147,9 @@ msgstr ""
 "La cartella condivisa di backup deve essere diversa da quella condivisa di "
 "Docker"
 
+msgid "Backup storage"
+msgstr ""
+
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 msgstr ""
 
@@ -244,6 +247,9 @@ msgid "Compose file shared folder must be different than docker shared folder"
 msgstr ""
 "La cartella condivisa del file Compose deve essere diversa da quella "
 "condivisa di Docker"
+
+msgid "Compose file storage"
+msgstr ""
 
 msgid "Compose file to be associate imported files with"
 msgstr "File compose a cui associare i file importati"
@@ -348,6 +354,9 @@ msgid "Data shared folder must be different than docker shared folder"
 msgstr ""
 "La cartella condivisa dei dati deve essere diversa da quella condivisa di "
 "Docker"
+
+msgid "Data storage"
+msgstr ""
 
 msgid "Date & Time"
 msgstr "Data e orario"
@@ -623,9 +632,6 @@ msgstr "Importane uno"
 msgid "Import stacks from Portainer ..."
 msgstr ""
 
-msgid "Importing stacks from Portainer ..."
-msgstr ""
-
 msgid ""
 "Imports all standalone compose stacks from Portainer. Stacks already present"
 " in the plugin are skipped. Swarm stacks are not imported."
@@ -869,9 +875,6 @@ msgstr ""
 msgid "Portainer authentication failed. Check your credentials."
 msgstr ""
 
-msgid "Portainer stacks imported successfully."
-msgstr ""
-
 msgid "Ports"
 msgstr "Porte"
 
@@ -879,6 +882,18 @@ msgid "Post-backup script"
 msgstr ""
 
 msgid "Pre-backup script"
+msgstr ""
+
+msgid "Preview"
+msgstr ""
+
+msgid "Preview Import"
+msgstr ""
+
+msgid "Preview import ..."
+msgstr ""
+
+msgid "Preview import from folder ..."
 msgstr ""
 
 msgid "Project"
@@ -994,6 +1009,11 @@ msgid "Running For"
 msgstr "Avvia per"
 
 msgid "Saturday"
+msgstr ""
+
+msgid ""
+"Scan a folder recursively for compose files and preview what would be "
+"imported, without making any changes."
 msgstr ""
 
 msgid "Schedule"
@@ -1185,6 +1205,36 @@ msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
 "Il campo deve contenere solo * o un elenco di valori separati da virgole."
 
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support Linux "
+"file permissions, which are required by this plugin."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support file "
+"locking, which is required by Compose and many container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support hard "
+"links, which are required by some container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support named "
+"pipes (FIFOs), which are required by some container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support "
+"symbolic links, which are required by Docker and container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
+"the filesystem is mounted read-write."
+msgstr ""
+
 msgid "This is the filename. This should not be a path."
 msgstr "Questo è il nome del file. Non dovrebbe essere un percorso."
 
@@ -1210,11 +1260,10 @@ msgstr ""
 "importerà un file di composizione già esistente nel plugin."
 
 msgid ""
-"This will import one or more compose files in subfolders.<br/>It will not "
-"import any compose files that already exist in the plugin."
+"This will import one or more compose files in subfolders (scanned "
+"recursively).<br/>It will not import any compose files that already exist in"
+" the plugin."
 msgstr ""
-"Verranno importati uno o più file di composizione in sottocartelle.<br/>Non "
-"importerà alcun file di composizione già esistente nel plugin."
 
 msgid "Thursday"
 msgstr ""

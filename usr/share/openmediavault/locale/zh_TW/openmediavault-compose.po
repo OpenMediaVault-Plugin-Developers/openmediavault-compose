@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 12:40+0000\n"
+"POT-Creation-Date: 2026-05-25 13:09+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -133,6 +133,9 @@ msgstr "備份容器資料。"
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr "備份的共享檔案夾必須不同於 docker 的共享檔案夾"
 
+msgid "Backup storage"
+msgstr ""
+
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 msgstr "您的 Portainer 實例的基底 URL，例如：https://192.168.1.10:9443"
 
@@ -228,6 +231,9 @@ msgstr "Compose 檔案的共享檔案夾必須不同於資料的共享檔案夾"
 
 msgid "Compose file shared folder must be different than docker shared folder"
 msgstr "Compose 檔案的共享檔案夾必須不同於 docker 的共享檔案夾"
+
+msgid "Compose file storage"
+msgstr ""
 
 msgid "Compose file to be associate imported files with"
 msgstr "與要匯入檔案相關連的 compose 檔案"
@@ -330,6 +336,9 @@ msgstr "資料"
 
 msgid "Data shared folder must be different than docker shared folder"
 msgstr "資料檔案的共享檔案夾必須不同於 docker 的共享檔案夾"
+
+msgid "Data storage"
+msgstr ""
 
 msgid "Date & Time"
 msgstr "日期與時間"
@@ -604,9 +613,6 @@ msgstr "匯入一個"
 msgid "Import stacks from Portainer ..."
 msgstr "從 Portainer 匯入配置堆疊 ..."
 
-msgid "Importing stacks from Portainer ..."
-msgstr "從 Portainer 匯入配置堆疊中 ..."
-
 msgid ""
 "Imports all standalone compose stacks from Portainer. Stacks already present"
 " in the plugin are skipped. Swarm stacks are not imported."
@@ -842,9 +848,6 @@ msgstr "Portainer URL"
 msgid "Portainer authentication failed. Check your credentials."
 msgstr "Portainer 鑑認失敗。請檢查您的驗證資訊。"
 
-msgid "Portainer stacks imported successfully."
-msgstr "Portainer 配置堆疊匯入成功。"
-
 msgid "Ports"
 msgstr "連接埠"
 
@@ -853,6 +856,18 @@ msgstr "備份後腳本程式"
 
 msgid "Pre-backup script"
 msgstr "備份前腳本程式"
+
+msgid "Preview"
+msgstr ""
+
+msgid "Preview Import"
+msgstr ""
+
+msgid "Preview import ..."
+msgstr ""
+
+msgid "Preview import from folder ..."
+msgstr ""
 
 msgid "Project"
 msgstr "專案"
@@ -965,6 +980,11 @@ msgstr "運行時間"
 
 msgid "Saturday"
 msgstr "週六"
+
+msgid ""
+"Scan a folder recursively for compose files and preview what would be "
+"imported, without making any changes."
+msgstr ""
 
 msgid "Schedule"
 msgstr "預訂"
@@ -1150,6 +1170,36 @@ msgstr "配置檔案將被建立於此 compse 檔案所在的目錄中。"
 msgid "The field should only contain * or a comma separated list of values."
 msgstr "此欄位應該只含有 * 或一個以逗號分隔的數值列表。"
 
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support Linux "
+"file permissions, which are required by this plugin."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support file "
+"locking, which is required by Compose and many container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support hard "
+"links, which are required by some container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support named "
+"pipes (FIFOs), which are required by some container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support "
+"symbolic links, which are required by Docker and container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
+"the filesystem is mounted read-write."
+msgstr ""
+
 msgid "This is the filename. This should not be a path."
 msgstr "這是檔案名稱，不可以是一個路徑。"
 
@@ -1170,9 +1220,10 @@ msgid ""
 msgstr "這將匯入一個位於所選檔案夾中的 compose 檔案。<br/>它將不會匯入已經存在於插件中的 compose 檔案。"
 
 msgid ""
-"This will import one or more compose files in subfolders.<br/>It will not "
-"import any compose files that already exist in the plugin."
-msgstr "這將匯入一個或多個位於子檔案夾中的 compose 檔案。<br/>它將不會匯入任何已經存在於插件中的 compose 檔案。"
+"This will import one or more compose files in subfolders (scanned "
+"recursively).<br/>It will not import any compose files that already exist in"
+" the plugin."
+msgstr ""
 
 msgid "Thursday"
 msgstr "週四"
@@ -1181,7 +1232,7 @@ msgid "Time of execution"
 msgstr "執行時間"
 
 msgid "Timeout"
-msgstr ""
+msgstr "逾時"
 
 msgid "Tools"
 msgstr "工具"

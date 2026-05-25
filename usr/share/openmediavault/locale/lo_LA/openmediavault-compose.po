@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 12:40+0000\n"
+"POT-Creation-Date: 2026-05-25 13:09+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: BoneNI, 2026\n"
 "Language-Team: Lao (Laos) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/lo_LA/)\n"
@@ -136,6 +136,9 @@ msgstr "ສຳຮອງຂໍ້ມູນຄອນເທນເນີ."
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr "ໂຟນເດີສຳຮອງຂໍ້ມູນທີ່ແບ່ງປັນຕ້ອງແຕກຕ່າງຈາກໂຟນເດີ Docker"
 
+msgid "Backup storage"
+msgstr ""
+
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 msgstr ""
 
@@ -229,6 +232,9 @@ msgstr "ໂຟນເດີໄຟລ໌ຄອມໂພສຕ້ອງແຕກຕ
 
 msgid "Compose file shared folder must be different than docker shared folder"
 msgstr "ໂຟນເດີໄຟລ໌ຄອມໂພສຕ້ອງແຕກຕ່າງຈາກໂຟນເດີ Docker"
+
+msgid "Compose file storage"
+msgstr ""
 
 msgid "Compose file to be associate imported files with"
 msgstr "ໄຟລ໌ຄອມໂພສທີ່ຈະໃຊ້ເຊື່ອມໂຍງກັບໄຟລ໌ທີ່ນຳເຂົ້າ"
@@ -331,6 +337,9 @@ msgstr "ຂໍ້ມູນ"
 
 msgid "Data shared folder must be different than docker shared folder"
 msgstr "ໂຟນເດີຂໍ້ມູນທີ່ແບ່ງປັນຕ້ອງແຕກຕ່າງຈາກໂຟນເດີ Docker"
+
+msgid "Data storage"
+msgstr ""
 
 msgid "Date & Time"
 msgstr "ວັນທີ ແລະ ເວລາ"
@@ -604,9 +613,6 @@ msgstr "ນຳເຂົ້າອັນດຽວ"
 msgid "Import stacks from Portainer ..."
 msgstr ""
 
-msgid "Importing stacks from Portainer ..."
-msgstr ""
-
 msgid ""
 "Imports all standalone compose stacks from Portainer. Stacks already present"
 " in the plugin are skipped. Swarm stacks are not imported."
@@ -845,9 +851,6 @@ msgstr ""
 msgid "Portainer authentication failed. Check your credentials."
 msgstr ""
 
-msgid "Portainer stacks imported successfully."
-msgstr ""
-
 msgid "Ports"
 msgstr "ພອດ (Ports)"
 
@@ -856,6 +859,18 @@ msgstr "ສະຄຣິບຫຼັງການສຳຮອງຂໍ້ມູນ
 
 msgid "Pre-backup script"
 msgstr "ສະຄຣິບກ່ອນການສຳຮອງຂໍ້ມູນ"
+
+msgid "Preview"
+msgstr ""
+
+msgid "Preview Import"
+msgstr ""
+
+msgid "Preview import ..."
+msgstr ""
+
+msgid "Preview import from folder ..."
+msgstr ""
 
 msgid "Project"
 msgstr "ໂປຣເຈັກ"
@@ -972,6 +987,11 @@ msgstr "ເຮັດວຽກມາແລ້ວ"
 
 msgid "Saturday"
 msgstr "ວັນເສົາ"
+
+msgid ""
+"Scan a folder recursively for compose files and preview what would be "
+"imported, without making any changes."
+msgstr ""
 
 msgid "Schedule"
 msgstr "ຕາຕະລາງເວລາ"
@@ -1157,6 +1177,36 @@ msgstr "ໄຟລ໌ຕັ້ງຄ່າຈະຖືກສ້າງຂຶ້ນ
 msgid "The field should only contain * or a comma separated list of values."
 msgstr "ຊ່ອງນີ້ຄວນມີພຽງ * ຫຼື ລາຍການທີ່ຂັ້ນດ້ວຍຈຸດເທົ່ານັ້ນ."
 
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support Linux "
+"file permissions, which are required by this plugin."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support file "
+"locking, which is required by Compose and many container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support hard "
+"links, which are required by some container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support named "
+"pipes (FIFOs), which are required by some container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support "
+"symbolic links, which are required by Docker and container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
+"the filesystem is mounted read-write."
+msgstr ""
+
 msgid "This is the filename. This should not be a path."
 msgstr "ນີ້ແມ່ນຊື່ໄຟລ໌. ບໍ່ຄວນເປັນເສັ້ນທາງ (Path)."
 
@@ -1179,11 +1229,10 @@ msgstr ""
 "ສິ່ງນີ້ຈະນຳເຂົ້າໄຟລ໌ຄອມໂພສອັນດຽວໃນໂຟນເດີທີ່ເລືອກ.<br/>ຈະບໍ່ນຳເຂົ້າໄຟລ໌ທີ່ມີຢູ່ແລ້ວໃນປລັກອິນ."
 
 msgid ""
-"This will import one or more compose files in subfolders.<br/>It will not "
-"import any compose files that already exist in the plugin."
+"This will import one or more compose files in subfolders (scanned "
+"recursively).<br/>It will not import any compose files that already exist in"
+" the plugin."
 msgstr ""
-"ສິ່ງນີ້ຈະນຳເຂົ້າໄຟລ໌ຄອມໂພສໜຶ່ງ ຫຼື "
-"ຫຼາຍໄຟລ໌ໃນໂຟນເດີຍ່ອຍ.<br/>ຈະບໍ່ນຳເຂົ້າໄຟລ໌ທີ່ມີຢູ່ແລ້ວໃນປລັກອິນ."
 
 msgid "Thursday"
 msgstr "ວັນພະຫັດ"

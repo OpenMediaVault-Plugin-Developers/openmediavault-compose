@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 12:40+0000\n"
+"POT-Creation-Date: 2026-05-25 13:09+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -149,6 +149,9 @@ msgstr ""
 "De gedeelde map voor backup moet een andere zijn dan de gedeelde map voor "
 "docker"
 
+msgid "Backup storage"
+msgstr ""
+
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 msgstr "Basis-URL van uw Portainer-instantie, bijv. https://192.168.1.10:9443"
 
@@ -251,6 +254,9 @@ msgid "Compose file shared folder must be different than docker shared folder"
 msgstr ""
 "De gedeelde map voor Compose-bestanden moet een andere zijn dan de gedeelde "
 "map voor docker"
+
+msgid "Compose file storage"
+msgstr ""
 
 msgid "Compose file to be associate imported files with"
 msgstr ""
@@ -356,6 +362,9 @@ msgid "Data shared folder must be different than docker shared folder"
 msgstr ""
 "De gedeelde map voor data moet een andere zijn dan de gedeelde map voor "
 "docker"
+
+msgid "Data storage"
+msgstr ""
 
 msgid "Date & Time"
 msgstr "Datum & Tijd"
@@ -641,9 +650,6 @@ msgstr "Eén importeren"
 msgid "Import stacks from Portainer ..."
 msgstr "Stacks importeren van Portainer…"
 
-msgid "Importing stacks from Portainer ..."
-msgstr "Stacks importeren van Portainer…"
-
 msgid ""
 "Imports all standalone compose stacks from Portainer. Stacks already present"
 " in the plugin are skipped. Swarm stacks are not imported."
@@ -887,9 +893,6 @@ msgstr "Portainer-URL"
 msgid "Portainer authentication failed. Check your credentials."
 msgstr "Authenticatie van portainer is mislukt. Controleer uw inloggegevens."
 
-msgid "Portainer stacks imported successfully."
-msgstr "Portainer stacks met succes geïmporteerd."
-
 msgid "Ports"
 msgstr "Poorten"
 
@@ -898,6 +901,18 @@ msgstr "Post-backup script"
 
 msgid "Pre-backup script"
 msgstr "Pre-backup script"
+
+msgid "Preview"
+msgstr ""
+
+msgid "Preview Import"
+msgstr ""
+
+msgid "Preview import ..."
+msgstr ""
+
+msgid "Preview import from folder ..."
+msgstr ""
 
 msgid "Project"
 msgstr "Project"
@@ -1019,6 +1034,11 @@ msgstr "Uitvoeren voor"
 
 msgid "Saturday"
 msgstr "Zaterdag"
+
+msgid ""
+"Scan a folder recursively for compose files and preview what would be "
+"imported, without making any changes."
+msgstr ""
 
 msgid "Schedule"
 msgstr "Planning"
@@ -1217,6 +1237,36 @@ msgstr ""
 "Het veld mag alleen * of een door komma's gescheiden lijst met waarden "
 "bevatten."
 
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support Linux "
+"file permissions, which are required by this plugin."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support file "
+"locking, which is required by Compose and many container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support hard "
+"links, which are required by some container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support named "
+"pipes (FIFOs), which are required by some container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) does not support "
+"symbolic links, which are required by Docker and container applications."
+msgstr ""
+
+msgid ""
+"The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
+"the filesystem is mounted read-write."
+msgstr ""
+
 msgid "This is the filename. This should not be a path."
 msgstr "Dit is de bestandsnaam. Dit mag geen pad zijn."
 
@@ -1244,12 +1294,10 @@ msgstr ""
 "map.<br/>Het importeert geen compose-bestand dat al in de plug-in bestaat."
 
 msgid ""
-"This will import one or more compose files in subfolders.<br/>It will not "
-"import any compose files that already exist in the plugin."
+"This will import one or more compose files in subfolders (scanned "
+"recursively).<br/>It will not import any compose files that already exist in"
+" the plugin."
 msgstr ""
-"Hiermee worden een of meer compose-bestanden geïmporteerd vanuit de "
-"geselecteerde map.<br/>Het importeert geen compose-bestanden die al in de "
-"plug-in bestaan."
 
 msgid "Thursday"
 msgstr "Donderdag"
@@ -1258,7 +1306,7 @@ msgid "Time of execution"
 msgstr "Moment van uitvoering"
 
 msgid "Timeout"
-msgstr ""
+msgstr "Timeout"
 
 msgid "Tools"
 msgstr "Hulpmiddelen"
