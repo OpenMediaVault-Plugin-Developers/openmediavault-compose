@@ -55,6 +55,8 @@ _skip() { echo -e "  ${YELLOW}SKIP${NC}  $1${2:+  ($2)}" >&2; ((SKIP++)) || true
 # a $() subshell — that would prevent PASS/FAIL counter updates from
 # propagating back to the parent shell.
 RPC_OUT=""
+# Last bg task output (set by assert_rpc_bg).
+BG_OUT=""
 
 # Assert RPC succeeds. Optional 5th arg: grep pattern that must appear.
 # Result JSON is available in $RPC_OUT after the call.
@@ -90,9 +92,12 @@ assert_rpc_fails() {
 }
 
 # Call a *Bg method, wait for the background task, report result.
+# Optional 5th arg: grep pattern that must appear in the task output.
+# Task output is always available in $BG_OUT after the call.
 assert_rpc_bg() {
-    local desc=$1 svc=$2 method=$3 params=${4:-'{}'}
+    local desc=$1 svc=$2 method=$3 params=${4:-'{}'} pattern=${5:-}
     local filename ec=0
+    BG_OUT=""
     filename=$(omv-rpc -u admin "$svc" "$method" "$params" 2>&1) || ec=$?
     if [ $ec -ne 0 ]; then
         _fail "$desc" "Failed to start bg task: ${filename:0:200}"
@@ -100,10 +105,14 @@ assert_rpc_bg() {
     fi
     filename=$(echo "$filename" | tr -d '"')
 
-    local timeout=120 elapsed=0 poll_ec poll_out
+    # Poll with getOutput (not isRunning): isRunning deletes the status file
+    # on completion, which would make a subsequent getOutput call fail.
+    # getOutput returns {running, output, ...} and cleans up only after the
+    # final read, so we can extract output from the loop's last response.
+    local timeout=120 elapsed=0 poll_ec=0 poll_out
     while [ $elapsed -lt $timeout ]; do
-        poll_out=$(omv-rpc -u admin "Exec" "isRunning" \
-            "{\"filename\":\"$filename\"}" 2>&1)
+        poll_out=$(omv-rpc -u admin "Exec" "getOutput" \
+            "{\"filename\":\"$filename\",\"pos\":0}" 2>&1)
         poll_ec=$?
         [ $poll_ec -ne 0 ] && break
         echo "$poll_out" | grep -q '"running":true\|"running": true' || break
@@ -122,12 +131,16 @@ assert_rpc_bg() {
         return 1
     fi
     local content
-    content=$(omv-rpc -u admin "Exec" "getOutput" \
-        "{\"filename\":\"$filename\",\"pos\":0}" 2>/dev/null \
-        | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('output',''))" \
+    content=$(echo "$poll_out" | python3 -c \
+        "import sys,json; d=json.load(sys.stdin); print(d.get('output',''))" \
         2>/dev/null || echo "")
+    BG_OUT="$content"
     if echo "$content" | grep -q "Exception"; then
         _fail "$desc" "$(echo "$content" | grep "Exception" | head -2)"
+        return 1
+    fi
+    if [ -n "$pattern" ] && ! echo "$content" | grep -q "$pattern"; then
+        _fail "$desc" "Pattern '$pattern' not found in output"
         return 1
     fi
     _pass "$desc"
@@ -170,6 +183,8 @@ FILE_UUID=""
 CONFIG_UUID=""
 DOCKERFILE_UUID=""
 JOB_UUID=""
+IMPORT_TMP=""
+declare -a IMPORT_UUIDS=()
 
 # Delete a named test object if it exists in a list RPC response.
 # $6 is the field to match on (default: "name").
@@ -199,6 +214,23 @@ pre_cleanup() {
     # Jobs don't have a "name" field — match on "comment" instead
     local job_list='{"start":0,"limit":100,"sortfield":"execution","sortdir":"ASC"}'
     purge_by_name "Compose" "getJobList" "$job_list" "deleteJob" "omvtest_job" "comment"
+    # Remove any leftover compose files from a previous import test run
+    local stale
+    stale=$(omv-rpc -u admin "Compose" "getFileList" "$list" 2>/dev/null \
+        | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+for r in rows:
+    if r.get('name','').startswith('omvtest_import_'):
+        print(r['uuid'])
+" 2>/dev/null || true)
+    for uuid in $stale; do
+        info "Pre-cleanup: removing leftover import test file ($uuid)"
+        omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
+    done
+    # Remove leftover temp dir
+    rm -rf /tmp/omvtest_import.*  2>/dev/null || true
 }
 
 cleanup() {
@@ -218,6 +250,14 @@ cleanup() {
     if [ -n "$FILE_UUID" ]; then
         info "Deleting test compose file $FILE_UUID"
         omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$FILE_UUID\"}" >/dev/null 2>&1 || true
+    fi
+    for uuid in "${IMPORT_UUIDS[@]}"; do
+        info "Deleting imported test file $uuid"
+        omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
+    done
+    if [ -n "$IMPORT_TMP" ]; then
+        info "Removing temp import dir $IMPORT_TMP"
+        rm -rf "$IMPORT_TMP"
     fi
     echo "" >&2
 }
@@ -487,6 +527,7 @@ print(json.dumps({
     'filebuild': False,
     'filepull': False,
     'filenocache': False,
+    'fileprunebuilder': False,
     'sendemail': False,
     'emailonerror': False,
     'verbose': True,
@@ -548,6 +589,7 @@ print(json.dumps({
     'filebuild': False,
     'filepull': False,
     'filenocache': False,
+    'fileprunebuilder': False,
     'sendemail': False,
     'emailonerror': False,
     'verbose': True,
@@ -589,7 +631,8 @@ print(json.dumps({
     'maintenance': False, 'cstate': False, 'cbuild': False,
     'update': False, 'prune': False, 'filestart': False,
     'filestop': False, 'filebuild': False, 'filepull': False,
-    'filenocache': False, 'sendemail': False, 'emailonerror': False,
+    'filenocache': False, 'fileprunebuilder': False,
+    'sendemail': False, 'emailonerror': False,
     'verbose': True, 'comment': '', 'excludes': '',
     'execution': 'daily',
     'minute': ['0'], 'everynminute': False,
@@ -692,7 +735,191 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 12. Delete test objects (also done by cleanup trap, but verify RPCs work)
+# 12. Import features
+# ---------------------------------------------------------------------------
+section "Import features"
+
+# Build a temp tree that exercises all import code paths:
+#
+#   $IMPORT_TMP/
+#     omvtest_import_stack1/compose.yml          — modern filename
+#     omvtest_import_stack2/docker-compose.yml   — legacy filename
+#     omvtest_import_stack3/docker-compose.yaml  — .yaml extension
+#     omvtest_import_readme/compose.yml          — has README.md for description
+#       README.md
+#     nested/
+#       omvtest_import_stack4/compose.yml        — recursive scan
+#     omvtest_import_one/compose.yml             — for doImportExistingOne
+
+IMPORT_TMP=$(mktemp -d /tmp/omvtest_import.XXXXXX)
+info "Import temp dir: $IMPORT_TMP"
+
+_make_stack() {
+    local dir="$1"
+    local file="$2"
+    mkdir -p "$dir"
+    cat > "$dir/$file" <<'YAML'
+services:
+  hello:
+    image: hello-world
+YAML
+}
+
+_make_stack "$IMPORT_TMP/omvtest_import_stack1"  "compose.yml"
+_make_stack "$IMPORT_TMP/omvtest_import_stack2"  "docker-compose.yml"
+_make_stack "$IMPORT_TMP/omvtest_import_stack3"  "docker-compose.yaml"
+_make_stack "$IMPORT_TMP/omvtest_import_readme"  "compose.yml"
+cat > "$IMPORT_TMP/omvtest_import_readme/README.md" <<'MD'
+# My Test Stack
+This is a test stack for verifying README description extraction.
+MD
+_make_stack "$IMPORT_TMP/nested/omvtest_import_stack4" "compose.yml"
+# omvtest_import_one is created after the bulk-import tests so that
+# doImportExistingFolder doesn't pick it up and cause doImportExistingOne
+# to see it as already-existing (outputting "Skipping" instead of "Imported:").
+
+# --- doPreviewImportFolder: dry run, nothing should be imported -------------
+
+assert_rpc_bg "doPreviewImportFolder shows WOULD IMPORT" \
+    "Compose" "doPreviewImportFolder" \
+    "{\"path\":\"$IMPORT_TMP\"}" "WOULD IMPORT"
+
+# Count files before import — preview must not have changed anything.
+count_before=$(omv-rpc -u admin "Compose" "getFileList" \
+    '{"start":0,"limit":1000,"sortfield":"name","sortdir":"ASC"}' 2>/dev/null \
+    | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+print(sum(1 for r in rows if r.get('name','').startswith('omvtest_import_')))
+" 2>/dev/null || echo "0")
+if [ "$count_before" -eq 0 ]; then
+    _pass "doPreviewImportFolder did not import anything"
+else
+    _fail "doPreviewImportFolder did not import anything" \
+          "found $count_before omvtest_import_* files after preview"
+fi
+
+# --- doImportExistingFolder: recursive import --------------------------------
+
+assert_rpc_bg "doImportExistingFolder imports stacks" \
+    "Compose" "doImportExistingFolder" \
+    "{\"path\":\"$IMPORT_TMP\"}" "Imported:"
+
+# Collect the UUIDs of everything we just imported for cleanup.
+while IFS= read -r uuid; do
+    [ -n "$uuid" ] && IMPORT_UUIDS+=("$uuid")
+done < <(omv-rpc -u admin "Compose" "getFileList" \
+    '{"start":0,"limit":1000,"sortfield":"name","sortdir":"ASC"}' 2>/dev/null \
+    | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+for r in rows:
+    if r.get('name','').startswith('omvtest_import_'):
+        print(r['uuid'])
+" 2>/dev/null || true)
+
+# Check each expected stack was imported.
+for name in omvtest_import_stack1 omvtest_import_stack2 omvtest_import_stack3; do
+    uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "$name")
+    if [ -n "$uuid" ]; then
+        _pass "$name imported"
+    else
+        _fail "$name imported" "not found in file list"
+    fi
+done
+
+# Check recursive scanning found the nested stack.
+nested_uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_import_stack4")
+if [ -n "$nested_uuid" ]; then
+    _pass "recursive scan found omvtest_import_stack4"
+else
+    _fail "recursive scan found omvtest_import_stack4" "not found in file list"
+fi
+
+# Check README description was used for omvtest_import_readme.
+readme_uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_import_readme")
+if [ -n "$readme_uuid" ]; then
+    readme_desc=$(omv-rpc -u admin "Compose" "getFile" "{\"uuid\":\"$readme_uuid\"}" 2>/dev/null \
+        | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('description',''))" 2>/dev/null || echo "")
+    if echo "$readme_desc" | grep -q "test stack"; then
+        _pass "README description extracted for omvtest_import_readme"
+    else
+        _fail "README description extracted for omvtest_import_readme" \
+              "description was: '$readme_desc'"
+    fi
+else
+    _skip "README description extracted" "omvtest_import_readme not imported"
+fi
+
+# --- doImportExistingFolder: re-run should skip all duplicates ---------------
+
+assert_rpc_bg "doImportExistingFolder skips duplicates" \
+    "Compose" "doImportExistingFolder" \
+    "{\"path\":\"$IMPORT_TMP\"}" "Skipping"
+
+if echo "$BG_OUT" | grep -q "0 imported"; then
+    _pass "doImportExistingFolder reported 0 imported on second run"
+else
+    _fail "doImportExistingFolder reported 0 imported on second run" \
+          "output: ${BG_OUT:0:200}"
+fi
+
+# --- doPreviewImportFolder: after import, all should show SKIP ---------------
+
+assert_rpc_bg "doPreviewImportFolder shows SKIP after import" \
+    "Compose" "doPreviewImportFolder" \
+    "{\"path\":\"$IMPORT_TMP\"}" "SKIP - already exists"
+
+# --- doImportExistingOne: import a single stack ------------------------------
+
+# Create omvtest_import_one here (not at the top) so doImportExistingFolder
+# above doesn't include it in the bulk import, keeping this a fresh import.
+_make_stack "$IMPORT_TMP/omvtest_import_one" "compose.yml"
+
+assert_rpc_bg "doImportExistingOne imports stack" \
+    "Compose" "doImportExistingOne" \
+    "{\"path\":\"$IMPORT_TMP/omvtest_import_one\"}" "Imported:"
+
+one_uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_import_one")
+if [ -n "$one_uuid" ]; then
+    _pass "omvtest_import_one found in file list after doImportExistingOne"
+    IMPORT_UUIDS+=("$one_uuid")
+else
+    _fail "omvtest_import_one found in file list after doImportExistingOne" "not found"
+fi
+
+# --- doImportExistingOne: duplicate is reported, not an error ----------------
+
+assert_rpc_bg "doImportExistingOne skips duplicate" \
+    "Compose" "doImportExistingOne" \
+    "{\"path\":\"$IMPORT_TMP/omvtest_import_one\"}" "Skipping"
+
+# --- doImportExistingOne: file path is stripped to its parent dir ------------
+
+_make_stack "$IMPORT_TMP/omvtest_import_strip" "compose.yml"
+assert_rpc_bg "doImportExistingOne strips file path to directory" \
+    "Compose" "doImportExistingOne" \
+    "{\"path\":\"$IMPORT_TMP/omvtest_import_strip/compose.yml\"}" "Imported:"
+
+strip_uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_import_strip")
+if [ -n "$strip_uuid" ]; then
+    _pass "omvtest_import_strip imported after file path was stripped"
+    IMPORT_UUIDS+=("$strip_uuid")
+else
+    _fail "omvtest_import_strip imported after file path was stripped" "not found"
+fi
+
+# --- doImportPortainerStacks: graceful error on unreachable host -------------
+
+assert_rpc_bg "doImportPortainerStacks handles unreachable host" \
+    "Compose" "doImportPortainerStacks" \
+    '{"url":"https://invalid-host-omvtest.local:9443","apikey":"ptr_test","username":"","password":"","sslverify":"false"}' \
+    "Error:"
+
+# ---------------------------------------------------------------------------
+# 13. Delete test objects (also done by cleanup trap, but verify RPCs work)
 # ---------------------------------------------------------------------------
 section "Delete test objects"
 
