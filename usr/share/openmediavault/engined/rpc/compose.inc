@@ -96,6 +96,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("importChanges");
         $this->registerMethod("importExistingFolder");
         $this->registerMethod("importExistingOne");
+        $this->registerMethod("doPreviewImportFolder");
+        $this->registerMethod("doImportExistingFolder");
+        $this->registerMethod("doImportExistingOne");
 
         $this->registerMethod("importConfig");
         $this->registerMethod("importDockerfile");
@@ -609,6 +612,72 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         $body = str_replace('${{ tz }}', $this->getTimezone(), $body);
         return $body;
+    }
+
+    private function findComposeFile($dir)
+    {
+        $name = basename(rtrim($dir, '/'));
+        $candidates = [
+            sprintf('%s/%s.yml', $dir, $name),
+            sprintf('%s/compose.yml', $dir),
+            sprintf('%s/compose.yaml', $dir),
+            sprintf('%s/docker-compose.yml', $dir),
+            sprintf('%s/docker-compose.yaml', $dir),
+        ];
+        foreach ($candidates as $candidate) {
+            if (file_exists($candidate)) {
+                return $candidate;
+            }
+        }
+        return null;
+    }
+
+    private function scanForComposeDirs($path, $maxDepth = 4, $currentDepth = 0)
+    {
+        $found = [];
+        if ($currentDepth > $maxDepth) {
+            return $found;
+        }
+        $entries = array_diff(scandir($path), ['.', '..']);
+        foreach ($entries as $entry) {
+            $full = sprintf('%s/%s', $path, $entry);
+            if (!is_dir($full)) {
+                continue;
+            }
+            if ($this->findComposeFile($full) !== null) {
+                $found[] = $full;
+            } else {
+                $found = array_merge($found, $this->scanForComposeDirs($full, $maxDepth, $currentDepth + 1));
+            }
+        }
+        return $found;
+    }
+
+    private function descriptionFromReadme($dir)
+    {
+        foreach (['README.md', 'readme.md', 'README'] as $filename) {
+            $readmePath = sprintf('%s/%s', $dir, $filename);
+            if (!file_exists($readmePath)) {
+                continue;
+            }
+            $lines = file($readmePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            if ($lines === false) {
+                continue;
+            }
+            foreach ($lines as $line) {
+                $line = trim($line);
+                if ($line === '' || $line[0] === '#' || $line[0] === '=') {
+                    continue;
+                }
+                $line = preg_replace('/[*_`\[\]()!]/', '', $line);
+                $line = trim($line);
+                if ($line === '') {
+                    continue;
+                }
+                return mb_strimwidth($line, 0, 100, '...');
+            }
+        }
+        return null;
     }
 
 
@@ -2704,7 +2773,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // set object values
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $object->set('name', $name);
-        $object->set('description', 'imported ' . date("Y.m.d H:i"));
+        $object->set('description', $this->descriptionFromReadme($path) ?? ('imported ' . date("Y.m.d H:i")));
         $object->set('body', $body);
         $object->set('env', $env);
         $object->set('override', $override);
@@ -2718,6 +2787,188 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db->set($object);
         // clear cache for files
         $this->clearCache('files');
+    }
+
+    public function doImportExistingOne($params, $context)
+    {
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->getComposePath($context);
+        $path = $params['path'];
+        $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
+        if (!is_dir($path)) {
+            $path = dirname($path);
+        }
+        if (!is_dir($path)) {
+            throw new \OMV\ExecException($path . ' does not exist!');
+        }
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename) use ($path) {
+            $name = basename(rtrim($path, '/'));
+            $composeFile = $this->findComposeFile($path);
+            if ($composeFile === null) {
+                file_put_contents($bgOutputFilename, "No compose file found in: $path\n", FILE_APPEND);
+                return;
+            }
+            $filename = basename($composeFile);
+            $db = \OMV\Config\Database::getInstance();
+            $tempObj = new \OMV\Config\ConfigObject("conf.service.compose.file");
+            $tempObj->set('name', $name);
+            try {
+                $db->assertIsUnique($tempObj, 'name');
+            } catch (Exception $e) {
+                file_put_contents($bgOutputFilename,
+                    "Skipping (already exists): $name\n", FILE_APPEND);
+                return;
+            }
+            $body = $this->removeIllegal(file_get_contents($composeFile));
+            $envFile = sprintf('%s/%s.env', $path, $name);
+            if (!file_exists($envFile)) {
+                $envFile = sprintf('%s/.env', $path);
+            }
+            $env = '';
+            if (file_exists($envFile)) {
+                $env = $this->removeIllegal(file_get_contents($envFile)) ?: '';
+            }
+            $overrideFile = sprintf('%s/compose.override.yml', $path);
+            $override = '';
+            if (file_exists($overrideFile)) {
+                $override = $this->removeIllegal(file_get_contents($overrideFile)) ?: '';
+            }
+            $desc = $this->descriptionFromReadme($path) ?? ('imported ' . date("Y.m.d H:i"));
+            $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+            $object->set('name', $name);
+            $object->set('description', $desc);
+            $object->set('body', $body);
+            $object->set('env', $env);
+            $object->set('override', $override);
+            $db->set($object);
+            $this->clearCache('files');
+            file_put_contents($bgOutputFilename,
+                "Imported: $name  ($filename)\n", FILE_APPEND);
+        });
+    }
+
+    public function doPreviewImportFolder($params, $context)
+    {
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $path = $params['path'];
+        $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
+        if (!is_dir($path)) {
+            $path = dirname($path);
+        }
+        if (!is_dir($path)) {
+            throw new \OMV\ExecException($path . ' does not exist!');
+        }
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename) use ($path) {
+            file_put_contents($bgOutputFilename, "Scanning: $path\n\n", FILE_APPEND);
+            $dirs = $this->scanForComposeDirs($path);
+            if (empty($dirs)) {
+                file_put_contents($bgOutputFilename, "No compose files found.\n", FILE_APPEND);
+                return;
+            }
+            $db = \OMV\Config\Database::getInstance();
+            $wouldImport = 0;
+            $wouldSkip = 0;
+            file_put_contents($bgOutputFilename,
+                sprintf("Found %d folder(s):\n\n", count($dirs)), FILE_APPEND);
+            foreach ($dirs as $dir) {
+                $name = basename(rtrim($dir, '/'));
+                $composeFile = $this->findComposeFile($dir);
+                $filename = basename($composeFile);
+                $tempObj = new \OMV\Config\ConfigObject("conf.service.compose.file");
+                $tempObj->set('name', $name);
+                $exists = false;
+                try {
+                    $db->assertIsUnique($tempObj, 'name');
+                } catch (Exception $e) {
+                    $exists = true;
+                }
+                if ($exists) {
+                    file_put_contents($bgOutputFilename,
+                        "  [SKIP - already exists]  $name  ($filename)\n", FILE_APPEND);
+                    $wouldSkip++;
+                } else {
+                    $desc = $this->descriptionFromReadme($dir);
+                    $descStr = $desc ? " — $desc" : '';
+                    file_put_contents($bgOutputFilename,
+                        "  [WOULD IMPORT]  $name  ($filename)$descStr\n", FILE_APPEND);
+                    $wouldImport++;
+                }
+            }
+            file_put_contents($bgOutputFilename, sprintf(
+                "\nSummary: %d would be imported, %d already exist (would skip).\n",
+                $wouldImport, $wouldSkip
+            ), FILE_APPEND);
+        });
+    }
+
+    public function doImportExistingFolder($params, $context)
+    {
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->getComposePath($context);
+        $path = $params['path'];
+        $path = (substr($path, 0, 1) == '/' ? $path : '/' . $path);
+        if (!is_dir($path)) {
+            $path = dirname($path);
+        }
+        if (!is_dir($path)) {
+            throw new \OMV\ExecException($path . ' does not exist!');
+        }
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename) use ($path) {
+            file_put_contents($bgOutputFilename, "Scanning: $path\n\n", FILE_APPEND);
+            $dirs = $this->scanForComposeDirs($path);
+            if (empty($dirs)) {
+                file_put_contents($bgOutputFilename, "No compose files found.\n", FILE_APPEND);
+                return;
+            }
+            $db = \OMV\Config\Database::getInstance();
+            $imported = 0;
+            $skipped = 0;
+            foreach ($dirs as $dir) {
+                $name = basename(rtrim($dir, '/'));
+                $composeFile = $this->findComposeFile($dir);
+                $filename = basename($composeFile);
+                $tempObj = new \OMV\Config\ConfigObject("conf.service.compose.file");
+                $tempObj->set('name', $name);
+                try {
+                    $db->assertIsUnique($tempObj, 'name');
+                } catch (Exception $e) {
+                    file_put_contents($bgOutputFilename,
+                        "  Skipping (already exists): $name\n", FILE_APPEND);
+                    $skipped++;
+                    continue;
+                }
+                $body = $this->removeIllegal(file_get_contents($composeFile));
+                $envFile = sprintf('%s/%s.env', $dir, $name);
+                if (!file_exists($envFile)) {
+                    $envFile = sprintf('%s/.env', $dir);
+                }
+                $env = '';
+                if (file_exists($envFile)) {
+                    $env = $this->removeIllegal(file_get_contents($envFile)) ?: '';
+                }
+                $overrideFile = sprintf('%s/compose.override.yml', $dir);
+                $override = '';
+                if (file_exists($overrideFile)) {
+                    $override = $this->removeIllegal(file_get_contents($overrideFile)) ?: '';
+                }
+                $desc = $this->descriptionFromReadme($dir) ?? ('imported ' . date("Y.m.d H:i"));
+                $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
+                $object->set('name', $name);
+                $object->set('description', $desc);
+                $object->set('body', $body);
+                $object->set('env', $env);
+                $object->set('override', $override);
+                $db->set($object);
+                file_put_contents($bgOutputFilename,
+                    "  Imported: $name  ($filename)\n", FILE_APPEND);
+                $imported++;
+            }
+            $this->clearCache('files');
+            file_put_contents($bgOutputFilename, sprintf(
+                "\nDone. %d imported, %d skipped (already exist).\n",
+                $imported, $skipped
+            ), FILE_APPEND);
+        });
     }
 
     public function importConfig($params, $context)

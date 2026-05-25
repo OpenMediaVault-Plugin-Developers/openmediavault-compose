@@ -158,6 +158,40 @@ data:
                       request:
                         service: Compose
                         method: doAutocompose
+          - text: _("Preview Import")
+            icon: mdi:file-search-outline
+            execute:
+              type: formDialog
+              formDialog:
+                title: _("Preview import from folder ...")
+                fields:
+                  - type: hint
+                    hintType: info
+                    text: _("Scan a folder recursively for compose files and preview what would be imported, without making any changes.")
+                  - type: hidden
+                    name: rootfsref
+                    value: "79684322-3eac-11ea-a974-63a080abab18"
+                    submitValue: false
+                  - type: folderBrowser
+                    name: path
+                    label: _("Path")
+                    value: ""
+                    dirType: mntent
+                    dirRefIdField: rootfsref
+                buttons:
+                  submit:
+                    text: _("Preview")
+                    execute:
+                      type: taskDialog
+                      taskDialog:
+                        config:
+                          title: _("Preview import ...")
+                          startOnInit: true
+                          request:
+                            service: Compose
+                            method: doPreviewImportFolder
+                            params:
+                              path: "{{ path }}"
           - text: _("Import")
             icon: mdi:file-import-outline
             execute:
@@ -167,7 +201,7 @@ data:
                 fields:
                   - type: hint
                     hintType: info
-                    text: _("This will import one or more compose files in subfolders.<br/>It will not import any compose files that already exist in the plugin.")
+                    text: _("This will import one or more compose files in subfolders (scanned recursively).<br/>It will not import any compose files that already exist in the plugin.")
                   - type: hidden
                     name: rootfsref
                     value: "79684322-3eac-11ea-a974-63a080abab18"
@@ -182,10 +216,17 @@ data:
                   submit:
                     text: _("Import")
                     execute:
-                      type: request
-                      request:
-                        service: Compose
-                        method: importExistingFolder
+                      type: taskDialog
+                      taskDialog:
+                        successUrl: "/services/compose/files"
+                        config:
+                          title: _("Import existing compose folders ...")
+                          startOnInit: true
+                          request:
+                            service: Compose
+                            method: doImportExistingFolder
+                            params:
+                              path: "{{ path }}"
           - text: _("Import one")
             icon: mdi:file-import
             execute:
@@ -210,10 +251,17 @@ data:
                   submit:
                     text: _("Import")
                     execute:
-                      type: request
-                      request:
-                        service: Compose
-                        method: importExistingOne
+                      type: taskDialog
+                      taskDialog:
+                        successUrl: "/services/compose/files"
+                        config:
+                          title: _("Import existing compose file ...")
+                          startOnInit: true
+                          request:
+                            service: Compose
+                            method: doImportExistingOne
+                            params:
+                              path: "{{ path }}"
           - text: _("Import from Portainer")
             icon: mdi:alpha-p-box-outline
             execute:
