@@ -347,7 +347,7 @@ data:
             service: Compose
             method: deleteFile
             params:
-              uuid: "{{ _selected[0].uuid }}"
+              uuid: "{{ uuid }}"
       - type: iconButton
         icon: mdi:check-network-outline
         tooltip: _("check")
@@ -371,7 +371,6 @@ data:
         tooltip: _("up")
         enabledConstraints:
           minSelected: 1
-          maxSelected: 1
         execute:
           type: taskDialog
           taskDialog:
@@ -380,9 +379,9 @@ data:
               startOnInit: true
               request:
                 service: Compose
-                method: doCommand
+                method: doCommandList
                 params:
-                  uuid: "{{ _selected[0].uuid }}"
+                  uuids: "{{ _selected | map('get', 'uuid') | join(',') }}"
                   command: "up -d"
       - type: iconButton
         icon: "stop"
@@ -407,7 +406,6 @@ data:
         tooltip: _("down")
         enabledConstraints:
           minSelected: 1
-          maxSelected: 1
         execute:
           type: taskDialog
           taskDialog:
@@ -416,9 +414,9 @@ data:
               startOnInit: true
               request:
                 service: Compose
-                method: doCommand
+                method: doCommandList
                 params:
-                  uuid: "{{ _selected[0].uuid }}"
+                  uuids: "{{ _selected | map('get', 'uuid') | join(',') }}"
                   command: "down"
       - type: iconButton
         icon: mdi:download-network-outline

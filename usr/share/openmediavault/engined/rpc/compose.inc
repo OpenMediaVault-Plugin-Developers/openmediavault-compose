@@ -27,6 +27,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     private $cacheFileStats = '/var/cache/openmediavault/compose_cache_stats.json';
     private $cacheFileImages = '/var/cache/openmediavault/compose_cache_images';
     private $cacheFileNetworks = '/var/cache/openmediavault/compose_cache_networks.json';
+    private $cacheFileNetworksInspect = '/var/cache/openmediavault/compose_cache_networks_inspect.json';
     private $cacheFileVolumes = '/var/cache/openmediavault/compose_cache_volumes.json';
     private $cacheFileContainers = '/var/cache/openmediavault/compose_cache_containers.json';
     private $cacheImagesExampleList = '/var/www/openmediavault/assets/composeImages';
@@ -53,6 +54,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
         $this->registerMethod("doCommand");
+        $this->registerMethod("doCommandList");
         $this->registerMethod("doDownAll");
         $this->registerMethod("doGit");
         $this->registerMethod("getLog");
@@ -178,6 +180,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         if (($file == 'networks' || $file == 'all') && file_exists($this->cacheFileNetworks)) {
             unlink($this->cacheFileNetworks);
+        }
+        if (($file == 'networks' || $file == 'all') && file_exists($this->cacheFileNetworksInspect)) {
+            unlink($this->cacheFileNetworksInspect);
         }
         if (($file == 'volumes' || $file == 'all') && file_exists($this->cacheFileVolumes)) {
             unlink($this->cacheFileVolumes);
@@ -1593,6 +1598,71 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($params['command'] != 'config' && $exitStatus !== 0) {
                     $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
                     file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
+                }
+                return $output;
+            }
+        );
+    }
+
+    public function doCommandList($params, $context)
+    {
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->clearCache('files');
+        $this->clearCache('images');
+        $db = \OMV\Config\Database::getInstance();
+        $uuids = array_filter(array_map('trim', explode(',', $params['uuids'])));
+        $objects = [];
+        foreach ($uuids as $uuid) {
+            $objects[] = $db->get("conf.service.compose.file", $uuid);
+        }
+        $podman = $this->getPodman($context);
+        $sfpath = $this->getComposePath($context);
+        $showCmd = $this->getShowCmd($context);
+        return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
+            use ($objects, $params, $sfpath, $showCmd, $podman) {
+                foreach ($objects as $object) {
+                    $cname = $object->get('name');
+                    $composeDir = sprintf("%s/%s", $sfpath, $cname);
+                    $composeName = sprintf("%s/%s", $composeDir, $cname);
+                    $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
+                    $globalEnvFile = sprintf("%s/global.env", $sfpath);
+                    $cmdArgs = [];
+                    $cmdArgs[] = 'docker';
+                    $cmdArgs[] = 'compose';
+                    $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
+                    if (file_exists($overrideFile)) {
+                        $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
+                    }
+                    if (file_exists($globalEnvFile)) {
+                        $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
+                    }
+                    $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
+                    $cmdArgs[] = $params['command'];
+                    if (!empty($params['command2'] ?? '')) {
+                        $cmdArgs[] = $params['command2'];
+                    }
+                    $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
+                    if ($quiet) {
+                        switch ($params['command']) {
+                            case 'pull': $cmdArgs[] = '--quiet'; break;
+                            case 'up -d': $cmdArgs[] = '--quiet-pull'; break;
+                        }
+                    }
+                    $cmdArgs = array_filter($cmdArgs);
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    if ($podman) {
+                        $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                        $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                    }
+                    $cmd->setRedirect2to1();
+                    $cmd->setQuiet(true);
+                    $cmdLine = $cmd->getCommandLine();
+                    if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                    $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
+                    if ($exitStatus !== 0) {
+                        $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
+                        file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
+                    }
                 }
                 return $output;
             }
@@ -3659,11 +3729,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $networksAssoc[] = [
                 "name" => $networkJson->Name ?? $networkJson->name,
                 "driver" => $networkJson->Driver ?? $networkJson->driver,
+                "subnet" => "",
+                "gateway" => "",
                 "containers" => []
             ];
         }
+        $networkNames = array_column($networksAssoc, 'name');
+        $networkInspect = $this->inspectNetworks($networkNames, $podman, $cacheTime);
         // Build network -> containers map.
-        // Use the containers cache if warm; otherwise run docker ps directly.
         $networkContainers = [];
         $containerLines = [];
         if (file_exists($this->cacheFileContainers)) {
@@ -3696,18 +3769,47 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
         }
         foreach ($containers as $container) {
+            // podman returns Names as an array; docker returns a string.
             $cname = $container->Names ?? $container->Name ?? $container->names ?? '';
+            if (is_array($cname)) {
+                $cname = $cname[0] ?? '';
+            }
+            if ($cname === '') {
+                continue;
+            }
+            // podman returns Networks as an array; docker as a comma-separated string.
             $nets = $container->Networks ?? $container->networks ?? '';
-            if (is_string($nets) && $nets !== '') {
-                foreach (array_map('trim', explode(',', $nets)) as $net) {
-                    if ($net !== '') {
-                        $networkContainers[$net][] = $cname;
-                    }
+            if (is_array($nets)) {
+                $netList = $nets;
+            } elseif (is_string($nets) && $nets !== '') {
+                $netList = explode(',', $nets);
+            } else {
+                $netList = [];
+            }
+            foreach ($netList as $net) {
+                $net = trim((string) $net);
+                if ($net !== '') {
+                    $networkContainers[$net][] = $cname;
                 }
             }
         }
         foreach ($networksAssoc as &$network) {
-            $network['containers'] = $networkContainers[$network['name']] ?? [];
+            $info = $networkInspect[$network['name']] ?? null;
+            $network['subnet'] = $info['subnet'] ?? '';
+            $network['gateway'] = $info['gateway'] ?? '';
+            $ips = $info['ips'] ?? [];
+            $names = $networkContainers[$network['name']] ?? [];
+            foreach (array_keys($ips) as $inspectName) {
+                if (!in_array($inspectName, $names, true)) {
+                    $names[] = $inspectName;
+                }
+            }
+            $list = [];
+            foreach ($names as $cname) {
+                $ip = $ips[$cname] ?? '';
+                $list[] = ($ip !== '') ? sprintf('%s (%s)', $cname, $ip) : $cname;
+            }
+            $network['containers'] = $list;
         }
         unset($network);
         // Filter the result.
@@ -3718,6 +3820,99 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     public function getNetworksBg($params, $context)
     {
         return $this->callMethodBg("getNetworks", $params, $context);
+    }
+
+    private function inspectNetworks($names, $podman, $cacheTime)
+    {
+        $result = [];
+        if (empty($names)) {
+            return $result;
+        }
+        $lines = [];
+        if ($cacheTime > 0 && file_exists($this->cacheFileNetworksInspect) &&
+          (time() - filemtime($this->cacheFileNetworksInspect)) < $cacheTime) {
+            $lines = json_decode(file_get_contents($this->cacheFileNetworksInspect), true) ?? [];
+        } else {
+            $cmdArgs = ['docker', 'network', 'inspect'];
+            foreach ($names as $name) {
+                $cmdArgs[] = escapeshellarg($name);
+            }
+            $cmdArgs[] = '--format "{{json .}}"';
+            $cmd = new \OMV\System\Process($cmdArgs);
+            if ($podman) {
+                $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+            }
+            $cmd->setQuiet(true);
+            $cmd->execute($lines, $exitStatus);
+            if ($cacheTime > 0) {
+                file_put_contents($this->cacheFileNetworksInspect, json_encode($lines));
+            }
+        }
+        foreach ($lines as $line) {
+            $net = json_decode($line);
+            if (!is_object($net)) {
+                continue;
+            }
+            $name = $net->Name ?? $net->name ?? '';
+            if ($name === '') {
+                continue;
+            }
+            $subnets = [];
+            $gateways = [];
+            // docker: IPAM.Config[] {Subnet, Gateway}
+            // podman: subnets[] {subnet, gateway}
+            $ipamConfig = $net->IPAM->Config ?? $net->subnets ?? [];
+            if (is_array($ipamConfig)) {
+                foreach ($ipamConfig as $cfg) {
+                    $sub = $cfg->Subnet ?? $cfg->subnet ?? '';
+                    $gw = $cfg->Gateway ?? $cfg->gateway ?? '';
+                    if ($sub !== '') {
+                        $subnets[] = $sub;
+                    }
+                    if ($gw !== '') {
+                        $gateways[] = $gw;
+                    }
+                }
+            }
+            $ips = [];
+            // docker: Containers{} {Name, IPv4Address}
+            // podman: containers{} {name, interfaces{} {subnets[] {ipnet}}}
+            $containers = $net->Containers ?? $net->containers ?? null;
+            if (is_object($containers)) {
+                foreach ($containers as $c) {
+                    $cname = $c->Name ?? $c->name ?? '';
+                    if ($cname === '') {
+                        continue;
+                    }
+                    $addr = $c->IPv4Address ?? '';
+                    if ($addr === '' && isset($c->interfaces)) {
+                        foreach ((array) $c->interfaces as $iface) {
+                            $ifSubnets = $iface->subnets ?? [];
+                            if (is_array($ifSubnets)) {
+                                foreach ($ifSubnets as $s) {
+                                    if (!empty($s->ipnet)) {
+                                        $addr = $s->ipnet;
+                                        break 2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // Strip the CIDR suffix (e.g. "172.19.0.2/16") for display.
+                    if ($addr !== '') {
+                        $addr = explode('/', $addr)[0];
+                    }
+                    $ips[$cname] = $addr;
+                }
+            }
+            $result[$name] = [
+                'subnet' => implode('<br>', $subnets),
+                'gateway' => implode('<br>', $gateways),
+                'ips' => $ips,
+            ];
+        }
+        return $result;
     }
 
     function enumerateNetworkList($params, $context)

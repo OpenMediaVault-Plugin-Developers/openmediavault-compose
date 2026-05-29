@@ -260,6 +260,13 @@ cleanup() {
         rm -rf "$IMPORT_TMP"
     fi
     echo "" >&2
+
+    # Deploy pending config changes so the OMV web UI "apply changes" banner
+    # does not linger after this test run. Runs detached/async so the script
+    # returns promptly; --append-dirty clears the dirty-module markers (the
+    # banner) once the deploy completes.
+    info "Deploying pending config changes asynchronously (clears web UI banner)"
+    nohup omv-salt deploy run --quiet --append-dirty >/dev/null 2>&1 &
 }
 trap cleanup EXIT
 
@@ -670,6 +677,12 @@ assert_rpc_bg "getVolumesBg" "Compose" "getVolumesBg" \
 
 assert_rpc "getNetworks" "Compose" "getNetworks" \
     '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}' '"total"'
+
+assert_rpc "getNetworks has subnet field" "Compose" "getNetworks" \
+    '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}' '"subnet"'
+
+assert_rpc "getNetworks has gateway field" "Compose" "getNetworks" \
+    '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}' '"gateway"'
 
 assert_rpc_bg "getNetworksBg" "Compose" "getNetworksBg" \
     '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}'
