@@ -37,7 +37,7 @@ container_storage_dir:
     - name: "{{ storage_path }}"
     - user: root
     - group: root
-    - mode: "0755"
+    - mode: '0755'
     - makedirs: True
 {% endif %}
 
@@ -57,7 +57,7 @@ podman_storage_conf:
     - name: /etc/containers/storage.conf
     - user: root
     - group: root
-    - mode: "0644"
+    - mode: '0644'
     - makedirs: True
     - contents: |
         [storage]
@@ -113,7 +113,7 @@ configure_etc_docker_dir:
     - name: "/etc/docker"
     - user: "root"
     - group: "root"
-    - mode: "0755"
+    - mode: '0755'
     - makedirs: True
 
 /etc/docker/daemon.json:
@@ -133,7 +133,7 @@ configure_etc_docker_dir:
     - serializer: json
     - user: root
     - group: root
-    - mode: "0600"
+    - mode: '0600'
 
 docker:
   service.running:
@@ -185,7 +185,7 @@ common_install_packages:
         [Unit]
         After=local-fs.target {{ mounts }}
         Wants=local-fs.target {{ mounts }}
-    - mode: "0644"
+    - mode: '0644'
     - makedirs: True
 
 {% if use_podman %}
@@ -195,7 +195,7 @@ common_install_packages:
         [Unit]
         After=local-fs.target {{ mounts }}
         Wants=local-fs.target {{ mounts }}
-    - mode: "0644"
+    - mode: '0644'
     - makedirs: True
 {% else %}
 {{ restartWaitConf }}:
@@ -208,7 +208,7 @@ common_install_packages:
     - contents: |
         [Service]
         ExecStartPre=/bin/sleep {{ config.dockerdelay }}
-    - mode: "0644"
+    - mode: '0644'
     - makedirs: True
 {% else %}
 {{ delayConf }}:

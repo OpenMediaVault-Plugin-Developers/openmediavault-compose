@@ -27,7 +27,7 @@ configure_compose_scheduled_backup:
         jobs: {{ config | json }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: '0644'
 
 configure_compose_scheduled_update:
   file.managed:
@@ -39,7 +39,7 @@ configure_compose_scheduled_update:
         jobs: {{ config | json }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: '0644'
 
 configure_compose_scheduled_prune:
   file.managed:
@@ -51,7 +51,7 @@ configure_compose_scheduled_prune:
         jobs: {{ config | json }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: '0644'
 
 configure_compose_scheduled_start:
   file.managed:
@@ -63,7 +63,7 @@ configure_compose_scheduled_start:
         jobs: {{ config | json }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: '0644'
 
 configure_compose_scheduled_build:
   file.managed:
@@ -75,7 +75,7 @@ configure_compose_scheduled_build:
         jobs: {{ config | json }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: '0644'
 
 configure_compose_scheduled_stop:
   file.managed:
@@ -87,4 +87,4 @@ configure_compose_scheduled_stop:
         jobs: {{ config | json }}
     - user: root
     - group: root
-    - mode: 644
+    - mode: '0644'
