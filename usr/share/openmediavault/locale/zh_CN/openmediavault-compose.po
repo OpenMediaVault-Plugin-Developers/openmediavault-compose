@@ -5,15 +5,16 @@
 # 
 # Translators:
 # songming <by@songming.me>, 2026
+# irrelevant91, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-25 13:09+0000\n"
+"POT-Creation-Date: 2026-05-31 00:56+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: songming <by@songming.me>, 2026\n"
+"Last-Translator: irrelevant91, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -134,7 +135,7 @@ msgid "Backup shared folder must be different than docker shared folder"
 msgstr "备份存储的共享文件夹必须和 docker 存储的共享文件夹不同"
 
 msgid "Backup storage"
-msgstr ""
+msgstr "备份存储"
 
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 msgstr "您的 Portainer 实例的基础 URL，例如 https://192.168.1.10:9443"
@@ -233,7 +234,7 @@ msgid "Compose file shared folder must be different than docker shared folder"
 msgstr "Compose 文件存储的共享文件夹必须和 docker 存储的文件夹不同"
 
 msgid "Compose file storage"
-msgstr ""
+msgstr "Compose 文件存储"
 
 msgid "Compose file to be associate imported files with"
 msgstr "Compose 文件与导入的文件相关联"
@@ -338,7 +339,7 @@ msgid "Data shared folder must be different than docker shared folder"
 msgstr "数据存储共享文件夹必须和 docker 存储共享文件夹不同"
 
 msgid "Data storage"
-msgstr ""
+msgstr "数据存储"
 
 msgid "Date & Time"
 msgstr "日期&时间"
@@ -857,16 +858,16 @@ msgid "Pre-backup script"
 msgstr "备份前脚本"
 
 msgid "Preview"
-msgstr ""
+msgstr "预览"
 
 msgid "Preview Import"
-msgstr ""
+msgstr "预览导入的内容"
 
 msgid "Preview import ..."
-msgstr ""
+msgstr "预览导入的内容..."
 
 msgid "Preview import from folder ..."
-msgstr ""
+msgstr "预览从文件夹导入的内容..."
 
 msgid "Project"
 msgstr "工程"
@@ -983,7 +984,7 @@ msgstr "星期六"
 msgid ""
 "Scan a folder recursively for compose files and preview what would be "
 "imported, without making any changes."
-msgstr ""
+msgstr "递归扫描文件夹以查找 Compose 文件，并预览即将导入的内容，而不进行任何更改。"
 
 msgid "Schedule"
 msgstr "计划"
@@ -1172,32 +1173,32 @@ msgstr "该字段应该仅包含 * 或以逗号分隔的值。"
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
 "file permissions, which are required by this plugin."
-msgstr ""
+msgstr "为“%s”选定的共享文件夹（%s 文件系统）不支持 Linux 文件权限，而此插件需要支持 Linux 文件权限。"
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support file "
 "locking, which is required by Compose and many container applications."
-msgstr ""
+msgstr "为“%s” 选定的共享文件夹（%s 文件系统）不支持文件锁定功能，而 Compose 及许多容器应用程序均要求此功能。"
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support hard "
 "links, which are required by some container applications."
-msgstr ""
+msgstr "为“%s”选定的共享文件夹（%s 文件系统）不支持硬链接，而某些容器应用程序需要支持硬链接。"
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support named "
 "pipes (FIFOs), which are required by some container applications."
-msgstr ""
+msgstr "为“%s”选定的共享文件夹（%s 文件系统）不支持命名管道（FIFO），而某些容器应用程序需要此功能。"
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support "
 "symbolic links, which are required by Docker and container applications."
-msgstr ""
+msgstr "为“%s”选定的共享文件夹（%s 文件系统）不支持符号链接，而 Docker 及容器应用程序均需支持符号链接。"
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
 "the filesystem is mounted read-write."
-msgstr ""
+msgstr "为“%s”选定的共享文件夹（%s 文件系统）不可写。请确认文件系统以读写模式挂载。"
 
 msgid "This is the filename. This should not be a path."
 msgstr "这是文件名，而不是路径。"
@@ -1222,7 +1223,7 @@ msgid ""
 "This will import one or more compose files in subfolders (scanned "
 "recursively).<br/>It will not import any compose files that already exist in"
 " the plugin."
-msgstr ""
+msgstr "此操作将导入子文件夹中（经递归扫描）的一个或多个 Compose 文件。<br/>不会导入插件中已存在的 Compose 文件。"
 
 msgid "Thursday"
 msgstr "星期四"
