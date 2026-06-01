@@ -36,6 +36,8 @@ data:
         flexGrow: 1
         sortable: true
         hidden: true
+        cellTemplateName: template
+        cellTemplateConfig: "{% if excludes %}{% for e in excludes | split(',') %}• {{ e }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% endif %}"
       - name: _("Maintenance")
         prop: ""
         flexGrow: 2
