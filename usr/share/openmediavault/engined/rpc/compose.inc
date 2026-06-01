@@ -50,6 +50,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getFileList");
         $this->registerMethod("getFileListBg");
         $this->registerMethod("getFileListSuggest");
+        $this->registerMethod("enumerateComposeNames");
         $this->registerMethod("getFile");
         $this->registerMethod("setFile");
         $this->registerMethod("deleteFile");
@@ -1056,6 +1057,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // Filter the result.
         return ($files);
+    }
+
+    public function enumerateComposeNames($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // Get configuration data.
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->get("conf.service.compose.file");
+        // Return the compose file names as objects so they can be used to
+        // populate a 'select' form field. Unlike getFileListSuggest this
+        // omits the '*' wildcard, which only makes sense in the text filter.
+        $names = [];
+        foreach ($objects as $objectk => &$objectv) {
+            $names[] = ["name" => $objectv->get('name')];
+        }
+        return ($names);
     }
 
     public function getFile($params, $context)
@@ -4554,6 +4572,30 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $params['prebackup'] = '';
             $params['postbackup'] = '';
         }
+        // merge filter patterns with the selected compose files
+        $filter = explode(',', $params['filter'] ?? '');
+        $filterm = array_merge($filter, $params['filterselect'] ?? []);
+        $filtert = array_map('trim', $filterm);
+        $filteru = array_unique($filtert);
+        $filterf = array_filter($filteru);
+        // only sort if both the text field and the dropdown were used
+        if (strlen(trim($params['filter'] ?? '')) > 0 && !empty($params['filterselect'])) {
+            sort($filterf);
+        }
+        $params['filter'] = implode(',', $filterf);
+        // merge excludefilter patterns with the selected compose files
+        $excludefilter = explode(',', $params['excludefilter'] ?? '');
+        $excludefilterm = array_merge($excludefilter, $params['excludeselect'] ?? []);
+        $excludefiltert = array_map('trim', $excludefilterm);
+        $excludefilteru = array_unique($excludefiltert);
+        $excludefilterf = array_filter($excludefilteru);
+        // only sort if both the text field and the dropdown were used
+        if (strlen(trim($params['excludefilter'] ?? '')) > 0 && !empty($params['excludeselect'])) {
+            sort($excludefilterf);
+        }
+        $params['excludefilter'] = implode(',', $excludefilterf);
+        // remove the helper select fields
+        unset($params['filterselect'], $params['excludeselect']);
         // clean filter
         $params['filter'] = str_replace(['@','(',')',' '], '', $params['filter']);
         // clean excludefilter

@@ -22,11 +22,15 @@ data:
         prop: filter
         flexGrow: 1
         sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: "{% if filter %}{% for f in filter | split(',') %}• {{ f }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% endif %}"
       - name: _("Exclude filter")
         prop: excludefilter
         flexGrow: 1
         sortable: true
         hidden: true
+        cellTemplateName: template
+        cellTemplateConfig: "{% if excludefilter %}{% for f in excludefilter | split(',') %}• {{ f }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% endif %}"
       - name: _("Excludes")
         prop: excludes
         flexGrow: 1

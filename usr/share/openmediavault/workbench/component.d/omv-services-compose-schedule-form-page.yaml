@@ -20,36 +20,66 @@ data:
         name: enable
         label: _("Enabled")
         value: true
-      - type: textInput
-        name: filter
-        label: _("Filter")
-        value: ""
-        suggestions: true
-        hint: _("Choose which compose files to include in this job by matching the compose name.<br/>Supports wildcards (*). e.g. web* or *cloud* or *app<br/>Leave blank or use just * to include all compose files.<br/>Separate multiple patterns with commas.")
-        validators:
-          pattern:
-            pattern: '^[a-zA-Z0-9_,\-*]*$'
-            errorData: _("Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and asterisks (*) allowed!")
-        store:
-          proxy:
-            service: Compose
-            get:
-              method: getFileListSuggest
-      - type: textInput
-        name: excludefilter
-        label: _("Exclude filter")
-        value: ""
-        suggestions: true
-        hint: _("Exclude specific compose files from this job by matching the compose name.<br/>Supports wildcards (*). e.g. nextcloud or *cloud* or private*<br/>Separate multiple patterns with commas.<br/>Exclusions are applied after the filter, so you can use * in Filter and exclude specific files here.")
-        validators:
-          pattern:
-            pattern: '^[a-zA-Z0-9_,\-*]*$'
-            errorData: _("Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and asterisks (*) allowed!")
-        store:
-          proxy:
-            service: Compose
-            get:
-              method: getFileListSuggest
+      - type: container
+        fields:
+          - type: textInput
+            name: filter
+            label: _("Filter")
+            value: ""
+            suggestions: true
+            hint: _("Choose which compose files to include in this job by matching the compose name.<br/>Supports wildcards (*). e.g. web* or *cloud* or *app<br/>Leave blank or use just * to include all compose files.<br/>Separate multiple patterns with commas.")
+            validators:
+              pattern:
+                pattern: '^[a-zA-Z0-9_,\-*]*$'
+                errorData: _("Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and asterisks (*) allowed!")
+            store:
+              proxy:
+                service: Compose
+                get:
+                  method: getFileListSuggest
+          - type: select
+            name: filterselect
+            label: _("Filter (pick files)")
+            multiple: true
+            value: []
+            textField: name
+            valueField: name
+            hint: _("Optionally pick specific compose files from the list. Your selection is merged with the Filter patterns above (combined and de-duplicated).")
+            store:
+              proxy:
+                service: Compose
+                get:
+                  method: enumerateComposeNames
+      - type: container
+        fields:
+          - type: textInput
+            name: excludefilter
+            label: _("Exclude filter")
+            value: ""
+            suggestions: true
+            hint: _("Exclude specific compose files from this job by matching the compose name.<br/>Supports wildcards (*). e.g. nextcloud or *cloud* or private*<br/>Separate multiple patterns with commas.<br/>Exclusions are applied after the filter, so you can use * in Filter and exclude specific files here.")
+            validators:
+              pattern:
+                pattern: '^[a-zA-Z0-9_,\-*]*$'
+                errorData: _("Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and asterisks (*) allowed!")
+            store:
+              proxy:
+                service: Compose
+                get:
+                  method: getFileListSuggest
+          - type: select
+            name: excludeselect
+            label: _("Exclude filter (pick files)")
+            multiple: true
+            value: []
+            textField: name
+            valueField: name
+            hint: _("Optionally pick specific compose files to exclude. Your selection is merged with the Exclude filter patterns above (combined and de-duplicated).")
+            store:
+              proxy:
+                service: Compose
+                get:
+                  method: enumerateComposeNames
       - type: textInput
         name: excludes
         label: _("Volume path excludes")
