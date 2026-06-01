@@ -1,3 +1,13 @@
+openmediavault-compose (8.1.19) stable; urgency=low
+
+  * Schedule jobs: the Filter and Exclude filter fields now have a
+    companion "pick files" dropdown, so you can either type wildcard
+    patterns (e.g. *cloud*) or check off specific compose files from a
+    list. Both inputs are combined and de-duplicated when the job is
+    saved.
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 01 Jun 2026 21:25:03 +0000
+
 openmediavault-compose (8.1.18) stable; urgency=low
 
   * Smarter import: now finds compose.yml and compose.yaml files in
