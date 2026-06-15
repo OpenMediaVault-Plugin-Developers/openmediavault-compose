@@ -123,7 +123,7 @@ msgid "August"
 msgstr "Augusztus"
 
 msgid "Authentication — fill in one of the two options below"
-msgstr ""
+msgstr "Hitelesítés – válasszon az alábbi két lehetőség közül"
 
 msgid "Autocompose"
 msgstr "Automatikus összeállítás"
@@ -152,7 +152,7 @@ msgstr ""
 " megosztott mappájával."
 
 msgid "Backup storage"
-msgstr ""
+msgstr "Biztonságimentés-tároló"
 
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 msgstr "A Portainer-példány alap-URL-je, pl. https://192.168.1.10:9443"
@@ -205,6 +205,11 @@ msgid ""
 "blank or use just * to include all compose files.<br/>Separate multiple "
 "patterns with commas."
 msgstr ""
+"Az összeállítás neve alapján válassza ki, mely összeállítási fájlokat "
+"szeretné bevonni ebbe a feladatba. <br/>A helyettesítő karakterek (*) "
+"használata támogatott. Például: web* vagy *cloud* vagy *app.<br/>Ha üresen "
+"hagyja, vagy csak a * karaktert használja, akkor az összes összeállítási "
+"fájl bevonásra kerül.<br/>Több minta vesszővel választható el."
 
 msgid "Clear cache"
 msgstr "Gyorsítótár törlése"
@@ -253,7 +258,7 @@ msgstr ""
 "megosztott mappájától."
 
 msgid "Compose file storage"
-msgstr ""
+msgstr "Összeállításfájl-tároló"
 
 msgid "Compose file to be associate imported files with"
 msgstr "Az importált fájlokkal társítandó Compose fájl"
@@ -292,7 +297,7 @@ msgid "Containers"
 msgstr "Konténerek"
 
 msgid "Could not connect to Portainer at %s."
-msgstr ""
+msgstr "Nem sikerült csatlakozni a Portainerhez a(z) %s címen."
 
 msgid "Create"
 msgstr "Létrehozás"
