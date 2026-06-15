@@ -632,7 +632,7 @@ echo ${backupsize} > "${spaceused}"
 if [ "${backupbackend}" = "borg" ] && [ -n "${backup_ts_run}" ]; then
   # Record repo size per snapshot timestamp (ts,repo_bytes,<bytes>)
   # Use backupsize you already computed (or du on "${borgrepo}" if you prefer)
-  echo #"${backup_ts_run},repo_bytes,${backupsize}" >> "${vollisthist}"
+  echo "${backup_ts_run},repo_bytes,${backupsize}" >> "${vollisthist}"
 fi
 
 # remove temp files
