@@ -97,7 +97,7 @@ docker compose ls --all --format json | jq -r ".[] | select(.ConfigFiles | conta
 _log "status :: $(cat ${status})"
 
 # log current image versions
-for image in $(sudo ${yq} .services.[].image "${yml}"); do
+for image in $(${yq} .services.[].image "${yml}"); do
    version_before=$(docker image ls --format '{{.ID}},{{.Repository}}:{{.Tag}}' "${image}")
   _log "version before :: ${version_before}"
   before_versions["${image}"]="${version_before}"
@@ -118,7 +118,7 @@ _log "Pulling new images ..."
 docker compose "${dockerComposeArgs[@]}" pull
 
 # log image versions after update
-for image in $(sudo ${yq} .services.[].image "${yml}"); do
+for image in $(${yq} .services.[].image "${yml}"); do
   version_after=$(docker image ls --format '{{.ID}},{{.Repository}}:{{.Tag}}' "${image}")
   if [ "${version_after}" != "${before_versions["${image}"]}" ]; then
     _log "version after :: ${version_after}"
