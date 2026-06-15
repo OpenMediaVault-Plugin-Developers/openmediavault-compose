@@ -1,3 +1,10 @@
+openmediavault-compose (8.1.20) stable; urgency=low
+
+  * Remove unnecessary sudo from omv-compose-update
+  * Minor logging fixes
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 15 Jun 2026 12:27:07 +0000
+
 openmediavault-compose (8.1.19) stable; urgency=low
 
   * Schedule jobs: the Filter and Exclude filter fields now have a
