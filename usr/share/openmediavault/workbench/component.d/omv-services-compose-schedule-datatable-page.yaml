@@ -42,7 +42,7 @@ data:
         prop: ""
         flexGrow: 2
         cellTemplateName: template
-        cellTemplateConfig: "{% if backup %}• {{ 'Backup' | translate }}<br>{% endif %}{% if update %}• {{ 'Update' | translate }}<br>{% endif %}{% if prune %}• {{ 'Prune Images' | translate }}{% endif %}"
+        cellTemplateConfig: "{% if backup %}• {{ 'Backup' | translate }}<br>{% if skipstartstop %}&nbsp;&nbsp;◦ {{ 'Skip container stop/start' | translate }}<br>{% endif %}{% endif %}{% if update %}• {{ 'Update' | translate }}<br>{% endif %}{% if prune %}• {{ 'Prune Images' | translate }}{% endif %}"
       - name: _("Container state")
         prop: ""
         flexGrow: 2

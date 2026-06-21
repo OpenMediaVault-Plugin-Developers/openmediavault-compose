@@ -119,6 +119,23 @@ data:
                   arg0:
                     prop: maintenance
           - type: checkbox
+            name: skipstartstop
+            label: _("Skip container stop/start")
+            value: false
+            hint: _("Do not stop the containers before backup and start them afterwards. The backup runs while the containers are live (faster, no downtime), but data may be inconsistent for running services such as databases.")
+            modifiers:
+              - type: visible
+                constraint:
+                  operator: and
+                  arg0:
+                    operator: truthy
+                    arg0:
+                      prop: maintenance
+                  arg1:
+                    operator: truthy
+                    arg0:
+                      prop: backup
+          - type: checkbox
             name: update
             label: _("Update")
             value: false

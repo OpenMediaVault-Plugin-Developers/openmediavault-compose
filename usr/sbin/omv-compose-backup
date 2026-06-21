@@ -273,10 +273,13 @@ if [ ! -f "${yq}" ]; then
   exit 16
 fi
 
+skipstartstop=0
 if omv_isuuid "${uuid}"; then
   verbose="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/verbose")"
+  skipstartstop="$(omv_config_get "/config/services/compose/jobs/job[uuid='${uuid}']/skipstartstop")"
 fi
 _log "Verbose :: ${verbose}"
+_log "Skip container stop/start :: ${skipstartstop}"
 
 desc="$(omv_config_get "/config/services/compose/files/file[name='${compose}']/description")"
 _log "Description :: ${desc}"
@@ -414,8 +417,10 @@ wait_for_compose_to_exit() {
   return 1
 }
 
-# stop compose if running
-if grep -q "running" "${status}"; then
+# stop compose if running (unless configured to skip stop/start)
+if [ "${skipstartstop}" = "1" ]; then
+  _log "Skipping container stop/start as configured for this job."
+elif grep -q "running" "${status}"; then
   docker compose "${dockerComposeArgs[@]}" stop
   wait_for_compose_to_exit
 else
@@ -562,11 +567,6 @@ for vol in "${serviceVolsMap[@]}"; do
       _log "Create archive ..."
       borg create "${borg_args[@]}" "${borgrepo}::${archive}" "${item}"
     )
-    _log "Prune old archive ..."
-    prune_keep_last_runs "${compose}" "${borgrepo}" "${borg_keep}"
-
-    _log "Rebuild history ..."
-    rebuild_history_and_sizes "${compose}" "${borgrepo}" "${vollisthist}"
     echo
   else
     # rsync to numbered subdirectory
@@ -605,6 +605,17 @@ for vol in "${serviceVolsMap[@]}"; do
   fi
 done
 
+# prune old archives and rebuild history once, after all volume archives
+# for this run have been created (the borg repo is shared by all volumes
+# of this compose, so these whole-repo operations only need to run once).
+if [ "${backupbackend}" = "borg" ]; then
+  _log "Prune old archives ..."
+  prune_keep_last_runs "${compose}" "${borgrepo}" "${borg_keep}"
+
+  _log "Rebuild history ..."
+  rebuild_history_and_sizes "${compose}" "${borgrepo}" "${vollisthist}"
+fi
+
 # remove extra directories from a previous backup
 # if a volume(s) were removed from the compose file.
 while [ ${i} -le 100 ] && [ ${j} -le 3 ]; do
@@ -618,8 +629,8 @@ while [ ${i} -le 100 ] && [ ${j} -le 3 ]; do
   fi
 done
 
-# start compose if running before backup
-if grep -q "running" "${status}"; then
+# start compose if running before backup (unless stop/start was skipped)
+if [ "${skipstartstop}" != "1" ] && grep -q "running" "${status}"; then
   docker compose "${dockerComposeArgs[@]}" start
 fi
 

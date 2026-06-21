@@ -553,6 +553,10 @@
           "type": "boolean",
           "required": true
         },
+        "skipstartstop": {
+          "type": "boolean",
+          "required": true
+        },
         "comment": {
           "type": "string"
         },

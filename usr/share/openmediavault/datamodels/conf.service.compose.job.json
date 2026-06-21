@@ -76,6 +76,10 @@
       "type": "boolean",
       "default": true
     },
+    "skipstartstop": {
+      "type": "boolean",
+      "default": false
+    },
     "comment": {
       "type": "string",
       "default": ""
