@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-01 21:57+0000\n"
+"POT-Creation-Date: 2026-06-21 16:05+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2024\n"
 "Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
@@ -391,6 +391,12 @@ msgid "Displays information about containers in a grid."
 msgstr ""
 
 msgid "Displays information about containers in a table."
+msgstr ""
+
+msgid ""
+"Do not stop the containers before backup and start them afterwards. The "
+"backup runs while the containers are live (faster, no downtime), but data "
+"may be inconsistent for running services such as databases."
 msgstr ""
 
 msgid "Do not use cache when building the image"
@@ -1105,6 +1111,9 @@ msgstr "Mostrar anulaciones"
 
 msgid "Size"
 msgstr "Tamaño"
+
+msgid "Skip container stop/start"
+msgstr ""
 
 msgid "Start"
 msgstr ""

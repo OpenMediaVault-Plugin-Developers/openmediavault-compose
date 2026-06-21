@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-01 21:57+0000\n"
+"POT-Creation-Date: 2026-06-21 16:05+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -384,6 +384,12 @@ msgstr "以網格顯示關於容器的資訊。"
 
 msgid "Displays information about containers in a table."
 msgstr "以表格顯示關於容器的資訊。"
+
+msgid ""
+"Do not stop the containers before backup and start them afterwards. The "
+"backup runs while the containers are live (faster, no downtime), but data "
+"may be inconsistent for running services such as databases."
+msgstr ""
 
 msgid "Do not use cache when building the image"
 msgstr "建構映像時不使用快取"
@@ -1094,6 +1100,9 @@ msgstr "顯示置換"
 
 msgid "Size"
 msgstr "大小"
+
+msgid "Skip container stop/start"
+msgstr ""
 
 msgid "Start"
 msgstr "啟動"
