@@ -185,6 +185,15 @@ DOCKERFILE_UUID=""
 JOB_UUID=""
 IMPORT_TMP=""
 declare -a IMPORT_UUIDS=()
+# Container runtime CLI used for direct (non-RPC) helpers in the network tests.
+# Resolved from plugin settings once they are read (docker vs podman).
+RUNTIME="docker"
+# Docker/Podman networks created during the network tests (removed on exit).
+declare -a TEST_NETWORKS=()
+# Dummy host interfaces created as macvlan/ipvlan parents (removed on exit).
+declare -a TEST_DUMMY_IFACES=()
+# Throwaway container used for the connect/disconnect tests (removed on exit).
+NET_TEST_CTR=""
 
 # Delete a named test object if it exists in a list RPC response.
 # $6 is the field to match on (default: "name").
@@ -259,6 +268,20 @@ cleanup() {
         info "Removing temp import dir $IMPORT_TMP"
         rm -rf "$IMPORT_TMP"
     fi
+    # Network test teardown — order matters: container, then networks, then the
+    # dummy parent interfaces the macvlan/ipvlan networks reference.
+    if [ -n "$NET_TEST_CTR" ]; then
+        info "Removing network test container $NET_TEST_CTR"
+        "$RUNTIME" rm -f "$NET_TEST_CTR" >/dev/null 2>&1 || true
+    fi
+    for net in "${TEST_NETWORKS[@]}"; do
+        info "Removing test network $net"
+        "$RUNTIME" network rm "$net" >/dev/null 2>&1 || true
+    done
+    for ifc in "${TEST_DUMMY_IFACES[@]}"; do
+        info "Removing dummy interface $ifc"
+        ip link del "$ifc" >/dev/null 2>&1 || true
+    done
     echo "" >&2
 
     # Deploy pending config changes so the OMV web UI "apply changes" banner
@@ -315,7 +338,12 @@ print(json.dumps(out))
     if [ -n "$SET_PARAMS" ]; then
         assert_rpc "set settings (round-trip)" "Compose" "set" "$SET_PARAMS"
     fi
+    # Pick the container runtime CLI the network tests use for direct calls.
+    if echo "$SETTINGS" | grep -q '"podman":[[:space:]]*true'; then
+        RUNTIME="podman"
+    fi
 fi
+command -v "$RUNTIME" >/dev/null 2>&1 || info "Runtime '$RUNTIME' CLI not found — some network tests may skip"
 
 # ---------------------------------------------------------------------------
 # 2. Compose files — CRUD
@@ -538,6 +566,7 @@ print(json.dumps({
     'sendemail': False,
     'emailonerror': False,
     'verbose': True,
+    'skipstartstop': False,
     'comment': 'omvtest_job',
     'excludes': '',
     'execution': 'weekly',
@@ -600,6 +629,7 @@ print(json.dumps({
     'sendemail': False,
     'emailonerror': False,
     'verbose': True,
+    'skipstartstop': False,
     'comment': 'omvtest_job',
     'excludes': '',
     'execution': 'daily',
@@ -640,7 +670,7 @@ print(json.dumps({
     'filestop': False, 'filebuild': False, 'filepull': False,
     'filenocache': False, 'fileprunebuilder': False,
     'sendemail': False, 'emailonerror': False,
-    'verbose': True, 'comment': '', 'excludes': '',
+    'verbose': True, 'skipstartstop': False, 'comment': '', 'excludes': '',
     'execution': 'daily',
     'minute': ['0'], 'everynminute': False,
     'hour': ['2'], 'everynhour': False,
@@ -684,6 +714,12 @@ assert_rpc "getNetworks has subnet field" "Compose" "getNetworks" \
 assert_rpc "getNetworks has gateway field" "Compose" "getNetworks" \
     '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}' '"gateway"'
 
+assert_rpc "getNetworks has parent field" "Compose" "getNetworks" \
+    '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}' '"parent"'
+
+assert_rpc "getNetworks has mode field" "Compose" "getNetworks" \
+    '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}' '"mode"'
+
 assert_rpc_bg "getNetworksBg" "Compose" "getNetworksBg" \
     '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}'
 
@@ -696,6 +732,201 @@ assert_rpc_bg "getImagesBg" "Compose" "getImagesBg" \
     '{"start":0,"limit":25,"sortfield":"repository","sortdir":"ASC"}'
 
 assert_rpc "getContainers" "Compose" "getContainers" '{}'
+
+# ---------------------------------------------------------------------------
+# 7b. Networks — create (bridge / IPv6 / macvlan / ipvlan) + connect/disconnect
+# ---------------------------------------------------------------------------
+section "Networks (create)"
+
+# Build a full setNetwork param object. Defaults match the form-page defaults;
+# pass key=value overrides (bool values as the literal true/false).
+net_params() {
+    python3 - "$@" <<'PY'
+import json, sys
+d = {
+    'name': '', 'driver': 'bridge', 'internal': False,
+    'parentnetwork': '', 'macvlanmode': 'bridge', 'ipvlanmode': 'l2',
+    'ipv6': False, 'subnet': '', 'gateway': '', 'subnet6': '', 'gateway6': '',
+    'iprange': '', 'auxaddress': '',
+}
+for arg in sys.argv[1:]:
+    k, _, v = arg.partition('=')
+    d[k] = (v == 'true') if v in ('true', 'false') else v
+print(json.dumps(d))
+PY
+}
+
+# True if a network with the given name appears in getNetworks.
+network_exists() {
+    omv-rpc -u admin "Compose" "getNetworks" \
+        '{"start":0,"limit":1000,"sortfield":"name","sortdir":"ASC"}' 2>/dev/null \
+        | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+sys.exit(0 if any(r.get('name') == '$1' for r in rows) else 1)
+" 2>/dev/null
+}
+
+# Assert a field of a named network (from getNetworks) contains a substring.
+# The 'containers' field is a list; its string form is searched too.
+assert_network_field() {
+    local desc=$1 net=$2 field=$3 want=$4 val
+    val=$(omv-rpc -u admin "Compose" "getNetworks" \
+        '{"start":0,"limit":1000,"sortfield":"name","sortdir":"ASC"}' 2>/dev/null \
+        | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+for r in rows:
+    if r.get('name') == '$net':
+        print(r.get('$field', '')); break
+" 2>/dev/null)
+    if echo "$val" | grep -q "$want"; then
+        _pass "$desc"
+    else
+        _fail "$desc" "network '$net' field '$field'='$val' (wanted '$want')"
+    fi
+}
+
+# --- Plain IPv4 bridge -------------------------------------------------------
+# setNetwork does not raise on a failed docker command, so verify the network
+# was actually created via getNetworks rather than trusting the RPC return.
+omv-rpc -u admin "Compose" "setNetwork" \
+    "$(net_params name=omvtest_net_bridge driver=bridge \
+        subnet=172.31.250.0/24 gateway=172.31.250.1)" >/dev/null 2>&1
+TEST_NETWORKS+=("omvtest_net_bridge")
+if network_exists "omvtest_net_bridge"; then
+    _pass "setNetwork (bridge, ipv4)"
+    assert_network_field "bridge network reports subnet" omvtest_net_bridge subnet "172.31.250.0/24"
+    assert_network_field "bridge network reports gateway" omvtest_net_bridge gateway "172.31.250.1"
+else
+    _fail "setNetwork (bridge, ipv4)" "omvtest_net_bridge not found in getNetworks"
+fi
+
+# --- Dual-stack IPv6 ---------------------------------------------------------
+# Requires IPv6 enabled in the daemon; treat a creation failure as a skip.
+omv-rpc -u admin "Compose" "setNetwork" \
+    "$(net_params name=omvtest_net_v6 driver=bridge ipv6=true \
+        subnet=172.31.251.0/24 gateway=172.31.251.1 \
+        subnet6=fd00:c0de:beef::/64 gateway6=fd00:c0de:beef::1)" >/dev/null 2>&1
+TEST_NETWORKS+=("omvtest_net_v6")
+if network_exists "omvtest_net_v6"; then
+    _pass "setNetwork (bridge, dual-stack IPv6)"
+    assert_network_field "dual-stack network reports IPv6 subnet" \
+        omvtest_net_v6 subnet "fd00:c0de:beef"
+else
+    _skip "setNetwork (bridge, dual-stack IPv6)" "daemon IPv6 likely disabled"
+    _skip "dual-stack network reports IPv6 subnet" "network not created"
+fi
+
+# --- macvlan / ipvlan with parent + mode -------------------------------------
+# Use throwaway dummy interfaces as parents so the host's real NICs are never
+# touched. A parent can be either macvlan OR ipvlan, so use one dummy per test.
+section "Networks (macvlan / ipvlan parent + mode)"
+
+if ip link add omvtest_mv0 type dummy 2>/dev/null; then
+    TEST_DUMMY_IFACES+=("omvtest_mv0")
+    ip link set omvtest_mv0 up 2>/dev/null || true
+    mv_out=$(omv-rpc -u admin "Compose" "setNetwork" \
+        "$(net_params name=omvtest_net_macvlan driver=macvlan \
+            parentnetwork=omvtest_mv0 macvlanmode=bridge \
+            subnet=172.31.252.0/24 gateway=172.31.252.1)" 2>&1)
+    TEST_NETWORKS+=("omvtest_net_macvlan")
+    if network_exists "omvtest_net_macvlan"; then
+        _pass "setNetwork (macvlan with parent)"
+        assert_network_field "macvlan parent recorded" omvtest_net_macvlan parent omvtest_mv0
+        assert_network_field "macvlan mode recorded" omvtest_net_macvlan mode bridge
+    else
+        _fail "setNetwork (macvlan with parent)" \
+            "not created: $(echo "$mv_out" | tr '\n' ' ' | tail -c 300)"
+    fi
+else
+    _skip "setNetwork (macvlan with parent)" "could not create dummy interface"
+    _skip "macvlan parent recorded" "no dummy interface"
+    _skip "macvlan mode recorded" "no dummy interface"
+fi
+
+# ipvlan parent handling is the regression test for the bug where the parent
+# opt was only emitted for macvlan.
+if ip link add omvtest_iv0 type dummy 2>/dev/null; then
+    TEST_DUMMY_IFACES+=("omvtest_iv0")
+    ip link set omvtest_iv0 up 2>/dev/null || true
+    iv_out=$(omv-rpc -u admin "Compose" "setNetwork" \
+        "$(net_params name=omvtest_net_ipvlan driver=ipvlan \
+            parentnetwork=omvtest_iv0 ipvlanmode=l2 \
+            subnet=172.31.253.0/24 gateway=172.31.253.1)" 2>&1)
+    TEST_NETWORKS+=("omvtest_net_ipvlan")
+    if network_exists "omvtest_net_ipvlan"; then
+        _pass "setNetwork (ipvlan with parent)"
+        assert_network_field "ipvlan parent recorded" omvtest_net_ipvlan parent omvtest_iv0
+        assert_network_field "ipvlan mode recorded" omvtest_net_ipvlan mode l2
+    else
+        _fail "setNetwork (ipvlan with parent)" \
+            "not created: $(echo "$iv_out" | tr '\n' ' ' | tail -c 300)"
+    fi
+else
+    _skip "setNetwork (ipvlan with parent)" "could not create dummy interface"
+    _skip "ipvlan parent recorded" "no dummy interface"
+    _skip "ipvlan mode recorded" "no dummy interface"
+fi
+
+# --- Connect / disconnect a container ---------------------------------------
+section "Networks (connect / disconnect)"
+
+# Failure path: setNetwork/doNetworkConnect swallow the docker exit code, so
+# assert the daemon's error text is surfaced in the returned output.
+conn_err=$(omv-rpc -u admin "Compose" "doNetworkConnect" \
+    '{"name":"bridge","container":"omvtest_no_such_ctr","command":"connect","ipaddress":""}' 2>&1)
+if echo "$conn_err" | grep -qiE "no such container|not found|error"; then
+    _pass "doNetworkConnect surfaces error for missing container"
+else
+    _fail "doNetworkConnect surfaces error for missing container" "output: ${conn_err:0:200}"
+fi
+
+# Happy path: needs a long-running throwaway container. Only attempt it when a
+# shell-capable image (alpine/busybox) is already present locally.
+NET_IMG=""
+if command -v "$RUNTIME" >/dev/null 2>&1; then
+    for cand in $("$RUNTIME" image ls --format '{{.Repository}}:{{.Tag}}' 2>/dev/null); do
+        case "$cand" in
+            *alpine*|*busybox*) NET_IMG="$cand"; break ;;
+        esac
+    done
+fi
+
+if [ -n "$NET_IMG" ] && network_exists "omvtest_net_bridge" \
+    && "$RUNTIME" run -d --name omvtest_net_ctr "$NET_IMG" sleep 600 >/dev/null 2>&1; then
+    NET_TEST_CTR="omvtest_net_ctr"
+    omv-rpc -u admin "Compose" "doNetworkConnect" \
+        '{"name":"omvtest_net_bridge","container":"omvtest_net_ctr","command":"connect","ipaddress":"172.31.250.50"}' \
+        >/dev/null 2>&1
+    assert_network_field "doNetworkConnect attaches container to network" \
+        omvtest_net_bridge containers omvtest_net_ctr
+
+    omv-rpc -u admin "Compose" "doNetworkConnect" \
+        '{"name":"omvtest_net_bridge","container":"omvtest_net_ctr","command":"disconnect"}' \
+        >/dev/null 2>&1
+    val=$(omv-rpc -u admin "Compose" "getNetworks" \
+        '{"start":0,"limit":1000,"sortfield":"name","sortdir":"ASC"}' 2>/dev/null \
+        | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+for r in rows:
+    if r.get('name') == 'omvtest_net_bridge':
+        print(r.get('containers', '')); break
+" 2>/dev/null)
+    if echo "$val" | grep -q "omvtest_net_ctr"; then
+        _fail "doNetworkConnect disconnect detaches container" "still attached: $val"
+    else
+        _pass "doNetworkConnect disconnect detaches container"
+    fi
+else
+    _skip "doNetworkConnect attaches container to network" \
+        "no local alpine/busybox image or bridge network unavailable"
+    _skip "doNetworkConnect disconnect detaches container" "happy path skipped"
+fi
 
 # ---------------------------------------------------------------------------
 # 8. Stats
