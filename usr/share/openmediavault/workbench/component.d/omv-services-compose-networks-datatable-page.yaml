@@ -27,6 +27,14 @@ data:
         prop: driver
         flexGrow: 1
         sortable: true
+      - name: _("Parent")
+        prop: parent
+        flexGrow: 1
+        sortable: true
+      - name: _("Mode")
+        prop: mode
+        flexGrow: 1
+        sortable: true
       - name: _("Subnet")
         prop: subnet
         flexGrow: 1
@@ -84,3 +92,94 @@ data:
               buttons:
                 stop:
                   hidden: true
+      - type: iconButton
+        icon: mdi:lan-connect
+        tooltip: _("Connect container")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: formDialog
+          formDialog:
+            title: _("docker network connect ...")
+            fields:
+              - type: hidden
+                name: name
+                value: "{{ _selected[0].name }}"
+              - type: hidden
+                name: command
+                value: "connect"
+              - type: textInput
+                name: networkdisplay
+                label: _("Network")
+                value: "{{ _selected[0].name }}"
+                readonly: true
+              - type: select
+                name: container
+                label: _("Container")
+                textField: desc
+                valueField: name
+                store:
+                  proxy:
+                    service: Compose
+                    get:
+                      method: enumerateContainers
+                validators:
+                  required: true
+              - type: textInput
+                name: ipaddress
+                label: _("IP address")
+                value: ""
+                hint: _("Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10")
+            buttons:
+              submit:
+                text: _("Connect")
+                execute:
+                  type: request
+                  request:
+                    service: Compose
+                    method: doNetworkConnect
+                    successUrl: "/services/compose/networks"
+      - type: iconButton
+        icon: mdi:lan-disconnect
+        tooltip: _("Disconnect container")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: formDialog
+          formDialog:
+            title: _("docker network disconnect ...")
+            fields:
+              - type: hidden
+                name: name
+                value: "{{ _selected[0].name }}"
+              - type: hidden
+                name: command
+                value: "disconnect"
+              - type: textInput
+                name: networkdisplay
+                label: _("Network")
+                value: "{{ _selected[0].name }}"
+                readonly: true
+              - type: select
+                name: container
+                label: _("Container")
+                textField: desc
+                valueField: name
+                store:
+                  proxy:
+                    service: Compose
+                    get:
+                      method: enumerateContainers
+                validators:
+                  required: true
+            buttons:
+              submit:
+                text: _("Disconnect")
+                execute:
+                  type: request
+                  request:
+                    service: Compose
+                    method: doNetworkConnect
+                    successUrl: "/services/compose/networks"

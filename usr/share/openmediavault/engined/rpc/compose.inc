@@ -122,6 +122,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getNetworks");
         $this->registerMethod("getNetworksBg");
         $this->registerMethod("doDockerNetworkCmd");
+        $this->registerMethod("doNetworkConnect");
         $this->registerMethod("setNetwork");
         $this->registerMethod("enumerateNetworkList");
 
@@ -3749,6 +3750,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 "driver" => $networkJson->Driver ?? $networkJson->driver,
                 "subnet" => "",
                 "gateway" => "",
+                "parent" => "",
+                "mode" => "",
                 "containers" => []
             ];
         }
@@ -3815,6 +3818,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $info = $networkInspect[$network['name']] ?? null;
             $network['subnet'] = $info['subnet'] ?? '';
             $network['gateway'] = $info['gateway'] ?? '';
+            $network['parent'] = $info['parent'] ?? '';
+            $network['mode'] = $info['mode'] ?? '';
             $ips = $info['ips'] ?? [];
             $names = $networkContainers[$network['name']] ?? [];
             foreach (array_keys($ips) as $inspectName) {
@@ -3924,9 +3929,26 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $ips[$cname] = $addr;
                 }
             }
+            // docker: Options{} {parent, macvlan_mode, ipvlan_mode}
+            // podman: options{} {mode}, with the parent as a top-level field.
+            $options = $net->Options ?? $net->options ?? null;
+            $parent = '';
+            $mode = '';
+            if (is_object($options)) {
+                $parent = $options->parent ?? '';
+                $mode = $options->macvlan_mode ?? $options->ipvlan_mode ??
+                    $options->mode ?? '';
+            }
+            // podman exposes the macvlan/ipvlan parent as 'network_interface'
+            // rather than an option.
+            if ($parent === '') {
+                $parent = $net->network_interface ?? $net->NetworkInterface ?? '';
+            }
             $result[$name] = [
                 'subnet' => implode('<br>', $subnets),
                 'gateway' => implode('<br>', $gateways),
+                'parent' => $parent,
+                'mode' => $mode,
                 'ips' => $ips,
             ];
         }
@@ -3985,6 +4007,34 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         );
     }
 
+    public function doNetworkConnect($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for networks
+        $this->clearCache('networks');
+        $podman = $this->getPodman($context);
+        // command is either 'connect' or 'disconnect'.
+        $command = ($params['command'] == 'disconnect') ? 'disconnect' : 'connect';
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'network';
+        $cmdArgs[] = $command;
+        if ($command == 'connect' && !empty($params['ipaddress'])) {
+            $cmdArgs[] = sprintf("--ip=%s", $params['ipaddress']);
+        }
+        $cmdArgs[] = $params['name'];
+        $cmdArgs[] = $params['container'];
+        $cmd = new \OMV\System\Process($cmdArgs);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
+        $cmd->setRedirect2to1();
+        $cmd->execute($output, $exitStatus);
+        return $output;
+    }
+
     public function setNetwork($params, $context)
     {
         // Validate the RPC caller context.
@@ -3993,6 +4043,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->clearCache('networks');
         $driver = $params['driver'];
         $internal = !empty($params['internal']);
+        $podman = $this->getPodman($context);
         // Get networks
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
@@ -4002,14 +4053,39 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if ($internal && in_array($driver, ['bridge', 'overlay'], true)) {
             $cmdArgs[] = '--internal';
         }
-        if ($driver == 'macvlan') {
+        if (in_array($driver, ['macvlan', 'ipvlan'], true) && !empty($params['parentnetwork'])) {
             $cmdArgs[] = sprintf("--opt parent=%s", $params['parentnetwork']);
+        }
+        // The macvlan/ipvlan mode option key differs between runtimes:
+        // docker uses macvlan_mode/ipvlan_mode, podman (netavark) uses mode.
+        // Passing the wrong key makes podman reject the whole create.
+        $mode = '';
+        if ($driver == 'macvlan' && !empty($params['macvlanmode'])) {
+            $mode = $params['macvlanmode'];
+        } elseif ($driver == 'ipvlan' && !empty($params['ipvlanmode'])) {
+            $mode = $params['ipvlanmode'];
+        }
+        if ($mode !== '') {
+            if ($podman) {
+                $cmdArgs[] = sprintf("--opt mode=%s", $mode);
+            } else {
+                $cmdArgs[] = sprintf("--opt %s_mode=%s", $driver, $mode);
+            }
+        }
+        if (!empty($params['ipv6'])) {
+            $cmdArgs[] = '--ipv6';
         }
         if ($params['subnet']) {
             $cmdArgs[] = sprintf("--subnet=%s", $params['subnet']);
         }
         if ($params['gateway']) {
             $cmdArgs[] = sprintf("--gateway=%s", $params['gateway']);
+        }
+        if (!empty($params['subnet6'])) {
+            $cmdArgs[] = sprintf("--subnet=%s", $params['subnet6']);
+        }
+        if (!empty($params['gateway6'])) {
+            $cmdArgs[] = sprintf("--gateway=%s", $params['gateway6']);
         }
         if ($params['iprange']) {
             $cmdArgs[] = sprintf("--ip-range=%s", $params['iprange']);
@@ -4022,7 +4098,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         $cmdArgs[] = $params['name'];
         $cmd = new \OMV\System\Process($cmdArgs);
-        $podman = $this->getPodman($context);
         if ($podman) {
             $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
             $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');

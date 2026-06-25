@@ -31,6 +31,7 @@ data:
         label: _("Parent network")
         value: ""
         suggestions: true
+        hint: _("Host interface this network is attached to. Use a VLAN sub-interface for 802.1Q tagging, e.g. eth0.10")
         store:
           proxy:
             service: Compose
@@ -39,10 +40,42 @@ data:
         modifiers:
           - type: visible
             constraint:
+              operator: in
+              arg0:
+                prop: driver
+              arg1: ["macvlan", "ipvlan"]
+      - type: select
+        name: macvlanmode
+        label: _("Mode")
+        value: "bridge"
+        store:
+          data:
+            - ["bridge", "bridge"]
+            - ["private", "private"]
+            - ["vepa", "vepa"]
+            - ["passthru", "passthru"]
+        modifiers:
+          - type: visible
+            constraint:
               operator: eq
               arg0:
                 prop: driver
               arg1: "macvlan"
+      - type: select
+        name: ipvlanmode
+        label: _("Mode")
+        value: "l2"
+        store:
+          data:
+            - ["l2", "l2"]
+            - ["l3", "l3"]
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: driver
+              arg1: "ipvlan"
       - type: checkbox
         name: internal
         label: _("Internal network")
@@ -74,6 +107,29 @@ data:
             label: _("IP range")
             value: ""
             hint: _("e.g. 172.20.10.128/25")
+      - type: checkbox
+        name: ipv6
+        label: _("Enable IPv6")
+        value: false
+        hint: _("Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be enabled in the Docker daemon.")
+      - type: container
+        fields:
+          - type: textInput
+            name: subnet6
+            label: _("IPv6 subnet")
+            value: ""
+            hint: _("e.g. 2001:db8:abcd::/64 or fd00::/64")
+          - type: textInput
+            name: gateway6
+            label: _("IPv6 gateway")
+            value: ""
+            hint: _("e.g. 2001:db8:abcd::1")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: ipv6
       - type: textInput
         name: auxaddress
         label: _("Aux address")
