@@ -88,6 +88,11 @@ data:
               arg0:
                 prop: driver
               arg1: ["bridge","overlay"]
+      - type: checkbox
+        name: advanced
+        label: _("Advanced (manual IP configuration)")
+        value: false
+        hint: _("Manually assign the subnet, gateway and IP range. Leave disabled to let Docker allocate addresses automatically.")
       - type: container
         fields:
           - type: textInput
@@ -107,11 +112,23 @@ data:
             label: _("IP range")
             value: ""
             hint: _("e.g. 172.20.10.128/25")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: advanced
       - type: checkbox
         name: ipv6
         label: _("Enable IPv6")
         value: false
         hint: _("Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be enabled in the Docker daemon.")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: advanced
       - type: container
         fields:
           - type: textInput
@@ -127,14 +144,26 @@ data:
         modifiers:
           - type: visible
             constraint:
-              operator: truthy
+              operator: and
               arg0:
-                prop: ipv6
+                operator: truthy
+                arg0:
+                  prop: advanced
+              arg1:
+                operator: truthy
+                arg0:
+                  prop: ipv6
       - type: textInput
         name: auxaddress
         label: _("Aux address")
         value: ""
         hint: _("Format is name=ip. Comma separate multiple entries.<br/>e.g. my-router=192.168.10.5,my-nas=192.168.20.6")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: advanced
     buttons:
       - template: submit
         execute:
