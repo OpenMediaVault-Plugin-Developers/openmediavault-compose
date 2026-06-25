@@ -1,3 +1,15 @@
+openmediavault-compose (8.1.22) stable; urgency=low
+
+  * Networks: macvlan and ipvlan networks can now set a parent interface
+    (ipvlan was previously missing this) and a mode (macvlan:
+    bridge/private/vepa/passthru, ipvlan: l2/l3)
+  * Networks: add IPv6 (dual-stack) support when creating a network
+  * Networks: new Parent and Mode columns, plus actions to connect or
+    disconnect a container to/from a network
+  * Networks: fix macvlan/ipvlan creation and parent display under Podman
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 25 Jun 2026 00:34:41 +0000
+
 openmediavault-compose (8.1.21) stable; urgency=low
 
   * Speed up borg backups for compose files with multiple volumes
