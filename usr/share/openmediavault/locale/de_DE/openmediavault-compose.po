@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 16:05+0000\n"
+"POT-Creation-Date: 2026-06-25 11:41+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>, 2025\n"
 "Language-Team: German (Germany) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de_DE/)\n"
@@ -71,6 +71,9 @@ msgstr ""
 "Administrator - lesen/schreiben, Benutzer - lesen/schreiben, Andere - nur "
 "lesen"
 
+msgid "Advanced (manual IP configuration)"
+msgstr ""
+
 msgid "Always attempt to pull a newer version of the image"
 msgstr ""
 
@@ -107,6 +110,11 @@ msgstr "Wolle Sie wirklich alle Container stoppen?"
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Wollen Sie Änderungen an den Dateien synchronisieren?"
+
+msgid ""
+"Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
+"enabled in the Docker daemon."
+msgstr ""
 
 msgid "At reboot"
 msgstr ""
@@ -262,6 +270,12 @@ msgstr "Conf-Dateiname falsch"
 msgid "Configs"
 msgstr ""
 
+msgid "Connect"
+msgstr ""
+
+msgid "Connect container"
+msgstr ""
+
 msgid "Container"
 msgstr "Container"
 
@@ -382,6 +396,12 @@ msgstr "Verzeichnis existiert nicht!"
 msgid "Disable if Portainer uses a self-signed certificate."
 msgstr ""
 
+msgid "Disconnect"
+msgstr ""
+
+msgid "Disconnect container"
+msgstr ""
+
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
 
@@ -470,6 +490,9 @@ msgid "Enable Docker repo"
 msgstr ""
 
 msgid "Enable Docker repo ..."
+msgstr ""
+
+msgid "Enable IPv6"
 msgstr ""
 
 msgid "Enabled"
@@ -580,6 +603,11 @@ msgstr "Gruppe von Verzeichnissen und Dateien"
 msgid "Host Port"
 msgstr ""
 
+msgid ""
+"Host interface this network is attached to. Use a VLAN sub-interface for "
+"802.1Q tagging, e.g. eth0.10"
+msgstr ""
+
 msgid "Hour"
 msgstr ""
 
@@ -589,8 +617,17 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
+msgid "IP address"
+msgstr ""
+
 msgid "IP range"
 msgstr "IP-Bereich"
+
+msgid "IPv6 gateway"
+msgstr ""
+
+msgid "IPv6 subnet"
+msgstr ""
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
@@ -704,6 +741,11 @@ msgstr ""
 msgid "Maintenance"
 msgstr ""
 
+msgid ""
+"Manually assign the subnet, gateway and IP range. Leave disabled to let "
+"Docker allocate addresses automatically."
+msgstr ""
+
 msgid "March"
 msgstr ""
 
@@ -730,6 +772,9 @@ msgstr ""
 
 msgid "Mixed"
 msgstr "Gemischt"
+
+msgid "Mode"
+msgstr ""
 
 msgid "Monday"
 msgstr ""
@@ -807,6 +852,9 @@ msgstr ""
 "CHANGE_TO_COMPOSE_DATA_PATH in compose- und env-Dateien mit diesem Ordner zu"
 " ersetzen."
 
+msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
+msgstr ""
+
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
 "merged with the Filter patterns above (combined and de-duplicated)."
@@ -834,6 +882,9 @@ msgid "Owner of directories and files"
 msgstr "Eigentümer von Verzeichnissen und Dateien"
 
 msgid "PIDs"
+msgstr ""
+
+msgid "Parent"
 msgstr ""
 
 msgid "Parent network"
@@ -1424,6 +1475,12 @@ msgstr ""
 msgid "docker logs ..."
 msgstr ""
 
+msgid "docker network connect ..."
+msgstr ""
+
+msgid "docker network disconnect ..."
+msgstr ""
+
 msgid "docker network inspect ..."
 msgstr ""
 
@@ -1468,6 +1525,12 @@ msgstr "z. B. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
 msgstr "z. B. 172.20.10.128/25"
+
+msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
+msgstr ""
+
+msgid "e.g. 2001:db8:abcd::1"
+msgstr ""
 
 msgid "file not found!"
 msgstr ""

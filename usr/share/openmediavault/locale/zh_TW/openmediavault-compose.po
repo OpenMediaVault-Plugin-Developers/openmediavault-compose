@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 16:05+0000\n"
+"POT-Creation-Date: 2026-06-25 11:41+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -63,6 +63,9 @@ msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 無法取用"
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 唯讀"
 
+msgid "Advanced (manual IP configuration)"
+msgstr ""
+
 msgid "Always attempt to pull a newer version of the image"
 msgstr "總是嘗試著拉取較新版的映像"
 
@@ -99,6 +102,11 @@ msgstr "您確定要停止全部的容器嗎？"
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "您確定要從檔案同步變更嗎？"
+
+msgid ""
+"Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
+"enabled in the Docker daemon."
+msgstr ""
 
 msgid "At reboot"
 msgstr "重新啟動時"
@@ -256,6 +264,12 @@ msgstr "配置檔案名稱不能是"
 msgid "Configs"
 msgstr "配置"
 
+msgid "Connect"
+msgstr ""
+
+msgid "Connect container"
+msgstr ""
+
 msgid "Container"
 msgstr "容器"
 
@@ -376,6 +390,12 @@ msgstr "檔案目錄不存在！"
 msgid "Disable if Portainer uses a self-signed certificate."
 msgstr "若 Portainer 使用自我簽署憑證則停用。"
 
+msgid "Disconnect"
+msgstr ""
+
+msgid "Disconnect container"
+msgstr ""
+
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr "在表格中顯示容器加上 cterm 執行終端機連結。"
 
@@ -389,7 +409,7 @@ msgid ""
 "Do not stop the containers before backup and start them afterwards. The "
 "backup runs while the containers are live (faster, no downtime), but data "
 "may be inconsistent for running services such as databases."
-msgstr ""
+msgstr "備份之前不停止容器，之後也不將它們啟動。備份是在容器運行中執行 (較快速、無停機時間)，但對於資料庫等運行中的服務，資料可能會不一致。"
 
 msgid "Do not use cache when building the image"
 msgstr "建構映像時不使用快取"
@@ -465,6 +485,9 @@ msgstr "啟用 Docker 套件庫"
 
 msgid "Enable Docker repo ..."
 msgstr "啟用 Docker 套件庫中 ..."
+
+msgid "Enable IPv6"
+msgstr ""
 
 msgid "Enabled"
 msgstr "已啟用"
@@ -577,6 +600,11 @@ msgstr "目錄和檔案的群組"
 msgid "Host Port"
 msgstr "主機連接埠"
 
+msgid ""
+"Host interface this network is attached to. Use a VLAN sub-interface for "
+"802.1Q tagging, e.g. eth0.10"
+msgstr ""
+
 msgid "Hour"
 msgstr "時"
 
@@ -586,8 +614,17 @@ msgstr "每小時"
 msgid "ID"
 msgstr "ID"
 
+msgid "IP address"
+msgstr ""
+
 msgid "IP range"
 msgstr "IP 範圍"
+
+msgid "IPv6 gateway"
+msgstr ""
+
+msgid "IPv6 subnet"
+msgstr ""
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr "若勾選，備份的 rsync 指令將包含詳盡旗標。"
@@ -699,6 +736,11 @@ msgstr "登出"
 msgid "Maintenance"
 msgstr "維護"
 
+msgid ""
+"Manually assign the subnet, gateway and IP range. Leave disabled to let "
+"Docker allocate addresses automatically."
+msgstr ""
+
 msgid "March"
 msgstr "三月"
 
@@ -725,6 +767,9 @@ msgstr "分"
 
 msgid "Mixed"
 msgstr "混合"
+
+msgid "Mode"
+msgstr ""
 
 msgid "Monday"
 msgstr "週一"
@@ -799,6 +844,9 @@ msgstr ""
 "選用性 - 容器之持久性資料的位置<br/>此共享檔案夾路徑只被用來取代 compose 與 env 檔案內的 "
 "CHANGE_TO_COMPOSE_DATA_PATH 變數。"
 
+msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
+msgstr ""
+
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
 "merged with the Filter patterns above (combined and de-duplicated)."
@@ -827,6 +875,9 @@ msgstr "目錄和檔案的擁有者"
 
 msgid "PIDs"
 msgstr "PIDs"
+
+msgid "Parent"
+msgstr ""
 
 msgid "Parent network"
 msgstr "上層網路"
@@ -1102,7 +1153,7 @@ msgid "Size"
 msgstr "大小"
 
 msgid "Skip container stop/start"
-msgstr ""
+msgstr "跳過容器停止/啟動"
 
 msgid "Start"
 msgstr "啟動"
@@ -1414,6 +1465,12 @@ msgstr "docker logs --follow ..."
 msgid "docker logs ..."
 msgstr "docker logs ..."
 
+msgid "docker network connect ..."
+msgstr ""
+
+msgid "docker network disconnect ..."
+msgstr ""
+
 msgid "docker network inspect ..."
 msgstr "docker network inspect ..."
 
@@ -1458,6 +1515,12 @@ msgstr "例如：172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
 msgstr "例如：172.20.10.128/25"
+
+msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
+msgstr ""
+
+msgid "e.g. 2001:db8:abcd::1"
+msgstr ""
 
 msgid "file not found!"
 msgstr "没有檔案！"

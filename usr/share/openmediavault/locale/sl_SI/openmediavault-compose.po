@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 16:05+0000\n"
+"POT-Creation-Date: 2026-06-25 11:41+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
@@ -73,6 +73,9 @@ msgstr ""
 "Administrator - branje/pisanje, Uporabniki - branje/pisanje, Drugi - samo "
 "branje"
 
+msgid "Advanced (manual IP configuration)"
+msgstr ""
+
 msgid "Always attempt to pull a newer version of the image"
 msgstr ""
 
@@ -112,6 +115,11 @@ msgstr "Ste prepričani, da želite ustaviti vse zabojnike?"
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Ali ste prepričani, da želite sinhronizirati spremembe iz datotek?"
+
+msgid ""
+"Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
+"enabled in the Docker daemon."
+msgstr ""
 
 msgid "At reboot"
 msgstr ""
@@ -268,6 +276,12 @@ msgstr "Ime konf. datoteke ne more biti"
 msgid "Configs"
 msgstr "Konfiguracije"
 
+msgid "Connect"
+msgstr ""
+
+msgid "Connect container"
+msgstr ""
+
 msgid "Container"
 msgstr "Zabojnik"
 
@@ -388,6 +402,12 @@ msgstr "Mapa ne obstaja!"
 msgid "Disable if Portainer uses a self-signed certificate."
 msgstr ""
 
+msgid "Disconnect"
+msgstr ""
+
+msgid "Disconnect container"
+msgstr ""
+
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
 
@@ -477,6 +497,9 @@ msgstr "Omogoči Docker skladišče"
 
 msgid "Enable Docker repo ..."
 msgstr "Omogočanje Docker skladišča ..."
+
+msgid "Enable IPv6"
+msgstr ""
 
 msgid "Enabled"
 msgstr ""
@@ -586,6 +609,11 @@ msgstr "Skupina imenikov in datotek"
 msgid "Host Port"
 msgstr ""
 
+msgid ""
+"Host interface this network is attached to. Use a VLAN sub-interface for "
+"802.1Q tagging, e.g. eth0.10"
+msgstr ""
+
 msgid "Hour"
 msgstr ""
 
@@ -595,8 +623,17 @@ msgstr ""
 msgid "ID"
 msgstr "ID"
 
+msgid "IP address"
+msgstr ""
+
 msgid "IP range"
 msgstr "Območje IP"
+
+msgid "IPv6 gateway"
+msgstr ""
+
+msgid "IPv6 subnet"
+msgstr ""
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
@@ -708,6 +745,11 @@ msgstr "Odjava"
 msgid "Maintenance"
 msgstr "Vzdrževanje"
 
+msgid ""
+"Manually assign the subnet, gateway and IP range. Leave disabled to let "
+"Docker allocate addresses automatically."
+msgstr ""
+
 msgid "March"
 msgstr ""
 
@@ -734,6 +776,9 @@ msgstr ""
 
 msgid "Mixed"
 msgstr "Mešan"
+
+msgid "Mode"
+msgstr ""
 
 msgid "Monday"
 msgstr ""
@@ -811,6 +856,9 @@ msgstr ""
 "CHANGE_TO_COMPOSE_DATA_PATH v datotekah Compose in env s to skupno potjo do "
 "mape."
 
+msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
+msgstr ""
+
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
 "merged with the Filter patterns above (combined and de-duplicated)."
@@ -841,6 +889,9 @@ msgstr "Lastnik map in datotek"
 
 msgid "PIDs"
 msgstr "PID-i"
+
+msgid "Parent"
+msgstr ""
 
 msgid "Parent network"
 msgstr "Starševsko omrežje"
@@ -1432,6 +1483,12 @@ msgstr "docker logs --follow ..."
 msgid "docker logs ..."
 msgstr "docker logs ..."
 
+msgid "docker network connect ..."
+msgstr ""
+
+msgid "docker network disconnect ..."
+msgstr ""
+
 msgid "docker network inspect ..."
 msgstr "docker network inspect ..."
 
@@ -1476,6 +1533,12 @@ msgstr "e.g. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
 msgstr "e.g. 172.20.10.128/25"
+
+msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
+msgstr ""
+
+msgid "e.g. 2001:db8:abcd::1"
+msgstr ""
 
 msgid "file not found!"
 msgstr "file not found!"

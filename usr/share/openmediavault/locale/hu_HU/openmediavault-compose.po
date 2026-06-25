@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 16:05+0000\n"
+"POT-Creation-Date: 2026-06-25 11:41+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2026\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -73,6 +73,9 @@ msgstr ""
 "Adminisztrátor – olvasás/írás, Felhasználók – olvasás/írás, Mások – csak "
 "olvasás"
 
+msgid "Advanced (manual IP configuration)"
+msgstr ""
+
 msgid "Always attempt to pull a newer version of the image"
 msgstr "Mindig próbáljon meg egy újabb lemezkép verziót letölteni."
 
@@ -115,6 +118,11 @@ msgstr "Biztosan le akarja állítani az összes konténert?"
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Biztosan szinkronizálni szeretné a fájlok változásait?"
+
+msgid ""
+"Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
+"enabled in the Docker daemon."
+msgstr ""
 
 msgid "At reboot"
 msgstr "Újraindításkor"
@@ -281,6 +289,12 @@ msgstr "Konfigurációs fájl nem lehet"
 msgid "Configs"
 msgstr "Beállítások"
 
+msgid "Connect"
+msgstr ""
+
+msgid "Connect container"
+msgstr ""
+
 msgid "Container"
 msgstr "Konténer"
 
@@ -403,6 +417,12 @@ msgstr "A mappa nem létezik!"
 msgid "Disable if Portainer uses a self-signed certificate."
 msgstr ""
 
+msgid "Disconnect"
+msgstr ""
+
+msgid "Disconnect container"
+msgstr ""
+
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
 "Táblázatban jeleníti meg a konténereket, a cterm végrehajtó terminálra "
@@ -495,6 +515,9 @@ msgstr "Docker tároló engedélyezése"
 
 msgid "Enable Docker repo ..."
 msgstr "Docker tároló engedélyezése…"
+
+msgid "Enable IPv6"
+msgstr ""
 
 msgid "Enabled"
 msgstr "Engedélyezve"
@@ -604,6 +627,11 @@ msgstr "Mappák és fájlok csoportja"
 msgid "Host Port"
 msgstr ""
 
+msgid ""
+"Host interface this network is attached to. Use a VLAN sub-interface for "
+"802.1Q tagging, e.g. eth0.10"
+msgstr ""
+
 msgid "Hour"
 msgstr "Óra"
 
@@ -613,8 +641,17 @@ msgstr "Óránként"
 msgid "ID"
 msgstr "ID"
 
+msgid "IP address"
+msgstr ""
+
 msgid "IP range"
 msgstr "IP-tartomány"
+
+msgid "IPv6 gateway"
+msgstr ""
+
+msgid "IPv6 subnet"
+msgstr ""
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
@@ -726,6 +763,11 @@ msgstr "Kilépés"
 msgid "Maintenance"
 msgstr "Karbantartás"
 
+msgid ""
+"Manually assign the subnet, gateway and IP range. Leave disabled to let "
+"Docker allocate addresses automatically."
+msgstr ""
+
 msgid "March"
 msgstr "március"
 
@@ -752,6 +794,9 @@ msgstr "Perc"
 
 msgid "Mixed"
 msgstr "Kevert"
+
+msgid "Mode"
+msgstr ""
 
 msgid "Monday"
 msgstr "hétfő"
@@ -829,6 +874,9 @@ msgstr ""
 "CHANGE_TO_COMPOSE_DATA_PATH helyettesítésére szolgál a compose és env "
 "fájlokban ezzel a megosztott mappa elérési útvonalával."
 
+msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
+msgstr ""
+
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
 "merged with the Filter patterns above (combined and de-duplicated)."
@@ -859,6 +907,9 @@ msgstr "Mappák és fájlok tulajdonosa"
 
 msgid "PIDs"
 msgstr "PID-ek"
+
+msgid "Parent"
+msgstr ""
 
 msgid "Parent network"
 msgstr "Szülő hálózat"
@@ -1455,6 +1506,12 @@ msgstr "docker logs --follow…"
 msgid "docker logs ..."
 msgstr "docker logs…"
 
+msgid "docker network connect ..."
+msgstr ""
+
+msgid "docker network disconnect ..."
+msgstr ""
+
 msgid "docker network inspect ..."
 msgstr "docker network inspect…"
 
@@ -1499,6 +1556,12 @@ msgstr "pl. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
 msgstr "pl. 172.20.10.128/25"
+
+msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
+msgstr ""
+
+msgid "e.g. 2001:db8:abcd::1"
+msgstr ""
 
 msgid "file not found!"
 msgstr "fájl nem található!"

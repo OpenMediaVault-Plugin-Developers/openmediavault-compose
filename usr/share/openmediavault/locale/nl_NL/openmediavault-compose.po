@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 16:05+0000\n"
+"POT-Creation-Date: 2026-06-25 11:41+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -73,6 +73,9 @@ msgstr ""
 "Beheerder - lezen/schrijven, Gebruikers - lezen/schrijven, Anderen - alleen-"
 "lezen"
 
+msgid "Advanced (manual IP configuration)"
+msgstr ""
+
 msgid "Always attempt to pull a newer version of the image"
 msgstr "Probeer altijd een nieuwere versie van de image op te halen"
 
@@ -106,13 +109,18 @@ msgid "Are you sure you want to restart?"
 msgstr "Weet u zeker dat u opnieuw wilt opstarten?"
 
 msgid "Are you sure you want to restore global.env from backup?"
-msgstr "Weet u zeker dat u global.env wilt terugzetten van backup?"
+msgstr "Weet u zeker dat u global.env wilt herstellen vanuit backup?"
 
 msgid "Are you sure you want to stop all containers?"
 msgstr "Weet u zeker dat u alle containers wilt stoppen?"
 
 msgid "Are you sure you want to sync changes from the files?"
 msgstr "Weet u zeker dat u wijzigingen in de bestanden wilt synchroniseren?"
+
+msgid ""
+"Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
+"enabled in the Docker daemon."
+msgstr ""
 
 msgid "At reboot"
 msgstr "Bij opnieuw starten"
@@ -280,6 +288,12 @@ msgstr "Conf bestandsnaam kan niet zijn"
 msgid "Configs"
 msgstr "Configuraties"
 
+msgid "Connect"
+msgstr ""
+
+msgid "Connect container"
+msgstr ""
+
 msgid "Container"
 msgstr "Container"
 
@@ -302,7 +316,7 @@ msgid "Create"
 msgstr "Aanmaken"
 
 msgid "Create .env and compose.yml symlinks"
-msgstr ".env en compose.yml symlinks aanmaken"
+msgstr "Symlinks aanmaken voor .env en compose.yml"
 
 msgid "Create from URL"
 msgstr "Aanmaken van URL"
@@ -402,6 +416,12 @@ msgstr "Map bestaat niet!"
 msgid "Disable if Portainer uses a self-signed certificate."
 msgstr "Uitschakelen als Portainer een zelfondertekend certificaat gebruikt."
 
+msgid "Disconnect"
+msgstr ""
+
+msgid "Disconnect container"
+msgstr ""
+
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
 "Geeft containers weer met een link naar de cterm exec-terminal in een tabel."
@@ -417,6 +437,10 @@ msgid ""
 "backup runs while the containers are live (faster, no downtime), but data "
 "may be inconsistent for running services such as databases."
 msgstr ""
+"De containers niet stoppen en starten voor en na een back-up. De back-up "
+"draait terwijl de containers live zijn (sneller, geen downtime), maar "
+"gegevens kunnen inconsistent zijn voor het uitvoeren van services zoals "
+"databases."
 
 msgid "Do not use cache when building the image"
 msgstr "Geen tijdelijke opslag gebruiken bij het bouwen van de image"
@@ -479,7 +503,7 @@ msgid "Edit global environment file"
 msgstr "Globaal omgevingsbestand bewerken"
 
 msgid "Edit global environment variable file."
-msgstr "Globaal omgevingsvariabelebestand bewerken."
+msgstr "Globaal omgevingsvariabelenbestand bewerken."
 
 msgid "Edit scheduled job."
 msgstr "Geplande taak bewerken."
@@ -493,6 +517,9 @@ msgstr "Docker repo inschakelen"
 msgid "Enable Docker repo ..."
 msgstr "Docker repo inschakelen…"
 
+msgid "Enable IPv6"
+msgstr ""
+
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
@@ -504,7 +531,7 @@ msgstr ""
 "repo opnieuw worden geïnitieerd."
 
 msgid "Env Path"
-msgstr "Omg.-pad"
+msgstr ".env-pad"
 
 msgid "Environment"
 msgstr "Omgeving"
@@ -612,6 +639,11 @@ msgstr "Groep mappen en bestanden"
 msgid "Host Port"
 msgstr "Hostpoort"
 
+msgid ""
+"Host interface this network is attached to. Use a VLAN sub-interface for "
+"802.1Q tagging, e.g. eth0.10"
+msgstr ""
+
 msgid "Hour"
 msgstr "Uur"
 
@@ -621,8 +653,17 @@ msgstr "Elk uur"
 msgid "ID"
 msgstr "ID"
 
+msgid "IP address"
+msgstr ""
+
 msgid "IP range"
 msgstr "IP-bereik"
+
+msgid "IPv6 gateway"
+msgstr ""
+
+msgid "IPv6 subnet"
+msgstr ""
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
@@ -739,6 +780,11 @@ msgstr "Uitloggen"
 msgid "Maintenance"
 msgstr "Onderhoud"
 
+msgid ""
+"Manually assign the subnet, gateway and IP range. Leave disabled to let "
+"Docker allocate addresses automatically."
+msgstr ""
+
 msgid "March"
 msgstr "Maart"
 
@@ -765,6 +811,9 @@ msgstr "Muniit"
 
 msgid "Mixed"
 msgstr "Mixed"
+
+msgid "Mode"
+msgstr ""
 
 msgid "Monday"
 msgstr "Maandag"
@@ -842,6 +891,9 @@ msgstr ""
 " CHANGE_TO_COMPOSE_DATA_PATH te vervangen bij het samenstellen en env-"
 "bestanden met dit gedeelde mappad."
 
+msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
+msgstr ""
+
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
 "merged with the Filter patterns above (combined and de-duplicated)."
@@ -878,6 +930,9 @@ msgstr "Eigenaar van mappen en bestanden"
 
 msgid "PIDs"
 msgstr "PID's"
+
+msgid "Parent"
+msgstr ""
 
 msgid "Parent network"
 msgstr "Bovenliggend netwerk"
@@ -1030,10 +1085,10 @@ msgid "Restore Compose ..."
 msgstr "Compose herstellen…"
 
 msgid "Restore global.env"
-msgstr "Global.env herstellen"
+msgstr "global.env herstellen"
 
 msgid "Restoring global.env from backup ..."
-msgstr "Global.env herstellen van back-up…"
+msgstr "global.env herstellen vanuit back-up…"
 
 msgid ""
 "Restrict external access. Containers can talk to each other, but the network"
@@ -1171,7 +1226,7 @@ msgid "Size"
 msgstr "Grootte"
 
 msgid "Skip container stop/start"
-msgstr ""
+msgstr "Container stop/start overslaan"
 
 msgid "Start"
 msgstr "Starten"
@@ -1523,6 +1578,12 @@ msgstr "docker logs --follow ..."
 msgid "docker logs ..."
 msgstr "docker logs ..."
 
+msgid "docker network connect ..."
+msgstr ""
+
+msgid "docker network disconnect ..."
+msgstr ""
+
 msgid "docker network inspect ..."
 msgstr "docker network inspect ..."
 
@@ -1567,6 +1628,12 @@ msgstr "bijv. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
 msgstr "bijv. 172.20.10.128/25"
+
+msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
+msgstr ""
+
+msgid "e.g. 2001:db8:abcd::1"
+msgstr ""
 
 msgid "file not found!"
 msgstr "bestand niet gevonden!"
