@@ -64,7 +64,7 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 唯讀"
 
 msgid "Advanced (manual IP configuration)"
-msgstr ""
+msgstr "先進 (手動 IP 設置)"
 
 msgid "Always attempt to pull a newer version of the image"
 msgstr "總是嘗試著拉取較新版的映像"
@@ -106,7 +106,7 @@ msgstr "您確定要從檔案同步變更嗎？"
 msgid ""
 "Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
 "enabled in the Docker daemon."
-msgstr ""
+msgstr "指定一個 IPv6 子網路到此網路 (雙網路堆疊)。須要在 Docker 服務程式中啓用 IPv6。"
 
 msgid "At reboot"
 msgstr "重新啟動時"
@@ -265,10 +265,10 @@ msgid "Configs"
 msgstr "配置"
 
 msgid "Connect"
-msgstr ""
+msgstr "連接"
 
 msgid "Connect container"
-msgstr ""
+msgstr "連接容器"
 
 msgid "Container"
 msgstr "容器"
@@ -391,10 +391,10 @@ msgid "Disable if Portainer uses a self-signed certificate."
 msgstr "若 Portainer 使用自我簽署憑證則停用。"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "斷連"
 
 msgid "Disconnect container"
-msgstr ""
+msgstr "斷連容器"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr "在表格中顯示容器加上 cterm 執行終端機連結。"
@@ -487,7 +487,7 @@ msgid "Enable Docker repo ..."
 msgstr "啟用 Docker 套件庫中 ..."
 
 msgid "Enable IPv6"
-msgstr ""
+msgstr "啟用 IPv6"
 
 msgid "Enabled"
 msgstr "已啟用"
@@ -615,16 +615,16 @@ msgid "ID"
 msgstr "ID"
 
 msgid "IP address"
-msgstr ""
+msgstr "IP 地址"
 
 msgid "IP range"
 msgstr "IP 範圍"
 
 msgid "IPv6 gateway"
-msgstr ""
+msgstr "IPv6 閘道器"
 
 msgid "IPv6 subnet"
-msgstr ""
+msgstr "IPv6 子網路"
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr "若勾選，備份的 rsync 指令將包含詳盡旗標。"
@@ -769,7 +769,7 @@ msgid "Mixed"
 msgstr "混合"
 
 msgid "Mode"
-msgstr ""
+msgstr "模式"
 
 msgid "Monday"
 msgstr "週一"
@@ -845,7 +845,7 @@ msgstr ""
 "CHANGE_TO_COMPOSE_DATA_PATH 變數。"
 
 msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
-msgstr ""
+msgstr "選用項：從網站子網路中指定一個静態 IP，例如：172.20.0.10"
 
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
@@ -877,7 +877,7 @@ msgid "PIDs"
 msgstr "PIDs"
 
 msgid "Parent"
-msgstr ""
+msgstr "上層"
 
 msgid "Parent network"
 msgstr "上層網路"
@@ -1466,10 +1466,10 @@ msgid "docker logs ..."
 msgstr "docker logs ..."
 
 msgid "docker network connect ..."
-msgstr ""
+msgstr "docker network connect ..."
 
 msgid "docker network disconnect ..."
-msgstr ""
+msgstr "docker network disconnect ..."
 
 msgid "docker network inspect ..."
 msgstr "docker network inspect ..."
@@ -1517,10 +1517,10 @@ msgid "e.g. 172.20.10.128/25"
 msgstr "例如：172.20.10.128/25"
 
 msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
-msgstr ""
+msgstr "例如：2001:db8:abcd::/64 或 fd00::/64"
 
 msgid "e.g. 2001:db8:abcd::1"
-msgstr ""
+msgstr "例如：2001:db8:abcd::1"
 
 msgid "file not found!"
 msgstr "没有檔案！"

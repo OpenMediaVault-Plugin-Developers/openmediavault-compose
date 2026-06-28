@@ -74,7 +74,7 @@ msgstr ""
 "lezen"
 
 msgid "Advanced (manual IP configuration)"
-msgstr ""
+msgstr "Geavanceerd (aangepaste IP-configuratie)"
 
 msgid "Always attempt to pull a newer version of the image"
 msgstr "Probeer altijd een nieuwere versie van de image op te halen"
@@ -121,6 +121,8 @@ msgid ""
 "Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
 "enabled in the Docker daemon."
 msgstr ""
+"Wijs een IPv6-subnet toe aan dit netwerk (dual-stack). Vereist dat IPv6 is "
+"ingeschakeld in de Docker-daemon."
 
 msgid "At reboot"
 msgstr "Bij opnieuw starten"
@@ -289,10 +291,10 @@ msgid "Configs"
 msgstr "Configuraties"
 
 msgid "Connect"
-msgstr ""
+msgstr "Koppelen"
 
 msgid "Connect container"
-msgstr ""
+msgstr "Container koppelen"
 
 msgid "Container"
 msgstr "Container"
@@ -417,10 +419,10 @@ msgid "Disable if Portainer uses a self-signed certificate."
 msgstr "Uitschakelen als Portainer een zelfondertekend certificaat gebruikt."
 
 msgid "Disconnect"
-msgstr ""
+msgstr "Koppeling verbreken"
 
 msgid "Disconnect container"
-msgstr ""
+msgstr "Container ontkoppelen"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
@@ -518,7 +520,7 @@ msgid "Enable Docker repo ..."
 msgstr "Docker repo inschakelen…"
 
 msgid "Enable IPv6"
-msgstr ""
+msgstr "IPv6 inschakelen"
 
 msgid "Enabled"
 msgstr "Ingeschakeld"
@@ -643,6 +645,8 @@ msgid ""
 "Host interface this network is attached to. Use a VLAN sub-interface for "
 "802.1Q tagging, e.g. eth0.10"
 msgstr ""
+"Hostinterface waaraan dit netwerk is gekoppeld. Gebruik een VLAN-"
+"subinterface voor 802.1Q-tagging, bijvoorbeeld eth0.10"
 
 msgid "Hour"
 msgstr "Uur"
@@ -654,16 +658,16 @@ msgid "ID"
 msgstr "ID"
 
 msgid "IP address"
-msgstr ""
+msgstr "IP-adres"
 
 msgid "IP range"
 msgstr "IP-bereik"
 
 msgid "IPv6 gateway"
-msgstr ""
+msgstr "IPv6-gateway"
 
 msgid "IPv6 subnet"
-msgstr ""
+msgstr "IPv6-subnet"
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
@@ -784,6 +788,8 @@ msgid ""
 "Manually assign the subnet, gateway and IP range. Leave disabled to let "
 "Docker allocate addresses automatically."
 msgstr ""
+"Wijs handmatig het subnet, de gateway en het IP-bereik toe. Laat "
+"uitgeschakeld om Docker automatisch adressen te laten toewijzen."
 
 msgid "March"
 msgstr "Maart"
@@ -813,7 +819,7 @@ msgid "Mixed"
 msgstr "Mixed"
 
 msgid "Mode"
-msgstr ""
+msgstr "Modus"
 
 msgid "Monday"
 msgstr "Maandag"
@@ -893,6 +899,8 @@ msgstr ""
 
 msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
 msgstr ""
+"Optioneel. Een statisch IP toewijzen vanuit het netwerksubnet bijv. "
+"172.20.0.10"
 
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
@@ -932,7 +940,7 @@ msgid "PIDs"
 msgstr "PID's"
 
 msgid "Parent"
-msgstr ""
+msgstr "Bovenliggend"
 
 msgid "Parent network"
 msgstr "Bovenliggend netwerk"
@@ -1579,10 +1587,10 @@ msgid "docker logs ..."
 msgstr "docker logs ..."
 
 msgid "docker network connect ..."
-msgstr ""
+msgstr "docker network connect…"
 
 msgid "docker network disconnect ..."
-msgstr ""
+msgstr "docker network disconnect…"
 
 msgid "docker network inspect ..."
 msgstr "docker network inspect ..."
@@ -1630,10 +1638,10 @@ msgid "e.g. 172.20.10.128/25"
 msgstr "bijv. 172.20.10.128/25"
 
 msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
-msgstr ""
+msgstr "bijv. 2001:db8:abcd::/64 of fd00::/64"
 
 msgid "e.g. 2001:db8:abcd::1"
-msgstr ""
+msgstr "bijv. 2001:db8:abcd::1"
 
 msgid "file not found!"
 msgstr "bestand niet gevonden!"
