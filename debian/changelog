@@ -1,3 +1,17 @@
+openmediavault-compose (8.1.23) stable; urgency=low
+
+  * Volumes: add a Create action to make named volumes from the UI, with an
+    Advanced section for the mount type (NFS/CIFS via the local driver),
+    driver options and labels
+  * Volumes: add a "Create bind mount path" action to prepare a host
+    directory for bind mounts, setting owner/group (e.g. PUID/PGID) and
+    permissions; accepts an absolute path or a shared folder plus relative
+    path, with optional recursive apply and protection against operating on
+    critical system paths
+  * Volumes: add containers column to show containers using each volume
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 01 Jul 2026 20:09:40 +0000
+
 openmediavault-compose (8.1.22) stable; urgency=low
 
   * Networks: macvlan and ipvlan networks can now set a parent interface
