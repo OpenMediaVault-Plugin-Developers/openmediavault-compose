@@ -1,0 +1,111 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-volume-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      post:
+        method: setVolume
+    fields:
+      - type: confObjUuid
+      - type: textInput
+        name: name
+        label: _("Name")
+        value: ""
+        validators:
+          required: true
+      - type: textInput
+        name: driver
+        label: _("Driver")
+        value: "local"
+        hint: _("The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS mounts), or the name of an installed volume plugin.")
+      - type: checkbox
+        name: advanced
+        label: _("Advanced (driver options & labels)")
+        value: false
+        hint: _("Configure a mount type, driver options and labels. Leave disabled to create a plain named volume.")
+      - type: select
+        name: mounttype
+        label: _("Mount type")
+        value: "none"
+        hint: _("With the 'local' driver, mount a remote share instead of using local storage.")
+        store:
+          data:
+            - ["none", _("None (local storage)")]
+            - ["nfs", "NFS"]
+            - ["cifs", "CIFS/SMB"]
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: advanced
+      - type: textInput
+        name: device
+        label: _("Device")
+        value: ""
+        hint: '_("NFS: addr:/export/path, e.g. :/export/share (host comes from options).<br/>CIFS: //server/share")'
+        modifiers:
+          - type: visible
+            constraint:
+              operator: and
+              arg0:
+                operator: truthy
+                arg0:
+                  prop: advanced
+              arg1:
+                operator: ne
+                arg0:
+                  prop: mounttype
+                arg1: "none"
+      - type: textInput
+        name: mountoptions
+        label: _("Mount options")
+        value: ""
+        hint: _("Passed as the 'o' driver option.<br/>NFS e.g. addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. username=user,password=secret,vers=3.0")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: and
+              arg0:
+                operator: truthy
+                arg0:
+                  prop: advanced
+              arg1:
+                operator: ne
+                arg0:
+                  prop: mounttype
+                arg1: "none"
+      - type: textInput
+        name: driveropts
+        label: _("Driver options")
+        value: ""
+        hint: _("Additional --opt entries as key=value. Comma separate multiple entries.<br/>e.g. size=20g,uid=1000")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: advanced
+      - type: textInput
+        name: labels
+        label: _("Labels")
+        value: ""
+        hint: _("Format is key=value. Comma separate multiple entries.<br/>e.g. com.example.usage=backup,com.example.owner=admin")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: truthy
+              arg0:
+                prop: advanced
+    buttons:
+      - template: submit
+        execute:
+          type: url
+          url: "/services/compose/volumes"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/compose/volumes"

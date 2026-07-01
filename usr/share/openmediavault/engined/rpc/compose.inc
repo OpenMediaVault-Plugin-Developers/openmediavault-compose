@@ -118,6 +118,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getVolumes");
         $this->registerMethod("getVolumesBg");
         $this->registerMethod("doDockerVolumeCmd");
+        $this->registerMethod("setVolume");
+        $this->registerMethod("createBindPath");
 
         $this->registerMethod("getNetworks");
         $this->registerMethod("getNetworksBg");
@@ -3614,6 +3616,79 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return ($objects);
     }
 
+    // Build a map of volume name => list of container names that mount it.
+    // Uses 'docker inspect' so named volumes are matched by name (the
+    // '{{.Mounts}}' column of 'docker ps' only shows bind-mount sources and
+    // truncates). Works for both docker and podman since the plugin always
+    // drives the docker CLI, pointing DOCKER_HOST at the podman socket.
+    private function getVolumeContainerMap($podman)
+    {
+        $map = [];
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker ps -aq';
+        $cmdArgs[] = '|';
+        $cmdArgs[] = 'xargs -r docker inspect';
+        $cmdArgs[] = '--format';
+        $cmdArgs[] = '\'{{.Name}}|{{range .Mounts}}{{if eq .Type "volume"}}{{.Name}},{{end}}{{end}}\'';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
+        $cmd->setQuiet(true);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        foreach ($output as $line) {
+            if (empty($line) || strpos($line, '|') === false) {
+                continue;
+            }
+            list($container, $volumes) = explode('|', $line, 2);
+            // Container names are reported with a leading slash.
+            $container = ltrim(trim($container), '/');
+            if ($container === '') {
+                continue;
+            }
+            foreach (array_filter(array_map('trim', explode(',', $volumes))) as $volume) {
+                $map[$volume][] = $container;
+            }
+        }
+        return $map;
+    }
+
+    // Return the authoritative list of volumes as [name, driver, mountpoint]
+    // rows. 'docker volume ls' lists every volume, unlike 'docker system df'
+    // which silently drops volumes it cannot size (e.g. an unmounted NFS/CIFS
+    // volume), so this is used as the source of truth for the volume list.
+    private function getVolumeList($podman)
+    {
+        $volumes = [];
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'volume';
+        $cmdArgs[] = 'ls';
+        $cmdArgs[] = '--format "{{.Name}}\t{{.Driver}}\t{{.Mountpoint}}"';
+        $cmd = new \OMV\System\Process($cmdArgs);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
+        $cmd->setQuiet(true);
+        $output = [];
+        $cmd->execute($output, $exitStatus);
+        foreach ($output as $line) {
+            if (trim($line) === '') {
+                continue;
+            }
+            $parts = explode("\t", $line);
+            $volumes[] = [
+                'name' => $parts[0] ?? '',
+                'driver' => $parts[1] ?? '',
+                'mountpoint' => $parts[2] ?? ''
+            ];
+        }
+        return $volumes;
+    }
+
     public function getVolumes($params, $context)
     {
         // Validate the RPC caller context.
@@ -3651,13 +3726,27 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             }
             $data = json_decode($outputJson, true);
         }
+        // 'docker system df' is the size source, but it omits volumes it cannot
+        // size, so build a name => size lookup from it and use 'docker volume ls'
+        // for the authoritative list. Volumes missing from df report no size.
+        $sizeMap = [];
+        foreach (($data['Volumes'] ?? []) as $volume) {
+            $sizeMap[$volume['Name']] = $volume['Size'];
+        }
+        // Map each volume to the containers that mount it. This is queried
+        // live (not cached with the disk-usage data) so associations stay
+        // current even when volume sizes are served from cache.
+        $containerMap = $this->getVolumeContainerMap($podman);
         $volumesAssoc = [];
-        foreach ($data['Volumes'] as $volume) {
+        foreach ($this->getVolumeList($podman) as $volume) {
+            $name = $volume['name'];
+            $containers = $containerMap[$name] ?? [];
             $volumesAssoc[] = [
-                "name" => $volume['Name'],
-                "size" => $this->convertToBytes($volume['Size']),
-                "mountpoint" => $volume['Mountpoint'],
-                "driver" => $volume['Driver']
+                "name" => $name,
+                "size" => isset($sizeMap[$name]) ? $this->convertToBytes($sizeMap[$name]) : null,
+                "mountpoint" => $volume['mountpoint'],
+                "driver" => $volume['driver'],
+                "containers" => implode(', ', $containers)
             ];
         }
         // Filter the result.
@@ -3702,6 +3791,173 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 return $output;
             }
         );
+    }
+
+    public function setVolume($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // clear cache for volumes
+        $this->clearCache('volumes');
+        $podman = $this->getPodman($context);
+        $driver = !empty($params['driver']) ? $params['driver'] : 'local';
+        $advanced = !empty($params['advanced']);
+        $cmdArgs = [];
+        $cmdArgs[] = 'docker';
+        $cmdArgs[] = 'volume';
+        $cmdArgs[] = 'create';
+        $cmdArgs[] = sprintf("--driver %s", $driver);
+        if ($advanced) {
+            $mountType = $params['mounttype'] ?? 'none';
+            if ($mountType !== '' && $mountType !== 'none') {
+                $cmdArgs[] = sprintf("--opt type=%s", $mountType);
+                if (!empty($params['device'])) {
+                    $cmdArgs[] = sprintf('--opt device="%s"', $params['device']);
+                }
+                if (!empty($params['mountoptions'])) {
+                    $cmdArgs[] = sprintf('--opt o="%s"', $params['mountoptions']);
+                }
+            }
+            if (!empty($params['driveropts'])) {
+                $opts = explode(',', $params['driveropts']);
+                foreach ($opts as $entry) {
+                    $entry = trim($entry);
+                    if ($entry !== '') {
+                        $cmdArgs[] = sprintf('--opt %s', $entry);
+                    }
+                }
+            }
+            if (!empty($params['labels'])) {
+                $labels = explode(',', $params['labels']);
+                foreach ($labels as $label) {
+                    $label = trim($label);
+                    if ($label !== '') {
+                        $cmdArgs[] = sprintf('--label %s', $label);
+                    }
+                }
+            }
+        }
+        $cmdArgs[] = $params['name'];
+        $cmd = new \OMV\System\Process($cmdArgs);
+        if ($podman) {
+            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+        }
+        $cmd->setRedirect2to1();
+        $cmd->execute($output, $exitStatus);
+        return $output;
+    }
+
+    // Create a host directory for use as a bind mount, optionally setting its
+    // ownership and permissions. This is host filesystem prep (mkdir/chown/chmod),
+    // not a Docker volume; bind mounts never appear in 'docker volume ls'.
+    public function createBindPath($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
+        // Resolve the target path from either an absolute path or a shared
+        // folder plus a relative subdirectory.
+        $source = $params['source'] ?? 'sharedfolder';
+        if ($source === 'absolute') {
+            $path = trim($params['abspath'] ?? '');
+            if ($path === '') {
+                throw new \OMV\Exception(gettext("Please provide an absolute path."));
+            }
+        } else {
+            $sfref = $params['sharedfolderref'] ?? '';
+            if (!is_uuid($sfref)) {
+                throw new \OMV\Exception(gettext("Please select a shared folder."));
+            }
+            $sfpath = \OMV\Rpc\Rpc::call("ShareMgmt", "getPath", ["uuid" => $sfref], $context);
+            $sfpath = rtrim($sfpath, '/');
+            $rel = ltrim(trim($params['relpath'] ?? ''), '/');
+            $path = ($rel === '') ? $sfpath : $sfpath . '/' . $rel;
+        }
+        // The path must be absolute and free of traversal components.
+        if (substr($path, 0, 1) !== '/') {
+            throw new \OMV\Exception(gettext("The path must be absolute."));
+        }
+        if (strpos($path, '/../') !== false || substr($path, -3) === '/..'
+          || $path === '..') {
+            throw new \OMV\Exception(gettext("The path must not contain '..' components."));
+        }
+        // Collapse duplicate and trailing slashes.
+        $path = rtrim(preg_replace('#/+#', '/', $path), '/');
+        if ($path === '') {
+            $path = '/';
+        }
+        // Refuse to operate on critical system locations. A recursive chmod/chown
+        // here as root could render the host unbootable.
+        $protected = ['/', '/bin', '/boot', '/dev', '/etc', '/lib', '/lib32',
+            '/lib64', '/libx32', '/proc', '/root', '/run', '/sbin', '/sys',
+            '/usr', '/var'];
+        foreach ($protected as $p) {
+            if ($path === $p || ($p !== '/' && strpos($path . '/', $p . '/') === 0)) {
+                throw new \OMV\Exception(sprintf(
+                    gettext("Refusing to operate on the protected system path '%s'."),
+                    $path));
+            }
+        }
+        // Validate ownership and mode inputs (both optional).
+        $owner = trim($params['owner'] ?? '');
+        $group = trim($params['group'] ?? '');
+        foreach (['owner' => $owner, 'group' => $group] as $key => $value) {
+            if ($value !== '' && !preg_match('/^[A-Za-z0-9_][A-Za-z0-9_.-]*$/', $value)) {
+                throw new \OMV\Exception(sprintf(
+                    gettext("Invalid %s name."), $key));
+            }
+        }
+        $mode = trim($params['mode'] ?? '');
+        if ($mode !== '' && !preg_match('/^[0-7]{3,4}$/', $mode)) {
+            throw new \OMV\Exception(gettext("Permissions must be an octal value, e.g. 755."));
+        }
+        $recursive = !empty($params['recursive']);
+        // Create the directory if it does not exist yet.
+        $created = false;
+        if (!file_exists($path)) {
+            if (!mkdir($path, 0777, true)) {
+                throw new \OMV\Exception(sprintf(
+                    gettext("Failed to create directory '%s'."), $path));
+            }
+            $created = true;
+        } elseif (!is_dir($path)) {
+            throw new \OMV\Exception(sprintf(
+                gettext("'%s' already exists and is not a directory."), $path));
+        }
+        // Apply ownership. Omitting execute()'s exit-status argument makes the
+        // process throw on failure, so errors surface to the caller.
+        $output = [];
+        if ($owner !== '' || $group !== '') {
+            $spec = $owner;
+            if ($group !== '') {
+                $spec .= ':' . $group;
+            }
+            $cmdArgs = ['chown'];
+            if ($recursive) {
+                $cmdArgs[] = '-R';
+            }
+            $cmdArgs[] = $spec;
+            $cmdArgs[] = $path;
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->setRedirect2to1();
+            $cmd->execute($output);
+        }
+        // Apply permissions.
+        if ($mode !== '') {
+            $cmdArgs = ['chmod'];
+            if ($recursive) {
+                $cmdArgs[] = '-R';
+            }
+            $cmdArgs[] = $mode;
+            $cmdArgs[] = $path;
+            $cmd = new \OMV\System\Process($cmdArgs);
+            $cmd->setRedirect2to1();
+            $cmd->execute($output);
+        }
+        return [
+            'path' => $path,
+            'created' => $created,
+        ];
     }
 
     public function getNetworks($params, $context)

@@ -1,0 +1,124 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-compose-bindpath-form-page
+  type: formPage
+  config:
+    request:
+      service: Compose
+      post:
+        method: createBindPath
+    fields:
+      - type: select
+        name: source
+        label: _("Path source")
+        value: "sharedfolder"
+        store:
+          data:
+            - ["sharedfolder", _("Shared folder + relative path")]
+            - ["absolute", _("Absolute path")]
+      - type: sharedFolderSelect
+        name: sharedfolderref
+        label: _("Shared folder")
+        hasEmptyOption: true
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: source
+              arg1: "sharedfolder"
+      - type: textInput
+        name: relpath
+        label: _("Relative path")
+        value: ""
+        hint: _("Subdirectory created under the shared folder. Leave empty to use the shared folder root.<br/>e.g. plex/config")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: source
+              arg1: "sharedfolder"
+      - type: textInput
+        name: abspath
+        label: _("Absolute path")
+        value: ""
+        hint: _("Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-xxxx/appdata/plex/config")
+        modifiers:
+          - type: visible
+            constraint:
+              operator: eq
+              arg0:
+                prop: source
+              arg1: "absolute"
+      - type: container
+        fields:
+          - type: select
+            name: owner
+            label: _("Owner")
+            placeholder: _("Leave unchanged ...")
+            value: ""
+            hasEmptyOption: true
+            valueField: "name"
+            textField: "name"
+            hint: _("User to own the path. Match the container's PUID where applicable.")
+            store:
+              proxy:
+                service: UserMgmt
+                get:
+                  method: enumerateAllUsers
+              sorters:
+                - dir: asc
+                  prop: name
+          - type: select
+            name: group
+            label: _("Group")
+            placeholder: _("Leave unchanged ...")
+            value: ""
+            hasEmptyOption: true
+            valueField: "name"
+            textField: "name"
+            hint: _("Group to own the path. Match the container's PGID where applicable.")
+            store:
+              proxy:
+                service: UserMgmt
+                get:
+                  method: enumerateAllGroups
+              sorters:
+                - dir: asc
+                  prop: name
+      - type: select
+        name: mode
+        label: _("Permissions")
+        value: "755"
+        hasEmptyOption: true
+        emptyOptionText: _("Leave unchanged")
+        store:
+          data:
+            - - "700"
+              - _("Owner - read/write, Group - no access, Others - no access")
+            - - "750"
+              - _("Owner - read/write, Group - read-only, Others - no access")
+            - - "770"
+              - _("Owner - read/write, Group - read/write, Others - no access")
+            - - "755"
+              - _("Owner - read/write, Group - read-only, Others - read-only")
+            - - "775"
+              - _("Owner - read/write, Group - read/write, Others - read-only")
+            - - "777"
+              - _("Everyone - read/write")
+      - type: checkbox
+        name: recursive
+        label: _("Apply ownership and permissions recursively")
+        value: false
+        hint: _("Apply the owner, group and permissions to all existing contents as well, not just the directory itself. Use with care on directories that already hold data.")
+    buttons:
+      - template: submit
+        execute:
+          type: url
+          url: "/services/compose/volumes"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services/compose/volumes"

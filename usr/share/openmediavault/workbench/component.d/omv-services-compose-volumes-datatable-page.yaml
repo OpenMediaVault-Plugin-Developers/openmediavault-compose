@@ -37,7 +37,23 @@ data:
         prop: driver
         flexGrow: 1
         sortable: true
+      - name: _("Containers")
+        prop: containers
+        flexGrow: 2
+        sortable: true
+        cellTemplateName: template
+        cellTemplateConfig: '{{ containers | notavailable("-") }}'
     actions:
+      - template: create
+        execute:
+          type: url
+          url: "/services/compose/volumes/create"
+      - type: iconButton
+        icon: mdi:folder-plus-outline
+        tooltip: _("Create bind mount path")
+        execute:
+          type: url
+          url: "/services/compose/volumes/createpath"
       - type: iconButton
         icon: "delete"
         tooltip: _("Delete")
