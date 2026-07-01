@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-25 11:41+0000\n"
+"POT-Creation-Date: 2026-07-01 20:10+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Raul Fernandez Garcia <raulfg3@gmail.com>, 2024\n"
 "Language-Team: Spanish (Spain) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/es_ES/)\n"
@@ -21,7 +21,18 @@ msgstr ""
 "Language: es_ES\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
+msgid "'%s' already exists and is not a directory."
+msgstr ""
+
 msgid "API Key"
+msgstr ""
+
+msgid ""
+"Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
+"xxxx/appdata/plex/config"
+msgstr ""
+
+msgid "Absolute path"
 msgstr ""
 
 msgid "Action"
@@ -48,6 +59,11 @@ msgstr ""
 msgid "Adding an example compose file ..."
 msgstr ""
 
+msgid ""
+"Additional --opt entries as key=value. Comma separate multiple "
+"entries.<br/>e.g. size=20g,uid=1000"
+msgstr ""
+
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
 "Administrador: lectura/escritura, Usuarios: sin acceso, Otros: sin acceso"
@@ -71,6 +87,9 @@ msgstr ""
 "Administrador: lectura/escritura, Usuarios: lectura/escritura, Otros: solo "
 "lectura"
 
+msgid "Advanced (driver options & labels)"
+msgstr ""
+
 msgid "Advanced (manual IP configuration)"
 msgstr ""
 
@@ -80,6 +99,15 @@ msgstr ""
 msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
+msgstr ""
+
+msgid "Apply ownership and permissions recursively"
+msgstr ""
+
+msgid ""
+"Apply the owner, group and permissions to all existing contents as well, not"
+" just the directory itself. Use with care on directories that already hold "
+"data."
 msgstr ""
 
 msgid "April"
@@ -272,6 +300,11 @@ msgstr "El nombre del archivo conf no puede ser"
 msgid "Configs"
 msgstr ""
 
+msgid ""
+"Configure a mount type, driver options and labels. Leave disabled to create "
+"a plain named volume."
+msgstr ""
+
 msgid "Connect"
 msgstr ""
 
@@ -302,6 +335,9 @@ msgstr "Crear"
 msgid "Create .env and compose.yml symlinks"
 msgstr ""
 
+msgid "Create bind mount path"
+msgstr ""
+
 msgid "Create from URL"
 msgstr "Crear desde URL"
 
@@ -323,6 +359,9 @@ msgstr "Creado"
 msgid "Created At"
 msgstr "Creado el "
 
+msgid "Created bind mount path."
+msgstr ""
+
 msgid "Created config."
 msgstr ""
 
@@ -340,6 +379,9 @@ msgstr "Red Creada."
 
 msgid "Created scheduled job."
 msgstr "Trabajo programado creado."
+
+msgid "Created volume."
+msgstr ""
 
 msgid "Current"
 msgstr "Actual"
@@ -388,6 +430,9 @@ msgstr ""
 
 msgid "Description"
 msgstr "Descripción"
+
+msgid "Device"
+msgstr ""
 
 msgid "Digest"
 msgstr "Digest"
@@ -463,6 +508,9 @@ msgstr "Descargar Logs"
 
 msgid "Driver"
 msgstr "Driver"
+
+msgid "Driver options"
+msgstr ""
 
 msgid "Edit"
 msgstr "Editar"
@@ -556,6 +604,9 @@ msgstr "Ejecutando trabajo programado ..."
 msgid "Failed"
 msgstr "Falló"
 
+msgid "Failed to create directory '%s'."
+msgstr ""
+
 msgid "February"
 msgstr ""
 
@@ -581,6 +632,11 @@ msgid "Find the next 20 free host ports at or above this number."
 msgstr ""
 
 msgid ""
+"Format is key=value. Comma separate multiple entries.<br/>e.g. "
+"com.example.usage=backup,com.example.owner=admin"
+msgstr ""
+
+msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
@@ -599,8 +655,14 @@ msgstr "Global Environment"
 msgid "Global environment variables"
 msgstr "Variables Globales env."
 
+msgid "Group"
+msgstr ""
+
 msgid "Group of directories and files"
 msgstr "Grupo de directorios y archivos"
+
+msgid "Group to own the path. Match the container's PGID where applicable."
+msgstr ""
 
 msgid "Host Port"
 msgstr ""
@@ -687,6 +749,9 @@ msgstr "Instalado"
 msgid "Internal network"
 msgstr ""
 
+msgid "Invalid %s name."
+msgstr ""
+
 msgid "Invalid JSON response from Portainer: %s"
 msgstr ""
 
@@ -705,11 +770,20 @@ msgstr ""
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
 
+msgid "Labels"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr ""
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Dejar en blanco para usar /etc/docker/daemon.json personalizado"
+
+msgid "Leave unchanged"
+msgstr ""
+
+msgid "Leave unchanged ..."
+msgstr ""
 
 msgid "Live restore"
 msgstr ""
@@ -785,6 +859,12 @@ msgstr ""
 msgid "Monthly"
 msgstr ""
 
+msgid "Mount options"
+msgstr ""
+
+msgid "Mount type"
+msgstr ""
+
 msgid "Mountpoint"
 msgstr "Punto de montaje"
 
@@ -819,6 +899,9 @@ msgid "No name specified!"
 msgstr "No se ha especificado el nombre!"
 
 msgid "None"
+msgstr ""
+
+msgid "None (local storage)"
 msgstr ""
 
 msgid "Not installed"
@@ -880,6 +963,24 @@ msgstr ""
 msgid "Overrides"
 msgstr "Ignorar"
 
+msgid "Owner"
+msgstr ""
+
+msgid "Owner - read/write, Group - no access, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - read-only"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - read-only"
+msgstr ""
+
 msgid "Owner of directories and files"
 msgstr "Propietario de los directorios y archivos"
 
@@ -892,6 +993,12 @@ msgstr ""
 msgid "Parent network"
 msgstr "Tarjeta de red principal"
 
+msgid ""
+"Passed as the 'o' driver option.<br/>NFS e.g. "
+"addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
+"username=user,password=secret,vers=3.0"
+msgstr ""
+
 msgid "Passphrase for Borg encryption."
 msgstr ""
 
@@ -901,14 +1008,29 @@ msgstr ""
 msgid "Path"
 msgstr "Ruta"
 
+msgid "Path source"
+msgstr ""
+
 msgid "Path to script that will be executed after backup"
 msgstr ""
 
 msgid "Path to script that will be executed before backup"
 msgstr ""
 
+msgid "Permissions"
+msgstr ""
+
+msgid "Permissions must be an octal value, e.g. 755."
+msgstr ""
+
 msgid "Permissions of directories and files"
 msgstr "Permisos de los directorios y archivos"
+
+msgid "Please provide an absolute path."
+msgstr ""
+
+msgid "Please select a shared folder."
+msgstr ""
 
 msgid "Please set shared folder for backups."
 msgstr "Seleccione una carpeta compartida para backup."
@@ -1010,11 +1132,17 @@ msgid ""
 "tokens."
 msgstr ""
 
+msgid "Refusing to operate on the protected system path '%s'."
+msgstr ""
+
 msgid "Reinstall Docker"
 msgstr "Reinstalar Docker"
 
 msgid "Reinstall Docker ..."
 msgstr "Reinstalando Docker ..."
+
+msgid "Relative path"
+msgstr ""
 
 msgid "Repo"
 msgstr ""
@@ -1138,6 +1266,9 @@ msgstr "Opciones"
 msgid "Shared folder"
 msgstr "Carpeta compartida"
 
+msgid "Shared folder + relative path"
+msgstr ""
+
 msgid "Show all file changes ..."
 msgstr ""
 
@@ -1195,6 +1326,11 @@ msgstr ""
 
 msgid "Stopped"
 msgstr "Parado"
+
+msgid ""
+"Subdirectory created under the shared folder. Leave empty to use the shared "
+"folder root.<br/>e.g. plex/config"
+msgstr ""
 
 msgid "Subnet"
 msgstr "SubRed"
@@ -1258,6 +1394,12 @@ msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
 "El campo solo debe contener * o una lista de valores separados por comas."
 
+msgid "The path must be absolute."
+msgstr ""
+
+msgid "The path must not contain '..' components."
+msgstr ""
+
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
 "file permissions, which are required by this plugin."
@@ -1286,6 +1428,11 @@ msgstr ""
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
 "the filesystem is mounted read-write."
+msgstr ""
+
+msgid ""
+"The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
+"mounts), or the name of an installed volume plugin."
 msgstr ""
 
 msgid "This is the filename. This should not be a path."
@@ -1375,6 +1522,9 @@ msgstr ""
 msgid "Used only if no API key is provided."
 msgstr ""
 
+msgid "User to own the path. Match the container's PUID where applicable."
+msgstr ""
+
 msgid "Username"
 msgstr ""
 
@@ -1403,6 +1553,11 @@ msgid "Wednesday"
 msgstr ""
 
 msgid "Weekly"
+msgstr ""
+
+msgid ""
+"With the 'local' driver, mount a remote share instead of using local "
+"storage."
 msgstr ""
 
 msgid "Yearly"

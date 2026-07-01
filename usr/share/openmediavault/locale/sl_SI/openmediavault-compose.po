@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-25 11:41+0000\n"
+"POT-Creation-Date: 2026-07-01 20:10+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
@@ -21,7 +21,18 @@ msgstr ""
 "Language: sl_SI\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
 
+msgid "'%s' already exists and is not a directory."
+msgstr ""
+
 msgid "API Key"
+msgstr ""
+
+msgid ""
+"Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
+"xxxx/appdata/plex/config"
+msgstr ""
+
+msgid "Absolute path"
 msgstr ""
 
 msgid "Action"
@@ -48,6 +59,11 @@ msgstr "Dodaj ..."
 msgid "Adding an example compose file ..."
 msgstr "Dodajanje primera datoteke Compose ..."
 
+msgid ""
+"Additional --opt entries as key=value. Comma separate multiple "
+"entries.<br/>e.g. size=20g,uid=1000"
+msgstr ""
+
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
 "Administrator - branje/pisanje, Uporabniki - brez dostopa, Drugi - brez "
@@ -73,6 +89,9 @@ msgstr ""
 "Administrator - branje/pisanje, Uporabniki - branje/pisanje, Drugi - samo "
 "branje"
 
+msgid "Advanced (driver options & labels)"
+msgstr ""
+
 msgid "Advanced (manual IP configuration)"
 msgstr ""
 
@@ -82,6 +101,15 @@ msgstr ""
 msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
+msgstr ""
+
+msgid "Apply ownership and permissions recursively"
+msgstr ""
+
+msgid ""
+"Apply the owner, group and permissions to all existing contents as well, not"
+" just the directory itself. Use with care on directories that already hold "
+"data."
 msgstr ""
 
 msgid "April"
@@ -276,6 +304,11 @@ msgstr "Ime konf. datoteke ne more biti"
 msgid "Configs"
 msgstr "Konfiguracije"
 
+msgid ""
+"Configure a mount type, driver options and labels. Leave disabled to create "
+"a plain named volume."
+msgstr ""
+
 msgid "Connect"
 msgstr ""
 
@@ -306,6 +339,9 @@ msgstr "Ustvari"
 msgid "Create .env and compose.yml symlinks"
 msgstr ""
 
+msgid "Create bind mount path"
+msgstr ""
+
 msgid "Create from URL"
 msgstr "Ustvarjanje iz naslova URL"
 
@@ -327,6 +363,9 @@ msgstr "Ustvarjeno"
 msgid "Created At"
 msgstr "Ustvarjeno"
 
+msgid "Created bind mount path."
+msgstr ""
+
 msgid "Created config."
 msgstr "Ustvarjena konfiguracija."
 
@@ -344,6 +383,9 @@ msgstr "Ustvarjeno omrežje."
 
 msgid "Created scheduled job."
 msgstr "Ustvarjeno načrtovano opravilo."
+
+msgid "Created volume."
+msgstr ""
 
 msgid "Current"
 msgstr "Trenutni"
@@ -392,6 +434,9 @@ msgstr ""
 
 msgid "Description"
 msgstr "Opis"
+
+msgid "Device"
+msgstr ""
 
 msgid "Digest"
 msgstr "Digest"
@@ -467,6 +512,9 @@ msgstr "Prenos dnevnikov"
 
 msgid "Driver"
 msgstr "Gonilnik"
+
+msgid "Driver options"
+msgstr ""
 
 msgid "Edit"
 msgstr "Uredi"
@@ -560,6 +608,9 @@ msgstr "Izvedba načrtovanega opravila ..."
 msgid "Failed"
 msgstr "Neuspešno"
 
+msgid "Failed to create directory '%s'."
+msgstr ""
+
 msgid "February"
 msgstr ""
 
@@ -585,6 +636,11 @@ msgid "Find the next 20 free host ports at or above this number."
 msgstr ""
 
 msgid ""
+"Format is key=value. Comma separate multiple entries.<br/>e.g. "
+"com.example.usage=backup,com.example.owner=admin"
+msgstr ""
+
+msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
@@ -603,8 +659,14 @@ msgstr "Globalno okolje"
 msgid "Global environment variables"
 msgstr "Globalne spremenljivke okolja"
 
+msgid "Group"
+msgstr ""
+
 msgid "Group of directories and files"
 msgstr "Skupina imenikov in datotek"
+
+msgid "Group to own the path. Match the container's PGID where applicable."
+msgstr ""
 
 msgid "Host Port"
 msgstr ""
@@ -691,6 +753,9 @@ msgstr "Nameščen"
 msgid "Internal network"
 msgstr ""
 
+msgid "Invalid %s name."
+msgstr ""
+
 msgid "Invalid JSON response from Portainer: %s"
 msgstr ""
 
@@ -709,11 +774,20 @@ msgstr ""
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
 
+msgid "Labels"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr ""
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Pustite prazno, če želite uporabiti lasten /etc/docker/daemon.json"
+
+msgid "Leave unchanged"
+msgstr ""
+
+msgid "Leave unchanged ..."
+msgstr ""
 
 msgid "Live restore"
 msgstr ""
@@ -789,6 +863,12 @@ msgstr ""
 msgid "Monthly"
 msgstr ""
 
+msgid "Mount options"
+msgstr ""
+
+msgid "Mount type"
+msgstr ""
+
 msgid "Mountpoint"
 msgstr "Točka priklopa"
 
@@ -823,6 +903,9 @@ msgid "No name specified!"
 msgstr "Brez navedbe imena!"
 
 msgid "None"
+msgstr ""
+
+msgid "None (local storage)"
 msgstr ""
 
 msgid "Not installed"
@@ -884,6 +967,24 @@ msgstr ""
 msgid "Overrides"
 msgstr "Nadomeščanja"
 
+msgid "Owner"
+msgstr ""
+
+msgid "Owner - read/write, Group - no access, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - read-only"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - read-only"
+msgstr ""
+
 msgid "Owner of directories and files"
 msgstr "Lastnik map in datotek"
 
@@ -896,6 +997,12 @@ msgstr ""
 msgid "Parent network"
 msgstr "Starševsko omrežje"
 
+msgid ""
+"Passed as the 'o' driver option.<br/>NFS e.g. "
+"addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
+"username=user,password=secret,vers=3.0"
+msgstr ""
+
 msgid "Passphrase for Borg encryption."
 msgstr ""
 
@@ -905,14 +1012,29 @@ msgstr ""
 msgid "Path"
 msgstr "Pot"
 
+msgid "Path source"
+msgstr ""
+
 msgid "Path to script that will be executed after backup"
 msgstr ""
 
 msgid "Path to script that will be executed before backup"
 msgstr ""
 
+msgid "Permissions"
+msgstr ""
+
+msgid "Permissions must be an octal value, e.g. 755."
+msgstr ""
+
 msgid "Permissions of directories and files"
 msgstr "Dovoljenja za mape in datoteke"
+
+msgid "Please provide an absolute path."
+msgstr ""
+
+msgid "Please select a shared folder."
+msgstr ""
 
 msgid "Please set shared folder for backups."
 msgstr "Nastavite deljeno mapo za varnostne kopije."
@@ -1013,11 +1135,17 @@ msgid ""
 "tokens."
 msgstr ""
 
+msgid "Refusing to operate on the protected system path '%s'."
+msgstr ""
+
 msgid "Reinstall Docker"
 msgstr "Ponovno namesti Docker"
 
 msgid "Reinstall Docker ..."
 msgstr "Ponovno nameščanje Docker-ja ..."
+
+msgid "Relative path"
+msgstr ""
 
 msgid "Repo"
 msgstr "Skladišče"
@@ -1141,6 +1269,9 @@ msgstr "Nastavitve"
 msgid "Shared folder"
 msgstr "Deljena mapa"
 
+msgid "Shared folder + relative path"
+msgstr ""
+
 msgid "Show all file changes ..."
 msgstr "Prikaz vseh sprememb datotek ..."
 
@@ -1197,6 +1328,11 @@ msgstr ""
 
 msgid "Stopped"
 msgstr "Ustavljen"
+
+msgid ""
+"Subdirectory created under the shared folder. Leave empty to use the shared "
+"folder root.<br/>e.g. plex/config"
+msgstr ""
 
 msgid "Subnet"
 msgstr "Podmreža"
@@ -1259,6 +1395,12 @@ msgstr "Konfiguracijska datoteka bo ustvarjena v imeniku datoteke Compose."
 msgid "The field should only contain * or a comma separated list of values."
 msgstr "Polje lahko vsebuje samo * ali seznam vrednosti, ločenih z vejico."
 
+msgid "The path must be absolute."
+msgstr ""
+
+msgid "The path must not contain '..' components."
+msgstr ""
+
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
 "file permissions, which are required by this plugin."
@@ -1287,6 +1429,11 @@ msgstr ""
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
 "the filesystem is mounted read-write."
+msgstr ""
+
+msgid ""
+"The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
+"mounts), or the name of an installed volume plugin."
 msgstr ""
 
 msgid "This is the filename. This should not be a path."
@@ -1378,6 +1525,9 @@ msgstr ""
 msgid "Used only if no API key is provided."
 msgstr ""
 
+msgid "User to own the path. Match the container's PUID where applicable."
+msgstr ""
+
 msgid "Username"
 msgstr ""
 
@@ -1406,6 +1556,11 @@ msgid "Wednesday"
 msgstr ""
 
 msgid "Weekly"
+msgstr ""
+
+msgid ""
+"With the 'local' driver, mount a remote share instead of using local "
+"storage."
 msgstr ""
 
 msgid "Yearly"

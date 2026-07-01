@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-25 11:41+0000\n"
+"POT-Creation-Date: 2026-07-01 20:10+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Gyuris Gellért <jobel@ujevangelizacio.hu>, 2026\n"
 "Language-Team: Hungarian (Hungary) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/hu_HU/)\n"
@@ -21,8 +21,19 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "'%s' already exists and is not a directory."
+msgstr ""
+
 msgid "API Key"
 msgstr "API kulcs"
+
+msgid ""
+"Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
+"xxxx/appdata/plex/config"
+msgstr ""
+
+msgid "Absolute path"
+msgstr ""
 
 msgid "Action"
 msgstr "Művelet"
@@ -47,6 +58,11 @@ msgstr "Hozzáadás…"
 
 msgid "Adding an example compose file ..."
 msgstr "Példa összeállításfájl hozzáadása…"
+
+msgid ""
+"Additional --opt entries as key=value. Comma separate multiple "
+"entries.<br/>e.g. size=20g,uid=1000"
+msgstr ""
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
@@ -73,6 +89,9 @@ msgstr ""
 "Adminisztrátor – olvasás/írás, Felhasználók – olvasás/írás, Mások – csak "
 "olvasás"
 
+msgid "Advanced (driver options & labels)"
+msgstr ""
+
 msgid "Advanced (manual IP configuration)"
 msgstr ""
 
@@ -85,6 +104,15 @@ msgid ""
 msgstr ""
 "A parancs kimenete (ha van ilyen) e-mail üzenetként elküldésre kerül a "
 "feladatot végrehajtó felhasználónak."
+
+msgid "Apply ownership and permissions recursively"
+msgstr ""
+
+msgid ""
+"Apply the owner, group and permissions to all existing contents as well, not"
+" just the directory itself. Use with care on directories that already hold "
+"data."
+msgstr ""
 
 msgid "April"
 msgstr "Április"
@@ -289,6 +317,11 @@ msgstr "Konfigurációs fájl nem lehet"
 msgid "Configs"
 msgstr "Beállítások"
 
+msgid ""
+"Configure a mount type, driver options and labels. Leave disabled to create "
+"a plain named volume."
+msgstr ""
+
 msgid "Connect"
 msgstr ""
 
@@ -319,6 +352,9 @@ msgstr "Létrehozás"
 msgid "Create .env and compose.yml symlinks"
 msgstr ".env és compose.yml szimbolikus linkek létehozása"
 
+msgid "Create bind mount path"
+msgstr ""
+
 msgid "Create from URL"
 msgstr "Létrehozás URL-ből"
 
@@ -340,6 +376,9 @@ msgstr "Létrehozva"
 msgid "Created At"
 msgstr "Létrehozva ekkor"
 
+msgid "Created bind mount path."
+msgstr ""
+
 msgid "Created config."
 msgstr "Beállítás létrehozva."
 
@@ -357,6 +396,9 @@ msgstr "Hálózat létrehozva."
 
 msgid "Created scheduled job."
 msgstr "Ütemezett feladat létrehozva."
+
+msgid "Created volume."
+msgstr ""
 
 msgid "Current"
 msgstr "Jelenlegi"
@@ -407,6 +449,9 @@ msgstr "Lemezképek törlése…"
 
 msgid "Description"
 msgstr "Leírás"
+
+msgid "Device"
+msgstr ""
 
 msgid "Digest"
 msgstr "Kivonat"
@@ -485,6 +530,9 @@ msgstr "Naplók letöltése"
 
 msgid "Driver"
 msgstr "Illesztőprogram"
+
+msgid "Driver options"
+msgstr ""
 
 msgid "Edit"
 msgstr "Szerkesztés"
@@ -578,6 +626,9 @@ msgstr "Ütemezett feladat futtatása…"
 msgid "Failed"
 msgstr "Sikertelen"
 
+msgid "Failed to create directory '%s'."
+msgstr ""
+
 msgid "February"
 msgstr "Február"
 
@@ -603,6 +654,11 @@ msgid "Find the next 20 free host ports at or above this number."
 msgstr ""
 
 msgid ""
+"Format is key=value. Comma separate multiple entries.<br/>e.g. "
+"com.example.usage=backup,com.example.owner=admin"
+msgstr ""
+
+msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
@@ -621,8 +677,14 @@ msgstr "Globális környezet"
 msgid "Global environment variables"
 msgstr "Globális környezeti változó"
 
+msgid "Group"
+msgstr ""
+
 msgid "Group of directories and files"
 msgstr "Mappák és fájlok csoportja"
+
+msgid "Group to own the path. Match the container's PGID where applicable."
+msgstr ""
 
 msgid "Host Port"
 msgstr ""
@@ -709,6 +771,9 @@ msgstr "Telepítve"
 msgid "Internal network"
 msgstr "Belső hálózat"
 
+msgid "Invalid %s name."
+msgstr ""
+
 msgid "Invalid JSON response from Portainer: %s"
 msgstr ""
 
@@ -727,11 +792,20 @@ msgstr "június"
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
 
+msgid "Labels"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr ""
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Üresen hagyva egyéni /etc/docker/daemon.json alkalmazása."
+
+msgid "Leave unchanged"
+msgstr ""
+
+msgid "Leave unchanged ..."
+msgstr ""
 
 msgid "Live restore"
 msgstr ""
@@ -807,6 +881,12 @@ msgstr "Hónap"
 msgid "Monthly"
 msgstr "Havi"
 
+msgid "Mount options"
+msgstr ""
+
+msgid "Mount type"
+msgstr ""
+
 msgid "Mountpoint"
 msgstr "Csatolási pont"
 
@@ -842,6 +922,9 @@ msgstr "Nem lett név megadva!"
 
 msgid "None"
 msgstr "Nincs"
+
+msgid "None (local storage)"
+msgstr ""
 
 msgid "Not installed"
 msgstr "Nincs telepítve"
@@ -902,6 +985,24 @@ msgstr ""
 msgid "Overrides"
 msgstr "Felülbírálások"
 
+msgid "Owner"
+msgstr ""
+
+msgid "Owner - read/write, Group - no access, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - read-only"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - read-only"
+msgstr ""
+
 msgid "Owner of directories and files"
 msgstr "Mappák és fájlok tulajdonosa"
 
@@ -914,6 +1015,12 @@ msgstr ""
 msgid "Parent network"
 msgstr "Szülő hálózat"
 
+msgid ""
+"Passed as the 'o' driver option.<br/>NFS e.g. "
+"addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
+"username=user,password=secret,vers=3.0"
+msgstr ""
+
 msgid "Passphrase for Borg encryption."
 msgstr ""
 
@@ -923,14 +1030,29 @@ msgstr "Jelszó"
 msgid "Path"
 msgstr "Útvonal"
 
+msgid "Path source"
+msgstr ""
+
 msgid "Path to script that will be executed after backup"
 msgstr ""
 
 msgid "Path to script that will be executed before backup"
 msgstr ""
 
+msgid "Permissions"
+msgstr ""
+
+msgid "Permissions must be an octal value, e.g. 755."
+msgstr ""
+
 msgid "Permissions of directories and files"
 msgstr "Mappák és fájlok jogosultságai"
+
+msgid "Please provide an absolute path."
+msgstr ""
+
+msgid "Please select a shared folder."
+msgstr ""
 
 msgid "Please set shared folder for backups."
 msgstr "Kérjük, állítson be megosztott mappát a biztonsági mentéseknek."
@@ -1034,11 +1156,17 @@ msgid ""
 "tokens."
 msgstr ""
 
+msgid "Refusing to operate on the protected system path '%s'."
+msgstr ""
+
 msgid "Reinstall Docker"
 msgstr "Docker újratelepítése"
 
 msgid "Reinstall Docker ..."
 msgstr "Docker újratelepítése…"
+
+msgid "Relative path"
+msgstr ""
 
 msgid "Repo"
 msgstr "Tároló"
@@ -1162,6 +1290,9 @@ msgstr "Beállítások"
 msgid "Shared folder"
 msgstr "Megosztott mappa"
 
+msgid "Shared folder + relative path"
+msgstr ""
+
 msgid "Show all file changes ..."
 msgstr ""
 
@@ -1219,6 +1350,11 @@ msgstr "Összes összeállítás fájl leállítása"
 
 msgid "Stopped"
 msgstr "Leállítva"
+
+msgid ""
+"Subdirectory created under the shared folder. Leave empty to use the shared "
+"folder root.<br/>e.g. plex/config"
+msgstr ""
 
 msgid "Subnet"
 msgstr "Alhálózat"
@@ -1282,6 +1418,12 @@ msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
 "A mező csak * vagy vesszővel elválasztott értékek listáját tartalmazhatja."
 
+msgid "The path must be absolute."
+msgstr ""
+
+msgid "The path must not contain '..' components."
+msgstr ""
+
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
 "file permissions, which are required by this plugin."
@@ -1310,6 +1452,11 @@ msgstr ""
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
 "the filesystem is mounted read-write."
+msgstr ""
+
+msgid ""
+"The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
+"mounts), or the name of an installed volume plugin."
 msgstr ""
 
 msgid "This is the filename. This should not be a path."
@@ -1401,6 +1548,9 @@ msgstr ""
 msgid "Used only if no API key is provided."
 msgstr ""
 
+msgid "User to own the path. Match the container's PUID where applicable."
+msgstr ""
+
 msgid "Username"
 msgstr "Felhasználónév"
 
@@ -1430,6 +1580,11 @@ msgstr "szerda"
 
 msgid "Weekly"
 msgstr "Heti"
+
+msgid ""
+"With the 'local' driver, mount a remote share instead of using local "
+"storage."
+msgstr ""
 
 msgid "Yearly"
 msgstr "Éves"

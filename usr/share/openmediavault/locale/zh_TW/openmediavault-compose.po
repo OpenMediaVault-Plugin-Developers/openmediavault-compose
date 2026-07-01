@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-25 11:41+0000\n"
+"POT-Creation-Date: 2026-07-01 20:10+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -21,8 +21,19 @@ msgstr ""
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "'%s' already exists and is not a directory."
+msgstr ""
+
 msgid "API Key"
 msgstr "API 金鑰"
+
+msgid ""
+"Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
+"xxxx/appdata/plex/config"
+msgstr ""
+
+msgid "Absolute path"
+msgstr ""
 
 msgid "Action"
 msgstr "動作"
@@ -48,6 +59,11 @@ msgstr "新增…"
 msgid "Adding an example compose file ..."
 msgstr "新增範例 compose 檔案中 …"
 
+msgid ""
+"Additional --opt entries as key=value. Comma separate multiple "
+"entries.<br/>e.g. size=20g,uid=1000"
+msgstr ""
+
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr "管理員 - 讀/寫，用戶 - 無法取用，其他 - 無法取用"
 
@@ -63,6 +79,9 @@ msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 無法取用"
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 唯讀"
 
+msgid "Advanced (driver options & labels)"
+msgstr ""
+
 msgid "Advanced (manual IP configuration)"
 msgstr "先進 (手動 IP 設置)"
 
@@ -73,6 +92,15 @@ msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
 msgstr "一份含有指令輸出(若有產生)的電子郵件會被發送給執行此工作的用戶。"
+
+msgid "Apply ownership and permissions recursively"
+msgstr ""
+
+msgid ""
+"Apply the owner, group and permissions to all existing contents as well, not"
+" just the directory itself. Use with care on directories that already hold "
+"data."
+msgstr ""
 
 msgid "April"
 msgstr "四月"
@@ -264,6 +292,11 @@ msgstr "配置檔案名稱不能是"
 msgid "Configs"
 msgstr "配置"
 
+msgid ""
+"Configure a mount type, driver options and labels. Leave disabled to create "
+"a plain named volume."
+msgstr ""
+
 msgid "Connect"
 msgstr "連接"
 
@@ -294,6 +327,9 @@ msgstr "創建"
 msgid "Create .env and compose.yml symlinks"
 msgstr "建立 .env 及 compose.yml 的 symlinks"
 
+msgid "Create bind mount path"
+msgstr ""
+
 msgid "Create from URL"
 msgstr "從 URL 創建"
 
@@ -315,6 +351,9 @@ msgstr "建立"
 msgid "Created At"
 msgstr "建立於"
 
+msgid "Created bind mount path."
+msgstr ""
+
 msgid "Created config."
 msgstr "已建立配置。"
 
@@ -332,6 +371,9 @@ msgstr "已建立網路。"
 
 msgid "Created scheduled job."
 msgstr "已建立預訂工作。"
+
+msgid "Created volume."
+msgstr ""
 
 msgid "Current"
 msgstr "目前"
@@ -380,6 +422,9 @@ msgstr "删除映像中 ..."
 
 msgid "Description"
 msgstr "敘述"
+
+msgid "Device"
+msgstr ""
 
 msgid "Digest"
 msgstr "摘要"
@@ -455,6 +500,9 @@ msgstr "下載日誌"
 
 msgid "Driver"
 msgstr "驅動程式"
+
+msgid "Driver options"
+msgstr ""
 
 msgid "Edit"
 msgstr "編輯"
@@ -552,6 +600,9 @@ msgstr "執行預訂工作 …"
 msgid "Failed"
 msgstr "失敗"
 
+msgid "Failed to create directory '%s'."
+msgstr ""
+
 msgid "February"
 msgstr "二月"
 
@@ -577,6 +628,11 @@ msgid "Find the next 20 free host ports at or above this number."
 msgstr "找出位於這個號碼或以上的 20 個未用連接埠。"
 
 msgid ""
+"Format is key=value. Comma separate multiple entries.<br/>e.g. "
+"com.example.usage=backup,com.example.owner=admin"
+msgstr ""
+
+msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
@@ -594,8 +650,14 @@ msgstr "全機環境"
 msgid "Global environment variables"
 msgstr "全機環境變數"
 
+msgid "Group"
+msgstr ""
+
 msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
+
+msgid "Group to own the path. Match the container's PGID where applicable."
+msgstr ""
 
 msgid "Host Port"
 msgstr "主機連接埠"
@@ -603,7 +665,7 @@ msgstr "主機連接埠"
 msgid ""
 "Host interface this network is attached to. Use a VLAN sub-interface for "
 "802.1Q tagging, e.g. eth0.10"
-msgstr ""
+msgstr "這個網路所附接上的主機網站介面。使用 VLAN 子介面來做 802.1Q 標記。例如：eth0.10"
 
 msgid "Hour"
 msgstr "時"
@@ -682,6 +744,9 @@ msgstr "已被安裝"
 msgid "Internal network"
 msgstr "内部網路"
 
+msgid "Invalid %s name."
+msgstr ""
+
 msgid "Invalid JSON response from Portainer: %s"
 msgstr "從 Portainer 回應的無效 JSON：%s"
 
@@ -700,11 +765,20 @@ msgstr "六月"
 msgid "Keep containers running across Docker daemon updates"
 msgstr "在 Docker 常駐程式更新期間保持容器運行"
 
+msgid "Labels"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr "留空白則使用客製的 /etc/containers/storage.conf"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "留空白則使用客製的 /etc/docker/daemon.json"
+
+msgid "Leave unchanged"
+msgstr ""
+
+msgid "Leave unchanged ..."
+msgstr ""
 
 msgid "Live restore"
 msgstr "在線復原"
@@ -739,7 +813,7 @@ msgstr "維護"
 msgid ""
 "Manually assign the subnet, gateway and IP range. Leave disabled to let "
 "Docker allocate addresses automatically."
-msgstr ""
+msgstr "手動指派 子網路、閘道器 和 IP 範圍。若保持停用狀態，則讓 Docker 自動分配地址。"
 
 msgid "March"
 msgstr "三月"
@@ -780,6 +854,12 @@ msgstr "月"
 msgid "Monthly"
 msgstr "每月"
 
+msgid "Mount options"
+msgstr ""
+
+msgid "Mount type"
+msgstr ""
+
 msgid "Mountpoint"
 msgstr "掛載點"
 
@@ -815,6 +895,9 @@ msgstr "未指定名稱！"
 
 msgid "None"
 msgstr "無"
+
+msgid "None (local storage)"
+msgstr ""
 
 msgid "Not installed"
 msgstr "未被安裝"
@@ -870,6 +953,24 @@ msgstr "當在檔案、服務、容器分頁，開啟連接埠時，置換主機
 msgid "Overrides"
 msgstr "置換"
 
+msgid "Owner"
+msgstr ""
+
+msgid "Owner - read/write, Group - no access, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - read-only"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - read-only"
+msgstr ""
+
 msgid "Owner of directories and files"
 msgstr "目錄和檔案的擁有者"
 
@@ -882,6 +983,12 @@ msgstr "上層"
 msgid "Parent network"
 msgstr "上層網路"
 
+msgid ""
+"Passed as the 'o' driver option.<br/>NFS e.g. "
+"addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
+"username=user,password=secret,vers=3.0"
+msgstr ""
+
 msgid "Passphrase for Borg encryption."
 msgstr "給 Borg 加密用的密碼短句。"
 
@@ -891,14 +998,29 @@ msgstr "密碼"
 msgid "Path"
 msgstr "路徑"
 
+msgid "Path source"
+msgstr ""
+
 msgid "Path to script that will be executed after backup"
 msgstr "備份後所要執行之腳本程式的路徑"
 
 msgid "Path to script that will be executed before backup"
 msgstr "備份前所要執行之腳本程式的路徑"
 
+msgid "Permissions"
+msgstr ""
+
+msgid "Permissions must be an octal value, e.g. 755."
+msgstr ""
+
 msgid "Permissions of directories and files"
 msgstr "目錄和檔案的權限"
+
+msgid "Please provide an absolute path."
+msgstr ""
+
+msgid "Please select a shared folder."
+msgstr ""
 
 msgid "Please set shared folder for backups."
 msgstr "請設定備份用的共享檔案夾。"
@@ -1000,11 +1122,17 @@ msgid ""
 "tokens."
 msgstr "推薦使用。請於 Portainer 內 Account Settings → Access tokens 下產生一份。"
 
+msgid "Refusing to operate on the protected system path '%s'."
+msgstr ""
+
 msgid "Reinstall Docker"
 msgstr "重新安裝 Docker"
 
 msgid "Reinstall Docker ..."
 msgstr "重新安裝 Docker …"
+
+msgid "Relative path"
+msgstr ""
 
 msgid "Repo"
 msgstr "映像庫"
@@ -1128,6 +1256,9 @@ msgstr "設置"
 msgid "Shared folder"
 msgstr "共享檔案夾"
 
+msgid "Shared folder + relative path"
+msgstr ""
+
 msgid "Show all file changes ..."
 msgstr "顯示全部檔案變更 ..."
 
@@ -1184,6 +1315,11 @@ msgstr "停止全部 compse 檔案"
 
 msgid "Stopped"
 msgstr "已停止"
+
+msgid ""
+"Subdirectory created under the shared folder. Leave empty to use the shared "
+"folder root.<br/>e.g. plex/config"
+msgstr ""
 
 msgid "Subnet"
 msgstr "子網路"
@@ -1246,6 +1382,12 @@ msgstr "配置檔案將被建立於此 compse 檔案所在的目錄中。"
 msgid "The field should only contain * or a comma separated list of values."
 msgstr "此欄位應該只含有 * 或一個以逗號分隔的數值列表。"
 
+msgid "The path must be absolute."
+msgstr ""
+
+msgid "The path must not contain '..' components."
+msgstr ""
+
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
 "file permissions, which are required by this plugin."
@@ -1275,6 +1417,11 @@ msgid ""
 "The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
 "the filesystem is mounted read-write."
 msgstr "為 '%s' (%s 檔案系統) 選用的共享檔案夾不可寫入。請確認檔案系統是以讀寫掛載。"
+
+msgid ""
+"The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
+"mounts), or the name of an installed volume plugin."
+msgstr ""
 
 msgid "This is the filename. This should not be a path."
 msgstr "這是檔案名稱，不可以是一個路徑。"
@@ -1360,6 +1507,9 @@ msgstr "使用共享檔案夾"
 msgid "Used only if no API key is provided."
 msgstr "只有在沒提供 API 金鑰時使用。"
 
+msgid "User to own the path. Match the container's PUID where applicable."
+msgstr ""
+
 msgid "Username"
 msgstr "用戶名稱"
 
@@ -1389,6 +1539,11 @@ msgstr "週三"
 
 msgid "Weekly"
 msgstr "每週"
+
+msgid ""
+"With the 'local' driver, mount a remote share instead of using local "
+"storage."
+msgstr ""
 
 msgid "Yearly"
 msgstr "每年"

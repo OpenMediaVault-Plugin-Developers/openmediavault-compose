@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-25 11:41+0000\n"
+"POT-Creation-Date: 2026-07-01 20:10+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -21,8 +21,19 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "'%s' already exists and is not a directory."
+msgstr ""
+
 msgid "API Key"
 msgstr "API-sleutel"
+
+msgid ""
+"Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
+"xxxx/appdata/plex/config"
+msgstr ""
+
+msgid "Absolute path"
+msgstr ""
 
 msgid "Action"
 msgstr "Actie"
@@ -47,6 +58,11 @@ msgstr "Toevoegen…"
 
 msgid "Adding an example compose file ..."
 msgstr "Voorbeeld-composebestand toevoegen…"
+
+msgid ""
+"Additional --opt entries as key=value. Comma separate multiple "
+"entries.<br/>e.g. size=20g,uid=1000"
+msgstr ""
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
@@ -73,6 +89,9 @@ msgstr ""
 "Beheerder - lezen/schrijven, Gebruikers - lezen/schrijven, Anderen - alleen-"
 "lezen"
 
+msgid "Advanced (driver options & labels)"
+msgstr ""
+
 msgid "Advanced (manual IP configuration)"
 msgstr "Geavanceerd (aangepaste IP-configuratie)"
 
@@ -85,6 +104,15 @@ msgid ""
 msgstr ""
 "Een e-mailbericht met de uitvoer van de opdracht (indien geproduceerd) wordt"
 " verzonden naar de gebruiker die de taak uitvoert."
+
+msgid "Apply ownership and permissions recursively"
+msgstr ""
+
+msgid ""
+"Apply the owner, group and permissions to all existing contents as well, not"
+" just the directory itself. Use with care on directories that already hold "
+"data."
+msgstr ""
 
 msgid "April"
 msgstr "April"
@@ -290,6 +318,11 @@ msgstr "Conf bestandsnaam kan niet zijn"
 msgid "Configs"
 msgstr "Configuraties"
 
+msgid ""
+"Configure a mount type, driver options and labels. Leave disabled to create "
+"a plain named volume."
+msgstr ""
+
 msgid "Connect"
 msgstr "Koppelen"
 
@@ -320,6 +353,9 @@ msgstr "Aanmaken"
 msgid "Create .env and compose.yml symlinks"
 msgstr "Symlinks aanmaken voor .env en compose.yml"
 
+msgid "Create bind mount path"
+msgstr ""
+
 msgid "Create from URL"
 msgstr "Aanmaken van URL"
 
@@ -341,6 +377,9 @@ msgstr "Aangemaakt"
 msgid "Created At"
 msgstr "Aangemaakt op"
 
+msgid "Created bind mount path."
+msgstr ""
+
 msgid "Created config."
 msgstr "Config aangemaakt."
 
@@ -358,6 +397,9 @@ msgstr "Network aangemaakt."
 
 msgid "Created scheduled job."
 msgstr "Geplande taak aangemaakt."
+
+msgid "Created volume."
+msgstr ""
 
 msgid "Current"
 msgstr "Huidig"
@@ -408,6 +450,9 @@ msgstr "Images verwijderen…"
 
 msgid "Description"
 msgstr "Beschrijving"
+
+msgid "Device"
+msgstr ""
 
 msgid "Digest"
 msgstr "Samenvatting"
@@ -488,6 +533,9 @@ msgstr "Logboeken downloaden"
 
 msgid "Driver"
 msgstr "Driver"
+
+msgid "Driver options"
+msgstr ""
 
 msgid "Edit"
 msgstr "Bewerken"
@@ -592,6 +640,9 @@ msgstr "Geplande taak uitvoeren…"
 msgid "Failed"
 msgstr "Mislukt"
 
+msgid "Failed to create directory '%s'."
+msgstr ""
+
 msgid "February"
 msgstr "Februari"
 
@@ -617,6 +668,11 @@ msgid "Find the next 20 free host ports at or above this number."
 msgstr "Vind de volgende 20 gratis hostpoorten op of boven dit nummer."
 
 msgid ""
+"Format is key=value. Comma separate multiple entries.<br/>e.g. "
+"com.example.usage=backup,com.example.owner=admin"
+msgstr ""
+
+msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
@@ -635,8 +691,14 @@ msgstr "Globale omgeving"
 msgid "Global environment variables"
 msgstr "Globale omgevingsvariabelen"
 
+msgid "Group"
+msgstr ""
+
 msgid "Group of directories and files"
 msgstr "Groep mappen en bestanden"
+
+msgid "Group to own the path. Match the container's PGID where applicable."
+msgstr ""
 
 msgid "Host Port"
 msgstr "Hostpoort"
@@ -730,6 +792,9 @@ msgstr "Geïnstalleerd"
 msgid "Internal network"
 msgstr "Intern netwerk"
 
+msgid "Invalid %s name."
+msgstr ""
+
 msgid "Invalid JSON response from Portainer: %s"
 msgstr "Ongeldig JSON-antwoord van Portainer: %s"
 
@@ -748,11 +813,20 @@ msgstr "Juni"
 msgid "Keep containers running across Docker daemon updates"
 msgstr "Houd containers actief tijdens Docker-daemon-updates"
 
+msgid "Labels"
+msgstr ""
+
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr "Laat leeg om een aangepaste /etc/containers/storage.conf te gebruiken"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Leeglaten om een aangepaste /etc/docker/daemon.json te gebruiken"
+
+msgid "Leave unchanged"
+msgstr ""
+
+msgid "Leave unchanged ..."
+msgstr ""
 
 msgid "Live restore"
 msgstr "Live herstellen"
@@ -830,6 +904,12 @@ msgstr "Maand"
 msgid "Monthly"
 msgstr "Maandelijks"
 
+msgid "Mount options"
+msgstr ""
+
+msgid "Mount type"
+msgstr ""
+
 msgid "Mountpoint"
 msgstr "Aankoppelpunt"
 
@@ -865,6 +945,9 @@ msgstr "Geen naam opgegeven!"
 
 msgid "None"
 msgstr "Geen"
+
+msgid "None (local storage)"
+msgstr ""
 
 msgid "Not installed"
 msgstr "Niet geïnstalleerd"
@@ -933,6 +1016,24 @@ msgstr ""
 msgid "Overrides"
 msgstr "Overschrijvingen"
 
+msgid "Owner"
+msgstr ""
+
+msgid "Owner - read/write, Group - no access, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read-only, Others - read-only"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - no access"
+msgstr ""
+
+msgid "Owner - read/write, Group - read/write, Others - read-only"
+msgstr ""
+
 msgid "Owner of directories and files"
 msgstr "Eigenaar van mappen en bestanden"
 
@@ -945,6 +1046,12 @@ msgstr "Bovenliggend"
 msgid "Parent network"
 msgstr "Bovenliggend netwerk"
 
+msgid ""
+"Passed as the 'o' driver option.<br/>NFS e.g. "
+"addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
+"username=user,password=secret,vers=3.0"
+msgstr ""
+
 msgid "Passphrase for Borg encryption."
 msgstr "Wachtwoordzin voor Borg-versleuteling."
 
@@ -954,14 +1061,29 @@ msgstr "Wachtwoord"
 msgid "Path"
 msgstr "Pad"
 
+msgid "Path source"
+msgstr ""
+
 msgid "Path to script that will be executed after backup"
 msgstr "Pad naar script dat na back-up wordt uitgevoerd"
 
 msgid "Path to script that will be executed before backup"
 msgstr "Pad naar script dat wordt uitgevoerd voor de back-up."
 
+msgid "Permissions"
+msgstr ""
+
+msgid "Permissions must be an octal value, e.g. 755."
+msgstr ""
+
 msgid "Permissions of directories and files"
 msgstr "Machtigingen van mappen en bestanden"
+
+msgid "Please provide an absolute path."
+msgstr ""
+
+msgid "Please select a shared folder."
+msgstr ""
 
 msgid "Please set shared folder for backups."
 msgstr "Stel een gedeelde map in voor back-ups."
@@ -1068,11 +1190,17 @@ msgstr ""
 "Aanbevolen. Genereer er een in Portainer onder Accountinstellingen → "
 "Toegangstokens."
 
+msgid "Refusing to operate on the protected system path '%s'."
+msgstr ""
+
 msgid "Reinstall Docker"
 msgstr "Docker opnieuw installeren"
 
 msgid "Reinstall Docker ..."
 msgstr "Docker opnieuw installeren…"
+
+msgid "Relative path"
+msgstr ""
 
 msgid "Repo"
 msgstr "Opslagplaats"
@@ -1209,6 +1337,9 @@ msgstr "Instellingen"
 msgid "Shared folder"
 msgstr "Gedeelde map"
 
+msgid "Shared folder + relative path"
+msgstr ""
+
 msgid "Show all file changes ..."
 msgstr "Alle bestandswijzigingen weergeven…"
 
@@ -1265,6 +1396,11 @@ msgstr "Alle compose-bestanden stoppen"
 
 msgid "Stopped"
 msgstr "Gestopt"
+
+msgid ""
+"Subdirectory created under the shared folder. Leave empty to use the shared "
+"folder root.<br/>e.g. plex/config"
+msgstr ""
 
 msgid "Subnet"
 msgstr "Subnet"
@@ -1334,6 +1470,12 @@ msgstr ""
 "Het veld mag alleen * of een door komma's gescheiden lijst met waarden "
 "bevatten."
 
+msgid "The path must be absolute."
+msgstr ""
+
+msgid "The path must not contain '..' components."
+msgstr ""
+
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
 "file permissions, which are required by this plugin."
@@ -1380,6 +1522,11 @@ msgstr ""
 "De gedeelde map die is geselecteerd voor '%s' (%s bestandssysteem) is niet "
 "schrijfbaar. Controleer of het bestandssysteem is aangekoppeld als "
 "lezen/schrijven."
+
+msgid ""
+"The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
+"mounts), or the name of an installed volume plugin."
+msgstr ""
 
 msgid "This is the filename. This should not be a path."
 msgstr "Dit is de bestandsnaam. Dit mag geen pad zijn."
@@ -1481,6 +1628,9 @@ msgstr "Gedeelde map gebruiken"
 msgid "Used only if no API key is provided."
 msgstr "Alleen gebruikt als er geen API-sleutel is opgegeven."
 
+msgid "User to own the path. Match the container's PUID where applicable."
+msgstr ""
+
 msgid "Username"
 msgstr "Gebruikersnaam"
 
@@ -1510,6 +1660,11 @@ msgstr "Woensdag"
 
 msgid "Weekly"
 msgstr "Wekelijks"
+
+msgid ""
+"With the 'local' driver, mount a remote share instead of using local "
+"storage."
+msgstr ""
 
 msgid "Yearly"
 msgstr "Jaarlijks"
