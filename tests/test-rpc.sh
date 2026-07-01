@@ -190,10 +190,17 @@ declare -a IMPORT_UUIDS=()
 RUNTIME="docker"
 # Docker/Podman networks created during the network tests (removed on exit).
 declare -a TEST_NETWORKS=()
+# Docker/Podman volumes created during the volume tests (removed on exit).
+declare -a TEST_VOLUMES=()
+# Base directory for the createBindPath tests (removed on exit).
+BIND_TEST_DIR="/tmp/omvtest_bindpath"
 # Dummy host interfaces created as macvlan/ipvlan parents (removed on exit).
 declare -a TEST_DUMMY_IFACES=()
 # Throwaway container used for the connect/disconnect tests (removed on exit).
 NET_TEST_CTR=""
+# Throwaway container that mounts a test volume, used to verify getVolumes maps
+# volumes to the containers using them (removed on exit).
+VOL_TEST_CTR=""
 
 # Delete a named test object if it exists in a list RPC response.
 # $6 is the field to match on (default: "name").
@@ -267,6 +274,20 @@ cleanup() {
     if [ -n "$IMPORT_TMP" ]; then
         info "Removing temp import dir $IMPORT_TMP"
         rm -rf "$IMPORT_TMP"
+    fi
+    # Remove the volume-in-use container before its volume, otherwise the
+    # 'volume rm' below fails because the volume is still mounted.
+    if [ -n "$VOL_TEST_CTR" ]; then
+        info "Removing volume test container $VOL_TEST_CTR"
+        "$RUNTIME" rm -f "$VOL_TEST_CTR" >/dev/null 2>&1 || true
+    fi
+    for vol in "${TEST_VOLUMES[@]}"; do
+        info "Removing test volume $vol"
+        "$RUNTIME" volume rm "$vol" >/dev/null 2>&1 || true
+    done
+    if [ -n "$BIND_TEST_DIR" ] && [ -d "$BIND_TEST_DIR" ]; then
+        info "Removing bind path test dir $BIND_TEST_DIR"
+        rm -rf "$BIND_TEST_DIR" 2>/dev/null || true
     fi
     # Network test teardown — order matters: container, then networks, then the
     # dummy parent interfaces the macvlan/ipvlan networks reference.
@@ -927,6 +948,215 @@ else
         "no local alpine/busybox image or bridge network unavailable"
     _skip "doNetworkConnect disconnect detaches container" "happy path skipped"
 fi
+
+# ---------------------------------------------------------------------------
+# 7c. Volumes — create (plain / labels / driver opts / NFS mount type)
+# ---------------------------------------------------------------------------
+section "Volumes (create)"
+
+# Build a full setVolume param object. Defaults match the form-page defaults;
+# pass key=value overrides (bool values as the literal true/false).
+vol_params() {
+    python3 - "$@" <<'PY'
+import json, sys
+d = {
+    'name': '', 'driver': 'local', 'advanced': False,
+    'mounttype': 'none', 'device': '', 'mountoptions': '',
+    'driveropts': '', 'labels': '',
+}
+for arg in sys.argv[1:]:
+    k, _, v = arg.partition('=')
+    d[k] = (v == 'true') if v in ('true', 'false') else v
+print(json.dumps(d))
+PY
+}
+
+# True if a volume with the given name appears in getVolumes.
+volume_exists() {
+    omv-rpc -u admin "Compose" "getVolumes" \
+        '{"start":0,"limit":1000,"sortfield":"name","sortdir":"ASC"}' 2>/dev/null \
+        | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+sys.exit(0 if any(r.get('name') == '$1' for r in rows) else 1)
+" 2>/dev/null
+}
+
+# Assert that 'docker/podman volume inspect <name>' output contains a substring.
+# getVolumes does not expose driver options/labels, so inspect the runtime.
+assert_volume_inspect() {
+    local desc=$1 vol=$2 want=$3 out
+    out=$("$RUNTIME" volume inspect "$vol" 2>/dev/null)
+    if echo "$out" | grep -q "$want"; then
+        _pass "$desc"
+    else
+        _fail "$desc" "volume '$vol' inspect missing '$want'"
+    fi
+}
+
+# --- Plain local volume ------------------------------------------------------
+# setVolume swallows the docker exit code, so verify via getVolumes rather than
+# trusting the RPC return.
+omv-rpc -u admin "Compose" "setVolume" \
+    "$(vol_params name=omvtest_vol_plain driver=local)" >/dev/null 2>&1
+TEST_VOLUMES+=("omvtest_vol_plain")
+if volume_exists "omvtest_vol_plain"; then
+    _pass "setVolume (plain local)"
+else
+    _fail "setVolume (plain local)" "omvtest_vol_plain not found in getVolumes"
+fi
+
+# --- Labels ------------------------------------------------------------------
+# Labels are accepted by the local driver on every setup, so this must always
+# create. (Kept separate from driver-opts: a rejected opt must not mask the
+# label assertion.)
+omv-rpc -u admin "Compose" "setVolume" \
+    "$(vol_params name=omvtest_vol_labels driver=local advanced=true \
+        labels=com.omvtest.usage=ci)" >/dev/null 2>&1
+TEST_VOLUMES+=("omvtest_vol_labels")
+if volume_exists "omvtest_vol_labels"; then
+    _pass "setVolume (labels)"
+    assert_volume_inspect "volume reports label" omvtest_vol_labels "com.omvtest.usage"
+else
+    _fail "setVolume (labels)" "omvtest_vol_labels not found in getVolumes"
+    _skip "volume reports label" "volume not created"
+fi
+
+# --- Extra driver options ----------------------------------------------------
+# Exercise driveropts pass-through with a portable tmpfs mount: a bare
+# '--opt size=' is rejected by the local driver (needs quota-capable backing),
+# but 'type=tmpfs,device=tmpfs,o=size=' is accepted everywhere on Linux.
+omv-rpc -u admin "Compose" "setVolume" \
+    "$(vol_params name=omvtest_vol_opts driver=local advanced=true \
+        driveropts=type=tmpfs,device=tmpfs,o=size=10m)" >/dev/null 2>&1
+TEST_VOLUMES+=("omvtest_vol_opts")
+if volume_exists "omvtest_vol_opts"; then
+    _pass "setVolume (driver opts)"
+    assert_volume_inspect "volume records driver opt" omvtest_vol_opts '"type": "tmpfs"'
+else
+    _fail "setVolume (driver opts)" "omvtest_vol_opts not found in getVolumes"
+    _skip "volume records driver opt" "volume not created"
+fi
+
+# --- NFS mount type ----------------------------------------------------------
+# 'docker volume create' only records the mount options; the share is mounted
+# lazily on first use, so creation succeeds even with an unreachable address.
+omv-rpc -u admin "Compose" "setVolume" \
+    "$(vol_params name=omvtest_vol_nfs driver=local advanced=true \
+        mounttype=nfs device=:/export/omvtest mountoptions=addr=127.0.0.1,rw)" \
+    >/dev/null 2>&1
+TEST_VOLUMES+=("omvtest_vol_nfs")
+if volume_exists "omvtest_vol_nfs"; then
+    _pass "setVolume (NFS mount type)"
+    assert_volume_inspect "NFS volume records type=nfs" omvtest_vol_nfs '"type": "nfs"'
+    assert_volume_inspect "NFS volume records device" omvtest_vol_nfs "/export/omvtest"
+else
+    _fail "setVolume (NFS mount type)" "omvtest_vol_nfs not found in getVolumes"
+fi
+
+# --- getVolumes maps volumes to the containers using them --------------------
+# Print the 'containers' field of a named volume from getVolumes.
+volume_containers() {
+    omv-rpc -u admin "Compose" "getVolumes" \
+        '{"start":0,"limit":1000,"sortfield":"name","sortdir":"ASC"}' 2>/dev/null \
+        | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+for r in rows:
+    if r.get('name') == '$1':
+        print(r.get('containers', '')); break
+" 2>/dev/null
+}
+
+# Start a throwaway container that mounts omvtest_vol_plain, then verify
+# getVolumes reports that container against the volume (and that an unused
+# volume stays empty). Needs a local shell-capable image (reuses NET_IMG).
+if [ -n "$NET_IMG" ] && volume_exists "omvtest_vol_plain" \
+    && "$RUNTIME" run -d --name omvtest_vol_ctr -v omvtest_vol_plain:/data \
+        "$NET_IMG" sleep 600 >/dev/null 2>&1; then
+    VOL_TEST_CTR="omvtest_vol_ctr"
+    val=$(volume_containers "omvtest_vol_plain")
+    if echo "$val" | grep -q "omvtest_vol_ctr"; then
+        _pass "getVolumes lists container using the volume"
+    else
+        _fail "getVolumes lists container using the volume" "containers='$val'"
+    fi
+    # A volume with no container attached must report an empty list.
+    if [ -z "$(volume_containers "omvtest_vol_nfs")" ]; then
+        _pass "getVolumes reports empty containers for an unused volume"
+    else
+        _fail "getVolumes reports empty containers for an unused volume" \
+            "omvtest_vol_nfs unexpectedly has containers"
+    fi
+else
+    _skip "getVolumes lists container using the volume" \
+        "no local alpine/busybox image or volume unavailable"
+    _skip "getVolumes reports empty containers for an unused volume" "happy path skipped"
+fi
+
+# ---------------------------------------------------------------------------
+# 7d. Bind mount paths — createBindPath (host dir prep, not a docker volume)
+# ---------------------------------------------------------------------------
+section "Bind mount paths (create)"
+
+# Pre-clean any leftover from a previous run so ownership/mode assertions are
+# against a freshly created tree.
+rm -rf "$BIND_TEST_DIR" 2>/dev/null || true
+
+# --- Happy path: absolute path with owner/group/mode -------------------------
+assert_rpc "createBindPath (absolute + owner/perms)" "Compose" "createBindPath" \
+    "{\"source\":\"absolute\",\"abspath\":\"$BIND_TEST_DIR/config\",\"owner\":\"root\",\"group\":\"root\",\"mode\":\"755\",\"recursive\":false}" \
+    '"path"'
+if [ -d "$BIND_TEST_DIR/config" ]; then
+    _pass "createBindPath created the directory"
+    perms=$(stat -c '%a' "$BIND_TEST_DIR/config" 2>/dev/null)
+    if [ "$perms" = "755" ]; then
+        _pass "createBindPath applied mode 755"
+    else
+        _fail "createBindPath applied mode 755" "mode is '$perms'"
+    fi
+else
+    _fail "createBindPath created the directory" "$BIND_TEST_DIR/config missing"
+    _skip "createBindPath applied mode 755" "directory not created"
+fi
+
+# --- Nested path is created with parents -------------------------------------
+assert_rpc "createBindPath (nested, mode only)" "Compose" "createBindPath" \
+    "{\"source\":\"absolute\",\"abspath\":\"$BIND_TEST_DIR/a/b/c\",\"mode\":\"750\"}" \
+    '"path"'
+if [ -d "$BIND_TEST_DIR/a/b/c" ]; then
+    _pass "createBindPath created nested parents"
+else
+    _fail "createBindPath created nested parents" "$BIND_TEST_DIR/a/b/c missing"
+fi
+
+# --- Rejection: protected system path ----------------------------------------
+assert_rpc_fails "createBindPath rejects protected path (/etc)" "Compose" \
+    "createBindPath" '{"source":"absolute","abspath":"/etc/omvtest_should_not_exist"}'
+if [ ! -e "/etc/omvtest_should_not_exist" ]; then
+    _pass "createBindPath did not touch /etc"
+else
+    rm -rf "/etc/omvtest_should_not_exist" 2>/dev/null || true
+    _fail "createBindPath did not touch /etc" "directory was created under /etc"
+fi
+
+# --- Rejection: path traversal -----------------------------------------------
+assert_rpc_fails "createBindPath rejects '..' traversal" "Compose" \
+    "createBindPath" "{\"source\":\"absolute\",\"abspath\":\"$BIND_TEST_DIR/../../etc/x\"}"
+
+# --- Rejection: non-absolute path --------------------------------------------
+assert_rpc_fails "createBindPath rejects relative path" "Compose" \
+    "createBindPath" '{"source":"absolute","abspath":"relative/path"}'
+
+# --- Rejection: invalid (non-octal) mode -------------------------------------
+assert_rpc_fails "createBindPath rejects bad mode" "Compose" \
+    "createBindPath" "{\"source\":\"absolute\",\"abspath\":\"$BIND_TEST_DIR/badmode\",\"mode\":\"999\"}"
+
+# --- Rejection: shared folder source with no folder selected -----------------
+assert_rpc_fails "createBindPath rejects missing shared folder" "Compose" \
+    "createBindPath" '{"source":"sharedfolder","relpath":"foo"}'
 
 # ---------------------------------------------------------------------------
 # 8. Stats
