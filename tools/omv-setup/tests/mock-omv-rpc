@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Mock omv-rpc: pattern-matches service+method, returns canned JSON.
+# Tests control state via /tmp/omv-mock-*.json files.
+
+# omv-rpc -u admin "Service" "method" '{params}'
+# $1=-u $2=admin $3=Service $4=method $5=params
+SERVICE="$3"
+METHOD="$4"
+
+case "$SERVICE:$METHOD" in
+  FsTab:enumerateEntries)
+    echo '[{"uuid":"fake-mntent-uuid","dir":"/","fsname":"/dev/sda1","type":"ext4","opts":"defaults","freq":0,"passno":0},{"uuid":"fake-mntent-data","dir":"/mnt/data","fsname":"/dev/sdb1","type":"ext4","opts":"defaults","freq":0,"passno":0}]'
+    ;;
+  ShareMgmt:getList)
+    if [[ -f /tmp/omv-mock-shares.json ]]; then
+      cat /tmp/omv-mock-shares.json
+    else
+      echo '{"total":0,"data":[]}'
+    fi
+    ;;
+  ShareMgmt:set)
+    echo '{"uuid":"new-sf-uuid-1234"}'
+    ;;
+  Compose:get)
+    if [[ -f /tmp/omv-mock-compose.json ]]; then
+      cat /tmp/omv-mock-compose.json
+    else
+      echo '{"sharedfolderref":"","datasharedfolderref":"","backupsharedfolderref":"","composeowner":"","composegroup":"","mode":"750","fileperms":"640"}'
+    fi
+    ;;
+  Compose:set)
+    # Store what was passed for assertion
+    echo "$5" > /tmp/omv-mock-compose-last-set.json
+    echo '{}'
+    ;;
+  Compose:getJobList)
+    if [[ -f /tmp/omv-mock-jobs.json ]]; then
+      cat /tmp/omv-mock-jobs.json
+    else
+      echo '{"total":0,"data":[]}'
+    fi
+    ;;
+  Compose:setJob)
+    echo "$5" >> /tmp/omv-mock-jobs-created.json
+    echo '{"uuid":"new-job-uuid-1234"}'
+    ;;
+  OmvExtras:setDocker|OmvExtras:set)
+    echo '{}'
+    ;;
+  *)
+    echo '{}'
+    ;;
+esac

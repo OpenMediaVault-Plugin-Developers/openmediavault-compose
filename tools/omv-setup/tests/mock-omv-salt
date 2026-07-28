@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Mock omv-salt: no-op, just logs what was called
+echo "[mock-omv-salt] $*" >> /tmp/omv-mock-salt.log
