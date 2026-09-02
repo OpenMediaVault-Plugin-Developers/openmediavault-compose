@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "'%s' already exists and is not a directory."
-msgstr ""
+msgstr "'%s' 已經存在且非檔案目錄。"
 
 msgid "API Key"
 msgstr "API 金鑰"
@@ -30,10 +30,10 @@ msgstr "API 金鑰"
 msgid ""
 "Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
 "xxxx/appdata/plex/config"
-msgstr ""
+msgstr "主機上所要建立之絕對路徑。<br/>例如：/srv/dev-disk-by-uuid-xxxx/appdata/plex/config"
 
 msgid "Absolute path"
-msgstr ""
+msgstr "絶對路徑"
 
 msgid "Action"
 msgstr "動作"
@@ -62,7 +62,7 @@ msgstr "新增範例 compose 檔案中 …"
 msgid ""
 "Additional --opt entries as key=value. Comma separate multiple "
 "entries.<br/>e.g. size=20g,uid=1000"
-msgstr ""
+msgstr "額外的 --opt 項目，以 key=value 格式。多個項目用逗號來分隔。<br/>例如：size=20g,uid=1000"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr "管理員 - 讀/寫，用戶 - 無法取用，其他 - 無法取用"
@@ -80,7 +80,7 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理員 - 讀/寫，用戶 - 讀/寫，其他 - 唯讀"
 
 msgid "Advanced (driver options & labels)"
-msgstr ""
+msgstr "進階 (驅動程式選項及標記)"
 
 msgid "Advanced (manual IP configuration)"
 msgstr "先進 (手動 IP 設置)"
@@ -94,13 +94,13 @@ msgid ""
 msgstr "一份含有指令輸出(若有產生)的電子郵件會被發送給執行此工作的用戶。"
 
 msgid "Apply ownership and permissions recursively"
-msgstr ""
+msgstr "遞歸式地套用擁有權和權限"
 
 msgid ""
 "Apply the owner, group and permissions to all existing contents as well, not"
 " just the directory itself. Use with care on directories that already hold "
 "data."
-msgstr ""
+msgstr "將擁有者、群組和權限也套用到所有現存的内容，不僅僅套用到檔案目錄本身。使用在已經含有資料的檔案目錄時要特別小心。"
 
 msgid "April"
 msgstr "四月"
@@ -295,7 +295,7 @@ msgstr "配置"
 msgid ""
 "Configure a mount type, driver options and labels. Leave disabled to create "
 "a plain named volume."
-msgstr ""
+msgstr "設置掛載類型、驅動程式選項及標記。保留在停用則會建立一個命名的普通儲存卷。"
 
 msgid "Connect"
 msgstr "連接"
@@ -328,7 +328,7 @@ msgid "Create .env and compose.yml symlinks"
 msgstr "建立 .env 及 compose.yml 的 symlinks"
 
 msgid "Create bind mount path"
-msgstr ""
+msgstr "建立綁定掛載路徑"
 
 msgid "Create from URL"
 msgstr "從 URL 創建"
@@ -352,7 +352,7 @@ msgid "Created At"
 msgstr "建立於"
 
 msgid "Created bind mount path."
-msgstr ""
+msgstr "已建立綁定掛載路徑。"
 
 msgid "Created config."
 msgstr "已建立配置。"
@@ -373,7 +373,7 @@ msgid "Created scheduled job."
 msgstr "已建立預訂工作。"
 
 msgid "Created volume."
-msgstr ""
+msgstr "已建立儲存卷。"
 
 msgid "Current"
 msgstr "目前"
@@ -424,7 +424,7 @@ msgid "Description"
 msgstr "敘述"
 
 msgid "Device"
-msgstr ""
+msgstr "裝置"
 
 msgid "Digest"
 msgstr "摘要"
@@ -502,7 +502,7 @@ msgid "Driver"
 msgstr "驅動程式"
 
 msgid "Driver options"
-msgstr ""
+msgstr "驅動程式選項"
 
 msgid "Edit"
 msgstr "編輯"
@@ -601,7 +601,7 @@ msgid "Failed"
 msgstr "失敗"
 
 msgid "Failed to create directory '%s'."
-msgstr ""
+msgstr "建立檔案目錄失敗 '%s'。"
 
 msgid "February"
 msgstr "二月"
@@ -631,6 +631,8 @@ msgid ""
 "Format is key=value. Comma separate multiple entries.<br/>e.g. "
 "com.example.usage=backup,com.example.owner=admin"
 msgstr ""
+"格式為 "
+"key=value。多個項目則以逗號分開。<br/>例如：com.example.usage=backup,com.example.owner=admin"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
@@ -651,13 +653,13 @@ msgid "Global environment variables"
 msgstr "全機環境變數"
 
 msgid "Group"
-msgstr ""
+msgstr "群組"
 
 msgid "Group of directories and files"
 msgstr "目錄和檔案的群組"
 
 msgid "Group to own the path. Match the container's PGID where applicable."
-msgstr ""
+msgstr "擁用該路徑的群組。於適用處要符合容器之 PGID。"
 
 msgid "Host Port"
 msgstr "主機連接埠"
@@ -745,7 +747,7 @@ msgid "Internal network"
 msgstr "内部網路"
 
 msgid "Invalid %s name."
-msgstr ""
+msgstr "無效 %s 名稱。"
 
 msgid "Invalid JSON response from Portainer: %s"
 msgstr "從 Portainer 回應的無效 JSON：%s"
@@ -766,7 +768,7 @@ msgid "Keep containers running across Docker daemon updates"
 msgstr "在 Docker 常駐程式更新期間保持容器運行"
 
 msgid "Labels"
-msgstr ""
+msgstr "標記"
 
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr "留空白則使用客製的 /etc/containers/storage.conf"
@@ -775,10 +777,10 @@ msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "留空白則使用客製的 /etc/docker/daemon.json"
 
 msgid "Leave unchanged"
-msgstr ""
+msgstr "保持不變"
 
 msgid "Leave unchanged ..."
-msgstr ""
+msgstr "保持不變 …"
 
 msgid "Live restore"
 msgstr "在線復原"
@@ -855,10 +857,10 @@ msgid "Monthly"
 msgstr "每月"
 
 msgid "Mount options"
-msgstr ""
+msgstr "掛載選項"
 
 msgid "Mount type"
-msgstr ""
+msgstr "掛載類型"
 
 msgid "Mountpoint"
 msgstr "掛載點"
@@ -897,7 +899,7 @@ msgid "None"
 msgstr "無"
 
 msgid "None (local storage)"
-msgstr ""
+msgstr "無 (本地儲存)"
 
 msgid "Not installed"
 msgstr "未被安裝"
@@ -954,22 +956,22 @@ msgid "Overrides"
 msgstr "置換"
 
 msgid "Owner"
-msgstr ""
+msgstr "所有者"
 
 msgid "Owner - read/write, Group - no access, Others - no access"
-msgstr ""
+msgstr "擁有者 - 讀/寫，群組 - 無法取用，其他 - 無法取用"
 
 msgid "Owner - read/write, Group - read-only, Others - no access"
-msgstr ""
+msgstr "擁有者 - 讀/寫，群組 - 唯讀，其他 - 無法取用"
 
 msgid "Owner - read/write, Group - read-only, Others - read-only"
-msgstr ""
+msgstr "擁有者 - 讀/寫，群組 - 唯讀，其他 - 唯讀"
 
 msgid "Owner - read/write, Group - read/write, Others - no access"
-msgstr ""
+msgstr "擁有者 - 讀/寫，群組 - 讀/寫，其他 - 無法取用"
 
 msgid "Owner - read/write, Group - read/write, Others - read-only"
-msgstr ""
+msgstr "擁有者 - 讀/寫，群組 - 讀/寫，其他 - 唯讀"
 
 msgid "Owner of directories and files"
 msgstr "目錄和檔案的擁有者"
@@ -988,6 +990,8 @@ msgid ""
 "addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
 "username=user,password=secret,vers=3.0"
 msgstr ""
+"做為 'o' 驅動程式選項來遞送。<br/>NFS 例如： addr=192.168.1.10,rw,nfsvers=4<br/>CIFS 例如： "
+"username=user,password=secret,vers=3.0"
 
 msgid "Passphrase for Borg encryption."
 msgstr "給 Borg 加密用的密碼短句。"
@@ -999,7 +1003,7 @@ msgid "Path"
 msgstr "路徑"
 
 msgid "Path source"
-msgstr ""
+msgstr "路徑來源"
 
 msgid "Path to script that will be executed after backup"
 msgstr "備份後所要執行之腳本程式的路徑"
@@ -1008,19 +1012,19 @@ msgid "Path to script that will be executed before backup"
 msgstr "備份前所要執行之腳本程式的路徑"
 
 msgid "Permissions"
-msgstr ""
+msgstr "權限"
 
 msgid "Permissions must be an octal value, e.g. 755."
-msgstr ""
+msgstr "權限必須為一個八進位值，例如：755。"
 
 msgid "Permissions of directories and files"
 msgstr "目錄和檔案的權限"
 
 msgid "Please provide an absolute path."
-msgstr ""
+msgstr "請提供一個絕對路徑。"
 
 msgid "Please select a shared folder."
-msgstr ""
+msgstr "請選擇一個共享檔案夾。"
 
 msgid "Please set shared folder for backups."
 msgstr "請設定備份用的共享檔案夾。"
@@ -1123,7 +1127,7 @@ msgid ""
 msgstr "推薦使用。請於 Portainer 內 Account Settings → Access tokens 下產生一份。"
 
 msgid "Refusing to operate on the protected system path '%s'."
-msgstr ""
+msgstr "拒絕對被保護的系統路徑 '%s' 來操作。"
 
 msgid "Reinstall Docker"
 msgstr "重新安裝 Docker"
@@ -1132,7 +1136,7 @@ msgid "Reinstall Docker ..."
 msgstr "重新安裝 Docker …"
 
 msgid "Relative path"
-msgstr ""
+msgstr "相對路徑"
 
 msgid "Repo"
 msgstr "映像庫"
@@ -1257,7 +1261,7 @@ msgid "Shared folder"
 msgstr "共享檔案夾"
 
 msgid "Shared folder + relative path"
-msgstr ""
+msgstr "共享檔案夾 + 相對路徑"
 
 msgid "Show all file changes ..."
 msgstr "顯示全部檔案變更 ..."
@@ -1319,7 +1323,7 @@ msgstr "已停止"
 msgid ""
 "Subdirectory created under the shared folder. Leave empty to use the shared "
 "folder root.<br/>e.g. plex/config"
-msgstr ""
+msgstr "在該共享檔案夾下建立的子目錄。留空白則使用該共享檔案夾之根目錄。<br/>例如：plex/config"
 
 msgid "Subnet"
 msgstr "子網路"
@@ -1383,10 +1387,10 @@ msgid "The field should only contain * or a comma separated list of values."
 msgstr "此欄位應該只含有 * 或一個以逗號分隔的數值列表。"
 
 msgid "The path must be absolute."
-msgstr ""
+msgstr "此路徑必須為絕對。"
 
 msgid "The path must not contain '..' components."
-msgstr ""
+msgstr "此路徑不可包含 '..' 部份。"
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
@@ -1421,7 +1425,7 @@ msgstr "為 '%s' (%s 檔案系統) 選用的共享檔案夾不可寫入。請確
 msgid ""
 "The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
 "mounts), or the name of an installed volume plugin."
-msgstr ""
+msgstr "儲存卷驅動程式。使用 'local' 在主機上支援的儲存卷(包括 NFS/CIFS 掛載)，或是一個已安裝儲存卷插件。"
 
 msgid "This is the filename. This should not be a path."
 msgstr "這是檔案名稱，不可以是一個路徑。"
@@ -1508,7 +1512,7 @@ msgid "Used only if no API key is provided."
 msgstr "只有在沒提供 API 金鑰時使用。"
 
 msgid "User to own the path. Match the container's PUID where applicable."
-msgstr ""
+msgstr "擁用該路徑的用户。於適用處要符合容器之 PUID。"
 
 msgid "Username"
 msgstr "用戶名稱"
@@ -1543,7 +1547,7 @@ msgstr "每週"
 msgid ""
 "With the 'local' driver, mount a remote share instead of using local "
 "storage."
-msgstr ""
+msgstr "用 'local' 驅動程式時，掛載一個遠端分享，而非本機儲存。"
 
 msgid "Yearly"
 msgstr "每年"

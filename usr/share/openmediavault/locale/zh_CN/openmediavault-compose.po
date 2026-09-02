@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# songming <by@songming.me>, 2026
 # irrelevant91, 2026
+# songming <by@songming.me>, 2026
 # 
 #, fuzzy
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-01 20:10+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: irrelevant91, 2026\n"
+"Last-Translator: songming <by@songming.me>, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "'%s' already exists and is not a directory."
-msgstr ""
+msgstr "‘%s’已存在，且不是目录。"
 
 msgid "API Key"
 msgstr "API 密钥"
@@ -31,10 +31,10 @@ msgstr "API 密钥"
 msgid ""
 "Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
 "xxxx/appdata/plex/config"
-msgstr ""
+msgstr "要创建的宿主机绝对路径，<br/>例如：/srv/dev-disk-by-uuid-xxxx/appdata/plex/config"
 
 msgid "Absolute path"
-msgstr ""
+msgstr "绝对路径"
 
 msgid "Action"
 msgstr "动作"
@@ -63,7 +63,7 @@ msgstr "添加 一个示例 compose 文件 ..."
 msgid ""
 "Additional --opt entries as key=value. Comma separate multiple "
 "entries.<br/>e.g. size=20g,uid=1000"
-msgstr ""
+msgstr "以 key=value 格式指定的额外 --opt 条目。多个条目之间用逗号分隔。<br/>例如：size=20g,uid=1000"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr "管理员 - 读/写，用户 - 无权限，其它 - 无权限"
@@ -81,10 +81,10 @@ msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr "管理员 - 读/写，用户 - 读/写，其它 - 只读"
 
 msgid "Advanced (driver options & labels)"
-msgstr ""
+msgstr "高级（磁盘选项与标签）"
 
 msgid "Advanced (manual IP configuration)"
-msgstr ""
+msgstr "高级（手动配置 IP ）"
 
 msgid "Always attempt to pull a newer version of the image"
 msgstr "始终尝试拉取最新的镜像版本"
@@ -95,13 +95,13 @@ msgid ""
 msgstr "包含命令输出（如果有生成的话）的电子邮件将发送给执行该任务的用户。"
 
 msgid "Apply ownership and permissions recursively"
-msgstr ""
+msgstr "递归应用所有权和权限"
 
 msgid ""
 "Apply the owner, group and permissions to all existing contents as well, not"
 " just the directory itself. Use with care on directories that already hold "
 "data."
-msgstr ""
+msgstr "请将所有者、所属组及权限设置应用到所有现有内容（而不仅仅是目录本身）。对于已包含数据的目录，请谨慎操作。"
 
 msgid "April"
 msgstr "4月"
@@ -135,7 +135,7 @@ msgstr "您确定要从文件同步变更吗？"
 msgid ""
 "Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
 "enabled in the Docker daemon."
-msgstr ""
+msgstr "为此网络分配一个 IPv6 子网（双栈模式）。要求在 Docker 守护进程中启用 IPv6。"
 
 msgid "At reboot"
 msgstr "重启时"
@@ -296,13 +296,13 @@ msgstr "配置"
 msgid ""
 "Configure a mount type, driver options and labels. Leave disabled to create "
 "a plain named volume."
-msgstr ""
+msgstr "配置挂载类型、磁盘选项和标签。保持禁用状态即可创建普通的命名卷。"
 
 msgid "Connect"
-msgstr ""
+msgstr "连接"
 
 msgid "Connect container"
-msgstr ""
+msgstr "连接容器"
 
 msgid "Container"
 msgstr "Container"
@@ -329,7 +329,7 @@ msgid "Create .env and compose.yml symlinks"
 msgstr "创建 .env 和 compose.yml 的符号链接"
 
 msgid "Create bind mount path"
-msgstr ""
+msgstr "创建绑定挂载路径"
 
 msgid "Create from URL"
 msgstr "从 URL 创建"
@@ -353,7 +353,7 @@ msgid "Created At"
 msgstr "创建"
 
 msgid "Created bind mount path."
-msgstr ""
+msgstr "已创建绑定挂载路径。"
 
 msgid "Created config."
 msgstr "创建配置。"
@@ -374,7 +374,7 @@ msgid "Created scheduled job."
 msgstr "已创建计划任务。"
 
 msgid "Created volume."
-msgstr ""
+msgstr "已创建卷。"
 
 msgid "Current"
 msgstr "目前"
@@ -425,7 +425,7 @@ msgid "Description"
 msgstr "描述"
 
 msgid "Device"
-msgstr ""
+msgstr "设备"
 
 msgid "Digest"
 msgstr "摘要"
@@ -437,10 +437,10 @@ msgid "Disable if Portainer uses a self-signed certificate."
 msgstr "如果 Portainer 使用自签名证书，请禁用。"
 
 msgid "Disconnect"
-msgstr ""
+msgstr "断开连接"
 
 msgid "Disconnect container"
-msgstr ""
+msgstr "断开连接容器"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr "以表格形式显示带有链接到 cterm 终端的容器"
@@ -456,6 +456,7 @@ msgid ""
 "backup runs while the containers are live (faster, no downtime), but data "
 "may be inconsistent for running services such as databases."
 msgstr ""
+"无需在备份前停止容器或在备份后重新启动它们。备份过程在容器运行期间进行（速度更快，无需停机），但对于数据库等正在运行的服务，数据可能会出现不一致的情况。"
 
 msgid "Do not use cache when building the image"
 msgstr "编译镜像时不使用缓存"
@@ -503,7 +504,7 @@ msgid "Driver"
 msgstr "驱动"
 
 msgid "Driver options"
-msgstr ""
+msgstr "磁盘选项"
 
 msgid "Edit"
 msgstr "编辑"
@@ -536,7 +537,7 @@ msgid "Enable Docker repo ..."
 msgstr "启用 Docker 源 ..."
 
 msgid "Enable IPv6"
-msgstr ""
+msgstr "启用 IPV6"
 
 msgid "Enabled"
 msgstr "启用"
@@ -580,7 +581,7 @@ msgid "Exclude filter"
 msgstr "排除过滤器"
 
 msgid "Exclude filter (pick files)"
-msgstr ""
+msgstr "排除筛选器（选择文件）"
 
 msgid ""
 "Exclude specific compose files from this job by matching the compose "
@@ -602,7 +603,7 @@ msgid "Failed"
 msgstr "失败"
 
 msgid "Failed to create directory '%s'."
-msgstr ""
+msgstr "无法创建目录‘%s’。"
 
 msgid "February"
 msgstr "二月"
@@ -623,7 +624,7 @@ msgid "Filter"
 msgstr "过滤"
 
 msgid "Filter (pick files)"
-msgstr ""
+msgstr "筛选（选择文件）"
 
 msgid "Find the next 20 free host ports at or above this number."
 msgstr "在此数字或以上找到相邻的 20 个空闲主机端口。"
@@ -632,6 +633,8 @@ msgid ""
 "Format is key=value. Comma separate multiple entries.<br/>e.g. "
 "com.example.usage=backup,com.example.owner=admin"
 msgstr ""
+"格式为 "
+"key=value。多个条目之间用逗号分隔。<br/>例如：com.example.usage=backup,com.example.owner=admin"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
@@ -651,13 +654,13 @@ msgid "Global environment variables"
 msgstr "全局环境变量"
 
 msgid "Group"
-msgstr ""
+msgstr "组"
 
 msgid "Group of directories and files"
 msgstr "文件和文件夹所属组"
 
 msgid "Group to own the path. Match the container's PGID where applicable."
-msgstr ""
+msgstr "将该路径的所有权归属于指定组。在适用的情况下，使其与容器的 PGID（进程组 ID）保持一致。"
 
 msgid "Host Port"
 msgstr "主机端口"
@@ -665,7 +668,7 @@ msgstr "主机端口"
 msgid ""
 "Host interface this network is attached to. Use a VLAN sub-interface for "
 "802.1Q tagging, e.g. eth0.10"
-msgstr ""
+msgstr "该网络所连接的主机接口。若需使用 802.1Q 标记，请使用 VLAN 子接口（例如 eth0.10）。"
 
 msgid "Hour"
 msgstr "小时"
@@ -677,16 +680,16 @@ msgid "ID"
 msgstr "ID"
 
 msgid "IP address"
-msgstr ""
+msgstr "IP 地址"
 
 msgid "IP range"
-msgstr "IP 范围"
+msgstr "IP 范围·"
 
 msgid "IPv6 gateway"
-msgstr ""
+msgstr "IPv6 网关"
 
 msgid "IPv6 subnet"
-msgstr ""
+msgstr "IPv6 子网掩码"
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr "如果选中，rsync 备份命令将包括详细标志。"
@@ -745,7 +748,7 @@ msgid "Internal network"
 msgstr "内部网络"
 
 msgid "Invalid %s name."
-msgstr ""
+msgstr "%s名称无效。"
 
 msgid "Invalid JSON response from Portainer: %s"
 msgstr "来自 Portainer 的JSON 响应无效：%s"
@@ -766,7 +769,7 @@ msgid "Keep containers running across Docker daemon updates"
 msgstr "在 Docker 守护进程升级时保持容器运行"
 
 msgid "Labels"
-msgstr ""
+msgstr "标签"
 
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr "留空以使用自定义文件 /etc/containers/storage.conf"
@@ -775,10 +778,10 @@ msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "留空则使用用户自定义文件 /etc/docker/daemon.json"
 
 msgid "Leave unchanged"
-msgstr ""
+msgstr "保持不变"
 
 msgid "Leave unchanged ..."
-msgstr ""
+msgstr "保持不变 ..."
 
 msgid "Live restore"
 msgstr "实时恢复"
@@ -813,7 +816,7 @@ msgstr "维护"
 msgid ""
 "Manually assign the subnet, gateway and IP range. Leave disabled to let "
 "Docker allocate addresses automatically."
-msgstr ""
+msgstr "手动指定子网、网关和 IP 范围。保持禁用状态，以便由 Docker 自动分配地址。"
 
 msgid "March"
 msgstr "三月"
@@ -843,7 +846,7 @@ msgid "Mixed"
 msgstr "混合"
 
 msgid "Mode"
-msgstr ""
+msgstr "模式"
 
 msgid "Monday"
 msgstr "星期一"
@@ -855,10 +858,10 @@ msgid "Monthly"
 msgstr "每月"
 
 msgid "Mount options"
-msgstr ""
+msgstr "挂载选项"
 
 msgid "Mount type"
-msgstr ""
+msgstr "挂载类型"
 
 msgid "Mountpoint"
 msgstr "挂载点"
@@ -897,7 +900,7 @@ msgid "None"
 msgstr "无"
 
 msgid "None (local storage)"
-msgstr ""
+msgstr "无（本地存储）"
 
 msgid "Not installed"
 msgstr "未安装"
@@ -928,17 +931,17 @@ msgstr ""
 "CHANGE_TO_COMPOSE_DATA_PATH 。"
 
 msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
-msgstr ""
+msgstr "可选。从网络子网中分配一个静态 IP，例如 172.20.0.10。"
 
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
 "merged with the Filter patterns above (combined and de-duplicated)."
-msgstr ""
+msgstr "您可以选择性地从列表中挑选特定的 Compose 文件。您的选择将与上方的过滤模式合并（进行组合并去重）。"
 
 msgid ""
 "Optionally pick specific compose files to exclude. Your selection is merged "
 "with the Exclude filter patterns above (combined and de-duplicated)."
-msgstr ""
+msgstr "您可以选择性地指定要排除的 Compose 文件。您的选择将与上方的“排除”过滤模式合并（进行合并与去重处理）。"
 
 msgid "Override"
 msgstr "覆盖"
@@ -954,22 +957,22 @@ msgid "Overrides"
 msgstr "覆盖"
 
 msgid "Owner"
-msgstr ""
+msgstr "所有者"
 
 msgid "Owner - read/write, Group - no access, Others - no access"
-msgstr ""
+msgstr "所有者 - 读/写，组 - 无访问权限，其他人 - 无访问权限"
 
 msgid "Owner - read/write, Group - read-only, Others - no access"
-msgstr ""
+msgstr "所有者 - 读/写，组 - 只读，其他人 - 无访问权限"
 
 msgid "Owner - read/write, Group - read-only, Others - read-only"
-msgstr ""
+msgstr "所有者 - 读/写，组 - 只读，其他人 - 只读"
 
 msgid "Owner - read/write, Group - read/write, Others - no access"
-msgstr ""
+msgstr "所有者 - 读/写，组 - 读/写，其他人 - 无访问权限"
 
 msgid "Owner - read/write, Group - read/write, Others - read-only"
-msgstr ""
+msgstr "所有者 - 读/写，组 - 读/写，其他 - 只读"
 
 msgid "Owner of directories and files"
 msgstr "文件及文件夹的拥有者"
@@ -978,7 +981,7 @@ msgid "PIDs"
 msgstr "PIDs"
 
 msgid "Parent"
-msgstr ""
+msgstr "父级"
 
 msgid "Parent network"
 msgstr "父网络"
@@ -988,6 +991,8 @@ msgid ""
 "addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
 "username=user,password=secret,vers=3.0"
 msgstr ""
+"作为 'o' 磁盘选项传入。<br/>NFS 示例：addr=192.168.1.10,rw,nfsvers=4；<br/>CIFS "
+"示例：username=user,password=secret,vers=3.0"
 
 msgid "Passphrase for Borg encryption."
 msgstr "Borg 加密的密钥。"
@@ -999,7 +1004,7 @@ msgid "Path"
 msgstr "路径"
 
 msgid "Path source"
-msgstr ""
+msgstr "路径源"
 
 msgid "Path to script that will be executed after backup"
 msgstr "备份后将执行的脚本路径"
@@ -1008,19 +1013,19 @@ msgid "Path to script that will be executed before backup"
 msgstr "备份前将执行的脚本路径"
 
 msgid "Permissions"
-msgstr ""
+msgstr "权限"
 
 msgid "Permissions must be an octal value, e.g. 755."
-msgstr ""
+msgstr "权限必须是八进制值，例如 755。"
 
 msgid "Permissions of directories and files"
 msgstr "文件及文件夹的权限"
 
 msgid "Please provide an absolute path."
-msgstr ""
+msgstr "请提供绝对路径。"
 
 msgid "Please select a shared folder."
-msgstr ""
+msgstr "请选择一个共享文件夹。"
 
 msgid "Please set shared folder for backups."
 msgstr "请设置共享文件夹用于备份。"
@@ -1123,7 +1128,7 @@ msgid ""
 msgstr "推荐。在 Portainer 的账户设置 → 访问令牌下生成一个。"
 
 msgid "Refusing to operate on the protected system path '%s'."
-msgstr ""
+msgstr "拒绝在受保护的系统路径‘%s’上进行操作。"
 
 msgid "Reinstall Docker"
 msgstr "重新安装 Docker"
@@ -1132,7 +1137,7 @@ msgid "Reinstall Docker ..."
 msgstr "重新安装 Docker ..."
 
 msgid "Relative path"
-msgstr ""
+msgstr "相对路径"
 
 msgid "Repo"
 msgstr "源"
@@ -1257,7 +1262,7 @@ msgid "Shared folder"
 msgstr "共享文件夹"
 
 msgid "Shared folder + relative path"
-msgstr ""
+msgstr "共享文件夹 + 相对路径"
 
 msgid "Show all file changes ..."
 msgstr "显示所有文件变更 ..."
@@ -1284,7 +1289,7 @@ msgid "Size"
 msgstr "尺寸"
 
 msgid "Skip container stop/start"
-msgstr ""
+msgstr "跳过容器停止 / 启动"
 
 msgid "Start"
 msgstr "开始"
@@ -1319,7 +1324,7 @@ msgstr "停止"
 msgid ""
 "Subdirectory created under the shared folder. Leave empty to use the shared "
 "folder root.<br/>e.g. plex/config"
-msgstr ""
+msgstr "在共享文件夹下创建的子目录。留空则使用共享文件夹的根目录。<br/>例如：plex/config"
 
 msgid "Subnet"
 msgstr "子网"
@@ -1383,10 +1388,10 @@ msgid "The field should only contain * or a comma separated list of values."
 msgstr "该字段应该仅包含 * 或以逗号分隔的值。"
 
 msgid "The path must be absolute."
-msgstr ""
+msgstr "此路径必须是绝对路径。"
 
 msgid "The path must not contain '..' components."
-msgstr ""
+msgstr "此路径不可包含 ‘..’ 部分。"
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
@@ -1421,7 +1426,7 @@ msgstr "为“%s”选定的共享文件夹（%s 文件系统）不可写。请�
 msgid ""
 "The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
 "mounts), or the name of an installed volume plugin."
-msgstr ""
+msgstr "卷磁盘。对于由主机支持的卷（包括 NFS/CIFS 挂载），请使用“local”；或者使用已安装的卷插件名称。"
 
 msgid "This is the filename. This should not be a path."
 msgstr "这是文件名，而不是路径。"
@@ -1507,7 +1512,7 @@ msgid "Used only if no API key is provided."
 msgstr "仅在未提供 API 密钥时使用。"
 
 msgid "User to own the path. Match the container's PUID where applicable."
-msgstr ""
+msgstr "用户应拥有该路径。与容器的 PUID 匹配并保持一致。"
 
 msgid "Username"
 msgstr "用户名"
@@ -1542,7 +1547,7 @@ msgstr "每周"
 msgid ""
 "With the 'local' driver, mount a remote share instead of using local "
 "storage."
-msgstr ""
+msgstr "使用“local”磁盘时，挂载远程共享，而不是使用本地存储。"
 
 msgid "Yearly"
 msgstr "每年"
@@ -1620,10 +1625,10 @@ msgid "docker logs ..."
 msgstr "docker 日志 ..."
 
 msgid "docker network connect ..."
-msgstr ""
+msgstr "docker 网络连接 ..."
 
 msgid "docker network disconnect ..."
-msgstr ""
+msgstr "docker 网络断开 ..."
 
 msgid "docker network inspect ..."
 msgstr "docker 网络检查 ..."
@@ -1671,10 +1676,10 @@ msgid "e.g. 172.20.10.128/25"
 msgstr "如 172.20.10.128/25"
 
 msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
-msgstr ""
+msgstr "例如： 2001:db8:abcd::/64 or fd00::/64"
 
 msgid "e.g. 2001:db8:abcd::1"
-msgstr ""
+msgstr "例如：2001:db8:abcd::1"
 
 msgid "file not found!"
 msgstr "文件未找到！"

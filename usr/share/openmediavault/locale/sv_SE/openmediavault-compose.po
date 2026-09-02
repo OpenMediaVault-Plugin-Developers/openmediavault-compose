@@ -3,6 +3,9 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Jonatan Nyberg, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -10,6 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-01 20:10+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: Jonatan Nyberg, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,200 +22,218 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "'%s' already exists and is not a directory."
-msgstr ""
+msgstr "”%s” finns redan och är inte en mapp."
 
 msgid "API Key"
-msgstr ""
+msgstr "API-nyckel"
 
 msgid ""
 "Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
 "xxxx/appdata/plex/config"
 msgstr ""
+"Absolut värdsökväg som ska skapas.<br/>T.ex. /srv/dev-disk-by-uuid-"
+"xxxx/appdata/plex/config"
 
 msgid "Absolute path"
-msgstr ""
+msgstr "Absolut sökväg"
 
 msgid "Action"
-msgstr ""
+msgstr "Åtgärd"
 
 msgid "Action type"
-msgstr ""
+msgstr "Åtgärdstyp"
 
 msgid "Add"
-msgstr ""
+msgstr "Lägg till"
 
 msgid "Add example compose file"
-msgstr ""
+msgstr "Lägg till exempel på Compose-fil"
 
 msgid "Add from Example"
-msgstr ""
+msgstr "Lägg till från exempel"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "Lägg till från webbadress"
 
 msgid "Add..."
-msgstr ""
+msgstr "Lägg till…"
 
 msgid "Adding an example compose file ..."
-msgstr ""
+msgstr "Lägger till en Compose-exempelfil…"
 
 msgid ""
 "Additional --opt entries as key=value. Comma separate multiple "
 "entries.<br/>e.g. size=20g,uid=1000"
 msgstr ""
+"Ytterligare poster för --opt i formatet nyckel=värde. Avgränsa flera poster "
+"med kommatecken.<br/>T.ex. size=20g,uid=1000"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
+"Administratör – läs/skriv, användare – ingen åtkomst, övriga – ingen åtkomst"
 
 msgid "Administrator - read/write, Users - read-only, Others - no access"
 msgstr ""
+"Administratör – läs/skriv, användare – skrivskyddat, övriga – ingen åtkomst"
 
 msgid "Administrator - read/write, Users - read-only, Others - read-only"
 msgstr ""
+"Administratör – läs/skriv, användare – skrivskyddat, övriga – skrivskyddat"
 
 msgid "Administrator - read/write, Users - read/write, Others - no access"
 msgstr ""
+"Administratör – läs/skriv, användare – läs/skriv, övriga – ingen åtkomst"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
+"Administratör – läs/skriv, användare – läs/skriv, övriga – skrivskyddat"
 
 msgid "Advanced (driver options & labels)"
-msgstr ""
+msgstr "Avancerat (drivrutinsalternativ och etiketter)"
 
 msgid "Advanced (manual IP configuration)"
-msgstr ""
+msgstr "Avancerat (manuell IP-konfiguration)"
 
 msgid "Always attempt to pull a newer version of the image"
-msgstr ""
+msgstr "Försök alltid hämta en nyare version av avbilden"
 
 msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
 msgstr ""
+"Ett e-postmeddelande med eventuell kommandoutdata skickas till användaren "
+"som kör jobbet."
 
 msgid "Apply ownership and permissions recursively"
-msgstr ""
+msgstr "Tillämpa ägarskap och behörigheter rekursivt"
 
 msgid ""
 "Apply the owner, group and permissions to all existing contents as well, not"
 " just the directory itself. Use with care on directories that already hold "
 "data."
 msgstr ""
+"Tillämpa ägare, grupp och behörigheter även på allt befintligt innehåll, "
+"inte bara på själva mappen. Var försiktig med mappar som redan innehåller "
+"data."
 
 msgid "April"
-msgstr ""
+msgstr "April"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
-msgstr ""
+msgstr "Vill du verkligen skapa ett nytt Git-förråd? All historik raderas!"
 
 msgid "Are you sure you want to delete this backup?"
-msgstr ""
+msgstr "Vill du verkligen ta bort den här säkerhetskopian?"
 
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Är du säker att du vill ta bort?"
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "Vill du verkligen installera om?"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "Vill du verkligen starta om?"
 
 msgid "Are you sure you want to restore global.env from backup?"
-msgstr ""
+msgstr "Vill du verkligen återställa global.env från säkerhetskopian?"
 
 msgid "Are you sure you want to stop all containers?"
-msgstr ""
+msgstr "Vill du verkligen stoppa alla containrar?"
 
 msgid "Are you sure you want to sync changes from the files?"
-msgstr ""
+msgstr "Vill du verkligen synkronisera ändringarna från filerna?"
 
 msgid ""
 "Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
 "enabled in the Docker daemon."
 msgstr ""
+"Tilldela nätverket ett IPv6-undernät (dubbel stack). IPv6 måste vara "
+"aktiverat i Docker-demonen."
 
 msgid "At reboot"
-msgstr ""
+msgstr "Vid omstart"
 
 msgid "August"
-msgstr ""
+msgstr "Augusti"
 
 msgid "Authentication — fill in one of the two options below"
-msgstr ""
+msgstr "Autentisering – fyll i ett av de två alternativen nedan"
 
 msgid "Autocompose"
-msgstr ""
+msgstr "Autocompose"
 
 msgid "Aux address"
-msgstr ""
+msgstr "Extra adress"
 
 msgid "Available"
-msgstr ""
+msgstr "Tillgänglig"
 
 msgid "Backend"
-msgstr ""
+msgstr "Bakände"
 
 msgid "Backup"
-msgstr ""
+msgstr "Säkerhetskopiering"
 
 msgid "Backup Time"
-msgstr ""
+msgstr "Tid för säkerhetskopiering"
 
 msgid "Backup container data."
-msgstr ""
+msgstr "Säkerhetskopiera containerdata."
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
+"Den delade mappen för säkerhetskopior måste skilja sig från Dockers delade "
+"mapp"
 
 msgid "Backup storage"
-msgstr ""
+msgstr "Lagring för säkerhetskopior"
 
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
-msgstr ""
+msgstr "Basadress till din Portainer-instans, t.ex. https://192.168.1.10:9443"
 
 msgid "Block In"
-msgstr ""
+msgstr "Blockera inkommande"
 
 msgid "Block Out"
-msgstr ""
+msgstr "Blockera utgående"
 
 msgid "Body"
-msgstr ""
+msgstr "Innehåll"
 
 msgid "Borg encryption"
-msgstr ""
+msgstr "Borg-kryptering"
 
 msgid "Borg keep"
-msgstr ""
+msgstr "Borg: behåll"
 
 msgid "Borg passphrase"
-msgstr ""
+msgstr "Borg-lösenfras"
 
 msgid "Build"
-msgstr ""
+msgstr "Bygg"
 
 msgid "Build ..."
-msgstr ""
+msgstr "Bygg…"
 
 msgid "CPU %"
-msgstr ""
+msgstr "CPU %"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "Cacheminnet har rensats."
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "Cachetider för flikar"
 
 msgid "Certain date"
-msgstr ""
+msgstr "Visst datum"
 
 msgid "Changes have been synced from file."
-msgstr ""
+msgstr "Ändringarna har synkroniserats från filen."
 
 msgid "Check compose file for errors ..."
-msgstr ""
+msgstr "Kontrollerar Compose-filen efter fel…"
 
 msgid ""
 "Choose which compose files to include in this job by matching the compose "
@@ -219,346 +241,362 @@ msgid ""
 "blank or use just * to include all compose files.<br/>Separate multiple "
 "patterns with commas."
 msgstr ""
+"Välj vilka Compose-filer som ska ingå i jobbet genom att matcha Compose-"
+"namnet.<br/>Jokertecken (*) stöds, t.ex. web*, *cloud* eller *app.<br/>Lämna"
+" tomt eller använd endast * för att inkludera alla Compose-"
+"filer.<br/>Avgränsa flera mönster med kommatecken."
 
 msgid "Clear cache"
-msgstr ""
+msgstr "Rensa cacheminne"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "Rensar cacheminne…"
 
 msgid "Command"
-msgstr ""
+msgstr "Kommando"
 
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 msgid "Compose"
-msgstr ""
+msgstr "Compose"
 
 msgid "Compose Backup"
-msgstr ""
+msgstr "Compose-säkerhetskopiering"
 
 msgid "Compose File"
-msgstr ""
+msgstr "Compose-fil"
 
 msgid "Compose Files"
-msgstr ""
+msgstr "Compose-filer"
 
 msgid "Compose Restore"
-msgstr ""
+msgstr "Compose-återställning"
 
 msgid "Compose Start"
-msgstr ""
+msgstr "Compose-start"
 
 msgid "Compose Stop"
-msgstr ""
+msgstr "Compose-stopp"
 
 msgid "Compose Update"
-msgstr ""
+msgstr "Compose-uppdatering"
 
 msgid "Compose file shared folder must be different than data shared folder"
 msgstr ""
+"Den delade mappen för Compose-filer måste skilja sig från den delade "
+"datamappen"
 
 msgid "Compose file shared folder must be different than docker shared folder"
 msgstr ""
+"Den delade mappen för Compose-filer måste skilja sig från Dockers delade "
+"mapp"
 
 msgid "Compose file storage"
-msgstr ""
+msgstr "Lagring för Compose-filer"
 
 msgid "Compose file to be associate imported files with"
-msgstr ""
+msgstr "Compose-fil som importerade filer ska kopplas till"
 
 msgid "Compose version"
-msgstr ""
+msgstr "Compose-version"
 
 msgid "Conf"
-msgstr ""
+msgstr "Konfiguration"
 
 msgid "Conf file"
-msgstr ""
+msgstr "Konfigurationsfil"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "Konfigurationsfilens namn"
 
 msgid "Conf filename cannot be"
-msgstr ""
+msgstr "Konfigurationsfilens namn får inte vara"
 
 msgid "Configs"
-msgstr ""
+msgstr "Konfigurationer"
 
 msgid ""
 "Configure a mount type, driver options and labels. Leave disabled to create "
 "a plain named volume."
 msgstr ""
+"Konfigurera monteringstyp, drivrutinsalternativ och etiketter. Lämna "
+"inaktiverat för att skapa en vanlig namngiven volym."
 
 msgid "Connect"
-msgstr ""
+msgstr "Anslut"
 
 msgid "Connect container"
-msgstr ""
+msgstr "Anslut container"
 
 msgid "Container"
-msgstr ""
+msgstr "Container"
 
 msgid "Container Port"
-msgstr ""
+msgstr "Containerport"
 
 msgid "Container Terminals"
-msgstr ""
+msgstr "Containerterminaler"
 
 msgid "Container state"
-msgstr ""
+msgstr "Containertillstånd"
 
 msgid "Containers"
-msgstr ""
+msgstr "Containrar"
 
 msgid "Could not connect to Portainer at %s."
-msgstr ""
+msgstr "Det gick inte att ansluta till Portainer på %s."
 
 msgid "Create"
-msgstr ""
+msgstr "Skapa"
 
 msgid "Create .env and compose.yml symlinks"
-msgstr ""
+msgstr "Skapa symboliska länkar för .env och compose.yml"
 
 msgid "Create bind mount path"
-msgstr ""
+msgstr "Skapa sökväg för bind-montering"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "Skapa från webbadress"
 
 msgid "Create from example"
-msgstr ""
+msgstr "Skapa från exempel"
 
 msgid "Create new compose file from running container ..."
-msgstr ""
+msgstr "Skapa en ny Compose-fil från en container som körs…"
 
 msgid "Create new image tag ..."
-msgstr ""
+msgstr "Skapa ny avbildstagg…"
 
 msgid "Create symlinks"
-msgstr ""
+msgstr "Skapa symboliska länkar"
 
 msgid "Created"
-msgstr ""
+msgstr "Skapad"
 
 msgid "Created At"
-msgstr ""
+msgstr "Skapad"
 
 msgid "Created bind mount path."
-msgstr ""
+msgstr "Sökvägen för bind-montering har skapats."
 
 msgid "Created config."
-msgstr ""
+msgstr "Konfigurationen har skapats."
 
 msgid "Created dockerfile."
-msgstr ""
+msgstr "Dockerfile-filen har skapats."
 
 msgid "Created file from url."
-msgstr ""
+msgstr "Filen har skapats från webbadressen."
 
 msgid "Created file."
-msgstr ""
+msgstr "Filen har skapats."
 
 msgid "Created network."
-msgstr ""
+msgstr "Nätverket har skapats."
 
 msgid "Created scheduled job."
-msgstr ""
+msgstr "Skapat schemalagt jobb."
 
 msgid "Created volume."
-msgstr ""
+msgstr "Volymen har skapats."
 
 msgid "Current"
-msgstr ""
+msgstr "Aktuell"
 
 msgid "Current repository"
-msgstr ""
+msgstr "Aktuellt förråd"
 
 msgid "Current tag"
-msgstr ""
+msgstr "Aktuell tagg"
 
 msgid "Daily"
-msgstr ""
+msgstr "Daglig"
 
 msgid "Data"
-msgstr ""
+msgstr "Data"
 
 msgid "Data shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "Den delade datamappen måste skilja sig från Dockers delade mapp"
 
 msgid "Data storage"
-msgstr ""
+msgstr "Datalagring"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Datum och tid"
 
 msgid "Day of month"
-msgstr ""
+msgstr "Dag i månaden"
 
 msgid "Day of week"
-msgstr ""
+msgstr "Veckodag"
 
 msgid "December"
-msgstr ""
+msgstr "December"
 
 msgid "Delete"
-msgstr ""
+msgstr "Ta bort"
 
 msgid "Delete backup ..."
-msgstr ""
+msgstr "Tar bort säkerhetskopia…"
 
 msgid "Delete complete."
-msgstr ""
+msgstr "Borttagningen är klar."
 
 msgid "Deleting images ..."
-msgstr ""
+msgstr "Tar bort avbilder…"
 
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 msgid "Device"
-msgstr ""
+msgstr "Enhet"
 
 msgid "Digest"
-msgstr ""
+msgstr "Kontrollsumma"
 
 msgid "Directory does not exist!"
-msgstr ""
+msgstr "Mappen finns inte!"
 
 msgid "Disable if Portainer uses a self-signed certificate."
-msgstr ""
+msgstr "Inaktivera om Portainer använder ett självsignerat certifikat."
 
 msgid "Disconnect"
-msgstr ""
+msgstr "Koppla från"
 
 msgid "Disconnect container"
-msgstr ""
+msgstr "Koppla från container"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
-msgstr ""
+msgstr "Visar containrar i en tabell med en länk till cterm exec-terminalen."
 
 msgid "Displays information about containers in a grid."
-msgstr ""
+msgstr "Visar information om containrar i ett rutnät."
 
 msgid "Displays information about containers in a table."
-msgstr ""
+msgstr "Visar information om containrar i en tabell."
 
 msgid ""
 "Do not stop the containers before backup and start them afterwards. The "
 "backup runs while the containers are live (faster, no downtime), but data "
 "may be inconsistent for running services such as databases."
 msgstr ""
+"Stoppa inte containrarna före säkerhetskopieringen och starta dem inte "
+"efteråt. Säkerhetskopieringen körs medan containrarna är aktiva, vilket är "
+"snabbare och inte ger något avbrott, men data kan bli inkonsekventa för "
+"tjänster som körs, exempelvis databaser."
 
 msgid "Do not use cache when building the image"
-msgstr ""
+msgstr "Använd inte cacheminnet när avbilden byggs"
 
 msgid "Docker config"
-msgstr ""
+msgstr "Docker-konfiguration"
 
 msgid "Docker has been restarted."
-msgstr ""
+msgstr "Docker har startats om."
 
 msgid "Docker info"
-msgstr ""
+msgstr "Docker-information"
 
 msgid "Docker is restarting ..."
-msgstr ""
+msgstr "Docker startas om…"
 
 msgid "Docker on OMV"
-msgstr ""
+msgstr "Docker i OMV"
 
 msgid "Docker storage"
-msgstr ""
+msgstr "Docker-lagring"
 
 msgid "Docker version"
-msgstr ""
+msgstr "Docker-version"
 
 msgid "Dockerfile"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Dockerfiles"
-msgstr ""
+msgstr "Dockerfile-filer"
 
 msgid "Docs"
-msgstr ""
+msgstr "Dokumentation"
 
 msgid "Down"
-msgstr ""
+msgstr "Ner"
 
 msgid "Download log"
-msgstr ""
+msgstr "Hämta logg"
 
 msgid "Download logs"
-msgstr ""
+msgstr "Hämta loggar"
 
 msgid "Driver"
-msgstr ""
+msgstr "Drivrutin"
 
 msgid "Driver options"
-msgstr ""
+msgstr "Drivrutinsalternativ"
 
 msgid "Edit"
-msgstr ""
+msgstr "Redigera"
 
 msgid "Edit config."
-msgstr ""
+msgstr "Redigera konfiguration."
 
 msgid "Edit dockerfile."
-msgstr ""
+msgstr "Redigera Dockerfile."
 
 msgid "Edit file."
-msgstr ""
+msgstr "Redigera fil."
 
 msgid "Edit global environment file"
-msgstr ""
+msgstr "Redigera global miljöfil"
 
 msgid "Edit global environment variable file."
-msgstr ""
+msgstr "Redigera filen med globala miljövariabler."
 
 msgid "Edit scheduled job."
-msgstr ""
+msgstr "Redigera schemalagt jobb."
 
 msgid "Email on error"
-msgstr ""
+msgstr "E-post vid fel"
 
 msgid "Enable Docker repo"
-msgstr ""
+msgstr "Aktivera Docker-förråd"
 
 msgid "Enable Docker repo ..."
-msgstr ""
+msgstr "Aktiverar Docker-förråd…"
 
 msgid "Enable IPv6"
-msgstr ""
+msgstr "Aktivera IPv6"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiverad"
 
 msgid ""
 "Encryption mode for Borg repository. Changing this requires re-initializing "
 "the repo."
 msgstr ""
+"Krypteringsläge för Borg-förrådet. Om det ändras måste förrådet initieras "
+"om."
 
 msgid "Env Path"
-msgstr ""
+msgstr "Miljöfilsökväg"
 
 msgid "Environment"
-msgstr ""
+msgstr "Miljö"
 
 msgid "Every N day of month"
-msgstr ""
+msgstr "Var N:e dag i månaden"
 
 msgid "Every N hour"
-msgstr ""
+msgstr "Var N:e timme"
 
 msgid "Every N minute"
-msgstr ""
+msgstr "Var N:e minut"
 
 msgid "Everyone - read/write"
-msgstr ""
+msgstr "Alla – läs/skriv"
 
 msgid "Example compose file has been added."
-msgstr ""
+msgstr "Compose-exempelfilen har lagts till."
 
 msgid ""
 "Exclude file or directory paths from within the backed-up volumes (passed as"
@@ -566,12 +604,16 @@ msgid ""
 "from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, "
 "cache/<br/>Separate multiple patterns with commas."
 msgstr ""
+"Uteslut fil- eller mappsökvägar inuti de säkerhetskopierade volymerna. De "
+"skickas som mönster för --exclude till rsync/Borg.<br/>Detta utesluter INTE "
+"Compose-filer från jobbet; använd filtret Uteslut ovan för det.<br/>T.ex. "
+"*.log, tmp/*, cache/<br/>Avgränsa flera mönster med kommatecken."
 
 msgid "Exclude filter"
-msgstr ""
+msgstr "Uteslutningsfilter"
 
 msgid "Exclude filter (pick files)"
-msgstr ""
+msgstr "Uteslutningsfilter (välj filer)"
 
 msgid ""
 "Exclude specific compose files from this job by matching the compose "
@@ -580,1144 +622,1235 @@ msgid ""
 "applied after the filter, so you can use * in Filter and exclude specific "
 "files here."
 msgstr ""
+"Uteslut specifika Compose-filer från jobbet genom att matcha Compose-"
+"namnet.<br/>Jokertecken (*) stöds, t.ex. nextcloud, *cloud* eller "
+"private*.<br/>Avgränsa flera mönster med kommatecken.<br/>Uteslutningar "
+"tillämpas efter filtret, så du kan använda * i Filter och utesluta specifika"
+" filer här."
 
 msgid "Excludes"
-msgstr ""
+msgstr "Utesluter"
 
 msgid "Execute scheduled job ..."
-msgstr ""
+msgstr "Kör schemalagt jobb…"
 
 msgid "Failed"
-msgstr ""
+msgstr "Misslyckades"
 
 msgid "Failed to create directory '%s'."
-msgstr ""
+msgstr "Det gick inte att skapa mappen ”%s”."
 
 msgid "February"
-msgstr ""
+msgstr "Februari"
 
 msgid "File"
-msgstr ""
+msgstr "Fil"
 
 msgid "File date"
-msgstr ""
+msgstr "Fildatum"
 
 msgid "Filename"
-msgstr ""
+msgstr "Filnamn"
 
 msgid "Files"
-msgstr ""
+msgstr "Filer"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 msgid "Filter (pick files)"
-msgstr ""
+msgstr "Filter (välj filer)"
 
 msgid "Find the next 20 free host ports at or above this number."
-msgstr ""
+msgstr "Hitta de följande 20 lediga värdportarna från och med det här numret."
 
 msgid ""
 "Format is key=value. Comma separate multiple entries.<br/>e.g. "
 "com.example.usage=backup,com.example.owner=admin"
 msgstr ""
+"Formatet är nyckel=värde. Avgränsa flera poster med kommatecken.<br/>T.ex. "
+"com.example.usage=backup,com.example.owner=admin"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
+"Formatet är namn=ip. Avgränsa flera poster med kommatecken.<br/>T.ex. my-"
+"router=192.168.10.5,my-nas=192.168.20.6"
 
 msgid "Friday"
-msgstr ""
+msgstr "Fredag"
 
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 msgid "Global Environment"
-msgstr ""
+msgstr "Global miljö"
 
 msgid "Global environment variables"
-msgstr ""
+msgstr "Globala miljövariabler"
 
 msgid "Group"
-msgstr ""
+msgstr "Grupp"
 
 msgid "Group of directories and files"
-msgstr ""
+msgstr "Grupp för mappar och filer"
 
 msgid "Group to own the path. Match the container's PGID where applicable."
 msgstr ""
+"Grupp som ska äga sökvägen. Matcha containerns PGID när det är tillämpligt."
 
 msgid "Host Port"
-msgstr ""
+msgstr "Värdport"
 
 msgid ""
 "Host interface this network is attached to. Use a VLAN sub-interface for "
 "802.1Q tagging, e.g. eth0.10"
 msgstr ""
+"Värdgränssnitt som nätverket är anslutet till. Använd ett VLAN-"
+"undergränssnitt för 802.1Q-taggning, t.ex. eth0.10"
 
 msgid "Hour"
-msgstr ""
+msgstr "Timme"
 
 msgid "Hourly"
-msgstr ""
+msgstr "Timvis"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP address"
-msgstr ""
+msgstr "IP-adress"
 
 msgid "IP range"
-msgstr ""
+msgstr "IP-intervall"
 
 msgid "IPv6 gateway"
-msgstr ""
+msgstr "IPv6-gateway"
 
 msgid "IPv6 subnet"
-msgstr ""
+msgstr "IPv6-undernät"
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
+"Om alternativet markeras inkluderas flaggan för utförlig utdata i rsync-"
+"kommandot för säkerhetskopiering."
 
 msgid "Image"
-msgstr ""
+msgstr "Avbildning"
 
 msgid "Image ID"
-msgstr ""
+msgstr "Avbildnings-ID"
 
 msgid "Images"
-msgstr ""
+msgstr "Bilder"
 
 msgid "Import"
-msgstr ""
+msgstr "Importera"
 
 msgid "Import Dockerfiles from folders ..."
-msgstr ""
+msgstr "Importera Dockerfile-filer från mappar…"
 
 msgid "Import config files from folders ..."
-msgstr ""
+msgstr "Importera konfigurationsfiler från mappar…"
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "Importera befintlig Compose-fil…"
 
 msgid "Import existing compose folders ..."
-msgstr ""
+msgstr "Importera befintliga Compose-mappar…"
 
 msgid "Import from Portainer"
-msgstr ""
+msgstr "Importera från Portainer"
 
 msgid "Import one"
-msgstr ""
+msgstr "Importera en"
 
 msgid "Import stacks from Portainer ..."
-msgstr ""
+msgstr "Importera stackar från Portainer…"
 
 msgid ""
 "Imports all standalone compose stacks from Portainer. Stacks already present"
 " in the plugin are skipped. Swarm stacks are not imported."
 msgstr ""
+"Importerar alla fristående Compose-stackar från Portainer. Stackar som redan"
+" finns i tillägget hoppas över. Swarm-stackar importeras inte."
 
 msgid "In Use"
-msgstr ""
+msgstr "Används"
 
 msgid "Initialize new git repo ..."
-msgstr ""
+msgstr "Initiera nytt Git-förråd…"
 
 msgid "Inspect"
-msgstr ""
+msgstr "Inspektera"
 
 msgid "Installed"
-msgstr ""
+msgstr "Installerad"
 
 msgid "Internal network"
-msgstr ""
+msgstr "Internt nätverk"
 
 msgid "Invalid %s name."
-msgstr ""
+msgstr "Ogiltigt %s-namn."
 
 msgid "Invalid JSON response from Portainer: %s"
-msgstr ""
+msgstr "Ogiltigt JSON-svar från Portainer: %s"
 
 msgid "Is Latest"
-msgstr ""
+msgstr "Är senaste"
 
 msgid "January"
-msgstr ""
+msgstr "Januari"
 
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 msgid "June"
-msgstr ""
+msgstr "Juni"
 
 msgid "Keep containers running across Docker daemon updates"
-msgstr ""
+msgstr "Låt containrar fortsätta köras vid uppdateringar av Docker-demonen"
 
 msgid "Labels"
-msgstr ""
+msgstr "Etiketter"
 
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
-msgstr ""
+msgstr "Lämna tomt för att använda en anpassad /etc/containers/storage.conf"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
-msgstr ""
+msgstr "Lämna tomt för att använda en anpassad /etc/docker/daemon.json"
 
 msgid "Leave unchanged"
-msgstr ""
+msgstr "Lämna oförändrat"
 
 msgid "Leave unchanged ..."
-msgstr ""
+msgstr "Lämna oförändrat…"
 
 msgid "Live restore"
-msgstr ""
+msgstr "Live-återställning"
 
 msgid "Location of backups"
-msgstr ""
+msgstr "Plats för säkerhetskopior"
 
 msgid "Location of compose files"
-msgstr ""
+msgstr "Plats för Compose-filer"
 
 msgid "Log file max size"
-msgstr ""
+msgstr "Loggfilens största storlek"
 
 msgid "Logged out."
-msgstr ""
+msgstr "Utloggad."
 
 msgid "Logging out ..."
-msgstr ""
+msgstr "Loggar ut…"
 
 msgid "Login"
-msgstr ""
+msgstr "Inloggning"
 
 msgid "Login to docker repo ..."
-msgstr ""
+msgstr "Logga in i Docker-förråd…"
 
 msgid "Logout"
-msgstr ""
+msgstr "Logga ut"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "Underhåll"
 
 msgid ""
 "Manually assign the subnet, gateway and IP range. Leave disabled to let "
 "Docker allocate addresses automatically."
 msgstr ""
+"Tilldela undernät, gateway och IP-intervall manuellt. Lämna inaktiverat för "
+"att låta Docker tilldela adresser automatiskt."
 
 msgid "March"
-msgstr ""
+msgstr "Mars"
 
 msgid "Max Size"
-msgstr ""
+msgstr "Största storlek"
 
 msgid "May"
-msgstr ""
+msgstr "Maj"
 
 msgid "Mem %"
-msgstr ""
+msgstr "Minne %"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "Minnesgräns"
 
 msgid "Mem Usage"
-msgstr ""
+msgstr "Minnesanvändning"
 
 msgid "Message"
-msgstr ""
+msgstr "Meddelande"
 
 msgid "Minute"
-msgstr ""
+msgstr "Minut"
 
 msgid "Mixed"
-msgstr ""
+msgstr "Blandat"
 
 msgid "Mode"
-msgstr ""
+msgstr "Läge"
 
 msgid "Monday"
-msgstr ""
+msgstr "Måndag"
 
 msgid "Month"
-msgstr ""
+msgstr "Månad"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Månatlig"
 
 msgid "Mount options"
-msgstr ""
+msgstr "Monteringsalternativ"
 
 msgid "Mount type"
-msgstr ""
+msgstr "Monteringstyp"
 
 msgid "Mountpoint"
-msgstr ""
+msgstr "Monteringspunkt"
 
 msgid "Mounts"
-msgstr ""
+msgstr "Monteringar"
 
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 msgid "Net In"
-msgstr ""
+msgstr "Nätverk in"
 
 msgid "Net Out"
-msgstr ""
+msgstr "Nätverk ut"
 
 msgid "Network"
-msgstr ""
+msgstr "Nätverk"
 
 msgid "Networks"
-msgstr ""
+msgstr "Nätverk"
 
 msgid "No Image"
-msgstr ""
+msgstr "Ingen avbild"
 
 msgid "No cache"
-msgstr ""
+msgstr "Inget cacheminne"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "Ingen Compose-fil hittades!"
 
 msgid "No name specified!"
-msgstr ""
+msgstr "Inget namn har angetts!"
 
 msgid "None"
-msgstr ""
+msgstr "Ingen"
 
 msgid "None (local storage)"
-msgstr ""
+msgstr "Ingen (lokal lagring)"
 
 msgid "Not installed"
-msgstr ""
+msgstr "Inte installerad"
 
 msgid "November"
-msgstr ""
+msgstr "November"
 
 msgid "Number of Borg backups to keep."
-msgstr ""
+msgstr "Antal Borg-säkerhetskopior som ska behållas."
 
 msgid "October"
-msgstr ""
+msgstr "Oktober"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
+"Endast alfanumeriska tecken (a–z, A–Z), understreck (_), bindestreck (-), "
+"kommatecken (,) och asterisker (*) är tillåtna!"
 
 msgid "Only send an email if the job exits with an error."
-msgstr ""
+msgstr "Skicka e-post endast om jobbet avslutas med ett fel."
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
+"Valfritt – plats för beständiga containerdata.<br/>Används endast för att "
+"ersätta CHANGE_TO_COMPOSE_DATA_PATH i Compose- och miljöfiler med sökvägen "
+"till den här delade mappen."
 
 msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
 msgstr ""
+"Valfritt. Tilldela en statisk IP-adress från nätverkets undernät, t.ex. "
+"172.20.0.10"
 
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
 "merged with the Filter patterns above (combined and de-duplicated)."
 msgstr ""
+"Välj valfritt specifika Compose-filer i listan. Valet slås samman med "
+"filtermönstren ovan och dubbletter tas bort."
 
 msgid ""
 "Optionally pick specific compose files to exclude. Your selection is merged "
 "with the Exclude filter patterns above (combined and de-duplicated)."
 msgstr ""
+"Välj valfritt specifika Compose-filer som ska uteslutas. Valet slås samman "
+"med uteslutningsmönstren ovan och dubbletter tas bort."
 
 msgid "Override"
-msgstr ""
+msgstr "Åsidosättning"
 
 msgid "Override Path"
-msgstr ""
+msgstr "Åsidosättningssökväg"
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
 msgstr ""
+"Åsidosätt värdnamnet när portar öppnas på flikarna Filer, Tjänster och "
+"Containrar"
 
 msgid "Overrides"
-msgstr ""
+msgstr "Åsidosättningar"
 
 msgid "Owner"
-msgstr ""
+msgstr "Ägare"
 
 msgid "Owner - read/write, Group - no access, Others - no access"
-msgstr ""
+msgstr "Ägare – läs/skriv, grupp – ingen åtkomst, övriga – ingen åtkomst"
 
 msgid "Owner - read/write, Group - read-only, Others - no access"
-msgstr ""
+msgstr "Ägare – läs/skriv, grupp – skrivskyddat, övriga – ingen åtkomst"
 
 msgid "Owner - read/write, Group - read-only, Others - read-only"
-msgstr ""
+msgstr "Ägare – läs/skriv, grupp – skrivskyddat, övriga – skrivskyddat"
 
 msgid "Owner - read/write, Group - read/write, Others - no access"
-msgstr ""
+msgstr "Ägare – läs/skriv, grupp – läs/skriv, övriga – ingen åtkomst"
 
 msgid "Owner - read/write, Group - read/write, Others - read-only"
-msgstr ""
+msgstr "Ägare – läs/skriv, grupp – läs/skriv, övriga – skrivskyddat"
 
 msgid "Owner of directories and files"
-msgstr ""
+msgstr "Ägare till mappar och filer"
 
 msgid "PIDs"
-msgstr ""
+msgstr "PID:er"
 
 msgid "Parent"
-msgstr ""
+msgstr "Överordnad"
 
 msgid "Parent network"
-msgstr ""
+msgstr "Överordnat nätverk"
 
 msgid ""
 "Passed as the 'o' driver option.<br/>NFS e.g. "
 "addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
 "username=user,password=secret,vers=3.0"
 msgstr ""
+"Skickas som drivrutinsalternativet ”o”.<br/>NFS, t.ex. "
+"addr=192.168.1.10,rw,nfsvers=4<br/>CIFS, t.ex. "
+"username=user,password=secret,vers=3.0"
 
 msgid "Passphrase for Borg encryption."
-msgstr ""
+msgstr "Lösenfras för Borg-kryptering."
 
 msgid "Password"
-msgstr ""
+msgstr "Lösenord"
 
 msgid "Path"
-msgstr ""
+msgstr "Sökväg"
 
 msgid "Path source"
-msgstr ""
+msgstr "Sökvägskälla"
 
 msgid "Path to script that will be executed after backup"
-msgstr ""
+msgstr "Sökväg till skriptet som körs efter säkerhetskopieringen"
 
 msgid "Path to script that will be executed before backup"
-msgstr ""
+msgstr "Sökväg till skriptet som körs före säkerhetskopieringen"
 
 msgid "Permissions"
-msgstr ""
+msgstr "Behörigheter"
 
 msgid "Permissions must be an octal value, e.g. 755."
-msgstr ""
+msgstr "Behörigheterna måste anges som ett oktalt värde, t.ex. 755."
 
 msgid "Permissions of directories and files"
-msgstr ""
+msgstr "Behörigheter för mappar och filer"
 
 msgid "Please provide an absolute path."
-msgstr ""
+msgstr "Ange en absolut sökväg."
 
 msgid "Please select a shared folder."
-msgstr ""
+msgstr "Välj en delad mapp."
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "Ange en delad mapp för säkerhetskopior."
 
 msgid "Please set shared folder for data on the Settings tab."
-msgstr ""
+msgstr "Ange en delad mapp för data på fliken Inställningar."
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "Ange en delad mapp för fillagring."
 
 msgid "Podman storage"
-msgstr ""
+msgstr "Podman-lagring"
 
 msgid "Portainer API request failed: %s"
-msgstr ""
+msgstr "Portainer-API-anropet misslyckades: %s"
 
 msgid "Portainer URL"
-msgstr ""
+msgstr "Portainer-webbadress"
 
 msgid "Portainer authentication failed. Check your credentials."
 msgstr ""
+"Autentiseringen mot Portainer misslyckades. Kontrollera "
+"inloggningsuppgifterna."
 
 msgid "Ports"
-msgstr ""
+msgstr "Portar"
 
 msgid "Post-backup script"
-msgstr ""
+msgstr "Skript efter säkerhetskopiering"
 
 msgid "Pre-backup script"
-msgstr ""
+msgstr "Skript före säkerhetskopiering"
 
 msgid "Preview"
-msgstr ""
+msgstr "Förhandsgranska"
 
 msgid "Preview Import"
-msgstr ""
+msgstr "Förhandsgranska import"
 
 msgid "Preview import ..."
-msgstr ""
+msgstr "Förhandsgranskar import…"
 
 msgid "Preview import from folder ..."
-msgstr ""
+msgstr "Förhandsgranskar import från mapp…"
 
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 msgid "Provide either an API key or a username and password."
-msgstr ""
+msgstr "Ange antingen en API-nyckel eller ett användarnamn och lösenord."
 
 msgid "Prune"
-msgstr ""
+msgstr "Gallra"
 
 msgid "Prune Images"
-msgstr ""
+msgstr "Gallra avbilder"
 
 msgid "Prune Images - all dangling"
-msgstr ""
+msgstr "Gallra avbilder – alla oanvända"
 
 msgid ""
 "Prune all dangling images.<br/>Does not use filter. Will run docker image "
 "prune -f"
 msgstr ""
+"Gallra alla oanvända avbilder.<br/>Använder inte filtret. Kör docker image "
+"prune -f"
 
 msgid "Prune builder cache"
-msgstr ""
+msgstr "Gallra byggcache"
 
 msgid ""
 "Prune the Docker build cache after building. Runs docker builder prune -f. "
 "Applies system-wide, not filtered by compose file."
 msgstr ""
+"Gallra Dockers byggcache efter bygget. Kör docker builder prune -f. Gäller "
+"hela systemet och filtreras inte efter Compose-fil."
 
 msgid "Pull"
-msgstr ""
+msgstr "Hämta"
 
 msgid "Pull and Build"
-msgstr ""
+msgstr "Hämta och bygg"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "Hämtar och bygger…"
 
 msgid "Pull complete."
-msgstr ""
+msgstr "Hämtningen är klar."
 
 msgid "Pulling images ..."
-msgstr ""
+msgstr "Hämtar avbilder…"
 
 msgid "Push"
-msgstr ""
+msgstr "Skicka"
 
 msgid "Push to Docker Hub ..."
-msgstr ""
+msgstr "Skickar till Docker Hub…"
 
 msgid ""
 "Recommended. Generate one in Portainer under Account Settings → Access "
 "tokens."
 msgstr ""
+"Rekommenderas. Skapa en i Portainer under Kontoinställningar → Åtkomsttoken."
 
 msgid "Refusing to operate on the protected system path '%s'."
-msgstr ""
+msgstr "Vägrar utföra åtgärden på den skyddade systemsökvägen ”%s”."
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "Installera om Docker"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "Installerar om Docker…"
 
 msgid "Relative path"
-msgstr ""
+msgstr "Relativ sökväg"
 
 msgid "Repo"
-msgstr ""
+msgstr "Förråd"
 
 msgid "Repos"
-msgstr ""
+msgstr "Förråd"
 
 msgid "Repository"
-msgstr ""
+msgstr "Förråd"
 
 msgid "Restart Docker"
-msgstr ""
+msgstr "Starta om Docker"
 
 msgid "Restore"
-msgstr ""
+msgstr "Återställ"
 
 msgid "Restore Compose ..."
-msgstr ""
+msgstr "Återställer Compose…"
 
 msgid "Restore global.env"
-msgstr ""
+msgstr "Återställ global.env"
 
 msgid "Restoring global.env from backup ..."
-msgstr ""
+msgstr "Återställer global.env från säkerhetskopian…"
 
 msgid ""
 "Restrict external access. Containers can talk to each other, but the network"
 " is not reachable from outside the host."
 msgstr ""
+"Begränsa extern åtkomst. Containrar kan kommunicera med varandra, men "
+"nätverket kan inte nås utanför värden."
 
 msgid "Run"
-msgstr ""
+msgstr "Kör"
 
 msgid "Run config"
-msgstr ""
+msgstr "Kör konfiguration"
 
 msgid "Run docker compose build"
-msgstr ""
+msgstr "Kör docker compose build"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
+"Kör docker compose config för att automatiskt kontrollera syntaxen när filen"
+" sparas"
 
 msgid "Running For"
-msgstr ""
+msgstr "Körtid"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Lördag"
 
 msgid ""
 "Scan a folder recursively for compose files and preview what would be "
 "imported, without making any changes."
 msgstr ""
+"Sök rekursivt igenom en mapp efter Compose-filer och förhandsgranska vad som"
+" skulle importeras utan att göra några ändringar."
 
 msgid "Schedule"
-msgstr ""
+msgstr "Schema"
 
 msgid "Scheduling"
-msgstr ""
+msgstr "Schemaläggning"
 
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 msgid "Script filename"
-msgstr ""
+msgstr "Skriptfilens namn"
 
 msgid "Script filename cannot be"
-msgstr ""
+msgstr "Skriptfilens namn får inte vara"
 
 msgid "Scripts"
-msgstr ""
+msgstr "Skript"
 
 msgid "Search"
-msgstr ""
+msgstr "Sök"
 
 msgid ""
 "Seconds to wait before starting Docker/Podman on boot. Use this if "
 "containers fail to start because storage is not ready in time."
 msgstr ""
+"Antal sekunder att vänta innan Docker/Podman startas vid systemstart. Använd"
+" detta om containrar inte startar eftersom lagringen inte hinner bli klar."
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "Välj en grupp…"
 
 msgid ""
 "Select a shared folder to set the Docker storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Välj en delad mapp för Dockers lagringssökväg. Avmarkera för att ange en "
+"sökväg manuellt."
 
 msgid ""
 "Select a shared folder to set the Podman storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Välj en delad mapp för Podmans lagringssökväg. Avmarkera för att ange en "
+"sökväg manuellt."
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "Välj en användare…"
 
 msgid "Send command output via email"
-msgstr ""
+msgstr "Skicka kommandoutmatning via e-post"
 
 msgid "Send email"
-msgstr ""
+msgstr "Skicka e-post"
 
 msgid "Send email on error only"
-msgstr ""
+msgstr "Skicka e-post endast vid fel"
 
 msgid "September"
-msgstr ""
+msgstr "September"
 
 msgid "Service"
-msgstr ""
+msgstr "Tjänst"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Tjänstenamn"
 
 msgid "Services"
-msgstr ""
+msgstr "Tjänster"
 
 msgid "Settings"
-msgstr ""
+msgstr "Inställningar"
 
 msgid "Shared folder"
-msgstr ""
+msgstr "Delad mapp"
 
 msgid "Shared folder + relative path"
-msgstr ""
+msgstr "Delad mapp och relativ sökväg"
 
 msgid "Show all file changes ..."
-msgstr ""
+msgstr "Visa alla filändringar…"
 
 msgid "Show all global.env changes ..."
-msgstr ""
+msgstr "Visa alla ändringar i global.env…"
 
 msgid "Show commands"
-msgstr ""
+msgstr "Visa kommandon"
 
 msgid "Show config changes"
-msgstr ""
+msgstr "Visa konfigurationsändringar"
 
 msgid "Show docker command for task in task dialog"
-msgstr ""
+msgstr "Visa Docker-kommandot för jobbet i jobbdialogrutan"
 
 msgid "Show environment file"
-msgstr ""
+msgstr "Visa miljöfil"
 
 msgid "Show override"
-msgstr ""
+msgstr "Visa åsidosättning"
 
 msgid "Size"
-msgstr ""
+msgstr "Storlek"
 
 msgid "Skip container stop/start"
-msgstr ""
+msgstr "Hoppa över stopp/start av containrar"
 
 msgid "Start"
-msgstr ""
+msgstr "Starta"
 
 msgid "Start all compose files"
-msgstr ""
+msgstr "Starta alla Compose-filer"
 
 msgid "Start delay"
-msgstr ""
+msgstr "Startfördröjning"
 
 msgid "Starting port"
-msgstr ""
+msgstr "Startport"
 
 msgid "State"
-msgstr ""
+msgstr "Tillstånd"
 
 msgid "Stats"
-msgstr ""
+msgstr "Statistik"
 
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 msgid "Stop"
-msgstr ""
+msgstr "Stoppa"
 
 msgid "Stop all compose files"
-msgstr ""
+msgstr "Stoppa alla Compose-filer"
 
 msgid "Stopped"
-msgstr ""
+msgstr "Stoppad"
 
 msgid ""
 "Subdirectory created under the shared folder. Leave empty to use the shared "
 "folder root.<br/>e.g. plex/config"
 msgstr ""
+"Undermapp som skapas under den delade mappen. Lämna tomt för att använda den"
+" delade mappens rot.<br/>T.ex. plex/config"
 
 msgid "Subnet"
-msgstr ""
+msgstr "Undernät"
 
 msgid "Suggest free host ports ..."
-msgstr ""
+msgstr "Föreslå lediga värdportar…"
 
 msgid "Suggest free ports"
-msgstr ""
+msgstr "Föreslå lediga portar"
 
 msgid "Suggested free host ports ..."
-msgstr ""
+msgstr "Föreslagna lediga värdportar…"
 
 msgid "Sunday"
-msgstr ""
+msgstr "Söndag"
 
 msgid "Sync changes from file"
-msgstr ""
+msgstr "Synkronisera ändringar från fil"
 
 msgid "Syncing changes from file ..."
-msgstr ""
+msgstr "Synkroniserar ändringar från fil…"
 
 msgid "System"
-msgstr ""
+msgstr "System"
 
 msgid "Tag"
-msgstr ""
+msgstr "Tagg"
 
 msgid "Tags"
-msgstr ""
+msgstr "Taggar"
 
 msgid "Target repo"
-msgstr ""
+msgstr "Målförråd"
 
 msgid "Target repository"
-msgstr ""
+msgstr "Målförråd"
 
 msgid "Target tag"
-msgstr ""
+msgstr "Måltagg"
 
 msgid "Terminal"
-msgstr ""
+msgstr "Terminal"
 
 msgid "Terminal Link"
-msgstr ""
+msgstr "Terminallänk"
 
 msgid ""
 "The absolute path of the selected shared folder will be used as the Docker "
 "storage path when saved."
 msgstr ""
+"Den valda delade mappens absoluta sökväg används som Dockers lagringssökväg "
+"när inställningen sparas."
 
 msgid ""
 "The absolute path of the selected shared folder will be used as the Podman "
 "storage path when saved."
 msgstr ""
+"Den valda delade mappens absoluta sökväg används som Podmans lagringssökväg "
+"när inställningen sparas."
 
 msgid "The config file will be created in this compose file's directory."
-msgstr ""
+msgstr "Konfigurationsfilen skapas i Compose-filens mapp."
 
 msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
+"Fältet ska bara innehålla * eller en kommaseparerad lista över värden."
 
 msgid "The path must be absolute."
-msgstr ""
+msgstr "Sökvägen måste vara absolut."
 
 msgid "The path must not contain '..' components."
-msgstr ""
+msgstr "Sökvägen får inte innehålla komponenten ”..”."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
 "file permissions, which are required by this plugin."
 msgstr ""
+"Den delade mappen som valts för ”%s” på filsystemet %s stöder inte Linux-"
+"filbehörigheter, vilka krävs av tillägget."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support file "
 "locking, which is required by Compose and many container applications."
 msgstr ""
+"Den delade mappen som valts för ”%s” på filsystemet %s stöder inte "
+"fillåsning, vilket krävs av Compose och många containerprogram."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support hard "
 "links, which are required by some container applications."
 msgstr ""
+"Den delade mappen som valts för ”%s” på filsystemet %s stöder inte hårda "
+"länkar, vilka krävs av vissa containerprogram."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support named "
 "pipes (FIFOs), which are required by some container applications."
 msgstr ""
+"Den delade mappen som valts för ”%s” på filsystemet %s stöder inte namngivna"
+" rör (FIFO), vilka krävs av vissa containerprogram."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support "
 "symbolic links, which are required by Docker and container applications."
 msgstr ""
+"Den delade mappen som valts för ”%s” på filsystemet %s stöder inte "
+"symboliska länkar, vilka krävs av Docker och containerprogram."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
 "the filesystem is mounted read-write."
 msgstr ""
+"Den delade mappen som valts för ”%s” på filsystemet %s är inte skrivbar. "
+"Kontrollera att filsystemet är monterat för läsning och skrivning."
 
 msgid ""
 "The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
 "mounts), or the name of an installed volume plugin."
 msgstr ""
+"Volymdrivrutinen. Använd ”local” för värdbaserade volymer, inklusive "
+"NFS/CIFS-monteringar, eller namnet på ett installerat volymtillägg."
 
 msgid "This is the filename. This should not be a path."
-msgstr ""
+msgstr "Detta är filnamnet och ska inte vara en sökväg."
 
 msgid ""
 "This will import Dockerfiles found in subfolders of the selected "
 "path.<br/>It will not import any Dockerfiles that already exist in the "
 "plugin."
 msgstr ""
+"Detta importerar Dockerfile-filer som finns i undermappar till den valda "
+"sökvägen.<br/>Dockerfile-filer som redan finns i tillägget importeras inte."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
+"Detta importerar konfigurationsfiler från den valda "
+"mappen.<br/>Konfigurationsfiler som redan finns i tillägget importeras inte."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"Detta importerar en Compose-fil i den valda mappen.<br/>En Compose-fil som "
+"redan finns i tillägget importeras inte."
 
 msgid ""
 "This will import one or more compose files in subfolders (scanned "
 "recursively).<br/>It will not import any compose files that already exist in"
 " the plugin."
 msgstr ""
+"Detta importerar en eller flera Compose-filer i undermappar, som genomsöks "
+"rekursivt.<br/>Compose-filer som redan finns i tillägget importeras inte."
 
 msgid "Thursday"
-msgstr ""
+msgstr "Torsdag"
 
 msgid "Time of execution"
-msgstr ""
+msgstr "Tidpunkt för körning"
 
 msgid "Timeout"
-msgstr ""
+msgstr "Tidsgräns"
 
 msgid "Tools"
-msgstr ""
+msgstr "Verktyg"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Tisdag"
 
 msgid "URL"
-msgstr ""
+msgstr "Webbadress"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "Värdnamn i webbadress"
 
 msgid "Unexpected response from Portainer API."
-msgstr ""
+msgstr "Oväntat svar från Portainer-API:t."
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr ""
+"Enhet: GB. Säkerhetskopieringen hoppar över volymer som är större än "
+"detta.<br/>Ange 0 för obegränsat."
 
 msgid "Units in MB. Set to 0 for unlimited."
-msgstr ""
+msgstr "Enhet: MB. Ange 0 för obegränsat."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "Enhet: sekunder.<br/>Ange 0 för att inaktivera cachelagring."
 
 msgid "Up"
-msgstr ""
+msgstr "Upp"
 
 msgid "Update"
-msgstr ""
+msgstr "Uppdatering"
 
 msgid ""
 "Update all images in compose file. Will recreate containers after update if "
 "running.<br/>Update will always run after backup if backup is enabled."
 msgstr ""
+"Uppdatera alla avbilder i Compose-filen. Containrar som körs återskapas "
+"efter uppdateringen.<br/>Uppdateringen körs alltid efter "
+"säkerhetskopieringen om säkerhetskopiering är aktiverad."
 
 msgid "Uptime"
-msgstr ""
+msgstr "Driftstid"
 
 msgid "Use podman"
-msgstr ""
+msgstr "Använd Podman"
 
 msgid "Use shared folder"
-msgstr ""
+msgstr "Använd delad mapp"
 
 msgid "Used only if no API key is provided."
-msgstr ""
+msgstr "Används endast om ingen API-nyckel anges."
 
 msgid "User to own the path. Match the container's PUID where applicable."
 msgstr ""
+"Användare som ska äga sökvägen. Matcha containerns PUID när det är "
+"tillämpligt."
 
 msgid "Username"
-msgstr ""
+msgstr "Användarnamn"
 
 msgid "Verbose"
-msgstr ""
+msgstr "Utförlig"
 
 msgid "Verify SSL certificate"
-msgstr ""
+msgstr "Verifiera SSL-certifikat"
 
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 msgid "Virtual Size"
-msgstr ""
+msgstr "Virtuell storlek"
 
 msgid "Volume"
-msgstr ""
+msgstr "Volym"
 
 msgid "Volume path excludes"
-msgstr ""
+msgstr "Uteslutna volymsökvägar"
 
 msgid "Volumes"
-msgstr ""
+msgstr "Volymer"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Onsdag"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Veckovis"
 
 msgid ""
 "With the 'local' driver, mount a remote share instead of using local "
 "storage."
 msgstr ""
+"Montera en fjärrresurs med drivrutinen ”local” i stället för att använda "
+"lokal lagring."
 
 msgid "Yearly"
-msgstr ""
+msgstr "Årlig"
 
 msgid "and not running"
-msgstr ""
+msgstr "och körs inte"
 
 msgid "and running"
-msgstr ""
+msgstr "och körs"
 
 msgid "check"
-msgstr ""
+msgstr "kontrollera"
 
 msgid "disabled"
-msgstr ""
+msgstr "inaktiverad"
 
 msgid "docker compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker compose down --remove-orphans…"
 
 msgid "docker compose down ..."
-msgstr ""
+msgstr "docker compose down…"
 
 msgid "docker compose down all files..."
-msgstr ""
+msgstr "docker compose down för alla filer…"
 
 msgid "docker compose file version"
-msgstr ""
+msgstr "Compose-filversion"
 
 msgid "docker compose logs --follow ..."
-msgstr ""
+msgstr "docker compose logs --follow…"
 
 msgid "docker compose logs ..."
-msgstr ""
+msgstr "docker compose logs…"
 
 msgid "docker compose ps ..."
-msgstr ""
+msgstr "docker compose ps…"
 
 msgid "docker compose pull ..."
-msgstr ""
+msgstr "docker compose pull…"
 
 msgid "docker compose restart ..."
-msgstr ""
+msgstr "docker compose restart…"
 
 msgid "docker compose stop ..."
-msgstr ""
+msgstr "docker compose stop…"
 
 msgid "docker compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker compose up -d --remove-orphans…"
 
 msgid "docker compose up -d ..."
-msgstr ""
+msgstr "docker compose up -d…"
 
 msgid "docker container prune ..."
-msgstr ""
+msgstr "docker container prune…"
 
 msgid "docker image inspect ..."
-msgstr ""
+msgstr "docker image inspect…"
 
 msgid "docker image prune --all ..."
-msgstr ""
+msgstr "docker image prune --all…"
 
 msgid "docker image prune ..."
-msgstr ""
+msgstr "docker image prune…"
 
 msgid "docker image pull ..."
-msgstr ""
+msgstr "docker image pull…"
 
 msgid "docker inspect ..."
-msgstr ""
+msgstr "docker inspect…"
 
 msgid "docker logs --follow ..."
-msgstr ""
+msgstr "docker logs --follow…"
 
 msgid "docker logs ..."
-msgstr ""
+msgstr "docker logs…"
 
 msgid "docker network connect ..."
-msgstr ""
+msgstr "docker network connect…"
 
 msgid "docker network disconnect ..."
-msgstr ""
+msgstr "docker network disconnect…"
 
 msgid "docker network inspect ..."
-msgstr ""
+msgstr "docker network inspect…"
 
 msgid "docker network prune ..."
-msgstr ""
+msgstr "docker network prune…"
 
 msgid "docker network rm ..."
-msgstr ""
+msgstr "docker network rm…"
 
 msgid "docker restart ..."
-msgstr ""
+msgstr "docker restart…"
 
 msgid "docker system prune ..."
-msgstr ""
+msgstr "docker system prune…"
 
 msgid "docker volume inspect ..."
-msgstr ""
+msgstr "docker volume inspect…"
 
 msgid "docker volume prune ..."
-msgstr ""
+msgstr "docker volume prune…"
 
 msgid "docker volume rm ..."
-msgstr ""
+msgstr "docker volume rm…"
 
 msgid "dockerfile build ..."
-msgstr ""
+msgstr "Bygger Dockerfile…"
 
 msgid "down"
-msgstr ""
+msgstr "stoppad"
 
 msgid "down all"
-msgstr ""
+msgstr "stoppa alla"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "stoppa och ta bort övergivna containrar"
 
 msgid "e.g. 172.20.0.0/16"
-msgstr ""
+msgstr "t.ex. 172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr ""
+msgstr "t.ex. 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr ""
+msgstr "t.ex. 172.20.10.128/25"
 
 msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
-msgstr ""
+msgstr "t.ex. 2001:db8:abcd::/64 eller fd00::/64"
 
 msgid "e.g. 2001:db8:abcd::1"
-msgstr ""
+msgstr "t.ex. 2001:db8:abcd::1"
 
 msgid "file not found!"
-msgstr ""
+msgstr "filen hittades inte!"
 
 msgid "follow logs"
-msgstr ""
+msgstr "följ loggar"
 
 msgid "global.env has been restored from backup."
-msgstr ""
+msgstr "global.env har återställts från säkerhetskopian."
 
 msgid "init git repo"
-msgstr ""
+msgstr "initiera Git-förråd"
 
 msgid "inspect"
-msgstr ""
+msgstr "inspektera"
 
 msgid "logs"
-msgstr ""
+msgstr "loggar"
 
 msgid "n/a"
-msgstr ""
+msgstr "Ej tillgängligt"
 
 msgid "omv-extras wiki"
-msgstr ""
+msgstr "omv-extras-wiki"
 
 msgid "ps"
-msgstr ""
+msgstr "ps"
 
 msgid "pull"
-msgstr ""
+msgstr "hämta"
 
 msgid "pull image"
-msgstr ""
+msgstr "hämta avbild"
 
 msgid "pull image+tag"
-msgstr ""
+msgstr "hämta avbild och tagg"
 
 msgid "pull multiple image"
-msgstr ""
+msgstr "hämta flera avbilder"
 
 msgid "repokey"
-msgstr ""
+msgstr "förrådsnyckel"
 
 msgid "restart"
-msgstr ""
+msgstr "starta om"
 
 msgid "show file changes"
-msgstr ""
+msgstr "visa filändringar"
 
 msgid "show global.env changes"
-msgstr ""
+msgstr "visa ändringar i global.env"
 
 msgid "stop"
-msgstr ""
+msgstr "stoppa"
 
 msgid "up"
-msgstr ""
+msgstr "startad"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "starta och ta bort övergivna containrar"
