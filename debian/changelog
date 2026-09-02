@@ -1,3 +1,9 @@
+openmediavault-compose (8.1.24) UNRELEASED; urgency=medium
+
+  * Add label for optional container to skip status/info checking
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 02 Sep 2026 12:59:33 +0000
+
 openmediavault-compose (8.1.23) stable; urgency=low
 
   * Volumes: add a Create action to make named volumes from the UI, with an

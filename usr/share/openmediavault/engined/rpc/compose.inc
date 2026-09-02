@@ -396,6 +396,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return ($port);
     }
 
+    private function isOptionalContainer($cntj)
+    {
+        $labels = $cntj->Labels ?? null;
+        if (is_object($labels)) {
+            return (($labels->{'openmediavault.compose.optional'} ?? '') === 'true');
+        }
+        if (is_string($labels)) {
+            return (strpos($labels, 'openmediavault.compose.optional=true') !== false);
+        }
+        return false;
+    }
+
     private function getExecUrl($context, $db, $fqdn)
     {
         try {
@@ -988,6 +1000,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             } else {
                 foreach ($output as $cnt) {
                     $cntj = json_decode($cnt);
+                    if ($this->isOptionalContainer($cntj)) {
+                        continue;
+                    }
                     if ($cntj->State == "running") {
                         $running++;
                     } elseif ($cntj->State == "exited") {
@@ -1018,6 +1033,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $imgname = [];
             foreach ($output as $cnt) {
                 $cntj = json_decode($cnt);
+                if ($this->isOptionalContainer($cntj)) {
+                    continue;
+                }
                 foreach ($cntj->Publishers as $publisher) {
                     $ports[] = $this->getPort($context, $publisher, $fqdn);
                 }
