@@ -1,8 +1,8 @@
-openmediavault-compose (8.1.24) UNRELEASED; urgency=medium
+openmediavault-compose (8.1.24) stable; urgency=low
 
   * Add label for optional container to skip status/info checking
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 02 Sep 2026 12:59:33 +0000
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 02 Sep 2026 15:01:06 +0000
 
 openmediavault-compose (8.1.23) stable; urgency=low
 
