@@ -423,7 +423,6 @@ data:
         tooltip: _("pull")
         enabledConstraints:
           minSelected: 1
-          maxSelected: 1
         execute:
           type: taskDialog
           taskDialog:
@@ -432,9 +431,9 @@ data:
               startOnInit: true
               request:
                 service: Compose
-                method: doCommand
+                method: doCommandList
                 params:
-                  uuid: "{{ _selected[0].uuid }}"
+                  uuid: "{{ _selected | map('get', 'uuid') | join(',') }}"
                   command: "pull"
       - type: iconButton
         icon: mdi:list-status
