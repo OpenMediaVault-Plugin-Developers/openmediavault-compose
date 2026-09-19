@@ -194,6 +194,13 @@ declare -a TEST_NETWORKS=()
 declare -a TEST_VOLUMES=()
 # Base directory for the createBindPath tests (removed on exit).
 BIND_TEST_DIR="/tmp/omvtest_bindpath"
+# Shared folder + compose file created for the sf-path-change regression test
+# (removed on exit). SFPATH_ORIG_PATH is the shared folder's *first*
+# absolute path; once its reldirpath is changed, that directory is orphaned
+# on disk and must be cleaned up separately from the shared folder delete.
+SFPATH_SF_UUID=""
+SFPATH_COMPOSE_UUID=""
+SFPATH_ORIG_PATH=""
 # Dummy host interfaces created as macvlan/ipvlan parents (removed on exit).
 declare -a TEST_DUMMY_IFACES=()
 # Throwaway container used for the connect/disconnect tests (removed on exit).
@@ -225,8 +232,24 @@ for r in rows:
 pre_cleanup() {
     local list='{"start":0,"limit":100,"sortfield":"name","sortdir":"ASC"}'
     purge_by_name "Compose" "getFileList"       "$list" "deleteFile"       "omvtest_compose"
+    purge_by_name "Compose" "getFileList"       "$list" "deleteFile"       "omvtest_sfpath_compose"
     purge_by_name "Compose" "getConfigList"     "$list" "deleteConfig"     "omvtest_config"
     purge_by_name "Compose" "getDockerfileList" "$list" "deleteDockerfile" "omvtest_dockerfile"
+    # Shared folder used by the sf-path-change test — delete needs a
+    # "recursive" param that purge_by_name does not pass, so handle it here.
+    stale_sf=$(omv-rpc -u admin "ShareMgmt" "getList" "$list" 2>/dev/null \
+        | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+for r in rows:
+    if r.get('name') == 'omvtest_sfpath_download':
+        print(r['uuid'])
+" 2>/dev/null || true)
+    if [ -n "$stale_sf" ]; then
+        info "Pre-cleanup: removing leftover shared folder 'omvtest_sfpath_download' ($stale_sf)"
+        omv-rpc -u admin "ShareMgmt" "delete" "{\"uuid\":\"$stale_sf\",\"recursive\":true}" >/dev/null 2>&1 || true
+    fi
     # Jobs don't have a "name" field — match on "comment" instead
     local job_list='{"start":0,"limit":100,"sortfield":"execution","sortdir":"ASC"}'
     purge_by_name "Compose" "getJobList" "$job_list" "deleteJob" "omvtest_job" "comment"
@@ -266,6 +289,18 @@ cleanup() {
     if [ -n "$FILE_UUID" ]; then
         info "Deleting test compose file $FILE_UUID"
         omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$FILE_UUID\"}" >/dev/null 2>&1 || true
+    fi
+    if [ -n "$SFPATH_COMPOSE_UUID" ]; then
+        info "Deleting sf-path-change test compose file $SFPATH_COMPOSE_UUID"
+        omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$SFPATH_COMPOSE_UUID\"}" >/dev/null 2>&1 || true
+    fi
+    if [ -n "$SFPATH_SF_UUID" ]; then
+        info "Deleting sf-path-change test shared folder $SFPATH_SF_UUID"
+        omv-rpc -u admin "ShareMgmt" "delete" "{\"uuid\":\"$SFPATH_SF_UUID\",\"recursive\":true}" >/dev/null 2>&1 || true
+    fi
+    if [ -n "$SFPATH_ORIG_PATH" ] && [ -d "$SFPATH_ORIG_PATH" ]; then
+        info "Removing orphaned original shared folder directory $SFPATH_ORIG_PATH"
+        rm -rf "$SFPATH_ORIG_PATH" 2>/dev/null || true
     fi
     for uuid in "${IMPORT_UUIDS[@]}"; do
         info "Deleting imported test file $uuid"
@@ -1393,7 +1428,184 @@ assert_rpc_bg "doImportPortainerStacks handles unreachable host" \
     "Error:"
 
 # ---------------------------------------------------------------------------
-# 13. Delete test objects (also done by cleanup trap, but verify RPCs work)
+# 13. Shared folder path change propagation (regression test)
+# ---------------------------------------------------------------------------
+# A compose file can reference a shared folder purely through a
+# ${{ sf:"name" }} placeholder inside its body (e.g. a bind-mount volume)
+# without that shared folder ever being the file's own storage location.
+# When such a shared folder's path later changes — its reldirpath is edited,
+# or (as in the field report below) its disk is replaced and the share is
+# recreated — the compose module must be marked dirty and a redeploy must
+# re-render the on-disk file with the shared folder's *new* absolute path.
+#
+# https://forum.openmediavault.org/index.php?thread/59557-download-disk-replaced-shares-updated-but-compose-still-references-old-disk/
+section "Shared folder path change propagation"
+
+# getPath returns a JSON string, and PHP's json_encode escapes forward
+# slashes (e.g. "\/srv\/..."), so a plain `tr -d '"'` leaves the backslashes
+# in place. Decode it properly with python3 and strip the trailing slash.
+get_sf_path() {
+    omv-rpc -u admin "ShareMgmt" "getPath" "{\"uuid\":\"$1\"}" 2>/dev/null \
+        | python3 -c "import sys,json; print(json.load(sys.stdin).rstrip('/'))" 2>/dev/null
+}
+
+# Borrow the mount point of the already-configured compose storage shared
+# folder (this script requires it to be set) so the test shared folder lands
+# on a filesystem that is guaranteed to exist and be writable.
+COMPOSE_SF_UUID=$(json_get "$SETTINGS" "sharedfolderref")
+MNTENTREF=""
+COMPOSE_STORAGE=""
+if [ -n "$COMPOSE_SF_UUID" ] && [ "$COMPOSE_SF_UUID" != "null" ]; then
+    MNTENTREF=$(omv-rpc -u admin "ShareMgmt" "get" "{\"uuid\":\"$COMPOSE_SF_UUID\"}" 2>/dev/null \
+        | python3 -c "import sys,json; print(json.load(sys.stdin).get('mntentref',''))" 2>/dev/null || echo "")
+    COMPOSE_STORAGE=$(get_sf_path "$COMPOSE_SF_UUID")
+fi
+
+if [ -z "$MNTENTREF" ]; then
+    _skip "setSharedFolder (create omvtest_sfpath_download)" "no compose shared folder configured to borrow a mount point from"
+    _skip "on-disk compose file resolves sf placeholder to initial path" "no mount point"
+    _skip "setSharedFolder (change reldirpath)" "no mount point"
+    _skip "getPath reflects the new relative path" "no mount point"
+    _skip "compose module is marked dirty after shared folder path change" "no mount point"
+    _skip "on-disk compose file resolves sf placeholder to new path after redeploy" "no mount point"
+    _skip "on-disk compose file no longer references the old path" "no mount point"
+else
+    SF_PARAMS=$(python3 -c "
+import json
+print(json.dumps({
+    'uuid': '$OMV_NEW_UUID',
+    'name': 'omvtest_sfpath_download',
+    'reldirpath': 'omvtest_sfpath_download/',
+    'comment': 'RPC test - sf path change',
+    'mntentref': '$MNTENTREF'
+}))
+")
+    assert_rpc "setSharedFolder (create omvtest_sfpath_download)" "ShareMgmt" "set" "$SF_PARAMS"
+    SFPATH_SF_UUID=$(json_uuid "$RPC_OUT")
+    if [ -z "$SFPATH_SF_UUID" ]; then
+        SFPATH_SF_UUID=$(recover_uuid_from_list "ShareMgmt" "getList" "name" "omvtest_sfpath_download")
+    fi
+    info "Created shared folder uuid=$SFPATH_SF_UUID"
+
+    if [ -z "$SFPATH_SF_UUID" ]; then
+        _skip "on-disk compose file resolves sf placeholder to initial path" "no shared folder uuid"
+        _skip "setSharedFolder (change reldirpath)" "no shared folder uuid"
+        _skip "getPath reflects the new relative path" "no shared folder uuid"
+        _skip "compose module is marked dirty after shared folder path change" "no shared folder uuid"
+        _skip "on-disk compose file resolves sf placeholder to new path after redeploy" "no shared folder uuid"
+        _skip "on-disk compose file no longer references the old path" "no shared folder uuid"
+    else
+        SFPATH_ORIG_PATH=$(get_sf_path "$SFPATH_SF_UUID")
+        info "Shared folder initial path: $SFPATH_ORIG_PATH"
+
+        SF_COMPOSE_BODY='services:
+  hello:
+    image: hello-world
+    restart: unless-stopped
+    volumes:
+      - ${{ sf:"omvtest_sfpath_download" }}:/download'
+
+        COMPOSE_PARAMS=$(python3 -c "
+import json
+print(json.dumps({
+    'name': 'omvtest_sfpath_compose',
+    'description': 'RPC test - sf path change',
+    'body': '''$SF_COMPOSE_BODY''',
+    'showenv': False,
+    'env': '',
+    'showoverride': False,
+    'override': ''
+}))
+")
+        assert_rpc "setFile (create, references sf placeholder)" "Compose" "setFile" "$COMPOSE_PARAMS"
+        SFPATH_COMPOSE_UUID=$(json_uuid "$RPC_OUT")
+        if [ -z "$SFPATH_COMPOSE_UUID" ]; then
+            SFPATH_COMPOSE_UUID=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_sfpath_compose")
+        fi
+        info "Created compose file uuid=$SFPATH_COMPOSE_UUID"
+
+        if [ -z "$SFPATH_COMPOSE_UUID" ]; then
+            _skip "on-disk compose file resolves sf placeholder to initial path" "no compose file uuid"
+            _skip "setSharedFolder (change reldirpath)" "no compose file uuid"
+            _skip "getPath reflects the new relative path" "no compose file uuid"
+            _skip "compose module is marked dirty after shared folder path change" "no compose file uuid"
+            _skip "on-disk compose file resolves sf placeholder to new path after redeploy" "no compose file uuid"
+            _skip "on-disk compose file no longer references the old path" "no compose file uuid"
+        else
+            COMPOSE_YML="$COMPOSE_STORAGE/omvtest_sfpath_compose/omvtest_sfpath_compose.yml"
+
+            # setFile already deploys synchronously on create (Config.applyChanges
+            # force=true), but run the CLI deploy too — this is the step a user
+            # actually runs, and it must be a no-op here since nothing is stale yet.
+            info "Deploying compose module"
+            omv-salt deploy run compose --quiet >/dev/null 2>&1
+
+            if [ -f "$COMPOSE_YML" ] && grep -qF "$SFPATH_ORIG_PATH:/download" "$COMPOSE_YML"; then
+                _pass "on-disk compose file resolves sf placeholder to initial path"
+            else
+                _fail "on-disk compose file resolves sf placeholder to initial path" \
+                    "expected '$SFPATH_ORIG_PATH:/download' in $COMPOSE_YML"
+            fi
+
+            # --- Change the shared folder's relative path -------------------
+            SF_UPDATE_PARAMS=$(python3 -c "
+import json
+print(json.dumps({
+    'uuid': '$SFPATH_SF_UUID',
+    'name': 'omvtest_sfpath_download',
+    'reldirpath': 'omvtest_sfpath_download_moved/',
+    'comment': 'RPC test - sf path change (moved)',
+    'mntentref': '$MNTENTREF'
+}))
+")
+            assert_rpc "setSharedFolder (change reldirpath)" "ShareMgmt" "set" "$SF_UPDATE_PARAMS"
+
+            SFPATH_NEW_PATH=$(get_sf_path "$SFPATH_SF_UUID")
+            info "Shared folder new path: $SFPATH_NEW_PATH"
+
+            if [ -n "$SFPATH_NEW_PATH" ] && [ "$SFPATH_NEW_PATH" != "$SFPATH_ORIG_PATH" ]; then
+                _pass "getPath reflects the new relative path"
+            else
+                _fail "getPath reflects the new relative path" "path unchanged: '$SFPATH_NEW_PATH'"
+            fi
+
+            # --- The compose module must be marked dirty ---------------------
+            # This is the actual regression: the compose module's
+            # onSharedFolder() listener only marks the module dirty when the
+            # sharedfolder is a file's own storage location, never when it is
+            # only referenced via a ${{ sf:"..." }} placeholder in the body.
+            # Without the dirty flag, OMV's "Apply configuration changes"
+            # banner never appears, so nothing prompts the user to redeploy.
+            dirty_out=$(omv-rpc -u admin "Config" "isDirty" '{"modules":["compose"]}' 2>&1)
+            if echo "$dirty_out" | grep -qi 'true'; then
+                _pass "compose module is marked dirty after shared folder path change"
+            else
+                _fail "compose module is marked dirty after shared folder path change" \
+                    "Config isDirty returned: ${dirty_out:0:200}"
+            fi
+
+            # --- Redeploy and confirm the on-disk file now uses the new path -
+            info "Re-deploying compose module"
+            omv-salt deploy run compose --quiet >/dev/null 2>&1
+
+            if [ -f "$COMPOSE_YML" ] && grep -qF "$SFPATH_NEW_PATH:/download" "$COMPOSE_YML"; then
+                _pass "on-disk compose file resolves sf placeholder to new path after redeploy"
+            else
+                _fail "on-disk compose file resolves sf placeholder to new path after redeploy" \
+                    "expected '$SFPATH_NEW_PATH:/download' in $COMPOSE_YML"
+            fi
+            if [ -f "$COMPOSE_YML" ] && grep -qF "$SFPATH_ORIG_PATH:/download" "$COMPOSE_YML"; then
+                _fail "on-disk compose file no longer references the old path" \
+                    "stale path '$SFPATH_ORIG_PATH' still present in $COMPOSE_YML"
+            else
+                _pass "on-disk compose file no longer references the old path"
+            fi
+        fi
+    fi
+fi
+
+# ---------------------------------------------------------------------------
+# 14. Delete test objects (also done by cleanup trap, but verify RPCs work)
 # ---------------------------------------------------------------------------
 section "Delete test objects"
 
@@ -1411,6 +1623,16 @@ fi
 
 if [ -n "$FILE_UUID" ]; then
     assert_rpc "deleteFile" "Compose" "deleteFile" "{\"uuid\":\"$FILE_UUID\"}" && FILE_UUID=""
+fi
+
+if [ -n "$SFPATH_COMPOSE_UUID" ]; then
+    assert_rpc "deleteFile (sf-path-change compose file)" "Compose" "deleteFile" \
+        "{\"uuid\":\"$SFPATH_COMPOSE_UUID\"}" && SFPATH_COMPOSE_UUID=""
+fi
+
+if [ -n "$SFPATH_SF_UUID" ]; then
+    assert_rpc "deleteSharedFolder (sf-path-change shared folder)" "ShareMgmt" "delete" \
+        "{\"uuid\":\"$SFPATH_SF_UUID\",\"recursive\":true}" && SFPATH_SF_UUID=""
 fi
 
 assert_rpc_fails "deleteFile (bad uuid)" "Compose" "deleteFile" '{"uuid":"00000000-0000-0000-0000-000000000000"}'
