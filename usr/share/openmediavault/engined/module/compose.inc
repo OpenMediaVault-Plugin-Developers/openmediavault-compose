@@ -59,12 +59,36 @@ class OMVModuleCompose extends \OMV\Engine\Module\ServiceAbstract
     final public function onSharedFolder($type, $path, $object)
     {
         $db = \OMV\Config\Database::getInstance();
-        if (TRUE === $db->exists("conf.service.compose.file", [
-            "operator" => "stringEquals",
-            "arg0" => "sharedfolderref",
-            "arg1" => $object['uuid']
-        ])) {
-            $this->setDirty();
+        $sfUuid = $object['uuid'];
+        $settings = $db->get("conf.service.compose");
+        foreach (["sharedfolderref", "datasharedfolderref", "backupsharedfolderref"] as $field) {
+            if ($settings->get($field) === $sfUuid) {
+                $this->setDirty();
+                return;
+            }
+        }
+        $sfName = $object['name'] ?? '';
+        if (!empty($sfName)) {
+            $placeholder = '${{ sf:"' . $sfName . '" }}';
+            foreach ($db->get("conf.service.compose.file") as $file) {
+                foreach (["body", "override", "env"] as $field) {
+                    if (false !== strpos((string) $file->get($field), $placeholder)) {
+                        $this->setDirty();
+                        return;
+                    }
+                }
+            }
+            foreach ($db->get("conf.service.compose.config") as $cnf) {
+                if (false !== strpos((string) $cnf->get("body"), $placeholder)) {
+                    $this->setDirty();
+                    return;
+                }
+            }
+            $globalenv = $db->get("conf.service.compose.globalenv");
+            if (false !== strpos((string) $globalenv->get("globalenv"), $placeholder)) {
+                $this->setDirty();
+                return;
+            }
         }
     }
 
