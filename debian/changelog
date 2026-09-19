@@ -1,3 +1,10 @@
+openmediavault-compose (8.1.25) stable; urgency=low
+
+  * Mark compose module dirty when a sharedfolder is changed that is
+    used in a placeholder
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 19 Sep 2026 13:27:54 +0000
+
 openmediavault-compose (8.1.24) stable; urgency=low
 
   * Add label for optional container to skip status/info checking
