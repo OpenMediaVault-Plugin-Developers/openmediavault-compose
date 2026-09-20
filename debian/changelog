@@ -1,3 +1,9 @@
+openmediavault-compose (8.1.26) stable; urgency=low
+
+  * Fix pull on Files tab
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 20 Sep 2026 13:02:40 +0000
+
 openmediavault-compose (8.1.25) stable; urgency=low
 
   * Mark compose module dirty when a sharedfolder is changed that is
