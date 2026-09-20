@@ -433,7 +433,7 @@ data:
                 service: Compose
                 method: doCommandList
                 params:
-                  uuid: "{{ _selected | map('get', 'uuid') | join(',') }}"
+                  uuids: "{{ _selected | map('get', 'uuid') | join(',') }}"
                   command: "pull"
       - type: iconButton
         icon: mdi:list-status
