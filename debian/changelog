@@ -1,8 +1,8 @@
-openmediavault-compose (8.1.27) UNRELEASED; urgency=medium
+openmediavault-compose (8.1.27) stable; urgency=low
 
   * Show bind address in brackets after host port on ports tab
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 22 Sep 2026 21:00:44 +0000
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 22 Sep 2026 21:17:11 +0000
 
 openmediavault-compose (8.1.26) stable; urgency=low
 
