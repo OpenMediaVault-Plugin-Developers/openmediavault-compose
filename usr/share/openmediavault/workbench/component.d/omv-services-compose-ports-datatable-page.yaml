@@ -28,7 +28,7 @@ data:
         flexGrow: 2
         sortable: true
       - name: _("Host Port")
-        prop: host_port
+        prop: host_port_label
         flexGrow: 1
         sortable: true
       - name: _("Container Port")

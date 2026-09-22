@@ -5157,16 +5157,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $containerPort = isset($portEntry['target']) ? (string)$portEntry['target'] : '';
             $hostPort = isset($portEntry['published']) ? (string)$portEntry['published'] : '';
             $protocol = isset($portEntry['protocol']) ? (string)$portEntry['protocol'] : 'tcp';
+            $hostIp = isset($portEntry['host_ip']) ? (string)$portEntry['host_ip'] : '';
             if ($hostPort === '' || $hostPort === '0') return null;
             if (!$this->isResolvedPort($hostPort)) return null;
-            return [
-                'id' => sprintf('%s:%s:%s:%s', $filename, $svcName, $hostPort, $protocol),
-                'file' => $filename,
-                'service' => $svcName,
-                'host_port' => $hostPort,
-                'container_port' => $containerPort,
-                'protocol' => $protocol,
-            ];
+            return $this->buildPortRecord($filename, $svcName, $hostIp, $hostPort, $containerPort, $protocol);
         }
 
         $portStr = trim((string)$portEntry);
@@ -5178,32 +5172,38 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $portStr = substr($portStr, 0, $slashPos);
         }
 
-        // Split by colon: HOST:CONTAINER or IP:HOST:CONTAINER
+        // Split by colon: HOST:CONTAINER or IP:HOST:CONTAINER. The last two
+        // parts are always the ports, so anything before them is the IP
+        // (this also covers IPv6 addresses like [::1]:8080:80).
         $parts = explode(':', $portStr);
         $numParts = count($parts);
 
         if ($numParts === 1) {
             // Container-only port, no host binding
             return null;
-        } elseif ($numParts === 2) {
-            $hostPort = $parts[0];
-            $containerPort = $parts[1];
-        } elseif ($numParts === 3) {
-            // IP:HOST:CONTAINER
-            $hostPort = $parts[1];
-            $containerPort = $parts[2];
-        } else {
-            return null;
         }
+        $containerPort = array_pop($parts);
+        $hostPort = array_pop($parts);
+        $hostIp = trim(implode(':', $parts), '[]');
 
         if ($hostPort === '' || $hostPort === '0') return null;
         if (!$this->isResolvedPort($hostPort)) return null;
 
+        return $this->buildPortRecord($filename, $svcName, $hostIp, $hostPort, $containerPort, $protocol);
+    }
+
+    private function buildPortRecord($filename, $svcName, $hostIp, $hostPort, $containerPort, $protocol) {
+        // host_port stays numeric for doFindFreePorts; host_port_label adds
+        // the bind address in brackets after the port so sorting still works.
+        $hostLabel = $hostPort;
+        if ($hostIp !== '') $hostLabel .= sprintf(' [%s]', $hostIp);
         return [
-            'id' => sprintf('%s:%s:%s:%s', $filename, $svcName, $hostPort, $protocol),
+            'id' => sprintf('%s:%s:%s:%s:%s', $filename, $svcName, $hostIp, $hostPort, $protocol),
             'file' => $filename,
             'service' => $svcName,
+            'host_ip' => $hostIp,
             'host_port' => $hostPort,
+            'host_port_label' => $hostLabel,
             'container_port' => $containerPort,
             'protocol' => $protocol,
         ];
