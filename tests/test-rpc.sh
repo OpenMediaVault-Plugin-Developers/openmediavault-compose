@@ -201,6 +201,8 @@ BIND_TEST_DIR="/tmp/omvtest_bindpath"
 SFPATH_SF_UUID=""
 SFPATH_COMPOSE_UUID=""
 SFPATH_ORIG_PATH=""
+# Compose file created for the CHANGE_TO_COMPOSE_DATA_PATH test (removed on exit).
+DATAPATH_COMPOSE_UUID=""
 # Dummy host interfaces created as macvlan/ipvlan parents (removed on exit).
 declare -a TEST_DUMMY_IFACES=()
 # Throwaway container used for the connect/disconnect tests (removed on exit).
@@ -233,6 +235,7 @@ pre_cleanup() {
     local list='{"start":0,"limit":100,"sortfield":"name","sortdir":"ASC"}'
     purge_by_name "Compose" "getFileList"       "$list" "deleteFile"       "omvtest_compose"
     purge_by_name "Compose" "getFileList"       "$list" "deleteFile"       "omvtest_sfpath_compose"
+    purge_by_name "Compose" "getFileList"       "$list" "deleteFile"       "omvtest_datapath_compose"
     purge_by_name "Compose" "getConfigList"     "$list" "deleteConfig"     "omvtest_config"
     purge_by_name "Compose" "getDockerfileList" "$list" "deleteDockerfile" "omvtest_dockerfile"
     # Shared folder used by the sf-path-change test — delete needs a
@@ -293,6 +296,10 @@ cleanup() {
     if [ -n "$SFPATH_COMPOSE_UUID" ]; then
         info "Deleting sf-path-change test compose file $SFPATH_COMPOSE_UUID"
         omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$SFPATH_COMPOSE_UUID\"}" >/dev/null 2>&1 || true
+    fi
+    if [ -n "$DATAPATH_COMPOSE_UUID" ]; then
+        info "Deleting data-path test compose file $DATAPATH_COMPOSE_UUID"
+        omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$DATAPATH_COMPOSE_UUID\"}" >/dev/null 2>&1 || true
     fi
     if [ -n "$SFPATH_SF_UUID" ]; then
         info "Deleting sf-path-change test shared folder $SFPATH_SF_UUID"
@@ -1685,6 +1692,113 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# 13c. CHANGE_TO_COMPOSE_DATA_PATH is replaced in the on-disk files
+# ---------------------------------------------------------------------------
+# The DB keeps the raw placeholder; the salt deploy must substitute the data
+# shared folder path into the rendered compose, env and override files.
+section "Data path placeholder"
+
+DATAPATH_TESTS=(
+    "setFile (create, uses CHANGE_TO_COMPOSE_DATA_PATH)"
+    "getFile keeps raw CHANGE_TO_COMPOSE_DATA_PATH in DB"
+    "compose file: data path substituted"
+    "env file: data path substituted"
+    "override file: data path substituted"
+    "no CHANGE_TO_COMPOSE_DATA_PATH left in on-disk files"
+)
+
+[ -z "$COMPOSE_STORAGE" ] && [ -n "$COMPOSE_SF_UUID" ] && COMPOSE_STORAGE=$(get_sf_path "$COMPOSE_SF_UUID")
+DATA_SF_UUID=$(json_get "$SETTINGS" "datasharedfolderref")
+DATA_PATH=""
+if [ -n "$DATA_SF_UUID" ] && [ "$DATA_SF_UUID" != "null" ]; then
+    DATA_PATH=$(get_sf_path "$DATA_SF_UUID")
+fi
+
+DP_COMPOSE_BODY='services:
+  hello:
+    image: hello-world
+    restart: unless-stopped
+    volumes:
+      - CHANGE_TO_COMPOSE_DATA_PATH/omvtest_datapath:/data'
+DP_COMPOSE_ENV='OMVTEST_DATA=CHANGE_TO_COMPOSE_DATA_PATH/omvtest_datapath_env'
+DP_COMPOSE_OVERRIDE='services:
+  hello:
+    volumes:
+      - CHANGE_TO_COMPOSE_DATA_PATH/omvtest_datapath_override:/override'
+
+DP_PARAMS=$(python3 -c "
+import json
+print(json.dumps({
+    'name': 'omvtest_datapath_compose',
+    'description': 'RPC test - data path placeholder',
+    'body': '''$DP_COMPOSE_BODY''',
+    'showenv': True,
+    'env': '''$DP_COMPOSE_ENV''',
+    'showoverride': True,
+    'override': '''$DP_COMPOSE_OVERRIDE'''
+}))
+")
+
+# Assert on-disk file $2 contains the literal string $3.
+assert_file_contains() {
+    local desc=$1 file=$2 needle=$3
+    if [ ! -f "$file" ]; then
+        _fail "$desc" "$file does not exist"
+    elif grep -qF -- "$needle" "$file"; then
+        _pass "$desc"
+    else
+        _fail "$desc" "expected '$needle' in $file"
+    fi
+}
+
+if [ -z "$COMPOSE_STORAGE" ]; then
+    for t in "${DATAPATH_TESTS[@]}"; do _skip "$t" "no compose shared folder path"; done
+elif [ -z "$DATA_PATH" ]; then
+    # Without a data shared folder, setFile must refuse the placeholder.
+    assert_rpc_fails "setFile rejects CHANGE_TO_COMPOSE_DATA_PATH without data shared folder" \
+        "Compose" "setFile" "$DP_PARAMS"
+    for t in "${DATAPATH_TESTS[@]}"; do _skip "$t" "no data shared folder set in settings"; done
+else
+    info "Data shared folder path: $DATA_PATH"
+    assert_rpc "setFile (create, uses CHANGE_TO_COMPOSE_DATA_PATH)" "Compose" "setFile" "$DP_PARAMS"
+    DATAPATH_COMPOSE_UUID=$(json_uuid "$RPC_OUT")
+    if [ -z "$DATAPATH_COMPOSE_UUID" ]; then
+        DATAPATH_COMPOSE_UUID=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_datapath_compose")
+    fi
+    info "Created compose file uuid=$DATAPATH_COMPOSE_UUID"
+
+    if [ -z "$DATAPATH_COMPOSE_UUID" ]; then
+        for t in "${DATAPATH_TESTS[@]:1}"; do _skip "$t" "no compose file uuid"; done
+    else
+        assert_rpc "getFile keeps raw CHANGE_TO_COMPOSE_DATA_PATH in DB" "Compose" "getFile" \
+            "{\"uuid\":\"$DATAPATH_COMPOSE_UUID\"}" 'CHANGE_TO_COMPOSE_DATA_PATH'
+
+        info "Deploying compose module"
+        omv-salt deploy run compose --quiet >/dev/null 2>&1
+
+        DP_DIR="$COMPOSE_STORAGE/omvtest_datapath_compose"
+        DP_YML="$DP_DIR/omvtest_datapath_compose.yml"
+        DP_ENV="$DP_DIR/omvtest_datapath_compose.env"
+        DP_OVR="$DP_DIR/compose.override.yml"
+
+        assert_file_contains "compose file: data path substituted" \
+            "$DP_YML" "$DATA_PATH/omvtest_datapath:/data"
+        assert_file_contains "env file: data path substituted" \
+            "$DP_ENV" "OMVTEST_DATA=$DATA_PATH/omvtest_datapath_env"
+        assert_file_contains "override file: data path substituted" \
+            "$DP_OVR" "$DATA_PATH/omvtest_datapath_override:/override"
+
+        leftover=$(grep -lF "CHANGE_TO_COMPOSE_DATA_PATH" "$DP_YML" "$DP_ENV" "$DP_OVR" 2>/dev/null)
+        if [ -z "$leftover" ]; then
+            _pass "no CHANGE_TO_COMPOSE_DATA_PATH left in on-disk files"
+        else
+            _fail "no CHANGE_TO_COMPOSE_DATA_PATH left in on-disk files" \
+                "placeholder still present in: $(echo $leftover)"
+        fi
+    fi
+fi
+
+# ---------------------------------------------------------------------------
 # 14. Delete test objects (also done by cleanup trap, but verify RPCs work)
 # ---------------------------------------------------------------------------
 section "Delete test objects"
@@ -1708,6 +1822,11 @@ fi
 if [ -n "$SFPATH_COMPOSE_UUID" ]; then
     assert_rpc "deleteFile (sf-path-change compose file)" "Compose" "deleteFile" \
         "{\"uuid\":\"$SFPATH_COMPOSE_UUID\"}" && SFPATH_COMPOSE_UUID=""
+fi
+
+if [ -n "$DATAPATH_COMPOSE_UUID" ]; then
+    assert_rpc "deleteFile (data-path compose file)" "Compose" "deleteFile" \
+        "{\"uuid\":\"$DATAPATH_COMPOSE_UUID\"}" && DATAPATH_COMPOSE_UUID=""
 fi
 
 if [ -n "$SFPATH_SF_UUID" ]; then
