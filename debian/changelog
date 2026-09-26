@@ -2,6 +2,7 @@ openmediavault-compose (8.1.28) stable; urgency=low
 
   * Force symlink creation to overwrite copied symlinks pointing to a
     wrong location
+  * Fix syntax check when saving
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 26 Sep 2026 18:43:58 +0000
 
