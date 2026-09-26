@@ -1108,7 +1108,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return $db->getAssoc("conf.service.compose.file", $params['uuid']);
     }
 
-    private function checkFileSyntax($context, $yml1, $yml2, $env1)
+    private function checkFileSyntax($context, $yml1, $yml2, $env1, $cname, $datapath)
     {
         $db = \OMV\Config\Database::getInstance();
         $settings = $db->get("conf.service.compose");
@@ -1200,7 +1200,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $db->assertIsUnique($object, "name");
         }
         // check syntax if enabled
-        $checkSyntax = $this->checkFileSyntax($context, $object->get('body'), $object->get('override'), $object->get('env'));
+        $checkSyntax = $this->checkFileSyntax($context, $object->get('body'), $object->get('override'), $object->get('env'), $object->get('name'), $datapath);
         // update database
         $db->set($object);
         // Apply changes immmediately
