@@ -167,6 +167,7 @@ configure_compose_{{ file.name }}_symlink:
   file.symlink:
     - name: '{{ composeSymlink }}'
     - target: '{{ composeFile }}'
+    - force: True
 {% else %}
 remove_compose_{{ file.name }}_symlink:
   file.absent:
@@ -208,6 +209,7 @@ configure_compose_env_{{ file.name }}_symlink:
   file.symlink:
     - name: '{{ envSymlink }}'
     - target: '{{ envFile }}'
+    - force: True
 {% else %}
 remove_compose_env_{{ file.name }}_symlink:
   file.absent:
