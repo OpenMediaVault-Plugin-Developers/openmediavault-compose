@@ -1605,6 +1605,86 @@ print(json.dumps({
 fi
 
 # ---------------------------------------------------------------------------
+# 13b. Bad compose.yml / .env symlinks are overwritten on deploy
+# ---------------------------------------------------------------------------
+# Regression: copying the compose shared folder with a symlink-following
+# tool (cp -r, rsync -L) turns compose.yml and .env into regular files, and
+# salt's file.symlink then failed with "File exists where the symlink ...
+# should be", breaking the whole deploy. Stale links left over from a move
+# to a new drive must be repointed as well.
+#
+# https://forum.openmediavault.org/index.php?thread/59582-what-is-the-correct-procedure-to-move-docker-appdata-share-to-a-new-drive/
+section "Symlink overwrite"
+
+SYMLINK_TESTS=(
+    "deploy succeeds with regular files in place of symlinks"
+    "compose.yml regular file replaced by symlink"
+    ".env regular file replaced by symlink"
+    "deploy succeeds with stale symlinks"
+    "compose.yml stale symlink repointed"
+    ".env stale symlink repointed"
+)
+
+[ -z "$COMPOSE_STORAGE" ] && [ -n "$COMPOSE_SF_UUID" ] && COMPOSE_STORAGE=$(get_sf_path "$COMPOSE_SF_UUID")
+CREATE_SYMLINKS=$(json_get "$SETTINGS" "createsymlinks")
+SYMLINK_DIR="$COMPOSE_STORAGE/omvtest_compose"
+
+# Assert $1 is a symlink whose target is exactly $2.
+assert_symlink() {
+    local desc=$1 link=$2 target=$3
+    if [ -L "$link" ] && [ "$(readlink "$link")" = "$target" ]; then
+        _pass "$desc"
+    elif [ -L "$link" ]; then
+        _fail "$desc" "$link -> $(readlink "$link"), expected $target"
+    else
+        _fail "$desc" "$link is not a symlink"
+    fi
+}
+
+# Run the compose deploy and assert it exits cleanly.
+assert_deploy() {
+    local desc=$1 out ec=0
+    out=$(omv-salt deploy run compose --quiet 2>&1) || ec=$?
+    if [ $ec -eq 0 ] && ! echo "$out" | grep -q "File exists where the symlink"; then
+        _pass "$desc"
+    else
+        _fail "$desc" "$(echo "$out" | grep -m2 -i "symlink\|fail\|error")"
+    fi
+}
+
+if [ "$CREATE_SYMLINKS" != "True" ] && [ "$CREATE_SYMLINKS" != "true" ] && [ "$CREATE_SYMLINKS" != "1" ]; then
+    for t in "${SYMLINK_TESTS[@]}"; do _skip "$t" "createsymlinks disabled in settings"; done
+elif [ -z "$FILE_UUID" ] || [ -z "$COMPOSE_STORAGE" ] || [ ! -d "$SYMLINK_DIR" ]; then
+    for t in "${SYMLINK_TESTS[@]}"; do _skip "$t" "no omvtest_compose directory"; done
+else
+    SYMLINK_YML="$SYMLINK_DIR/compose.yml"
+    SYMLINK_ENV="$SYMLINK_DIR/.env"
+
+    # --- Dereferenced copies: regular files where the symlinks belong -------
+    rm -f "$SYMLINK_YML" "$SYMLINK_ENV"
+    cp "$SYMLINK_DIR/omvtest_compose.yml" "$SYMLINK_YML"
+    cp "$SYMLINK_DIR/omvtest_compose.env" "$SYMLINK_ENV"
+    info "Replaced compose.yml and .env with regular files"
+
+    assert_deploy "deploy succeeds with regular files in place of symlinks"
+    assert_symlink "compose.yml regular file replaced by symlink" \
+        "$SYMLINK_YML" "$SYMLINK_DIR/omvtest_compose.yml"
+    assert_symlink ".env regular file replaced by symlink" \
+        "$SYMLINK_ENV" "$SYMLINK_DIR/omvtest_compose.env"
+
+    # --- Stale symlinks still pointing at the old drive ---------------------
+    ln -sfn "/srv/omvtest-old-drive/omvtest_compose/omvtest_compose.yml" "$SYMLINK_YML"
+    ln -sfn "/srv/omvtest-old-drive/omvtest_compose/omvtest_compose.env" "$SYMLINK_ENV"
+    info "Pointed compose.yml and .env at a nonexistent old drive"
+
+    assert_deploy "deploy succeeds with stale symlinks"
+    assert_symlink "compose.yml stale symlink repointed" \
+        "$SYMLINK_YML" "$SYMLINK_DIR/omvtest_compose.yml"
+    assert_symlink ".env stale symlink repointed" \
+        "$SYMLINK_ENV" "$SYMLINK_DIR/omvtest_compose.env"
+fi
+
+# ---------------------------------------------------------------------------
 # 14. Delete test objects (also done by cleanup trap, but verify RPCs work)
 # ---------------------------------------------------------------------------
 section "Delete test objects"
