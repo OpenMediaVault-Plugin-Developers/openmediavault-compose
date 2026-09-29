@@ -1,3 +1,13 @@
+openmediavault-compose (8.2.0) UNRELEASED; urgency=medium
+
+  * Add omv-compose-run command
+  * Use omv-compose-run for all compose commands in scripts and RPCs
+  * Log commands run by omv-compose-run to /var/log/omv-compose-run.log
+  * Add Compose Run and Compose Build logs to the log viewer and logrotate
+  * Run compose ps in parallel to speed up Files and Services list refreshes
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 29 Sep 2026 11:36:16 +0000
+
 openmediavault-compose (8.1.28) stable; urgency=low
 
   * Force symlink creation to overwrite copied symlinks pointing to a
