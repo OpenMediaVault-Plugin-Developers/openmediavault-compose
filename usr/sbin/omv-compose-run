@@ -1,0 +1,120 @@
+#!/bin/bash
+#
+# shellcheck disable=SC1091
+#
+# Copyright (c) 2023-2026 openmediavault plugin developers
+#
+# This file is licensed under the terms of the GNU General Public
+# License version 2. This program is licensed "as is" without any
+# warranty of any kind, whether express or implied.
+#
+# version: 0.0.1
+#
+# Run docker compose for a plugin-managed stack with the same --file and
+# --env-file arguments the plugin uses.
+#
+#   omv-compose-run [-n|--dry-run] <name> [compose args...]
+#
+# Examples:
+#   omv-compose-run plex up -d
+#   omv-compose-run plex logs -f plex
+#   omv-compose-run -n plex config    # print the command only
+
+export LC_ALL=C.UTF-8
+
+. /usr/share/openmediavault/scripts/helper-functions
+
+_usage()
+{
+  cat >&2 <<EOF
+Usage: $(basename "$0") [-n|--dry-run] <name> [compose args...]
+
+Runs 'docker compose' for the named plugin stack, adding:
+  --file <name>.yml [--file compose.override.yml]
+  [--env-file global.env] --env-file <name>.env
+
+Options:
+  -n, --dry-run   print the command instead of running it
+  -h, --help      show this help
+EOF
+}
+
+_error()
+{
+  echo "$(basename "$0"): ${1}" >&2
+  exit "${2:-1}"
+}
+
+dryrun=0
+case "${1}" in
+  -h|--help)
+    _usage
+    exit 0
+    ;;
+  -n|--dry-run)
+    dryrun=1
+    shift
+    ;;
+esac
+
+compose="${1}"
+if [ -z "${compose}" ]; then
+  _usage
+  exit 10
+fi
+shift
+if [[ ! "${compose}" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+  _error "Invalid compose name '${compose}'." 10
+fi
+
+# podman setting
+podman=$(omv_config_get "/config/services/compose/podman")
+if [[ "${podman}" == "1" ]]; then
+  export DOCKER_HOST="unix:///run/podman/podman.sock"
+  export PODMAN_COMPOSE_QUIET=1
+else
+  unset DOCKER_HOST
+fi
+
+# Get the shared folder reference and path
+sfref=$(omv_config_get "/config/services/compose/sharedfolderref")
+if ! omv_isuuid "${sfref}"; then
+  _error "No compose sharedfolder set." 11
+fi
+sfpath="$(omv_get_sharedfolder_path "${sfref}")"
+if [ ! -d "${sfpath}" ]; then
+  _error "Shared folder directory '${sfpath}' does not exist." 12
+fi
+sfpath="${sfpath/%\/}"
+sfpath="${sfpath//\/\//\/}"
+
+# set path for yml and env files
+composepath="${sfpath}/${compose}"
+env="${composepath}/${compose}.env"
+globalenv="${sfpath}/global.env"
+ovr="${composepath}/compose.override.yml"
+yml="${composepath}/${compose}.yml"
+if [ ! -f "${yml}" ]; then
+  _error "Compose file '${yml}' does not exist." 13
+fi
+
+# build compose arguments
+dockerComposeArgs=("--file" "${yml}")
+if [ -f "${ovr}" ]; then
+  dockerComposeArgs+=("--file" "${ovr}")
+fi
+if [ -f "${globalenv}" ]; then
+  dockerComposeArgs+=("--env-file" "${globalenv}")
+fi
+if [ -f "${env}" ]; then
+  dockerComposeArgs+=("--env-file" "${env}")
+fi
+
+if [ ${dryrun} -eq 1 ]; then
+  [ -n "${DOCKER_HOST}" ] && printf 'DOCKER_HOST=%q ' "${DOCKER_HOST}"
+  printf '%q ' docker compose "${dockerComposeArgs[@]}" "$@"
+  echo
+  exit 0
+fi
+
+exec docker compose "${dockerComposeArgs[@]}" "$@"
