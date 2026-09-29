@@ -72,3 +72,25 @@
         "message" => 5
     ]
 ]);
+
+\OMV\System\LogFileSpec::registerSpecification("omv-compose-build", [
+    "filename" => "omv-compose-build.log",
+    "filepath" => "/var/log/omv-compose-build.log",
+    "regex" => "/^\[((.*?)\s+(.*?))\]\s+\[(.*?)\]\s+(.*?)$/",
+    "columns" => [
+        "date" => 1,
+        "action" => 4,
+        "message" => 5
+    ]
+]);
+
+\OMV\System\LogFileSpec::registerSpecification("omv-compose-run", [
+    "filename" => "omv-compose-run.log",
+    "filepath" => "/var/log/omv-compose-run.log",
+    "regex" => "/^\[((.*?)\s+(.*?))\]\s+\[(.*?)\]\s+(.*?)$/",
+    "columns" => [
+        "date" => 1,
+        "action" => 4,
+        "message" => 5
+    ]
+]);
