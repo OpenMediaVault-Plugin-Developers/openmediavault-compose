@@ -101,25 +101,12 @@ if [ -n "${snapshot_at}" ]; then
 fi
 # set path for yml and env files
 composepath="${sfpath}/${compose}"
-env="${composepath}/${compose}.env"
-globalenv="${sfpath}/global.env"
-ovr="${composepath}/compose.override.yml"
 yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
   _log "Compose file '${yml}' does not exist."
   skip=1
 fi
 _log "Compose file :: ${yml}"
-
-# build compose arguments
-dockerComposeArgs=("--file" "${yml}")
-if [ -f "${ovr}" ]; then
-  dockerComposeArgs+=("--file" "${ovr}")
-fi
-if [ -f "${globalenv}" ]; then
-  dockerComposeArgs+=("--env-file" "${globalenv}")
-fi
-dockerComposeArgs+=("--env-file" "${env}")
 
 if [ ${skip} -ne 1 ]; then
   # save status
@@ -129,7 +116,7 @@ if [ ${skip} -ne 1 ]; then
 
   # stop compose if running
   if grep -q "running" "${status}"; then
-    docker compose "${dockerComposeArgs[@]}" stop
+    omv-compose-run "${compose}" stop
   else
     _log "${compose} is not running"
   fi
@@ -227,7 +214,7 @@ fi
 if [ ${skip} -ne 1 ]; then
   # start compose if running before backup
   if grep -q "running" "${status}"; then
-    docker compose "${dockerComposeArgs[@]}" start
+    omv-compose-run "${compose}" start
   fi
 
   rm -f "${status}"

@@ -65,9 +65,6 @@ _log "Compose file path :: ${sfpath}"
 
 # set path for yml and env files
 composepath="${sfpath}/${compose}"
-env="${composepath}/${compose}.env"
-globalenv="${sfpath}/global.env"
-ovr="${composepath}/compose.override.yml"
 yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
   _log "Compose file '${yml}' does not exist.  Exiting..."
@@ -103,19 +100,9 @@ for image in $(${yq} '.services.[].image | select(. != null)' "${yml}"); do
   before_versions["${image}"]="${version_before}"
 done
 
-# build compose arguments
-dockerComposeArgs=("--file" "${yml}")
-if [ -f "${ovr}" ]; then
-  dockerComposeArgs+=("--file" "${ovr}")
-fi
-if [ -f "${globalenv}" ]; then
-  dockerComposeArgs+=("--env-file" "${globalenv}")
-fi
-dockerComposeArgs+=("--env-file" "${env}")
-
 # pull new images
 _log "Pulling new images ..."
-docker compose "${dockerComposeArgs[@]}" pull
+omv-compose-run "${compose}" pull
 
 # log image versions after update
 for image in $(${yq} '.services.[].image | select(. != null)' "${yml}"); do
@@ -128,7 +115,7 @@ done
 # recreate containers with new images if running
 if grep -q "running" "${status}"; then
   _log "Recreating containers with new images ..."
-  docker compose "${dockerComposeArgs[@]}" up -d
+  omv-compose-run "${compose}" up -d
 fi
 
 rm -f "${status}"

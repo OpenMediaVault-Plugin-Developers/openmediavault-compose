@@ -258,7 +258,6 @@ _log "Backup path :: ${backuppath}"
 # set path for yml and env files
 composepath="${sfpath}/${compose}"
 env="${composepath}/${compose}.env"
-globalenv="${sfpath}/global.env"
 yml="${composepath}/${compose}.yml"
 ovr="${composepath}/compose.override.yml"
 if [ ! -f "${yml}" ]; then
@@ -296,19 +295,9 @@ backupmax=$((backupmaxsize * 1024 * 1024 * 1024))
 OFS=$IFS
 IFS=$'\n'
 
-# build compose arguments
-dockerComposeArgs=("--file" "${yml}")
-if [ -f "${ovr}" ]; then
-  dockerComposeArgs+=("--file" "${ovr}")
-fi
-if [ -f "${globalenv}" ]; then
-  dockerComposeArgs+=("--env-file" "${globalenv}")
-fi
-dockerComposeArgs+=("--env-file" "${env}")
-
 # run docker compose config
 confout="$(mktemp)"
-docker compose "${dockerComposeArgs[@]}" config --output "${confout}"
+omv-compose-run "${compose}" config --output "${confout}"
 if [ $? -ne 0 ] || [ ! -s "${confout}" ]; then
   _log "Failed to run docker compose config.  Exiting..."
   exit 17
@@ -421,7 +410,7 @@ wait_for_compose_to_exit() {
 if [ "${skipstartstop}" = "1" ]; then
   _log "Skipping container stop/start as configured for this job."
 elif grep -q "running" "${status}"; then
-  docker compose "${dockerComposeArgs[@]}" stop
+  omv-compose-run "${compose}" stop
   wait_for_compose_to_exit
 else
   _log "${compose} is not running"
@@ -631,7 +620,7 @@ done
 
 # start compose if running before backup (unless stop/start was skipped)
 if [ "${skipstartstop}" != "1" ] && grep -q "running" "${status}"; then
-  docker compose "${dockerComposeArgs[@]}" start
+  omv-compose-run "${compose}" start
 fi
 
 # store size of backup

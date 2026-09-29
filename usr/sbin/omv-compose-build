@@ -71,9 +71,6 @@ _log "Compose file path :: ${sfpath}"
 
 # set path for yml and env files
 composepath="${sfpath}/${compose}"
-env="${composepath}/${compose}.env"
-globalenv="${sfpath}/global.env"
-ovr="${composepath}/compose.override.yml"
 yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
   _log "Compose file '${yml}' does not exist.  Exiting..."
@@ -90,33 +87,23 @@ while pgrep -f omv-compose-backup -l > /dev/null; do
     exit 15
   fi
 done
-# build compose arguments
-dockerComposeArgs=("--file" "${yml}")
-if [ -f "${ovr}" ]; then
-  dockerComposeArgs+=("--file" "${ovr}")
-fi
-if [ -f "${globalenv}" ]; then
-  dockerComposeArgs+=("--env-file" "${globalenv}")
-fi
-dockerComposeArgs+=("--env-file" "${env}")
-
-count=$(docker compose "${dockerComposeArgs[@]}" config | grep -c 'build:')
+count=$(omv-compose-run "${compose}" config | grep -c 'build:')
 if [ ${count} -gt 0 ]; then
   _log "Building for ${count} service(s) ..."
 
-  dockerComposeArgs+=("build")
+  buildArgs=("build")
   if [ "${pull}" = "1" ]; then
     _log "will try to pull new images"
-    dockerComposeArgs+=("--pull")
+    buildArgs+=("--pull")
   fi
   if [ "${nocache}" = "1" ]; then
     _log "will not use cache"
-    dockerComposeArgs+=("--no-cache")
+    buildArgs+=("--no-cache")
   fi
 
   # run build
   _log "Building ..."
-  docker compose "${dockerComposeArgs[@]}"
+  omv-compose-run "${compose}" "${buildArgs[@]}"
 else
   _log "Nothing to build."
 fi

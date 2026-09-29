@@ -64,9 +64,6 @@ _log "Compose file path :: ${sfpath}"
 
 # set path for yml and env files
 composepath="${sfpath}/${compose}"
-env="${composepath}/${compose}.env"
-globalenv="${sfpath}/global.env"
-ovr="${composepath}/compose.override.yml"
 yml="${composepath}/${compose}.yml"
 if [ ! -f "${yml}" ]; then
   _log "Compose file '${yml}' does not exist.  Exiting..."
@@ -84,19 +81,9 @@ while pgrep -f omv-compose-backup -l > /dev/null; do
   fi
 done
 
-# build compose arguments
-dockerComposeArgs=("--file" "${yml}")
-if [ -f "${ovr}" ]; then
-  dockerComposeArgs+=("--file" "${ovr}")
-fi
-if [ -f "${globalenv}" ]; then
-  dockerComposeArgs+=("--env-file" "${globalenv}")
-fi
-dockerComposeArgs+=("--env-file" "${env}")
-
 # stop container(s)
 _log "Stopping container(s) ..."
-docker compose "${dockerComposeArgs[@]}" stop
+omv-compose-run "${compose}" stop
 
 _log "Done."
 
