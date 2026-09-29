@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# shellcheck disable=SC1091
+# shellcheck disable=SC1090,SC1091
 #
 # Copyright (c) 2023-2026 openmediavault plugin developers
 #
@@ -13,7 +13,7 @@
 # Run docker compose for a plugin-managed stack with the same --file and
 # --env-file arguments the plugin uses.
 #
-#   omv-compose-run [-n|--dry-run] <name> [compose args...]
+#   omv-compose-run [-n|--dry-run] [-q|--no-log] <name> [compose args...]
 #
 # Examples:
 #   omv-compose-run plex up -d
@@ -22,12 +22,19 @@
 
 export LC_ALL=C.UTF-8
 
-. /usr/share/openmediavault/scripts/helper-functions
+# Only the config file location is needed; sourcing helper-functions is
+# slower and this script may run once per compose file on list refreshes.
+OMV_DEFAULT_FILE=${OMV_DEFAULT_FILE:-"/etc/default/openmediavault"}
+[ -f "${OMV_DEFAULT_FILE}" ] && . "${OMV_DEFAULT_FILE}"
+OMV_CONFIG_FILE=${OMV_CONFIG_FILE:-"/etc/openmediavault/config.xml"}
+
+# logging location
+logFile="/var/log/omv-compose-run.log"
 
 _usage()
 {
   cat >&2 <<EOF
-Usage: $(basename "$0") [-n|--dry-run] <name> [compose args...]
+Usage: $(basename "$0") [-n|--dry-run] [-q|--no-log] <name> [compose args...]
 
 Runs 'docker compose' for the named plugin stack, adding:
   --file <name>.yml [--file compose.override.yml]
@@ -35,6 +42,7 @@ Runs 'docker compose' for the named plugin stack, adding:
 
 Options:
   -n, --dry-run   print the command instead of running it
+  -q, --no-log    do not log the command to ${logFile}
   -h, --help      show this help
 EOF
 }
@@ -46,16 +54,26 @@ _error()
 }
 
 dryrun=0
-case "${1}" in
-  -h|--help)
-    _usage
-    exit 0
-    ;;
-  -n|--dry-run)
-    dryrun=1
-    shift
-    ;;
-esac
+nolog=0
+while [ $# -gt 0 ]; do
+  case "${1}" in
+    -h|--help)
+      _usage
+      exit 0
+      ;;
+    -n|--dry-run)
+      dryrun=1
+      shift
+      ;;
+    -q|--no-log)
+      nolog=1
+      shift
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
 
 compose="${1}"
 if [ -z "${compose}" ]; then
@@ -63,12 +81,26 @@ if [ -z "${compose}" ]; then
   exit 10
 fi
 shift
-if [[ ! "${compose}" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+# The name is a directory in the compose shared folder.  Only reject names
+# that could escape it or be mistaken for an option.
+if [[ "${compose}" == */* || "${compose}" == "." || "${compose}" == ".." || "${compose}" == -* ]]; then
   _error "Invalid compose name '${compose}'." 10
 fi
 
+# Read the podman setting, the compose shared folder reference and its path
+# with a single parse of the config file (one value per line).
+mapfile -t cfg < <(xmlstarlet sel -t \
+  -v "/config/services/compose/podman" -n \
+  -v "/config/services/compose/sharedfolderref" -n \
+  -m "//system/shares/sharedfolder[uuid=/config/services/compose/sharedfolderref]" \
+    -v "//system/fstab/mntent[uuid=current()/mntentref]/dir" \
+    -v "concat('/',reldirpath)" -n \
+  "${OMV_CONFIG_FILE}" 2>/dev/null | xmlstarlet unesc)
+podman="${cfg[0]:-}"
+sfref="${cfg[1]:-}"
+sfpath="${cfg[2]:-}"
+
 # podman setting
-podman=$(omv_config_get "/config/services/compose/podman")
 if [[ "${podman}" == "1" ]]; then
   export DOCKER_HOST="unix:///run/podman/podman.sock"
   export PODMAN_COMPOSE_QUIET=1
@@ -76,13 +108,11 @@ else
   unset DOCKER_HOST
 fi
 
-# Get the shared folder reference and path
-sfref=$(omv_config_get "/config/services/compose/sharedfolderref")
-if ! omv_isuuid "${sfref}"; then
+# Check the shared folder reference and path
+if [[ ! "${sfref}" =~ ^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$ ]]; then
   _error "No compose sharedfolder set." 11
 fi
-sfpath="$(omv_get_sharedfolder_path "${sfref}")"
-if [ ! -d "${sfpath}" ]; then
+if [ -z "${sfpath}" ] || [ ! -d "${sfpath}" ]; then
   _error "Shared folder directory '${sfpath}' does not exist." 12
 fi
 sfpath="${sfpath/%\/}"
@@ -110,11 +140,19 @@ if [ -f "${env}" ]; then
   dockerComposeArgs+=("--env-file" "${env}")
 fi
 
+cmdLine=""
+[ -n "${DOCKER_HOST}" ] && cmdLine="$(printf 'DOCKER_HOST=%q ' "${DOCKER_HOST}")"
+cmdLine+="$(printf '%q ' docker compose "${dockerComposeArgs[@]}" "$@")"
+cmdLine="${cmdLine% }"
+
 if [ ${dryrun} -eq 1 ]; then
-  [ -n "${DOCKER_HOST}" ] && printf 'DOCKER_HOST=%q ' "${DOCKER_HOST}"
-  printf '%q ' docker compose "${dockerComposeArgs[@]}" "$@"
-  echo
+  echo "${cmdLine}"
   exit 0
+fi
+
+# log the command; never fail the run if the log is not writable
+if [ ${nolog} -eq 0 ]; then
+  printf '[%(%Y-%m-%d %H:%M:%S%z)T] [composerun] %s\n' -1 "${cmdLine}" 2>/dev/null >> "${logFile}" || true
 fi
 
 exec docker compose "${dockerComposeArgs[@]}" "$@"
