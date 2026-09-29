@@ -1246,8 +1246,174 @@ section "Compose file commands"
 if [ -n "$FILE_UUID" ]; then
     assert_rpc_bg "doCommand (config)" "Compose" "doCommand" \
         "{\"uuid\":\"$FILE_UUID\",\"command\":\"config\",\"command2\":\"\"}"
+    # doCommand runs compose through omv-compose-run, which logs each command
+    CMD_LOG_LINE=$(tail -n 1 /var/log/omv-compose-run.log 2>/dev/null || true)
+    if echo "$CMD_LOG_LINE" | grep -q "\[composerun\] .*/omvtest_compose/omvtest_compose.yml .* config$"; then
+        _pass "doCommand runs through omv-compose-run"
+    else
+        _fail "doCommand runs through omv-compose-run" "last log line: ${CMD_LOG_LINE:0:300}"
+    fi
 else
     _skip "doCommand (config)" "no file uuid"
+    _skip "doCommand runs through omv-compose-run" "no file uuid"
+fi
+
+# Service RPCs take the compose file path from the UI; it must be inside the
+# compose shared folder.
+assert_rpc_fails "doServiceCommand rejects path outside compose folder" "Compose" "doServiceCommand" \
+    '{"command":"ps","command2":"","service":"x","path":"/etc/omvtest/omvtest.yml","envpath":"","overridepath":""}'
+
+# ---------------------------------------------------------------------------
+# 11b. omv-compose-run wrapper
+# ---------------------------------------------------------------------------
+section "omv-compose-run"
+
+# Use OMV_COMPOSE_RUN if set, else the installed command, else the repo copy
+# (so the wrapper can be tested before the package is installed).
+RUN_CMD="${OMV_COMPOSE_RUN:-$(command -v omv-compose-run 2>/dev/null || true)}"
+if [ -z "$RUN_CMD" ] && [ -x "$(dirname "$0")/../usr/sbin/omv-compose-run" ]; then
+    RUN_CMD="$(dirname "$0")/../usr/sbin/omv-compose-run"
+fi
+
+# Run omv-compose-run and check its exit code. Output is in $RUN_OUT.
+# Usage: assert_run <desc> <expected exit code> [pattern] -- <args...>
+RUN_OUT=""
+assert_run() {
+    local desc=$1 want=$2 pattern="" ec=0
+    shift 2
+    if [ "${1:-}" != "--" ]; then pattern=$1; shift; fi
+    shift
+    RUN_OUT=$("$RUN_CMD" "$@" 2>&1) || ec=$?
+    if [ $ec -ne "$want" ]; then
+        _fail "$desc" "exit $ec (expected $want): ${RUN_OUT:0:300}"
+        return 1
+    fi
+    if [ -n "$pattern" ] && ! echo "$RUN_OUT" | grep -qF -- "$pattern"; then
+        _fail "$desc" "'$pattern' not found in: ${RUN_OUT:0:300}"
+        return 1
+    fi
+    _pass "$desc"
+    return 0
+}
+
+if [ -z "$RUN_CMD" ]; then
+    _skip "omv-compose-run tests" "omv-compose-run not found"
+else
+    info "Using $RUN_CMD"
+
+    # Argument handling (no stack needed)
+    assert_run "omv-compose-run --help" 0 "Usage:" -- --help
+    assert_run "omv-compose-run (no name) exits 10" 10 -- ""
+    assert_run "omv-compose-run rejects name with slash" 10 "Invalid compose name" -- 'a/b' ps
+    assert_run "omv-compose-run rejects path traversal" 10 "Invalid compose name" -- '..' ps
+    assert_run "omv-compose-run rejects name starting with -" 10 "Invalid compose name" -- -x ps
+    assert_run "omv-compose-run missing stack exits 13" 13 "does not exist" -- omvtest_nonexistent ps
+
+    RUN_SF_UUID=$(json_get "$SETTINGS" "sharedfolderref")
+    RUN_SF_PATH=$(omv-rpc -u admin "ShareMgmt" "getPath" "{\"uuid\":\"$RUN_SF_UUID\"}" 2>/dev/null \
+        | python3 -c "import sys,json; print(json.load(sys.stdin).rstrip('/'))" 2>/dev/null || echo "")
+    RUN_DIR="$RUN_SF_PATH/omvtest_compose"
+
+    if [ -z "$FILE_UUID" ] || [ ! -f "$RUN_DIR/omvtest_compose.yml" ]; then
+        _skip "omv-compose-run stack tests" "no omvtest_compose file on disk"
+    else
+        # Dry run: check the arguments the wrapper builds
+        assert_run "dry-run adds --file for stack yml" 0 \
+            "--file $RUN_DIR/omvtest_compose.yml" -- -n omvtest_compose config
+        DRY_OUT="$RUN_OUT"
+        if echo "$DRY_OUT" | grep -qF -- "--env-file $RUN_DIR/omvtest_compose.env"; then
+            _pass "dry-run adds --env-file for stack env"
+        else
+            _fail "dry-run adds --env-file for stack env" "${DRY_OUT:0:300}"
+        fi
+        if [ -f "$RUN_SF_PATH/global.env" ]; then
+            if echo "$DRY_OUT" | grep -qF -- "--env-file $RUN_SF_PATH/global.env --env-file $RUN_DIR/omvtest_compose.env"; then
+                _pass "dry-run adds global.env before stack env"
+            else
+                _fail "dry-run adds global.env before stack env" "${DRY_OUT:0:300}"
+            fi
+        elif echo "$DRY_OUT" | grep -qF "global.env"; then
+            _fail "dry-run omits missing global.env" "${DRY_OUT:0:300}"
+        else
+            _pass "dry-run omits missing global.env"
+        fi
+        # The plugin normally writes compose.override.yml even when the
+        # override is empty, so check both cases against what is on disk.
+        if [ -f "$RUN_DIR/compose.override.yml" ]; then
+            if echo "$DRY_OUT" | grep -qF -- "--file $RUN_DIR/compose.override.yml"; then
+                _pass "dry-run adds existing override"
+            else
+                _fail "dry-run adds existing override" "${DRY_OUT:0:300}"
+            fi
+        else
+            if echo "$DRY_OUT" | grep -qF "compose.override.yml"; then
+                _fail "dry-run omits missing override" "${DRY_OUT:0:300}"
+            else
+                _pass "dry-run omits missing override"
+            fi
+        fi
+        if [ "$RUNTIME" = "podman" ]; then
+            if echo "$DRY_OUT" | grep -q "^DOCKER_HOST=unix:///run/podman/podman.sock "; then
+                _pass "dry-run sets DOCKER_HOST for podman"
+            else
+                _fail "dry-run sets DOCKER_HOST for podman" "${DRY_OUT:0:300}"
+            fi
+        elif echo "$DRY_OUT" | grep -q "DOCKER_HOST"; then
+            _fail "dry-run leaves DOCKER_HOST unset for docker" "${DRY_OUT:0:300}"
+        else
+            _pass "dry-run leaves DOCKER_HOST unset for docker"
+        fi
+        assert_run "dry-run quotes args with spaces" 0 'logs my\ svc' -- -n omvtest_compose logs "my svc"
+
+        # Real runs
+        assert_run "omv-compose-run config --services" 0 "hello" -- omvtest_compose config --services
+        RUN_LOG_LINE=$(tail -n 1 /var/log/omv-compose-run.log 2>/dev/null || true)
+        if echo "$RUN_LOG_LINE" | grep -q "\[composerun\] .*docker compose --file $RUN_DIR/omvtest_compose.yml .* config --services$"; then
+            _pass "omv-compose-run logs the command it runs"
+        else
+            _fail "omv-compose-run logs the command it runs" "last log line: ${RUN_LOG_LINE:0:300}"
+        fi
+        RUN_LOG_COUNT=$(wc -l < /var/log/omv-compose-run.log 2>/dev/null || echo 0)
+        assert_run "omv-compose-run --no-log runs the command" 0 "hello" -- --no-log omvtest_compose config --services
+        if [ "$(wc -l < /var/log/omv-compose-run.log 2>/dev/null || echo 0)" = "$RUN_LOG_COUNT" ]; then
+            _pass "omv-compose-run --no-log does not log"
+        else
+            _fail "omv-compose-run --no-log does not log" "log grew: $(tail -n 1 /var/log/omv-compose-run.log)"
+        fi
+        RUN_EC=0
+        "$RUN_CMD" omvtest_compose config --omvtest-bogus-flag >/dev/null 2>&1 || RUN_EC=$?
+        if [ $RUN_EC -ne 0 ] && [ $RUN_EC -ne 13 ]; then
+            _pass "omv-compose-run passes through compose exit code ($RUN_EC)"
+        else
+            _fail "omv-compose-run passes through compose exit code" "got exit $RUN_EC"
+        fi
+
+        # Override + env file are both applied: the override reads a variable
+        # that only exists in the stack env file.
+        cp -p "$RUN_DIR/omvtest_compose.env" "$RUN_DIR/omvtest_compose.env.omvtest_bak"
+        RUN_OVR_BAK=""
+        if [ -f "$RUN_DIR/compose.override.yml" ]; then
+            RUN_OVR_BAK="$RUN_DIR/compose.override.yml.omvtest_bak"
+            cp -p "$RUN_DIR/compose.override.yml" "$RUN_OVR_BAK"
+        fi
+        echo "OMVTEST_RUN_VAR=from_stack_env" >> "$RUN_DIR/omvtest_compose.env"
+        cat > "$RUN_DIR/compose.override.yml" <<'EOF'
+services:
+  hello:
+    environment:
+      OMVTEST_RUN_OVR: "${OMVTEST_RUN_VAR:-unset}"
+EOF
+        assert_run "dry-run adds --file for override" 0 \
+            "--file $RUN_DIR/compose.override.yml" -- -n omvtest_compose config
+        assert_run "config applies override and stack env" 0 \
+            "OMVTEST_RUN_OVR: from_stack_env" -- omvtest_compose config
+        if [ -n "$RUN_OVR_BAK" ]; then
+            mv -f "$RUN_OVR_BAK" "$RUN_DIR/compose.override.yml"
+        else
+            rm -f "$RUN_DIR/compose.override.yml"
+        fi
+        mv -f "$RUN_DIR/omvtest_compose.env.omvtest_bak" "$RUN_DIR/omvtest_compose.env"
+    fi
 fi
 
 # ---------------------------------------------------------------------------
