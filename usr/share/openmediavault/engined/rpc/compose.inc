@@ -372,6 +372,133 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return (boolval($podman));
     }
 
+    // Build a process that runs docker compose for a stack through
+    // omv-compose-run, which adds the --file/--env-file arguments and the
+    // podman environment. Each entry in $args may hold several words
+    // (e.g. "up -d"); every word is shell-escaped. $noLog skips the
+    // omv-compose-run log, for commands that run on every list refresh.
+    private function getComposeRunProcess(string $cname, array $args,
+        bool $dryRun = false, bool $noLog = false): \OMV\System\Process
+    {
+        $cmdArgs = ['/usr/sbin/omv-compose-run'];
+        if ($dryRun) {
+            $cmdArgs[] = '--dry-run';
+        }
+        if ($noLog) {
+            $cmdArgs[] = '--no-log';
+        }
+        $cmdArgs[] = escapeshellarg($cname);
+        foreach ($args as $arg) {
+            $words = preg_split('/\s+/', trim(strval($arg)), -1, PREG_SPLIT_NO_EMPTY);
+            foreach ($words as $word) {
+                $cmdArgs[] = escapeshellarg($word);
+            }
+        }
+        return new \OMV\System\Process($cmdArgs);
+    }
+
+    // The full docker compose command line omv-compose-run will execute.
+    // Used for the 'show command' setting.
+    private function getComposeRunCmdLine(string $cname, array $args): string
+    {
+        $cmd = $this->getComposeRunProcess($cname, $args, true);
+        $cmd->setRedirect2to1();
+        $cmd->setQuiet(true);
+        $cmd->execute($output, $exitStatus);
+        return implode(PHP_EOL, $output);
+    }
+
+    // Get the compose name from a compose file path sent by the UI and make
+    // sure the path is a compose file in the compose shared folder.
+    private function getComposeNameFromPath(string $sfpath, string $path): string
+    {
+        $cname = basename(dirname($path));
+        if ($path !== sprintf("%s/%s/%s.yml", $sfpath, $cname, $cname)) {
+            throw new \OMV\Exception(sprintf(
+                gettext("Invalid compose file path '%s'."), $path));
+        }
+        return $cname;
+    }
+
+    // Get 'docker compose ps --all --format json' output for each compose
+    // file, one JSON object per line. Uses the cache file when it is newer
+    // than $cacheTime seconds; otherwise runs ps for all uncached compose
+    // files in parallel and refreshes their cache files. These calls run on
+    // every list refresh, so they are not logged by omv-compose-run.
+    private function getComposePsOutputs(array $cnames, string $sfpath,
+        string $cachePrefix, int $cacheTime): array
+    {
+        $outputs = [];
+        $cmdLines = [];
+        foreach ($cnames as $cname) {
+            $cacheFile = sprintf('%s_%s.json', $cachePrefix, $cname);
+            if ($cacheTime > 0 && file_exists($cacheFile) &&
+              (time() - filemtime($cacheFile)) < $cacheTime) {
+                $outputs[$cname] = json_decode(file_get_contents($cacheFile), true) ?? [];
+                continue;
+            }
+            $composeFile = sprintf("%s/%s/%s.yml", $sfpath, $cname, $cname);
+            if (!file_exists($composeFile)) {
+                $outputs[$cname] = [];
+                continue;
+            }
+            $cmd = $this->getComposeRunProcess($cname,
+                ['ps --all --format json'], false, true);
+            $cmdLines[$cname] = $cmd->getCommandLine();
+        }
+        foreach ($this->execParallel($cmdLines) as $cname => $output) {
+            $outputs[$cname] = $output;
+            if ($cacheTime > 0) {
+                $cacheFile = sprintf('%s_%s.json', $cachePrefix, $cname);
+                file_put_contents($cacheFile, json_encode($output));
+            }
+        }
+        return $outputs;
+    }
+
+    // Run shell command lines in parallel, at most $maxParallel at a time.
+    // Returns the non-empty stdout lines of each command, keyed like
+    // $cmdLines. stderr is discarded.
+    private function execParallel(array $cmdLines, int $maxParallel = 4): array
+    {
+        $results = [];
+        $running = [];
+        while (!empty($cmdLines) || !empty($running)) {
+            while (!empty($cmdLines) && count($running) < $maxParallel) {
+                $key = array_key_first($cmdLines);
+                $cmdLine = $cmdLines[$key];
+                unset($cmdLines[$key]);
+                $proc = proc_open($cmdLine, [
+                    0 => ['file', '/dev/null', 'r'],
+                    1 => ['pipe', 'w'],
+                    2 => ['file', '/dev/null', 'w']
+                ], $pipes);
+                if (!is_resource($proc)) {
+                    $results[$key] = [];
+                    continue;
+                }
+                stream_set_blocking($pipes[1], false);
+                $running[$key] = ['proc' => $proc, 'pipe' => $pipes[1], 'out' => ''];
+            }
+            // wait until a running command has output or has exited
+            $read = array_column($running, 'pipe');
+            $write = null;
+            $except = null;
+            @stream_select($read, $write, $except, 1);
+            foreach (array_keys($running) as $key) {
+                $running[$key]['out'] .= stream_get_contents($running[$key]['pipe']);
+                if (feof($running[$key]['pipe'])) {
+                    fclose($running[$key]['pipe']);
+                    proc_close($running[$key]['proc']);
+                    $lines = array_map('rtrim', explode("\n", $running[$key]['out']));
+                    $results[$key] = array_values(array_filter($lines));
+                    unset($running[$key]);
+                }
+            }
+        }
+        return $results;
+    }
+
     private function getPort($context, $publisher, $fqdn)
     {
         $port = '';
@@ -942,55 +1069,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $db = \OMV\Config\Database::getInstance();
         $settings = $db->get("conf.service.compose");
         $cacheTime = $settings->get('cachetimefiles');
-        $podman = $this->getPodman($context);
         // get fqdn
         $fqdn = $this->getUrlHostname($context);
+        // get ps output for all compose files (in parallel)
+        $cnames = [];
+        foreach ($objects as $objectv) {
+            $cnames[] = $objectv->get('name');
+        }
+        $psOutputs = $this->getComposePsOutputs($cnames, $sfpath,
+            $this->cacheFileFiles, intval($cacheTime));
         // Add additional informations.
         $objectsAssoc = [];
         foreach ($objects as $objectk => &$objectv) {
             // build filenames
             $cname = $objectv->get('name');
-            $composeDir = sprintf("%s/%s", $sfpath, $cname);
-            $composeName = sprintf("%s/%s", $composeDir, $cname);
-            $composeFile = sprintf("%s.yml", $composeName);
-            $envFile = sprintf("%s.env", $composeName);
-            $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
-            $globalEnvFile = sprintf("%s/global.env", $sfpath);
-            // Check if cache file exists and is not older than cache setting
-            $cacheFile = sprintf('%s_%s.json', $this->cacheFileFiles, $cname);
-            $cacheTime = 60; // You can adjust this as needed
-            $output = [];
-            if ($cacheTime > 0 && file_exists($cacheFile) &&
-              (time() - filemtime($cacheFile)) < $cacheTime) {
-                $output = json_decode(file_get_contents($cacheFile), true);
-            } else {
-                // get ps output
-                $cmdArgs = [];
-                $cmdArgs[] = 'docker';
-                $cmdArgs[] = 'compose';
-                $cmdArgs[] = sprintf('--file "%s"', $composeFile);
-                if (file_exists($overrideFile)) {
-                    $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
-                }
-                if (file_exists($globalEnvFile)) {
-                    $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-                }
-                $cmdArgs[] = sprintf("--env-file '%s'", $envFile);
-                $cmdArgs[] = 'ps';
-                $cmdArgs[] = '--all';
-                $cmdArgs[] = '--format "json"';
-                $cmd = new \OMV\System\Process($cmdArgs);
-                if ($podman) {
-                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-                }
-                $cmd->setQuiet(true);
-                $cmd->execute($output, $exitStatus);
-                $output = array_filter($output);
-                if ($cacheTime > 0) {
-                    file_put_contents($cacheFile, json_encode($output));
-                }
-            }
+            $composeFile = sprintf("%s/%s/%s.yml", $sfpath, $cname, $cname);
+            $output = $psOutputs[$cname] ?? [];
             // get state of each container
             $down = 0;
             $exited = 0;
@@ -1134,6 +1228,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         file_put_contents($ymlFile2, $override);
         file_put_contents($envFile1, $env);
 
+        // checks temporary files, so omv-compose-run can't be used here
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'compose';
@@ -1270,26 +1365,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $envFile = sprintf("%s.env", $composeName);
         $composeLink = sprintf("%s/compose.yml", $composeDir);
         $envLink = sprintf("%s/.env", $composeDir);
-        $globalEnvFile = sprintf("%s/global.env", $sfpath);
         // stop container(s) if running
-        $cmdArgs = [];
-        $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'compose';
-        $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
-        if (file_exists($overrideFile)) {
-            $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
-        }
-        if (file_exists($globalEnvFile)) {
-            $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-        }
-        $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
-        $cmdArgs[] = 'down';
-        $cmd = new \OMV\System\Process($cmdArgs);
-        $podman = $this->getPodman($context);
-        if ($podman) {
-            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-        }
+        $cmd = $this->getComposeRunProcess($cname, ['down']);
         $cmd->setQuiet(true);
         $cmd->execute($output, $exitStatus);
         // remove and commit to git if repo exists
@@ -1593,46 +1670,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.compose.file", $params['uuid']);
-        $podman = $this->getPodman($context);
-        $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($object, $params, $sfpath, $showCmd, $podman) {
+            use ($object, $params, $showCmd) {
                 $cname = $object->get('name');
-                $composeDir = sprintf("%s/%s", $sfpath, $cname);
-                $composeName = sprintf("%s/%s", $composeDir, $cname);
-                $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
-                $globalEnvFile = sprintf("%s/global.env", $sfpath);
-                $cmdArgs = [];
-                $cmdArgs[] = 'docker';
-                $cmdArgs[] = 'compose';
-                $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
-                if (file_exists($overrideFile)) {
-                    $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
-                }
-                if (file_exists($globalEnvFile)) {
-                    $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-                }
-                $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
-                $cmdArgs[] = $params['command'];
-                $cmdArgs[] = $params['command2'];
+                $args = [$params['command'], $params['command2']];
                 $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
                 if ($quiet) {
                     switch ($params['command']) {
-                        case 'pull': $cmdArgs[] = '--quiet'; break;
-                        case 'up -d': $cmdArgs[] = '--quiet-pull'; break;
+                        case 'pull': $args[] = '--quiet'; break;
+                        case 'up -d': $args[] = '--quiet-pull'; break;
                     }
                 }
-                $cmdArgs = array_filter($cmdArgs);
-                $cmd = new \OMV\System\Process($cmdArgs);
-                if ($podman) {
-                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-                }
+                $cmd = $this->getComposeRunProcess($cname, $args);
                 $cmd->setRedirect2to1();
                 $cmd->setQuiet(true);
                 $cmdLine = $cmd->getCommandLine();
-                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $this->getComposeRunCmdLine($cname, $args) . PHP_EOL . PHP_EOL, FILE_APPEND);
                 $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
                 if ($params['command'] != 'config' && $exitStatus !== 0) {
                     $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
@@ -1654,49 +1708,24 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         foreach ($uuids as $uuid) {
             $objects[] = $db->get("conf.service.compose.file", $uuid);
         }
-        $podman = $this->getPodman($context);
-        $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($objects, $params, $sfpath, $showCmd, $podman) {
+            use ($objects, $params, $showCmd) {
                 foreach ($objects as $object) {
                     $cname = $object->get('name');
-                    $composeDir = sprintf("%s/%s", $sfpath, $cname);
-                    $composeName = sprintf("%s/%s", $composeDir, $cname);
-                    $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
-                    $globalEnvFile = sprintf("%s/global.env", $sfpath);
-                    $cmdArgs = [];
-                    $cmdArgs[] = 'docker';
-                    $cmdArgs[] = 'compose';
-                    $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
-                    if (file_exists($overrideFile)) {
-                        $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
-                    }
-                    if (file_exists($globalEnvFile)) {
-                        $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-                    }
-                    $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
-                    $cmdArgs[] = $params['command'];
-                    if (!empty($params['command2'] ?? '')) {
-                        $cmdArgs[] = $params['command2'];
-                    }
+                    $args = [$params['command'], $params['command2'] ?? ''];
                     $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
                     if ($quiet) {
                         switch ($params['command']) {
-                            case 'pull': $cmdArgs[] = '--quiet'; break;
-                            case 'up -d': $cmdArgs[] = '--quiet-pull'; break;
+                            case 'pull': $args[] = '--quiet'; break;
+                            case 'up -d': $args[] = '--quiet-pull'; break;
                         }
                     }
-                    $cmdArgs = array_filter($cmdArgs);
-                    $cmd = new \OMV\System\Process($cmdArgs);
-                    if ($podman) {
-                        $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-                        $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-                    }
+                    $cmd = $this->getComposeRunProcess($cname, $args);
                     $cmd->setRedirect2to1();
                     $cmd->setQuiet(true);
                     $cmdLine = $cmd->getCommandLine();
-                    if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                    if ($showCmd) file_put_contents($bgOutputFilename, $this->getComposeRunCmdLine($cname, $args) . PHP_EOL . PHP_EOL, FILE_APPEND);
                     $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
                     if ($exitStatus !== 0) {
                         $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
@@ -1717,43 +1746,18 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $objects = $db->get("conf.service.compose.file");
-        $podman = $this->getPodman($context);
-        $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($objects, $sfpath, $showCmd, $podman) {
+            use ($objects, $showCmd) {
                 foreach ($objects as $objectk => &$objectv) {
-                    // build filenames
                     $cname = $objectv->get('name');
-                    $composeDir = sprintf("%s/%s", $sfpath, $cname);
-                    $composeName = sprintf("%s/%s", $composeDir, $cname);
-                    $composeFile = sprintf("%s.yml", $composeName);
-                    $envFile = sprintf("%s.env", $composeName);
-                    $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
-                    $globalEnvFile = sprintf("%s/global.env", $sfpath);
-                    $cmdArgs = [];
-                    $cmdArgs[] = 'docker';
-                    $cmdArgs[] = 'compose';
-                    $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
-                    if (file_exists($overrideFile)) {
-                        $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
-                    }
-                    if (file_exists($globalEnvFile)) {
-                        $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-                    }
-                    $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
-                    $cmdArgs[] = 'down';
-                    $cmd = new \OMV\System\Process($cmdArgs);
-                    if ($podman) {
-                        $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-                        $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-                    }
+                    $cmd = $this->getComposeRunProcess($cname, ['down']);
                     $cmd->setRedirect2to1();
                     $cmd->setQuiet(true);
                     $cmdLine = $cmd->getCommandLine();
-                    if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                    if ($showCmd) file_put_contents($bgOutputFilename, $this->getComposeRunCmdLine($cname, ['down']) . PHP_EOL . PHP_EOL, FILE_APPEND);
                     $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
-                    if ($params['command'] != 'config' && $exitStatus !== 0) {
+                    if ($exitStatus !== 0) {
                         $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
                         file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
                     }
@@ -1856,30 +1860,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Create a temporary file which will contain the content of the requested log file.
         $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
         // Execute the given command to get the log file content.
-        $sfpath = $this->getComposePath($context);
         $cname = $params['name'];
-        $composeDir = sprintf("%s/%s", $sfpath, $cname);
-        $composeName = sprintf("%s/%s", $composeDir, $cname);
-        $overrideFile = sprintf("%s/compose.override.yml", $composeDir);
-        $globalEnvFile = sprintf('%s/global.env', $sfpath);
-        $cmdArgs = [];
-        $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'compose';
-        $cmdArgs[] = sprintf("--file '%s.yml'", $composeName);
-        if (file_exists($overrideFile)) {
-            $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
-        }
-        if (file_exists($globalEnvFile)) {
-            $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-        }
-        $cmdArgs[] = sprintf("--env-file '%s.env'", $composeName);
-        $cmdArgs[] = 'logs';
-        $cmd = new \OMV\System\Process($cmdArgs);
-        $podman = $this->getPodman($context);
-        if ($podman) {
-            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-        }
+        $cmd = $this->getComposeRunProcess($cname, ['logs']);
         $cmd->setRedirect1toFile($tmpFilePath);
         $cmd->setRedirect2to1();
         $cmd->execute();
@@ -2193,7 +2175,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, "rpc.common.getlist");
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
-        $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         $settings = $db->get("conf.service.compose");
         // get fqdn
@@ -2218,51 +2199,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // populate services
         $imagesAssoc = [];
         $objects = $db->get("conf.service.compose.file");
+        // get ps output for all compose files (in parallel)
+        $cnames = [];
+        foreach ($objects as $objectv) {
+            $cnames[] = $objectv->get('name');
+        }
+        $psOutputs = $this->getComposePsOutputs($cnames, $sfpath,
+            $this->cacheFileServices, intval($cacheTime));
         foreach ($objects as $objectk => &$objectv) {
             $cname = $objectv->get('name');
             $path = sprintf("%s/%s/%s", $sfpath, $cname, $cname);
             $filepath = sprintf("%s.yml", $path);
             $envfilepath = sprintf("%s.env", $path);
-            $globalEnvFile = sprintf("%s/global.env", $sfpath);
             $overrideFile = sprintf("%s/%s/compose.override.yml", $sfpath, $cname);
             $exists = file_exists($filepath);
             $output = [];
             if ($exists) {
-                // Check if cache file exists and is not older than cache setting
-                $cacheFile = sprintf('%s_%s.json', $this->cacheFileServices, $cname);
-                if ($cacheTime > 0 && file_exists($cacheFile) &&
-                  (time() - filemtime($cacheFile)) < $cacheTime) {
-                    $output = json_decode(file_get_contents($cacheFile), true);
-                } else {
-                    // Get images
-                    $cmdArgs = [];
-                    $cmdArgs[] = 'docker';
-                    $cmdArgs[] = 'compose';
-                    $cmdArgs[] = sprintf('--file "%s"', $filepath);
-                    if (file_exists($overrideFile)) {
-                        $cmdArgs[] = sprintf('--file "%s"', $overrideFile);
-                    }
-                    if (file_exists($globalEnvFile)) {
-                        $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-                    }
-                    if ($envfilepath != '') {
-                        $cmdArgs[] = sprintf("--env-file '%s'", $envfilepath);
-                    }
-                    $cmdArgs[] = 'ps';
-                    $cmdArgs[] = '--all';
-                    $cmdArgs[] = '--format "json"';
-                    $cmd = new \OMV\System\Process($cmdArgs);
-                    if ($podman) {
-                        $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-                        $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-                    }
-                    $cmd->setQuiet(true);
-                    $cmd->execute($output, $exitStatus);
-                    $output = array_filter($output);
-                    if ($cacheTime > 0) {
-                        file_put_contents($cacheFile, json_encode($output));
-                    }
-                }
+                $output = $psOutputs[$cname] ?? [];
                 foreach ($output as $image) {
                     $imagej = json_decode($image);
                     $ports = [];
@@ -2308,36 +2261,23 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // clear cache for services
         $this->clearCache('services');
         $sfpath = $this->getComposePath($context);
+        $cname = $this->getComposeNameFromPath($sfpath, $params['path']);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $sfpath, $showCmd) {
-                $globalEnvFile = sprintf("%s/global.env", $sfpath);
-                $cmdArgs = [];
-                $cmdArgs[] = 'docker';
-                $cmdArgs[] = 'compose';
-                $cmdArgs[] = sprintf("--file '%s'", $params['path']);
-                if (file_exists($params['overridepath'])) {
-                    $cmdArgs[] = sprintf('--file "%s"', $params['overridepath']);
-                }
-                if (file_exists($globalEnvFile)) {
-                    $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-                }
-                $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
-                $cmdArgs[] = $params['command'];
-                $cmdArgs[] = $params['command2'];
+            use ($params, $cname, $showCmd) {
+                $args = [$params['command'], $params['command2']];
                 $quiet = \OMV\Environment::getBoolean("OMV_COMPOSE_QUIET", false);
                 if ($quiet) {
                     switch ($params['command']) {
-                        case 'pull': $cmdArgs[] = '--quiet'; break;
-                        case 'up -d': $cmdArgs[] = '--quiet-pull'; break;
+                        case 'pull': $args[] = '--quiet'; break;
+                        case 'up -d': $args[] = '--quiet-pull'; break;
                     }
                 }
-                $cmdArgs[] = $params['service'];
-                $cmdArgs = array_filter($cmdArgs);
-                $cmd = new \OMV\System\Process($cmdArgs);
+                $args[] = $params['service'];
+                $cmd = $this->getComposeRunProcess($cname, $args);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
-                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                if ($showCmd) file_put_contents($bgOutputFilename, $this->getComposeRunCmdLine($cname, $args) . PHP_EOL . PHP_EOL, FILE_APPEND);
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
@@ -2352,30 +2292,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.getservicelog");
+        $sfpath = $this->getComposePath($context);
+        $cname = $this->getComposeNameFromPath($sfpath, $params['path']);
         // Create a temporary file which will contain the content of the requested log file.
         $tmpFilePath = tempnam(sys_get_temp_dir(), 'dockerlogfile');
         // Execute the given command to get the log file content.
-        $podman = $this->getPodman($context);
-        $sfpath = $this->getComposePath($context);
-        $globalEnvFile = sprintf('%s/global.env', $sfpath);
-        $cmdArgs = [];
-        $cmdArgs[] = 'docker';
-        $cmdArgs[] = 'compose';
-        $cmdArgs[] = sprintf("--file '%s'", $params['path']);
-        if (file_exists($params['overridepath'])) {
-            $cmdArgs[] = sprintf('--file "%s"', $params['overridepath']);
-        }
-        if (file_exists($globalEnvFile)) {
-            $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-        }
-        $cmdArgs[] = sprintf("--env-file '%s'", $params['envpath']);
-        $cmdArgs[] = 'logs';
-        $cmdArgs[] = $params['service'];
-        $cmd = new \OMV\System\Process($cmdArgs);
-        if ($podman) {
-            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-        }
+        $cmd = $this->getComposeRunProcess($cname, ['logs', $params['service']]);
         $cmd->setRedirect1toFile($tmpFilePath);
         $cmd->setRedirect2to1();
         $cmd->execute();
