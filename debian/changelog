@@ -1,4 +1,4 @@
-openmediavault-compose (8.2.0) UNRELEASED; urgency=medium
+openmediavault-compose (8.2.0) stable; urgency=low
 
   * Add omv-compose-run command
   * Use omv-compose-run for all compose commands in scripts and RPCs
