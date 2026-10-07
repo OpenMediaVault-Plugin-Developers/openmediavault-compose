@@ -122,6 +122,24 @@ data:
                   name: "{{ _selected[0].name }}"
                   options: "pull"
       - type: iconButton
+        icon: mdi:hammer-wrench
+        tooltip: _("Build without cache")
+        enabledConstraints:
+          minSelected: 1
+          maxSelected: 1
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("dockerfile build ...")
+              startOnInit: true
+              request:
+                service: Compose
+                method: doBuild
+                params:
+                  name: "{{ _selected[0].name }}"
+                  options: "nocache"
+      - type: iconButton
         icon: mdi:tag-plus-outline
         tooltip: _("Tag")
         enabledConstraints:

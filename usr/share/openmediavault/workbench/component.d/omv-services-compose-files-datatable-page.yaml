@@ -618,6 +618,27 @@ data:
                 - operator: truthy
                   arg0:
                     prop: build
+          - text: _("Build without cache")
+            icon: mdi:hammer-wrench
+            execute:
+              type: taskDialog
+              taskDialog:
+                config:
+                  title: _("Build without cache ...")
+                  startOnInit: true
+                  request:
+                    service: Compose
+                    method: doCommand
+                    params:
+                      uuid: "{{ _selected[0].uuid }}"
+                      command: "build --no-cache"
+            enabledConstraints:
+              minSelected: 1
+              maxSelected: 1
+              constraint:
+                - operator: truthy
+                  arg0:
+                    prop: build
           - text: _("up and remove orphans")
             icon: mdi:arrow-up-circle-outline
             execute:

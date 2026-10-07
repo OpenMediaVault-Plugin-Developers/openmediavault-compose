@@ -1563,6 +1563,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($params['options'] == 'pull') {
                     $cmdArgs[] = '--pull';
                 }
+                if ($params['options'] == 'nocache') {
+                    $cmdArgs[] = '--no-cache';
+                }
                 $cmdArgs[] = '--progress plain';
                 $cmdArgs[] = sprintf("--tag '%s'", $params['name']);
                 $cmdArgs[] = sprintf("'%s/%s/'", $sfpath, $name);
@@ -4794,8 +4797,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.compose.setjob");
-        // set filepull if filebuild or filenocache are set
-        if ($params['filepull'] || $result['filenoncache']) $params['filebuild'] = true;
+        // set filebuild if filepull or filenocache are set
+        if ($params['filepull'] || $params['filenocache']) $params['filebuild'] = true;
         // make checkboxes in hidden fields are set to false
         $modeKeys = ['maintenance', 'cstate', 'cbuild'];
         $disableMap = [

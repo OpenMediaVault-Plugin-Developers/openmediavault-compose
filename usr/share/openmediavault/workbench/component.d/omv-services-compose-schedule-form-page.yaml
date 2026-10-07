@@ -247,9 +247,15 @@ data:
               - type: checked
                 opposite: false
                 constraint:
-                  operator: truthy
+                  operator: or
                   arg0:
-                    prop: filepull
+                    operator: truthy
+                    arg0:
+                      prop: filepull
+                  arg1:
+                    operator: truthy
+                    arg0:
+                      prop: filenocache
           - type: checkbox
             name: filepull
             label: _("Pull")
