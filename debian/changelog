@@ -1,3 +1,9 @@
+openmediavault-compose (8.2.1) stable; urgency=low
+
+  * Add Build without cache button to Files and Dockerfiles tabs
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 07 Oct 2026 11:21:25 +0000
+
 openmediavault-compose (8.2.0) stable; urgency=low
 
   * Add omv-compose-run command
