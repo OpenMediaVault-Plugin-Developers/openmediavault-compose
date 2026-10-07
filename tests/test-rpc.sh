@@ -11,6 +11,15 @@
 #   - Run as root
 #   - OMV with the compose plugin installed and configured
 #   - The compose shared folder must already be set in plugin settings
+#
+# Optional environment:
+#   OMVTEST_DESTRUCTIVE=1         also run RPCs that affect the whole system:
+#                                 doPrune (network prune), doDownAll (stops
+#                                 every stack), restartDocker, enableDockerRepo
+#                                 and doGit init (creates a git repo in the
+#                                 compose shared folder)
+#   OMVTEST_REINSTALL_DOCKER=1    also run reinstallDocker (purges and
+#                                 reinstalls the docker packages)
 
 set -uo pipefail
 
@@ -79,12 +88,18 @@ assert_rpc() {
 }
 
 # Assert RPC fails (non-zero exit or output contains Exception).
+# Optional 5th arg: case-insensitive grep pattern that must appear in the
+# error output. Optional 6th arg: user to call the RPC as (default: admin).
 assert_rpc_fails() {
-    local desc=$1 svc=$2 method=$3 params=${4:-'{}'}
+    local desc=$1 svc=$2 method=$3 params=${4:-'{}'} pattern=${5:-} user=${6:-admin}
     local out ec=0
-    out=$(omv-rpc -u admin "$svc" "$method" "$params" 2>&1) || ec=$?
+    out=$(omv-rpc -u "$user" "$svc" "$method" "$params" 2>&1) || ec=$?
     if [ $ec -eq 0 ] && ! echo "$out" | grep -qi "exception"; then
         _fail "$desc" "Expected failure but RPC succeeded"
+        return 1
+    fi
+    if [ -n "$pattern" ] && ! echo "$out" | grep -qi -- "$pattern"; then
+        _fail "$desc" "Failed, but '$pattern' not found in: ${out:0:300}"
         return 1
     fi
     _pass "$desc"
@@ -149,11 +164,14 @@ assert_rpc_bg() {
 
 # Call a *Bg method and assert the background task fails (the bg process
 # threw, so getOutput returns an error, or the output contains Exception).
+# The error message and task output are available in $BG_OUT afterwards.
 assert_rpc_bg_fails() {
     local desc=$1 svc=$2 method=$3 params=${4:-'{}'}
     local filename ec=0
+    BG_OUT=""
     filename=$(omv-rpc -u admin "$svc" "$method" "$params" 2>&1) || ec=$?
     if [ $ec -ne 0 ]; then
+        BG_OUT="$filename"
         _pass "$desc"
         return 0
     fi
@@ -171,6 +189,19 @@ assert_rpc_bg_fails() {
         _fail "$desc" "Bg task timed out after ${timeout}s"
         return 1
     fi
+    # Decode the JSON so escaped slashes (\/) in the message are readable.
+    BG_OUT=$(echo "$poll_out" | python3 -c "
+import sys, json
+data = sys.stdin.read()
+try:
+    d = json.loads(data)
+except ValueError:
+    print(data)
+    sys.exit()
+e = d.get('error') or {}
+print(e.get('message', ''))
+print(d.get('output', ''))
+" 2>/dev/null || echo "$poll_out")
     if [ $poll_ec -ne 0 ] || echo "$poll_out" | grep -q "Exception"; then
         _pass "$desc"
         return 0
@@ -183,6 +214,81 @@ assert_rpc_bg_fails() {
 json_get() { echo "$1" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('$2',''))" 2>/dev/null; }
 json_uuid() { json_get "$1" "uuid"; }
 
+# Assert on-disk file $2 contains the literal string $3.
+assert_file_contains() {
+    local desc=$1 file=$2 needle=$3
+    if [ ! -f "$file" ]; then
+        _fail "$desc" "$file does not exist"
+    elif grep -qF -- "$needle" "$file"; then
+        _pass "$desc"
+    else
+        _fail "$desc" "expected '$needle' in $file"
+    fi
+}
+
+# Assert a download RPC (getLog & co.) returns an existing temp file; the
+# file is removed afterwards. Optional 5th arg: expected download filename.
+assert_download() {
+    local desc=$1 svc=$2 method=$3 params=$4 want=${5:-} path name
+    assert_rpc "$desc" "$svc" "$method" "$params" '"filepath"' || return 1
+    path=$(json_get "$RPC_OUT" "filepath")
+    name=$(json_get "$RPC_OUT" "filename")
+    if [ -n "$path" ] && [ -f "$path" ]; then
+        _pass "$desc returns an existing file"
+    else
+        _fail "$desc returns an existing file" "filepath '$path' does not exist"
+    fi
+    if [ -n "$want" ]; then
+        if [ "$name" = "$want" ]; then
+            _pass "$desc filename is $want"
+        else
+            _fail "$desc filename is $want" "got '$name'"
+        fi
+    fi
+    [ -n "$path" ] && rm -f "$path"
+    return 0
+}
+
+# Print a setFile param object. Usage: file_params <name> <body> [env] [override]
+file_params() {
+    python3 - "$@" <<'PY'
+import json, sys
+a = sys.argv[1:] + ['', '']
+print(json.dumps({
+    'name': a[0], 'description': 'RPC test compose file', 'body': a[1],
+    'showenv': False, 'env': a[2], 'showoverride': False, 'override': a[3],
+}))
+PY
+}
+
+# Create a compose file that is deleted on exit. Its uuid is in $CREATED_UUID.
+# Usage: create_extra_file <desc> <name> <body> [env] [override]
+CREATED_UUID=""
+create_extra_file() {
+    local desc=$1 name=$2
+    shift 2
+    CREATED_UUID=""
+    assert_rpc "$desc" "Compose" "setFile" "$(file_params "$name" "$@")"
+    CREATED_UUID=$(json_uuid "$RPC_OUT")
+    [ -z "$CREATED_UUID" ] && CREATED_UUID=$(recover_uuid_from_list "Compose" "getFileList" "name" "$name")
+    [ -n "$CREATED_UUID" ] && EXTRA_FILE_UUIDS+=("$CREATED_UUID")
+}
+
+# Print a field of the list row whose <match_field> equals <value>.
+# Usage: list_field <method> <match_field> <value> <field> [params]
+list_field() {
+    local method=$1 mfield=$2 value=$3 field=$4
+    local params=${5:-'{"start":0,"limit":1000,"sortfield":"name","sortdir":"ASC"}'}
+    omv-rpc -u admin "Compose" "$method" "$params" 2>/dev/null | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+rows = d.get('data', d) if isinstance(d, dict) else d
+for r in rows:
+    if r.get('$mfield') == '$value':
+        print(r.get('$field', '')); break
+" 2>/dev/null
+}
+
 # Generate a random UUIDv4.
 gen_uuid() { python3 -c "import uuid; print(uuid.uuid4())"; }
 
@@ -190,6 +296,14 @@ gen_uuid() { python3 -c "import uuid; print(uuid.uuid4())"; }
 # Defined in /etc/default/openmediavault as OMV_CONFIGOBJECT_NEW_UUID.
 OMV_NEW_UUID=$(grep -oP 'OMV_CONFIGOBJECT_NEW_UUID="\K[^"]+' /etc/default/openmediavault 2>/dev/null \
     || echo "fa4b1c66-ef79-11e5-87a0-0002b3a176b4")
+
+# getPath returns a JSON string, and PHP's json_encode escapes forward
+# slashes (e.g. "\/srv\/..."), so a plain `tr -d '"'` leaves the backslashes
+# in place. Decode it properly with python3 and strip the trailing slash.
+get_sf_path() {
+    omv-rpc -u admin "ShareMgmt" "getPath" "{\"uuid\":\"$1\"}" 2>/dev/null \
+        | python3 -c "import sys,json; print(json.load(sys.stdin).rstrip('/'))" 2>/dev/null
+}
 
 # Recover a UUID from a paginated list RPC by matching on a field value.
 # Usage: recover_uuid_from_list <svc> <list_method> <field> <value>
@@ -245,6 +359,25 @@ NET_TEST_CTR=""
 # Throwaway container that mounts a test volume, used to verify getVolumes maps
 # volumes to the containers using them (removed on exit).
 VOL_TEST_CTR=""
+# Extra compose files, config snippets and dockerfiles created by the
+# per-method coverage tests (removed on exit).
+EXTRA_FILE_NAMES=(omvtest_ports_compose omvtest_nfp_compose
+    omvtest_url_compose omvtest_example omvtest_autocompose)
+EXTRA_CONFIG_NAMES=(omvtest_cfg_path omvtest_cfg_a.conf)
+declare -a EXTRA_FILE_UUIDS=()
+declare -a EXTRA_CONFIG_UUIDS=()
+declare -a EXTRA_DOCKERFILE_UUIDS=()
+# Job used for the doJob test (removed on exit).
+JOB_RUN_UUID=""
+# Image tags created by the doTag / doHubPush tests (removed on exit).
+EXTRA_IMAGES=(omvtest_build_a:omvtest_tag 127.0.0.1:1/omvtest_build_a:omvtest
+    127.0.0.1:1/omvtest_build_a:latest)
+# Directory next to the backup shared folder used by the deleteBackup
+# traversal test (removed on exit).
+BACKUP_TRAVERSAL_DIR=""
+# Non-admin username used for the RPC role checks. It does not have to exist:
+# omv-rpc builds a user-role context for any name other than admin.
+NONADMIN_USER="omvtest_nonadmin"
 
 # Delete a named test object if it exists in a list RPC response.
 # $6 is the field to match on (default: "name").
@@ -272,6 +405,13 @@ pre_cleanup() {
     purge_by_name "Compose" "getFileList"       "$list" "deleteFile"       "omvtest_sfpath_compose"
     purge_by_name "Compose" "getFileList"       "$list" "deleteFile"       "omvtest_datapath_compose"
     purge_by_name "Compose" "getConfigList"     "$list" "deleteConfig"     "omvtest_config"
+    for cname in "${EXTRA_CONFIG_NAMES[@]}"; do
+        purge_by_name "Compose" "getConfigList" "$list" "deleteConfig" "$cname"
+    done
+    for fname in "${EXTRA_FILE_NAMES[@]}"; do
+        purge_by_name "Compose" "getFileList" "$list" "deleteFile" "$fname"
+    done
+    purge_by_name "Compose" "getDockerfileList" "$list" "deleteDockerfile" "omvtest_dfimport"
     purge_by_name "Compose" "getDockerfileList" "$list" "deleteDockerfile" "omvtest_dockerfile"
     for bname in "${BUILD_NAMES[@]}"; do
         purge_by_name "Compose" "getDockerfileList" "$list" "deleteDockerfile" "$bname"
@@ -294,6 +434,7 @@ for r in rows:
     # Jobs don't have a "name" field — match on "comment" instead
     local job_list='{"start":0,"limit":100,"sortfield":"execution","sortdir":"ASC"}'
     purge_by_name "Compose" "getJobList" "$job_list" "deleteJob" "omvtest_job" "comment"
+    purge_by_name "Compose" "getJobList" "$job_list" "deleteJob" "omvtest_job_run" "comment"
     # Remove any leftover compose files from a previous import test run
     local stale
     stale=$(omv-rpc -u admin "Compose" "getFileList" "$list" 2>/dev/null \
@@ -315,14 +456,24 @@ for r in rows:
 
 cleanup() {
     section "Cleanup"
-    if [ -n "$JOB_UUID" ]; then
-        info "Deleting test job $JOB_UUID"
-        omv-rpc -u admin "Compose" "deleteJob" "{\"uuid\":\"$JOB_UUID\"}" >/dev/null 2>&1 || true
-    fi
-    if [ -n "$CONFIG_UUID" ]; then
-        info "Deleting test config snippet $CONFIG_UUID"
-        omv-rpc -u admin "Compose" "deleteConfig" "{\"uuid\":\"$CONFIG_UUID\"}" >/dev/null 2>&1 || true
-    fi
+    for uuid in "$JOB_UUID" "$JOB_RUN_UUID"; do
+        [ -z "$uuid" ] && continue
+        info "Deleting test job $uuid"
+        omv-rpc -u admin "Compose" "deleteJob" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
+    done
+    for uuid in "$CONFIG_UUID" "${EXTRA_CONFIG_UUIDS[@]}"; do
+        [ -z "$uuid" ] && continue
+        info "Deleting test config snippet $uuid"
+        omv-rpc -u admin "Compose" "deleteConfig" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
+    done
+    for uuid in "${EXTRA_DOCKERFILE_UUIDS[@]}"; do
+        info "Deleting test dockerfile $uuid"
+        omv-rpc -u admin "Compose" "deleteDockerfile" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
+    done
+    for uuid in "${EXTRA_FILE_UUIDS[@]}"; do
+        info "Deleting test compose file $uuid"
+        omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
+    done
     if [ -n "$DOCKERFILE_UUID" ]; then
         info "Deleting test dockerfile $DOCKERFILE_UUID"
         omv-rpc -u admin "Compose" "deleteDockerfile" "{\"uuid\":\"$DOCKERFILE_UUID\"}" >/dev/null 2>&1 || true
@@ -331,8 +482,8 @@ cleanup() {
         info "Deleting multi-build test dockerfile $uuid"
         omv-rpc -u admin "Compose" "deleteDockerfile" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
     done
-    for bname in "${BUILD_NAMES[@]}"; do
-        "$RUNTIME" image rm -f "$bname" >/dev/null 2>&1 || true
+    for img in "${EXTRA_IMAGES[@]}" "${BUILD_NAMES[@]}"; do
+        "$RUNTIME" image rm -f "$img" >/dev/null 2>&1 || true
     done
     if [ -n "$FILE_UUID" ]; then
         info "Deleting test compose file $FILE_UUID"
@@ -358,6 +509,10 @@ cleanup() {
         info "Deleting imported test file $uuid"
         omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
     done
+    if [ -n "$BACKUP_TRAVERSAL_DIR" ] && [ -d "$BACKUP_TRAVERSAL_DIR" ]; then
+        info "Removing deleteBackup traversal test dir $BACKUP_TRAVERSAL_DIR"
+        rm -rf "$BACKUP_TRAVERSAL_DIR"
+    fi
     if [ -n "$IMPORT_TMP" ]; then
         info "Removing temp import dir $IMPORT_TMP"
         rm -rf "$IMPORT_TMP"
@@ -445,6 +600,23 @@ print(json.dumps(out))
 " 2>/dev/null)
     if [ -n "$SET_PARAMS" ]; then
         assert_rpc "set settings (round-trip)" "Compose" "set" "$SET_PARAMS"
+
+        # The shared folder checks run before anything is written, so these
+        # cannot change the settings.
+        BAD_SET=$(echo "$SET_PARAMS" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+d['podmansharedfolderref'] = d.get('sharedfolderref', '')
+print(json.dumps(d))")
+        assert_rpc_fails "set rejects compose folder == podman folder" "Compose" "set" \
+            "$BAD_SET" "must be different than podman shared folder"
+        BAD_SET=$(echo "$SET_PARAMS" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+d['datasharedfolderref'] = d.get('sharedfolderref', '')
+print(json.dumps(d))")
+        assert_rpc_fails "set rejects compose folder == data folder" "Compose" "set" \
+            "$BAD_SET" "must be different than data shared folder"
     fi
     # Pick the container runtime CLI the network tests use for direct calls.
     if echo "$SETTINGS" | grep -q '"podman":[[:space:]]*true'; then
@@ -452,6 +624,12 @@ print(json.dumps(out))
     fi
 fi
 command -v "$RUNTIME" >/dev/null 2>&1 || info "Runtime '$RUNTIME' CLI not found — some network tests may skip"
+
+# Absolute path of the compose shared folder.
+SF_PATH=$(omv-rpc -u admin "ShareMgmt" "getPath" \
+    "{\"uuid\":\"$(json_get "$SETTINGS" "sharedfolderref")\"}" 2>/dev/null \
+    | python3 -c "import sys,json; print(json.load(sys.stdin).rstrip('/'))" 2>/dev/null || echo "")
+info "Compose shared folder path: ${SF_PATH:-<unknown>}"
 
 # ---------------------------------------------------------------------------
 # 2. Compose files — CRUD
@@ -465,6 +643,7 @@ assert_rpc_bg "getFileListBg" "Compose" "getFileListBg" \
     '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}'
 
 assert_rpc "getFileListSuggest" "Compose" "getFileListSuggest" '{}'
+assert_rpc "getFileListSuggest includes '*' wildcard" "Compose" "getFileListSuggest" '{}' '"\*"'
 
 assert_rpc "enumerateFiles" "Compose" "enumerateFiles" '{}'
 
@@ -481,6 +660,16 @@ print(json.dumps({
     'override': ''
 }))
 ")
+# Number of git commits touching the test compose file (-1: no git repo).
+git_commit_count() {
+    if [ -n "$SF_PATH" ] && [ -d "$SF_PATH/.git" ]; then
+        git -C "$SF_PATH" rev-list --count HEAD -- "omvtest_compose/omvtest_compose.yml" 2>/dev/null || echo 0
+    else
+        echo -1
+    fi
+}
+GIT_COUNT_BEFORE=$(git_commit_count)
+
 assert_rpc "setFile (create)" "Compose" "setFile" "$CREATE_PARAMS"
 FILE_UUID=$(json_uuid "$RPC_OUT")
 # If the RPC failed due to a salt deploy error unrelated to our file (e.g. a
@@ -491,6 +680,16 @@ if [ -z "$FILE_UUID" ]; then
     [ -n "$FILE_UUID" ] && info "Recovered uuid from DB after salt failure: $FILE_UUID"
 fi
 info "Created compose file uuid=$FILE_UUID"
+
+# Regression: setFile only set the compose name on update, so a new file was
+# never added to the git repo of the compose shared folder.
+if [ "$GIT_COUNT_BEFORE" = "-1" ]; then
+    _skip "setFile (create) commits the new file to git" "compose shared folder is not a git repo"
+elif [ "$(git_commit_count)" -gt "$GIT_COUNT_BEFORE" ]; then
+    _pass "setFile (create) commits the new file to git"
+else
+    _fail "setFile (create) commits the new file to git" "no new commit for omvtest_compose/omvtest_compose.yml"
+fi
 
 if [ -n "$FILE_UUID" ]; then
     assert_rpc "getFile" "Compose" "getFile" "{\"uuid\":\"$FILE_UUID\"}" '"omvtest_compose"'
@@ -509,13 +708,125 @@ print(json.dumps({
 }))
 ")
     assert_rpc "setFile (update description)" "Compose" "setFile" "$UPDATE_PARAMS" 'updated'
+    # An update writes the files directly instead of going through salt.
+    ON_DISK_YML="$SF_PATH/omvtest_compose/omvtest_compose.yml"
+    if [ -f "$ON_DISK_YML" ] && grep -qF "# RPC test compose file - updated" "$ON_DISK_YML"; then
+        _pass "setFile (update) rewrites the compose file on disk"
+    else
+        _fail "setFile (update) rewrites the compose file on disk" "new description not in $ON_DISK_YML"
+    fi
+    assert_rpc_fails "setFile (duplicate name)" "Compose" "setFile" "$CREATE_PARAMS"
 else
     _skip "getFile" "no file uuid"
     _skip "setFile (update)" "no file uuid"
+    _skip "setFile (update) rewrites the compose file on disk" "no file uuid"
+    _skip "setFile (duplicate name)" "no file uuid"
+fi
+
+assert_rpc "enumerateComposeNames" "Compose" "enumerateComposeNames" '{}' '"omvtest_compose"'
+if echo "$RPC_OUT" | python3 -c "
+import sys, json
+names = [r['name'] for r in json.load(sys.stdin)]
+sys.exit(0 if '*' not in names else 1)" 2>/dev/null; then
+    _pass "enumerateComposeNames omits '*' wildcard"
+else
+    _fail "enumerateComposeNames omits '*' wildcard" "${RPC_OUT:0:200}"
 fi
 
 assert_rpc_fails "setFile (missing name)" "Compose" "setFile" \
     '{"name":"","description":"","body":"","showenv":false,"env":"","showoverride":false,"override":""}'
+
+# ---------------------------------------------------------------------------
+# 2b. Ports + body placeholders
+# ---------------------------------------------------------------------------
+section "Ports and placeholders"
+
+PORTS_BODY='services:
+  web:
+    image: hello-world
+    environment:
+      TZ: ${{ tz }}
+      PUID: ${{ uid:"root" }}
+    ports:
+      - "18080:80"
+      - "127.0.0.1:18081:81/udp"'
+create_extra_file "setFile (create, ports + tz/uid placeholders)" "omvtest_ports_compose" "$PORTS_BODY"
+PORTS_UUID="$CREATED_UUID"
+
+PORTS_YML="$SF_PATH/omvtest_ports_compose/omvtest_ports_compose.yml"
+if [ -z "$PORTS_UUID" ]; then
+    _skip "uid placeholder rendered on disk" "no file uuid"
+    _skip "tz placeholder rendered on disk" "no file uuid"
+else
+    assert_file_contains "uid placeholder rendered on disk" "$PORTS_YML" "PUID: 0"
+    if [ -f "$PORTS_YML" ] && ! grep -qF '${{ tz }}' "$PORTS_YML"; then
+        _pass "tz placeholder rendered on disk"
+    else
+        _fail "tz placeholder rendered on disk" "'\${{ tz }}' still in $PORTS_YML (or file missing)"
+    fi
+fi
+
+if ! php -m 2>/dev/null | grep -qix yaml; then
+    for t in "getUsedPorts lists 18080/tcp" "getUsedPorts lists 127.0.0.1:18081/udp" \
+        "doFindFreePorts skips used ports" "setFile resolves nfp placeholder"; do
+        _skip "$t" "php yaml extension not installed"
+    done
+    assert_rpc "getUsedPorts" "Compose" "getUsedPorts" \
+        '{"start":0,"limit":25,"sortfield":"file","sortdir":"ASC"}' '"total"'
+else
+    assert_rpc "getUsedPorts" "Compose" "getUsedPorts" \
+        '{"start":0,"limit":1000,"sortfield":"file","sortdir":"ASC"}' '"total"'
+    port_row() {
+        echo "$RPC_OUT" | python3 -c "
+import sys, json
+rows = json.load(sys.stdin)['data']
+sys.exit(0 if any(r['file'] == 'omvtest_ports_compose' and r['host_port'] == '$1'
+                  and r['host_ip'] == '$2' and r['protocol'] == '$3' for r in rows) else 1)
+" 2>/dev/null
+    }
+    if port_row 18080 "" tcp; then
+        _pass "getUsedPorts lists 18080/tcp"
+    else
+        _fail "getUsedPorts lists 18080/tcp" "row not found"
+    fi
+    if port_row 18081 127.0.0.1 udp; then
+        _pass "getUsedPorts lists 127.0.0.1:18081/udp"
+    else
+        _fail "getUsedPorts lists 127.0.0.1:18081/udp" "row not found"
+    fi
+
+    assert_rpc_bg "doFindFreePorts" "Compose" "doFindFreePorts" '{"startPort":18080}' \
+        "Suggested free host ports"
+    if echo "$BG_OUT" | grep -qxE '  (18080|18081)'; then
+        _fail "doFindFreePorts skips used ports" "suggested a used port: $(echo "$BG_OUT" | head -5)"
+    else
+        _pass "doFindFreePorts skips used ports"
+    fi
+
+    # ${{ nfp: N }} is replaced with the first free port >= N when saved.
+    create_extra_file "setFile (create, nfp placeholder)" "omvtest_nfp_compose" \
+        'services:
+  web:
+    image: hello-world
+    ports:
+      - "${{ nfp: 18080 }}:80"'
+    if [ -n "$CREATED_UUID" ]; then
+        nfp_port=$(omv-rpc -u admin "Compose" "getFile" "{\"uuid\":\"$CREATED_UUID\"}" 2>/dev/null \
+            | python3 -c "
+import sys, json, re
+m = re.search(r'\"(\d+):80\"', json.load(sys.stdin)['body'])
+print(m.group(1) if m else '')" 2>/dev/null)
+        if [ -n "$nfp_port" ] && [ "$nfp_port" -gt 18081 ]; then
+            _pass "setFile resolves nfp placeholder ($nfp_port)"
+        else
+            _fail "setFile resolves nfp placeholder" "got port '$nfp_port' (expected a free port > 18081)"
+        fi
+    else
+        _skip "setFile resolves nfp placeholder" "no file uuid"
+    fi
+fi
+assert_rpc_bg "getUsedPortsBg" "Compose" "getUsedPortsBg" \
+    '{"start":0,"limit":25,"sortfield":"file","sortdir":"ASC"}'
 
 # ---------------------------------------------------------------------------
 # 3. Global environment
@@ -580,10 +891,34 @@ print(json.dumps({
 }))
 ")
         assert_rpc "setConfig (update)" "Compose" "setConfig" "$UPDATE_CONFIG" 'updated'
+        CONFIG_PATH="$SF_PATH/omvtest_compose/omvtest_config"
+        assert_file_contains "setConfig (update) writes the file on disk" \
+            "$CONFIG_PATH" "# updated config snippet"
+        fullpath=$(list_field "getConfigList" "name" "omvtest_config" "fullpath")
+        if [ "$fullpath" = "$CONFIG_PATH" ]; then
+            _pass "getConfigList reports fullpath"
+        else
+            _fail "getConfigList reports fullpath" "got '$fullpath', expected '$CONFIG_PATH'"
+        fi
     else
         _skip "getConfig" "no config uuid"
         _skip "setConfig (update)" "no config uuid"
     fi
+
+    # Names that would overwrite the stack's own files are refused.
+    for bad in compose.override.yml omvtest_compose.yml omvtest_compose.env Dockerfile; do
+        assert_rpc_fails "setConfig rejects reserved name $bad" "Compose" "setConfig" \
+            "{\"name\":\"$bad\",\"description\":\"\",\"fileref\":\"$FILE_UUID\",\"body\":\"x\"}" \
+            "Cannot use that filename"
+    done
+
+    # A path in the name is reduced to its basename.
+    assert_rpc "setConfig strips path from name" "Compose" "setConfig" \
+        "{\"name\":\"../../omvtest_cfg_path\",\"description\":\"\",\"fileref\":\"$FILE_UUID\",\"body\":\"x\"}" \
+        '"name": *"omvtest_cfg_path"'
+    cuuid=$(json_uuid "$RPC_OUT")
+    [ -z "$cuuid" ] && cuuid=$(recover_uuid_from_list "Compose" "getConfigList" "name" "omvtest_cfg_path")
+    [ -n "$cuuid" ] && EXTRA_CONFIG_UUIDS+=("$cuuid")
 else
     _skip "setConfig (create)" "no file uuid for fileref"
     _skip "getConfig" "no file uuid for fileref"
@@ -637,10 +972,21 @@ print(json.dumps({
 }))
 ")
     assert_rpc "setDockerfile (update)" "Compose" "setDockerfile" "$UPDATE_DOCKERFILE" 'updated'
+    assert_file_contains "setDockerfile (update) writes the Dockerfile on disk" \
+        "$SF_PATH/omvtest_dockerfile/Dockerfile" "RUN echo updated"
 else
     _skip "getDockerfile" "no dockerfile uuid"
     _skip "setDockerfile (update)" "no dockerfile uuid"
 fi
+
+# Script / conf filenames that would clash with the Dockerfile or a stack file
+# are refused.
+assert_rpc_fails "setDockerfile rejects script named Dockerfile" "Compose" "setDockerfile" \
+    '{"name":"omvtest_dockerfile","description":"","body":"FROM scratch","script":"Dockerfile","scriptfile":"","conf":"","conffile":""}' \
+    "Script filename cannot be"
+assert_rpc_fails "setDockerfile rejects conf named <name>.yml" "Compose" "setDockerfile" \
+    '{"name":"omvtest_dockerfile","description":"","body":"FROM scratch","script":"","scriptfile":"","conf":"omvtest_dockerfile.yml","conffile":""}' \
+    "Conf filename cannot be"
 
 # ---------------------------------------------------------------------------
 # 5b. Dockerfiles — doBuild (multi-select build from the Dockerfiles tab)
@@ -667,6 +1013,15 @@ BUILD_TESTS=(
     "doBuild multi reports error for bad name"
     "doBuild multi still built the good name"
     "doBuild (single bad name) fails"
+    "doTag"
+    "doTag created the new tag"
+    "doDockerImageCmd inspect"
+    "doDockerImageCmd rm"
+    "doDockerImageCmd rm removed the tag"
+    "doHubPush (name:tag) fails for unreachable registry"
+    "doHubPush pushes name:tag"
+    "doHubPush (no tag) fails for unreachable registry"
+    "doHubPush without tag pushes imgname"
 )
 
 # True if the runtime has an image with this name.
@@ -676,9 +1031,7 @@ image_exists() { "$RUNTIME" image inspect "$1" >/dev/null 2>&1; }
 # "Using cache".
 BUILD_CACHE_RE='CACHED\|Using cache'
 
-BUILD_SF_PATH=$(omv-rpc -u admin "ShareMgmt" "getPath" \
-    "{\"uuid\":\"$(json_get "$SETTINGS" "sharedfolderref")\"}" 2>/dev/null \
-    | python3 -c "import sys,json; print(json.load(sys.stdin).rstrip('/'))" 2>/dev/null || echo "")
+BUILD_SF_PATH="$SF_PATH"
 
 for bname in "${BUILD_NAMES[@]}"; do
     "$RUNTIME" image rm -f "$bname" >/dev/null 2>&1 || true
@@ -785,6 +1138,46 @@ else
     # --- A single failing name keeps the old behaviour: the task fails ------
     assert_rpc_bg_fails "doBuild (single bad name) fails" "Compose" "doBuild" \
         '{"names":"omvtest_build_nonexistent","options":""}'
+
+    # --- doTag / doDockerImageCmd --------------------------------------------
+    assert_rpc_bg "doTag" "Compose" "doTag" \
+        '{"srcid":"","srcimg":"omvtest_build_a","srctag":"latest","tgtimg":"omvtest_build_a","tgttag":"omvtest_tag"}'
+    if image_exists omvtest_build_a:omvtest_tag; then
+        _pass "doTag created the new tag"
+    else
+        _fail "doTag created the new tag" "omvtest_build_a:omvtest_tag not found"
+    fi
+    assert_rpc_bg "doDockerImageCmd inspect" "Compose" "doDockerImageCmd" \
+        '{"command":"inspect","id":"omvtest_build_a:omvtest_tag"}' "omvtest_build_a:omvtest_tag"
+    assert_rpc_bg "doDockerImageCmd rm" "Compose" "doDockerImageCmd" \
+        '{"command":"rm","id":"omvtest_build_a:omvtest_tag"}'
+    if image_exists omvtest_build_a:omvtest_tag; then
+        _fail "doDockerImageCmd rm removed the tag" "omvtest_build_a:omvtest_tag still exists"
+    else
+        _pass "doDockerImageCmd rm removed the tag"
+    fi
+
+    # --- doHubPush -----------------------------------------------------------
+    # Push to a registry address nothing listens on, so the push fails fast
+    # without network access; the error shows which image was pushed.
+    "$RUNTIME" tag omvtest_build_a 127.0.0.1:1/omvtest_build_a:omvtest >/dev/null 2>&1
+    "$RUNTIME" tag omvtest_build_a 127.0.0.1:1/omvtest_build_a:latest >/dev/null 2>&1
+    assert_rpc_bg_fails "doHubPush (name:tag) fails for unreachable registry" "Compose" "doHubPush" \
+        '{"imgname":"127.0.0.1:1/omvtest_build_a","imgtag":"omvtest"}'
+    if echo "$BG_OUT" | grep -qF "push 127.0.0.1:1/omvtest_build_a:omvtest"; then
+        _pass "doHubPush pushes name:tag"
+    else
+        _fail "doHubPush pushes name:tag" "${BG_OUT:0:300}"
+    fi
+    # Regression: without a tag doHubPush read the misspelled 'imgimg' param
+    # and ran 'docker image push' with no image.
+    assert_rpc_bg_fails "doHubPush (no tag) fails for unreachable registry" "Compose" "doHubPush" \
+        '{"imgname":"127.0.0.1:1/omvtest_build_a","imgtag":""}'
+    if echo "$BG_OUT" | grep -qE "push '?127\.0\.0\.1:1/omvtest_build_a'?( |$)"; then
+        _pass "doHubPush without tag pushes imgname"
+    else
+        _fail "doHubPush without tag pushes imgname" "${BG_OUT:0:300}"
+    fi
 fi
 
 # ---------------------------------------------------------------------------
@@ -840,6 +1233,15 @@ info "Created job uuid=$JOB_UUID"
 if [ -n "$JOB_UUID" ]; then
     assert_rpc "getJob" "Compose" "getJob" "{\"uuid\":\"$JOB_UUID\"}"
     JOB="$RPC_OUT"
+
+    if echo "$JOB" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+sys.exit(0 if d['minute'] == ['0'] and d['hour'] == ['2'] and d['maintenance'] else 1)" 2>/dev/null; then
+        _pass "getJob returns schedule lists and mode flags"
+    else
+        _fail "getJob returns schedule lists and mode flags" "${JOB:0:300}"
+    fi
 
     # Verify excludefilter was saved correctly
     saved_ef=$(json_get "$JOB" "excludefilter")
@@ -932,6 +1334,31 @@ print(json.dumps({
 }))")"
 
 assert_rpc_fails "deleteJob (bad uuid)" "Compose" "deleteJob" '{"uuid":"00000000-0000-0000-0000-000000000000"}'
+
+# doJob: a stop-only job filtered to the test stack, so it cannot touch any
+# other stack.
+if [ -n "$FILE_UUID" ]; then
+    JOB_RUN_PARAMS=$(echo "$JOB_PARAMS" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+for k in ('backup', 'update', 'prune', 'filestart', 'filebuild', 'filepull',
+          'filenocache', 'fileprunebuilder', 'maintenance', 'cbuild'):
+    d[k] = False
+d.update({'cstate': True, 'filestop': True, 'filter': 'omvtest_compose',
+          'excludefilter': '', 'comment': 'omvtest_job_run'})
+print(json.dumps(d))")
+    assert_rpc "setJob (create stop-only job)" "Compose" "setJob" "$JOB_RUN_PARAMS"
+    JOB_RUN_UUID=$(json_uuid "$RPC_OUT")
+    if [ -n "$JOB_RUN_UUID" ]; then
+        assert_rpc_bg "doJob (stop omvtest_compose)" "Compose" "doJob" "{\"uuid\":\"$JOB_RUN_UUID\"}"
+    else
+        _skip "doJob (stop omvtest_compose)" "no job uuid"
+    fi
+else
+    _skip "setJob (create stop-only job)" "no file uuid"
+    _skip "doJob (stop omvtest_compose)" "no file uuid"
+fi
+assert_rpc_fails "doJob (bad uuid)" "Compose" "doJob" '{"uuid":"00000000-0000-0000-0000-000000000000"}'
 
 # ---------------------------------------------------------------------------
 # 7. Docker resource lists (read-only, may return empty)
@@ -1181,6 +1608,35 @@ else
     _skip "doNetworkConnect disconnect detaches container" "happy path skipped"
 fi
 
+# --- doDockerNetworkCmd ------------------------------------------------------
+section "Networks (commands)"
+
+if network_exists "omvtest_net_bridge"; then
+    assert_rpc_bg "doDockerNetworkCmd inspect" "Compose" "doDockerNetworkCmd" \
+        '{"command":"inspect","name":"omvtest_net_bridge"}' "172.31.250.0/24"
+else
+    _skip "doDockerNetworkCmd inspect" "omvtest_net_bridge not created"
+fi
+
+omv-rpc -u admin "Compose" "setNetwork" \
+    "$(net_params name=omvtest_net_rm driver=bridge)" >/dev/null 2>&1
+TEST_NETWORKS+=("omvtest_net_rm")
+if network_exists "omvtest_net_rm"; then
+    assert_rpc_bg "doDockerNetworkCmd rm" "Compose" "doDockerNetworkCmd" \
+        '{"command":"rm","name":"omvtest_net_rm"}'
+    if network_exists "omvtest_net_rm"; then
+        _fail "doDockerNetworkCmd rm removed the network" "omvtest_net_rm still listed"
+    else
+        _pass "doDockerNetworkCmd rm removed the network"
+    fi
+else
+    _skip "doDockerNetworkCmd rm" "omvtest_net_rm not created"
+    _skip "doDockerNetworkCmd rm removed the network" "omvtest_net_rm not created"
+fi
+
+assert_rpc_bg_fails "doDockerNetworkCmd (missing network) fails" "Compose" "doDockerNetworkCmd" \
+    '{"command":"inspect","name":"omvtest_no_such_net"}'
+
 # ---------------------------------------------------------------------------
 # 7c. Volumes — create (plain / labels / driver opts / NFS mount type)
 # ---------------------------------------------------------------------------
@@ -1328,6 +1784,113 @@ else
     _skip "getVolumes reports empty containers for an unused volume" "happy path skipped"
 fi
 
+# --- doDockerVolumeCmd -------------------------------------------------------
+section "Volumes (commands)"
+
+if volume_exists "omvtest_vol_labels"; then
+    assert_rpc_bg "doDockerVolumeCmd inspect" "Compose" "doDockerVolumeCmd" \
+        '{"command":"inspect","name":"omvtest_vol_labels"}' "com.omvtest.usage"
+else
+    _skip "doDockerVolumeCmd inspect" "omvtest_vol_labels not created"
+fi
+if volume_exists "omvtest_vol_opts"; then
+    assert_rpc_bg "doDockerVolumeCmd rm" "Compose" "doDockerVolumeCmd" \
+        '{"command":"rm","name":"omvtest_vol_opts"}'
+    if volume_exists "omvtest_vol_opts"; then
+        _fail "doDockerVolumeCmd rm removed the volume" "omvtest_vol_opts still listed"
+    else
+        _pass "doDockerVolumeCmd rm removed the volume"
+    fi
+else
+    _skip "doDockerVolumeCmd rm" "omvtest_vol_opts not created"
+    _skip "doDockerVolumeCmd rm removed the volume" "omvtest_vol_opts not created"
+fi
+assert_rpc_bg_fails "doDockerVolumeCmd (missing volume) fails" "Compose" "doDockerVolumeCmd" \
+    '{"command":"inspect","name":"omvtest_no_such_vol"}'
+
+# ---------------------------------------------------------------------------
+# 7e. Containers — commands, logs, terminal links, autocompose
+# ---------------------------------------------------------------------------
+section "Containers"
+
+assert_rpc "getContainersTerm" "Compose" "getContainersTerm" '{}'
+
+# Regression: getContainersTerm (allowed for every role) handed non-admin
+# users terminal links signed for the cterm autouser.
+TERM_OUT=$(omv-rpc -u "$NONADMIN_USER" "Compose" "getContainersTerm" '{}' 2>&1)
+TERM_USERS=$(echo "$TERM_OUT" | python3 -c "
+import sys, json, re
+rows = json.load(sys.stdin)
+print(' '.join(sorted({u for r in rows for u in re.findall(r'user=([^&\"]+)', r.get('term', ''))})))
+" 2>/dev/null)
+if [ -z "$TERM_USERS" ]; then
+    _skip "getContainersTerm signs non-admin links for the caller" "cterm not enabled or no running containers"
+elif [ "$TERM_USERS" = "$NONADMIN_USER" ]; then
+    _pass "getContainersTerm signs non-admin links for the caller"
+else
+    _fail "getContainersTerm signs non-admin links for the caller" "links signed for: $TERM_USERS"
+fi
+
+assert_rpc_fails "doDockerCmd rejects unknown cmd" "Compose" "doDockerCmd" \
+    '{"id":"omvtest_no_such_ctr","cmd":"rm"}'
+assert_rpc_bg_fails "doContainerCommand (missing container) fails" "Compose" "doContainerCommand" \
+    '{"command":"restart","command2":"","id":"omvtest_no_such_ctr"}'
+
+if [ -n "$NET_TEST_CTR" ]; then
+    assert_rpc_bg "doDockerCmd inspect" "Compose" "doDockerCmd" \
+        "{\"id\":\"$NET_TEST_CTR\",\"cmd\":\"inspect\"}" "$NET_TEST_CTR"
+    assert_rpc_bg "doContainerCommand restart" "Compose" "doContainerCommand" \
+        "{\"command\":\"restart\",\"command2\":\"\",\"id\":\"$NET_TEST_CTR\"}"
+    if [ "$("$RUNTIME" inspect -f '{{.State.Running}}' "$NET_TEST_CTR" 2>/dev/null)" = "true" ]; then
+        _pass "doContainerCommand restart left the container running"
+    else
+        _fail "doContainerCommand restart left the container running" "container not running"
+    fi
+    assert_download "getContainerLog" "Compose" "getContainerLog" \
+        "{\"id\":\"$NET_TEST_CTR\",\"name\":\"omvtest\"}" "omvtest_$NET_TEST_CTR.log"
+
+    # The container's image must be reported as in use. The container was
+    # started after getImages last ran, so drop the cached container list.
+    omv-rpc -u admin "Compose" "clearCacheFiles" '{}' >/dev/null 2>&1
+    inuse=$(omv-rpc -u admin "Compose" "getImages" \
+        '{"start":0,"limit":1000,"sortfield":"repo","sortdir":"ASC"}' 2>/dev/null \
+        | python3 -c "
+import sys, json
+for r in json.load(sys.stdin)['data']:
+    if '%s:%s' % (r['repo'], r['tag']) == '$NET_IMG':
+        print(r['inuse']); break" 2>/dev/null)
+    if [ "$inuse" = "True" ]; then
+        _pass "getImages marks the container's image in use"
+    else
+        _fail "getImages marks the container's image in use" \
+            "inuse='$inuse' for $NET_IMG (container image: $("$RUNTIME" inspect -f '{{.Image}}' "$NET_TEST_CTR" 2>/dev/null), image id: $("$RUNTIME" image inspect -f '{{.Id}}' "$NET_IMG" 2>/dev/null))"
+    fi
+
+    if [ -f /usr/bin/autocompose.py ]; then
+        AC_PARAMS="{\"container\":\"$NET_TEST_CTR\",\"name\":\"omvtest_autocompose\",\"description\":\"RPC test\",\"version\":\"3\"}"
+        assert_rpc "doAutocompose" "Compose" "doAutocompose" "$AC_PARAMS"
+        ac_uuid=$(json_uuid "$RPC_OUT")
+        [ -z "$ac_uuid" ] && ac_uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_autocompose")
+        if [ -n "$ac_uuid" ]; then
+            EXTRA_FILE_UUIDS+=("$ac_uuid")
+            # Match the bare image name: the JSON output escapes slashes.
+            ac_img="${NET_IMG%:*}"
+            assert_rpc "doAutocompose body describes the container" "Compose" "getFile" \
+                "{\"uuid\":\"$ac_uuid\"}" "${ac_img##*/}"
+        else
+            _skip "doAutocompose body describes the container" "no file uuid"
+        fi
+        assert_rpc_fails "doAutocompose (duplicate name)" "Compose" "doAutocompose" "$AC_PARAMS"
+    else
+        _skip "doAutocompose" "/usr/bin/autocompose.py not installed"
+    fi
+else
+    for t in "doDockerCmd inspect" "doContainerCommand restart" "getContainerLog" \
+        "getImages marks the container's image in use" "doAutocompose"; do
+        _skip "$t" "no test container (needs a local alpine/busybox image)"
+    done
+fi
+
 # ---------------------------------------------------------------------------
 # 7d. Bind mount paths — createBindPath (host dir prep, not a docker volume)
 # ---------------------------------------------------------------------------
@@ -1398,6 +1961,36 @@ section "Stats"
 assert_rpc "getStats" "Compose" "getStats" '{}'
 assert_rpc_bg "getStatsBg" "Compose" "getStatsBg" '{}'
 
+# Regression: an empty stats cache (no running containers) produced a blank row.
+STATS_CACHE=/var/cache/openmediavault/compose_cache_stats.json
+if [ "$(json_get "$SETTINGS" "cachetimestats")" -gt 0 ] 2>/dev/null; then
+    : > "$STATS_CACHE"
+    assert_rpc "getStats with empty cache returns no rows" "Compose" "getStats" \
+        '{"start":0,"limit":25,"sortfield":"name","sortdir":"ASC"}' '"total": *0'
+    rm -f "$STATS_CACHE"
+else
+    _skip "getStats with empty cache returns no rows" "stats cache disabled (cachetimestats=0)"
+fi
+
+# convertToBytes is private; call it through reflection on the installed class.
+RPC_INC=/usr/share/openmediavault/engined/rpc/compose.inc
+CONV_OUT=$(php -r '
+require_once "/usr/share/php/openmediavault/autoloader.inc";
+require_once "/usr/share/php/openmediavault/globals.inc";
+require_once $argv[1];
+$m = new ReflectionMethod("OMVRpcServiceCompose", "convertToBytes");
+$m->setAccessible(true);
+$o = (new ReflectionClass("OMVRpcServiceCompose"))->newInstanceWithoutConstructor();
+foreach (array_slice($argv, 2) as $v) echo $v, "=", $m->invoke($o, $v), "\n";
+' "$RPC_INC" 12B 2kB 1.5KiB 1.5MiB 1GB 2GiB 2>&1)
+for pair in 12B=12 2kB=2048 1.5KiB=1536 1.5MiB=1572864 1GB=1073741824 2GiB=2147483648; do
+    if echo "$CONV_OUT" | grep -qx "$pair"; then
+        _pass "convertToBytes $pair"
+    else
+        _fail "convertToBytes $pair" "$(echo "$CONV_OUT" | grep "^${pair%%=*}=" || echo "${CONV_OUT:0:200}")"
+    fi
+done
+
 # ---------------------------------------------------------------------------
 # 9. Cache
 # ---------------------------------------------------------------------------
@@ -1424,9 +2017,89 @@ else
 fi
 
 assert_rpc "getRepoList" "Compose" "getRepoList" \
-    '{"start":0,"limit":25,"sortfield":"server","sortdir":"ASC"}' '"total"'
+    '{"start":0,"limit":25,"sortfield":"repo","sortdir":"ASC"}' '"total"'
 
-assert_rpc_fails "deleteBackup (bad uuid)" "Compose" "deleteBackup" '{"uuid":"00000000-0000-0000-0000-000000000000"}'
+# Logging in to a registry nobody listens on fails without network access,
+# and the failure is reported; the repo must not be added.
+# The password contains a single quote, which used to break the command.
+REPO_PASSWD="omvtest_s3cr3t'pw"
+REPO_OUT=$(omv-rpc -u admin "Compose" "repoLogin" \
+    "{\"url\":\"127.0.0.1:1\",\"username\":\"omvtest\",\"passwd\":\"$REPO_PASSWD\"}" 2>&1)
+if echo "$REPO_OUT" | grep -q "docker login"; then
+    _pass "repoLogin (unreachable registry) fails"
+else
+    _fail "repoLogin (unreachable registry) fails" "${REPO_OUT:0:300}"
+fi
+# Regression: the password was passed with echo on the command line, so it
+# showed up in the error message, the engined log and the process list.
+if echo "$REPO_OUT" | grep -qF "omvtest_s3cr3t"; then
+    _fail "repoLogin error does not contain the password" "password found in: ${REPO_OUT:0:300}"
+else
+    _pass "repoLogin error does not contain the password"
+fi
+if echo "$REPO_OUT" | grep -q "unexpected EOF\|Syntax error"; then
+    _fail "repoLogin handles a quote in the password" "${REPO_OUT:0:300}"
+else
+    _pass "repoLogin handles a quote in the password"
+fi
+if list_field "getRepoList" "repo" "127.0.0.1:1" "repo" \
+    '{"start":0,"limit":1000,"sortfield":"repo","sortdir":"ASC"}' | grep -q .; then
+    _fail "repoLogin (unreachable registry) adds no repo" "127.0.0.1:1 listed"
+else
+    _pass "repoLogin (unreachable registry) adds no repo"
+fi
+assert_rpc "repoLogout" "Compose" "repoLogout" '{"repo":"127.0.0.1:1"}'
+
+BACKUP_PATH=""
+BACKUP_SF_UUID=$(json_get "$SETTINGS" "backupsharedfolderref")
+if [ -n "$BACKUP_SF_UUID" ] && [ "$BACKUP_SF_UUID" != "null" ]; then
+    BACKUP_PATH=$(get_sf_path "$BACKUP_SF_UUID")
+fi
+
+assert_rpc_fails "deleteBackup (no name)" "Compose" "deleteBackup" '{"name":""}'
+if [ -z "$BACKUP_PATH" ]; then
+    assert_rpc_fails "deleteBackup (no backup folder) fails" "Compose" "deleteBackup" \
+        '{"name":"omvtest_no_such_backup"}' "shared folder for backups"
+    _skip "deleteBackup (missing backup)" "backup shared folder not configured"
+    _skip "deleteBackup rejects '..' traversal" "backup shared folder not configured"
+    _skip "deleteBackup traversal left the target alone" "backup shared folder not configured"
+else
+    assert_rpc_fails "deleteBackup (missing backup)" "Compose" "deleteBackup" \
+        '{"name":"omvtest_no_such_backup"}' "Directory does not exist"
+    # Regression: a name with '../' deleted directories outside the backup
+    # folder. Point it at a throwaway directory next to the backup folder.
+    BACKUP_TRAVERSAL_DIR="$(dirname "$BACKUP_PATH")/omvtest_traversal_target"
+    mkdir -p "$BACKUP_TRAVERSAL_DIR"
+    assert_rpc_fails "deleteBackup rejects '..' traversal" "Compose" "deleteBackup" \
+        '{"name":"../omvtest_traversal_target"}' "Invalid backup name"
+    sleep 2
+    if [ -d "$BACKUP_TRAVERSAL_DIR" ]; then
+        _pass "deleteBackup traversal left the target alone"
+    else
+        _fail "deleteBackup traversal left the target alone" "$BACKUP_TRAVERSAL_DIR was deleted"
+    fi
+fi
+
+# omv-compose-restore exits non-zero when no compose name is given.
+assert_rpc_bg_fails "doRestore (no name) fails" "Compose" "doRestore" '{"backup":"","time":""}'
+
+# restoreGlobalEnv overwrites the global env from the backup folder; the
+# original is restored right after.
+if [ -n "$BACKUP_PATH" ] && [ -f "$BACKUP_PATH/global.env" ]; then
+    assert_rpc "restoreGlobalEnv" "Compose" "restoreGlobalEnv" '{}'
+    want=$(python3 -c "import sys; print(open(sys.argv[1]).read().strip())" "$BACKUP_PATH/global.env")
+    got=$(omv-rpc -u admin "Compose" "getGlobalEnv" '{}' 2>/dev/null \
+        | python3 -c "import sys,json; print(json.load(sys.stdin)['globalenv'])" 2>/dev/null)
+    if [ "$got" = "$want" ]; then
+        _pass "restoreGlobalEnv loaded the backup global.env"
+    else
+        _fail "restoreGlobalEnv loaded the backup global.env" "global env differs from backup"
+    fi
+    [ -n "${RESTORE_GENV:-}" ] && omv-rpc -u admin "Compose" "setGlobalEnv" "$RESTORE_GENV" >/dev/null 2>&1
+else
+    assert_rpc_fails "restoreGlobalEnv (no backup global.env) fails" "Compose" "restoreGlobalEnv" '{}'
+    _skip "restoreGlobalEnv loaded the backup global.env" "no global.env in backup folder"
+fi
 
 # ---------------------------------------------------------------------------
 # 11. Compose file — doCommand (config only, non-destructive)
@@ -1452,6 +2125,36 @@ fi
 # compose shared folder.
 assert_rpc_fails "doServiceCommand rejects path outside compose folder" "Compose" "doServiceCommand" \
     '{"command":"ps","command2":"","service":"x","path":"/etc/omvtest/omvtest.yml","envpath":"","overridepath":""}'
+assert_rpc_fails "getServiceLog rejects path outside compose folder" "Compose" "getServiceLog" \
+    '{"service":"x","name":"x","path":"/etc/omvtest/omvtest.yml","envpath":""}'
+
+assert_rpc_bg_fails "doCommandList (bad uuid) fails" "Compose" "doCommandList" \
+    '{"uuids":"00000000-0000-0000-0000-000000000000","command":"config","command2":""}'
+
+if [ -n "$FILE_UUID" ]; then
+    TEST_YML="$SF_PATH/omvtest_compose/omvtest_compose.yml"
+    assert_rpc_bg "doCommandList (config)" "Compose" "doCommandList" \
+        "{\"uuids\":\"$FILE_UUID\",\"command\":\"config\",\"command2\":\"\"}" "hello"
+    assert_rpc_bg "doServiceCommand (config, valid path)" "Compose" "doServiceCommand" \
+        "{\"command\":\"config\",\"command2\":\"\",\"service\":\"hello\",\"path\":\"$TEST_YML\",\"envpath\":\"\",\"overridepath\":\"\"}" \
+        "hello"
+    assert_download "getLog" "Compose" "getLog" '{"name":"omvtest_compose"}' "omvtest_compose.log"
+    assert_download "getServiceLog" "Compose" "getServiceLog" \
+        "{\"service\":\"hello\",\"name\":\"omvtest\",\"path\":\"$TEST_YML\",\"envpath\":\"\"}" \
+        "hello_omvtest.log"
+    # git log of a file / global.env. Without a repo the task appends an
+    # error marker instead of throwing, so both cases must complete.
+    assert_rpc_bg "doGit (diff)" "Compose" "doGit" "{\"uuid\":\"$FILE_UUID\",\"command\":\"diff\"}"
+else
+    for t in "doCommandList (config)" "doServiceCommand (config, valid path)" "getLog" \
+        "getServiceLog" "doGit (diff)"; do
+        _skip "$t" "no file uuid"
+    done
+fi
+assert_rpc_bg "doGit (diffg)" "Compose" "doGit" '{"uuid":"","command":"diffg"}'
+
+# Only the validation is tested here; a real prune is opt-in (see below).
+assert_rpc_fails "doPrune rejects unknown command" "Compose" "doPrune" '{"command":"system prune --all --volumes"}'
 
 # ---------------------------------------------------------------------------
 # 11b. omv-compose-run wrapper
@@ -1790,6 +2493,157 @@ assert_rpc_bg "doImportPortainerStacks handles unreachable host" \
     '{"url":"https://invalid-host-omvtest.local:9443","apikey":"ptr_test","username":"","password":"","sslverify":"false"}' \
     "Error:"
 
+# --- importPortainerStacks (synchronous) -------------------------------------
+assert_rpc_fails "importPortainerStacks (no credentials) fails" "Compose" "importPortainerStacks" \
+    '{"url":"https://invalid-host-omvtest.local:9443","sslverify":false}' "API key"
+assert_rpc_fails "importPortainerStacks (unreachable host) fails" "Compose" "importPortainerStacks" \
+    '{"url":"https://invalid-host-omvtest.local:9443","apikey":"ptr_test","sslverify":false}'
+
+# --- Synchronous importExistingOne / importExistingFolder --------------------
+SYNC_DIR="$IMPORT_TMP/sync"
+_make_stack "$SYNC_DIR/omvtest_import_sync1" "compose.yml"
+echo "OMVTEST_SYNC=1" > "$SYNC_DIR/omvtest_import_sync1/.env"
+assert_rpc "importExistingOne" "Compose" "importExistingOne" \
+    "{\"path\":\"$SYNC_DIR/omvtest_import_sync1\"}"
+sync1_uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_import_sync1")
+if [ -n "$sync1_uuid" ]; then
+    IMPORT_UUIDS+=("$sync1_uuid")
+    assert_rpc "importExistingOne imported the .env file" "Compose" "getFile" \
+        "{\"uuid\":\"$sync1_uuid\"}" "OMVTEST_SYNC=1"
+else
+    _fail "importExistingOne imported the .env file" "omvtest_import_sync1 not found"
+fi
+assert_rpc_fails "importExistingOne (duplicate) fails" "Compose" "importExistingOne" \
+    "{\"path\":\"$SYNC_DIR/omvtest_import_sync1\"}" "already exists"
+assert_rpc_fails "importExistingOne (no compose file) fails" "Compose" "importExistingOne" \
+    "{\"path\":\"$IMPORT_TMP\"}" "No compose file found"
+
+# omvtest_import_sync1 is already imported and must be skipped silently.
+_make_stack "$SYNC_DIR/omvtest_import_sync2" "omvtest_import_sync2.yml"
+printf 'services:\n  hello:\n    restart: "no"\n' > "$SYNC_DIR/omvtest_import_sync2/compose.override.yml"
+assert_rpc "importExistingFolder" "Compose" "importExistingFolder" "{\"path\":\"$SYNC_DIR\"}"
+sync2_uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_import_sync2")
+if [ -n "$sync2_uuid" ]; then
+    IMPORT_UUIDS+=("$sync2_uuid")
+    assert_rpc "importExistingFolder imported the override file" "Compose" "getFile" \
+        "{\"uuid\":\"$sync2_uuid\"}" 'restart: \\"no\\"'
+else
+    _fail "importExistingFolder imported the override file" "omvtest_import_sync2 not found"
+fi
+
+# --- importConfig ------------------------------------------------------------
+# The stack's own files (<dir>.yml, <dir>.env, compose.override.yml) must not
+# be imported as config snippets; everything else is.
+if [ -n "$FILE_UUID" ]; then
+    CFG_DIR="$IMPORT_TMP/omvtest_cfgimport"
+    mkdir -p "$CFG_DIR/subdir"
+    echo "services: {}" > "$CFG_DIR/omvtest_cfgimport.yml"
+    echo "A=1" > "$CFG_DIR/omvtest_cfgimport.env"
+    echo "services: {}" > "$CFG_DIR/compose.override.yml"
+    echo "omvtest config" > "$CFG_DIR/omvtest_cfg_a.conf"
+    assert_rpc "importConfig" "Compose" "importConfig" \
+        "{\"path\":\"$CFG_DIR\",\"fileref\":\"$FILE_UUID\"}"
+    CFG_LIST=$(omv-rpc -u admin "Compose" "getConfigList" \
+        '{"start":0,"limit":1000,"sortfield":"name","sortdir":"ASC"}' 2>/dev/null)
+    cfg_uuid() {
+        echo "$CFG_LIST" | python3 -c "
+import sys, json
+for r in json.load(sys.stdin)['data']:
+    if r['name'] == '$1' and r['fileref'] == '$FILE_UUID':
+        print(r['uuid'])" 2>/dev/null
+    }
+    a_uuid=$(cfg_uuid omvtest_cfg_a.conf)
+    if [ -n "$a_uuid" ]; then
+        EXTRA_CONFIG_UUIDS+=("$a_uuid")
+        _pass "importConfig imported omvtest_cfg_a.conf"
+    else
+        _fail "importConfig imported omvtest_cfg_a.conf" "not found in getConfigList"
+    fi
+    for skipped in omvtest_cfgimport.yml omvtest_cfgimport.env compose.override.yml subdir; do
+        bad_uuid=$(cfg_uuid "$skipped")
+        if [ -z "$bad_uuid" ]; then
+            _pass "importConfig skipped $skipped"
+        else
+            EXTRA_CONFIG_UUIDS+=("$bad_uuid")
+            _fail "importConfig skipped $skipped" "imported as config $bad_uuid"
+        fi
+    done
+else
+    _skip "importConfig" "no file uuid"
+fi
+
+# --- importDockerfile --------------------------------------------------------
+DF_DIR="$IMPORT_TMP/dockerfiles"
+mkdir -p "$DF_DIR/omvtest_dfimport" "$DF_DIR/omvtest_not_a_dockerfile"
+printf 'FROM scratch\n# omvtest_dfimport\n' > "$DF_DIR/omvtest_dfimport/Dockerfile"
+assert_rpc "importDockerfile" "Compose" "importDockerfile" "{\"path\":\"$DF_DIR\"}"
+df_uuid=$(recover_uuid_from_list "Compose" "getDockerfileList" "name" "omvtest_dfimport")
+if [ -n "$df_uuid" ]; then
+    EXTRA_DOCKERFILE_UUIDS+=("$df_uuid")
+    assert_rpc "importDockerfile imported the Dockerfile body" "Compose" "getDockerfile" \
+        "{\"uuid\":\"$df_uuid\"}" "# omvtest_dfimport"
+else
+    _fail "importDockerfile imported the Dockerfile body" "omvtest_dfimport not found"
+fi
+if [ -n "$(recover_uuid_from_list "Compose" "getDockerfileList" "name" "omvtest_not_a_dockerfile")" ]; then
+    _fail "importDockerfile skips folders without a Dockerfile" "omvtest_not_a_dockerfile imported"
+else
+    _pass "importDockerfile skips folders without a Dockerfile"
+fi
+
+# --- Import RPCs require the admin role ---------------------------------------
+# Regression: importConfig, importExistingFolder and importExistingOne had no
+# context check, so any user could read files into the config database. Use
+# an empty directory so nothing is imported even if the check is missing.
+EMPTY_DIR="$IMPORT_TMP/empty"
+mkdir -p "$EMPTY_DIR"
+for m in importConfig importExistingFolder importExistingOne importDockerfile; do
+    assert_rpc_fails "$m requires the admin role" "Compose" "$m" \
+        "{\"path\":\"$EMPTY_DIR\",\"fileref\":\"\"}" "Invalid context role" "$NONADMIN_USER"
+done
+
+# --- setUrl (a local path works like a URL for file_get_contents) ------------
+URL_FILE="$IMPORT_TMP/omvtest_url.yml"
+printf 'services:\n  web:\n    image: hello-world\n    env_file: web.env\n' > "$URL_FILE"
+assert_rpc "setUrl" "Compose" "setUrl" \
+    "{\"name\":\"omvtest_url_compose\",\"description\":\"RPC test\",\"url\":\"$URL_FILE\"}"
+url_uuid=$(json_uuid "$RPC_OUT")
+[ -z "$url_uuid" ] && url_uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_url_compose")
+if [ -n "$url_uuid" ]; then
+    EXTRA_FILE_UUIDS+=("$url_uuid")
+    assert_rpc "setUrl comments out env_file" "Compose" "getFile" "{\"uuid\":\"$url_uuid\"}" "#env_file: web.env"
+else
+    _fail "setUrl comments out env_file" "omvtest_url_compose not found"
+fi
+assert_rpc_fails "setUrl (duplicate name) fails" "Compose" "setUrl" \
+    "{\"name\":\"omvtest_url_compose\",\"description\":\"RPC test\",\"url\":\"$URL_FILE\"}"
+
+# --- getExampleList / setExample (needs internet; empty list offline) --------
+assert_rpc "getExampleList" "Compose" "getExampleList" '{}'
+EXAMPLE=$(echo "$RPC_OUT" | python3 -c "
+import sys, json
+l = json.load(sys.stdin)
+print(l[0]['name'] if l else '')" 2>/dev/null)
+if [ -n "$EXAMPLE" ]; then
+    assert_rpc "setExample ($EXAMPLE)" "Compose" "setExample" \
+        "{\"name\":\"omvtest_example\",\"description\":\"RPC test\",\"example\":\"$EXAMPLE\"}" \
+        '"body": *"[^"]'
+    ex_uuid=$(json_uuid "$RPC_OUT")
+    [ -z "$ex_uuid" ] && ex_uuid=$(recover_uuid_from_list "Compose" "getFileList" "name" "omvtest_example")
+    [ -n "$ex_uuid" ] && EXTRA_FILE_UUIDS+=("$ex_uuid")
+else
+    _skip "setExample" "example list is empty (no internet access?)"
+fi
+
+# --- importChanges: pull hand edits of the on-disk files into the DB ---------
+if [ -n "$FILE_UUID" ] && [ -f "$SF_PATH/omvtest_compose/omvtest_compose.yml" ]; then
+    echo "# omvtest_importchanges_marker" >> "$SF_PATH/omvtest_compose/omvtest_compose.yml"
+    assert_rpc "importChanges" "Compose" "importChanges" "{\"uuid\":\"$FILE_UUID\"}" \
+        "omvtest_importchanges_marker"
+else
+    _skip "importChanges" "no omvtest_compose file on disk"
+fi
+
 # ---------------------------------------------------------------------------
 # 13. Shared folder path change propagation (regression test)
 # ---------------------------------------------------------------------------
@@ -1803,14 +2657,6 @@ assert_rpc_bg "doImportPortainerStacks handles unreachable host" \
 #
 # https://forum.openmediavault.org/index.php?thread/59557-download-disk-replaced-shares-updated-but-compose-still-references-old-disk/
 section "Shared folder path change propagation"
-
-# getPath returns a JSON string, and PHP's json_encode escapes forward
-# slashes (e.g. "\/srv\/..."), so a plain `tr -d '"'` leaves the backslashes
-# in place. Decode it properly with python3 and strip the trailing slash.
-get_sf_path() {
-    omv-rpc -u admin "ShareMgmt" "getPath" "{\"uuid\":\"$1\"}" 2>/dev/null \
-        | python3 -c "import sys,json; print(json.load(sys.stdin).rstrip('/'))" 2>/dev/null
-}
 
 # Borrow the mount point of the already-configured compose storage shared
 # folder (this script requires it to be set) so the test shared folder lands
@@ -2095,18 +2941,6 @@ print(json.dumps({
 }))
 ")
 
-# Assert on-disk file $2 contains the literal string $3.
-assert_file_contains() {
-    local desc=$1 file=$2 needle=$3
-    if [ ! -f "$file" ]; then
-        _fail "$desc" "$file does not exist"
-    elif grep -qF -- "$needle" "$file"; then
-        _pass "$desc"
-    else
-        _fail "$desc" "expected '$needle' in $file"
-    fi
-}
-
 if [ -z "$COMPOSE_STORAGE" ]; then
     for t in "${DATAPATH_TESTS[@]}"; do _skip "$t" "no compose shared folder path"; done
 elif [ -z "$DATA_PATH" ]; then
@@ -2155,6 +2989,43 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# 13d. System-wide RPCs (opt-in)
+# ---------------------------------------------------------------------------
+section "System-wide RPCs (opt-in)"
+
+DESTRUCTIVE_TESTS=("doPrune (network prune)" "doDownAll" "doGit (init)" "restartDocker"
+    "runtime is back after restartDocker" "enableDockerRepo")
+if [ "${OMVTEST_DESTRUCTIVE:-0}" != "1" ]; then
+    for t in "${DESTRUCTIVE_TESTS[@]}"; do _skip "$t" "set OMVTEST_DESTRUCTIVE=1 to run"; done
+else
+    assert_rpc_bg "doPrune (network prune)" "Compose" "doPrune" '{"command":"network prune"}'
+    assert_rpc_bg "doDownAll" "Compose" "doDownAll" '{}'
+    if [ -d "$SF_PATH/.git" ]; then
+        _skip "doGit (init)" "compose shared folder is already a git repo"
+    else
+        assert_rpc_bg "doGit (init)" "Compose" "doGit" '{"uuid":"","command":"init"}'
+    fi
+    assert_rpc "restartDocker" "Compose" "restartDocker" '{}'
+    up=0
+    for _ in $(seq 1 30); do
+        "$RUNTIME" info >/dev/null 2>&1 && { up=1; break; }
+        sleep 2
+    done
+    if [ $up -eq 1 ]; then
+        _pass "runtime is back after restartDocker"
+    else
+        _fail "runtime is back after restartDocker" "'$RUNTIME info' still failing after 60s"
+    fi
+    assert_rpc_bg "enableDockerRepo" "Compose" "enableDockerRepo" '{}'
+fi
+
+if [ "${OMVTEST_REINSTALL_DOCKER:-0}" != "1" ]; then
+    _skip "reinstallDocker" "set OMVTEST_REINSTALL_DOCKER=1 to run"
+else
+    assert_rpc_bg "reinstallDocker" "Compose" "reinstallDocker" '{}'
+fi
+
+# ---------------------------------------------------------------------------
 # 14. Delete test objects (also done by cleanup trap, but verify RPCs work)
 # ---------------------------------------------------------------------------
 section "Delete test objects"
@@ -2163,16 +3034,45 @@ if [ -n "$JOB_UUID" ]; then
     assert_rpc "deleteJob" "Compose" "deleteJob" "{\"uuid\":\"$JOB_UUID\"}" && JOB_UUID=""
 fi
 
+if [ -n "$JOB_RUN_UUID" ]; then
+    assert_rpc "deleteJob (doJob test job)" "Compose" "deleteJob" "{\"uuid\":\"$JOB_RUN_UUID\"}" && JOB_RUN_UUID=""
+fi
+
 if [ -n "$CONFIG_UUID" ]; then
     assert_rpc "deleteConfig" "Compose" "deleteConfig" "{\"uuid\":\"$CONFIG_UUID\"}" && CONFIG_UUID=""
+    if [ -e "$SF_PATH/omvtest_compose/omvtest_config" ]; then
+        _fail "deleteConfig removed the file on disk" "$SF_PATH/omvtest_compose/omvtest_config still exists"
+    else
+        _pass "deleteConfig removed the file on disk"
+    fi
 fi
 
 if [ -n "$DOCKERFILE_UUID" ]; then
     assert_rpc "deleteDockerfile" "Compose" "deleteDockerfile" "{\"uuid\":\"$DOCKERFILE_UUID\"}" && DOCKERFILE_UUID=""
+    # Regression: deleteDockerfile tried to remove an undefined directory
+    # variable, so the Dockerfile's folder was left behind.
+    if [ -e "$SF_PATH/omvtest_dockerfile" ]; then
+        _fail "deleteDockerfile removed the Dockerfile folder" "$SF_PATH/omvtest_dockerfile still exists"
+    else
+        _pass "deleteDockerfile removed the Dockerfile folder"
+    fi
 fi
+
+# Config snippets created by the coverage tests reference omvtest_compose.
+for uuid in "${EXTRA_CONFIG_UUIDS[@]}"; do
+    omv-rpc -u admin "Compose" "deleteConfig" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
+done
+EXTRA_CONFIG_UUIDS=()
 
 if [ -n "$FILE_UUID" ]; then
     assert_rpc "deleteFile" "Compose" "deleteFile" "{\"uuid\":\"$FILE_UUID\"}" && FILE_UUID=""
+    for f in omvtest_compose.yml omvtest_compose.env compose.override.yml compose.yml .env; do
+        if [ -e "$SF_PATH/omvtest_compose/$f" ] || [ -L "$SF_PATH/omvtest_compose/$f" ]; then
+            _fail "deleteFile removed $f" "$SF_PATH/omvtest_compose/$f still exists"
+        else
+            _pass "deleteFile removed $f"
+        fi
+    done
 fi
 
 if [ -n "$SFPATH_COMPOSE_UUID" ]; then
