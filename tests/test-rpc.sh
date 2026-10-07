@@ -147,6 +147,38 @@ assert_rpc_bg() {
     return 0
 }
 
+# Call a *Bg method and assert the background task fails (the bg process
+# threw, so getOutput returns an error, or the output contains Exception).
+assert_rpc_bg_fails() {
+    local desc=$1 svc=$2 method=$3 params=${4:-'{}'}
+    local filename ec=0
+    filename=$(omv-rpc -u admin "$svc" "$method" "$params" 2>&1) || ec=$?
+    if [ $ec -ne 0 ]; then
+        _pass "$desc"
+        return 0
+    fi
+    filename=$(echo "$filename" | tr -d '"')
+    local timeout=120 elapsed=0 poll_ec=0 poll_out
+    while [ $elapsed -lt $timeout ]; do
+        poll_out=$(omv-rpc -u admin "Exec" "getOutput" \
+            "{\"filename\":\"$filename\",\"pos\":0}" 2>&1)
+        poll_ec=$?
+        [ $poll_ec -ne 0 ] && break
+        echo "$poll_out" | grep -q '"running":true\|"running": true' || break
+        sleep 2; ((elapsed += 2)) || true
+    done
+    if [ $elapsed -ge $timeout ]; then
+        _fail "$desc" "Bg task timed out after ${timeout}s"
+        return 1
+    fi
+    if [ $poll_ec -ne 0 ] || echo "$poll_out" | grep -q "Exception"; then
+        _pass "$desc"
+        return 0
+    fi
+    _fail "$desc" "Expected failure but bg task succeeded"
+    return 1
+}
+
 # Extract a JSON field value.
 json_get() { echo "$1" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('$2',''))" 2>/dev/null; }
 json_uuid() { json_get "$1" "uuid"; }
@@ -183,6 +215,9 @@ FILE_UUID=""
 CONFIG_UUID=""
 DOCKERFILE_UUID=""
 JOB_UUID=""
+# Dockerfiles + images created for the multi-build tests (removed on exit).
+BUILD_NAMES=(omvtest_build_a omvtest_build_b)
+declare -a BUILD_UUIDS=()
 IMPORT_TMP=""
 declare -a IMPORT_UUIDS=()
 # Container runtime CLI used for direct (non-RPC) helpers in the network tests.
@@ -238,6 +273,9 @@ pre_cleanup() {
     purge_by_name "Compose" "getFileList"       "$list" "deleteFile"       "omvtest_datapath_compose"
     purge_by_name "Compose" "getConfigList"     "$list" "deleteConfig"     "omvtest_config"
     purge_by_name "Compose" "getDockerfileList" "$list" "deleteDockerfile" "omvtest_dockerfile"
+    for bname in "${BUILD_NAMES[@]}"; do
+        purge_by_name "Compose" "getDockerfileList" "$list" "deleteDockerfile" "$bname"
+    done
     # Shared folder used by the sf-path-change test — delete needs a
     # "recursive" param that purge_by_name does not pass, so handle it here.
     stale_sf=$(omv-rpc -u admin "ShareMgmt" "getList" "$list" 2>/dev/null \
@@ -289,6 +327,13 @@ cleanup() {
         info "Deleting test dockerfile $DOCKERFILE_UUID"
         omv-rpc -u admin "Compose" "deleteDockerfile" "{\"uuid\":\"$DOCKERFILE_UUID\"}" >/dev/null 2>&1 || true
     fi
+    for uuid in "${BUILD_UUIDS[@]}"; do
+        info "Deleting multi-build test dockerfile $uuid"
+        omv-rpc -u admin "Compose" "deleteDockerfile" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
+    done
+    for bname in "${BUILD_NAMES[@]}"; do
+        "$RUNTIME" image rm -f "$bname" >/dev/null 2>&1 || true
+    done
     if [ -n "$FILE_UUID" ]; then
         info "Deleting test compose file $FILE_UUID"
         omv-rpc -u admin "Compose" "deleteFile" "{\"uuid\":\"$FILE_UUID\"}" >/dev/null 2>&1 || true
@@ -595,6 +640,151 @@ print(json.dumps({
 else
     _skip "getDockerfile" "no dockerfile uuid"
     _skip "setDockerfile (update)" "no dockerfile uuid"
+fi
+
+# ---------------------------------------------------------------------------
+# 5b. Dockerfiles — doBuild (multi-select build from the Dockerfiles tab)
+# ---------------------------------------------------------------------------
+# The Dockerfiles tab sends the selected rows as a comma-separated 'names'
+# list with options '' / 'pull' / 'nocache'. The Dockerfiles use FROM scratch
+# so the builds work offline; the COPY gives a cacheable step for the
+# nocache checks.
+section "Dockerfiles (multi build)"
+
+BUILD_TESTS=(
+    "doBuild (multi, 2 names)"
+    "doBuild multi built omvtest_build_a"
+    "doBuild multi built omvtest_build_b"
+    "doBuild (multi, rebuild uses cache)"
+    "doBuild (multi, nocache)"
+    "doBuild nocache did not use cache"
+    "doBuild (multi, pull)"
+    "doBuild (legacy 'name' param)"
+    "doBuild legacy 'name' param built the image"
+    "doBuild (multi, tolerates spaces and empty entries)"
+    "doBuild spaced names list built both images"
+    "doBuild (multi, one bad name) continues"
+    "doBuild multi reports error for bad name"
+    "doBuild multi still built the good name"
+    "doBuild (single bad name) fails"
+)
+
+# True if the runtime has an image with this name.
+image_exists() { "$RUNTIME" image inspect "$1" >/dev/null 2>&1; }
+
+# BuildKit prints "CACHED"; the classic builder and podman/buildah print
+# "Using cache".
+BUILD_CACHE_RE='CACHED\|Using cache'
+
+BUILD_SF_PATH=$(omv-rpc -u admin "ShareMgmt" "getPath" \
+    "{\"uuid\":\"$(json_get "$SETTINGS" "sharedfolderref")\"}" 2>/dev/null \
+    | python3 -c "import sys,json; print(json.load(sys.stdin).rstrip('/'))" 2>/dev/null || echo "")
+
+for bname in "${BUILD_NAMES[@]}"; do
+    "$RUNTIME" image rm -f "$bname" >/dev/null 2>&1 || true
+    BUILD_PARAMS=$(python3 -c "
+import json
+print(json.dumps({
+    'name': '$bname',
+    'description': 'RPC test multi build',
+    'body': 'FROM scratch\nCOPY Dockerfile /Dockerfile',
+    'script': '',
+    'scriptfile': '',
+    'conf': '',
+    'conffile': ''
+}))
+")
+    assert_rpc "setDockerfile (create $bname)" "Compose" "setDockerfile" "$BUILD_PARAMS"
+    buuid=$(json_uuid "$RPC_OUT")
+    [ -z "$buuid" ] && buuid=$(recover_uuid_from_list "Compose" "getDockerfileList" "name" "$bname")
+    [ -n "$buuid" ] && BUILD_UUIDS+=("$buuid")
+done
+
+BUILD_READY=1
+if ! command -v "$RUNTIME" >/dev/null 2>&1; then
+    BUILD_READY=0; BUILD_SKIP_WHY="runtime '$RUNTIME' CLI not found"
+elif [ ${#BUILD_UUIDS[@]} -ne ${#BUILD_NAMES[@]} ]; then
+    BUILD_READY=0; BUILD_SKIP_WHY="test dockerfiles not created"
+else
+    for bname in "${BUILD_NAMES[@]}"; do
+        if [ ! -f "$BUILD_SF_PATH/$bname/Dockerfile" ]; then
+            BUILD_READY=0; BUILD_SKIP_WHY="$BUILD_SF_PATH/$bname/Dockerfile not on disk"
+        fi
+    done
+fi
+
+if [ $BUILD_READY -eq 0 ]; then
+    for t in "${BUILD_TESTS[@]}"; do _skip "$t" "$BUILD_SKIP_WHY"; done
+else
+    # --- Two names in one request: both images are built --------------------
+    assert_rpc_bg "doBuild (multi, 2 names)" "Compose" "doBuild" \
+        '{"names":"omvtest_build_a,omvtest_build_b","options":""}'
+    for bname in "${BUILD_NAMES[@]}"; do
+        if image_exists "$bname"; then
+            _pass "doBuild multi built $bname"
+        else
+            _fail "doBuild multi built $bname" "image '$bname' not found"
+        fi
+    done
+
+    # --- Rebuild: second build of unchanged Dockerfiles hits the cache -------
+    assert_rpc_bg "doBuild (multi, rebuild uses cache)" "Compose" "doBuild" \
+        '{"names":"omvtest_build_a,omvtest_build_b","options":""}' "$BUILD_CACHE_RE"
+
+    # --- nocache: every build in the list ignores the cache ------------------
+    assert_rpc_bg "doBuild (multi, nocache)" "Compose" "doBuild" \
+        '{"names":"omvtest_build_a,omvtest_build_b","options":"nocache"}'
+    if echo "$BG_OUT" | grep -q "$BUILD_CACHE_RE"; then
+        _fail "doBuild nocache did not use cache" \
+            "$(echo "$BG_OUT" | grep -m2 "$BUILD_CACHE_RE")"
+    else
+        _pass "doBuild nocache did not use cache"
+    fi
+
+    # --- pull: FROM scratch has nothing to pull, so this works offline ------
+    assert_rpc_bg "doBuild (multi, pull)" "Compose" "doBuild" \
+        '{"names":"omvtest_build_a,omvtest_build_b","options":"pull"}'
+
+    # --- Backwards compatibility: single 'name' param -----------------------
+    "$RUNTIME" image rm -f omvtest_build_a >/dev/null 2>&1 || true
+    assert_rpc_bg "doBuild (legacy 'name' param)" "Compose" "doBuild" \
+        '{"name":"omvtest_build_a","options":""}'
+    if image_exists omvtest_build_a; then
+        _pass "doBuild legacy 'name' param built the image"
+    else
+        _fail "doBuild legacy 'name' param built the image" "image omvtest_build_a not found"
+    fi
+
+    # --- names list is trimmed and empty entries dropped --------------------
+    "$RUNTIME" image rm -f omvtest_build_a omvtest_build_b >/dev/null 2>&1 || true
+    assert_rpc_bg "doBuild (multi, tolerates spaces and empty entries)" "Compose" "doBuild" \
+        '{"names":" omvtest_build_a , ,omvtest_build_b,","options":""}'
+    if image_exists omvtest_build_a && image_exists omvtest_build_b; then
+        _pass "doBuild spaced names list built both images"
+    else
+        _fail "doBuild spaced names list built both images" "not all images built"
+    fi
+
+    # --- One failing name does not abort the rest of the list ---------------
+    # Put the bad name first so the good one is only built if doBuild
+    # carries on after the failure.
+    "$RUNTIME" image rm -f omvtest_build_b >/dev/null 2>&1 || true
+    assert_rpc_bg "doBuild (multi, one bad name) continues" "Compose" "doBuild" \
+        '{"names":"omvtest_build_nonexistent,omvtest_build_b","options":""}'
+    if echo "$BG_OUT" | grep -q '\*\*\* ERROR #'; then
+        _pass "doBuild multi reports error for bad name"
+    else
+        _fail "doBuild multi reports error for bad name" "no '*** ERROR #' in output"
+    fi
+    if image_exists omvtest_build_b; then
+        _pass "doBuild multi still built the good name"
+    else
+        _fail "doBuild multi still built the good name" "image omvtest_build_b not found"
+    fi
+
+    # --- A single failing name keeps the old behaviour: the task fails ------
+    assert_rpc_bg_fails "doBuild (single bad name) fails" "Compose" "doBuild" \
+        '{"names":"omvtest_build_nonexistent","options":""}'
 fi
 
 # ---------------------------------------------------------------------------
