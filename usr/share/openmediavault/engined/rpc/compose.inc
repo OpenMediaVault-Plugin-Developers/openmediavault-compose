@@ -1547,38 +1547,44 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        // Get the configuration object.
-        $db = \OMV\Config\Database::getInstance();
-        $settings = $db->get("conf.service.compose");
         $podman = $this->getPodman($context);
-        $object = $db->get("conf.service.compose.file", $params['uuid']);
         $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
+        // accept a comma-separated list of names (multi-select) or a single name
+        $names = array_filter(array_map('trim', explode(',', $params['names'] ?? $params['name'] ?? '')));
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($object, $params, $sfpath, $showCmd, $podman) {
-                $name = $params['name'];
-                $cmdArgs = [];
-                $cmdArgs[] = 'docker';
-                $cmdArgs[] = 'build';
-                if ($params['options'] == 'pull') {
-                    $cmdArgs[] = '--pull';
-                }
-                if ($params['options'] == 'nocache') {
-                    $cmdArgs[] = '--no-cache';
-                }
-                $cmdArgs[] = '--progress plain';
-                $cmdArgs[] = sprintf("--tag '%s'", $params['name']);
-                $cmdArgs[] = sprintf("'%s/%s/'", $sfpath, $name);
-                $cmd = new \OMV\System\Process($cmdArgs);
-                if ($podman) {
-                    $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
-                    $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
-                }
-                $cmd->setRedirect2to1();
-                $cmdLine = $cmd->getCommandLine();
-                if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
-                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
-                    throw new \OMV\ExecException($cmdLine, $output);
+            use ($names, $params, $sfpath, $showCmd, $podman) {
+                $output = '';
+                foreach ($names as $name) {
+                    $cmdArgs = [];
+                    $cmdArgs[] = 'docker';
+                    $cmdArgs[] = 'build';
+                    if ($params['options'] == 'pull') {
+                        $cmdArgs[] = '--pull';
+                    }
+                    if ($params['options'] == 'nocache') {
+                        $cmdArgs[] = '--no-cache';
+                    }
+                    $cmdArgs[] = '--progress plain';
+                    $cmdArgs[] = sprintf("--tag '%s'", $name);
+                    $cmdArgs[] = sprintf("'%s/%s/'", $sfpath, $name);
+                    $cmd = new \OMV\System\Process($cmdArgs);
+                    if ($podman) {
+                        $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                        $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                    }
+                    $cmd->setRedirect2to1();
+                    $cmdLine = $cmd->getCommandLine();
+                    if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                    $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
+                    if ($exitStatus !== 0) {
+                        // single build keeps the old behavior; multi continues with the next one
+                        if (count($names) == 1) {
+                            throw new \OMV\ExecException($cmdLine, $output);
+                        }
+                        $errmsg = PHP_EOL . PHP_EOL . '*** ERROR #' . $exitStatus . ' ***' . PHP_EOL . PHP_EOL;
+                        file_put_contents($bgOutputFilename, $errmsg, FILE_APPEND);
+                    }
                 }
                 return $output;
             }

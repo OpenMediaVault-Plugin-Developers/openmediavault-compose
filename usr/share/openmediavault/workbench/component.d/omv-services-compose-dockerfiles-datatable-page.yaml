@@ -90,7 +90,6 @@ data:
         tooltip: _("Build")
         enabledConstraints:
           minSelected: 1
-          maxSelected: 1
         execute:
           type: taskDialog
           taskDialog:
@@ -101,14 +100,13 @@ data:
                 service: Compose
                 method: doBuild
                 params:
-                  name: "{{ _selected[0].name }}"
+                  names: "{{ _selected | map('get', 'name') | join(',') }}"
                   options: ""
       - type: iconButton
         icon: mdi:wrench-cog-outline
         tooltip: _("Pull and Build")
         enabledConstraints:
           minSelected: 1
-          maxSelected: 1
         execute:
           type: taskDialog
           taskDialog:
@@ -119,14 +117,13 @@ data:
                 service: Compose
                 method: doBuild
                 params:
-                  name: "{{ _selected[0].name }}"
+                  names: "{{ _selected | map('get', 'name') | join(',') }}"
                   options: "pull"
       - type: iconButton
         icon: mdi:hammer-wrench
         tooltip: _("Build without cache")
         enabledConstraints:
           minSelected: 1
-          maxSelected: 1
         execute:
           type: taskDialog
           taskDialog:
@@ -137,7 +134,7 @@ data:
                 service: Compose
                 method: doBuild
                 params:
-                  name: "{{ _selected[0].name }}"
+                  names: "{{ _selected | map('get', 'name') | join(',') }}"
                   options: "nocache"
       - type: iconButton
         icon: mdi:tag-plus-outline
