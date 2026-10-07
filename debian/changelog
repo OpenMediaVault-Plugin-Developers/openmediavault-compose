@@ -1,7 +1,12 @@
+openmediavault-compose (8.2.2) stable; urgency=low
+
+  * Allow building multiple selected Dockerfiles at once
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 07 Oct 2026 21:19:58 +0000
+
 openmediavault-compose (8.2.1) stable; urgency=low
 
   * Add Build without cache button to Files and Dockerfiles tabs
-  * Allow building multiple selected Dockerfiles at once
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 07 Oct 2026 11:21:25 +0000
 
