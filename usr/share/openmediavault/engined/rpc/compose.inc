@@ -901,13 +901,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             gettext("Backup shared folder must be different than docker shared folder")
         ],[
             'sharedfolderref', 'podmansharedfolderref',
-            gettext("Compose file shared folder must be different than docker shared folder")
+            gettext("Compose file shared folder must be different than podman shared folder")
         ],[
             'datasharedfolderref', 'podmansharedfolderref',
-            gettext("Data shared folder must be different than docker shared folder")
+            gettext("Data shared folder must be different than podman shared folder")
         ],[
             'backupsharedfolderref', 'podmansharedfolderref',
-            gettext("Backup shared folder must be different than docker shared folder")
+            gettext("Backup shared folder must be different than podman shared folder")
         ]];
         foreach ($checks as [$left, $right, $message]) {
             if ($params[$left] !== '' && $params[$left] === $params[$right]) {
@@ -1115,7 +1115,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $filedate = filemtime($composeFile);
             if ($filedate === false) $filedate = 0;
             $objectv->add('filedate', 'integer', $filedate);
-            $objectv->add('status', 'string', implode(',', $status));
             $objectv->add('build', 'boolean', false);
             if (stripos($objectv->get('body'), 'build:') !== false) {
                 $objectv->set('build', true);
@@ -1298,13 +1297,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $checkSyntax = $this->checkFileSyntax($context, $object->get('body'), $object->get('override'), $object->get('env'), $object->get('name'), $datapath);
         // update database
         $db->set($object);
+        $cname = $object->get('name');
         // Apply changes immmediately
         if (TRUE === $isNew) {
             $this->applyChanges($context);
             // clear cache for files
             $this->clearCache('files');
         } else {
-            $cname = $object->get('name');
             $composeDir = sprintf("%s/%s", $sfpath, $cname);
             if (is_dir($composeDir)) {
                 $composeName = sprintf("%s/%s", $composeDir, $cname);
@@ -1502,8 +1501,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $header2 = sprintf('%s# config file for %s%s# %s%s', $header, $dfname, PHP_EOL, $desc, $dblEol);
 
                 file_put_contents($dfFile, $header1 . $object->get('body') . PHP_EOL);
-                file_put_contents($confFile, $header2 . $object->get('conffile') . PHP_EOL);
-                file_put_contents($scriptFile, $object->get('scriptfile') . PHP_EOL);
+                if ($object->get('conf') !== '') {
+                    file_put_contents($confFile, $header2 . $object->get('conffile') . PHP_EOL);
+                }
+                if ($object->get('script') !== '') {
+                    file_put_contents($scriptFile, $object->get('scriptfile') . PHP_EOL);
+                }
             }
         }
         // Return the configuration object.
@@ -1523,20 +1526,20 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $object = $db->get("conf.service.compose.dockerfile", $params['uuid']);
         $dname = $object->get('name');
         $dockerDir = sprintf("%s/%s", $sfpath, $dname);
-        $dockerFile = sprintf("%s/Dockerfile", $dockerDir);
-        $scriptFile = sprintf("%s/%s", $dockerDir, $object->get('script'));
-        $confFile = sprintf("%s/%s", $dockerDir, $object->get('conf'));
-        if (file_exists($dockerFile)) {
-            unlink($dockerFile);
+        $files = [sprintf("%s/Dockerfile", $dockerDir)];
+        foreach (['script', 'conf'] as $key) {
+            if ($object->get($key) !== '') {
+                $files[] = sprintf("%s/%s", $dockerDir, $object->get($key));
+            }
         }
-        if (file_exists($scriptFile)) {
-            unlink($scriptFile);
+        foreach ($files as $f) {
+            if (is_file($f)) {
+                unlink($f);
+            }
         }
-        if (file_exists($confFile)) {
-            unlink($confFile);
-        }
-        if (file_exists($composeDir)) {
-            rmdir($composeDir);
+        // remove dir if empty
+        if (is_dir($dockerDir) && count(scandir($dockerDir)) == 2) {
+            rmdir($dockerDir);
         }
         $db->delete($object);
         // Return the deleted configuration object.
@@ -1643,16 +1646,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $sfpath) {
-                // docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+            use ($params, $sfpath, $podman) {
+                // docker image push NAME[:TAG]
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'image';
                 $cmdArgs[] = 'push';
-                if (strlen($params['imgtag']) > 0) {
+                if (strlen($params['imgtag'] ?? '') > 0) {
                     $cmdArgs[] = sprintf('%s:%s', $params['imgname'], $params['imgtag']);
                 } else {
-                    $cmdArgs[] = $params['imgimg'];
+                    $cmdArgs[] = $params['imgname'];
                 }
                 $cmd = new \OMV\System\Process($cmdArgs);
                 if ($podman) {
@@ -2689,6 +2692,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     public function importExistingFolder($params, $context)
     {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         // Get the configuration object.
@@ -2760,6 +2765,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     public function importExistingOne($params, $context)
     {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         // Get the configuration object.
@@ -3014,6 +3021,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     public function importConfig($params, $context)
     {
+        // Validate the RPC caller context.
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Verify that shared folder is set
         $sfpath = $this->getComposePath($context);
         // Get the configuration object.
@@ -3025,7 +3034,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $lastDir = rtrim($path, DIRECTORY_SEPARATOR);
         $lastDirName = basename($lastDir);
         // get a list files and exclude compose related files
-        $excludes = ["..", ".", "docker.override.yml", $lastDirName . '.yml', $lastDirName . '.env'];
+        $excludes = ["..", ".", "compose.override.yml", $lastDirName . '.yml', $lastDirName . '.env'];
         $files = array_diff(scandir($path), $excludes);
         // get compose file uuid
         $fileref = $params['fileref'];
@@ -3360,6 +3369,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         $objects = [];
         foreach ($output as $line) {
+            if (trim($line) === '') {
+                continue;
+            }
             $cntr = explode(',', $line);
             $cpu = floatval(trim(str_replace('%', '', $cntr[2])));
             $memUL = explode('/', $cntr[3]);
@@ -3398,7 +3410,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     {
         $valL = strtolower($val);
         $level = 1;
-        if (strpos($val, 'k')) {
+        if (strpos($valL, 'k')) {
             $level = 1024;
         } elseif (strpos($valL, 'm')) {
             $level = pow(1024, 2);
@@ -3521,7 +3533,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             } else {
                 $autouser = $context['username'];
             }
-            $autouser = $cterm->get('autouser') ?: $context['username'];
             $secret = trim(file_get_contents('/etc/omv_cterm.secret'));
             $ts = sprintf('%s', microtime(true));
             $userts = sprintf('%s:%s', $autouser, $ts);
@@ -3722,9 +3733,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'volume';
                 $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['name'];
-                if ($params['command'] == 'inspect') {
-                    $cmdArgs[] = '| jq .';
-                }
                 $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 if ($podman) {
@@ -4192,9 +4200,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'network';
                 $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['name'];
-                if ($params['command'] == 'inspect') {
-                    $cmdArgs[] = '| jq .';
-                }
                 $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 if ($podman) {
@@ -4404,8 +4409,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 ];
             }
             $grouped[$key]['digests_raw'][] = $imageJson->Digest;
-            $grouped[$key]['ids_raw'][] = $imageJson->ID ?? $imageJson->Id;
-            $grouped[$key]['inuse'] = $grouped[$key]['inuse'] || isset($containerImageSet[$imageJson->ID]);
+            $imageId = $imageJson->ID ?? $imageJson->Id ?? '';
+            $grouped[$key]['ids_raw'][] = $imageId;
+            $grouped[$key]['inuse'] = $grouped[$key]['inuse'] || isset($containerImageSet[$imageId]);
             // show largest size and virtualsize
             $grouped[$key]['size'] = isset($grouped[$key]['size'])
                 ? max($grouped[$key]['size'], $this->convertToBytes($imageJson->Size))
@@ -4560,9 +4566,6 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'image';
                 $cmdArgs[] = $params['command'];
                 $cmdArgs[] = $params['id'];
-                if ($params['command'] == 'inspect') {
-                    $cmdArgs[] = '| jq .';
-                }
                 $cmdArgs = array_filter($cmdArgs);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 if ($podman) {
@@ -4724,12 +4727,19 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         $sfpath = $this->getBackupPath($context);
-        if (strlen($params['name']) < 1) {
+        $name = strval($params['name'] ?? '');
+        if (strlen($name) < 1) {
           throw new \OMV\ExecException(
               gettext("No name specified!")
           );
         }
-        $delPath = sprintf('%s/%s', $sfpath, $params['name']);
+        // the name must be a single directory inside the backup folder
+        if ($name !== basename($name) || $name === '.' || $name === '..') {
+          throw new \OMV\ExecException(
+              gettext("Invalid backup name!") . ' - ' . $name
+          );
+        }
+        $delPath = sprintf('%s/%s', $sfpath, $name);
         if (!is_dir($delPath)) {
           throw new \OMV\ExecException(
             gettext("Directory does not exist!") .
@@ -5044,11 +5054,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         $cmdArgs = [];
-        $cmdArgs[] = sprintf("echo '%s' |", $params['passwd']);
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'login';
-        $cmdArgs[] = $params['url'];
-        $cmdArgs[] = sprintf('--username %s', $params['username']);
+        $cmdArgs[] = escapeshellarg($params['url']);
+        $cmdArgs[] = '--username';
+        $cmdArgs[] = escapeshellarg($params['username']);
         $cmdArgs[] = '--password-stdin';
         $cmd = new \OMV\System\Process($cmdArgs);
         $podman = $this->getPodman($context);
@@ -5056,7 +5066,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
             $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
         }
-        $cmd->execute($output, $exitStatus);
+        $cmd->setRedirect2to1();
+        $cmdLine = $cmd->getCommandLine();
+        // Write the password to stdin so it never appears in the command
+        // line, the process list or the error message.
+        $proc = proc_open($cmdLine, [0 => ['pipe', 'r'], 1 => ['pipe', 'w']], $pipes);
+        if (!is_resource($proc)) {
+            throw new \OMV\Exception(sprintf("Failed to execute command '%s'.", $cmdLine));
+        }
+        fwrite($pipes[0], strval($params['passwd']));
+        fclose($pipes[0]);
+        $output = explode("\n", rtrim(stream_get_contents($pipes[1])));
+        fclose($pipes[1]);
+        $exitStatus = proc_close($proc);
+        if (0 !== $exitStatus) {
+            throw new \OMV\ExecException($cmdLine, $output, $exitStatus);
+        }
     }
 
     public function repoLogout($params, $context)
