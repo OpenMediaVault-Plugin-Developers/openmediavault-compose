@@ -718,10 +718,13 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             return $texts;
         }
 
+        $nfpRegex = '/\$\{\{\s*nfp:\s*(\d+)\s*\}\}/';
         // Collect all numeric host ports from every stored compose file body
-        // and from the texts being resolved.
+        // and from the texts being resolved. The placeholders are masked with
+        // port 0 (ignored) first: an unquoted '${{ nfp: N }}' contains ': ',
+        // which is not valid YAML and would hide every literal port in the text.
         $db = \OMV\Config\Database::getInstance();
-        $bodies = $texts;
+        $bodies = preg_replace($nfpRegex, '0', $texts);
         foreach ($db->get("conf.service.compose.file") as $objectv) {
             $bodies[] = strval($objectv->get('body'));
             $bodies[] = strval($objectv->get('override'));
@@ -747,7 +750,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $claimed = [];
 
         $callback = function ($matches) use (&$usedPorts, &$claimed) {
-            $port = max(1, min(65534, intval($matches[1])));
+            $port = max(1, min(65535, intval($matches[1])));
             while ($port <= 65535) {
                 if (!isset($usedPorts[$port]) && !isset($claimed[$port])) {
                     $claimed[$port] = true;
@@ -758,8 +761,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             return $matches[0]; // no free port found, leave placeholder intact
         };
         foreach ($texts as $key => $text) {
-            $texts[$key] = preg_replace_callback(
-                '/\$\{\{\s*nfp:\s*(\d+)\s*\}\}/', $callback, $text);
+            $texts[$key] = preg_replace_callback($nfpRegex, $callback, $text);
         }
         return $texts;
     }
@@ -5233,7 +5235,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
 
     public function doFindFreePorts($params, $context) {
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        $startPort = max(1, min(65534, intval($params['startPort'] ?? 1024)));
+        $startPort = max(1, min(65535, intval($params['startPort'] ?? 1024)));
 
         $db = \OMV\Config\Database::getInstance();
         $objects = $db->get("conf.service.compose.file");
