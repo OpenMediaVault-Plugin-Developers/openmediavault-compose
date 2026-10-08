@@ -362,6 +362,7 @@ VOL_TEST_CTR=""
 # Extra compose files, config snippets and dockerfiles created by the
 # per-method coverage tests (removed on exit).
 EXTRA_FILE_NAMES=(omvtest_ports_compose omvtest_nfp_compose omvtest_nfp2_compose
+    omvtest_nfp3_compose
     omvtest_url_compose omvtest_example omvtest_autocompose)
 EXTRA_CONFIG_NAMES=(omvtest_cfg_path omvtest_cfg_a.conf)
 declare -a EXTRA_FILE_UUIDS=()
@@ -862,6 +863,45 @@ print(b.group(1) if b else '', o.group(1) if o else '')" 2>/dev/null)
         _skip "nfp skips a literal port in the same file" "no file uuid"
         _skip "nfp gives body and override different ports" "no file uuid"
     fi
+
+    # Long-form ports with an unquoted placeholder: before masking, the body
+    # did not parse as YAML, so the literal 18095 was not seen as used.
+    create_extra_file "setFile (create, unquoted long-form nfp)" "omvtest_nfp3_compose" \
+        'services:
+  web:
+    image: hello-world
+    ports:
+      - target: 80
+        published: 18095
+      - target: 81
+        published: ${{ nfp: 18095 }}
+      - target: 82
+        published: ${{ nfp: 65535 }}'
+    if [ -n "$CREATED_UUID" ]; then
+        nfp_ports=$(omv-rpc -u admin "Compose" "getFile" "{\"uuid\":\"$CREATED_UUID\"}" 2>/dev/null \
+            | python3 -c "
+import sys, json, re
+print(' '.join(re.findall(r'published: (\S+)', json.load(sys.stdin)['body'])))" 2>/dev/null)
+        read -r _ nfp_long nfp_max <<< "$nfp_ports"
+        if [[ "$nfp_long" =~ ^[0-9]+$ ]] && [ "$nfp_long" != 18095 ]; then
+            _pass "nfp skips a literal port next to an unquoted placeholder ($nfp_long)"
+        else
+            _fail "nfp skips a literal port next to an unquoted placeholder" "got '$nfp_long'"
+        fi
+        # 65535 is used by another stack only if someone published it; then
+        # the placeholder is left as is, never moved below the request.
+        if [ "$nfp_max" = 65535 ] || [[ "$nfp_max" == '${{'* ]]; then
+            _pass "nfp: 65535 resolves to 65535 (or stays unresolved), never lower"
+        else
+            _fail "nfp: 65535 resolves to 65535 (or stays unresolved), never lower" "got '$nfp_max'"
+        fi
+    else
+        _skip "nfp skips a literal port next to an unquoted placeholder" "no file uuid"
+        _skip "nfp: 65535 resolves to 65535 (or stays unresolved), never lower" "no file uuid"
+    fi
+
+    assert_rpc_bg "doFindFreePorts (startPort 65535)" "Compose" "doFindFreePorts" '{"startPort":65535}' \
+        "starting from 65535"
 fi
 assert_rpc_bg "getUsedPortsBg" "Compose" "getUsedPortsBg" \
     '{"start":0,"limit":25,"sortfield":"file","sortdir":"ASC"}'
