@@ -573,17 +573,20 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (is_dir(sprintf("%s/.git", $sfpath))) {
             // git add to repo
             $cmdArgs = [];
-            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = '-C';
+            $cmdArgs[] = escapeshellarg($sfpath);
             $cmdArgs[] = 'add';
-            $cmdArgs = array_merge($cmdArgs, $files);
+            $cmdArgs = array_merge($cmdArgs, array_map('escapeshellarg', $files));
             $cmd = new \OMV\System\Process('git', $cmdArgs);
             $cmd->setQuiet(true);
             $cmd->execute($output, $exitStatus);
             // git commit change
             $cmdArgs = [];
-            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = '-C';
+            $cmdArgs[] = escapeshellarg($sfpath);
             $cmdArgs[] = 'commit';
-            $cmdArgs[] = sprintf("-m 'Added %s on %s'", $msg, date('Y.m.d h:i:sa'));
+            $cmdArgs[] = '-m';
+            $cmdArgs[] = escapeshellarg(sprintf('Added %s on %s', $msg, date('Y.m.d h:i:sa')));
             $cmd = new \OMV\System\Process('git', $cmdArgs);
             $cmd->setQuiet(true);
             $cmd->execute($output, $exitStatus);
@@ -596,18 +599,21 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         if (is_dir(sprintf("%s/.git", $sfpath))) {
             // git add to repo
             $cmdArgs = [];
-            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = '-C';
+            $cmdArgs[] = escapeshellarg($sfpath);
             $cmdArgs[] = 'rm';
             $cmdArgs[] = '-f';
-            $cmdArgs = array_merge($cmdArgs, $files);
+            $cmdArgs = array_merge($cmdArgs, array_map('escapeshellarg', $files));
             $cmd = new \OMV\System\Process('git', $cmdArgs);
             $cmd->setQuiet(true);
             $cmd->execute($output, $exitStatus);
             // git commit change
             $cmdArgs = [];
-            $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+            $cmdArgs[] = '-C';
+            $cmdArgs[] = escapeshellarg($sfpath);
             $cmdArgs[] = 'commit';
-            $cmdArgs[] = sprintf("-m 'Removed %s on %s'", $msg, date('Y.m.d h:i:sa'));
+            $cmdArgs[] = '-m';
+            $cmdArgs[] = escapeshellarg(sprintf('Removed %s on %s', $msg, date('Y.m.d h:i:sa')));
             $cmd = new \OMV\System\Process('git', $cmdArgs);
             $cmd->setQuiet(true);
             $cmd->execute($output, $exitStatus);
@@ -696,17 +702,33 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return date_default_timezone_get();
     }
 
-    private function resolveNfpPlaceholders($body)
+    // Replace ${{ nfp: N }} placeholders in the given texts (e.g. the compose
+    // body and override of one file) with the first free host port >= N.
+    // Ports used by any stored compose file and literal ports in the texts
+    // themselves count as used; each placeholder gets a different port.
+    private function resolveNfpPlaceholders(array $texts): array
     {
-        if (strpos($body, '${{ nfp:') === false) {
-            return $body;
+        $hasPlaceholder = false;
+        foreach ($texts as $text) {
+            if (strpos($text, '${{ nfp:') !== false) {
+                $hasPlaceholder = true;
+            }
+        }
+        if (!$hasPlaceholder) {
+            return $texts;
         }
 
-        // Collect all numeric host ports from every stored compose file body.
+        // Collect all numeric host ports from every stored compose file body
+        // and from the texts being resolved.
         $db = \OMV\Config\Database::getInstance();
-        $usedPorts = [];
+        $bodies = $texts;
         foreach ($db->get("conf.service.compose.file") as $objectv) {
-            foreach ($this->parseComposePorts($objectv->get('body'), '') as $port) {
+            $bodies[] = strval($objectv->get('body'));
+            $bodies[] = strval($objectv->get('override'));
+        }
+        $usedPorts = [];
+        foreach ($bodies as $body) {
+            foreach ($this->parseComposePorts($body, '') as $port) {
                 $hp = $port['host_port'];
                 if (strpos($hp, '-') !== false) {
                     [$rs, $re] = explode('-', $hp, 2);
@@ -724,21 +746,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         // Ports claimed by earlier ${{ nfp: N }} tags within this same render pass.
         $claimed = [];
 
-        return preg_replace_callback(
-            '/\$\{\{\s*nfp:\s*(\d+)\s*\}\}/',
-            function ($matches) use (&$usedPorts, &$claimed) {
-                $port = max(1, min(65534, intval($matches[1])));
-                while ($port <= 65535) {
-                    if (!isset($usedPorts[$port]) && !isset($claimed[$port])) {
-                        $claimed[$port] = true;
-                        return (string)$port;
-                    }
-                    $port++;
+        $callback = function ($matches) use (&$usedPorts, &$claimed) {
+            $port = max(1, min(65534, intval($matches[1])));
+            while ($port <= 65535) {
+                if (!isset($usedPorts[$port]) && !isset($claimed[$port])) {
+                    $claimed[$port] = true;
+                    return (string)$port;
                 }
-                return $matches[0]; // no free port found, leave placeholder intact
-            },
-            $body
-        );
+                $port++;
+            }
+            return $matches[0]; // no free port found, leave placeholder intact
+        };
+        foreach ($texts as $key => $text) {
+            $texts[$key] = preg_replace_callback(
+                '/\$\{\{\s*nfp:\s*(\d+)\s*\}\}/', $callback, $text);
+        }
+        return $texts;
     }
 
     private function renderBody($rawBody, $name, $datapath, $context)
@@ -1231,10 +1254,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'compose';
-        $cmdArgs[] = sprintf("--file '%s'", $ymlFile1);
-        $cmdArgs[] = sprintf("--file '%s'", $ymlFile2);
-        $cmdArgs[] = sprintf("--env-file '%s'", $globalEnvFile);
-        $cmdArgs[] = sprintf("--env-file '%s'", $envFile1);
+        $cmdArgs[] = '--file ' . escapeshellarg($ymlFile1);
+        $cmdArgs[] = '--file ' . escapeshellarg($ymlFile2);
+        $cmdArgs[] = '--env-file ' . escapeshellarg($globalEnvFile);
+        $cmdArgs[] = '--env-file ' . escapeshellarg($envFile1);
         $cmdArgs[] = 'config';
         $cmd = new \OMV\System\Process($cmdArgs);
         $podman = $this->getPodman($context);
@@ -1282,8 +1305,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         // Resolve ${{ nfp: N }} placeholders before storing so the assigned
         // port is locked in and does not shift on subsequent saves.
-        $params['body'] = $this->resolveNfpPlaceholders($params['body']);
-        $params['override'] = $this->resolveNfpPlaceholders($params['override'] ?? '');
+        [$params['body'], $params['override']] = $this->resolveNfpPlaceholders(
+            [$params['body'], $params['override'] ?? '']);
         // Prepare the configuration object.
         $object = new \OMV\Config\ConfigObject("conf.service.compose.file");
         $object->setAssoc($params);
@@ -1569,8 +1592,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         $cmdArgs[] = '--no-cache';
                     }
                     $cmdArgs[] = '--progress plain';
-                    $cmdArgs[] = sprintf("--tag '%s'", $name);
-                    $cmdArgs[] = sprintf("'%s/%s/'", $sfpath, $name);
+                    $cmdArgs[] = '--tag ' . escapeshellarg($name);
+                    $cmdArgs[] = escapeshellarg(sprintf('%s/%s/', $sfpath, $name));
                     $cmd = new \OMV\System\Process($cmdArgs);
                     if ($podman) {
                         $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
@@ -1801,7 +1824,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 switch ($params['command']) {
                     case 'init':
                         $cmdArgs = [];
-                        $cmdArgs[] = sprintf("'%s'", $sfpath);
+                        $cmdArgs[] = escapeshellarg($sfpath);
                         $cmd = new \OMV\System\Process('omv-compose-init-git', $cmdArgs);
                         break;
                     case 'diff':
@@ -1815,16 +1838,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         $globalEnvFile = sprintf("%s/global.env", $sfpath);
 
                         $cmdArgs = [];
-                        $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                        $cmdArgs[] = '-C ' . escapeshellarg($sfpath);
                         $cmdArgs[] = 'log';
                         $cmdArgs[] = '-p';
                         $cmdArgs[] = '--';
-                        $cmdArgs[] = sprintf('%s.yml', $composeName);
+                        $cmdArgs[] = escapeshellarg(sprintf('%s.yml', $composeName));
                         $cmd = new \OMV\System\Process('git', $cmdArgs);
                         break;
                     case 'diffg':
                         $cmdArgs = [];
-                        $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                        $cmdArgs[] = '-C ' . escapeshellarg($sfpath);
                         $cmdArgs[] = 'log';
                         $cmdArgs[] = '-p';
                         $cmdArgs[] = '--';
@@ -1839,11 +1862,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                         $fname = $fobj->get('name');
                         $cpath = sprintf('%s/%s', $fname, $cname);
                         $cmdArgs = [];
-                        $cmdArgs[] = sprintf("-C '%s'", $sfpath);
+                        $cmdArgs[] = '-C ' . escapeshellarg($sfpath);
                         $cmdArgs[] = 'log';
                         $cmdArgs[] = '-p';
                         $cmdArgs[] = '--';
-                        $cmdArgs[] = sprintf("'%s'", $cpath);
+                        $cmdArgs[] = escapeshellarg($cpath);
                         $cmd = new \OMV\System\Process('git', $cmdArgs);
                         break;
                 }
@@ -2051,11 +2074,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $confPath = sprintf('%s/%s', $composeName, $cnfName);
             $this->removeAndCommit($context, [$confPath], $cnfName);
             // remove file
-            if (file_exists($cnfPath)) {
+            if (is_file($cnfPath)) {
                 unlink($cnfPath);
-            }
-            if (file_exists($composeDir)) {
-                rmdir($composeDir);
             }
         } catch (Exception $e) {
             // Parent compose file is gone (orphaned config) — still remove from DB.
@@ -3763,16 +3783,16 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'volume';
         $cmdArgs[] = 'create';
-        $cmdArgs[] = sprintf("--driver %s", $driver);
+        $cmdArgs[] = '--driver ' . escapeshellarg($driver);
         if ($advanced) {
             $mountType = $params['mounttype'] ?? 'none';
             if ($mountType !== '' && $mountType !== 'none') {
-                $cmdArgs[] = sprintf("--opt type=%s", $mountType);
+                $cmdArgs[] = '--opt ' . escapeshellarg('type=' . $mountType);
                 if (!empty($params['device'])) {
-                    $cmdArgs[] = sprintf('--opt device="%s"', $params['device']);
+                    $cmdArgs[] = '--opt ' . escapeshellarg('device=' . $params['device']);
                 }
                 if (!empty($params['mountoptions'])) {
-                    $cmdArgs[] = sprintf('--opt o="%s"', $params['mountoptions']);
+                    $cmdArgs[] = '--opt ' . escapeshellarg('o=' . $params['mountoptions']);
                 }
             }
             if (!empty($params['driveropts'])) {
@@ -3780,7 +3800,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 foreach ($opts as $entry) {
                     $entry = trim($entry);
                     if ($entry !== '') {
-                        $cmdArgs[] = sprintf('--opt %s', $entry);
+                        $cmdArgs[] = '--opt ' . escapeshellarg($entry);
                     }
                 }
             }
@@ -3789,12 +3809,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 foreach ($labels as $label) {
                     $label = trim($label);
                     if ($label !== '') {
-                        $cmdArgs[] = sprintf('--label %s', $label);
+                        $cmdArgs[] = '--label ' . escapeshellarg($label);
                     }
                 }
             }
         }
-        $cmdArgs[] = $params['name'];
+        $cmdArgs[] = escapeshellarg($params['name']);
         $cmd = new \OMV\System\Process($cmdArgs);
         if ($podman) {
             $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
@@ -4259,12 +4279,12 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'network';
         $cmdArgs[] = 'create';
-        $cmdArgs[] = sprintf("--driver %s", $driver);
+        $cmdArgs[] = '--driver ' . escapeshellarg($driver);
         if ($internal && in_array($driver, ['bridge', 'overlay'], true)) {
             $cmdArgs[] = '--internal';
         }
         if (in_array($driver, ['macvlan', 'ipvlan'], true) && !empty($params['parentnetwork'])) {
-            $cmdArgs[] = sprintf("--opt parent=%s", $params['parentnetwork']);
+            $cmdArgs[] = '--opt ' . escapeshellarg('parent=' . $params['parentnetwork']);
         }
         // The macvlan/ipvlan mode option key differs between runtimes:
         // docker uses macvlan_mode/ipvlan_mode, podman (netavark) uses mode.
@@ -4277,36 +4297,36 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         }
         if ($mode !== '') {
             if ($podman) {
-                $cmdArgs[] = sprintf("--opt mode=%s", $mode);
+                $cmdArgs[] = '--opt ' . escapeshellarg('mode=' . $mode);
             } else {
-                $cmdArgs[] = sprintf("--opt %s_mode=%s", $driver, $mode);
+                $cmdArgs[] = '--opt ' . escapeshellarg(sprintf('%s_mode=%s', $driver, $mode));
             }
         }
         if (!empty($params['ipv6'])) {
             $cmdArgs[] = '--ipv6';
         }
         if ($params['subnet']) {
-            $cmdArgs[] = sprintf("--subnet=%s", $params['subnet']);
+            $cmdArgs[] = '--subnet=' . escapeshellarg($params['subnet']);
         }
         if ($params['gateway']) {
-            $cmdArgs[] = sprintf("--gateway=%s", $params['gateway']);
+            $cmdArgs[] = '--gateway=' . escapeshellarg($params['gateway']);
         }
         if (!empty($params['subnet6'])) {
-            $cmdArgs[] = sprintf("--subnet=%s", $params['subnet6']);
+            $cmdArgs[] = '--subnet=' . escapeshellarg($params['subnet6']);
         }
         if (!empty($params['gateway6'])) {
-            $cmdArgs[] = sprintf("--gateway=%s", $params['gateway6']);
+            $cmdArgs[] = '--gateway=' . escapeshellarg($params['gateway6']);
         }
         if ($params['iprange']) {
-            $cmdArgs[] = sprintf("--ip-range=%s", $params['iprange']);
+            $cmdArgs[] = '--ip-range=' . escapeshellarg($params['iprange']);
         }
         if ($params['auxaddress']) {
             $aux = explode(',', $params['auxaddress']);
             foreach ($aux as $entry) {
-                $cmdArgs[] = sprintf('--aux-address="%s"', trim($entry));
+                $cmdArgs[] = '--aux-address=' . escapeshellarg(trim($entry));
             }
         }
-        $cmdArgs[] = $params['name'];
+        $cmdArgs[] = escapeshellarg($params['name']);
         $cmd = new \OMV\System\Process($cmdArgs);
         if ($podman) {
             $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
@@ -4690,11 +4710,11 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
           use ($params) {
             $cmdArgs = [];
             $cmdArgs[] = '/usr/sbin/omv-compose-restore';
-            $cmdArgs[] = sprintf("'%s'", $params['backup']);
+            $cmdArgs[] = escapeshellarg($params['backup']);
             if (!empty($params['time'])) {
                 $ts = str_replace(" ", "_", $params['time']);
                 $ts = str_replace(":", "-", $ts);
-                $cmdArgs[] = sprintf("--at '%s'", $ts);
+                $cmdArgs[] = '--at ' . escapeshellarg($ts);
             }
             $cmd = new \OMV\System\Process($cmdArgs);
             $cmd->setRedirect2to1();
@@ -4751,7 +4771,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs = [];
                 $cmdArgs[] = 'rm';
                 $cmdArgs[] = '-rfv';
-                $cmdArgs[] = sprintf('"%s"', $delPath);
+                $cmdArgs[] = escapeshellarg($delPath);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
@@ -4886,10 +4906,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $params['excludefilter'] = implode(',', $excludefilterf);
         // remove the helper select fields
         unset($params['filterselect'], $params['excludeselect']);
-        // clean filter
-        $params['filter'] = str_replace(['@','(',')',' '], '', $params['filter']);
+        // clean filter (the cron jobs pass it inside single quotes)
+        $params['filter'] = str_replace(['@','(',')',' ',"'"], '', $params['filter']);
         // clean excludefilter
-        $params['excludefilter'] = str_replace(['@','(',')',' '], '', $params['excludefilter'] ?? '');
+        $params['excludefilter'] = str_replace(['@','(',')',' ',"'"], '', $params['excludefilter'] ?? '');
         // clean excludes
         $excludes = explode(',', $params['excludes']);
         $excludest = array_map('trim', $excludes);
@@ -4943,8 +4963,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($object->get('backup')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-backup-multi';
-                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
-                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
+                    $cmdArgs[] = '-f ' . escapeshellarg($object->get('filter'));
+                    $cmdArgs[] = '-u ' . escapeshellarg($params['uuid']);
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
@@ -4955,8 +4975,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($object->get('update')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-update-multi';
-                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
-                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
+                    $cmdArgs[] = '-f ' . escapeshellarg($object->get('filter'));
+                    $cmdArgs[] = '-u ' . escapeshellarg($params['uuid']);
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
@@ -4977,8 +4997,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($object->get('filestart')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-start-multi';
-                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
-                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
+                    $cmdArgs[] = '-f ' . escapeshellarg($object->get('filter'));
+                    $cmdArgs[] = '-u ' . escapeshellarg($params['uuid']);
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
@@ -4989,8 +5009,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($object->get('filestop')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-stop-multi';
-                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
-                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
+                    $cmdArgs[] = '-f ' . escapeshellarg($object->get('filter'));
+                    $cmdArgs[] = '-u ' . escapeshellarg($params['uuid']);
                     $cmd = new \OMV\System\Process($cmdArgs);
                     $cmd->setRedirect2to1();
                     $cmdLine = $cmd->getCommandLine();
@@ -5001,8 +5021,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if ($object->get('filebuild')) {
                     $cmdArgs = [];
                     $cmdArgs[] = '/usr/sbin/omv-compose-build-multi';
-                    $cmdArgs[] = sprintf("-f '%s'", $object->get('filter'));
-                    $cmdArgs[] = sprintf("-u '%s'", $params['uuid']);
+                    $cmdArgs[] = '-f ' . escapeshellarg($object->get('filter'));
+                    $cmdArgs[] = '-u ' . escapeshellarg($params['uuid']);
                     $cmdArgs[] = (bool)$object->get('filepull') ? '1' : '0';
                     $cmdArgs[] = (bool)$object->get('filenocache') ? '1' : '0';
                     $cmd = new \OMV\System\Process($cmdArgs);
@@ -5091,7 +5111,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $cmdArgs = [];
         $cmdArgs[] = 'docker';
         $cmdArgs[] = 'logout';
-        $cmdArgs[] = $params['repo'];
+        $cmdArgs[] = escapeshellarg($params['repo']);
         $cmd = new \OMV\System\Process($cmdArgs);
         $podman = $this->getPodman($context);
         if ($podman) {
