@@ -361,7 +361,7 @@ NET_TEST_CTR=""
 VOL_TEST_CTR=""
 # Extra compose files, config snippets and dockerfiles created by the
 # per-method coverage tests (removed on exit).
-EXTRA_FILE_NAMES=(omvtest_ports_compose omvtest_nfp_compose
+EXTRA_FILE_NAMES=(omvtest_ports_compose omvtest_nfp_compose omvtest_nfp2_compose
     omvtest_url_compose omvtest_example omvtest_autocompose)
 EXTRA_CONFIG_NAMES=(omvtest_cfg_path omvtest_cfg_a.conf)
 declare -a EXTRA_FILE_UUIDS=()
@@ -823,6 +823,44 @@ print(m.group(1) if m else '')" 2>/dev/null)
         fi
     else
         _skip "setFile resolves nfp placeholder" "no file uuid"
+    fi
+
+    # Regression: literal ports in the file being saved were not counted, and
+    # the body and override were resolved separately, so both could get the
+    # same port. omvtest_nfp_compose already holds a resolved port >= 18080.
+    create_extra_file "setFile (create, nfp next to literal port)" "omvtest_nfp2_compose" \
+        'services:
+  web:
+    image: hello-world
+    ports:
+      - "18090:80"
+      - "${{ nfp: 18090 }}:81"' '' \
+        'services:
+  web:
+    ports:
+      - "${{ nfp: 18090 }}:82"'
+    if [ -n "$CREATED_UUID" ]; then
+        nfp_ports=$(omv-rpc -u admin "Compose" "getFile" "{\"uuid\":\"$CREATED_UUID\"}" 2>/dev/null \
+            | python3 -c "
+import sys, json, re
+d = json.load(sys.stdin)
+b = re.search(r'\"(\S+):81\"', d['body'])
+o = re.search(r'\"(\S+):82\"', d['override'])
+print(b.group(1) if b else '', o.group(1) if o else '')" 2>/dev/null)
+        read -r nfp_body nfp_ovr <<< "$nfp_ports"
+        if [[ "$nfp_body" =~ ^[0-9]+$ ]] && [ "$nfp_body" != 18090 ]; then
+            _pass "nfp skips a literal port in the same file ($nfp_body)"
+        else
+            _fail "nfp skips a literal port in the same file" "body port '$nfp_body'"
+        fi
+        if [[ "$nfp_ovr" =~ ^[0-9]+$ ]] && [ "$nfp_ovr" != 18090 ] && [ "$nfp_ovr" != "$nfp_body" ]; then
+            _pass "nfp gives body and override different ports ($nfp_ovr)"
+        else
+            _fail "nfp gives body and override different ports" "body '$nfp_body', override '$nfp_ovr'"
+        fi
+    else
+        _skip "nfp skips a literal port in the same file" "no file uuid"
+        _skip "nfp gives body and override different ports" "no file uuid"
     fi
 fi
 assert_rpc_bg "getUsedPortsBg" "Compose" "getUsedPortsBg" \
@@ -1344,11 +1382,18 @@ d = json.load(sys.stdin)
 for k in ('backup', 'update', 'prune', 'filestart', 'filebuild', 'filepull',
           'filenocache', 'fileprunebuilder', 'maintenance', 'cbuild'):
     d[k] = False
-d.update({'cstate': True, 'filestop': True, 'filter': 'omvtest_compose',
+d.update({'cstate': True, 'filestop': True, 'filter': 'omvtest_compose,omvtest\\'q',
           'excludefilter': '', 'comment': 'omvtest_job_run'})
 print(json.dumps(d))")
     assert_rpc "setJob (create stop-only job)" "Compose" "setJob" "$JOB_RUN_PARAMS"
     JOB_RUN_UUID=$(json_uuid "$RPC_OUT")
+    # The cron jobs pass the filter inside single quotes, so quotes are stripped.
+    saved_filter=$(json_get "$RPC_OUT" "filter")
+    if [ "$saved_filter" = "omvtest_compose,omvtestq" ]; then
+        _pass "setJob strips quotes from filter"
+    else
+        _fail "setJob strips quotes from filter" "got '$saved_filter'"
+    fi
     if [ -n "$JOB_RUN_UUID" ]; then
         assert_rpc_bg "doJob (stop omvtest_compose)" "Compose" "doJob" "{\"uuid\":\"$JOB_RUN_UUID\"}"
     else
@@ -1356,6 +1401,7 @@ print(json.dumps(d))")
     fi
 else
     _skip "setJob (create stop-only job)" "no file uuid"
+    _skip "setJob strips quotes from filter" "no file uuid"
     _skip "doJob (stop omvtest_compose)" "no file uuid"
 fi
 assert_rpc_fails "doJob (bad uuid)" "Compose" "doJob" '{"uuid":"00000000-0000-0000-0000-000000000000"}'
@@ -1711,6 +1757,25 @@ else
     _skip "volume reports label" "volume not created"
 fi
 
+# --- Values with spaces and quotes are passed as single arguments -----------
+# Regression: labels / device / mount options were put on the shell command
+# line unquoted (or in double quotes), so spaces, quotes or $ broke the create.
+QUOTED_DEVICE=":/export/omvtest dir's \$HOME"
+QUOTED_PARAMS=$(vol_params name=omvtest_vol_quoted driver=local advanced=true \
+    mounttype=nfs "device=$QUOTED_DEVICE" mountoptions=addr=127.0.0.1,rw \
+    "labels=com.omvtest.note=two words")
+omv-rpc -u admin "Compose" "setVolume" "$QUOTED_PARAMS" >/dev/null 2>&1
+TEST_VOLUMES+=("omvtest_vol_quoted")
+if volume_exists "omvtest_vol_quoted"; then
+    _pass "setVolume (values with spaces/quotes)"
+    assert_volume_inspect "volume keeps label with spaces" omvtest_vol_quoted "two words"
+    assert_volume_inspect "volume keeps device with quote and \$" omvtest_vol_quoted "omvtest dir's \\\$HOME"
+else
+    _fail "setVolume (values with spaces/quotes)" "omvtest_vol_quoted not found in getVolumes"
+    _skip "volume keeps label with spaces" "volume not created"
+    _skip "volume keeps device with quote and \$" "volume not created"
+fi
+
 # --- Extra driver options ----------------------------------------------------
 # Exercise driveropts pass-through with a portable tmpfs mount: a bare
 # '--opt size=' is rejected by the local driver (needs quota-capable backing),
@@ -2049,6 +2114,12 @@ else
     _pass "repoLogin (unreachable registry) adds no repo"
 fi
 assert_rpc "repoLogout" "Compose" "repoLogout" '{"repo":"127.0.0.1:1"}'
+REPO_OUT=$(omv-rpc -u admin "Compose" "repoLogout" '{"repo":"127.0.0.1:1'"'"'x"}' 2>&1)
+if echo "$REPO_OUT" | grep -qi "syntax error\|unterminated"; then
+    _fail "repoLogout handles a quote in the repo name" "${REPO_OUT:0:300}"
+else
+    _pass "repoLogout handles a quote in the repo name"
+fi
 
 BACKUP_PATH=""
 BACKUP_SF_UUID=$(json_get "$SETTINGS" "backupsharedfolderref")
