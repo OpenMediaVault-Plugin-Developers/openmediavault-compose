@@ -379,6 +379,9 @@ BACKUP_TRAVERSAL_DIR=""
 # Non-admin username used for the RPC role checks. It does not have to exist:
 # omv-rpc builds a user-role context for any name other than admin.
 NONADMIN_USER="omvtest_nonadmin"
+# Original cterm config (JSON), saved before the terminal link tests change
+# its reverse proxy settings and restored on exit.
+CTERM_ORIG=""
 
 # Delete a named test object if it exists in a list RPC response.
 # $6 is the field to match on (default: "name").
@@ -546,6 +549,10 @@ cleanup() {
         info "Removing dummy interface $ifc"
         ip link del "$ifc" >/dev/null 2>&1 || true
     done
+    if [ -n "$CTERM_ORIG" ]; then
+        info "Restoring cterm config"
+        omv-confdbadm update "conf.service.cterm" "$CTERM_ORIG" >/dev/null 2>&1 || true
+    fi
     echo "" >&2
 
     # Deploy pending config changes so the OMV web UI "apply changes" banner
@@ -1934,6 +1941,69 @@ elif [ "$TERM_USERS" = "$NONADMIN_USER" ]; then
     _pass "getContainersTerm signs non-admin links for the caller"
 else
     _fail "getContainersTerm signs non-admin links for the caller" "links signed for: $TERM_USERS"
+fi
+
+# Regression (#102): terminal links ignored the cterm reverse proxy setting
+# and always pointed at the cterm port. With the proxy enabled they must be
+# root-relative so the browser reuses the web UI scheme, host and port.
+# Write cterm settings straight to the config db (no deploy needed: the
+# links are built from the db) and inspect the href getContainersTerm returns.
+set_cterm() {
+    local nginx=$1 basepath=$2 json
+    json=$(echo "$CTERM_ORIG" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+d.update(enable=True, enablenginx=$nginx, basepath='$basepath')
+print(json.dumps(d))") || return 1
+    omv-confdbadm update "conf.service.cterm" "$json" >/dev/null 2>&1
+}
+term_href() {
+    omv-rpc -u admin "Compose" "getContainersTerm" '{}' 2>/dev/null | python3 -c "
+import sys, json, re
+rows = json.load(sys.stdin)
+for r in rows:
+    if r.get('name') == '$NET_TEST_CTR':
+        m = re.search(r'href=\"([^\"]+)\"', r.get('term', ''))
+        print(m.group(1) if m else r.get('term', ''))
+        break" 2>/dev/null
+}
+assert_term_href() {
+    local desc=$1 nginx=$2 basepath=$3 regex=$4 href
+    if ! set_cterm "$nginx" "$basepath"; then
+        _fail "$desc" "could not update conf.service.cterm"
+        return 1
+    fi
+    href=$(term_href)
+    if [[ "$href" =~ $regex ]]; then
+        _pass "$desc"
+    else
+        _fail "$desc" "href='$href' does not match '$regex'"
+    fi
+}
+if ! omv-confdbadm exists "conf.service.cterm" >/dev/null 2>&1; then
+    _skip "terminal link reverse proxy tests" "openmediavault-cterm not installed"
+elif [ -z "$NET_TEST_CTR" ]; then
+    _skip "terminal link reverse proxy tests" "no test container (needs a local alpine/busybox image)"
+else
+    CTERM_ORIG=$(omv-confdbadm read "conf.service.cterm" 2>/dev/null)
+    if ! echo "$CTERM_ORIG" | grep -q '"enablenginx"'; then
+        _skip "terminal link reverse proxy tests" "installed cterm has no reverse proxy setting"
+        CTERM_ORIG=""
+    else
+        CTERM_PORT=$(echo "$CTERM_ORIG" | python3 -c "import sys, json; print(json.load(sys.stdin)['port'])")
+        assert_term_href "terminal link is root-relative behind reverse proxy" \
+            True "/omvtest" "^/omvtest/terminal/$NET_TEST_CTR\\?user="
+        assert_term_href "terminal link normalizes reverse proxy base path" \
+            True "omvtest/" "^/omvtest/terminal/$NET_TEST_CTR\\?user="
+        assert_term_href "terminal link uses cterm port when proxy has no base path" \
+            True "" "^https?://[^/]+:$CTERM_PORT/terminal/$NET_TEST_CTR\\?user="
+        assert_term_href "terminal link uses cterm port when proxy disabled" \
+            False "/omvtest" "^https?://[^/]+:$CTERM_PORT/omvtest/terminal/$NET_TEST_CTR\\?user="
+        assert_term_href "terminal link has no double slash for unnormalized base path" \
+            False "omvtest/" "^https?://[^/]+:$CTERM_PORT/omvtest/terminal/"
+        info "Restoring cterm config"
+        omv-confdbadm update "conf.service.cterm" "$CTERM_ORIG" >/dev/null 2>&1 && CTERM_ORIG=""
+    fi
 fi
 
 assert_rpc_fails "doDockerCmd rejects unknown cmd" "Compose" "doDockerCmd" \
