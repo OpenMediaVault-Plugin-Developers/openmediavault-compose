@@ -1,3 +1,13 @@
+openmediavault-compose (8.2.3) stable; urgency=low
+
+  * Use a relative cterm terminal link when the cterm reverse proxy is
+    enabled so it goes through the web server instead of the cterm port
+    (#102)
+  * Normalize the cterm base path when building terminal links
+  * Add terminal link reverse proxy tests
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 21 Oct 2026 16:49:21 +0000
+
 openmediavault-compose (8.2.2) stable; urgency=low
 
   * Allow building multiple selected Dockerfiles at once
