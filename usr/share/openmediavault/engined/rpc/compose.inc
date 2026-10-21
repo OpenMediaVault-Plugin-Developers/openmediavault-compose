@@ -538,9 +538,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
     private function getExecUrl($context, $db, $fqdn)
     {
         try {
-            $settings = $db->get("conf.service.cterm");
-            $basepath = $settings->get("basepath");
-            $port = $settings->get("port");
+            $settings = $db->get("conf.service.cterm")->getAssoc();
+            $bp = trim(strval($settings["basepath"] ?? ""), "/");
+            $basepath = ($bp !== "") ? "/".$bp : "";
+            // reverse proxy - relative url uses current web ui host
+            if (boolval($settings["enablenginx"] ?? false) && $basepath !== "") {
+                return sprintf('%s/terminal', $basepath);
+            }
+            $port = $settings["port"];
             $webadmin = $db->get("conf.webadmin");
             $protocol = boolval($webadmin->get("enablessl")) ? "https" : "http";
             return sprintf('%s://%s:%d%s/terminal', $protocol, $fqdn, $port, $basepath);
