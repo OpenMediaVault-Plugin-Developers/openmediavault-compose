@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-01 20:10+0000\n"
+"POT-Creation-Date: 2026-10-21 17:18+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Odai Alghamdi, 2023\n"
 "Language-Team: Arabic (Saudi Arabia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ar_SA/)\n"
@@ -169,6 +169,9 @@ msgstr ""
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 
+msgid "Backup shared folder must be different than podman shared folder"
+msgstr ""
+
 msgid "Backup storage"
 msgstr ""
 
@@ -197,6 +200,12 @@ msgid "Build"
 msgstr "بناء"
 
 msgid "Build ..."
+msgstr ""
+
+msgid "Build without cache"
+msgstr ""
+
+msgid "Build without cache ..."
 msgstr ""
 
 msgid "CPU %"
@@ -242,6 +251,9 @@ msgstr ""
 msgid "Compose Backup"
 msgstr ""
 
+msgid "Compose Build"
+msgstr ""
+
 msgid "Compose File"
 msgstr ""
 
@@ -249,6 +261,9 @@ msgid "Compose Files"
 msgstr ""
 
 msgid "Compose Restore"
+msgstr ""
+
+msgid "Compose Run"
 msgstr ""
 
 msgid "Compose Start"
@@ -264,6 +279,9 @@ msgid "Compose file shared folder must be different than data shared folder"
 msgstr ""
 
 msgid "Compose file shared folder must be different than docker shared folder"
+msgstr ""
+
+msgid "Compose file shared folder must be different than podman shared folder"
 msgstr ""
 
 msgid "Compose file storage"
@@ -389,6 +407,9 @@ msgid "Data"
 msgstr "بيانات"
 
 msgid "Data shared folder must be different than docker shared folder"
+msgstr ""
+
+msgid "Data shared folder must be different than podman shared folder"
 msgstr ""
 
 msgid "Data storage"
@@ -741,6 +762,12 @@ msgid "Invalid %s name."
 msgstr ""
 
 msgid "Invalid JSON response from Portainer: %s"
+msgstr ""
+
+msgid "Invalid backup name!"
+msgstr ""
+
+msgid "Invalid compose file path '%s'."
 msgstr ""
 
 msgid "Is Latest"

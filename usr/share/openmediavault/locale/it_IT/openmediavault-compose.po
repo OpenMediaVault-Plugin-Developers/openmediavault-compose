@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-01 20:10+0000\n"
+"POT-Creation-Date: 2026-10-21 17:18+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2026\n"
 "Language-Team: Italian (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/it/)\n"
@@ -183,6 +183,9 @@ msgstr ""
 "La cartella condivisa di backup deve essere diversa da quella condivisa di "
 "Docker"
 
+msgid "Backup shared folder must be different than podman shared folder"
+msgstr ""
+
 msgid "Backup storage"
 msgstr ""
 
@@ -212,6 +215,12 @@ msgstr "Compila"
 
 msgid "Build ..."
 msgstr "Sto compilando..."
+
+msgid "Build without cache"
+msgstr ""
+
+msgid "Build without cache ..."
+msgstr ""
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -256,6 +265,9 @@ msgstr "Compose"
 msgid "Compose Backup"
 msgstr "Backup di compose"
 
+msgid "Compose Build"
+msgstr ""
+
 msgid "Compose File"
 msgstr "File di compose"
 
@@ -264,6 +276,9 @@ msgstr "File di compose"
 
 msgid "Compose Restore"
 msgstr "Ripristina compose"
+
+msgid "Compose Run"
+msgstr ""
 
 msgid "Compose Start"
 msgstr "Avvia compose"
@@ -283,6 +298,9 @@ msgid "Compose file shared folder must be different than docker shared folder"
 msgstr ""
 "La cartella condivisa del file Compose deve essere diversa da quella "
 "condivisa di Docker"
+
+msgid "Compose file shared folder must be different than podman shared folder"
+msgstr ""
 
 msgid "Compose file storage"
 msgstr ""
@@ -410,6 +428,9 @@ msgid "Data shared folder must be different than docker shared folder"
 msgstr ""
 "La cartella condivisa dei dati deve essere diversa da quella condivisa di "
 "Docker"
+
+msgid "Data shared folder must be different than podman shared folder"
+msgstr ""
 
 msgid "Data storage"
 msgstr ""
@@ -767,6 +788,12 @@ msgid "Invalid %s name."
 msgstr ""
 
 msgid "Invalid JSON response from Portainer: %s"
+msgstr ""
+
+msgid "Invalid backup name!"
+msgstr ""
+
+msgid "Invalid compose file path '%s'."
 msgstr ""
 
 msgid "Is Latest"

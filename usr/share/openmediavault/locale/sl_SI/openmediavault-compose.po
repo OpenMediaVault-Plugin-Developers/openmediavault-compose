@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-01 20:10+0000\n"
+"POT-Creation-Date: 2026-10-21 17:18+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
@@ -182,6 +182,9 @@ msgstr ""
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 
+msgid "Backup shared folder must be different than podman shared folder"
+msgstr ""
+
 msgid "Backup storage"
 msgstr ""
 
@@ -211,6 +214,12 @@ msgstr "Zgradi"
 
 msgid "Build ..."
 msgstr "Gradnja ..."
+
+msgid "Build without cache"
+msgstr ""
+
+msgid "Build without cache ..."
+msgstr ""
 
 msgid "CPU %"
 msgstr "CPE %"
@@ -255,6 +264,9 @@ msgstr "Compose"
 msgid "Compose Backup"
 msgstr "Compose varnostna kopija"
 
+msgid "Compose Build"
+msgstr ""
+
 msgid "Compose File"
 msgstr "Datoteka Compose"
 
@@ -263,6 +275,9 @@ msgstr "Datoteke Compose"
 
 msgid "Compose Restore"
 msgstr "Obnovitev datoteke Compose"
+
+msgid "Compose Run"
+msgstr ""
 
 msgid "Compose Start"
 msgstr "Zaženi Compose"
@@ -278,6 +293,9 @@ msgstr ""
 "Deljena mapa datoteke Compose se mora razlikovati od deljene mape s podatki."
 
 msgid "Compose file shared folder must be different than docker shared folder"
+msgstr ""
+
+msgid "Compose file shared folder must be different than podman shared folder"
 msgstr ""
 
 msgid "Compose file storage"
@@ -403,6 +421,9 @@ msgid "Data"
 msgstr "Podatki"
 
 msgid "Data shared folder must be different than docker shared folder"
+msgstr ""
+
+msgid "Data shared folder must be different than podman shared folder"
 msgstr ""
 
 msgid "Data storage"
@@ -757,6 +778,12 @@ msgid "Invalid %s name."
 msgstr ""
 
 msgid "Invalid JSON response from Portainer: %s"
+msgstr ""
+
+msgid "Invalid backup name!"
+msgstr ""
+
+msgid "Invalid compose file path '%s'."
 msgstr ""
 
 msgid "Is Latest"

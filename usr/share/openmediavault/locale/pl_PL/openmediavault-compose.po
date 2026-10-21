@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-01 20:10+0000\n"
+"POT-Creation-Date: 2026-10-21 17:18+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: 8824729be9983d825bb37f66c8de0642_fa12916, 2024\n"
 "Language-Team: Polish (Poland) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl_PL/)\n"
@@ -180,6 +180,9 @@ msgstr ""
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
 
+msgid "Backup shared folder must be different than podman shared folder"
+msgstr ""
+
 msgid "Backup storage"
 msgstr ""
 
@@ -209,6 +212,12 @@ msgstr "Kompilacja"
 
 msgid "Build ..."
 msgstr "Budowanie ..."
+
+msgid "Build without cache"
+msgstr ""
+
+msgid "Build without cache ..."
+msgstr ""
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -253,6 +262,9 @@ msgstr "Compose"
 msgid "Compose Backup"
 msgstr "Kopia Compose"
 
+msgid "Compose Build"
+msgstr ""
+
 msgid "Compose File"
 msgstr ""
 
@@ -261,6 +273,9 @@ msgstr "Pliki Compose"
 
 msgid "Compose Restore"
 msgstr "Przywracanie Compose"
+
+msgid "Compose Run"
+msgstr ""
 
 msgid "Compose Start"
 msgstr ""
@@ -276,6 +291,9 @@ msgstr ""
 "Udostępniony folder plików Compose nie może być taki sam jak folder danych."
 
 msgid "Compose file shared folder must be different than docker shared folder"
+msgstr ""
+
+msgid "Compose file shared folder must be different than podman shared folder"
 msgstr ""
 
 msgid "Compose file storage"
@@ -401,6 +419,9 @@ msgid "Data"
 msgstr "Data"
 
 msgid "Data shared folder must be different than docker shared folder"
+msgstr ""
+
+msgid "Data shared folder must be different than podman shared folder"
 msgstr ""
 
 msgid "Data storage"
@@ -755,6 +776,12 @@ msgid "Invalid %s name."
 msgstr ""
 
 msgid "Invalid JSON response from Portainer: %s"
+msgstr ""
+
+msgid "Invalid backup name!"
+msgstr ""
+
+msgid "Invalid compose file path '%s'."
 msgstr ""
 
 msgid "Is Latest"

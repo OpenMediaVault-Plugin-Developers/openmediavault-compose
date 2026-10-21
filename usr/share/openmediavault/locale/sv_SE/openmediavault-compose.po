@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-01 20:10+0000\n"
+"POT-Creation-Date: 2026-10-21 17:18+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Jonatan Nyberg, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sv/)\n"
@@ -187,6 +187,9 @@ msgstr ""
 "Den delade mappen för säkerhetskopior måste skilja sig från Dockers delade "
 "mapp"
 
+msgid "Backup shared folder must be different than podman shared folder"
+msgstr ""
+
 msgid "Backup storage"
 msgstr "Lagring för säkerhetskopior"
 
@@ -216,6 +219,12 @@ msgstr "Bygg"
 
 msgid "Build ..."
 msgstr "Bygg…"
+
+msgid "Build without cache"
+msgstr ""
+
+msgid "Build without cache ..."
+msgstr ""
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -264,6 +273,9 @@ msgstr "Compose"
 msgid "Compose Backup"
 msgstr "Compose-säkerhetskopiering"
 
+msgid "Compose Build"
+msgstr ""
+
 msgid "Compose File"
 msgstr "Compose-fil"
 
@@ -272,6 +284,9 @@ msgstr "Compose-filer"
 
 msgid "Compose Restore"
 msgstr "Compose-återställning"
+
+msgid "Compose Run"
+msgstr ""
 
 msgid "Compose Start"
 msgstr "Compose-start"
@@ -291,6 +306,9 @@ msgid "Compose file shared folder must be different than docker shared folder"
 msgstr ""
 "Den delade mappen för Compose-filer måste skilja sig från Dockers delade "
 "mapp"
+
+msgid "Compose file shared folder must be different than podman shared folder"
+msgstr ""
 
 msgid "Compose file storage"
 msgstr "Lagring för Compose-filer"
@@ -418,6 +436,9 @@ msgstr "Data"
 
 msgid "Data shared folder must be different than docker shared folder"
 msgstr "Den delade datamappen måste skilja sig från Dockers delade mapp"
+
+msgid "Data shared folder must be different than podman shared folder"
+msgstr ""
 
 msgid "Data storage"
 msgstr "Datalagring"
@@ -796,6 +817,12 @@ msgstr "Ogiltigt %s-namn."
 
 msgid "Invalid JSON response from Portainer: %s"
 msgstr "Ogiltigt JSON-svar från Portainer: %s"
+
+msgid "Invalid backup name!"
+msgstr ""
+
+msgid "Invalid compose file path '%s'."
+msgstr ""
 
 msgid "Is Latest"
 msgstr "Är senaste"

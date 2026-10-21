@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-01 20:10+0000\n"
+"POT-Creation-Date: 2026-10-21 17:18+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2026\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -173,6 +173,9 @@ msgstr "Backup container data."
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr "Backup shared folder must be different than Docker shared folder"
 
+msgid "Backup shared folder must be different than podman shared folder"
+msgstr ""
+
 msgid "Backup storage"
 msgstr "Backup storage"
 
@@ -202,6 +205,12 @@ msgstr "Build"
 
 msgid "Build ..."
 msgstr "Build ..."
+
+msgid "Build without cache"
+msgstr ""
+
+msgid "Build without cache ..."
+msgstr ""
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -250,6 +259,9 @@ msgstr "Compose"
 msgid "Compose Backup"
 msgstr "Compose Backup"
 
+msgid "Compose Build"
+msgstr ""
+
 msgid "Compose File"
 msgstr "Compose File"
 
@@ -258,6 +270,9 @@ msgstr "Compose Files"
 
 msgid "Compose Restore"
 msgstr "Compose Restore"
+
+msgid "Compose Run"
+msgstr ""
 
 msgid "Compose Start"
 msgstr "Compose Start"
@@ -274,6 +289,9 @@ msgstr "Compose file shared folder must be different than data shared folder"
 msgid "Compose file shared folder must be different than docker shared folder"
 msgstr ""
 "Compose file shared folder must be different than Docker shared folder"
+
+msgid "Compose file shared folder must be different than podman shared folder"
+msgstr ""
 
 msgid "Compose file storage"
 msgstr "Compose file storage"
@@ -399,6 +417,9 @@ msgstr "Data"
 
 msgid "Data shared folder must be different than docker shared folder"
 msgstr "Data shared folder must be different than Docker shared folder"
+
+msgid "Data shared folder must be different than podman shared folder"
+msgstr ""
 
 msgid "Data storage"
 msgstr "Data storage"
@@ -766,6 +787,12 @@ msgstr ""
 
 msgid "Invalid JSON response from Portainer: %s"
 msgstr "Invalid JSON response from Portainer: %s"
+
+msgid "Invalid backup name!"
+msgstr ""
+
+msgid "Invalid compose file path '%s'."
+msgstr ""
 
 msgid "Is Latest"
 msgstr "Is Latest"
