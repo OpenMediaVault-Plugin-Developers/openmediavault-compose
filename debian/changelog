@@ -1,9 +1,15 @@
 openmediavault-compose (8.2.4) stable; urgency=low
 
   * Fix deleting, inspecting and tagging images on the Images tab (#103)
-  * Improve safety of image commands
+  * Fix the Tag button on the Dockerfiles tab
+  * Deleting an image tag on the Images tab no longer fails when the
+    image has other tags
+  * New tags show up on the Images tab right away
+  * Show an error instead of tagging a random image when a row contains
+    several images
+  * Improve safety of tag, push and image commands
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 24 Oct 2026 15:59:07 +0000
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 24 Oct 2026 16:18:49 +0000
 
 openmediavault-compose (8.2.3) stable; urgency=low
 
