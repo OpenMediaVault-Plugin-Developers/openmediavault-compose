@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 17:18+0000\n"
+"POT-Creation-Date: 2026-10-24 16:28+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Valentin Korenjak <valentin@korenjak.si>, 2025\n"
 "Language-Team: Slovenian (Slovenia) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sl_SI/)\n"
@@ -229,6 +229,9 @@ msgstr "Predpomnilnik je bil izbrisan."
 
 msgid "Cache times for tabs"
 msgstr "Predpomnilniški časi za zavihke"
+
+msgid "Cannot tag a row that groups %d different images."
+msgstr ""
 
 msgid "Certain date"
 msgstr ""
@@ -786,6 +789,9 @@ msgstr ""
 msgid "Invalid compose file path '%s'."
 msgstr ""
 
+msgid "Invalid image command '%s'."
+msgstr ""
+
 msgid "Is Latest"
 msgstr ""
 
@@ -925,6 +931,9 @@ msgstr ""
 
 msgid "No compose file found!"
 msgstr "Ni bila najdena nobena datoteka Compose!"
+
+msgid "No image specified."
+msgstr ""
 
 msgid "No name specified!"
 msgstr "Brez navedbe imena!"
@@ -1324,6 +1333,9 @@ msgid "Size"
 msgstr "Velikost"
 
 msgid "Skip container stop/start"
+msgstr ""
+
+msgid "Source and target image are required."
 msgstr ""
 
 msgid "Start"

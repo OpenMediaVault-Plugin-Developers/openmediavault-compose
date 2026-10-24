@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 17:18+0000\n"
+"POT-Creation-Date: 2026-10-24 16:28+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Jonatan Nyberg, 2026\n"
 "Language-Team: Swedish (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/sv/)\n"
@@ -234,6 +234,9 @@ msgstr "Cacheminnet har rensats."
 
 msgid "Cache times for tabs"
 msgstr "Cachetider för flikar"
+
+msgid "Cannot tag a row that groups %d different images."
+msgstr ""
 
 msgid "Certain date"
 msgstr "Visst datum"
@@ -824,6 +827,9 @@ msgstr ""
 msgid "Invalid compose file path '%s'."
 msgstr ""
 
+msgid "Invalid image command '%s'."
+msgstr ""
+
 msgid "Is Latest"
 msgstr "Är senaste"
 
@@ -965,6 +971,9 @@ msgstr "Inget cacheminne"
 
 msgid "No compose file found!"
 msgstr "Ingen Compose-fil hittades!"
+
+msgid "No image specified."
+msgstr ""
 
 msgid "No name specified!"
 msgstr "Inget namn har angetts!"
@@ -1393,6 +1402,9 @@ msgstr "Storlek"
 
 msgid "Skip container stop/start"
 msgstr "Hoppa över stopp/start av containrar"
+
+msgid "Source and target image are required."
+msgstr ""
 
 msgid "Start"
 msgstr "Starta"

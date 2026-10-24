@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 17:18+0000\n"
+"POT-Creation-Date: 2026-10-24 16:28+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: BoneNI, 2026\n"
 "Language-Team: Lao (Laos) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/lo_LA/)\n"
@@ -219,6 +219,9 @@ msgstr "ລຶບແຄດ (Cache) ຮຽບຮ້ອຍແລ້ວ."
 
 msgid "Cache times for tabs"
 msgstr "ເວລາເກັບແຄດສຳລັບແທັບ"
+
+msgid "Cannot tag a row that groups %d different images."
+msgstr ""
 
 msgid "Certain date"
 msgstr "ວັນທີທີ່ກຳນົດ"
@@ -777,6 +780,9 @@ msgstr ""
 msgid "Invalid compose file path '%s'."
 msgstr ""
 
+msgid "Invalid image command '%s'."
+msgstr ""
+
 msgid "Is Latest"
 msgstr "ແມ່ນເວີຊັນຫຼ້າສຸດ"
 
@@ -916,6 +922,9 @@ msgstr "ບໍ່ໃຊ້ແຄດ"
 
 msgid "No compose file found!"
 msgstr "ບໍ່ພົບໄຟລ໌ຄອມໂພສ!"
+
+msgid "No image specified."
+msgstr ""
 
 msgid "No name specified!"
 msgstr "ບໍ່ໄດ້ລະບຸຊື່!"
@@ -1318,6 +1327,9 @@ msgid "Size"
 msgstr "ຂະໜາດ"
 
 msgid "Skip container stop/start"
+msgstr ""
+
+msgid "Source and target image are required."
 msgstr ""
 
 msgid "Start"

@@ -6,15 +6,16 @@
 # Translators:
 # irrelevant91, 2026
 # songming <by@songming.me>, 2026
+# Guoyuan Miao, 2026
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 17:18+0000\n"
+"POT-Creation-Date: 2026-10-24 16:28+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: songming <by@songming.me>, 2026\n"
+"Last-Translator: Guoyuan Miao, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -171,7 +172,7 @@ msgid "Backup shared folder must be different than docker shared folder"
 msgstr "备份存储的共享文件夹必须和 docker 存储的共享文件夹不同"
 
 msgid "Backup shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "备份共享文件夹必须和 podman 共享文件夹不同"
 
 msgid "Backup storage"
 msgstr "备份存储"
@@ -204,10 +205,10 @@ msgid "Build ..."
 msgstr "构建中 ..."
 
 msgid "Build without cache"
-msgstr ""
+msgstr "不使用缓存构建"
 
 msgid "Build without cache ..."
-msgstr ""
+msgstr "不使用缓存构建 ..."
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -217,6 +218,9 @@ msgstr "缓存已清除。"
 
 msgid "Cache times for tabs"
 msgstr "标签页缓存时间"
+
+msgid "Cannot tag a row that groups %d different images."
+msgstr ""
 
 msgid "Certain date"
 msgstr "某个日期"
@@ -255,7 +259,7 @@ msgid "Compose Backup"
 msgstr "Compose 备份"
 
 msgid "Compose Build"
-msgstr ""
+msgstr "Compose 构建"
 
 msgid "Compose File"
 msgstr "Compose 文件"
@@ -267,7 +271,7 @@ msgid "Compose Restore"
 msgstr "Compose 恢复"
 
 msgid "Compose Run"
-msgstr ""
+msgstr "Compose 运行"
 
 msgid "Compose Start"
 msgstr "开始 Compose"
@@ -285,7 +289,7 @@ msgid "Compose file shared folder must be different than docker shared folder"
 msgstr "Compose 文件存储的共享文件夹必须和 docker 存储的文件夹不同"
 
 msgid "Compose file shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "Compose 共享文件夹必须和 podman 共享文件夹不同"
 
 msgid "Compose file storage"
 msgstr "Compose 文件存储"
@@ -413,7 +417,7 @@ msgid "Data shared folder must be different than docker shared folder"
 msgstr "数据存储共享文件夹必须和 docker 存储共享文件夹不同"
 
 msgid "Data shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "数据共享文件夹必须和 podman 共享文件夹不同"
 
 msgid "Data storage"
 msgstr "数据存储"
@@ -775,9 +779,12 @@ msgid "Invalid JSON response from Portainer: %s"
 msgstr "来自 Portainer 的JSON 响应无效：%s"
 
 msgid "Invalid backup name!"
-msgstr ""
+msgstr "备份名称无效！"
 
 msgid "Invalid compose file path '%s'."
+msgstr "Compose 文件路径“%s”无效"
+
+msgid "Invalid image command '%s'."
 msgstr ""
 
 msgid "Is Latest"
@@ -919,6 +926,9 @@ msgstr "无缓存"
 
 msgid "No compose file found!"
 msgstr "未找到 compose 文件！"
+
+msgid "No image specified."
+msgstr ""
 
 msgid "No name specified!"
 msgstr "未指定名称！"
@@ -1317,6 +1327,9 @@ msgstr "尺寸"
 
 msgid "Skip container stop/start"
 msgstr "跳过容器停止 / 启动"
+
+msgid "Source and target image are required."
+msgstr ""
 
 msgid "Start"
 msgstr "开始"

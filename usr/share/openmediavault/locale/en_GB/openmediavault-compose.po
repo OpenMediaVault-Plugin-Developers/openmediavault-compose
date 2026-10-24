@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 17:18+0000\n"
+"POT-Creation-Date: 2026-10-24 16:28+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Andi Chandler <andi@gowling.com>, 2026\n"
 "Language-Team: English (United Kingdom) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/en_GB/)\n"
@@ -220,6 +220,9 @@ msgstr "Cache has been cleared."
 
 msgid "Cache times for tabs"
 msgstr "Cache times for tabs"
+
+msgid "Cannot tag a row that groups %d different images."
+msgstr ""
 
 msgid "Certain date"
 msgstr "Certain date"
@@ -794,6 +797,9 @@ msgstr ""
 msgid "Invalid compose file path '%s'."
 msgstr ""
 
+msgid "Invalid image command '%s'."
+msgstr ""
+
 msgid "Is Latest"
 msgstr "Is Latest"
 
@@ -933,6 +939,9 @@ msgstr "No cache"
 
 msgid "No compose file found!"
 msgstr "No compose file found!"
+
+msgid "No image specified."
+msgstr ""
 
 msgid "No name specified!"
 msgstr "No name specified!"
@@ -1352,6 +1361,9 @@ msgid "Size"
 msgstr "Size"
 
 msgid "Skip container stop/start"
+msgstr ""
+
+msgid "Source and target image are required."
 msgstr ""
 
 msgid "Start"

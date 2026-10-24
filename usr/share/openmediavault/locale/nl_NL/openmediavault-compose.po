@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 17:18+0000\n"
+"POT-Creation-Date: 2026-10-24 16:28+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Stephan Paternotte <stephan@paternottes.net>, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/nl/)\n"
@@ -196,6 +196,7 @@ msgstr ""
 
 msgid "Backup shared folder must be different than podman shared folder"
 msgstr ""
+"Gedeelde map voor back-ups moet anders zijn dan de gedeelde map van podman"
 
 msgid "Backup storage"
 msgstr "Opslagplaats voor back-ups"
@@ -228,10 +229,10 @@ msgid "Build ..."
 msgstr "Build…"
 
 msgid "Build without cache"
-msgstr ""
+msgstr "Bouwen zonder cache"
 
 msgid "Build without cache ..."
-msgstr ""
+msgstr "Bouwen zonder cache…"
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -241,6 +242,9 @@ msgstr "Cache is gewist."
 
 msgid "Cache times for tabs"
 msgstr "Cache-tijden voor tabs"
+
+msgid "Cannot tag a row that groups %d different images."
+msgstr ""
 
 msgid "Certain date"
 msgstr "Specifieke datum"
@@ -282,7 +286,7 @@ msgid "Compose Backup"
 msgstr "Compose back-up"
 
 msgid "Compose Build"
-msgstr ""
+msgstr "Compose Build"
 
 msgid "Compose File"
 msgstr "Composebestand"
@@ -294,7 +298,7 @@ msgid "Compose Restore"
 msgstr "Compose herstellen"
 
 msgid "Compose Run"
-msgstr ""
+msgstr "Compose Run"
 
 msgid "Compose Start"
 msgstr "Compose starten"
@@ -316,7 +320,7 @@ msgstr ""
 "map voor docker"
 
 msgid "Compose file shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "Gedeelde map voor Compose moet anders zijn dan die voor podman"
 
 msgid "Compose file storage"
 msgstr "Opslageplaats voor Compose-bestanden"
@@ -449,7 +453,7 @@ msgstr ""
 "docker"
 
 msgid "Data shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "Gedeelde map voor Data moet anders zijn dan die voor podman"
 
 msgid "Data storage"
 msgstr "Opslagplaats voor gegevens"
@@ -833,9 +837,12 @@ msgid "Invalid JSON response from Portainer: %s"
 msgstr "Ongeldig JSON-antwoord van Portainer: %s"
 
 msgid "Invalid backup name!"
-msgstr ""
+msgstr "Ongeldige naam voor back-up!"
 
 msgid "Invalid compose file path '%s'."
+msgstr "Ongeldig pad voor Compose file '%s'."
+
+msgid "Invalid image command '%s'."
 msgstr ""
 
 msgid "Is Latest"
@@ -979,6 +986,9 @@ msgstr "Geen tijdelijke opslag"
 
 msgid "No compose file found!"
 msgstr "Geen composebestand gevonden!"
+
+msgid "No image specified."
+msgstr ""
 
 msgid "No name specified!"
 msgstr "Geen naam opgegeven!"
@@ -1414,6 +1424,9 @@ msgstr "Grootte"
 
 msgid "Skip container stop/start"
 msgstr "Container stop/start overslaan"
+
+msgid "Source and target image are required."
+msgstr ""
 
 msgid "Start"
 msgstr "Starten"

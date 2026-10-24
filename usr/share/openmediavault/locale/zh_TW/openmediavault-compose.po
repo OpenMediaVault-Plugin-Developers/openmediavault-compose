@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 17:18+0000\n"
+"POT-Creation-Date: 2026-10-24 16:28+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -216,6 +216,9 @@ msgstr "快取已經被清理。"
 
 msgid "Cache times for tabs"
 msgstr "分頁的快取時限"
+
+msgid "Cannot tag a row that groups %d different images."
+msgstr ""
 
 msgid "Certain date"
 msgstr "某個日期"
@@ -779,6 +782,9 @@ msgstr ""
 msgid "Invalid compose file path '%s'."
 msgstr ""
 
+msgid "Invalid image command '%s'."
+msgstr ""
+
 msgid "Is Latest"
 msgstr "是最新"
 
@@ -918,6 +924,9 @@ msgstr "無快取"
 
 msgid "No compose file found!"
 msgstr "找不到 compose 檔案！"
+
+msgid "No image specified."
+msgstr ""
 
 msgid "No name specified!"
 msgstr "未指定名稱！"
@@ -1316,6 +1325,9 @@ msgstr "大小"
 
 msgid "Skip container stop/start"
 msgstr "跳過容器停止/啟動"
+
+msgid "Source and target image are required."
+msgstr ""
 
 msgid "Start"
 msgstr "啟動"

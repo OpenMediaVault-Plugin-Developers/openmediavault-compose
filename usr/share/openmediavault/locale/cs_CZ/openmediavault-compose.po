@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 17:18+0000\n"
+"POT-Creation-Date: 2026-10-24 16:28+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Marek Pavelka, 2024\n"
 "Language-Team: Czech (Czech Republic) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/cs_CZ/)\n"
@@ -219,6 +219,9 @@ msgstr "Mezipaměť byla vymazána."
 
 msgid "Cache times for tabs"
 msgstr "Doba uložení karet do mezipaměti"
+
+msgid "Cannot tag a row that groups %d different images."
+msgstr ""
 
 msgid "Certain date"
 msgstr ""
@@ -775,6 +778,9 @@ msgstr ""
 msgid "Invalid compose file path '%s'."
 msgstr ""
 
+msgid "Invalid image command '%s'."
+msgstr ""
+
 msgid "Is Latest"
 msgstr ""
 
@@ -915,6 +921,9 @@ msgstr ""
 
 msgid "No compose file found!"
 msgstr "Nebyl nalezen žádný soubor compose!"
+
+msgid "No image specified."
+msgstr ""
 
 msgid "No name specified!"
 msgstr "Nebyl zadán žádný název!"
@@ -1314,6 +1323,9 @@ msgid "Size"
 msgstr "Velikost"
 
 msgid "Skip container stop/start"
+msgstr ""
+
+msgid "Source and target image are required."
 msgstr ""
 
 msgid "Start"
