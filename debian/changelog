@@ -1,3 +1,10 @@
+openmediavault-compose (8.2.4) stable; urgency=low
+
+  * Fix deleting, inspecting and tagging images on the Images tab (#103)
+  * Improve safety of image commands
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 24 Oct 2026 15:59:07 +0000
+
 openmediavault-compose (8.2.3) stable; urgency=low
 
   * Use a relative cterm terminal link when the cterm reverse proxy is
