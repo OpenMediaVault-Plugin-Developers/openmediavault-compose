@@ -371,7 +371,8 @@ declare -a EXTRA_DOCKERFILE_UUIDS=()
 # Job used for the doJob test (removed on exit).
 JOB_RUN_UUID=""
 # Image tags created by the doTag / doHubPush tests (removed on exit).
-EXTRA_IMAGES=(omvtest_build_a:omvtest_tag 127.0.0.1:1/omvtest_build_a:omvtest
+EXTRA_IMAGES=(omvtest_build_a:omvtest_tag omvtest_build_a:omvtest_grp1
+    omvtest_build_a:omvtest_grp2 127.0.0.1:1/omvtest_build_a:omvtest
     127.0.0.1:1/omvtest_build_a:latest)
 # Directory next to the backup shared folder used by the deleteBackup
 # traversal test (removed on exit).
@@ -1103,6 +1104,15 @@ BUILD_TESTS=(
     "doDockerImageCmd inspect"
     "doDockerImageCmd rm"
     "doDockerImageCmd rm removed the tag"
+    "doTag (grouped srcid)"
+    "doTag grouped srcid tagged the first id"
+    "doDockerImageCmd inspect (grouped id)"
+    "doDockerImageCmd rm (grouped id)"
+    "doDockerImageCmd rm grouped id removed every image"
+    "doDockerImageCmd (shell metacharacters in id) fails"
+    "doDockerImageCmd does not run injected commands"
+    "doTag (shell metacharacters in srcid) fails"
+    "doTag does not run injected commands"
     "doHubPush (name:tag) fails for unreachable registry"
     "doHubPush pushes name:tag"
     "doHubPush (no tag) fails for unreachable registry"
@@ -1240,6 +1250,48 @@ else
         _fail "doDockerImageCmd rm removed the tag" "omvtest_build_a:omvtest_tag still exists"
     else
         _pass "doDockerImageCmd rm removed the tag"
+    fi
+
+    # --- Grouped image ids (#103) --------------------------------------------
+    # getImages groups images with the same repo:tag and joins their ids with
+    # <br/> for display. The UI passes that joined id back unchanged, which
+    # used to break the shell command.
+    build_a_id=$("$RUNTIME" image inspect -f '{{.Id}}' omvtest_build_a 2>/dev/null)
+    assert_rpc_bg "doTag (grouped srcid)" "Compose" "doTag" \
+        "{\"srcid\":\"${build_a_id}<br/>sha256:omvtest_missing\",\"srcimg\":\"omvtest_build_a\",\"srctag\":\"\",\"tgtimg\":\"omvtest_build_a\",\"tgttag\":\"omvtest_grp1\"}"
+    if image_exists omvtest_build_a:omvtest_grp1; then
+        _pass "doTag grouped srcid tagged the first id"
+    else
+        _fail "doTag grouped srcid tagged the first id" "omvtest_build_a:omvtest_grp1 not found"
+    fi
+    assert_rpc_bg "doDockerImageCmd inspect (grouped id)" "Compose" "doDockerImageCmd" \
+        '{"command":"inspect","id":"omvtest_build_a<br/>omvtest_build_b"}' "omvtest_build_b"
+    "$RUNTIME" tag omvtest_build_a omvtest_build_a:omvtest_grp2 >/dev/null 2>&1
+    assert_rpc_bg "doDockerImageCmd rm (grouped id)" "Compose" "doDockerImageCmd" \
+        '{"command":"rm","id":"omvtest_build_a:omvtest_grp1<br/>omvtest_build_a:omvtest_grp2"}'
+    if image_exists omvtest_build_a:omvtest_grp1 || image_exists omvtest_build_a:omvtest_grp2; then
+        _fail "doDockerImageCmd rm grouped id removed every image" "omvtest_grp1 or omvtest_grp2 still exists"
+    else
+        _pass "doDockerImageCmd rm grouped id removed every image"
+    fi
+
+    # --- Image ids are escaped -----------------------------------------------
+    INJECT_MARKER=$(mktemp -u /tmp/omvtest_inject.XXXXXX)
+    assert_rpc_bg_fails "doDockerImageCmd (shell metacharacters in id) fails" "Compose" "doDockerImageCmd" \
+        "{\"command\":\"inspect\",\"id\":\"omvtest_build_a;touch $INJECT_MARKER\"}"
+    if [ -e "$INJECT_MARKER" ]; then
+        _fail "doDockerImageCmd does not run injected commands" "$INJECT_MARKER was created"
+        rm -f "$INJECT_MARKER"
+    else
+        _pass "doDockerImageCmd does not run injected commands"
+    fi
+    assert_rpc_bg_fails "doTag (shell metacharacters in srcid) fails" "Compose" "doTag" \
+        "{\"srcid\":\"omvtest_build_a;touch $INJECT_MARKER\",\"srcimg\":\"omvtest_build_a\",\"srctag\":\"\",\"tgtimg\":\"omvtest_build_a\",\"tgttag\":\"omvtest_grp1\"}"
+    if [ -e "$INJECT_MARKER" ]; then
+        _fail "doTag does not run injected commands" "$INJECT_MARKER was created"
+        rm -f "$INJECT_MARKER"
+    else
+        _pass "doTag does not run injected commands"
     fi
 
     # --- doHubPush -----------------------------------------------------------
