@@ -1633,25 +1633,34 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $podman = $this->getPodman($context);
         $sfpath = $this->getComposePath($context);
         $showCmd = $this->getShowCmd($context);
+        // docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+        $srcids = $this->splitImageIds($params['srcid'] ?? '');
+        if (count($srcids) > 1) {
+            throw new \OMV\Exception(sprintf(
+                gettext("Cannot tag a row that groups %d different images."),
+                count($srcids)));
+        } elseif (count($srcids) == 1) {
+            $src = $srcids[0];
+        } elseif (strlen($params['srctag'] ?? '') > 0) {
+            $src = sprintf('%s:%s', $params['srcimg'] ?? '', $params['srctag']);
+        } else {
+            $src = $params['srcimg'] ?? '';
+        }
+        if (strlen($params['tgttag'] ?? '') > 0) {
+            $tgt = sprintf('%s:%s', $params['tgtimg'] ?? '', $params['tgttag']);
+        } else {
+            $tgt = $params['tgtimg'] ?? '';
+        }
+        if (strlen($src) == 0 || strlen($tgt) == 0) {
+            throw new \OMV\Exception(gettext("Source and target image are required."));
+        }
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $sfpath, $showCmd, $podman) {
-                // docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+            use ($src, $tgt, $sfpath, $showCmd, $podman) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'tag';
-                if (strlen($params['srcid']) > 0) {
-                    // grouped images join multiple ids with <br/> for display
-                    $cmdArgs[] = escapeshellarg(explode('<br/>', $params['srcid'])[0]);
-                } elseif (strlen($params['srctag']) > 0) {
-                    $cmdArgs[] = sprintf('%s:%s', $params['srcimg'], $params['srctag']);
-                } else {
-                    $cmdArgs[] = $params['srcimg'];
-                }
-                if (strlen($params['tgttag']) > 0) {
-                    $cmdArgs[] = sprintf('%s:%s', $params['tgtimg'], $params['tgttag']);
-                } else {
-                    $cmdArgs[] = $params['tgtimg'];
-                }
+                $cmdArgs[] = escapeshellarg($src);
+                $cmdArgs[] = escapeshellarg($tgt);
                 $cmd = new \OMV\System\Process($cmdArgs);
                 if ($podman) {
                     $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
@@ -1663,6 +1672,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
+                // show the new tag on the images tab
+                $this->clearCache('images');
                 return $output;
             }
         );
@@ -1684,9 +1695,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'image';
                 $cmdArgs[] = 'push';
                 if (strlen($params['imgtag'] ?? '') > 0) {
-                    $cmdArgs[] = sprintf('%s:%s', $params['imgname'], $params['imgtag']);
+                    $cmdArgs[] = escapeshellarg(sprintf('%s:%s', $params['imgname'], $params['imgtag']));
                 } else {
-                    $cmdArgs[] = $params['imgname'];
+                    $cmdArgs[] = escapeshellarg($params['imgname']);
                 }
                 $cmd = new \OMV\System\Process($cmdArgs);
                 if ($podman) {
@@ -4454,8 +4465,14 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $digests = array_unique($entry['digests_raw']);
             $status = $skipStatus ? 'NA' :
                 $this->getImageStatus($entry['repo'], $entry['tag'], $digests);
+            $ids = array_values(array_unique(array_filter($entry['ids_raw'])));
+            $tagged = !in_array($entry['repo'], ['', '<none>'], true) &&
+                !in_array($entry['tag'], ['', '<none>'], true);
             $imagesAssoc[] = [
-                "id" => implode('<br/>', array_unique($entry['ids_raw'])),
+                "id" => implode('<br/>', $ids),
+                "ids" => implode(',', $ids),
+                // remove/inspect/tag by name so other tags of the image are kept
+                "ref" => $tagged ? "{$entry['repo']}:{$entry['tag']}" : implode(',', $ids),
                 "repo" => $entry['repo'],
                 "createat" => $entry['createat'],
                 "createsince" => $entry['createsince'],
@@ -4579,22 +4596,37 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         return $this->callMethodBg("getImages", $params, $context);
     }
 
+    // Split an image list from the images tab. Grouped rows join ids with
+    // commas (older pages joined them with <br/>).
+    private function splitImageIds($ids): array
+    {
+        $parts = array_map('trim', preg_split('/,|<br\/>/', (string)$ids));
+        return array_values(array_unique(array_filter($parts, 'strlen')));
+    }
+
     public function doDockerImageCmd($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $command = $params['command'] ?? '';
+        if (!in_array($command, ['rm', 'inspect', 'pull'], true)) {
+            throw new \OMV\Exception(sprintf(
+                gettext("Invalid image command '%s'."), $command));
+        }
+        $ids = $this->splitImageIds($params['id'] ?? '');
+        if (empty($ids)) {
+            throw new \OMV\Exception(gettext("No image specified."));
+        }
         // clear cache for images
         $this->clearCache('images');
         $podman = $this->getPodman($context);
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
-            use ($params, $showCmd, $podman) {
+            use ($command, $ids, $showCmd, $podman) {
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'image';
-                $cmdArgs[] = $params['command'];
-                // grouped images join multiple ids with <br/> for display
-                $ids = array_unique(array_filter(explode('<br/>', $params['id'] ?? '')));
+                $cmdArgs[] = $command;
                 $cmdArgs = array_merge($cmdArgs, array_map('escapeshellarg', $ids));
                 $cmd = new \OMV\System\Process($cmdArgs);
                 if ($podman) {
@@ -4604,7 +4636,10 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmd->setRedirect2to1();
                 $cmdLine = $cmd->getCommandLine();
                 if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
-                if (0 !== $this->exec($cmdLine, $output, $bgOutputFilename)) {
+                $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
+                // drop images cached by a refresh while the command ran
+                $this->clearCache('images');
+                if (0 !== $exitStatus) {
                     throw new \OMV\ExecException($cmdLine, $output);
                 }
                 return $output;

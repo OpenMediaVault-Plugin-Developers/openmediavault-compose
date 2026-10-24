@@ -148,11 +148,11 @@ data:
             title: _("Create new image tag ...")
             fields:
               - type: textInput
-                name: repo
+                name: srcimg
                 label: _("Repository")
                 value: "{{ _selected[0].name }}"
               - type: textInput
-                name: tag
+                name: srctag
                 label: _("Tag")
                 value: ""
               - type: hidden

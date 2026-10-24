@@ -99,7 +99,7 @@ data:
             service: Compose
             method: doDockerImageCmd
             params:
-              id: "{{ id }}"
+              id: "{{ ref }}"
               command: "rm"
             task: true
             progressMessage: _("Deleting images ...")
@@ -120,7 +120,7 @@ data:
                 service: Compose
                 method: doDockerImageCmd
                 params:
-                  id: "{{ _selected[0].id }}"
+                  id: "{{ _selected[0].ref }}"
                   command: "inspect"
               buttons:
                 stop:
@@ -198,11 +198,11 @@ data:
                 disabled: true
               - type: hidden
                 name: srcid
-                value: "{{ _selected[0].id }}"
+                value: "{{ _selected[0].ref }}"
               - type: textInput
                 name: srcid_visible
                 label: _("Image ID")
-                value: "{{ _selected[0].id }}"
+                value: "{{ _selected[0].ids }}"
                 disabled: true
               - type: textInput
                 name: tgtimg
