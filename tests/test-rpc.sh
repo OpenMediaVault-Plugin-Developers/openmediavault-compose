@@ -372,7 +372,8 @@ declare -a EXTRA_DOCKERFILE_UUIDS=()
 JOB_RUN_UUID=""
 # Image tags created by the doTag / doHubPush tests (removed on exit).
 EXTRA_IMAGES=(omvtest_build_a:omvtest_tag omvtest_build_a:omvtest_grp1
-    omvtest_build_a:omvtest_grp2 127.0.0.1:1/omvtest_build_a:omvtest
+    omvtest_build_a:omvtest_grp2 omvtest_build_a:omvtest_grp3
+    127.0.0.1:1/omvtest_build_a:omvtest
     127.0.0.1:1/omvtest_build_a:latest)
 # Directory next to the backup shared folder used by the deleteBackup
 # traversal test (removed on exit).
@@ -1104,15 +1105,30 @@ BUILD_TESTS=(
     "doDockerImageCmd inspect"
     "doDockerImageCmd rm"
     "doDockerImageCmd rm removed the tag"
-    "doTag (grouped srcid)"
-    "doTag grouped srcid tagged the first id"
-    "doDockerImageCmd inspect (grouped id)"
-    "doDockerImageCmd rm (grouped id)"
-    "doDockerImageCmd rm grouped id removed every image"
+    "doTag (srcid listing the same image twice)"
+    "doTag srcid listing the same image twice created the tag"
+    "getImages shows the new tag after doTag"
+    "getImages ref is repo:tag for a tagged image"
+    "getImages ids lists the raw image id"
+    "doTag (srcid grouping different images) fails"
+    "doTag (no source image) fails"
+    "doDockerImageCmd inspect (grouped ids)"
+    "doDockerImageCmd inspect (legacy <br/> grouped ids)"
+    "doDockerImageCmd rm (ref)"
+    "doDockerImageCmd rm ref removed only that tag"
+    "doDockerImageCmd rm (grouped ids)"
+    "doDockerImageCmd rm grouped ids removed every image"
+    "doDockerImageCmd (unknown command) fails"
+    "doDockerImageCmd unknown command left the image alone"
+    "doDockerImageCmd (no id) fails"
     "doDockerImageCmd (shell metacharacters in id) fails"
-    "doDockerImageCmd does not run injected commands"
+    "doDockerImageCmd id does not run injected commands"
     "doTag (shell metacharacters in srcid) fails"
-    "doTag does not run injected commands"
+    "doTag srcid does not run injected commands"
+    "doTag (shell metacharacters in tgttag) fails"
+    "doTag tgttag does not run injected commands"
+    "doHubPush (shell metacharacters in imgtag) fails"
+    "doHubPush imgtag does not run injected commands"
     "doHubPush (name:tag) fails for unreachable registry"
     "doHubPush pushes name:tag"
     "doHubPush (no tag) fails for unreachable registry"
@@ -1121,6 +1137,28 @@ BUILD_TESTS=(
 
 # True if the runtime has an image with this name.
 image_exists() { "$RUNTIME" image inspect "$1" >/dev/null 2>&1; }
+
+# Print a field of the getImages row for repo:tag (empty if there is none).
+image_row_field() {
+    omv-rpc -u admin "Compose" "getImages" \
+        '{"start":0,"limit":1000,"sortfield":"repo","sortdir":"ASC"}' 2>/dev/null \
+        | python3 -c "
+import sys, json
+for r in json.load(sys.stdin)['data']:
+    if '%s:%s' % (r['repo'], r['tag']) == '$1':
+        print(r.get('$2', '')); break" 2>/dev/null
+}
+
+# Pass if the marker file an injected 'touch' would create does not exist.
+assert_no_injection() {
+    local desc=$1 marker=$2
+    if [ -e "$marker" ]; then
+        _fail "$desc" "$marker was created"
+        rm -f "$marker"
+    else
+        _pass "$desc"
+    fi
+}
 
 # BuildKit prints "CACHED"; the classic builder and podman/buildah print
 # "Using cache".
@@ -1253,46 +1291,91 @@ else
     fi
 
     # --- Grouped image ids (#103) --------------------------------------------
-    # getImages groups images with the same repo:tag and joins their ids with
-    # <br/> for display. The UI passes that joined id back unchanged, which
-    # used to break the shell command.
+    # getImages groups images with the same repo:tag. Each row has 'ids' (the
+    # raw ids joined with commas) and 'ref' (repo:tag, or the ids when the
+    # image is untagged), which the images tab passes to these RPCs.
     build_a_id=$("$RUNTIME" image inspect -f '{{.Id}}' omvtest_build_a 2>/dev/null)
-    assert_rpc_bg "doTag (grouped srcid)" "Compose" "doTag" \
-        "{\"srcid\":\"${build_a_id}<br/>sha256:omvtest_missing\",\"srcimg\":\"omvtest_build_a\",\"srctag\":\"\",\"tgtimg\":\"omvtest_build_a\",\"tgttag\":\"omvtest_grp1\"}"
+    # Load the images list first so a cached list must be dropped by doTag.
+    omv-rpc -u admin "Compose" "clearCacheFiles" '{}' >/dev/null 2>&1
+    image_row_field omvtest_build_a:omvtest_grp1 ref >/dev/null
+    assert_rpc_bg "doTag (srcid listing the same image twice)" "Compose" "doTag" \
+        "{\"srcid\":\"${build_a_id},${build_a_id}\",\"srcimg\":\"\",\"srctag\":\"\",\"tgtimg\":\"omvtest_build_a\",\"tgttag\":\"omvtest_grp1\"}"
     if image_exists omvtest_build_a:omvtest_grp1; then
-        _pass "doTag grouped srcid tagged the first id"
+        _pass "doTag srcid listing the same image twice created the tag"
     else
-        _fail "doTag grouped srcid tagged the first id" "omvtest_build_a:omvtest_grp1 not found"
+        _fail "doTag srcid listing the same image twice created the tag" "omvtest_build_a:omvtest_grp1 not found"
     fi
-    assert_rpc_bg "doDockerImageCmd inspect (grouped id)" "Compose" "doDockerImageCmd" \
+    grp1_ref=$(image_row_field omvtest_build_a:omvtest_grp1 ref)
+    if [ -n "$grp1_ref" ]; then
+        _pass "getImages shows the new tag after doTag"
+    else
+        _fail "getImages shows the new tag after doTag" "no omvtest_build_a:omvtest_grp1 row (stale images cache?)"
+    fi
+    if [ "$grp1_ref" = "omvtest_build_a:omvtest_grp1" ]; then
+        _pass "getImages ref is repo:tag for a tagged image"
+    else
+        _fail "getImages ref is repo:tag for a tagged image" "ref='$grp1_ref'"
+    fi
+    grp1_ids=$(image_row_field omvtest_build_a:omvtest_grp1 ids)
+    if [ -n "$build_a_id" ] && [ "$grp1_ids" = "$build_a_id" ]; then
+        _pass "getImages ids lists the raw image id"
+    else
+        _fail "getImages ids lists the raw image id" "ids='$grp1_ids', expected '$build_a_id'"
+    fi
+    # Tagging a row of several different images would pick one at random.
+    assert_rpc_fails "doTag (srcid grouping different images) fails" "Compose" "doTag" \
+        "{\"srcid\":\"${build_a_id},sha256:omvtest_missing\",\"srcimg\":\"\",\"srctag\":\"\",\"tgtimg\":\"omvtest_build_a\",\"tgttag\":\"omvtest_grp3\"}" \
+        "groups 2 different images"
+    assert_rpc_fails "doTag (no source image) fails" "Compose" "doTag" \
+        '{"srcid":"","srcimg":"","srctag":"","tgtimg":"omvtest_build_a","tgttag":"omvtest_grp3"}' \
+        "required"
+    assert_rpc_bg "doDockerImageCmd inspect (grouped ids)" "Compose" "doDockerImageCmd" \
+        '{"command":"inspect","id":"omvtest_build_a,omvtest_build_b"}' "omvtest_build_b"
+    # Pages loaded before the upgrade still send ids joined with <br/>.
+    assert_rpc_bg "doDockerImageCmd inspect (legacy <br/> grouped ids)" "Compose" "doDockerImageCmd" \
         '{"command":"inspect","id":"omvtest_build_a<br/>omvtest_build_b"}' "omvtest_build_b"
+    # Deleting by ref only removes that tag, even when the image has others.
     "$RUNTIME" tag omvtest_build_a omvtest_build_a:omvtest_grp2 >/dev/null 2>&1
-    assert_rpc_bg "doDockerImageCmd rm (grouped id)" "Compose" "doDockerImageCmd" \
-        '{"command":"rm","id":"omvtest_build_a:omvtest_grp1<br/>omvtest_build_a:omvtest_grp2"}'
-    if image_exists omvtest_build_a:omvtest_grp1 || image_exists omvtest_build_a:omvtest_grp2; then
-        _fail "doDockerImageCmd rm grouped id removed every image" "omvtest_grp1 or omvtest_grp2 still exists"
+    assert_rpc_bg "doDockerImageCmd rm (ref)" "Compose" "doDockerImageCmd" \
+        "{\"command\":\"rm\",\"id\":\"${grp1_ref:-omvtest_build_a:omvtest_grp1}\"}"
+    if ! image_exists omvtest_build_a:omvtest_grp1 && image_exists omvtest_build_a:omvtest_grp2 \
+        && image_exists omvtest_build_a; then
+        _pass "doDockerImageCmd rm ref removed only that tag"
     else
-        _pass "doDockerImageCmd rm grouped id removed every image"
+        _fail "doDockerImageCmd rm ref removed only that tag" "omvtest_grp1 still exists or another tag was removed"
     fi
+    "$RUNTIME" tag omvtest_build_a omvtest_build_a:omvtest_grp3 >/dev/null 2>&1
+    assert_rpc_bg "doDockerImageCmd rm (grouped ids)" "Compose" "doDockerImageCmd" \
+        '{"command":"rm","id":"omvtest_build_a:omvtest_grp2,omvtest_build_a:omvtest_grp3"}'
+    if image_exists omvtest_build_a:omvtest_grp2 || image_exists omvtest_build_a:omvtest_grp3; then
+        _fail "doDockerImageCmd rm grouped ids removed every image" "omvtest_grp2 or omvtest_grp3 still exists"
+    else
+        _pass "doDockerImageCmd rm grouped ids removed every image"
+    fi
+    assert_rpc_fails "doDockerImageCmd (unknown command) fails" "Compose" "doDockerImageCmd" \
+        '{"command":"rm -f","id":"omvtest_build_a"}' "Invalid image command"
+    if image_exists omvtest_build_a; then
+        _pass "doDockerImageCmd unknown command left the image alone"
+    else
+        _fail "doDockerImageCmd unknown command left the image alone" "omvtest_build_a was removed"
+    fi
+    assert_rpc_fails "doDockerImageCmd (no id) fails" "Compose" "doDockerImageCmd" \
+        '{"command":"inspect","id":" , "}' "No image specified"
 
-    # --- Image ids are escaped -----------------------------------------------
+    # --- Image arguments are escaped -----------------------------------------
     INJECT_MARKER=$(mktemp -u /tmp/omvtest_inject.XXXXXX)
     assert_rpc_bg_fails "doDockerImageCmd (shell metacharacters in id) fails" "Compose" "doDockerImageCmd" \
         "{\"command\":\"inspect\",\"id\":\"omvtest_build_a;touch $INJECT_MARKER\"}"
-    if [ -e "$INJECT_MARKER" ]; then
-        _fail "doDockerImageCmd does not run injected commands" "$INJECT_MARKER was created"
-        rm -f "$INJECT_MARKER"
-    else
-        _pass "doDockerImageCmd does not run injected commands"
-    fi
+    assert_no_injection "doDockerImageCmd id does not run injected commands" "$INJECT_MARKER"
     assert_rpc_bg_fails "doTag (shell metacharacters in srcid) fails" "Compose" "doTag" \
-        "{\"srcid\":\"omvtest_build_a;touch $INJECT_MARKER\",\"srcimg\":\"omvtest_build_a\",\"srctag\":\"\",\"tgtimg\":\"omvtest_build_a\",\"tgttag\":\"omvtest_grp1\"}"
-    if [ -e "$INJECT_MARKER" ]; then
-        _fail "doTag does not run injected commands" "$INJECT_MARKER was created"
-        rm -f "$INJECT_MARKER"
-    else
-        _pass "doTag does not run injected commands"
-    fi
+        "{\"srcid\":\"omvtest_build_a;touch $INJECT_MARKER\",\"srcimg\":\"\",\"srctag\":\"\",\"tgtimg\":\"omvtest_build_a\",\"tgttag\":\"omvtest_grp3\"}"
+    assert_no_injection "doTag srcid does not run injected commands" "$INJECT_MARKER"
+    assert_rpc_bg_fails "doTag (shell metacharacters in tgttag) fails" "Compose" "doTag" \
+        "{\"srcid\":\"\",\"srcimg\":\"omvtest_build_a\",\"srctag\":\"\",\"tgtimg\":\"omvtest_build_a\",\"tgttag\":\"x;touch $INJECT_MARKER\"}"
+    assert_no_injection "doTag tgttag does not run injected commands" "$INJECT_MARKER"
+    assert_rpc_bg_fails "doHubPush (shell metacharacters in imgtag) fails" "Compose" "doHubPush" \
+        "{\"imgname\":\"127.0.0.1:1/omvtest_build_a\",\"imgtag\":\"x;touch $INJECT_MARKER\"}"
+    assert_no_injection "doHubPush imgtag does not run injected commands" "$INJECT_MARKER"
 
     # --- doHubPush -----------------------------------------------------------
     # Push to a registry address nothing listens on, so the push fails fast
@@ -1301,7 +1384,7 @@ else
     "$RUNTIME" tag omvtest_build_a 127.0.0.1:1/omvtest_build_a:latest >/dev/null 2>&1
     assert_rpc_bg_fails "doHubPush (name:tag) fails for unreachable registry" "Compose" "doHubPush" \
         '{"imgname":"127.0.0.1:1/omvtest_build_a","imgtag":"omvtest"}'
-    if echo "$BG_OUT" | grep -qF "push 127.0.0.1:1/omvtest_build_a:omvtest"; then
+    if echo "$BG_OUT" | grep -qE "push '?127\.0\.0\.1:1/omvtest_build_a:omvtest'?( |$)"; then
         _pass "doHubPush pushes name:tag"
     else
         _fail "doHubPush pushes name:tag" "${BG_OUT:0:300}"
