@@ -1640,7 +1640,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'tag';
                 if (strlen($params['srcid']) > 0) {
-                    $cmdArgs[] = $params['srcid'];
+                    // grouped images join multiple ids with <br/> for display
+                    $cmdArgs[] = escapeshellarg(explode('<br/>', $params['srcid'])[0]);
                 } elseif (strlen($params['srctag']) > 0) {
                     $cmdArgs[] = sprintf('%s:%s', $params['srcimg'], $params['srctag']);
                 } else {
@@ -4592,8 +4593,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'image';
                 $cmdArgs[] = $params['command'];
-                $cmdArgs[] = $params['id'];
-                $cmdArgs = array_filter($cmdArgs);
+                // grouped images join multiple ids with <br/> for display
+                $ids = array_unique(array_filter(explode('<br/>', $params['id'] ?? '')));
+                $cmdArgs = array_merge($cmdArgs, array_map('escapeshellarg', $ids));
                 $cmd = new \OMV\System\Process($cmdArgs);
                 if ($podman) {
                     $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
