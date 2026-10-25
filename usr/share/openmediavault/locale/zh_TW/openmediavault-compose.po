@@ -170,7 +170,7 @@ msgid "Backup shared folder must be different than docker shared folder"
 msgstr "備份的共享檔案夾必須不同於 docker 的共享檔案夾"
 
 msgid "Backup shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "備份共享檔案夾必須與 podman 共享檔案夾不同。"
 
 msgid "Backup storage"
 msgstr "備份儲存庫"
@@ -203,10 +203,10 @@ msgid "Build ..."
 msgstr "建構 ..."
 
 msgid "Build without cache"
-msgstr ""
+msgstr "建構不用快取"
 
 msgid "Build without cache ..."
-msgstr ""
+msgstr "建構不用快取 ..."
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -257,7 +257,7 @@ msgid "Compose Backup"
 msgstr "Compose 備份"
 
 msgid "Compose Build"
-msgstr ""
+msgstr "Compose 建構"
 
 msgid "Compose File"
 msgstr "Compose 檔案"
@@ -269,7 +269,7 @@ msgid "Compose Restore"
 msgstr "Compose 復原"
 
 msgid "Compose Run"
-msgstr ""
+msgstr "Compose 執行"
 
 msgid "Compose Start"
 msgstr "Compose 啟動"
@@ -777,13 +777,13 @@ msgid "Invalid JSON response from Portainer: %s"
 msgstr "從 Portainer 回應的無效 JSON：%s"
 
 msgid "Invalid backup name!"
-msgstr ""
+msgstr "無效備份名稱！"
 
 msgid "Invalid compose file path '%s'."
-msgstr ""
+msgstr "無效 compose 檔案路徑 '%s'。"
 
 msgid "Invalid image command '%s'."
-msgstr ""
+msgstr "無效映像指令 '%s'。"
 
 msgid "Is Latest"
 msgstr "是最新"
@@ -926,7 +926,7 @@ msgid "No compose file found!"
 msgstr "找不到 compose 檔案！"
 
 msgid "No image specified."
-msgstr ""
+msgstr "未指定映像。"
 
 msgid "No name specified!"
 msgstr "未指定名稱！"
@@ -1327,7 +1327,7 @@ msgid "Skip container stop/start"
 msgstr "跳過容器停止/啟動"
 
 msgid "Source and target image are required."
-msgstr ""
+msgstr "需要來源映像和目標映像。"
 
 msgid "Start"
 msgstr "啟動"

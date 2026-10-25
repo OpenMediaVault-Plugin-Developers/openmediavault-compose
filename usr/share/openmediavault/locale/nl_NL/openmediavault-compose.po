@@ -244,7 +244,7 @@ msgid "Cache times for tabs"
 msgstr "Cache-tijden voor tabs"
 
 msgid "Cannot tag a row that groups %d different images."
-msgstr ""
+msgstr "Kan geen rij taggen die %d verschillende images groepeert."
 
 msgid "Certain date"
 msgstr "Specifieke datum"
@@ -397,7 +397,7 @@ msgid "Create new compose file from running container ..."
 msgstr "Nieuw composebestand aanmaken vanuit actieve container…"
 
 msgid "Create new image tag ..."
-msgstr "Nieuwe image-tag aanmaken…"
+msgstr "Nieuw image-tag aanmaken…"
 
 msgid "Create symlinks"
 msgstr "Symlinks aanmaken"
@@ -439,7 +439,7 @@ msgid "Current repository"
 msgstr "Huidige opslagplaats"
 
 msgid "Current tag"
-msgstr "Huidige label"
+msgstr "Huidige tag"
 
 msgid "Daily"
 msgstr "Dagelijks"
@@ -843,7 +843,7 @@ msgid "Invalid compose file path '%s'."
 msgstr "Ongeldig pad voor Compose file '%s'."
 
 msgid "Invalid image command '%s'."
-msgstr ""
+msgstr "Ongeldige image-opdracht '%s'."
 
 msgid "Is Latest"
 msgstr "Is Laatste"
@@ -988,7 +988,7 @@ msgid "No compose file found!"
 msgstr "Geen composebestand gevonden!"
 
 msgid "No image specified."
-msgstr ""
+msgstr "Geen image gespecificeerd."
 
 msgid "No name specified!"
 msgstr "Geen naam opgegeven!"
@@ -1426,7 +1426,7 @@ msgid "Skip container stop/start"
 msgstr "Container stop/start overslaan"
 
 msgid "Source and target image are required."
-msgstr ""
+msgstr "Bron - en doelimage zijn vereist."
 
 msgid "Start"
 msgstr "Starten"
@@ -1490,19 +1490,19 @@ msgid "System"
 msgstr "Systeem"
 
 msgid "Tag"
-msgstr "Label"
+msgstr "Tag"
 
 msgid "Tags"
-msgstr "Labels"
+msgstr "Tags"
 
 msgid "Target repo"
-msgstr "Doel opslagplaats"
+msgstr "Doel-opslagplaats"
 
 msgid "Target repository"
-msgstr "Doel opslagplaats"
+msgstr "Doel-opslagplaats"
 
 msgid "Target tag"
-msgstr "Doel label"
+msgstr "Doel-tag"
 
 msgid "Terminal"
 msgstr "Terminal"
