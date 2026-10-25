@@ -318,7 +318,7 @@ IFS=$'\n'
 
 # build list of all container host and container paths with comments
 for service in "${services[@]}"; do
-  ymlVolsSvc=($(${yq} ".services.${service}.volumes" "${yml}" 2>/dev/null | sed 's/^- //' | sed 's/"//g'))
+  ymlVolsSvc=($(${yq} ".services.${service}.volumes[]? | select(tag == \"!!str\") | . + ((line_comment | select(. != \"\") | \" #\" + .) // \"\")" "${yml}" 2>/dev/null))
   confVolsSvc=($(${yq} eval ".services.${service}.volumes[]? | .source + \":\" + .target" "${confout}" 2>/dev/null))
 
   for vol in "${ymlVolsSvc[@]}"; do
@@ -442,7 +442,6 @@ for vol in "${serviceVolsMap[@]}"; do
   force=0
   _log "Volume :: ${vol}"
   hostpath="${vol%%:*}"
-  hostpath="${hostpath//\'/}"
   _log "host path :: ${hostpath}"
   contpath=$(extractContPath "${vol}")
   _log "container path :: ${contpath}"
