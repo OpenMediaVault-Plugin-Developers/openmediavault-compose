@@ -363,7 +363,7 @@ VOL_TEST_CTR=""
 # per-method coverage tests (removed on exit).
 EXTRA_FILE_NAMES=(omvtest_ports_compose omvtest_nfp_compose omvtest_nfp2_compose
     omvtest_nfp3_compose
-    omvtest_url_compose omvtest_example omvtest_autocompose)
+    omvtest_url_compose omvtest_example omvtest_autocompose omvtest_backup)
 EXTRA_CONFIG_NAMES=(omvtest_cfg_path omvtest_cfg_a.conf)
 declare -a EXTRA_FILE_UUIDS=()
 declare -a EXTRA_CONFIG_UUIDS=()
@@ -378,6 +378,10 @@ EXTRA_IMAGES=(omvtest_build_a:omvtest_tag omvtest_build_a:omvtest_grp1
 # Directory next to the backup shared folder used by the deleteBackup
 # traversal test (removed on exit).
 BACKUP_TRAVERSAL_DIR=""
+# Source dirs and backup output of the backup tag/quoting tests (removed on
+# exit). BACKUP_TEST_OUT is only set once the backup folder is known.
+BACKUP_TEST_DIR="/tmp/omvtest_backup"
+BACKUP_TEST_OUT=""
 # Non-admin username used for the RPC role checks. It does not have to exist:
 # omv-rpc builds a user-role context for any name other than admin.
 NONADMIN_USER="omvtest_nonadmin"
@@ -518,6 +522,14 @@ cleanup() {
     if [ -n "$BACKUP_TRAVERSAL_DIR" ] && [ -d "$BACKUP_TRAVERSAL_DIR" ]; then
         info "Removing deleteBackup traversal test dir $BACKUP_TRAVERSAL_DIR"
         rm -rf "$BACKUP_TRAVERSAL_DIR"
+    fi
+    if [ -d "$BACKUP_TEST_DIR" ]; then
+        info "Removing backup test source dir $BACKUP_TEST_DIR"
+        rm -rf "$BACKUP_TEST_DIR"
+    fi
+    if [ -n "$BACKUP_TEST_OUT" ] && [ -d "$BACKUP_TEST_OUT" ]; then
+        info "Removing backup test output $BACKUP_TEST_OUT"
+        rm -rf "$BACKUP_TEST_OUT"
     fi
     if [ -n "$IMPORT_TMP" ]; then
         info "Removing temp import dir $IMPORT_TMP"
@@ -3305,7 +3317,151 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 13d. System-wide RPCs (opt-in)
+# 13d. omv-compose-backup — BACKUP / SKIP_BACKUP tags and volume quoting
+# ---------------------------------------------------------------------------
+# One bind mount per quoting style (none, single, double) and tag (none,
+# BACKUP, SKIP_BACKUP). Each source dir holds data.txt and disk.qcow2:
+#   - untagged:    backed up, *.qcow2 excluded
+#   - BACKUP:      backed up, *.qcow2 included (forced)
+#   - SKIP_BACKUP: not backed up
+section "Backup tags and volume quoting"
+
+BACKUP_CMD="${OMV_COMPOSE_BACKUP:-$(command -v omv-compose-backup 2>/dev/null || true)}"
+if [ -z "$BACKUP_CMD" ] && [ -x "$(dirname "$0")/../usr/sbin/omv-compose-backup" ]; then
+    BACKUP_CMD="$(dirname "$0")/../usr/sbin/omv-compose-backup"
+fi
+
+BK_STYLES=(plain single double)
+BK_TAGS=(none backup skip)
+
+if [ -z "$BACKUP_CMD" ]; then
+    _skip "backup tag/quoting tests" "omv-compose-backup not found"
+elif [ -z "$BACKUP_PATH" ]; then
+    _skip "backup tag/quoting tests" "backup shared folder not configured"
+else
+    info "Using $BACKUP_CMD"
+    BK_BACKEND=$(json_get "$SETTINGS" "backupbackend")
+    info "Backup backend: ${BK_BACKEND:-rsync}"
+    rm -rf "$BACKUP_TEST_DIR" "$BACKUP_PATH/omvtest_backup"
+    BACKUP_TEST_OUT="$BACKUP_PATH/omvtest_backup"
+
+    BK_BODY='services:
+  app:
+    image: hello-world
+    volumes:'
+    for style in "${BK_STYLES[@]}"; do
+        for tag in "${BK_TAGS[@]}"; do
+            src="$BACKUP_TEST_DIR/${style}_${tag}"
+            mkdir -p "$src"
+            echo "omvtest" > "$src/data.txt"
+            echo "omvtest" > "$src/disk.qcow2"
+            vol="$src:/data/${style}_${tag}"
+            case $style in
+                single) vol="'$vol'" ;;
+                double) vol="\"$vol\"" ;;
+            esac
+            case $tag in
+                backup) vol="$vol # BACKUP" ;;
+                skip)   vol="$vol # SKIP_BACKUP" ;;
+            esac
+            BK_BODY+=$'\n'"      - $vol"
+        done
+    done
+
+    create_extra_file "setFile (backup tag/quoting compose)" "omvtest_backup" "$BK_BODY"
+
+    BK_OUT=""
+    BK_EC=0
+    if [ ! -f "$SF_PATH/omvtest_backup/omvtest_backup.yml" ]; then
+        _fail "omv-compose-backup (tags/quoting)" "compose file not on disk"
+        BK_EC=1
+    else
+        BK_OUT=$("$BACKUP_CMD" omvtest_backup 2>&1) || BK_EC=$?
+        if [ $BK_EC -eq 0 ]; then
+            _pass "omv-compose-backup (tags/quoting)"
+        else
+            _fail "omv-compose-backup (tags/quoting)" "exit $BK_EC: $(echo "$BK_OUT" | tail -3)"
+        fi
+    fi
+
+    # Print the vol.list line for a source dir (rsync appends a / to dirs).
+    bk_entry() {
+        grep -E "^[0-9]+,$1/?(,|\$)" "$BACKUP_TEST_OUT/vol.list" 2>/dev/null | head -1
+    }
+    # Check whether a backed-up volume contains a file.
+    # Usage: bk_has_file <vol.list line> <file>
+    bk_has_file() {
+        local entry=$1 file=$2 src archive
+        src=$(echo "$entry" | cut -d, -f2)
+        src="${src%/}"
+        if [ "$BK_BACKEND" = "borg" ]; then
+            archive=$(echo "$entry" | cut -d, -f4)
+            (
+                export BORG_RELOCATED_REPO_ACCESS_IS_OK=yes
+                if [ "$(json_get "$SETTINGS" "borgencryption")" != "none" ]; then
+                    BORG_PASSPHRASE="$(json_get "$SETTINGS" "borgpassphrase")"
+                    export BORG_PASSPHRASE
+                fi
+                borg list --short "$BACKUP_TEST_OUT/borgrepo::$archive" 2>/dev/null
+            ) | grep -qxF "$(basename "$src")/$file"
+        else
+            [ -f "$BACKUP_TEST_OUT/$(echo "$entry" | cut -d, -f1)/$file" ]
+        fi
+    }
+
+    for style in "${BK_STYLES[@]}"; do
+        for tag in "${BK_TAGS[@]}"; do
+            src="$BACKUP_TEST_DIR/${style}_${tag}"
+            t="backup ($style quotes, tag: $tag)"
+            if [ $BK_EC -ne 0 ]; then
+                _skip "$t" "backup did not run"
+                continue
+            fi
+            entry=$(bk_entry "$src")
+            if [ "$tag" = "skip" ]; then
+                if [ -z "$entry" ]; then
+                    _pass "$t not backed up"
+                else
+                    _fail "$t not backed up" "vol.list has: $entry"
+                fi
+                # Not being in vol.list alone would also pass if the volume
+                # was never parsed, so check it was skipped for its tag.
+                if echo "$BK_OUT" | grep -qF "Skipping for SKIP_BACKUP comment :: $src:"; then
+                    _pass "$t skipped for SKIP_BACKUP comment"
+                else
+                    _fail "$t skipped for SKIP_BACKUP comment" "no SKIP_BACKUP log line for $src"
+                fi
+                continue
+            fi
+            if [ -z "$entry" ]; then
+                _fail "$t backed up" "$src not in $BACKUP_TEST_OUT/vol.list"
+                continue
+            fi
+            _pass "$t backed up"
+            if bk_has_file "$entry" "data.txt"; then
+                _pass "$t contains data.txt"
+            else
+                _fail "$t contains data.txt" "missing from backup ($entry)"
+            fi
+            if [ "$tag" = "backup" ]; then
+                if bk_has_file "$entry" "disk.qcow2"; then
+                    _pass "$t includes *.qcow2 (forced)"
+                else
+                    _fail "$t includes *.qcow2 (forced)" "disk.qcow2 missing from backup ($entry)"
+                fi
+            else
+                if bk_has_file "$entry" "disk.qcow2"; then
+                    _fail "$t excludes *.qcow2" "disk.qcow2 found in backup ($entry)"
+                else
+                    _pass "$t excludes *.qcow2"
+                fi
+            fi
+        done
+    done
+fi
+
+# ---------------------------------------------------------------------------
+# 13e. System-wide RPCs (opt-in)
 # ---------------------------------------------------------------------------
 section "System-wide RPCs (opt-in)"
 
