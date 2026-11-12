@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-24 16:28+0000\n"
+"POT-Creation-Date: 2026-11-12 13:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: kochin <kochinc@outlook.com>, 2026\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_TW/)\n"
@@ -170,7 +170,7 @@ msgid "Backup shared folder must be different than docker shared folder"
 msgstr "備份的共享檔案夾必須不同於 docker 的共享檔案夾"
 
 msgid "Backup shared folder must be different than podman shared folder"
-msgstr "備份共享檔案夾必須與 podman 共享檔案夾不同。"
+msgstr "備份的共享檔案夾必須與 podman 共享檔案夾不同"
 
 msgid "Backup storage"
 msgstr "備份儲存庫"
@@ -218,7 +218,7 @@ msgid "Cache times for tabs"
 msgstr "分頁的快取時限"
 
 msgid "Cannot tag a row that groups %d different images."
-msgstr ""
+msgstr "無法加標籤到聚集 %d 不同映像的一行。"
 
 msgid "Certain date"
 msgstr "某個日期"
@@ -287,7 +287,7 @@ msgid "Compose file shared folder must be different than docker shared folder"
 msgstr "Compose 檔案的共享檔案夾必須不同於 docker 的共享檔案夾"
 
 msgid "Compose file shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "Compose 檔案所用的共享資料夾必須與 podman 所使用的共享資料夾不同"
 
 msgid "Compose file storage"
 msgstr "Compose 檔案儲存庫"
@@ -412,10 +412,10 @@ msgid "Data"
 msgstr "資料"
 
 msgid "Data shared folder must be different than docker shared folder"
-msgstr "資料檔案的共享檔案夾必須不同於 docker 的共享檔案夾"
+msgstr "資料的共享檔案夾必須不同於 docker 的共享檔案夾"
 
 msgid "Data shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "資料的共享檔案夾必須不同於 podman 的共享檔案夾"
 
 msgid "Data storage"
 msgstr "資料儲存庫"
@@ -626,6 +626,9 @@ msgstr "失敗"
 
 msgid "Failed to create directory '%s'."
 msgstr "建立檔案目錄失敗 '%s'。"
+
+msgid "Failed to pull: %s"
+msgstr ""
 
 msgid "February"
 msgstr "二月"
@@ -1145,11 +1148,8 @@ msgstr "拉取並建構"
 msgid "Pull and Build ..."
 msgstr "拉取並建構 ..."
 
-msgid "Pull complete."
-msgstr "拉取完畢。"
-
-msgid "Pulling images ..."
-msgstr "拉取映像中 ..."
+msgid "Pull image with tag ..."
+msgstr ""
 
 msgid "Push"
 msgstr "推送"
@@ -1390,6 +1390,9 @@ msgstr "系統"
 
 msgid "Tag"
 msgstr "標籤"
+
+msgid "Tag to pull, e.g. latest, stable or 1.2.3"
+msgstr ""
 
 msgid "Tags"
 msgstr "標籤"
@@ -1755,9 +1758,6 @@ msgstr "拉取映像"
 
 msgid "pull image+tag"
 msgstr "拉取映像+標籤"
-
-msgid "pull multiple image"
-msgstr "拉取多個映像"
 
 msgid "repokey"
 msgstr "repokey"

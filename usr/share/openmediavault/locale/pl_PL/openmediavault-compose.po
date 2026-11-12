@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-24 16:28+0000\n"
+"POT-Creation-Date: 2026-11-12 13:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: 8824729be9983d825bb37f66c8de0642_fa12916, 2024\n"
 "Language-Team: Polish (Poland) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/pl_PL/)\n"
@@ -633,6 +633,9 @@ msgstr "Niepowodzenie"
 msgid "Failed to create directory '%s'."
 msgstr ""
 
+msgid "Failed to pull: %s"
+msgstr ""
+
 msgid "February"
 msgstr ""
 
@@ -1151,10 +1154,7 @@ msgstr "Ściągnij i zbuduj"
 msgid "Pull and Build ..."
 msgstr "Ściąganie i budowanie ..."
 
-msgid "Pull complete."
-msgstr ""
-
-msgid "Pulling images ..."
+msgid "Pull image with tag ..."
 msgstr ""
 
 msgid "Push"
@@ -1396,6 +1396,9 @@ msgstr "System"
 
 msgid "Tag"
 msgstr "Tag"
+
+msgid "Tag to pull, e.g. latest, stable or 1.2.3"
+msgstr ""
 
 msgid "Tags"
 msgstr "Tagi"
@@ -1761,9 +1764,6 @@ msgid "pull image"
 msgstr ""
 
 msgid "pull image+tag"
-msgstr ""
-
-msgid "pull multiple image"
 msgstr ""
 
 msgid "repokey"

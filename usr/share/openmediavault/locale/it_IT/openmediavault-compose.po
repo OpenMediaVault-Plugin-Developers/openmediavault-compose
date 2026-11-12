@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-24 16:28+0000\n"
+"POT-Creation-Date: 2026-11-12 13:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Giovanni Scafora <scafora.giovanni@gmail.com>, 2026\n"
 "Language-Team: Italian (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/it/)\n"
@@ -22,18 +22,20 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 msgid "'%s' already exists and is not a directory."
-msgstr ""
+msgstr "'%s' esiste già e non è una cartella."
 
 msgid "API Key"
-msgstr ""
+msgstr "Chiave API"
 
 msgid ""
 "Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
 "xxxx/appdata/plex/config"
 msgstr ""
+"Percorso assoluto dell'host da creare.<br/>es. /srv/dev-disk-by-uuid-"
+"xxxx/appdata/plex/config"
 
 msgid "Absolute path"
-msgstr ""
+msgstr "Percorso assoluto"
 
 msgid "Action"
 msgstr "Azione"
@@ -63,6 +65,8 @@ msgid ""
 "Additional --opt entries as key=value. Comma separate multiple "
 "entries.<br/>e.g. size=20g,uid=1000"
 msgstr ""
+"Voci --opt aggiuntive come chiave=valore. Separare le voci multiple con una "
+"virgola.<br/>es. size=20g,uid=1000"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
@@ -90,30 +94,35 @@ msgstr ""
 " lettura"
 
 msgid "Advanced (driver options & labels)"
-msgstr ""
+msgstr "Avanzate (opzioni driver e etichette)"
 
 msgid "Advanced (manual IP configuration)"
-msgstr ""
+msgstr "Avanzate (configurazione IP manuale)"
 
 msgid "Always attempt to pull a newer version of the image"
-msgstr ""
+msgstr "Tenta sempre di scaricare una versione più recente dell'immagine"
 
 msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
 msgstr ""
+"Un messaggio di posta elettronica con l'output del comando (se prodotto) "
+"viene inviato all'utente che esegue l'operazione."
 
 msgid "Apply ownership and permissions recursively"
-msgstr ""
+msgstr "Applica proprietà e permessi ricorsivamente"
 
 msgid ""
 "Apply the owner, group and permissions to all existing contents as well, not"
 " just the directory itself. Use with care on directories that already hold "
 "data."
 msgstr ""
+"Applica proprietario, gruppo e permessi anche a tutti i contenuti esistenti,"
+" non solo alla cartella stessa. Usare con cautela su cartelle che contengono"
+" già dati."
 
 msgid "April"
-msgstr ""
+msgstr "Aprile"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
@@ -147,15 +156,17 @@ msgid ""
 "Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
 "enabled in the Docker daemon."
 msgstr ""
+"Assegna una sottorete IPv6 a questa rete (dual-stack). Richiede che l'IPv6 "
+"sia abilitato nel demone Docker."
 
 msgid "At reboot"
-msgstr ""
+msgstr "Al riavvio"
 
 msgid "August"
-msgstr ""
+msgstr "Agosto"
 
 msgid "Authentication — fill in one of the two options below"
-msgstr ""
+msgstr "Autenticazione — compila una delle due opzioni sottostanti"
 
 msgid "Autocompose"
 msgstr "Composizione automatica"
@@ -173,10 +184,10 @@ msgid "Backup"
 msgstr "Backup"
 
 msgid "Backup Time"
-msgstr ""
+msgstr "Orario di backup"
 
 msgid "Backup container data."
-msgstr ""
+msgstr "Esegui il backup dei dati del container."
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
@@ -185,12 +196,15 @@ msgstr ""
 
 msgid "Backup shared folder must be different than podman shared folder"
 msgstr ""
+"La cartella condivisa di backup deve essere diversa da quella condivisa di "
+"Podman"
 
 msgid "Backup storage"
-msgstr ""
+msgstr "Archiviazione backup"
 
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 msgstr ""
+"URL di base della tua istanza di Portainer, es. https://192.168.1.10:9443"
 
 msgid "Block In"
 msgstr "Blocca l'ingresso"
@@ -202,13 +216,13 @@ msgid "Body"
 msgstr "Corpo"
 
 msgid "Borg encryption"
-msgstr ""
+msgstr "Crittografia Borg"
 
 msgid "Borg keep"
 msgstr "Borg keep"
 
 msgid "Borg passphrase"
-msgstr ""
+msgstr "Passphrase Borg"
 
 msgid "Build"
 msgstr "Compila"
@@ -217,10 +231,10 @@ msgid "Build ..."
 msgstr "Sto compilando..."
 
 msgid "Build without cache"
-msgstr ""
+msgstr "Compila senza cache"
 
 msgid "Build without cache ..."
-msgstr ""
+msgstr "Compilazione senza cache in corso..."
 
 msgid "CPU %"
 msgstr "CPU %"
@@ -233,9 +247,11 @@ msgstr "Tempi di cache per le schede"
 
 msgid "Cannot tag a row that groups %d different images."
 msgstr ""
+"Impossibile assegnare un tag a una riga che raggruppa %d immagini "
+"differenti."
 
 msgid "Certain date"
-msgstr ""
+msgstr "Data specifica"
 
 msgid "Changes have been synced from file."
 msgstr "Le modifiche sono state sincronizzate dal file."
@@ -249,6 +265,10 @@ msgid ""
 "blank or use just * to include all compose files.<br/>Separate multiple "
 "patterns with commas."
 msgstr ""
+"Scegli quali file compose includere in questa operazione corrispondendo al "
+"nome compose.<br/>Supporta i caratteri jolly (*). es. web* o *cloud* o "
+"*app<br/>Lascia vuoto o usa solo * per includere tutti i file "
+"compose.<br/>Separa più modelli con virgole."
 
 msgid "Clear cache"
 msgstr "Cancella la cache"
@@ -260,7 +280,7 @@ msgid "Command"
 msgstr "Comando"
 
 msgid "Comment"
-msgstr ""
+msgstr "Commento"
 
 msgid "Compose"
 msgstr "Compose"
@@ -269,7 +289,7 @@ msgid "Compose Backup"
 msgstr "Backup di compose"
 
 msgid "Compose Build"
-msgstr ""
+msgstr "Compilazione Compose"
 
 msgid "Compose File"
 msgstr "File di compose"
@@ -281,7 +301,7 @@ msgid "Compose Restore"
 msgstr "Ripristina compose"
 
 msgid "Compose Run"
-msgstr ""
+msgstr "Esecuzione Compose"
 
 msgid "Compose Start"
 msgstr "Avvia compose"
@@ -304,9 +324,11 @@ msgstr ""
 
 msgid "Compose file shared folder must be different than podman shared folder"
 msgstr ""
+"La cartella condivisa del file compose deve essere diversa da quella "
+"condivisa di Podman"
 
 msgid "Compose file storage"
-msgstr ""
+msgstr "Archiviazione file compose"
 
 msgid "Compose file to be associate imported files with"
 msgstr "File compose a cui associare i file importati"
@@ -333,18 +355,20 @@ msgid ""
 "Configure a mount type, driver options and labels. Leave disabled to create "
 "a plain named volume."
 msgstr ""
+"Configura un tipo di montaggio, le opzioni del driver e le etichette. Lascia"
+" disabilitato per creare un volume denominato semplice."
 
 msgid "Connect"
-msgstr ""
+msgstr "Connetti"
 
 msgid "Connect container"
-msgstr ""
+msgstr "Collega container"
 
 msgid "Container"
 msgstr "Container"
 
 msgid "Container Port"
-msgstr ""
+msgstr "Porta del container"
 
 msgid "Container Terminals"
 msgstr "Terminali dei container"
@@ -356,16 +380,16 @@ msgid "Containers"
 msgstr "Container"
 
 msgid "Could not connect to Portainer at %s."
-msgstr ""
+msgstr "Impossibile connettersi a Portainer su %s."
 
 msgid "Create"
 msgstr "Crea"
 
 msgid "Create .env and compose.yml symlinks"
-msgstr ""
+msgstr "Crea collegamenti simbolici per .env e compose.yml"
 
 msgid "Create bind mount path"
-msgstr ""
+msgstr "Crea percorso di bind mount"
 
 msgid "Create from URL"
 msgstr "Crea da URL"
@@ -380,7 +404,7 @@ msgid "Create new image tag ..."
 msgstr "Crea un nuovo tag immagine..."
 
 msgid "Create symlinks"
-msgstr ""
+msgstr "Crea collegamenti simbolici"
 
 msgid "Created"
 msgstr "Creato"
@@ -389,7 +413,7 @@ msgid "Created At"
 msgstr "Creato il"
 
 msgid "Created bind mount path."
-msgstr ""
+msgstr "Percorso di bind mount creato."
 
 msgid "Created config."
 msgstr "La configurazione è stata creata."
@@ -410,19 +434,19 @@ msgid "Created scheduled job."
 msgstr "Il lavoro pianificato è stato creato."
 
 msgid "Created volume."
-msgstr ""
+msgstr "Volume creato."
 
 msgid "Current"
 msgstr "Attuale"
 
 msgid "Current repository"
-msgstr ""
+msgstr "Repository attuale"
 
 msgid "Current tag"
-msgstr ""
+msgstr "Tag attuale"
 
 msgid "Daily"
-msgstr ""
+msgstr "Giornaliero"
 
 msgid "Data"
 msgstr "Data"
@@ -434,21 +458,23 @@ msgstr ""
 
 msgid "Data shared folder must be different than podman shared folder"
 msgstr ""
+"La cartella condivisa dei dati deve essere diversa da quella condivisa di "
+"Podman"
 
 msgid "Data storage"
-msgstr ""
+msgstr "Archiviazione dati"
 
 msgid "Date & Time"
 msgstr "Data e orario"
 
 msgid "Day of month"
-msgstr ""
+msgstr "Giorno del mese"
 
 msgid "Day of week"
-msgstr ""
+msgstr "Giorno della settimana"
 
 msgid "December"
-msgstr ""
+msgstr "Dicembre"
 
 msgid "Delete"
 msgstr "Elimina"
@@ -466,7 +492,7 @@ msgid "Description"
 msgstr "Descrizione"
 
 msgid "Device"
-msgstr ""
+msgstr "Dispositivo"
 
 msgid "Digest"
 msgstr "Digest"
@@ -475,13 +501,13 @@ msgid "Directory does not exist!"
 msgstr "La cartella non esiste!"
 
 msgid "Disable if Portainer uses a self-signed certificate."
-msgstr ""
+msgstr "Disabilita se Portainer utilizza un certificato autofirmato."
 
 msgid "Disconnect"
-msgstr ""
+msgstr "Disconnetti"
 
 msgid "Disconnect container"
-msgstr ""
+msgstr "Scollega container"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
@@ -501,9 +527,13 @@ msgid ""
 "backup runs while the containers are live (faster, no downtime), but data "
 "may be inconsistent for running services such as databases."
 msgstr ""
+"Non arrestare i container prima del backup e non avviarli successivamente. "
+"Il backup viene eseguito mentre i container sono attivi (più veloce, senza "
+"interruzioni), ma i dati potrebbero risultare inconsistenti per servizi in "
+"esecuzione come i database."
 
 msgid "Do not use cache when building the image"
-msgstr ""
+msgstr "Non usare la cache durante la compilazione dell'immagine"
 
 msgid "Docker config"
 msgstr "Configurazione Docker"
@@ -548,7 +578,7 @@ msgid "Driver"
 msgstr "Driver"
 
 msgid "Driver options"
-msgstr ""
+msgstr "Opzioni del driver"
 
 msgid "Edit"
 msgstr "Modifica"
@@ -572,7 +602,7 @@ msgid "Edit scheduled job."
 msgstr "Modifica il lavoro pianificato."
 
 msgid "Email on error"
-msgstr ""
+msgstr "Invia email in caso di errore"
 
 msgid "Enable Docker repo"
 msgstr "Abilita il repo del docker"
@@ -581,15 +611,17 @@ msgid "Enable Docker repo ..."
 msgstr "Sto abilitando il repo del docker..."
 
 msgid "Enable IPv6"
-msgstr ""
+msgstr "Abilita IPv6"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Abilitato"
 
 msgid ""
 "Encryption mode for Borg repository. Changing this requires re-initializing "
 "the repo."
 msgstr ""
+"Modalità di crittografia per il repository Borg. La modifica richiede la "
+"reinizializzazione del repository."
 
 msgid "Env Path"
 msgstr "Percorso di env"
@@ -598,13 +630,13 @@ msgid "Environment"
 msgstr "Ambiente"
 
 msgid "Every N day of month"
-msgstr ""
+msgstr "Ogni N giorno del mese"
 
 msgid "Every N hour"
-msgstr ""
+msgstr "Ogni N ora"
 
 msgid "Every N minute"
-msgstr ""
+msgstr "Ogni N minuto"
 
 msgid "Everyone - read/write"
 msgstr "Tutti - lettura/scrittura"
@@ -618,12 +650,16 @@ msgid ""
 "from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, "
 "cache/<br/>Separate multiple patterns with commas."
 msgstr ""
+"Escludi percorsi di file o cartelle dai volumi di cui viene eseguito il "
+"backup (passati come pattern --exclude di rsync/borg).<br/>Questo NON "
+"esclude i file compose dal lavoro - usa il filtro di esclusione sopra per "
+"quello.<br/>es. *.log, tmp/*, cache/<br/>Separa più pattern con virgole."
 
 msgid "Exclude filter"
-msgstr ""
+msgstr "Filtro di esclusione"
 
 msgid "Exclude filter (pick files)"
-msgstr ""
+msgstr "Filtro di esclusione (seleziona file)"
 
 msgid ""
 "Exclude specific compose files from this job by matching the compose "
@@ -632,6 +668,11 @@ msgid ""
 "applied after the filter, so you can use * in Filter and exclude specific "
 "files here."
 msgstr ""
+"Escludi file compose specifici da questo lavoro corrispondendo al nome "
+"compose.<br/>Supporta i caratteri jolly (*). es. nextcloud o *cloud* o "
+"private*<br/>Separa più pattern con virgole.<br/>Le esclusioni vengono "
+"applicate dopo il filtro, quindi puoi usare * nel filtro ed escludere file "
+"specifici qui."
 
 msgid "Excludes"
 msgstr "Escludi"
@@ -643,10 +684,13 @@ msgid "Failed"
 msgstr "Si è verificato un errore"
 
 msgid "Failed to create directory '%s'."
+msgstr "Impossibile creare la cartella '%s'."
+
+msgid "Failed to pull: %s"
 msgstr ""
 
 msgid "February"
-msgstr ""
+msgstr "Febbraio"
 
 msgid "File"
 msgstr "File"
@@ -664,15 +708,19 @@ msgid "Filter"
 msgstr "Filtro"
 
 msgid "Filter (pick files)"
-msgstr ""
+msgstr "Filtro (seleziona file)"
 
 msgid "Find the next 20 free host ports at or above this number."
 msgstr ""
+"Trova le successive 20 porte host libere a partire da questo numero o "
+"superiore."
 
 msgid ""
 "Format is key=value. Comma separate multiple entries.<br/>e.g. "
 "com.example.usage=backup,com.example.owner=admin"
 msgstr ""
+"Il formato è chiave=valore. Separa più voci con una virgola.<br/>es. "
+"com.example.usage=backup,com.example.owner=admin"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
@@ -682,7 +730,7 @@ msgstr ""
 "esempio my-router=192.168.10.5, my-nas=192.168.20.6"
 
 msgid "Friday"
-msgstr ""
+msgstr "Venerdì"
 
 msgid "Gateway"
 msgstr "Gateway"
@@ -694,51 +742,56 @@ msgid "Global environment variables"
 msgstr "Variabili di ambiente globali"
 
 msgid "Group"
-msgstr ""
+msgstr "Gruppo"
 
 msgid "Group of directories and files"
 msgstr "Gruppo di cartelle e file"
 
 msgid "Group to own the path. Match the container's PGID where applicable."
 msgstr ""
+"Gruppo proprietario del percorso. Corrisponde al PGID del container ove "
+"applicabile."
 
 msgid "Host Port"
-msgstr ""
+msgstr "Porta host"
 
 msgid ""
 "Host interface this network is attached to. Use a VLAN sub-interface for "
 "802.1Q tagging, e.g. eth0.10"
 msgstr ""
+"Interfaccia host a cui è collegata questa rete. Utilizzare una sub-"
+"interfaccia VLAN per il tagging 802.1Q, es. eth0.10"
 
 msgid "Hour"
-msgstr ""
+msgstr "Ora"
 
 msgid "Hourly"
-msgstr ""
+msgstr "Orario"
 
 msgid "ID"
 msgstr "ID"
 
 msgid "IP address"
-msgstr ""
+msgstr "Indirizzo IP"
 
 msgid "IP range"
 msgstr "Intervallo di IP"
 
 msgid "IPv6 gateway"
-msgstr ""
+msgstr "Gateway IPv6"
 
 msgid "IPv6 subnet"
-msgstr ""
+msgstr "Sottorete IPv6"
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
+"Selezionato, il comando rsync di backup includerà il flag dettagliato."
 
 msgid "Image"
 msgstr "Immagine"
 
 msgid "Image ID"
-msgstr ""
+msgstr "ID immagine"
 
 msgid "Images"
 msgstr "Immagini"
@@ -747,7 +800,7 @@ msgid "Import"
 msgstr "Importa"
 
 msgid "Import Dockerfiles from folders ..."
-msgstr ""
+msgstr "Importa Dockerfile dalle cartelle..."
 
 msgid "Import config files from folders ..."
 msgstr "Sto importando i file di configurazione dalle cartelle..."
@@ -759,18 +812,20 @@ msgid "Import existing compose folders ..."
 msgstr "Sto importando le cartelle di composizione esistenti..."
 
 msgid "Import from Portainer"
-msgstr ""
+msgstr "Importa da Portainer"
 
 msgid "Import one"
 msgstr "Importane uno"
 
 msgid "Import stacks from Portainer ..."
-msgstr ""
+msgstr "Importa stack da Portainer..."
 
 msgid ""
 "Imports all standalone compose stacks from Portainer. Stacks already present"
 " in the plugin are skipped. Swarm stacks are not imported."
 msgstr ""
+"Importa tutti gli stack compose indipendenti da Portainer. Gli stack già "
+"presenti nel plugin vengono saltati. Gli stack Swarm non vengono importati."
 
 msgid "In Use"
 msgstr "In uso"
@@ -788,31 +843,31 @@ msgid "Internal network"
 msgstr "Rete interna"
 
 msgid "Invalid %s name."
-msgstr ""
+msgstr "Nome di %s non valido."
 
 msgid "Invalid JSON response from Portainer: %s"
-msgstr ""
+msgstr "Risposta JSON non valida da Portainer: %s"
 
 msgid "Invalid backup name!"
-msgstr ""
+msgstr "Nome del backup non valido!"
 
 msgid "Invalid compose file path '%s'."
-msgstr ""
+msgstr "Percorso del file compose '%s' non valido."
 
 msgid "Invalid image command '%s'."
-msgstr ""
+msgstr "Comando immagine '%s' non valido."
 
 msgid "Is Latest"
-msgstr ""
+msgstr "È l'ultima versione"
 
 msgid "January"
-msgstr ""
+msgstr "Gennaio"
 
 msgid "July"
-msgstr ""
+msgstr "Luglio"
 
 msgid "June"
-msgstr ""
+msgstr "Giugno"
 
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
@@ -820,7 +875,7 @@ msgstr ""
 "Docker"
 
 msgid "Labels"
-msgstr ""
+msgstr "Etichette"
 
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr ""
@@ -830,10 +885,10 @@ msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr "Lascia vuoto per utilizzare un /etc/docker/daemon.json personalizzato"
 
 msgid "Leave unchanged"
-msgstr ""
+msgstr "Lascia inalterato"
 
 msgid "Leave unchanged ..."
-msgstr ""
+msgstr "Lascia inalterato..."
 
 msgid "Live restore"
 msgstr "Ripristino live"
@@ -869,15 +924,18 @@ msgid ""
 "Manually assign the subnet, gateway and IP range. Leave disabled to let "
 "Docker allocate addresses automatically."
 msgstr ""
+"Assegna manualmente la sottorete, il gateway e l'intervallo IP. Lascia "
+"disabilitato per consentire a Docker di assegnare gli indirizzi "
+"automaticamente."
 
 msgid "March"
-msgstr ""
+msgstr "Marzo"
 
 msgid "Max Size"
 msgstr "Dimensione massima"
 
 msgid "May"
-msgstr ""
+msgstr "Maggio"
 
 msgid "Mem %"
 msgstr "Mem %"
@@ -892,28 +950,28 @@ msgid "Message"
 msgstr "Messaggio"
 
 msgid "Minute"
-msgstr ""
+msgstr "Minuto"
 
 msgid "Mixed"
 msgstr "Misto"
 
 msgid "Mode"
-msgstr ""
+msgstr "Modalità"
 
 msgid "Monday"
-msgstr ""
+msgstr "Lunedì"
 
 msgid "Month"
-msgstr ""
+msgstr "Mese"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Mensile"
 
 msgid "Mount options"
-msgstr ""
+msgstr "Opzioni di montaggio"
 
 msgid "Mount type"
-msgstr ""
+msgstr "Tipo di montaggio"
 
 msgid "Mountpoint"
 msgstr "Mountpoint"
@@ -940,34 +998,34 @@ msgid "No Image"
 msgstr "Nessuna immagine"
 
 msgid "No cache"
-msgstr ""
+msgstr "Nessuna cache"
 
 msgid "No compose file found!"
 msgstr "Nessun file di composizione trovato!"
 
 msgid "No image specified."
-msgstr ""
+msgstr "Nessuna immagine specificata."
 
 msgid "No name specified!"
 msgstr "Nessun nome specificato!"
 
 msgid "None"
-msgstr ""
+msgstr "Nessuno"
 
 msgid "None (local storage)"
-msgstr ""
+msgstr "Nessuno (memoria locale)"
 
 msgid "Not installed"
 msgstr "Non installato"
 
 msgid "November"
-msgstr ""
+msgstr "Novembre"
 
 msgid "Number of Borg backups to keep."
 msgstr "Numero di backup Borg da conservare"
 
 msgid "October"
-msgstr ""
+msgstr "Ottobre"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -977,7 +1035,7 @@ msgstr ""
 "sottolineatura (_), trattini (-), virgole (,) e asterischi (*)!"
 
 msgid "Only send an email if the job exits with an error."
-msgstr ""
+msgstr "Invia un'email solo se il lavoro termina con un errore."
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
@@ -990,16 +1048,22 @@ msgstr ""
 
 msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
 msgstr ""
+"Facoltativo. Assegna un IP statico dalla sottorete di rete, es. 172.20.0.10"
 
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
 "merged with the Filter patterns above (combined and de-duplicated)."
 msgstr ""
+"Seleziona facoltativamente file compose specifici dall'elenco. La tua "
+"selezione viene unita ai modelli di filtro sopra (combinati e de-duplicati)."
 
 msgid ""
 "Optionally pick specific compose files to exclude. Your selection is merged "
 "with the Exclude filter patterns above (combined and de-duplicated)."
 msgstr ""
+"Seleziona facoltativamente file compose specifici da escludere. La tua "
+"selezione viene unita ai modelli di filtro di esclusione sopra (combinati e "
+"de-duplicati)."
 
 msgid "Override"
 msgstr "Sovrascrivi"
@@ -1017,22 +1081,32 @@ msgid "Overrides"
 msgstr "Sovrascrivi"
 
 msgid "Owner"
-msgstr ""
+msgstr "Proprietario"
 
 msgid "Owner - read/write, Group - no access, Others - no access"
 msgstr ""
+"Proprietario - lettura/scrittura, Gruppo - nessun accesso, Altri - nessun "
+"accesso"
 
 msgid "Owner - read/write, Group - read-only, Others - no access"
 msgstr ""
+"Proprietario - lettura/scrittura, Gruppo - sola lettura, Altri - nessun "
+"accesso"
 
 msgid "Owner - read/write, Group - read-only, Others - read-only"
 msgstr ""
+"Proprietario - lettura/scrittura, Gruppo - sola lettura, Altri - sola "
+"lettura"
 
 msgid "Owner - read/write, Group - read/write, Others - no access"
 msgstr ""
+"Proprietario - lettura/scrittura, Gruppo - lettura/scrittura, Altri - nessun"
+" accesso"
 
 msgid "Owner - read/write, Group - read/write, Others - read-only"
 msgstr ""
+"Proprietario - lettura/scrittura, Gruppo - lettura/scrittura, Altri - sola "
+"lettura"
 
 msgid "Owner of directories and files"
 msgstr "Proprietario delle cartelle e dei file"
@@ -1041,7 +1115,7 @@ msgid "PIDs"
 msgstr "PID"
 
 msgid "Parent"
-msgstr ""
+msgstr "Principale"
 
 msgid "Parent network"
 msgstr "Rete principale"
@@ -1051,39 +1125,42 @@ msgid ""
 "addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
 "username=user,password=secret,vers=3.0"
 msgstr ""
+"Passato come opzione del driver 'o'.<br/>NFS es. "
+"addr=192.168.1.10,rw,nfsvers=4<br/>CIFS es. "
+"username=user,password=secret,vers=3.0"
 
 msgid "Passphrase for Borg encryption."
-msgstr ""
+msgstr "Passphrase per la crittografia Borg."
 
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 msgid "Path"
 msgstr "Percorso"
 
 msgid "Path source"
-msgstr ""
+msgstr "Origine percorso"
 
 msgid "Path to script that will be executed after backup"
-msgstr ""
+msgstr "Percorso dello script che verrà eseguito dopo il backup"
 
 msgid "Path to script that will be executed before backup"
-msgstr ""
+msgstr "Percorso dello script che verrà eseguito prima del backup"
 
 msgid "Permissions"
-msgstr ""
+msgstr "Permessi"
 
 msgid "Permissions must be an octal value, e.g. 755."
-msgstr ""
+msgstr "I permessi devono essere un valore ottale, es. 755."
 
 msgid "Permissions of directories and files"
 msgstr "Permessi delle cartelle e dei file"
 
 msgid "Please provide an absolute path."
-msgstr ""
+msgstr "Fornisci un percorso assoluto."
 
 msgid "Please select a shared folder."
-msgstr ""
+msgstr "Seleziona una cartella condivisa."
 
 msgid "Please set shared folder for backups."
 msgstr "Imposta una cartella condivisa per i backup."
@@ -1098,43 +1175,43 @@ msgid "Podman storage"
 msgstr "Storage di Podman"
 
 msgid "Portainer API request failed: %s"
-msgstr ""
+msgstr "Richiesta API Portainer fallita: %s"
 
 msgid "Portainer URL"
-msgstr ""
+msgstr "URL di Portainer"
 
 msgid "Portainer authentication failed. Check your credentials."
-msgstr ""
+msgstr "Autenticazione Portainer fallita. Controlla le tue credenziali."
 
 msgid "Ports"
 msgstr "Porte"
 
 msgid "Post-backup script"
-msgstr ""
+msgstr "Script post-backup"
 
 msgid "Pre-backup script"
-msgstr ""
+msgstr "Script pre-backup"
 
 msgid "Preview"
-msgstr ""
+msgstr "Anteprima"
 
 msgid "Preview Import"
-msgstr ""
+msgstr "Anteprima importazione"
 
 msgid "Preview import ..."
-msgstr ""
+msgstr "Anteprima importazione..."
 
 msgid "Preview import from folder ..."
-msgstr ""
+msgstr "Anteprima importazione da cartella..."
 
 msgid "Project"
 msgstr "Progetto"
 
 msgid "Protocol"
-msgstr ""
+msgstr "Protocollo"
 
 msgid "Provide either an API key or a username and password."
-msgstr ""
+msgstr "Fornisci una chiave API oppure un nome utente e una password."
 
 msgid "Prune"
 msgstr "Rimuovi"
@@ -1149,17 +1226,22 @@ msgid ""
 "Prune all dangling images.<br/>Does not use filter. Will run docker image "
 "prune -f"
 msgstr ""
+"Rimuovi tutte le immagini dangling.<br/>Non utilizza filtri. Eseguirà docker"
+" image prune -f"
 
 msgid "Prune builder cache"
-msgstr ""
+msgstr "Rimuovi cache del builder"
 
 msgid ""
 "Prune the Docker build cache after building. Runs docker builder prune -f. "
 "Applies system-wide, not filtered by compose file."
 msgstr ""
+"Rimuovi la cache di compilazione Docker dopo la compilazione. Esegue docker "
+"builder prune -f. Si applica a livello di sistema, non filtrato per file "
+"compose."
 
 msgid "Pull"
-msgstr ""
+msgstr "Scarica"
 
 msgid "Pull and Build"
 msgstr "Sincronizza e compila"
@@ -1167,11 +1249,8 @@ msgstr "Sincronizza e compila"
 msgid "Pull and Build ..."
 msgstr "Sincronizza e compila..."
 
-msgid "Pull complete."
-msgstr "Download completato"
-
-msgid "Pulling images ..."
-msgstr "Download immagini in corso…"
+msgid "Pull image with tag ..."
+msgstr ""
 
 msgid "Push"
 msgstr "Invia"
@@ -1183,9 +1262,11 @@ msgid ""
 "Recommended. Generate one in Portainer under Account Settings → Access "
 "tokens."
 msgstr ""
+"Consigliato. Generane uno in Portainer in Impostazioni account → Token di "
+"accesso."
 
 msgid "Refusing to operate on the protected system path '%s'."
-msgstr ""
+msgstr "Rifiuto di operare sul percorso di sistema protetto '%s'."
 
 msgid "Reinstall Docker"
 msgstr "Reinstalla docker"
@@ -1194,7 +1275,7 @@ msgid "Reinstall Docker ..."
 msgstr "Sto reinstallando docker..."
 
 msgid "Relative path"
-msgstr ""
+msgstr "Percorso relativo"
 
 msgid "Repo"
 msgstr "Repo"
@@ -1234,7 +1315,7 @@ msgid "Run config"
 msgstr "Configurazione di esecuzione"
 
 msgid "Run docker compose build"
-msgstr ""
+msgstr "Esegui docker compose build"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
@@ -1246,18 +1327,20 @@ msgid "Running For"
 msgstr "Avvia per"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Sabato"
 
 msgid ""
 "Scan a folder recursively for compose files and preview what would be "
 "imported, without making any changes."
 msgstr ""
+"Scansiona ricorsivamente una cartella alla ricerca di file compose e mostra "
+"un'anteprima di ciò che verrebbe importato, senza apportare modifiche."
 
 msgid "Schedule"
 msgstr "Pianifica"
 
 msgid "Scheduling"
-msgstr ""
+msgstr "Pianificazione"
 
 msgid "Script"
 msgstr "Script"
@@ -1272,12 +1355,14 @@ msgid "Scripts"
 msgstr "Script"
 
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 msgid ""
 "Seconds to wait before starting Docker/Podman on boot. Use this if "
 "containers fail to start because storage is not ready in time."
 msgstr ""
+"Secondi di attesa prima di avviare Docker/Podman all'avvio. Utilizzalo se i "
+"container non si avviano perché lo storage non è pronto in tempo."
 
 msgid "Select a group ..."
 msgstr "Seleziona un gruppo..."
@@ -1286,26 +1371,30 @@ msgid ""
 "Select a shared folder to set the Docker storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Seleziona una cartella condivisa per impostare il percorso di archiviazione "
+"Docker. Deseleziona per inserire un percorso manualmente."
 
 msgid ""
 "Select a shared folder to set the Podman storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Seleziona una cartella condivisa per impostare il percorso di archiviazione "
+"Podman. Deseleziona per inserire un percorso manualmente."
 
 msgid "Select a user ..."
 msgstr "Seleziona un utente..."
 
 msgid "Send command output via email"
-msgstr ""
+msgstr "Invia l'output del comando via email"
 
 msgid "Send email"
-msgstr ""
+msgstr "Invia email"
 
 msgid "Send email on error only"
-msgstr ""
+msgstr "Invia email solo in caso di errore"
 
 msgid "September"
-msgstr ""
+msgstr "Settembre"
 
 msgid "Service"
 msgstr "Servizio"
@@ -1323,7 +1412,7 @@ msgid "Shared folder"
 msgstr "Cartella condivisa"
 
 msgid "Shared folder + relative path"
-msgstr ""
+msgstr "Cartella condivisa + percorso relativo"
 
 msgid "Show all file changes ..."
 msgstr "Mostra tutte le modifiche al file..."
@@ -1352,22 +1441,22 @@ msgid "Size"
 msgstr "Dimensione"
 
 msgid "Skip container stop/start"
-msgstr ""
+msgstr "Salta arresto/avvio container"
 
 msgid "Source and target image are required."
-msgstr ""
+msgstr "L'immagine di origine e quella di destinazione sono obbligatorie."
 
 msgid "Start"
-msgstr ""
+msgstr "Avvia"
 
 msgid "Start all compose files"
-msgstr ""
+msgstr "Avvia tutti i file compose"
 
 msgid "Start delay"
-msgstr ""
+msgstr "Ritardo di avvio"
 
 msgid "Starting port"
-msgstr ""
+msgstr "Porta di inizio"
 
 msgid "State"
 msgstr "Stato"
@@ -1379,10 +1468,10 @@ msgid "Status"
 msgstr "Stato"
 
 msgid "Stop"
-msgstr ""
+msgstr "Ferma"
 
 msgid "Stop all compose files"
-msgstr ""
+msgstr "Ferma tutti i file compose"
 
 msgid "Stopped"
 msgstr "Fermato"
@@ -1391,21 +1480,23 @@ msgid ""
 "Subdirectory created under the shared folder. Leave empty to use the shared "
 "folder root.<br/>e.g. plex/config"
 msgstr ""
+"Sottocartella creata sotto la cartella condivisa. Lascia vuoto per usare la "
+"root della cartella condivisa.<br/>es. plex/config"
 
 msgid "Subnet"
 msgstr "Sottorete"
 
 msgid "Suggest free host ports ..."
-msgstr ""
+msgstr "Suggerisci porte host libere..."
 
 msgid "Suggest free ports"
-msgstr ""
+msgstr "Suggerisci porte libere"
 
 msgid "Suggested free host ports ..."
-msgstr ""
+msgstr "Porte host libere suggerite..."
 
 msgid "Sunday"
-msgstr ""
+msgstr "Domenica"
 
 msgid "Sync changes from file"
 msgstr "Sincronizza le modifiche dal file"
@@ -1419,17 +1510,20 @@ msgstr "Sistema"
 msgid "Tag"
 msgstr "Tag"
 
+msgid "Tag to pull, e.g. latest, stable or 1.2.3"
+msgstr ""
+
 msgid "Tags"
 msgstr "Tag"
 
 msgid "Target repo"
-msgstr ""
+msgstr "Repo di destinazione"
 
 msgid "Target repository"
-msgstr ""
+msgstr "Repository di destinazione"
 
 msgid "Target tag"
-msgstr ""
+msgstr "Tag di destinazione"
 
 msgid "Terminal"
 msgstr "Terminale"
@@ -1441,11 +1535,15 @@ msgid ""
 "The absolute path of the selected shared folder will be used as the Docker "
 "storage path when saved."
 msgstr ""
+"Il percorso assoluto della cartella condivisa selezionata verrà utilizzato "
+"come percorso di archiviazione Docker al salvataggio."
 
 msgid ""
 "The absolute path of the selected shared folder will be used as the Podman "
 "storage path when saved."
 msgstr ""
+"Il percorso assoluto della cartella condivisa selezionata verrà utilizzato "
+"come percorso di archiviazione Podman al salvataggio."
 
 msgid "The config file will be created in this compose file's directory."
 msgstr ""
@@ -1457,45 +1555,60 @@ msgstr ""
 "Il campo deve contenere solo * o un elenco di valori separati da virgole."
 
 msgid "The path must be absolute."
-msgstr ""
+msgstr "Il percorso deve essere assoluto."
 
 msgid "The path must not contain '..' components."
-msgstr ""
+msgstr "Il percorso non deve contenere componenti '..'."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
 "file permissions, which are required by this plugin."
 msgstr ""
+"La cartella condivisa selezionata per '%s' (file system %s) non supporta i "
+"permessi dei file Linux, richiesti da questo plugin."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support file "
 "locking, which is required by Compose and many container applications."
 msgstr ""
+"La cartella condivisa selezionata per '%s' (file system %s) non supporta il "
+"blocco dei file, richiesto da Compose e da molte applicazioni in container."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support hard "
 "links, which are required by some container applications."
 msgstr ""
+"La cartella condivisa selezionata per '%s' (file system %s) non supporta gli"
+" hard link, richiesti da alcune applicazioni in container."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support named "
 "pipes (FIFOs), which are required by some container applications."
 msgstr ""
+"La cartella condivisa selezionata per '%s' (file system %s) non supporta le "
+"named pipe (FIFO), richieste da alcune applicazioni in container."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support "
 "symbolic links, which are required by Docker and container applications."
 msgstr ""
+"La cartella condivisa selezionata per '%s' (file system %s) non supporta i "
+"collegamenti simbolici, richiesti da Docker e dalle applicazioni in "
+"container."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
 "the filesystem is mounted read-write."
 msgstr ""
+"La cartella condivisa selezionata per '%s' (file system %s) non è "
+"scrivibile. Verifica che il file system sia montato in lettura-scrittura."
 
 msgid ""
 "The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
 "mounts), or the name of an installed volume plugin."
 msgstr ""
+"Il driver del volume. Usa 'local' per i volumi basati sull'host (inclusi i "
+"mount NFS/CIFS), o il nome di un plugin di volumi installato."
 
 msgid "This is the filename. This should not be a path."
 msgstr "Questo è il nome del file. Non dovrebbe essere un percorso."
@@ -1505,6 +1618,9 @@ msgid ""
 "path.<br/>It will not import any Dockerfiles that already exist in the "
 "plugin."
 msgstr ""
+"Verranno importati i Dockerfile trovati nelle sottocartelle del percorso "
+"selezionato.<br/>Non verrà importato alcun Dockerfile già esistente nel "
+"plugin."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
@@ -1526,21 +1642,24 @@ msgid ""
 "recursively).<br/>It will not import any compose files that already exist in"
 " the plugin."
 msgstr ""
+"Verranno importati uno o più file compose nelle sottocartelle (scansionate "
+"ricorsivamente).<br/>Non verrà importato alcun file compose già esistente "
+"nel plugin."
 
 msgid "Thursday"
-msgstr ""
+msgstr "Giovedì"
 
 msgid "Time of execution"
-msgstr ""
+msgstr "Orario di esecuzione"
 
 msgid "Timeout"
-msgstr ""
+msgstr "Timeout"
 
 msgid "Tools"
 msgstr "Strumenti"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Martedì"
 
 msgid "URL"
 msgstr "URL"
@@ -1549,7 +1668,7 @@ msgid "URL hostname"
 msgstr "Nome host dell'URL"
 
 msgid "Unexpected response from Portainer API."
-msgstr ""
+msgstr "Risposta inattesa dall'API di Portainer."
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
@@ -1570,12 +1689,15 @@ msgid "Up"
 msgstr "Su"
 
 msgid "Update"
-msgstr ""
+msgstr "Aggiorna"
 
 msgid ""
 "Update all images in compose file. Will recreate containers after update if "
 "running.<br/>Update will always run after backup if backup is enabled."
 msgstr ""
+"Aggiorna tutte le immagini nel file compose. I container verranno ricreati "
+"dopo l'aggiornamento se in esecuzione.<br/>L'aggiornamento verrà eseguito "
+"sempre dopo il backup se il backup è abilitato."
 
 msgid "Uptime"
 msgstr "Tempo di attività"
@@ -1584,22 +1706,24 @@ msgid "Use podman"
 msgstr "Usa podman"
 
 msgid "Use shared folder"
-msgstr ""
+msgstr "Usa cartella condivisa"
 
 msgid "Used only if no API key is provided."
-msgstr ""
+msgstr "Utilizzato solo se non viene fornita alcuna chiave API."
 
 msgid "User to own the path. Match the container's PUID where applicable."
 msgstr ""
+"Utente proprietario del percorso. Corrisponde al PUID del container ove "
+"applicabile."
 
 msgid "Username"
-msgstr ""
+msgstr "Nome utente"
 
 msgid "Verbose"
-msgstr ""
+msgstr "Dettagliato"
 
 msgid "Verify SSL certificate"
-msgstr ""
+msgstr "Verifica certificato SSL"
 
 msgid "Version"
 msgstr "Versione"
@@ -1611,24 +1735,26 @@ msgid "Volume"
 msgstr "Volume"
 
 msgid "Volume path excludes"
-msgstr ""
+msgstr "Esclusioni percorso volume"
 
 msgid "Volumes"
 msgstr "Volumi"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Mercoledì"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Settimanale"
 
 msgid ""
 "With the 'local' driver, mount a remote share instead of using local "
 "storage."
 msgstr ""
+"Con il driver 'local', monta una condivisione remota anziché utilizzare lo "
+"storage locale."
 
 msgid "Yearly"
-msgstr ""
+msgstr "Annuale"
 
 msgid "and not running"
 msgstr "e non avviato"
@@ -1703,10 +1829,10 @@ msgid "docker logs ..."
 msgstr "Log di docker..."
 
 msgid "docker network connect ..."
-msgstr ""
+msgstr "connetti rete docker..."
 
 msgid "docker network disconnect ..."
-msgstr ""
+msgstr "disconnetti rete docker..."
 
 msgid "docker network inspect ..."
 msgstr "Sto ispezionando la rete di docker..."
@@ -1754,10 +1880,10 @@ msgid "e.g. 172.20.10.128/25"
 msgstr "ad esempio 172.20.10.128/25"
 
 msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
-msgstr ""
+msgstr "es. 2001:db8:abcd::/64 o fd00::/64"
 
 msgid "e.g. 2001:db8:abcd::1"
-msgstr ""
+msgstr "es. 2001:db8:abcd::1"
 
 msgid "file not found!"
 msgstr "Impossibile trovare il file!"
@@ -1795,11 +1921,8 @@ msgstr "scarica immagine"
 msgid "pull image+tag"
 msgstr "scarica immagine+tag"
 
-msgid "pull multiple image"
-msgstr "Scarica più immagini"
-
 msgid "repokey"
-msgstr ""
+msgstr "chiave del repository"
 
 msgid "restart"
 msgstr "riavvia"

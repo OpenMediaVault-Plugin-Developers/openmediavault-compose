@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-24 16:28+0000\n"
+"POT-Creation-Date: 2026-11-12 13:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: Guoyuan Miao, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/zh_CN/)\n"
@@ -630,6 +630,9 @@ msgstr "失败"
 msgid "Failed to create directory '%s'."
 msgstr "无法创建目录‘%s’。"
 
+msgid "Failed to pull: %s"
+msgstr ""
+
 msgid "February"
 msgstr "二月"
 
@@ -1147,11 +1150,8 @@ msgstr "拉取并构建"
 msgid "Pull and Build ..."
 msgstr "拉取构建中 ..."
 
-msgid "Pull complete."
-msgstr "拉取完成。"
-
-msgid "Pulling images ..."
-msgstr "拉取镜像中 ..."
+msgid "Pull image with tag ..."
+msgstr ""
 
 msgid "Push"
 msgstr "推送"
@@ -1392,6 +1392,9 @@ msgstr "系统"
 
 msgid "Tag"
 msgstr "标签"
+
+msgid "Tag to pull, e.g. latest, stable or 1.2.3"
+msgstr ""
 
 msgid "Tags"
 msgstr "标签"
@@ -1756,9 +1759,6 @@ msgstr "拉取镜像"
 
 msgid "pull image+tag"
 msgstr "拉取镜像+标签"
-
-msgid "pull multiple image"
-msgstr "拉取多个镜像"
 
 msgid "repokey"
 msgstr "源密钥"

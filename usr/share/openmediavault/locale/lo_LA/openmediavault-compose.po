@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-24 16:28+0000\n"
+"POT-Creation-Date: 2026-11-12 13:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
 "Last-Translator: BoneNI, 2026\n"
 "Language-Team: Lao (Laos) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/lo_LA/)\n"
@@ -626,6 +626,9 @@ msgstr "ລົ້ມເຫຼວ"
 msgid "Failed to create directory '%s'."
 msgstr ""
 
+msgid "Failed to pull: %s"
+msgstr ""
+
 msgid "February"
 msgstr "ກຸມພາ"
 
@@ -1145,11 +1148,8 @@ msgstr "ດຶງຂໍ້ມູນ ແລະ ສ້າງ (Build)"
 msgid "Pull and Build ..."
 msgstr "ກຳລັງດຶງຂໍ້ມູນ ແລະ ສ້າງ ..."
 
-msgid "Pull complete."
-msgstr "ດຶງຂໍ້ມູນສຳເລັດ."
-
-msgid "Pulling images ..."
-msgstr "ກຳລັງດຶງອິເມຈ ..."
+msgid "Pull image with tag ..."
+msgstr ""
 
 msgid "Push"
 msgstr "ສົ່ງຂໍ້ມູນ (Push)"
@@ -1393,6 +1393,9 @@ msgstr "ລະບົບ"
 
 msgid "Tag"
 msgstr "ແທັກ (Tag)"
+
+msgid "Tag to pull, e.g. latest, stable or 1.2.3"
+msgstr ""
 
 msgid "Tags"
 msgstr "ແທັກທັງໝົດ"
@@ -1764,9 +1767,6 @@ msgstr "ດຶງອິເມຈ"
 
 msgid "pull image+tag"
 msgstr "ດຶງອິເມຈ+ແທັກ"
-
-msgid "pull multiple image"
-msgstr "ດຶງຫຼາຍອິເມຈ"
 
 msgid "repokey"
 msgstr "repokey"
