@@ -141,7 +141,7 @@ data:
                 service: Compose
                 method: doDockerImageCmd
                 params:
-                  id: "{{ _selected[0].repo }}"
+                  id: "{{ _selected[0].pullref }}"
                   command: "pull"
       - type: iconButton
         icon: mdi:download-box-outline
@@ -152,7 +152,7 @@ data:
             service: Compose
             method: doDockerImageCmd
             params:
-              id: "{{ repo }}"
+              id: "{{ pullref }}"
               command: "pull"
             task: true
             progressMessage: _("Pulling images ...")
@@ -164,17 +164,40 @@ data:
           minSelected: 1
           maxSelected: 1
         execute:
-          type: taskDialog
-          taskDialog:
-            config:
-              title: _("docker image pull ...")
-              startOnInit: true
-              request:
-                service: Compose
-                method: doDockerImageCmd
-                params:
-                  id: "{{ _selected[0].repo }}:{{ _selected[0].tag }}"
-                  command: "pull"
+          type: formDialog
+          formDialog:
+            title: _("Pull image with tag ...")
+            fields:
+              - type: hidden
+                name: repo
+                value: "{{ _selected[0].repo }}"
+              - type: textInput
+                name: repo_visible
+                label: _("Repository")
+                value: "{{ _selected[0].repo }}"
+                disabled: true
+              - type: textInput
+                name: tag
+                label: _("Tag")
+                hint: _("Tag to pull, e.g. latest, stable or 1.2.3")
+                value: "{{ _selected[0].tag }}"
+                validators:
+                  required: true
+            buttons:
+              submit:
+                text: _("Pull")
+                execute:
+                  type: taskDialog
+                  taskDialog:
+                    config:
+                      title: _("docker image pull ...")
+                      startOnInit: true
+                      request:
+                        service: Compose
+                        method: doDockerImageCmd
+                        params:
+                          id: "{{ repo }}:{{ tag }}"
+                          command: "pull"
       - type: iconButton
         icon: mdi:tag-plus-outline
         tooltip: _("Tag")

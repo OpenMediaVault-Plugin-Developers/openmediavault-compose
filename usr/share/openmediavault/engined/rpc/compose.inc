@@ -4466,13 +4466,25 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $status = $skipStatus ? 'NA' :
                 $this->getImageStatus($entry['repo'], $entry['tag'], $digests);
             $ids = array_values(array_unique(array_filter($entry['ids_raw'])));
-            $tagged = !in_array($entry['repo'], ['', '<none>'], true) &&
-                !in_array($entry['tag'], ['', '<none>'], true);
+            $hasRepo = !in_array($entry['repo'], ['', '<none>'], true);
+            $tagged = $hasRepo && !in_array($entry['tag'], ['', '<none>'], true);
+            // pull the tag (or digest) in use, never fall back to :latest
+            $pullref = '';
+            if ($tagged) {
+                $pullref = "{$entry['repo']}:{$entry['tag']}";
+            } elseif ($hasRepo) {
+                $pinned = array_values(array_filter($digests,
+                    fn($d) => is_string($d) && strpos($d, 'sha256:') === 0));
+                if (count($pinned) === 1) {
+                    $pullref = "{$entry['repo']}@{$pinned[0]}";
+                }
+            }
             $imagesAssoc[] = [
                 "id" => implode('<br/>', $ids),
                 "ids" => implode(',', $ids),
                 // remove/inspect/tag by name so other tags of the image are kept
                 "ref" => $tagged ? "{$entry['repo']}:{$entry['tag']}" : implode(',', $ids),
+                "pullref" => $pullref,
                 "repo" => $entry['repo'],
                 "createat" => $entry['createat'],
                 "createsince" => $entry['createsince'],
