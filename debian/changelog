@@ -1,3 +1,11 @@
+openmediavault-compose (8.2.6) stable; urgency=low
+
+  * Pull image and pull multiple image now pull the tag in use instead
+    of latest
+  * Pull image+tag now asks which tag to pull
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 12 Nov 2026 13:35:00 +0000
+
 openmediavault-compose (8.2.5) stable; urgency=low
 
   * Fix backup of single quoted volumes
