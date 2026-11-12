@@ -375,6 +375,9 @@ EXTRA_IMAGES=(omvtest_build_a:omvtest_tag omvtest_build_a:omvtest_grp1
     omvtest_build_a:omvtest_grp2 omvtest_build_a:omvtest_grp3
     127.0.0.1:1/omvtest_build_a:omvtest
     127.0.0.1:1/omvtest_build_a:latest)
+# Registry images pulled by the doDockerImageCmd pull tests that were not on
+# the system before the tests ran (removed on exit).
+declare -a PULLED_IMAGES=()
 # Directory next to the backup shared folder used by the deleteBackup
 # traversal test (removed on exit).
 BACKUP_TRAVERSAL_DIR=""
@@ -492,7 +495,7 @@ cleanup() {
         info "Deleting multi-build test dockerfile $uuid"
         omv-rpc -u admin "Compose" "deleteDockerfile" "{\"uuid\":\"$uuid\"}" >/dev/null 2>&1 || true
     done
-    for img in "${EXTRA_IMAGES[@]}" "${BUILD_NAMES[@]}"; do
+    for img in "${EXTRA_IMAGES[@]}" "${BUILD_NAMES[@]}" "${PULLED_IMAGES[@]}"; do
         "$RUNTIME" image rm -f "$img" >/dev/null 2>&1 || true
     done
     if [ -n "$FILE_UUID" ]; then
@@ -1417,6 +1420,88 @@ else
     else
         _fail "doHubPush without tag pushes imgname" "${BG_OUT:0:300}"
     fi
+fi
+
+# ---------------------------------------------------------------------------
+# 5c. Images — doDockerImageCmd pull (needs access to Docker Hub)
+# ---------------------------------------------------------------------------
+# The Images tab pull button sends the pullref of every selected row as a
+# comma-separated list. docker image pull takes one image, so the RPC pulls
+# them one at a time. Images that were not here before are removed on exit.
+section "Images (pull)"
+
+PULL_IMG_A="docker.io/library/hello-world:linux"
+PULL_IMG_B="docker.io/library/busybox:musl"
+PULL_LATEST="docker.io/library/hello-world:latest"
+PULL_MISSING="127.0.0.1:1/omvtest_missing:omvtest"
+for img in "$PULL_IMG_A" "$PULL_IMG_B"; do
+    image_exists "$img" || PULLED_IMAGES+=("$img")
+done
+had_latest=0
+image_exists "$PULL_LATEST" && had_latest=1
+
+# Regression: the pull buttons sent only the repo, so docker pulled :latest.
+assert_rpc_bg "doDockerImageCmd pull (single tag)" "Compose" "doDockerImageCmd" \
+    "{\"command\":\"pull\",\"id\":\"$PULL_IMG_A\"}" "hello-world:linux"
+if image_exists "$PULL_IMG_A"; then
+    _pass "doDockerImageCmd pull pulled the tag"
+else
+    _fail "doDockerImageCmd pull pulled the tag" "$PULL_IMG_A not found"
+fi
+if [ $had_latest -eq 1 ]; then
+    _skip "doDockerImageCmd pull did not pull latest" "$PULL_LATEST was already present"
+elif image_exists "$PULL_LATEST"; then
+    _fail "doDockerImageCmd pull did not pull latest" "$PULL_LATEST was pulled"
+    "$RUNTIME" image rm -f "$PULL_LATEST" >/dev/null 2>&1 || true
+else
+    _pass "doDockerImageCmd pull did not pull latest"
+fi
+
+# The pullref of the pulled row must name the tag so the button pulls it.
+linux_pullref=$(omv-rpc -u admin "Compose" "getImages" \
+    '{"start":0,"limit":1000,"sortfield":"repo","sortdir":"ASC"}' 2>/dev/null \
+    | python3 -c "
+import sys, json
+for r in json.load(sys.stdin)['data']:
+    if r['repo'].endswith('hello-world') and r['tag'] == 'linux':
+        print(r.get('pullref', '')); break" 2>/dev/null)
+if [[ "$linux_pullref" == *hello-world:linux ]]; then
+    _pass "getImages pullref keeps the tag of a pulled image"
+else
+    _fail "getImages pullref keeps the tag of a pulled image" "pullref='$linux_pullref'"
+fi
+
+# Multiple images, one docker pull each.
+assert_rpc_bg "doDockerImageCmd pull (multiple)" "Compose" "doDockerImageCmd" \
+    "{\"command\":\"pull\",\"id\":\"$PULL_IMG_A,$PULL_IMG_B\"}"
+if echo "$BG_OUT" | grep -q "hello-world:linux" && echo "$BG_OUT" | grep -q "busybox:musl"; then
+    _pass "doDockerImageCmd pull multiple shows the output of each pull"
+else
+    _fail "doDockerImageCmd pull multiple shows the output of each pull" "${BG_OUT:0:300}"
+fi
+if image_exists "$PULL_IMG_A" && image_exists "$PULL_IMG_B"; then
+    _pass "doDockerImageCmd pull multiple pulled every image"
+else
+    _fail "doDockerImageCmd pull multiple pulled every image" "$PULL_IMG_A or $PULL_IMG_B not found"
+fi
+
+# A failed pull does not stop the rest; the error names only the failures.
+# Nothing listens on 127.0.0.1:1, so that pull fails fast. Only remove
+# PULL_IMG_B first when the tests pulled it, never a pre-existing image.
+if [[ " ${PULLED_IMAGES[*]} " == *" $PULL_IMG_B "* ]]; then
+    "$RUNTIME" image rm "$PULL_IMG_B" >/dev/null 2>&1 || true
+fi
+assert_rpc_bg_fails "doDockerImageCmd pull (one bad image) fails" "Compose" "doDockerImageCmd" \
+    "{\"command\":\"pull\",\"id\":\"$PULL_MISSING,$PULL_IMG_B\"}"
+if echo "$BG_OUT" | grep -q "Failed to pull: $PULL_MISSING\$"; then
+    _pass "doDockerImageCmd pull error lists only the failed image"
+else
+    _fail "doDockerImageCmd pull error lists only the failed image" "${BG_OUT:0:300}"
+fi
+if image_exists "$PULL_IMG_B"; then
+    _pass "doDockerImageCmd pull continues after a failed image"
+else
+    _fail "doDockerImageCmd pull continues after a failed image" "$PULL_IMG_B not found"
 fi
 
 # ---------------------------------------------------------------------------
