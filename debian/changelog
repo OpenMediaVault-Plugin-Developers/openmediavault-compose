@@ -1,7 +1,9 @@
 openmediavault-compose (8.2.6) stable; urgency=low
 
-  * Pull image and pull multiple image now pull the tag in use instead
-    of latest
+  * Pull image now pulls the tag in use instead of latest
+  * Pull image now works with multiple images selected and shows the
+    output of each pull
+  * Remove the pull multiple image button
   * Pull image+tag now asks which tag to pull
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 12 Nov 2026 13:35:00 +0000
