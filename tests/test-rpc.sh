@@ -1121,6 +1121,7 @@ BUILD_TESTS=(
     "doTag srcid listing the same image twice created the tag"
     "getImages shows the new tag after doTag"
     "getImages ref is repo:tag for a tagged image"
+    "getImages pullref is repo:tag for a tagged image"
     "getImages ids lists the raw image id"
     "doTag (srcid grouping different images) fails"
     "doTag (no source image) fails"
@@ -1327,6 +1328,12 @@ else
         _pass "getImages ref is repo:tag for a tagged image"
     else
         _fail "getImages ref is repo:tag for a tagged image" "ref='$grp1_ref'"
+    fi
+    grp1_pullref=$(image_row_field omvtest_build_a:omvtest_grp1 pullref)
+    if [ "$grp1_pullref" = "omvtest_build_a:omvtest_grp1" ]; then
+        _pass "getImages pullref is repo:tag for a tagged image"
+    else
+        _fail "getImages pullref is repo:tag for a tagged image" "pullref='$grp1_pullref'"
     fi
     grp1_ids=$(image_row_field omvtest_build_a:omvtest_grp1 ids)
     if [ -n "$build_a_id" ] && [ "$grp1_ids" = "$build_a_id" ]; then
