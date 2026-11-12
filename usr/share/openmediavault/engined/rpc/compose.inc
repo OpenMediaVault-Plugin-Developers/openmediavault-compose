@@ -4635,6 +4635,36 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
         $showCmd = $this->getShowCmd($context);
         return $this->execBgProc(function($bgStatusFilename, $bgOutputFilename)
             use ($command, $ids, $showCmd, $podman) {
+                // docker image pull takes a single image, so pull one at a time
+                if ('pull' === $command) {
+                    $allOutput = [];
+                    $failed = [];
+                    foreach ($ids as $id) {
+                        $cmd = new \OMV\System\Process(['docker', 'image', 'pull',
+                            escapeshellarg($id)]);
+                        if ($podman) {
+                            $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
+                            $cmd->setEnv('PODMAN_COMPOSE_QUIET', '1');
+                        }
+                        $cmd->setRedirect2to1();
+                        $cmdLine = $cmd->getCommandLine();
+                        if ($showCmd) file_put_contents($bgOutputFilename, $cmdLine . PHP_EOL . PHP_EOL, FILE_APPEND);
+                        $output = [];
+                        $exitStatus = $this->exec($cmdLine, $output, $bgOutputFilename);
+                        $allOutput = array_merge($allOutput, $output);
+                        if (0 !== $exitStatus) {
+                            $failed[] = $id;
+                        }
+                        file_put_contents($bgOutputFilename, PHP_EOL, FILE_APPEND);
+                    }
+                    // drop images cached by a refresh while the pulls ran
+                    $this->clearCache('images');
+                    if (!empty($failed)) {
+                        throw new \OMV\Exception(sprintf(
+                            gettext("Failed to pull: %s"), implode(', ', $failed)));
+                    }
+                    return $allOutput;
+                }
                 $cmdArgs = [];
                 $cmdArgs[] = 'docker';
                 $cmdArgs[] = 'image';

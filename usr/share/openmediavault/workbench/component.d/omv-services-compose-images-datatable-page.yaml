@@ -130,7 +130,6 @@ data:
         tooltip: _("pull image")
         enabledConstraints:
           minSelected: 1
-          maxSelected: 1
         execute:
           type: taskDialog
           taskDialog:
@@ -141,22 +140,8 @@ data:
                 service: Compose
                 method: doDockerImageCmd
                 params:
-                  id: "{{ _selected[0].pullref }}"
+                  id: "{{ _selected | map('get', 'pullref') | join(',') }}"
                   command: "pull"
-      - type: iconButton
-        icon: mdi:download-box-outline
-        tooltip: _("pull multiple image")
-        execute:
-          type: request
-          request:
-            service: Compose
-            method: doDockerImageCmd
-            params:
-              id: "{{ pullref }}"
-              command: "pull"
-            task: true
-            progressMessage: _("Pulling images ...")
-            successNotification: _("Pull complete.")
       - type: iconButton
         icon: mdi:download-network
         tooltip: _("pull image+tag")
@@ -180,7 +165,7 @@ data:
                 name: tag
                 label: _("Tag")
                 hint: _("Tag to pull, e.g. latest, stable or 1.2.3")
-                value: "{{ _selected[0].tag }}"
+                value: ""
                 validators:
                   required: true
             buttons:
