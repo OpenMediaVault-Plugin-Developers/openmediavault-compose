@@ -8,12 +8,15 @@
 # License version 2. This program is licensed "as is" without any
 # warranty of any kind, whether express or implied.
 #
-# version: 0.1.2
+# version: 0.2.0
 
 export LC_ALL=C.UTF-8
 
 declare -i timeout=180
 declare -i i=0
+declare -i rc=0
+declare -i pullAttempts=3
+declare -i pullRetryDelay=30
 declare -A before_versions
 
 . /usr/share/openmediavault/scripts/helper-functions
@@ -100,9 +103,30 @@ for image in $(${yq} '.services.[].image | select(. != null)' "${yml}"); do
   before_versions["${image}"]="${version_before}"
 done
 
-# pull new images
-_log "Pulling new images ..."
-omv-compose-run "${compose}" pull
+# pull new images, retry on failure
+pullOut="$(mktemp)"
+attempt=1
+while true; do
+  _log "Pulling new images (attempt ${attempt}/${pullAttempts}) ..."
+  omv-compose-run "${compose}" pull 2>&1 | tee "${pullOut}"
+  pullRc=${PIPESTATUS[0]}
+  if [ ${pullRc} -eq 0 ]; then
+    break
+  fi
+  _log "ERROR :: pull failed with exit code ${pullRc}"
+  while IFS= read -r line; do
+    _log "ERROR :: ${line}"
+  done < <(grep -iE "error|denied|unauthorized|toomanyrequests|timeout|failed" "${pullOut}")
+  if [ ${attempt} -ge ${pullAttempts} ]; then
+    _log "ERROR :: pull failed after ${pullAttempts} attempts.  Some images were not updated."
+    rc=20
+    break
+  fi
+  (( attempt++ ))
+  _log "Retrying pull in ${pullRetryDelay} seconds ..."
+  sleep ${pullRetryDelay}
+done
+rm -f "${pullOut}"
 
 # log image versions after update
 for image in $(${yq} '.services.[].image | select(. != null)' "${yml}"); do
@@ -115,11 +139,18 @@ done
 # recreate containers with new images if running
 if grep -q "running" "${status}"; then
   _log "Recreating containers with new images ..."
-  omv-compose-run "${compose}" up -d
+  if ! omv-compose-run "${compose}" up -d; then
+    _log "ERROR :: recreating containers failed."
+    rc=21
+  fi
 fi
 
 rm -f "${status}"
 
-_log "Done."
+if [ ${rc} -ne 0 ]; then
+  _log "Done with errors (exit code ${rc})."
+else
+  _log "Done."
+fi
 
-exit 0
+exit ${rc}
