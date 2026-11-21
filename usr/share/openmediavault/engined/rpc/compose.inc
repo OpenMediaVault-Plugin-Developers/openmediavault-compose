@@ -4384,7 +4384,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $cmdArgs[] = '--all';
             $cmdArgs[] = '--no-trunc';
             $cmdArgs[] = '--quiet';
-            $cmdArgs[] = '| xargs --no-run-if-empty -n1 docker inspect --format "{{.Image}}"';
+            // one inspect call for all containers: image id + compose project
+            $cmdArgs[] = '| xargs --no-run-if-empty docker inspect --format ' .
+                '\'{{.Image}} {{index .Config.Labels "com.docker.compose.project"}}\'';
             $cmd = new \OMV\System\Process($cmdArgs);
             if ($podman) {
                 $cmd->setEnv('DOCKER_HOST', $this->podmanSockPath);
@@ -4396,7 +4398,22 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 file_put_contents($cacheFileContainers, json_encode($containerImages));
             }
         }
-        $containerImageSet = array_flip($containerImages);
+        // map image id => compose projects using it
+        $containerImageSet = [];
+        foreach ($containerImages as $line) {
+            $parts = explode(' ', trim($line), 2);
+            $imgId = $parts[0];
+            if ($imgId === '') {
+                continue;
+            }
+            if (!isset($containerImageSet[$imgId])) {
+                $containerImageSet[$imgId] = [];
+            }
+            $project = trim($parts[1] ?? '');
+            if ($project !== '') {
+                $containerImageSet[$imgId][$project] = true;
+            }
+        }
         // Get images
         $output = [];
         if ($cacheTime > 0 && file_exists($cacheFileImages) &&
@@ -4441,6 +4458,7 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     "digests_raw" => [],
                     "ids_raw" => [],
                     "inuse" => false,
+                    "projects" => [],
                     "createat" => $imageJson->CreatedAt ?? $imageJson->Created,
                     "createsince" => $imageJson->CreatedSince,
                     "size" => 0,
@@ -4451,6 +4469,9 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
             $imageId = $imageJson->ID ?? $imageJson->Id ?? '';
             $grouped[$key]['ids_raw'][] = $imageId;
             $grouped[$key]['inuse'] = $grouped[$key]['inuse'] || isset($containerImageSet[$imageId]);
+            if (isset($containerImageSet[$imageId])) {
+                $grouped[$key]['projects'] += $containerImageSet[$imageId];
+            }
             // show largest size and virtualsize
             $grouped[$key]['size'] = isset($grouped[$key]['size'])
                 ? max($grouped[$key]['size'], $this->convertToBytes($imageJson->Size))
@@ -4479,6 +4500,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                     $pullref = "{$entry['repo']}@{$pinned[0]}";
                 }
             }
+            $projects = array_keys($entry['projects']);
+            sort($projects, SORT_NATURAL | SORT_FLAG_CASE);
             $imagesAssoc[] = [
                 "id" => implode('<br/>', $ids),
                 "ids" => implode(',', $ids),
@@ -4493,7 +4516,8 @@ class OMVRpcServiceCompose extends \OMV\Rpc\ServiceAbstract
                 "digest" => implode('<br/>', $digests),
                 "status" => $status,
                 "virtualsize" => $entry['virtualsize'],
-                "inuse" => $entry['inuse']
+                "inuse" => $entry['inuse'],
+                "projects" => implode(',', $projects)
             ];
         }
         // Filter the result.
