@@ -1,3 +1,13 @@
+openmediavault-compose (8.2.7) stable; urgency=low
+
+  * Scheduled updates now retry failed pulls, log the errors and exit
+    non-zero on failure (#106)
+  * Images tab now shows the compose project(s) using each image (#107)
+  * Images tab inspects all containers in one call instead of one per
+    container
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 18 Nov 2026 13:16:14 +0000
+
 openmediavault-compose (8.2.6) stable; urgency=low
 
   * Pull image now pulls the tag in use instead of latest
