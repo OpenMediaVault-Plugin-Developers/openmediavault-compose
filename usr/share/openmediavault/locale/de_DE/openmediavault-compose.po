@@ -4,7 +4,11 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
+# Hansjörg Seipp, 2024
+# Johannes Hell, 2024
+# Obi Wahn, 2025
 # Aaron Murray <aaronmurray27@gmail.com>, 2025
+# Ettore Atalan <atalanttore@googlemail.com>, 2026
 # 
 #, fuzzy
 msgid ""
@@ -13,19 +17,19 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-12 13:47+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
-"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>, 2025\n"
-"Language-Team: German (Germany) (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de_DE/)\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>, 2026\n"
+"Language-Team: German (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_DE\n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "'%s' already exists and is not a directory."
 msgstr ""
 
 msgid "API Key"
-msgstr ""
+msgstr "API-Schlüssel"
 
 msgid ""
 "Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
@@ -33,7 +37,7 @@ msgid ""
 msgstr ""
 
 msgid "Absolute path"
-msgstr ""
+msgstr "Absoluter Pfad"
 
 msgid "Action"
 msgstr "Aktion"
@@ -111,7 +115,7 @@ msgid ""
 msgstr ""
 
 msgid "April"
-msgstr ""
+msgstr "April"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
@@ -145,10 +149,10 @@ msgid ""
 msgstr ""
 
 msgid "At reboot"
-msgstr ""
+msgstr "Beim Neustart"
 
 msgid "August"
-msgstr ""
+msgstr "August"
 
 msgid "Authentication — fill in one of the two options below"
 msgstr ""
@@ -163,16 +167,16 @@ msgid "Available"
 msgstr "Verfügbar"
 
 msgid "Backend"
-msgstr ""
+msgstr "Backend"
 
 msgid "Backup"
 msgstr "Sichern"
 
 msgid "Backup Time"
-msgstr ""
+msgstr "Sicherungszeit"
 
 msgid "Backup container data."
-msgstr ""
+msgstr "Container-Daten sichern."
 
 msgid "Backup shared folder must be different than docker shared folder"
 msgstr ""
@@ -196,13 +200,13 @@ msgid "Body"
 msgstr ""
 
 msgid "Borg encryption"
-msgstr ""
+msgstr "Borg-Verschlüsselung"
 
 msgid "Borg keep"
 msgstr ""
 
 msgid "Borg passphrase"
-msgstr ""
+msgstr "Borg-Passphrase"
 
 msgid "Build"
 msgstr ""
@@ -229,7 +233,7 @@ msgid "Cannot tag a row that groups %d different images."
 msgstr ""
 
 msgid "Certain date"
-msgstr ""
+msgstr "Bestimmtes Datum"
 
 msgid "Changes have been synced from file."
 msgstr "Änderungen wurden abgeglichen mit Datei."
@@ -254,7 +258,7 @@ msgid "Command"
 msgstr "Befehl"
 
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 msgid "Compose"
 msgstr ""
@@ -317,7 +321,7 @@ msgid "Conf filename cannot be"
 msgstr "Conf-Dateiname falsch"
 
 msgid "Configs"
-msgstr ""
+msgstr "Konfigurationen"
 
 msgid ""
 "Configure a mount type, driver options and labels. Leave disabled to create "
@@ -325,19 +329,19 @@ msgid ""
 msgstr ""
 
 msgid "Connect"
-msgstr ""
+msgstr "Verbinden"
 
 msgid "Connect container"
-msgstr ""
+msgstr "Container verbinden"
 
 msgid "Container"
 msgstr "Container"
 
 msgid "Container Port"
-msgstr ""
+msgstr "Container-Port"
 
 msgid "Container Terminals"
-msgstr ""
+msgstr "Container-Terminals"
 
 msgid "Container state"
 msgstr "Container-Status"
@@ -412,7 +416,7 @@ msgid "Current tag"
 msgstr ""
 
 msgid "Daily"
-msgstr ""
+msgstr "Täglich"
 
 msgid "Data"
 msgstr "Daten"
@@ -424,19 +428,19 @@ msgid "Data shared folder must be different than podman shared folder"
 msgstr ""
 
 msgid "Data storage"
-msgstr ""
+msgstr "Datenspeicherung"
 
 msgid "Date & Time"
 msgstr "Datum & Zeit"
 
 msgid "Day of month"
-msgstr ""
+msgstr "Tag des Monats"
 
 msgid "Day of week"
-msgstr ""
+msgstr "Tag der Woche"
 
 msgid "December"
-msgstr ""
+msgstr "Dezember"
 
 msgid "Delete"
 msgstr "Löschen"
@@ -448,13 +452,13 @@ msgid "Delete complete."
 msgstr ""
 
 msgid "Deleting images ..."
-msgstr ""
+msgstr "Abbilder werden gelöscht ..."
 
 msgid "Description"
 msgstr "Beschreibung"
 
 msgid "Device"
-msgstr ""
+msgstr "Gerät"
 
 msgid "Digest"
 msgstr ""
@@ -466,10 +470,10 @@ msgid "Disable if Portainer uses a self-signed certificate."
 msgstr ""
 
 msgid "Disconnect"
-msgstr ""
+msgstr "Trennen"
 
 msgid "Disconnect container"
-msgstr ""
+msgstr "Container trennen"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
 msgstr ""
@@ -490,13 +494,13 @@ msgid "Do not use cache when building the image"
 msgstr ""
 
 msgid "Docker config"
-msgstr ""
+msgstr "Docker-Konfiguration"
 
 msgid "Docker has been restarted."
 msgstr "Docker wurde neu gestartet."
 
 msgid "Docker info"
-msgstr ""
+msgstr "Docker-Info"
 
 msgid "Docker is restarting ..."
 msgstr "Docker wird neu gestartet ..."
@@ -526,19 +530,19 @@ msgid "Download log"
 msgstr "Protokoll herunterladen"
 
 msgid "Download logs"
-msgstr ""
+msgstr "Protokolle herunterladen"
 
 msgid "Driver"
 msgstr "Treiber"
 
 msgid "Driver options"
-msgstr ""
+msgstr "Treiberoptionen"
 
 msgid "Edit"
 msgstr "Bearbeiten"
 
 msgid "Edit config."
-msgstr ""
+msgstr "Konfiguration bearbeiten."
 
 msgid "Edit dockerfile."
 msgstr "Dockerdatei bearbeiten."
@@ -565,10 +569,10 @@ msgid "Enable Docker repo ..."
 msgstr ""
 
 msgid "Enable IPv6"
-msgstr ""
+msgstr "IPv6 aktivieren"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiviert"
 
 msgid ""
 "Encryption mode for Borg repository. Changing this requires re-initializing "
@@ -582,13 +586,13 @@ msgid "Environment"
 msgstr "Umgebung"
 
 msgid "Every N day of month"
-msgstr ""
+msgstr "Jeder T. Tag des Monats"
 
 msgid "Every N hour"
-msgstr ""
+msgstr "Jede N. Stunde"
 
 msgid "Every N minute"
-msgstr ""
+msgstr "Jede N. Minute"
 
 msgid "Everyone - read/write"
 msgstr "Jeder - lesen/schreiben"
@@ -633,7 +637,7 @@ msgid "Failed to pull: %s"
 msgstr ""
 
 msgid "February"
-msgstr ""
+msgstr "Februar"
 
 msgid "File"
 msgstr "Datei"
@@ -642,7 +646,7 @@ msgid "File date"
 msgstr "Dateidatum"
 
 msgid "Filename"
-msgstr ""
+msgstr "Dateiname"
 
 msgid "Files"
 msgstr "Dateien"
@@ -669,7 +673,7 @@ msgstr ""
 "router=192.168.10.5, my-nas=192.168.20.6"
 
 msgid "Friday"
-msgstr ""
+msgstr "Freitag"
 
 msgid "Gateway"
 msgstr "Gateway"
@@ -681,7 +685,7 @@ msgid "Global environment variables"
 msgstr "Globale Umgebungsvariablen"
 
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 msgid "Group of directories and files"
 msgstr "Gruppe von Verzeichnissen und Dateien"
@@ -698,25 +702,25 @@ msgid ""
 msgstr ""
 
 msgid "Hour"
-msgstr ""
+msgstr "Stunde"
 
 msgid "Hourly"
-msgstr ""
+msgstr "Stündlich"
 
 msgid "ID"
 msgstr ""
 
 msgid "IP address"
-msgstr ""
+msgstr "IP-Adresse"
 
 msgid "IP range"
 msgstr "IP-Bereich"
 
 msgid "IPv6 gateway"
-msgstr ""
+msgstr "IPv6-Gateway"
 
 msgid "IPv6 subnet"
-msgstr ""
+msgstr "IPv6-Subnetz"
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
@@ -746,7 +750,7 @@ msgid "Import existing compose folders ..."
 msgstr "Importiere existierende Compose-Ordner"
 
 msgid "Import from Portainer"
-msgstr ""
+msgstr "Aus Portainer importieren"
 
 msgid "Import one"
 msgstr "Importiere ein Element"
@@ -772,7 +776,7 @@ msgid "Installed"
 msgstr "Installiert"
 
 msgid "Internal network"
-msgstr ""
+msgstr "Internes Netzwerk"
 
 msgid "Invalid %s name."
 msgstr ""
@@ -790,16 +794,16 @@ msgid "Invalid image command '%s'."
 msgstr ""
 
 msgid "Is Latest"
-msgstr ""
+msgstr "Ist am neuesten"
 
 msgid "January"
-msgstr ""
+msgstr "Januar"
 
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 msgid "June"
-msgstr ""
+msgstr "Juni"
 
 msgid "Keep containers running across Docker daemon updates"
 msgstr ""
@@ -834,22 +838,22 @@ msgid "Log file max size"
 msgstr ""
 
 msgid "Logged out."
-msgstr ""
+msgstr "Abgemeldet."
 
 msgid "Logging out ..."
-msgstr ""
+msgstr "Wird abgemeldet ..."
 
 msgid "Login"
-msgstr ""
+msgstr "Anmelden"
 
 msgid "Login to docker repo ..."
 msgstr ""
 
 msgid "Logout"
-msgstr ""
+msgstr "Abmelden"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "Wartung"
 
 msgid ""
 "Manually assign the subnet, gateway and IP range. Leave disabled to let "
@@ -857,13 +861,13 @@ msgid ""
 msgstr ""
 
 msgid "March"
-msgstr ""
+msgstr "März"
 
 msgid "Max Size"
 msgstr "Max. Größe"
 
 msgid "May"
-msgstr ""
+msgstr "Mai"
 
 msgid "Mem %"
 msgstr "RAM %"
@@ -878,28 +882,28 @@ msgid "Message"
 msgstr "Nachricht"
 
 msgid "Minute"
-msgstr ""
+msgstr "Minute"
 
 msgid "Mixed"
 msgstr "Gemischt"
 
 msgid "Mode"
-msgstr ""
+msgstr "Modus"
 
 msgid "Monday"
-msgstr ""
+msgstr "Montag"
 
 msgid "Month"
-msgstr ""
+msgstr "Monat"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Monatlich"
 
 msgid "Mount options"
-msgstr ""
+msgstr "Einhängeoptionen"
 
 msgid "Mount type"
-msgstr ""
+msgstr "Einhängetyp"
 
 msgid "Mountpoint"
 msgstr "Einhängepunkt"
@@ -926,7 +930,7 @@ msgid "No Image"
 msgstr "Kein Abbild"
 
 msgid "No cache"
-msgstr ""
+msgstr "Kein Cache"
 
 msgid "No compose file found!"
 msgstr "Keine Compose-Datei gefunden"
@@ -938,22 +942,22 @@ msgid "No name specified!"
 msgstr "Kein Name angegeben!"
 
 msgid "None"
-msgstr ""
+msgstr "Kein"
 
 msgid "None (local storage)"
-msgstr ""
+msgstr "Kein (lokaler Speicher)"
 
 msgid "Not installed"
 msgstr "Nicht installiert"
 
 msgid "November"
-msgstr ""
+msgstr "November"
 
 msgid "Number of Borg backups to keep."
 msgstr ""
 
 msgid "October"
-msgstr ""
+msgstr "Oktober"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
@@ -998,10 +1002,10 @@ msgid ""
 msgstr ""
 
 msgid "Overrides"
-msgstr ""
+msgstr "Überschreibt"
 
 msgid "Owner"
-msgstr ""
+msgstr "Eigentümer"
 
 msgid "Owner - read/write, Group - no access, Others - no access"
 msgstr ""
@@ -1025,7 +1029,7 @@ msgid "PIDs"
 msgstr ""
 
 msgid "Parent"
-msgstr ""
+msgstr "Übergeordnet"
 
 msgid "Parent network"
 msgstr "Übergeordnetes Netzwerk"
@@ -1037,10 +1041,10 @@ msgid ""
 msgstr ""
 
 msgid "Passphrase for Borg encryption."
-msgstr ""
+msgstr "Passphrase für Borg-Verschlüsselung."
 
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 msgid "Path"
 msgstr "Pfad"
@@ -1055,7 +1059,7 @@ msgid "Path to script that will be executed before backup"
 msgstr ""
 
 msgid "Permissions"
-msgstr ""
+msgstr "Berechtigungen"
 
 msgid "Permissions must be an octal value, e.g. 755."
 msgstr ""
@@ -1079,13 +1083,13 @@ msgid "Please set shared folder for file storage."
 msgstr "Bitte Ordner zum Speichern von Dateien festlegen"
 
 msgid "Podman storage"
-msgstr ""
+msgstr "Podman-Speicher"
 
 msgid "Portainer API request failed: %s"
 msgstr ""
 
 msgid "Portainer URL"
-msgstr ""
+msgstr "Portainer-URL"
 
 msgid "Portainer authentication failed. Check your credentials."
 msgstr ""
@@ -1100,7 +1104,7 @@ msgid "Pre-backup script"
 msgstr ""
 
 msgid "Preview"
-msgstr ""
+msgstr "Vorschau"
 
 msgid "Preview Import"
 msgstr ""
@@ -1115,7 +1119,7 @@ msgid "Project"
 msgstr "Projekt"
 
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 msgid "Provide either an API key or a username and password."
 msgstr ""
@@ -1175,7 +1179,7 @@ msgid "Reinstall Docker ..."
 msgstr "Docker neu installieren ..."
 
 msgid "Relative path"
-msgstr ""
+msgstr "Relativer Pfad"
 
 msgid "Repo"
 msgstr ""
@@ -1220,10 +1224,10 @@ msgid ""
 msgstr ""
 
 msgid "Running For"
-msgstr ""
+msgstr "Läuft für"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Samstag"
 
 msgid ""
 "Scan a folder recursively for compose files and preview what would be "
@@ -1246,10 +1250,10 @@ msgid "Script filename cannot be"
 msgstr "Script-Dateiname falsch"
 
 msgid "Scripts"
-msgstr ""
+msgstr "Skripte"
 
 msgid "Search"
-msgstr ""
+msgstr "Suchen"
 
 msgid ""
 "Seconds to wait before starting Docker/Podman on boot. Use this if "
@@ -1276,13 +1280,13 @@ msgid "Send command output via email"
 msgstr ""
 
 msgid "Send email"
-msgstr ""
+msgstr "E-Mail senden"
 
 msgid "Send email on error only"
 msgstr ""
 
 msgid "September"
-msgstr ""
+msgstr "September"
 
 msgid "Service"
 msgstr "Dienst"
@@ -1303,7 +1307,7 @@ msgid "Shared folder + relative path"
 msgstr ""
 
 msgid "Show all file changes ..."
-msgstr ""
+msgstr "Alle Dateiänderungen anzeigen ..."
 
 msgid "Show all global.env changes ..."
 msgstr ""
@@ -1333,7 +1337,7 @@ msgid "Source and target image are required."
 msgstr ""
 
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 msgid "Start all compose files"
 msgstr ""
@@ -1354,7 +1358,7 @@ msgid "Status"
 msgstr "Status"
 
 msgid "Stop"
-msgstr ""
+msgstr "Stopp"
 
 msgid "Stop all compose files"
 msgstr ""
@@ -1380,7 +1384,7 @@ msgid "Suggested free host ports ..."
 msgstr ""
 
 msgid "Sunday"
-msgstr ""
+msgstr "Sonntag"
 
 msgid "Sync changes from file"
 msgstr "Änderungen aus Datei synchronisieren"
@@ -1410,7 +1414,7 @@ msgid "Target tag"
 msgstr ""
 
 msgid "Terminal"
-msgstr ""
+msgstr "Terminal"
 
 msgid "Terminal Link"
 msgstr ""
@@ -1500,19 +1504,19 @@ msgid ""
 msgstr ""
 
 msgid "Thursday"
-msgstr ""
+msgstr "Donnerstag"
 
 msgid "Time of execution"
-msgstr ""
+msgstr "Ausführungszeit"
 
 msgid "Timeout"
-msgstr ""
+msgstr "Zeitüberschreitung"
 
 msgid "Tools"
 msgstr "Werkzeuge"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Dienstag"
 
 msgid "URL"
 msgstr "URL"
@@ -1548,13 +1552,13 @@ msgid ""
 msgstr ""
 
 msgid "Uptime"
-msgstr ""
+msgstr "Betriebszeit"
 
 msgid "Use podman"
-msgstr ""
+msgstr "Podman verwenden"
 
 msgid "Use shared folder"
-msgstr ""
+msgstr "Gemeinsamen Ordner verwenden"
 
 msgid "Used only if no API key is provided."
 msgstr ""
@@ -1563,13 +1567,13 @@ msgid "User to own the path. Match the container's PUID where applicable."
 msgstr ""
 
 msgid "Username"
-msgstr ""
+msgstr "Benutzername"
 
 msgid "Verbose"
-msgstr ""
+msgstr "Ausführlich"
 
 msgid "Verify SSL certificate"
-msgstr ""
+msgstr "SSL-Zertifikat verifizieren"
 
 msgid "Version"
 msgstr "Version"
@@ -1587,10 +1591,10 @@ msgid "Volumes"
 msgstr ""
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Mittwoch"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Wöchentlich"
 
 msgid ""
 "With the 'local' driver, mount a remote share instead of using local "
@@ -1598,7 +1602,7 @@ msgid ""
 msgstr ""
 
 msgid "Yearly"
-msgstr ""
+msgstr "Jährlich"
 
 msgid "and not running"
 msgstr "und läuft nicht"
@@ -1610,7 +1614,7 @@ msgid "check"
 msgstr "überprüfen"
 
 msgid "disabled"
-msgstr ""
+msgstr "deaktiviert"
 
 msgid "docker compose down --remove-orphans ..."
 msgstr ""
@@ -1730,7 +1734,7 @@ msgid "e.g. 2001:db8:abcd::1"
 msgstr ""
 
 msgid "file not found!"
-msgstr ""
+msgstr "Datei nicht gefunden!"
 
 msgid "follow logs"
 msgstr "Zeige docker-log kontinuierlich"
@@ -1742,7 +1746,7 @@ msgid "init git repo"
 msgstr ""
 
 msgid "inspect"
-msgstr ""
+msgstr "untersuchen"
 
 msgid "logs"
 msgstr "Protokolle"
@@ -1754,10 +1758,10 @@ msgid "omv-extras wiki"
 msgstr ""
 
 msgid "ps"
-msgstr ""
+msgstr "ps"
 
 msgid "pull"
-msgstr ""
+msgstr "pull"
 
 msgid "pull image"
 msgstr ""
@@ -1772,7 +1776,7 @@ msgid "restart"
 msgstr "neu starten"
 
 msgid "show file changes"
-msgstr ""
+msgstr "Dateiänderungen anzeigen"
 
 msgid "show global.env changes"
 msgstr ""

@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the openmediavault-compose package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Дмитрий <bardimnik@rambler.ru>, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-compose\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 13:47+0000\n"
+"POT-Creation-Date: 2026-11-21 14:25+0000\n"
 "PO-Revision-Date: 2023-07-06 00:28+0000\n"
+"Last-Translator: Дмитрий <bardimnik@rambler.ru>, 2026\n"
 "Language-Team: Russian (https://app.transifex.com/openmediavault-plugin-developers/teams/1854/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,212 +22,236 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 msgid "'%s' already exists and is not a directory."
-msgstr ""
+msgstr "'%s' уже существует и не является каталогом."
 
 msgid "API Key"
-msgstr ""
+msgstr "API-ключ"
 
 msgid ""
 "Absolute host path to create.<br/>e.g. /srv/dev-disk-by-uuid-"
 "xxxx/appdata/plex/config"
 msgstr ""
+"Абсолютный путь на хосте для создания.<br/>например /srv/dev-disk-by-uuid-"
+"xxxx/appdata/plex/config"
 
 msgid "Absolute path"
-msgstr ""
+msgstr "Абсолютный путь"
 
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 msgid "Action type"
-msgstr ""
+msgstr "Тип действия"
 
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 msgid "Add example compose file"
-msgstr ""
+msgstr "Добавить пример файла compose"
 
 msgid "Add from Example"
-msgstr ""
+msgstr "Добавить из примера"
 
 msgid "Add from URL"
-msgstr ""
+msgstr "Добавить по URL"
 
 msgid "Add..."
-msgstr ""
+msgstr "Добавить..."
 
 msgid "Adding an example compose file ..."
-msgstr ""
+msgstr "Добавление примера файла compose ..."
 
 msgid ""
 "Additional --opt entries as key=value. Comma separate multiple "
 "entries.<br/>e.g. size=20g,uid=1000"
 msgstr ""
+"Дополнительные записи --opt в формате ключ=значение. Несколько записей "
+"разделяются запятыми.<br/>например size=20g,uid=1000"
 
 msgid "Administrator - read/write, Users - no access, Others - no access"
 msgstr ""
+"Администратор - чтение/запись, Пользователи - нет доступа, Прочие - нет "
+"доступа"
 
 msgid "Administrator - read/write, Users - read-only, Others - no access"
 msgstr ""
+"Администратор - чтение/запись, Пользователи - только чтение, Прочие - нет "
+"доступа"
 
 msgid "Administrator - read/write, Users - read-only, Others - read-only"
 msgstr ""
+"Администратор - чтение/запись, Пользователи - только чтение, Прочие - только"
+" чтение"
 
 msgid "Administrator - read/write, Users - read/write, Others - no access"
 msgstr ""
+"Администратор - чтение/запись, Пользователи - чтение/запись, Прочие - нет "
+"доступа"
 
 msgid "Administrator - read/write, Users - read/write, Others - read-only"
 msgstr ""
+"Администратор - чтение/запись, Пользователи - чтение/запись, Прочие - только"
+" чтение"
 
 msgid "Advanced (driver options & labels)"
-msgstr ""
+msgstr "Дополнительно (параметры драйвера и метки)"
 
 msgid "Advanced (manual IP configuration)"
-msgstr ""
+msgstr "Дополнительно (настройка IP вручную)"
 
 msgid "Always attempt to pull a newer version of the image"
-msgstr ""
+msgstr "Всегда пытаться загрузить более новую версию образа"
 
 msgid ""
 "An email message with the command output (if any produced) is send to the "
 "user who performs the job."
 msgstr ""
+"Письмо с выводом команды (если он был получен) отправляется пользователю, "
+"выполняющему задание."
 
 msgid "Apply ownership and permissions recursively"
-msgstr ""
+msgstr "Применить владельца и права рекурсивно"
 
 msgid ""
 "Apply the owner, group and permissions to all existing contents as well, not"
 " just the directory itself. Use with care on directories that already hold "
 "data."
 msgstr ""
+"Применить владельца, группу и права также ко всему содержимому, а не только "
+"к самому каталогу. Применять с осторожностью к каталогам, в которых уже есть"
+" данные."
 
 msgid "April"
-msgstr ""
+msgstr "Апрель"
 
 msgid ""
 "Are you sure you want to create a new git repo?  This will erase all "
 "history!"
 msgstr ""
+"Вы уверены, что хотите создать новый git-репозиторий? Вся история будет "
+"стерта!"
 
 msgid "Are you sure you want to delete this backup?"
-msgstr ""
+msgstr "Вы уверены, что хотите удалить эту резервную копию?"
 
 msgid "Are you sure you want to delete?"
-msgstr ""
+msgstr "Вы уверены, что хотите удалить?"
 
 msgid "Are you sure you want to reinstall?"
-msgstr ""
+msgstr "Вы уверены, что хотите переустановить?"
 
 msgid "Are you sure you want to restart?"
-msgstr ""
+msgstr "Вы уверены, что хотите перезапустить?"
 
 msgid "Are you sure you want to restore global.env from backup?"
-msgstr ""
+msgstr "Вы уверены, что хотите восстановить global.env из резервной копии?"
 
 msgid "Are you sure you want to stop all containers?"
-msgstr ""
+msgstr "Вы уверены, что хотите остановить все контейнеры?"
 
 msgid "Are you sure you want to sync changes from the files?"
-msgstr ""
+msgstr "Вы уверены, что хотите синхронизировать изменения из файлов?"
 
 msgid ""
 "Assign an IPv6 subnet to this network (dual-stack). Requires IPv6 to be "
 "enabled in the Docker daemon."
 msgstr ""
+"Назначить этой сети подсеть IPv6 (dual-stack). Требуется включённый IPv6 в "
+"демоне Docker."
 
 msgid "At reboot"
-msgstr ""
+msgstr "При перезагрузке"
 
 msgid "August"
-msgstr ""
+msgstr "Август"
 
 msgid "Authentication — fill in one of the two options below"
-msgstr ""
+msgstr "Аутентификация — заполните один из вариантов ниже"
 
 msgid "Autocompose"
-msgstr ""
+msgstr "Автосоздание compose"
 
 msgid "Aux address"
-msgstr ""
+msgstr "Дополнительный адрес"
 
 msgid "Available"
-msgstr ""
+msgstr "Доступно"
 
 msgid "Backend"
-msgstr ""
+msgstr "Бэкенд"
 
 msgid "Backup"
-msgstr ""
+msgstr "Резервное копирование"
 
 msgid "Backup Time"
-msgstr ""
+msgstr "Время резервного копирования"
 
 msgid "Backup container data."
-msgstr ""
+msgstr "Резервное копирование данных контейнера."
 
 msgid "Backup shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "Общая папка резервных копий должна отличаться от общей папки Docker"
 
 msgid "Backup shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "Общая папка резервных копий должна отличаться от общей папки Podman"
 
 msgid "Backup storage"
-msgstr ""
+msgstr "Хранилище резервных копий"
 
 msgid "Base URL of your Portainer instance, e.g. https://192.168.1.10:9443"
 msgstr ""
+"Базовый URL вашего экземпляра Portainer, например https://192.168.1.10:9443"
 
 msgid "Block In"
-msgstr ""
+msgstr "Блочный ввод"
 
 msgid "Block Out"
-msgstr ""
+msgstr "Блочный вывод"
 
 msgid "Body"
-msgstr ""
+msgstr "Тело"
 
 msgid "Borg encryption"
-msgstr ""
+msgstr "Шифрование Borg"
 
 msgid "Borg keep"
-msgstr ""
+msgstr "Удержание копий Borg"
 
 msgid "Borg passphrase"
-msgstr ""
+msgstr "Парольная фраза Borg"
 
 msgid "Build"
-msgstr ""
+msgstr "Сборка"
 
 msgid "Build ..."
-msgstr ""
+msgstr "Сборка ..."
 
 msgid "Build without cache"
-msgstr ""
+msgstr "Сборка без кэша"
 
 msgid "Build without cache ..."
-msgstr ""
+msgstr "Сборка без кэша ..."
 
 msgid "CPU %"
-msgstr ""
+msgstr "CPU %"
 
 msgid "Cache has been cleared."
-msgstr ""
+msgstr "Кэш очищен."
 
 msgid "Cache times for tabs"
-msgstr ""
+msgstr "Время кэширования для вкладок"
 
 msgid "Cannot tag a row that groups %d different images."
-msgstr ""
+msgstr "Нельзя пометить строку, объединяющую %d разных образов."
 
 msgid "Certain date"
-msgstr ""
+msgstr "Конкретная дата"
 
 msgid "Changes have been synced from file."
-msgstr ""
+msgstr "Изменения синхронизированы из файла."
 
 msgid "Check compose file for errors ..."
-msgstr ""
+msgstr "Проверка файла compose на ошибки ..."
 
 msgid ""
 "Choose which compose files to include in this job by matching the compose "
@@ -231,358 +259,370 @@ msgid ""
 "blank or use just * to include all compose files.<br/>Separate multiple "
 "patterns with commas."
 msgstr ""
+"Выберите, какие файлы compose включить в это задание, сопоставлением по "
+"имени compose.<br/>Поддерживаются подстановочные знаки (*), например web* "
+"или *cloud* или *app<br/>Оставьте пустым или используйте просто *, чтобы "
+"включить все файлы compose.<br/>Несколько шаблонов разделяйте запятыми."
 
 msgid "Clear cache"
-msgstr ""
+msgstr "Очистить кэш"
 
 msgid "Clearing cache ..."
-msgstr ""
+msgstr "Очистка кэша ..."
 
 msgid "Command"
-msgstr ""
+msgstr "Команда"
 
 msgid "Comment"
-msgstr ""
+msgstr "Комментарий"
 
 msgid "Compose"
-msgstr ""
+msgstr "Compose"
 
 msgid "Compose Backup"
-msgstr ""
+msgstr "Резервное копирование Compose"
 
 msgid "Compose Build"
-msgstr ""
+msgstr "Сборка Compose"
 
 msgid "Compose File"
-msgstr ""
+msgstr "Файл Compose"
 
 msgid "Compose Files"
-msgstr ""
+msgstr "Файлы Compose"
 
 msgid "Compose Restore"
-msgstr ""
+msgstr "Восстановление Compose"
 
 msgid "Compose Run"
-msgstr ""
+msgstr "Разовый запуск Compose"
 
 msgid "Compose Start"
-msgstr ""
+msgstr "Запуск Compose"
 
 msgid "Compose Stop"
-msgstr ""
+msgstr "Остановка Compose"
 
 msgid "Compose Update"
-msgstr ""
+msgstr "Обновление Compose"
 
 msgid "Compose file shared folder must be different than data shared folder"
-msgstr ""
+msgstr "Общая папка файлов Compose должна отличаться от общей папки данных"
 
 msgid "Compose file shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "Общая папка файлов Compose должна отличаться от общей папки Docker"
 
 msgid "Compose file shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "Общая папка файлов Compose должна отличаться от общей папки Podman"
 
 msgid "Compose file storage"
-msgstr ""
+msgstr "Хранилище файлов Compose"
 
 msgid "Compose file to be associate imported files with"
-msgstr ""
+msgstr "Файл Compose, с которым связать импортируемые файлы"
 
 msgid "Compose version"
-msgstr ""
+msgstr "Версия Compose"
 
 msgid "Conf"
-msgstr ""
+msgstr "Конфигурация"
 
 msgid "Conf file"
-msgstr ""
+msgstr "Конфигурационный файл"
 
 msgid "Conf filename"
-msgstr ""
+msgstr "Имя конфигурационного файла"
 
 msgid "Conf filename cannot be"
-msgstr ""
+msgstr "Имя конфигурационного файла не может быть"
 
 msgid "Configs"
-msgstr ""
+msgstr "Конфигурации"
 
 msgid ""
 "Configure a mount type, driver options and labels. Leave disabled to create "
 "a plain named volume."
 msgstr ""
+"Настройте тип монтирования, параметры драйвера и метки. Оставьте "
+"отключённым, чтобы создать простой именованный том."
 
 msgid "Connect"
-msgstr ""
+msgstr "Подключить"
 
 msgid "Connect container"
-msgstr ""
+msgstr "Подключить контейнер"
 
 msgid "Container"
-msgstr ""
+msgstr "Контейнер"
 
 msgid "Container Port"
-msgstr ""
+msgstr "Порт контейнера"
 
 msgid "Container Terminals"
-msgstr ""
+msgstr "Терминалы контейнера"
 
 msgid "Container state"
-msgstr ""
+msgstr "Состояние контейнера"
 
 msgid "Containers"
-msgstr ""
+msgstr "Контейнеры"
 
 msgid "Could not connect to Portainer at %s."
-msgstr ""
+msgstr "Не удалось подключиться к Portainer по адресу %s."
 
 msgid "Create"
-msgstr ""
+msgstr "Создать"
 
 msgid "Create .env and compose.yml symlinks"
-msgstr ""
+msgstr "Создать символические ссылки .env и compose.yml"
 
 msgid "Create bind mount path"
-msgstr ""
+msgstr "Создать путь bind-монтирования"
 
 msgid "Create from URL"
-msgstr ""
+msgstr "Создать по URL"
 
 msgid "Create from example"
-msgstr ""
+msgstr "Создать из примера"
 
 msgid "Create new compose file from running container ..."
-msgstr ""
+msgstr "Создать новый файл compose из работающего контейнера ..."
 
 msgid "Create new image tag ..."
-msgstr ""
+msgstr "Создать новый тег образа ..."
 
 msgid "Create symlinks"
-msgstr ""
+msgstr "Создать символические ссылки"
 
 msgid "Created"
-msgstr ""
+msgstr "Создано"
 
 msgid "Created At"
-msgstr ""
+msgstr "Время создания"
 
 msgid "Created bind mount path."
-msgstr ""
+msgstr "Путь bind-монтирования создан."
 
 msgid "Created config."
-msgstr ""
+msgstr "Конфигурация создана."
 
 msgid "Created dockerfile."
-msgstr ""
+msgstr "Dockerfile создан."
 
 msgid "Created file from url."
-msgstr ""
+msgstr "Файл создан по URL."
 
 msgid "Created file."
-msgstr ""
+msgstr "Файл создан."
 
 msgid "Created network."
-msgstr ""
+msgstr "Сеть создана."
 
 msgid "Created scheduled job."
-msgstr ""
+msgstr "Запланированное задание создано."
 
 msgid "Created volume."
-msgstr ""
+msgstr "Том создан."
 
 msgid "Current"
-msgstr ""
+msgstr "Текущий"
 
 msgid "Current repository"
-msgstr ""
+msgstr "Текущий репозиторий"
 
 msgid "Current tag"
-msgstr ""
+msgstr "Текущий тег"
 
 msgid "Daily"
-msgstr ""
+msgstr "Ежедневно"
 
 msgid "Data"
-msgstr ""
+msgstr "Данные"
 
 msgid "Data shared folder must be different than docker shared folder"
-msgstr ""
+msgstr "Общая папка данных должна отличаться от общей папки Docker"
 
 msgid "Data shared folder must be different than podman shared folder"
-msgstr ""
+msgstr "Общая папка данных должна отличаться от общей папки Podman"
 
 msgid "Data storage"
-msgstr ""
+msgstr "Хранилище данных"
 
 msgid "Date & Time"
-msgstr ""
+msgstr "Дата и время"
 
 msgid "Day of month"
-msgstr ""
+msgstr "День месяца"
 
 msgid "Day of week"
-msgstr ""
+msgstr "День недели"
 
 msgid "December"
-msgstr ""
+msgstr "Декабрь"
 
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 msgid "Delete backup ..."
-msgstr ""
+msgstr "Удалить резервную копию ..."
 
 msgid "Delete complete."
-msgstr ""
+msgstr "Удаление завершено."
 
 msgid "Deleting images ..."
-msgstr ""
+msgstr "Удаление образов ..."
 
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 msgid "Device"
-msgstr ""
+msgstr "Устройство"
 
 msgid "Digest"
-msgstr ""
+msgstr "Дайджест"
 
 msgid "Directory does not exist!"
-msgstr ""
+msgstr "Каталог не существует!"
 
 msgid "Disable if Portainer uses a self-signed certificate."
-msgstr ""
+msgstr "Отключите, если Portainer использует самоподписанный сертификат."
 
 msgid "Disconnect"
-msgstr ""
+msgstr "Отключить"
 
 msgid "Disconnect container"
-msgstr ""
+msgstr "Отключить контейнер"
 
 msgid "Displays containers with a link to cterm exec terminal in a table."
-msgstr ""
+msgstr "Показывает контейнеры со ссылкой на exec-терминал cterm в таблице."
 
 msgid "Displays information about containers in a grid."
-msgstr ""
+msgstr "Показывает информацию о контейнерах в виде сетки."
 
 msgid "Displays information about containers in a table."
-msgstr ""
+msgstr "Показывает информацию о контейнерах в таблице."
 
 msgid ""
 "Do not stop the containers before backup and start them afterwards. The "
 "backup runs while the containers are live (faster, no downtime), but data "
 "may be inconsistent for running services such as databases."
 msgstr ""
+"Не останавливать контейнеры перед резервным копированием и не запускать их "
+"после. Копирование выполняется при работающих контейнерах (быстрее, без "
+"простоя), но данные могут быть несогласованными для работающих служб, "
+"например баз данных."
 
 msgid "Do not use cache when building the image"
-msgstr ""
+msgstr "Не использовать кэш при сборке образа"
 
 msgid "Docker config"
-msgstr ""
+msgstr "Конфигурация Docker"
 
 msgid "Docker has been restarted."
-msgstr ""
+msgstr "Docker перезапущен."
 
 msgid "Docker info"
-msgstr ""
+msgstr "Информация о Docker"
 
 msgid "Docker is restarting ..."
-msgstr ""
+msgstr "Перезапуск Docker ..."
 
 msgid "Docker on OMV"
-msgstr ""
+msgstr "Docker на OMV"
 
 msgid "Docker storage"
-msgstr ""
+msgstr "Хранилище Docker"
 
 msgid "Docker version"
-msgstr ""
+msgstr "Версия Docker"
 
 msgid "Dockerfile"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Dockerfiles"
-msgstr ""
+msgstr "Dockerfile"
 
 msgid "Docs"
-msgstr ""
+msgstr "Документация"
 
 msgid "Down"
-msgstr ""
+msgstr "Остановлен"
 
 msgid "Download log"
-msgstr ""
+msgstr "Скачать журнал"
 
 msgid "Download logs"
-msgstr ""
+msgstr "Скачать журналы"
 
 msgid "Driver"
-msgstr ""
+msgstr "Драйвер"
 
 msgid "Driver options"
-msgstr ""
+msgstr "Параметры драйвера"
 
 msgid "Edit"
-msgstr ""
+msgstr "Изменить"
 
 msgid "Edit config."
-msgstr ""
+msgstr "Изменение конфигурации."
 
 msgid "Edit dockerfile."
-msgstr ""
+msgstr "Изменение Dockerfile."
 
 msgid "Edit file."
-msgstr ""
+msgstr "Изменение файла."
 
 msgid "Edit global environment file"
-msgstr ""
+msgstr "Изменить файл глобальных переменных окружения"
 
 msgid "Edit global environment variable file."
-msgstr ""
+msgstr "Изменение файла глобальных переменных окружения."
 
 msgid "Edit scheduled job."
-msgstr ""
+msgstr "Изменение запланированного задания."
 
 msgid "Email on error"
-msgstr ""
+msgstr "Email при ошибке"
 
 msgid "Enable Docker repo"
-msgstr ""
+msgstr "Включить репозиторий Docker"
 
 msgid "Enable Docker repo ..."
-msgstr ""
+msgstr "Включение репозитория Docker ..."
 
 msgid "Enable IPv6"
-msgstr ""
+msgstr "Включить IPv6"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"
 
 msgid ""
 "Encryption mode for Borg repository. Changing this requires re-initializing "
 "the repo."
 msgstr ""
+"Режим шифрования репозитория Borg. Его изменение требует повторной "
+"инициализации репозитория."
 
 msgid "Env Path"
-msgstr ""
+msgstr "Путь к env"
 
 msgid "Environment"
-msgstr ""
+msgstr "Окружение"
 
 msgid "Every N day of month"
-msgstr ""
+msgstr "Каждый N-й день месяца"
 
 msgid "Every N hour"
-msgstr ""
+msgstr "Каждые N часов"
 
 msgid "Every N minute"
-msgstr ""
+msgstr "Каждые N минут"
 
 msgid "Everyone - read/write"
-msgstr ""
+msgstr "Все - чтение/запись"
 
 msgid "Example compose file has been added."
-msgstr ""
+msgstr "Пример файла compose добавлен."
 
 msgid ""
 "Exclude file or directory paths from within the backed-up volumes (passed as"
@@ -590,12 +630,16 @@ msgid ""
 "from the job - use Exclude filter above for that.<br/>e.g. *.log, tmp/*, "
 "cache/<br/>Separate multiple patterns with commas."
 msgstr ""
+"Исключить файлы или каталоги внутри резервируемых томов (передаются как "
+"шаблоны --exclude для rsync/borg).<br/>Это НЕ исключает файлы compose из "
+"задания — для этого используйте фильтр исключения выше.<br/>например *.log, "
+"tmp/*, cache/<br/>Несколько шаблонов разделяйте запятыми."
 
 msgid "Exclude filter"
-msgstr ""
+msgstr "Фильтр исключения"
 
 msgid "Exclude filter (pick files)"
-msgstr ""
+msgstr "Фильтр исключения (выбор файлов)"
 
 msgid ""
 "Exclude specific compose files from this job by matching the compose "
@@ -604,1159 +648,1261 @@ msgid ""
 "applied after the filter, so you can use * in Filter and exclude specific "
 "files here."
 msgstr ""
+"Исключите конкретные файлы compose из этого задания, сопоставлением по имени"
+" compose.<br/>Поддерживаются подстановочные знаки (*), например nextcloud* "
+"или *cloud* или private*<br/>Несколько шаблонов разделяйте "
+"запятыми.<br/>Исключения применяются после фильтра, поэтому можно "
+"использовать * в фильтре и исключить конкретные файлы здесь."
 
 msgid "Excludes"
-msgstr ""
+msgstr "Исключения"
 
 msgid "Execute scheduled job ..."
-msgstr ""
+msgstr "Выполнить запланированное задание ..."
 
 msgid "Failed"
-msgstr ""
+msgstr "Сбой"
 
 msgid "Failed to create directory '%s'."
-msgstr ""
+msgstr "Не удалось создать каталог '%s'."
 
 msgid "Failed to pull: %s"
-msgstr ""
+msgstr "Не удалось загрузить: %s"
 
 msgid "February"
-msgstr ""
+msgstr "Февраль"
 
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 msgid "File date"
-msgstr ""
+msgstr "Дата файла"
 
 msgid "Filename"
-msgstr ""
+msgstr "Имя файла"
 
 msgid "Files"
-msgstr ""
+msgstr "Файлы"
 
 msgid "Filter"
-msgstr ""
+msgstr "Фильтр"
 
 msgid "Filter (pick files)"
-msgstr ""
+msgstr "Фильтр (выбор файлов)"
 
 msgid "Find the next 20 free host ports at or above this number."
-msgstr ""
+msgstr "Найти следующие 20 свободных портов хоста, начиная с этого номера."
 
 msgid ""
 "Format is key=value. Comma separate multiple entries.<br/>e.g. "
 "com.example.usage=backup,com.example.owner=admin"
 msgstr ""
+"Формат ключ=значение. Несколько записей разделяются запятыми.<br/>например "
+"com.example.usage=backup,com.example.owner=admin"
 
 msgid ""
 "Format is name=ip. Comma separate multiple entries.<br/>e.g. my-"
 "router=192.168.10.5,my-nas=192.168.20.6"
 msgstr ""
+"Формат имя=ip. Несколько записей разделяются запятыми.<br/>например my-"
+"router=192.168.10.5,my-nas=192.168.20.6"
 
 msgid "Friday"
-msgstr ""
+msgstr "Пятница"
 
 msgid "Gateway"
-msgstr ""
+msgstr "Шлюз"
 
 msgid "Global Environment"
-msgstr ""
+msgstr "Глобальное окружение"
 
 msgid "Global environment variables"
-msgstr ""
+msgstr "Глобальные переменные окружения"
 
 msgid "Group"
-msgstr ""
+msgstr "Группа"
 
 msgid "Group of directories and files"
-msgstr ""
+msgstr "Группа-владелец каталогов и файлов"
 
 msgid "Group to own the path. Match the container's PGID where applicable."
 msgstr ""
+"Группа — владелец пути. Укажите значение, совпадающее с PGID контейнера "
+"(если применимо)."
 
 msgid "Host Port"
-msgstr ""
+msgstr "Порт хоста"
 
 msgid ""
 "Host interface this network is attached to. Use a VLAN sub-interface for "
 "802.1Q tagging, e.g. eth0.10"
 msgstr ""
+"Интерфейс хоста, к которому подключена эта сеть. Для тегирования 802.1Q "
+"используйте VLAN-подинтерфейс, например eth0.10"
 
 msgid "Hour"
-msgstr ""
+msgstr "Час"
 
 msgid "Hourly"
-msgstr ""
+msgstr "Ежечасно"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP address"
-msgstr ""
+msgstr "IP-адрес"
 
 msgid "IP range"
-msgstr ""
+msgstr "Диапазон IP"
 
 msgid "IPv6 gateway"
-msgstr ""
+msgstr "Шлюз IPv6"
 
 msgid "IPv6 subnet"
-msgstr ""
+msgstr "Подсеть IPv6"
 
 msgid "If checked, backup rsync command will include the verbose flag."
 msgstr ""
+"Если отмечено, команда rsync резервного копирования будет включать флаг "
+"подробного вывода (verbose)."
 
 msgid "Image"
-msgstr ""
+msgstr "Образ"
 
 msgid "Image ID"
-msgstr ""
+msgstr "ID образа"
 
 msgid "Images"
-msgstr ""
+msgstr "Образы"
 
 msgid "Import"
-msgstr ""
+msgstr "Импортировать"
 
 msgid "Import Dockerfiles from folders ..."
-msgstr ""
+msgstr "Импортировать Dockerfile из папок ..."
 
 msgid "Import config files from folders ..."
-msgstr ""
+msgstr "Импортировать конфигурационные файлы из папок ..."
 
 msgid "Import existing compose file ..."
-msgstr ""
+msgstr "Импортировать существующий файл compose ..."
 
 msgid "Import existing compose folders ..."
-msgstr ""
+msgstr "Импортировать существующие папки compose ..."
 
 msgid "Import from Portainer"
-msgstr ""
+msgstr "Импортировать из Portainer"
 
 msgid "Import one"
-msgstr ""
+msgstr "Импортировать один"
 
 msgid "Import stacks from Portainer ..."
-msgstr ""
+msgstr "Импортировать стеки из Portainer ..."
 
 msgid ""
 "Imports all standalone compose stacks from Portainer. Stacks already present"
 " in the plugin are skipped. Swarm stacks are not imported."
 msgstr ""
+"Импортирует все отдельные стеки compose из Portainer. Стеки, уже "
+"присутствующие в плагине, пропускаются. Стеки Swarm не импортируются."
 
 msgid "In Use"
-msgstr ""
+msgstr "Используется"
 
 msgid "Initialize new git repo ..."
-msgstr ""
+msgstr "Инициализировать новый git-репозиторий ..."
 
 msgid "Inspect"
-msgstr ""
+msgstr "Просмотр"
 
 msgid "Installed"
-msgstr ""
+msgstr "Установлен"
 
 msgid "Internal network"
-msgstr ""
+msgstr "Внутренняя сеть"
 
 msgid "Invalid %s name."
-msgstr ""
+msgstr "Недопустимое имя %s."
 
 msgid "Invalid JSON response from Portainer: %s"
-msgstr ""
+msgstr "Недопустимый JSON-ответ от Portainer: %s"
 
 msgid "Invalid backup name!"
-msgstr ""
+msgstr "Недопустимое имя резервной копии!"
 
 msgid "Invalid compose file path '%s'."
-msgstr ""
+msgstr "Недопустимый путь файла compose '%s'."
 
 msgid "Invalid image command '%s'."
-msgstr ""
+msgstr "Недопустимая команда образа '%s'."
 
 msgid "Is Latest"
-msgstr ""
+msgstr "Актуальный"
 
 msgid "January"
-msgstr ""
+msgstr "Январь"
 
 msgid "July"
-msgstr ""
+msgstr "Июль"
 
 msgid "June"
-msgstr ""
+msgstr "Июнь"
 
 msgid "Keep containers running across Docker daemon updates"
-msgstr ""
+msgstr "Сохранять работу контейнеров при обновлении демона Docker"
 
 msgid "Labels"
-msgstr ""
+msgstr "Метки"
 
 msgid "Leave blank to use a custom /etc/containers/storage.conf"
 msgstr ""
+"Оставьте пустым, чтобы использовать собственный /etc/containers/storage.conf"
 
 msgid "Leave blank to use a custom /etc/docker/daemon.json"
 msgstr ""
+"Оставьте пустым, чтобы использовать собственный /etc/docker/daemon.json"
 
 msgid "Leave unchanged"
-msgstr ""
+msgstr "Оставить без изменений"
 
 msgid "Leave unchanged ..."
-msgstr ""
+msgstr "Оставить без изменений ..."
 
 msgid "Live restore"
-msgstr ""
+msgstr "Live restore"
 
 msgid "Location of backups"
-msgstr ""
+msgstr "Расположение резервных копий"
 
 msgid "Location of compose files"
-msgstr ""
+msgstr "Расположение файлов compose"
 
 msgid "Log file max size"
-msgstr ""
+msgstr "Максимальный размер файла журнала"
 
 msgid "Logged out."
-msgstr ""
+msgstr "Выполнен выход."
 
 msgid "Logging out ..."
-msgstr ""
+msgstr "Выход ..."
 
 msgid "Login"
-msgstr ""
+msgstr "Вход"
 
 msgid "Login to docker repo ..."
-msgstr ""
+msgstr "Вход в репозиторий Docker ..."
 
 msgid "Logout"
-msgstr ""
+msgstr "Выход"
 
 msgid "Maintenance"
-msgstr ""
+msgstr "Обслуживание"
 
 msgid ""
 "Manually assign the subnet, gateway and IP range. Leave disabled to let "
 "Docker allocate addresses automatically."
 msgstr ""
+"Задайте подсеть, шлюз и диапазон IP вручную. Оставьте отключённым, чтобы "
+"Docker распределял адреса автоматически."
 
 msgid "March"
-msgstr ""
+msgstr "Март"
 
 msgid "Max Size"
-msgstr ""
+msgstr "Макс. размер"
 
 msgid "May"
-msgstr ""
+msgstr "Май"
 
 msgid "Mem %"
-msgstr ""
+msgstr "Mem %"
 
 msgid "Mem Limit"
-msgstr ""
+msgstr "Лимит памяти"
 
 msgid "Mem Usage"
-msgstr ""
+msgstr "Использование памяти"
 
 msgid "Message"
-msgstr ""
+msgstr "Сообщение"
 
 msgid "Minute"
-msgstr ""
+msgstr "Минута"
 
 msgid "Mixed"
-msgstr ""
+msgstr "Смешанный"
 
 msgid "Mode"
-msgstr ""
+msgstr "Режим"
 
 msgid "Monday"
-msgstr ""
+msgstr "Понедельник"
 
 msgid "Month"
-msgstr ""
+msgstr "Месяц"
 
 msgid "Monthly"
-msgstr ""
+msgstr "Ежемесячно"
 
 msgid "Mount options"
-msgstr ""
+msgstr "Параметры монтирования"
 
 msgid "Mount type"
-msgstr ""
+msgstr "Тип монтирования"
 
 msgid "Mountpoint"
-msgstr ""
+msgstr "Точка монтирования"
 
 msgid "Mounts"
-msgstr ""
+msgstr "Точки монтирования"
 
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 msgid "Net In"
-msgstr ""
+msgstr "Сетевой ввод"
 
 msgid "Net Out"
-msgstr ""
+msgstr "Сетевой вывод"
 
 msgid "Network"
-msgstr ""
+msgstr "Сеть"
 
 msgid "Networks"
-msgstr ""
+msgstr "Сети"
 
 msgid "No Image"
-msgstr ""
+msgstr "Нет образа"
 
 msgid "No cache"
-msgstr ""
+msgstr "Без кэша"
 
 msgid "No compose file found!"
-msgstr ""
+msgstr "Файл compose не найден!"
 
 msgid "No image specified."
-msgstr ""
+msgstr "Образ не указан."
 
 msgid "No name specified!"
-msgstr ""
+msgstr "Имя не указано!"
 
 msgid "None"
-msgstr ""
+msgstr "Нет"
 
 msgid "None (local storage)"
-msgstr ""
+msgstr "Нет (локальное хранилище)"
 
 msgid "Not installed"
-msgstr ""
+msgstr "Не установлен"
 
 msgid "November"
-msgstr ""
+msgstr "Ноябрь"
 
 msgid "Number of Borg backups to keep."
-msgstr ""
+msgstr "Количество резервных копий Borg для хранения."
 
 msgid "October"
-msgstr ""
+msgstr "Октябрь"
 
 msgid ""
 "Only alphanumeric (a-zA-Z), underscore (_), dash (-), commas (,), and "
 "asterisks (*) allowed!"
 msgstr ""
+"Разрешены только буквы (a-zA-Z), подчеркивание (_), дефис (-), запятые (,) и"
+" звездочки (*)!"
 
 msgid "Only send an email if the job exits with an error."
-msgstr ""
+msgstr "Отправлять письмо, только если задание завершилось с ошибкой."
 
 msgid ""
 "Optional - Location of persistent container data<br/>Only used to substitute"
 " CHANGE_TO_COMPOSE_DATA_PATH in compose and env files with this shared "
 "folder path."
 msgstr ""
+"Необязательно — расположение постоянных данных контейнера<br/>Используется "
+"только для подстановки CHANGE_TO_COMPOSE_DATA_PATH в файлах compose и env на"
+" путь этой общей папки."
 
 msgid "Optional. Assign a static IP from the network subnet, e.g. 172.20.0.10"
 msgstr ""
+"Необязательно. Назначьте статический IP из подсети сети, например "
+"172.20.0.10"
 
 msgid ""
 "Optionally pick specific compose files from the list. Your selection is "
 "merged with the Filter patterns above (combined and de-duplicated)."
 msgstr ""
+"При желании выберите конкретные файлы compose из списка. Ваш выбор "
+"объединяется с шаблонами фильтра выше (слияние без дубликатов)."
 
 msgid ""
 "Optionally pick specific compose files to exclude. Your selection is merged "
 "with the Exclude filter patterns above (combined and de-duplicated)."
 msgstr ""
+"При желании выберите конкретные файлы compose для исключения. Ваш выбор "
+"объединяется с шаблонами фильтра исключения выше (слияние без дубликатов)."
 
 msgid "Override"
-msgstr ""
+msgstr "Переопределение"
 
 msgid "Override Path"
-msgstr ""
+msgstr "Путь переопределения"
 
 msgid ""
 "Override hostname when opening ports in Files, Services, and Containers tabs"
 msgstr ""
+"Переопределять имя хоста при открытии портов на вкладках Файлы, Службы и "
+"Контейнеры"
 
 msgid "Overrides"
-msgstr ""
+msgstr "Переопределения"
 
 msgid "Owner"
-msgstr ""
+msgstr "Владелец"
 
 msgid "Owner - read/write, Group - no access, Others - no access"
-msgstr ""
+msgstr "Владелец - чтение/запись, Группа - нет доступа, Прочие - нет доступа"
 
 msgid "Owner - read/write, Group - read-only, Others - no access"
 msgstr ""
+"Владелец - чтение/запись, Группа - только чтение, Прочие - нет доступа"
 
 msgid "Owner - read/write, Group - read-only, Others - read-only"
 msgstr ""
+"Владелец - чтение/запись, Группа - только чтение, Прочие - только чтение"
 
 msgid "Owner - read/write, Group - read/write, Others - no access"
 msgstr ""
+"Владелец - чтение/запись, Группа - чтение/запись, Прочие - нет доступа"
 
 msgid "Owner - read/write, Group - read/write, Others - read-only"
 msgstr ""
+"Владелец - чтение/запись, Группа - чтение/запись, Прочие - только чтение"
 
 msgid "Owner of directories and files"
-msgstr ""
+msgstr "Владелец каталогов и файлов"
 
 msgid "PIDs"
-msgstr ""
+msgstr "PIDs"
 
 msgid "Parent"
-msgstr ""
+msgstr "Родительский"
 
 msgid "Parent network"
-msgstr ""
+msgstr "Родительская сеть"
 
 msgid ""
 "Passed as the 'o' driver option.<br/>NFS e.g. "
 "addr=192.168.1.10,rw,nfsvers=4<br/>CIFS e.g. "
 "username=user,password=secret,vers=3.0"
 msgstr ""
+"Передается как параметр 'o' драйвера.<br/>NFS, например "
+"addr=192.168.1.10,rw,nfsvers=4<br/>CIFS, например "
+"username=user,password=secret,vers=3.0"
 
 msgid "Passphrase for Borg encryption."
-msgstr ""
+msgstr "Парольная фраза для шифрования Borg."
 
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 msgid "Path"
-msgstr ""
+msgstr "Путь"
 
 msgid "Path source"
-msgstr ""
+msgstr "Источник пути"
 
 msgid "Path to script that will be executed after backup"
-msgstr ""
+msgstr "Путь к скрипту, который будет выполнен после резервного копирования"
 
 msgid "Path to script that will be executed before backup"
-msgstr ""
+msgstr "Путь к скрипту, который будет выполнен перед резервным копированием"
 
 msgid "Permissions"
-msgstr ""
+msgstr "Права доступа"
 
 msgid "Permissions must be an octal value, e.g. 755."
-msgstr ""
+msgstr "Права доступа должны быть восьмеричным значением, например 755."
 
 msgid "Permissions of directories and files"
-msgstr ""
+msgstr "Права доступа к каталогам и файлам"
 
 msgid "Please provide an absolute path."
-msgstr ""
+msgstr "Укажите абсолютный путь."
 
 msgid "Please select a shared folder."
-msgstr ""
+msgstr "Выберите общую папку."
 
 msgid "Please set shared folder for backups."
-msgstr ""
+msgstr "Укажите общую папку для резервных копий."
 
 msgid "Please set shared folder for data on the Settings tab."
-msgstr ""
+msgstr "Укажите общую папку для данных на вкладке «Настройки»."
 
 msgid "Please set shared folder for file storage."
-msgstr ""
+msgstr "Укажите общую папку для хранения файлов."
 
 msgid "Podman storage"
-msgstr ""
+msgstr "Хранилище Podman"
 
 msgid "Portainer API request failed: %s"
-msgstr ""
+msgstr "Сбой запроса к API Portainer: %s"
 
 msgid "Portainer URL"
-msgstr ""
+msgstr "URL Portainer"
 
 msgid "Portainer authentication failed. Check your credentials."
 msgstr ""
+"Не удалось пройти аутентификацию в Portainer. Проверьте учётные данные."
 
 msgid "Ports"
-msgstr ""
+msgstr "Порты"
 
 msgid "Post-backup script"
-msgstr ""
+msgstr "Скрипт после резервного копирования"
 
 msgid "Pre-backup script"
-msgstr ""
+msgstr "Скрипт перед резервным копированием"
 
 msgid "Preview"
-msgstr ""
+msgstr "Предпросмотр"
 
 msgid "Preview Import"
-msgstr ""
+msgstr "Предпросмотр импорта"
 
 msgid "Preview import ..."
-msgstr ""
+msgstr "Предпросмотр импорта ..."
 
 msgid "Preview import from folder ..."
-msgstr ""
+msgstr "Предпросмотр импорта из папки ..."
 
 msgid "Project"
-msgstr ""
+msgstr "Проект"
 
 msgid "Protocol"
-msgstr ""
+msgstr "Протокол"
 
 msgid "Provide either an API key or a username and password."
-msgstr ""
+msgstr "Укажите либо API-ключ, либо имя пользователя и пароль."
 
 msgid "Prune"
-msgstr ""
+msgstr "Очистка"
 
 msgid "Prune Images"
-msgstr ""
+msgstr "Очистить образы"
 
 msgid "Prune Images - all dangling"
-msgstr ""
+msgstr "Очистить образы — все неиспользуемые (dangling)"
 
 msgid ""
 "Prune all dangling images.<br/>Does not use filter. Will run docker image "
 "prune -f"
 msgstr ""
+"Удаляет все неиспользуемые (dangling) образы.<br/>Фильтр не используется. "
+"Выполняется docker image prune -f"
 
 msgid "Prune builder cache"
-msgstr ""
+msgstr "Очистить кэш сборщика"
 
 msgid ""
 "Prune the Docker build cache after building. Runs docker builder prune -f. "
 "Applies system-wide, not filtered by compose file."
 msgstr ""
+"Очищает кэш сборки Docker после сборки. Выполняется docker builder prune -f."
+" Действует на всю систему, без привязки к файлу compose."
 
 msgid "Pull"
-msgstr ""
+msgstr "Загрузка"
 
 msgid "Pull and Build"
-msgstr ""
+msgstr "Загрузить и собрать"
 
 msgid "Pull and Build ..."
-msgstr ""
+msgstr "Загрузить и собрать ..."
 
 msgid "Pull image with tag ..."
-msgstr ""
+msgstr "Загрузить образ с тегом ..."
 
 msgid "Push"
-msgstr ""
+msgstr "Отправка"
 
 msgid "Push to Docker Hub ..."
-msgstr ""
+msgstr "Отправить в Docker Hub ..."
 
 msgid ""
 "Recommended. Generate one in Portainer under Account Settings → Access "
 "tokens."
 msgstr ""
+"Рекомендуется. Создайте в Portainer в разделе Account Settings → Access "
+"tokens."
 
 msgid "Refusing to operate on the protected system path '%s'."
-msgstr ""
+msgstr "Операция с защищенным системным путем '%s' запрещена."
 
 msgid "Reinstall Docker"
-msgstr ""
+msgstr "Переустановить Docker"
 
 msgid "Reinstall Docker ..."
-msgstr ""
+msgstr "Переустановка Docker ..."
 
 msgid "Relative path"
-msgstr ""
+msgstr "Относительный путь"
 
 msgid "Repo"
-msgstr ""
+msgstr "Репозиторий"
 
 msgid "Repos"
-msgstr ""
+msgstr "Репозитории"
 
 msgid "Repository"
-msgstr ""
+msgstr "Репозиторий"
 
 msgid "Restart Docker"
-msgstr ""
+msgstr "Перезапустить Docker"
 
 msgid "Restore"
-msgstr ""
+msgstr "Восстановить"
 
 msgid "Restore Compose ..."
-msgstr ""
+msgstr "Восстановить Compose ..."
 
 msgid "Restore global.env"
-msgstr ""
+msgstr "Восстановить global.env"
 
 msgid "Restoring global.env from backup ..."
-msgstr ""
+msgstr "Восстановление global.env из резервной копии ..."
 
 msgid ""
 "Restrict external access. Containers can talk to each other, but the network"
 " is not reachable from outside the host."
 msgstr ""
+"Ограничить внешний доступ. Контейнеры могут взаимодействовать друг с другом,"
+" но сеть недоступна снаружи хоста."
 
 msgid "Run"
-msgstr ""
+msgstr "Запустить"
 
 msgid "Run config"
-msgstr ""
+msgstr "Конфигурация запуска"
 
 msgid "Run docker compose build"
-msgstr ""
+msgstr "Выполнить docker compose build"
 
 msgid ""
 "Run docker compose config to automatically check syntax when saving file"
 msgstr ""
+"Выполнять docker compose config для автоматической проверки синтаксиса при "
+"сохранении файла"
 
 msgid "Running For"
-msgstr ""
+msgstr "Работает"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Суббота"
 
 msgid ""
 "Scan a folder recursively for compose files and preview what would be "
 "imported, without making any changes."
 msgstr ""
+"Рекурсивно сканирует папку на наличие файлов compose и показывает "
+"предпросмотр импорта без внесения изменений."
 
 msgid "Schedule"
-msgstr ""
+msgstr "Расписание"
 
 msgid "Scheduling"
-msgstr ""
+msgstr "Планирование"
 
 msgid "Script"
-msgstr ""
+msgstr "Скрипт"
 
 msgid "Script filename"
-msgstr ""
+msgstr "Имя файла скрипта"
 
 msgid "Script filename cannot be"
-msgstr ""
+msgstr "Имя файла скрипта не может быть"
 
 msgid "Scripts"
-msgstr ""
+msgstr "Скрипты"
 
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
 msgid ""
 "Seconds to wait before starting Docker/Podman on boot. Use this if "
 "containers fail to start because storage is not ready in time."
 msgstr ""
+"Секунды ожидания перед запуском Docker/Podman при загрузке. Используйте, "
+"если контейнеры не запускаются, потому что хранилище не успевает "
+"подготовиться."
 
 msgid "Select a group ..."
-msgstr ""
+msgstr "Выберите группу ..."
 
 msgid ""
 "Select a shared folder to set the Docker storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Выберите общую папку, чтобы задать путь хранилища Docker. Снимите флажок, "
+"чтобы ввести путь вручную."
 
 msgid ""
 "Select a shared folder to set the Podman storage path. Uncheck to enter a "
 "path manually."
 msgstr ""
+"Выберите общую папку, чтобы задать путь хранилища Podman. Снимите флажок, "
+"чтобы ввести путь вручную."
 
 msgid "Select a user ..."
-msgstr ""
+msgstr "Выберите пользователя ..."
 
 msgid "Send command output via email"
-msgstr ""
+msgstr "Отправлять вывод команды по email"
 
 msgid "Send email"
-msgstr ""
+msgstr "Отправлять email"
 
 msgid "Send email on error only"
-msgstr ""
+msgstr "Отправлять письмо только при ошибке"
 
 msgid "September"
-msgstr ""
+msgstr "Сентябрь"
 
 msgid "Service"
-msgstr ""
+msgstr "Служба"
 
 msgid "Service Name"
-msgstr ""
+msgstr "Имя службы"
 
 msgid "Services"
-msgstr ""
+msgstr "Службы"
 
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 msgid "Shared folder"
-msgstr ""
+msgstr "Общая папка"
 
 msgid "Shared folder + relative path"
-msgstr ""
+msgstr "Общая папка + относительный путь"
 
 msgid "Show all file changes ..."
-msgstr ""
+msgstr "Показать все изменения файлов ..."
 
 msgid "Show all global.env changes ..."
-msgstr ""
+msgstr "Показать все изменения global.env ..."
 
 msgid "Show commands"
-msgstr ""
+msgstr "Показать команды"
 
 msgid "Show config changes"
-msgstr ""
+msgstr "Показать изменения конфигурации"
 
 msgid "Show docker command for task in task dialog"
-msgstr ""
+msgstr "Показывать docker-команду задания в диалоге задачи"
 
 msgid "Show environment file"
-msgstr ""
+msgstr "Показать файл окружения"
 
 msgid "Show override"
-msgstr ""
+msgstr "Показать переопределение"
 
 msgid "Size"
-msgstr ""
+msgstr "Размер"
 
 msgid "Skip container stop/start"
-msgstr ""
+msgstr "Пропускать остановку/запуск контейнеров"
 
 msgid "Source and target image are required."
-msgstr ""
+msgstr "Требуются исходный и целевой образ."
 
 msgid "Start"
-msgstr ""
+msgstr "Запустить"
 
 msgid "Start all compose files"
-msgstr ""
+msgstr "Запустить все файлы compose"
 
 msgid "Start delay"
-msgstr ""
+msgstr "Задержка запуска"
 
 msgid "Starting port"
-msgstr ""
+msgstr "Начальный порт"
 
 msgid "State"
-msgstr ""
+msgstr "Состояние"
 
 msgid "Stats"
-msgstr ""
+msgstr "Статистика"
 
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 msgid "Stop"
-msgstr ""
+msgstr "Остановить"
 
 msgid "Stop all compose files"
-msgstr ""
+msgstr "Остановить все файлы compose"
 
 msgid "Stopped"
-msgstr ""
+msgstr "Остановлен"
 
 msgid ""
 "Subdirectory created under the shared folder. Leave empty to use the shared "
 "folder root.<br/>e.g. plex/config"
 msgstr ""
+"Подкаталог, создаваемый в общей папке. Оставьте пустым, чтобы использовать "
+"корень общей папки.<br/>например plex/config"
 
 msgid "Subnet"
-msgstr ""
+msgstr "Подсеть"
 
 msgid "Suggest free host ports ..."
-msgstr ""
+msgstr "Предложить свободные порты хоста ..."
 
 msgid "Suggest free ports"
-msgstr ""
+msgstr "Предложить свободные порты"
 
 msgid "Suggested free host ports ..."
-msgstr ""
+msgstr "Поиск свободных портов хоста ..."
 
 msgid "Sunday"
-msgstr ""
+msgstr "Воскресенье"
 
 msgid "Sync changes from file"
-msgstr ""
+msgstr "Синхронизировать изменения из файла"
 
 msgid "Syncing changes from file ..."
-msgstr ""
+msgstr "Синхронизация изменений из файла ..."
 
 msgid "System"
-msgstr ""
+msgstr "Система"
 
 msgid "Tag"
-msgstr ""
+msgstr "Тег"
 
 msgid "Tag to pull, e.g. latest, stable or 1.2.3"
-msgstr ""
+msgstr "Тег для загрузки, например latest, stable или 1.2.3"
 
 msgid "Tags"
-msgstr ""
+msgstr "Теги"
 
 msgid "Target repo"
-msgstr ""
+msgstr "Целевой репозиторий"
 
 msgid "Target repository"
-msgstr ""
+msgstr "Целевой репозиторий"
 
 msgid "Target tag"
-msgstr ""
+msgstr "Целевой тег"
 
 msgid "Terminal"
-msgstr ""
+msgstr "Терминал"
 
 msgid "Terminal Link"
-msgstr ""
+msgstr "Ссылка на терминал"
 
 msgid ""
 "The absolute path of the selected shared folder will be used as the Docker "
 "storage path when saved."
 msgstr ""
+"При сохранении абсолютный путь выбранной общей папки будет использован как "
+"путь хранилища Docker."
 
 msgid ""
 "The absolute path of the selected shared folder will be used as the Podman "
 "storage path when saved."
 msgstr ""
+"При сохранении абсолютный путь выбранной общей папки будет использован как "
+"путь хранилища Podman."
 
 msgid "The config file will be created in this compose file's directory."
-msgstr ""
+msgstr "Конфигурационный файл будет создан в каталоге этого файла compose."
 
 msgid "The field should only contain * or a comma separated list of values."
 msgstr ""
+"Поле должно содержать только * или список значений, разделённых запятыми."
 
 msgid "The path must be absolute."
-msgstr ""
+msgstr "Путь должен быть абсолютным."
 
 msgid "The path must not contain '..' components."
-msgstr ""
+msgstr "Путь не должен содержать компонентов '..'."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support Linux "
 "file permissions, which are required by this plugin."
 msgstr ""
+"Общая папка, выбранная для '%s' (файловая система %s), не поддерживает права"
+" Linux, которые требуются этому плагину."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support file "
 "locking, which is required by Compose and many container applications."
 msgstr ""
+"Общая папка, выбранная для '%s' (файловая система %s), не поддерживает "
+"блокировки файлов, которые требуются Compose и многим контейнерным "
+"приложениям."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support hard "
 "links, which are required by some container applications."
 msgstr ""
+"Общая папка, выбранная для '%s' (файловая система %s), не поддерживает "
+"жёсткие ссылки, которые требуются некоторым контейнерным приложениям."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support named "
 "pipes (FIFOs), which are required by some container applications."
 msgstr ""
+"Общая папка, выбранная для '%s' (файловая система %s), не поддерживает "
+"именованные каналы (FIFO), которые требуются некоторым контейнерным "
+"приложениям."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) does not support "
 "symbolic links, which are required by Docker and container applications."
 msgstr ""
+"Общая папка, выбранная для '%s' (файловая система %s), не поддерживает "
+"символические ссылки, которые требуются Docker и контейнерным приложениям."
 
 msgid ""
 "The shared folder selected for '%s' (%s filesystem) is not writable. Verify "
 "the filesystem is mounted read-write."
 msgstr ""
+"Общая папка, выбранная для '%s' (файловая система %s), недоступна для "
+"записи. Проверьте, что файловая система смонтирована в режиме чтения-записи."
 
 msgid ""
 "The volume driver. Use 'local' for host-backed volumes (including NFS/CIFS "
 "mounts), or the name of an installed volume plugin."
 msgstr ""
+"Драйвер тома. Используйте 'local' для томов на хосте (включая монтирования "
+"NFS/CIFS) или имя установленного плагина томов."
 
 msgid "This is the filename. This should not be a path."
-msgstr ""
+msgstr "Это имя файла. Не указывайте путь."
 
 msgid ""
 "This will import Dockerfiles found in subfolders of the selected "
 "path.<br/>It will not import any Dockerfiles that already exist in the "
 "plugin."
 msgstr ""
+"Будут импортированы Dockerfile, найденные в подпапках выбранного "
+"пути.<br/>Не будут импортированы Dockerfile, уже существующие в плагине."
 
 msgid ""
 "This will import config files in from the selected folder.<br/>It will not "
 "import any config files that already exist in the plugin."
 msgstr ""
+"Будут импортированы конфигурационные файлы из выбранной папки.<br/>Не будут "
+"импортированы конфигурационные файлы, уже существующие в плагине."
 
 msgid ""
 "This will import one compose file in the selected folder.<br/>It will not "
 "import a compose file that already exist in the plugin."
 msgstr ""
+"Будет импортирован один файл compose в выбранной папке.<br/>Файл compose, "
+"уже существующий в плагине, импортирован не будет."
 
 msgid ""
 "This will import one or more compose files in subfolders (scanned "
 "recursively).<br/>It will not import any compose files that already exist in"
 " the plugin."
 msgstr ""
+"Будут импортированы один или несколько файлов compose в подпапках "
+"(сканирование рекурсивное).<br/>Не будут импортированы файлы compose, уже "
+"существующие в плагине."
 
 msgid "Thursday"
-msgstr ""
+msgstr "Четверг"
 
 msgid "Time of execution"
-msgstr ""
+msgstr "Время выполнения"
 
 msgid "Timeout"
-msgstr ""
+msgstr "Тайм-аут"
 
 msgid "Tools"
-msgstr ""
+msgstr "Инструменты"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Вторник"
 
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 msgid "URL hostname"
-msgstr ""
+msgstr "Имя хоста URL"
 
 msgid "Unexpected response from Portainer API."
-msgstr ""
+msgstr "Неожиданный ответ от API Portainer."
 
 msgid ""
 "Units in GB. Backup will skip volumes larger than this size.<br/>Set to 0 "
 "for unlimited."
 msgstr ""
+"В гигабайтах. Резервное копирование пропустит тома больше этого "
+"размера.<br/>0 — без ограничения."
 
 msgid "Units in MB. Set to 0 for unlimited."
-msgstr ""
+msgstr "В мегабайтах. 0 — без ограничения."
 
 msgid "Units in seconds.<br/>Set to 0 for no caching."
-msgstr ""
+msgstr "В секундах.<br/>0 — без кэширования."
 
 msgid "Up"
-msgstr ""
+msgstr "Запущен"
 
 msgid "Update"
-msgstr ""
+msgstr "Обновить"
 
 msgid ""
 "Update all images in compose file. Will recreate containers after update if "
 "running.<br/>Update will always run after backup if backup is enabled."
 msgstr ""
+"Обновляет все образы в файле compose. Если контейнеры запущены, после "
+"обновления они будут пересозданы.<br/>Обновление всегда выполняется после "
+"резервного копирования, если оно включено."
 
 msgid "Uptime"
-msgstr ""
+msgstr "Время работы"
 
 msgid "Use podman"
-msgstr ""
+msgstr "Использовать Podman"
 
 msgid "Use shared folder"
-msgstr ""
+msgstr "Использовать общую папку"
 
 msgid "Used only if no API key is provided."
-msgstr ""
+msgstr "Используется, только если API-ключ не задан."
 
 msgid "User to own the path. Match the container's PUID where applicable."
 msgstr ""
+"Пользователь — владелец пути. Укажите значение, совпадающее с PUID "
+"контейнера (если применимо)."
 
 msgid "Username"
-msgstr ""
+msgstr "Имя пользователя"
 
 msgid "Verbose"
-msgstr ""
+msgstr "Подробно"
 
 msgid "Verify SSL certificate"
-msgstr ""
+msgstr "Проверять SSL-сертификат"
 
 msgid "Version"
-msgstr ""
+msgstr "Версия"
 
 msgid "Virtual Size"
-msgstr ""
+msgstr "Виртуальный размер"
 
 msgid "Volume"
-msgstr ""
+msgstr "Том"
 
 msgid "Volume path excludes"
-msgstr ""
+msgstr "Исключения путей томов"
 
 msgid "Volumes"
-msgstr ""
+msgstr "Тома"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Среда"
 
 msgid "Weekly"
-msgstr ""
+msgstr "Еженедельно"
 
 msgid ""
 "With the 'local' driver, mount a remote share instead of using local "
 "storage."
 msgstr ""
+"С драйвером 'local' можно смонтировать удалённый ресурс вместо локального "
+"хранилища."
 
 msgid "Yearly"
-msgstr ""
+msgstr "Ежегодно"
 
 msgid "and not running"
-msgstr ""
+msgstr "и не запущен"
 
 msgid "and running"
-msgstr ""
+msgstr "и запущен"
 
 msgid "check"
-msgstr ""
+msgstr "check"
 
 msgid "disabled"
-msgstr ""
+msgstr "отключён"
 
 msgid "docker compose down --remove-orphans ..."
-msgstr ""
+msgstr "docker compose down --remove-orphans ..."
 
 msgid "docker compose down ..."
-msgstr ""
+msgstr "docker compose down ..."
 
 msgid "docker compose down all files..."
-msgstr ""
+msgstr "docker compose down all files..."
 
 msgid "docker compose file version"
-msgstr ""
+msgstr "docker compose file version"
 
 msgid "docker compose logs --follow ..."
-msgstr ""
+msgstr "docker compose logs --follow ..."
 
 msgid "docker compose logs ..."
-msgstr ""
+msgstr "docker compose logs ..."
 
 msgid "docker compose ps ..."
-msgstr ""
+msgstr "docker compose ps ..."
 
 msgid "docker compose pull ..."
-msgstr ""
+msgstr "docker compose pull ..."
 
 msgid "docker compose restart ..."
-msgstr ""
+msgstr "docker compose restart ..."
 
 msgid "docker compose stop ..."
-msgstr ""
+msgstr "docker compose stop ..."
 
 msgid "docker compose up -d --remove-orphans ..."
-msgstr ""
+msgstr "docker compose up -d --remove-orphans ..."
 
 msgid "docker compose up -d ..."
-msgstr ""
+msgstr "docker compose up -d ..."
 
 msgid "docker container prune ..."
-msgstr ""
+msgstr "docker container prune ..."
 
 msgid "docker image inspect ..."
-msgstr ""
+msgstr "docker image inspect ..."
 
 msgid "docker image prune --all ..."
-msgstr ""
+msgstr "docker image prune --all ..."
 
 msgid "docker image prune ..."
-msgstr ""
+msgstr "docker image prune ..."
 
 msgid "docker image pull ..."
-msgstr ""
+msgstr "docker image pull ..."
 
 msgid "docker inspect ..."
-msgstr ""
+msgstr "docker inspect ..."
 
 msgid "docker logs --follow ..."
-msgstr ""
+msgstr "docker logs --follow ..."
 
 msgid "docker logs ..."
-msgstr ""
+msgstr "docker logs ..."
 
 msgid "docker network connect ..."
-msgstr ""
+msgstr "docker network connect ..."
 
 msgid "docker network disconnect ..."
-msgstr ""
+msgstr "docker network disconnect ..."
 
 msgid "docker network inspect ..."
-msgstr ""
+msgstr "docker network inspect ..."
 
 msgid "docker network prune ..."
-msgstr ""
+msgstr "docker network prune ..."
 
 msgid "docker network rm ..."
-msgstr ""
+msgstr "docker network rm ..."
 
 msgid "docker restart ..."
-msgstr ""
+msgstr "docker restart ..."
 
 msgid "docker system prune ..."
-msgstr ""
+msgstr "docker system prune ..."
 
 msgid "docker volume inspect ..."
-msgstr ""
+msgstr "docker volume inspect ..."
 
 msgid "docker volume prune ..."
-msgstr ""
+msgstr "docker volume prune ..."
 
 msgid "docker volume rm ..."
-msgstr ""
+msgstr "docker volume rm ..."
 
 msgid "dockerfile build ..."
-msgstr ""
+msgstr "dockerfile build ..."
 
 msgid "down"
-msgstr ""
+msgstr "down"
 
 msgid "down all"
-msgstr ""
+msgstr "down all"
 
 msgid "down and remove orphans"
-msgstr ""
+msgstr "down and remove orphans"
 
 msgid "e.g. 172.20.0.0/16"
-msgstr ""
+msgstr "например 172.20.0.0/16"
 
 msgid "e.g. 172.20.0.1"
-msgstr ""
+msgstr "например 172.20.0.1"
 
 msgid "e.g. 172.20.10.128/25"
-msgstr ""
+msgstr "например 172.20.10.128/25"
 
 msgid "e.g. 2001:db8:abcd::/64 or fd00::/64"
-msgstr ""
+msgstr "например 2001:db8:abcd::/64 или fd00::/64"
 
 msgid "e.g. 2001:db8:abcd::1"
-msgstr ""
+msgstr "например 2001:db8:abcd::1"
 
 msgid "file not found!"
-msgstr ""
+msgstr "файл не найден!"
 
 msgid "follow logs"
-msgstr ""
+msgstr "следить за журналом"
 
 msgid "global.env has been restored from backup."
-msgstr ""
+msgstr "global.env восстановлен из резервной копии."
 
 msgid "init git repo"
-msgstr ""
+msgstr "init git repo"
 
 msgid "inspect"
-msgstr ""
+msgstr "inspect"
 
 msgid "logs"
-msgstr ""
+msgstr "logs"
 
 msgid "n/a"
-msgstr ""
+msgstr "н/д"
 
 msgid "omv-extras wiki"
-msgstr ""
+msgstr "Вики omv-extras"
 
 msgid "ps"
-msgstr ""
+msgstr "ps"
 
 msgid "pull"
-msgstr ""
+msgstr "pull"
 
 msgid "pull image"
-msgstr ""
+msgstr "pull image"
 
 msgid "pull image+tag"
-msgstr ""
+msgstr "pull image+tag"
 
 msgid "repokey"
-msgstr ""
+msgstr "repokey"
 
 msgid "restart"
-msgstr ""
+msgstr "restart"
 
 msgid "show file changes"
-msgstr ""
+msgstr "показать изменения файлов"
 
 msgid "show global.env changes"
-msgstr ""
+msgstr "показать изменения global.env"
 
 msgid "stop"
-msgstr ""
+msgstr "stop"
 
 msgid "up"
-msgstr ""
+msgstr "up"
 
 msgid "up and remove orphans"
-msgstr ""
+msgstr "up and remove orphans"
